@@ -1,55 +1,147 @@
 {
-  "fileVersion": "1.0",
-  "metadata": {
-    "title": "Public Atelier",
-    "description": "Document-first landing graph for the public repository in Michael Martinez's personal workspace.",
-    "created": "2026-04-05T17:15:00.000Z",
-    "modified": "2026-04-05T17:15:00.000Z",
-    "author": "Michael",
-    "tags": [
-      "landing-page",
-      "public",
-      "architect",
-      "workspace"
-    ],
-    "preferredViewer": "https://twilite.zone"
-  },
+  "type": "nodegraph-data",
   "nodes": [
     {
-      "id": "public-manifest",
-      "type": "manifest",
-      "label": "Manifest",
+      "id": "public-home-declaration",
+      "type": "declaration",
+      "label": "Declaration",
       "root": false,
       "position": {
-        "x": -1120,
-        "y": -320
+        "x": -980,
+        "y": -160
       },
       "width": 360,
       "height": 220,
-      "visible": false,
+      "visible": true,
       "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "position": {
+            "side": "left",
+            "offset": 0.5
+          }
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "position": {
+            "side": "top",
+            "offset": 0.5
+          }
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "position": {
+            "side": "bottom",
+            "offset": 0.5
+          }
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "position": {
+            "side": "left",
+            "offset": 0.2
+          }
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "position": {
+            "side": "right",
+            "offset": 0.5
+          }
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "value"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "value"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        }
+      ],
       "data": {
         "identity": {
           "graphId": "mikemartinez1974-public-root",
           "name": "Public Atelier",
-          "version": "0.1.0",
-          "description": "Document-first landing graph for the public repository in Michael Martinez's personal workspace.",
+          "version": "0.2.0",
+          "description": "Public-facing repo-home graph for Michael Martinez's public repository.",
           "createdAt": "2026-04-05T17:15:00.000Z",
-          "updatedAt": "2026-04-05T17:15:00.000Z"
+          "updatedAt": "2026-05-15T00:00:00.000Z"
         },
         "intent": {
           "kind": "graph",
-          "scope": "local"
+          "scope": "mixed"
         },
         "dependencies": {
           "nodeTypes": [
-            "manifest",
-            "legend",
-            "bridge",
+            "declaration",
             "title",
-            "section",
-            "document-summary",
-            "document-view"
+            "type-definition",
+            "ui-view",
+            "port",
+            "markdown",
+            "github-repo"
           ],
           "portContracts": [
             "core"
@@ -85,303 +177,548 @@
         "settings": {
           "theme": null,
           "backgroundImage": null,
+          "uiDensity": "comfortable",
           "defaultNodeColor": "#1976d2",
           "defaultEdgeColor": "#666666",
           "snapToGrid": false,
           "gridSize": 20,
           "edgeRouting": "auto",
           "autoSave": false,
-          "expansion": {
-            "allowGraphEntry": true
+          "layout": {
+            "mode": "autoOnMissingPositions",
+            "defaultLayout": "layered",
+            "direction": "DOWN",
+            "edgeLaneGapPx": 10,
+            "serpentine": {
+              "maxPerRow": 6
+            },
+            "cycleFallback": {
+              "enabled": true
+            },
+            "elk": {
+              "algorithm": "fixed",
+              "edgeRouting": "ORTHOGONAL",
+              "portConstraints": "FIXED_SIDE",
+              "nodeSpacing": 120,
+              "layeredEdgeSpacing": 80
+            }
+          }
+        },
+        "name": "Graph Declaration",
+        "declaresKind": "graph",
+        "purpose": "Declare the primary authority and export surface for the public repository home graph.",
+        "declaration": {
+          "kind": "graph",
+          "graphViewRole": "authoring",
+          "targetMode": "artifact",
+          "artifactKind": "graph",
+          "defaultSurfaceId": "repo-home",
+          "surfaces": [
+            {
+              "id": "repo-home",
+              "kind": "view",
+              "label": "Repo Home",
+              "memo": "Default public landing surface for the public repository.",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ]
+        },
+        "_classBinding": {
+          "key": "declaration",
+          "sourceRef": "/library/classes/nodes/declaration.node-class.node",
+          "ref": "/library/classes/nodes/declaration.node-class.node"
+        },
+        "_bridge": {
+          "classKey": "declaration",
+          "classRef": "/library/classes/nodes/declaration.node-class.node"
+        },
+        "definitionKey": "declaration"
+      }
+    },
+    {
+      "id": "public-home-title",
+      "type": "title",
+      "label": "Title",
+      "root": true,
+      "position": {
+        "x": 460,
+        "y": 120
+      },
+      "width": 560,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "position": {
+            "side": "left",
+            "offset": 0.5
+          }
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "output",
+          "dataType": "any",
+          "position": {
+            "side": "right",
+            "offset": 0.5
+          }
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "output",
+          "dataType": "any",
+          "position": {
+            "side": "bottom",
+            "offset": 0.5
           }
         }
-      }
-    },
-    {
-      "id": "public-legend",
-      "type": "legend",
-      "label": "Legend",
-      "root": false,
-      "position": {
-        "x": -1450,
-        "y": -320
-      },
-      "width": 280,
-      "height": 180,
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "entries": []
-      }
-    },
-    {
-      "id": "public-bridge-title",
-      "type": "bridge",
-      "label": "Title",
-      "root": false,
-      "position": {
-        "x": -1450,
-        "y": -60
-      },
-      "width": 260,
-      "height": 120,
-      "visible": false,
-      "showLabel": true,
-      "data": {
-        "memo": "Bridge for the Title class.",
-        "resourceKind": "node-class",
-        "scope": "focused-graph",
-        "grants": [
-          "create"
-        ],
-        "authority": "bridge",
-        "bridge": {
-          "ref": "/library/classes/nodes/template-structure/title.node-class.node",
-          "resourceKind": "node-class",
-          "scope": "focused-graph",
-          "grants": [
-            "create"
-          ]
-        }
-      }
-    },
-    {
-      "id": "public-bridge-section",
-      "type": "bridge",
-      "label": "Section",
-      "root": false,
-      "position": {
-        "x": -1450,
-        "y": 90
-      },
-      "width": 260,
-      "height": 120,
-      "visible": false,
-      "showLabel": true,
-      "data": {
-        "memo": "Bridge for the Section class.",
-        "resourceKind": "node-class",
-        "scope": "focused-graph",
-        "grants": [
-          "create"
-        ],
-        "authority": "bridge",
-        "bridge": {
-          "ref": "/library/classes/nodes/document-publishing/section.node-class.node",
-          "resourceKind": "node-class",
-          "scope": "focused-graph",
-          "grants": [
-            "create"
-          ]
-        }
-      }
-    },
-    {
-      "id": "public-bridge-summary",
-      "type": "bridge",
-      "label": "Document Summary",
-      "root": false,
-      "position": {
-        "x": -1450,
-        "y": 240
-      },
-      "width": 260,
-      "height": 120,
-      "visible": false,
-      "showLabel": true,
-      "data": {
-        "memo": "Bridge for the Document Summary class.",
-        "resourceKind": "node-class",
-        "scope": "focused-graph",
-        "grants": [
-          "create"
-        ],
-        "authority": "bridge",
-        "bridge": {
-          "ref": "/library/classes/nodes/document-publishing/document-summary.node-class.node",
-          "resourceKind": "node-class",
-          "scope": "focused-graph",
-          "grants": [
-            "create"
-          ]
-        }
-      }
-    },
-    {
-      "id": "public-bridge-document-view",
-      "type": "bridge",
-      "label": "Document View",
-      "root": false,
-      "position": {
-        "x": -1450,
-        "y": 390
-      },
-      "width": 260,
-      "height": 120,
-      "visible": false,
-      "showLabel": true,
-      "data": {
-        "memo": "Bridge for the Document View class.",
-        "resourceKind": "node-class",
-        "scope": "focused-graph",
-        "grants": [
-          "create"
-        ],
-        "authority": "bridge",
-        "bridge": {
-          "ref": "/library/classes/nodes/ui-interaction/document-view.node-class.node",
-          "resourceKind": "node-class",
-          "scope": "focused-graph",
-          "grants": [
-            "create"
-          ]
-        }
-      }
-    },
-    {
-      "id": "public-title",
-      "type": "title",
-      "label": "Public Atelier",
-      "root": false,
-      "position": {
-        "x": -320,
-        "y": -10
-      },
-      "width": 520,
-      "height": 220,
-      "visible": true,
-      "showLabel": true,
+      ],
       "data": {
         "title": "Public Atelier",
         "subtitle": "The outward face of the Architect: polished artifacts, invitations, and legible commitments.",
         "intent": "headline",
-        "status": "active"
+        "status": "active",
+        "definitionKey": "title",
+        "_classBinding": {
+          "key": "title",
+          "sourceRef": "/library/classes/nodes/template-structure/title.node-class.node",
+          "ref": "/library/classes/nodes/template-structure/title.node-class.node"
+        },
+        "_bridge": {
+          "classKey": "title",
+          "classRef": "/library/classes/nodes/template-structure/title.node-class.node"
+        }
       }
     },
     {
-      "id": "public-civic-face",
-      "type": "section",
-      "label": "Civic Face",
-      "root": false,
-      "position": {
-        "x": -980,
-        "y": 260
-      },
-      "width": 420,
-      "height": 280,
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "title": "Publish only what is ready to be read",
-        "summary": "This repository should hold work that can stand in daylight: clear documents, reliable examples, reusable node classes, and artifacts that represent the taste of the system well. Public does not mean exhaustive. It means chosen.",
-        "level": "h2",
-        "anchor": "publish-only",
-        "status": "active"
-      }
-    },
-    {
-      "id": "public-signals",
-      "type": "section",
-      "label": "Signals",
+      "id": "public-home-type",
+      "type": "type-definition",
+      "label": "Type",
       "root": false,
       "position": {
         "x": -500,
-        "y": 260
+        "y": 140
+      },
+      "width": 360,
+      "height": 220,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "name": "Public Repo Home",
+        "key": "root",
+        "classRef": "/root.node",
+        "meaning": "Public-facing repository landing graph for Michael Martinez's public workspace.",
+        "description": "Use this graph as the front door for polished public artifacts, invitations, and selected examples.",
+        "category": "public",
+        "status": "active",
+        "definitionKey": "type-definition",
+        "_classBinding": {
+          "key": "type-definition",
+          "ref": "/library/classes/nodes/type-definition/type-definition.node-class.node",
+          "sourceRef": "/library/classes/nodes/type-definition/type-definition.node-class.node"
+        },
+        "_bridge": {
+          "classKey": "type-definition",
+          "classRef": "/library/classes/nodes/type-definition/type-definition.node-class.node"
+        }
+      }
+    },
+    {
+      "id": "public-home-view",
+      "type": "ui-view",
+      "label": "Repo Home",
+      "root": false,
+      "position": {
+        "x": -500,
+        "y": 460
       },
       "width": 420,
       "height": 280,
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "title": "Signal taste through structure",
-        "summary": "Treat the public repo as a front door. It should communicate discipline through naming, hierarchy, visual polish, and explanatory strength. Let the public surface tell people what Twilite values before they read a line of implementation detail.",
-        "level": "h2",
-        "anchor": "signals",
-        "status": "active"
-      }
-    },
-    {
-      "id": "public-invitation",
-      "type": "section",
-      "label": "Invitation",
-      "root": false,
-      "position": {
-        "x": -20,
-        "y": 260
-      },
-      "width": 420,
-      "height": 280,
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "title": "Use public to invite, not to dump",
-        "summary": "Publish patterns, examples, notes, and interfaces that invite collaborators into the world. The public layer should be hospitable and persuasive. It should never feel like a storage bucket for everything that happened to compile.",
-        "level": "h2",
-        "anchor": "invitation",
-        "status": "active"
-      }
-    },
-    {
-      "id": "public-summary",
-      "type": "document-summary",
-      "label": "Summary",
-      "root": false,
-      "position": {
-        "x": 460,
-        "y": 260
-      },
-      "width": 380,
-      "height": 240,
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "title": "Summary",
-        "summary": "Public is the front porch: deliberate, readable, and hospitable. Put the work here when it is ready to represent the architect in full view.",
-        "scope": "Public landing page"
-      }
-    },
-    {
-      "id": "public-document-view",
-      "type": "document-view",
-      "label": "Document View",
-      "root": true,
-      "position": {
-        "x": 920,
-        "y": -10
-      },
-      "width": 460,
-      "height": 340,
       "visible": true,
       "showLabel": true,
       "data": {
         "title": "Public Atelier",
-        "localTitle": "Public Atelier",
-        "publishedTitle": "Public Atelier",
-        "purpose": "Landing page for the public repository.",
-        "titleSourceNodeId": "public-title",
-        "audience": "Reader",
+        "purpose": "Default landing surface for the public repository.",
+        "viewRole": "page",
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary",
+          "label": "UI View"
+        },
+        "titleSourceNodeId": "public-home-title",
+        "typeSourceNodeId": "public-home-type",
+        "audience": "Public",
         "status": "active",
-        "viewRole": "document",
-        "viewKind": "display",
-        "exposedAuthority": "consume-view",
-        "runtimeExposed": false,
-        "partNodeIds": [
-          "public-title",
-          "public-civic-face",
-          "public-signals",
-          "public-invitation",
-          "public-summary"
-        ],
-        "documentOrder": [
-          "public-title",
-          "public-civic-face",
-          "public-signals",
-          "public-invitation",
-          "public-summary"
-        ],
-        "documentHtml": "<section style=\"margin:0 0 20px 0;\"><div style=\"display:flex;flex-direction:column;box-sizing:border-box;padding:22px;border-radius:22px;background:linear-gradient(180deg, rgba(255,250,240,0.99), rgba(255,244,230,0.96));border:1px solid rgba(180,83,9,0.16);box-shadow:0 14px 32px rgba(180,83,9,0.12);gap:14px;\"><div style=\"display:flex;align-items:flex-start;justify-content:space-between;gap:12px;\"><div style=\"display:flex;flex-direction:column;gap:6px;\"><div style=\"font:700 11px/1.2 ui-sans-serif, system-ui, sans-serif;letter-spacing:0.18em;text-transform:uppercase;color:#b45309;\">Title</div><div style=\"font:700 30px/1.08 ui-sans-serif, system-ui, sans-serif;color:#1f2937;\">Public Atelier</div></div><div style=\"display:flex;flex-direction:column;align-items:flex-end;gap:6px;\"><span style=\"padding:4px 8px;border-radius:999px;background:rgba(180,83,9,0.1);color:#92400e;font-size:11px;font-weight:700;\">headline</span><span style=\"font:600 10px/1.2 ui-sans-serif, system-ui, sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:#9a3412;opacity:0.72;\">active</span></div></div><div style=\"height:1px;background:linear-gradient(90deg, rgba(245,158,11,0.45), rgba(245,158,11,0));\"></div><div style=\"font:500 15px/1.65 ui-sans-serif, system-ui, sans-serif;color:#4b5563;\">The outward face of the Architect: polished artifacts, invitations, and legible commitments.</div></div></section><section style=\"margin:0 0 18px 0;\"><div style=\"display:flex;flex-direction:column;gap:14px;padding:20px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,0.99), rgba(248,250,252,0.96));border:1px solid rgba(15,23,42,0.12);box-shadow:0 12px 28px rgba(15,23,42,0.08);\"><div style=\"font:700 24px/1.15 ui-sans-serif, system-ui, sans-serif;color:#111827;\">Publish only what is ready to be read</div><div style=\"height:4px;border-radius:999px;background:linear-gradient(90deg, #2563eb, #60a5fa);\"></div><div style=\"font:500 15px/1.7 ui-sans-serif, system-ui, sans-serif;color:#1f2937;\">This repository should hold work that can stand in daylight: clear documents, reliable examples, reusable node classes, and artifacts that represent the taste of the system well. Public does not mean exhaustive. It means chosen.</div></div></section><section style=\"margin:0 0 18px 0;\"><div style=\"display:flex;flex-direction:column;gap:14px;padding:20px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,0.99), rgba(248,250,252,0.96));border:1px solid rgba(15,23,42,0.12);box-shadow:0 12px 28px rgba(15,23,42,0.08);\"><div style=\"font:700 24px/1.15 ui-sans-serif, system-ui, sans-serif;color:#111827;\">Signal taste through structure</div><div style=\"height:4px;border-radius:999px;background:linear-gradient(90deg, #2563eb, #60a5fa);\"></div><div style=\"font:500 15px/1.7 ui-sans-serif, system-ui, sans-serif;color:#1f2937;\">Treat the public repo as a front door. It should communicate discipline through naming, hierarchy, visual polish, and explanatory strength. Let the public surface tell people what Twilite values before they read a line of implementation detail.</div></div></section><section style=\"margin:0 0 18px 0;\"><div style=\"display:flex;flex-direction:column;gap:14px;padding:20px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,0.99), rgba(248,250,252,0.96));border:1px solid rgba(15,23,42,0.12);box-shadow:0 12px 28px rgba(15,23,42,0.08);\"><div style=\"font:700 24px/1.15 ui-sans-serif, system-ui, sans-serif;color:#111827;\">Use public to invite, not to dump</div><div style=\"height:4px;border-radius:999px;background:linear-gradient(90deg, #2563eb, #60a5fa);\"></div><div style=\"font:500 15px/1.7 ui-sans-serif, system-ui, sans-serif;color:#1f2937;\">Publish patterns, examples, notes, and interfaces that invite collaborators into the world. The public layer should be hospitable and persuasive. It should never feel like a storage bucket for everything that happened to compile.</div></div></section><section style=\"margin:0;\"><div style=\"display:flex;flex-direction:column;gap:14px;padding:20px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,0.99), rgba(255,245,250,0.97));border:1px solid rgba(219,39,119,0.12);box-shadow:0 12px 28px rgba(190,24,93,0.08);\"><div style=\"display:flex;align-items:center;justify-content:space-between;gap:12px;\"><div style=\"font:700 24px/1.15 ui-sans-serif, system-ui, sans-serif;color:#111827;\">Summary</div><span style=\"padding:4px 8px;border-radius:999px;background:rgba(219,39,119,0.14);color:#9d174d;font-size:11px;font-weight:600;\">Summary</span></div><div style=\"height:4px;border-radius:999px;background:linear-gradient(90deg, #db2777, #f472b6);\"></div><div style=\"font:500 15px/1.7 ui-sans-serif, system-ui, sans-serif;color:#1f2937;\">Public is the front porch: deliberate, readable, and hospitable. Put the work here when it is ready to represent the architect in full view.</div></div></section>"
+        "svg": "<svg viewBox=\"0 0 220 160\" xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid meet\"><rect x=\"10\" y=\"10\" width=\"200\" height=\"140\" rx=\"22\" fill=\"#fffaf2\" stroke=\"#1f2937\" stroke-width=\"4\"/><rect x=\"26\" y=\"30\" width=\"168\" height=\"20\" rx=\"10\" fill=\"#0f172a\" opacity=\"0.08\"/><rect x=\"26\" y=\"64\" width=\"72\" height=\"58\" rx=\"16\" fill=\"#111827\"/><rect x=\"108\" y=\"64\" width=\"86\" height=\"16\" rx=\"8\" fill=\"#2563eb\" opacity=\"0.85\"/><rect x=\"108\" y=\"90\" width=\"78\" height=\"12\" rx=\"6\" fill=\"#94a3b8\" opacity=\"0.75\"/><rect x=\"108\" y=\"110\" width=\"64\" height=\"12\" rx=\"6\" fill=\"#cbd5e1\" opacity=\"0.9\"/><text x=\"110\" y=\"145\" text-anchor=\"middle\" font-family=\"ui-sans-serif, system-ui, sans-serif\" font-size=\"13\" font-weight=\"700\" fill=\"#1f2937\">PUBLIC ATELIER</text></svg>",
+        "definitionKey": "ui-view",
+        "_classBinding": {
+          "key": "ui-view",
+          "sourceRef": "/library/classes/nodes/ui-interaction/ui-view.node-class.node",
+          "ref": "/library/classes/nodes/ui-interaction/ui-view.node-class.node"
+        },
+        "_bridge": {
+          "classKey": "ui-view",
+          "classRef": "/library/classes/nodes/ui-interaction/ui-view.node-class.node"
+        }
+      }
+    },
+    {
+      "id": "public-home-primary",
+      "type": "port",
+      "label": "Start With Android Management",
+      "root": false,
+      "position": {
+        "x": 1460,
+        "y": 100
+      },
+      "width": 360,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "target": {
+          "endpoint": "github://mikemartinez1974/public/4-27-2026/androidManagement.node:root",
+          "mode": "navigate",
+          "url": "",
+          "graphId": "",
+          "nodeId": "",
+          "portId": "root",
+          "label": "Open Android Management",
+          "ref": "github://mikemartinez1974/public/4-27-2026/androidManagement.node"
+        },
+        "memo": "Featured public artifact from the repository.",
+        "authority": "consume-view",
+        "sourceRef": "github://mikemartinez1974/public/4-27-2026/androidManagement.node",
+        "sourceNodeId": "7d9f1c4a-3d3f-4c3a-9d29-4e6b1c8c9d11",
+        "sourcePayload": "node.web",
+        "intent": "external",
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "public-home-secondary",
+      "type": "port",
+      "label": "Explore Agent Sterling",
+      "root": false,
+      "position": {
+        "x": 1460,
+        "y": 440
+      },
+      "width": 360,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "target": {
+          "endpoint": "github://mikemartinez1974/public/4-27-2026/agentSterlingCognitionMap.node:root",
+          "mode": "navigate",
+          "url": "",
+          "graphId": "",
+          "nodeId": "",
+          "portId": "root",
+          "label": "Open Agent Sterling Cognition Map",
+          "ref": "github://mikemartinez1974/public/4-27-2026/agentSterlingCognitionMap.node"
+        },
+        "memo": "Supporting public artifact from the repository.",
+        "authority": "consume-view",
+        "sourceRef": "github://mikemartinez1974/public/4-27-2026/agentSterlingCognitionMap.node",
+        "sourceNodeId": "5a0f8f51-2fcb-45bc-8e57-3ffcb6f4d3aa",
+        "sourcePayload": "node.web",
+        "intent": "external",
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "public-home-context",
+      "type": "markdown",
+      "label": "Repo Context",
+      "root": false,
+      "position": {
+        "x": 980,
+        "y": 760
+      },
+      "width": 560,
+      "height": 380,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "markdown": "## Publish only what is ready to be read\n\nThis repository should hold work that can stand in daylight: clear documents, reliable examples, reusable node classes, and artifacts that represent the taste of the system well. Public does not mean exhaustive. It means chosen.\n\n## Signal taste through structure\n\nTreat the public repo as a front door. It should communicate discipline through naming, hierarchy, visual polish, and explanatory strength. Let the public surface tell people what Twilite values before they read a line of implementation detail.\n\n## Use public to invite, not to dump\n\nPublish patterns, examples, notes, and interfaces that invite collaborators into the world. The public layer should be hospitable and persuasive. It should never feel like a storage bucket for everything that happened to compile.\n\n## Summary\n\nPublic is the front porch: deliberate, readable, and hospitable. Put the work here when it is ready to represent the architect in full view.",
+        "definitionKey": "markdown",
+        "_classBinding": {
+          "key": "markdown",
+          "sourceRef": "/library/classes/nodes/markdown.node-class.node",
+          "ref": "/library/classes/nodes/markdown.node-class.node"
+        },
+        "_bridge": {
+          "classKey": "markdown",
+          "classRef": "/library/classes/nodes/markdown.node-class.node"
+        }
+      }
+    },
+    {
+      "id": "public-home-repo",
+      "type": "github-repo",
+      "label": "GitHub Repo",
+      "root": false,
+      "position": {
+        "x": 980,
+        "y": 120
+      },
+      "width": 420,
+      "height": 280,
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "Public Atelier",
+        "owner": "mikemartinez1974",
+        "repo": "public",
+        "branch": "main",
+        "homeRef": "/root.node",
+        "notes": "Public is the front porch: deliberate, readable, and hospitable.",
+        "status": "active",
+        "definitionKey": "github-repo",
+        "_classBinding": {
+          "key": "github-repo",
+          "sourceRef": "/library/classes/nodes/github-repo.node-class.node",
+          "ref": "/library/classes/nodes/github-repo.node-class.node",
+          "defaults": {
+            "label": "GitHub Repo",
+            "size": {
+              "width": 420,
+              "height": 280
+            },
+            "color": "linear-gradient(135deg, #dbeafe, #c7d2fe)",
+            "showLabel": false,
+            "data": {
+              "title": "GitHub Repo",
+              "owner": "",
+              "repo": "",
+              "branch": "main",
+              "homeRef": "/root.node",
+              "notes": "",
+              "status": "draft"
+            }
+          },
+          "nodeDef": {
+            "key": "github-repo",
+            "ref": "/library/classes/nodes/github-repo.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "GitHub Repo",
+              "size": {
+                "width": 420,
+                "height": 280
+              },
+              "color": "linear-gradient(135deg, #dbeafe, #c7d2fe)",
+              "showLabel": false,
+              "data": {
+                "title": "GitHub Repo",
+                "owner": "",
+                "repo": "",
+                "branch": "main",
+                "homeRef": "/root.node",
+                "notes": "",
+                "status": "draft"
+              }
+            }
+          },
+          "views": [
+            {
+              "key": "github-repo",
+              "intent": "node",
+              "payload": "node.web.detail",
+              "ref": "/library/classes/nodes/github-repo.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0"
+            },
+            {
+              "key": "github-repo",
+              "intent": "node",
+              "payload": "node.web.summary",
+              "ref": "/library/classes/nodes/github-repo.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0"
+            },
+            {
+              "key": "github-repo",
+              "intent": "node",
+              "payload": "node.web.icon",
+              "ref": "/library/classes/nodes/github-repo.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0"
+            },
+            {
+              "key": "github-repo",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "/library/classes/nodes/github-repo.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0"
+            }
+          ],
+          "nodeView": {
+            "key": "github-repo",
+            "intent": "node",
+            "payload": "node.web.detail",
+            "ref": "/library/classes/nodes/github-repo.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0"
+          },
+          "editorView": {
+            "key": "github-repo",
+            "intent": "editor",
+            "payload": "editor.web",
+            "ref": "/library/classes/nodes/github-repo.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0"
+          }
+        },
+        "_bridge": {
+          "classKey": "github-repo",
+          "classRef": "/library/classes/nodes/github-repo.node-class.node"
+        }
       }
     }
   ],
-  "edges": []
+  "edges": [
+    {
+      "id": "public-home-edge-title-type",
+      "type": "reference",
+      "source": "public-home-title",
+      "target": "public-home-type",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "declares type",
+      "style": {
+        "curved": true,
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "public-home-edge-type-view",
+      "type": "reference",
+      "source": "public-home-type",
+      "target": "public-home-view",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "informs",
+      "style": {
+        "curved": true,
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "public-home-edge-title-view",
+      "type": "reference",
+      "source": "public-home-title",
+      "target": "public-home-view",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "host view",
+      "style": {
+        "curved": true,
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "public-home-edge-title-primary",
+      "type": "reference",
+      "source": "public-home-title",
+      "target": "public-home-primary",
+      "sourcePort": "right",
+      "targetPort": "root",
+      "label": "featured",
+      "style": {
+        "curved": true,
+        "route": "curved",
+        "stroke": "#2563eb",
+        "strokeWidth": 4
+      },
+      "data": {
+        "edgeClassKey": "home.primary",
+        "edgeClassRef": "/library/classes/edges/home-primary.edge-class.node",
+        "semanticRole": "primary-destination"
+      }
+    },
+    {
+      "id": "public-home-edge-title-secondary",
+      "type": "reference",
+      "source": "public-home-title",
+      "target": "public-home-secondary",
+      "sourcePort": "bottom",
+      "targetPort": "root",
+      "label": "destination",
+      "style": {
+        "curved": true,
+        "route": "curved",
+        "stroke": "#7c3aed",
+        "strokeWidth": 3
+      },
+      "data": {
+        "edgeClassKey": "home.secondary",
+        "edgeClassRef": "/library/classes/edges/home-secondary.edge-class.node",
+        "semanticRole": "secondary-destination"
+      }
+    },
+    {
+      "id": "public-home-edge-title-context",
+      "type": "reference",
+      "source": "public-home-title",
+      "target": "public-home-context",
+      "sourcePort": "bottom",
+      "targetPort": "root",
+      "label": "context",
+      "style": {
+        "curved": true,
+        "route": "curved",
+        "stroke": "#d97706",
+        "strokeWidth": 3,
+        "dash": [
+          10,
+          6
+        ],
+        "orthogonal": false
+      },
+      "data": {
+        "edgeClassKey": "home.context",
+        "edgeClassRef": "/library/classes/edges/home-context.edge-class.node",
+        "semanticRole": "supporting-context"
+      }
+    },
+    {
+      "id": "public-home-edge-title-repo",
+      "type": "reference",
+      "source": "public-home-title",
+      "target": "public-home-repo",
+      "sourcePort": "right",
+      "targetPort": "root",
+      "label": "repo identity",
+      "style": {
+        "curved": true,
+        "route": "curved"
+      },
+      "data": {}
+    }
+  ],
+  "timestamp": "2026-05-15T23:30:00.000Z",
+  "nodeCount": 8,
+  "edgeCount": 7
 }
