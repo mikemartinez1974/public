@@ -145,7 +145,7 @@
         },
         "intent": {
           "kind": "graph",
-          "scope": "mixed"
+          "scope": "public-repo-home"
         },
         "dependencies": {
           "nodeTypes": [
@@ -153,8 +153,10 @@
             "title",
             "type-definition",
             "ui-view",
-            "port",
-            "markdown",
+            "portal",
+            "section",
+            "document-summary",
+            "bridge",
             "github-repo"
           ],
           "portContracts": [
@@ -218,12 +220,15 @@
             }
           }
         },
-        "name": "Graph Declaration",
+        "name": "Public Repo Home Declaration",
         "declaresKind": "graph",
-        "purpose": "Declare the primary authority and export surface for the public repository home graph.",
+        "purpose": "Declare the identity, public-facing intent, structural dependencies, and default surface for the public repository home graph.",
+        "summary": "This declaration describes the public repository as a curated front door rather than a general workspace. It exists to expose one clear landing surface, support navigable invitations into selected artifacts, and keep the graph's publishing posture legible to humans, agents, and tools.",
+        "audience": "Public",
+        "functionalRole": "repo-home",
         "declaration": {
           "kind": "graph",
-          "graphViewRole": "authoring",
+          "graphViewRole": "publishing",
           "targetMode": "artifact",
           "artifactKind": "graph",
           "defaultSurfaceId": "repo-home",
@@ -232,7 +237,8 @@
               "id": "repo-home",
               "kind": "view",
               "label": "Repo Home",
-              "memo": "Default public landing surface for the public repository.",
+              "memo": "Default public landing surface for the public repository. This surface should present the title, summary posture, and selected invitations without exposing the full authoring graph by default.",
+              "viewNodeId": "public-home-view",
               "exposes": {
                 "views": {
                   "mode": "allow"
@@ -242,6 +248,11 @@
                 }
               }
             }
+          ],
+          "notes": [
+            "This graph functions as the public front door for the repository.",
+            "Portals in this graph are invitations into selected public artifacts, not a dump of every available file.",
+            "The declaration should stay aligned with the actual node vocabulary used by the graph."
           ]
         },
         "_classBinding": {
