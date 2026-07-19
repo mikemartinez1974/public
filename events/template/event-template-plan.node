@@ -7,7 +7,7 @@
     "version": "1.0.0",
     "kind": "design",
     "created": "2026-07-19T14:29:18.426Z",
-    "modified": "2026-07-19T16:43:12.191Z",
+    "modified": "2026-07-20T00:30:00.000Z",
     "author": "",
     "tags": [
       "design"
@@ -163,7 +163,7 @@
           "version": "1.0.0",
           "description": "Declaration-first architecture and implementation plan for a reusable Event Template.",
           "createdAt": "2026-07-19T00:00:00.000Z",
-          "updatedAt": "2026-07-19T00:00:00.000Z"
+          "updatedAt": "2026-07-20T00:30:00.000Z"
         },
         "intent": {
           "kind": "design",
@@ -990,7 +990,7 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "markdown": "# Canonical `event` Node\n\nThe canonical node answers:\n\n> What happened, and when?\n\n## Suggested fields\n\n- Name\n- Event kind\n- Summary\n- Start date and time\n- End date and time\n- Time zone\n- Status\n- Location summary\n- Geographic scope\n- Public or private visibility\n- Official website\n- Primary image\n\n## Suggested statuses\n\n- Planned\n- Scheduled\n- Ongoing\n- Completed\n- Postponed\n- Cancelled\n- Disputed\n\nParticipants, organizers, causes, outcomes, phases, and evidence should remain separate nodes or relationships.",
+        "markdown": "# Canonical `event` Node\n\nThe canonical node answers:\n\n> What happened, and when?\n\n## Suggested fields\n\n- Name\n- Event kind\n- Summary\n- Start date and time\n- End date and time\n- Time zone\n- All-day flag\n- Date precision\n- Temporal status\n- Status\n- Location summary\n- Geographic scope\n- Public, restricted, or unknown visibility\n- Official website\n- Primary image\n\n## Suggested statuses\n\n- Planned\n- Scheduled\n- Ongoing\n- Completed\n- Postponed\n- Cancelled\n- Disputed\n\nParticipants, organizers, causes, outcomes, phases, and evidence should remain separate nodes or relationships.\n\n## Boundary\n\nOne Event node represents one occurrence or bounded process. A recurring series is not one occurrence. Restricted data is not protected merely because a visibility field says so; sensitive material does not belong in a public graph.",
         "memo": "",
         "link": "",
         "visibilityRole": "browser",
@@ -1480,7 +1480,7 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "markdown": "# New Class: `participation`\n\nParticipation connects a person or organization to an event while preserving role, status, time, and evidence.\n\n## Shape\n\n`Person → Participation → Event`\n\nor\n\n`Organization → Participation → Event`\n\n## Suggested fields\n\n- Participation kind\n- Role or capacity\n- Start time\n- End time\n- Attendance status\n- Confirmed or alleged\n- Notes\n- Source references\n\n## Example kinds\n\n- Organizer\n- Host\n- Speaker\n- Attendee\n- Performer\n- Competitor\n- Witness\n- Victim\n- Responder\n- Sponsor\n- Opponent\n- Signatory\n\nThis class prevents important event roles from collapsing into anonymous edges.",
+        "markdown": "# New Class: `participation`\n\nParticipation connects a person or organization to an event while preserving role, status, time, and evidence.\n\n## Shape\n\n`Person → Participation → Event`\n\nor\n\n`Organization → Participation → Event`\n\n## Suggested fields\n\n- Participation kind\n- Optional role reference\n- Event-specific capacity\n- Start time\n- End time\n- Attendance status\n- Assertion status: confirmed, reported, alleged, disputed, or unknown\n- Notes\n\n## Example kinds\n\n- Organizer\n- Host\n- Speaker\n- Attendee\n- Performer\n- Competitor\n- Witness\n- Victim\n- Responder\n- Sponsor\n- Opponent\n- Signatory\n\nThis class prevents important event roles from collapsing into anonymous edges.\n\nProvenance belongs in connected Claim → Evidence → Source nodes.",
         "memo": "",
         "link": "",
         "visibilityRole": "browser",
@@ -1725,7 +1725,7 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "markdown": "# New Class: `event-phase`\n\nRepresents a meaningful internal stage or subevent.\n\n## Suggested fields\n\n- Name\n- Phase kind\n- Sequence\n- Start time\n- End time\n- Summary\n- Status\n- Parent event\n\n## Examples\n\n- Conference session\n- Trial hearing\n- Campaign period\n- Battle\n- Investigation stage\n- Product-launch keynote\n- Voting period\n- Emergency response phase\n\nA phase should be used when the event has internal structure worth navigating. Minor chronological details can remain ordinary timeline entries or notes.",
+        "markdown": "# New Class: `event-phase`\n\nRepresents a meaningful internal stage or subevent.\n\n## Suggested fields\n\n- Name\n- Phase kind\n- Sequence\n- Start time\n- End time\n- Summary\n- Status\n- Parent event\n\n## Examples\n\n- Conference session\n- Trial hearing\n- Campaign period\n- Battle\n- Investigation stage\n- Product-launch keynote\n- Voting period\n- Emergency response phase\n\nA phase should be used when the event has internal structure worth navigating. Minor chronological details can remain ordinary timeline entries or notes.\n\n## Boundary\n\nA phase belongs to one parent event. A separately meaningful occurrence should remain a full Event connected by a relationship rather than being demoted to a phase.",
         "memo": "",
         "link": "",
         "visibilityRole": "browser",
@@ -1970,7 +1970,7 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "markdown": "# New Class: `outcome`\n\nRepresents a result attributed to an event.\n\n## Suggested fields\n\n- Name\n- Outcome kind\n- Summary\n- Effective date\n- Status\n- Confidence\n- Intended or unintended\n- Immediate or long-term\n- Source references\n\n## Examples\n\n- Decision\n- Election result\n- Policy change\n- Product release\n- Casualty report\n- Agreement\n- Acquisition completion\n- Cancellation\n- Organizational change\n\nOutcomes should remain distinguishable from claims. A claim may assert that an outcome occurred, while evidence and sources support or challenge that assertion.",
+        "markdown": "# New Class: `outcome`\n\nRepresents a result attributed to an event.\n\n## Suggested fields\n\n- Name\n- Outcome kind\n- Summary\n- Effective date\n- Subject reference\n- Status\n- Confidence\n- Intended or unintended\n- Time horizon: immediate, intermediate, or long-term\n\n## Examples\n\n- Decision\n- Election result\n- Policy change\n- Product release\n- Casualty report\n- Agreement\n- Acquisition completion\n- Cancellation\n- Organizational change\n\nOutcomes should remain distinguishable from claims. A claim may assert that an outcome occurred, while evidence and sources support or challenge that assertion.\n\nProvenance belongs in connected Claim → Evidence → Source nodes. The Outcome models a result; a Claim records whether it occurred or whether the event caused it.",
         "memo": "",
         "link": "",
         "visibilityRole": "browser",
@@ -2460,7 +2460,7 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "markdown": "# Reuse Existing Classes\n\nThe Event Template should reuse the shared research vocabulary:\n\n- `role`\n- `relationship`\n- `life-event`\n- `work`\n- `media`\n- `claim`\n- `evidence`\n- `source`\n- `quote`\n\nExamples:\n\n- A speech or report may be a `work`.\n- Photos and recordings are `media`.\n- Statements made during the event may be `quote` nodes.\n- Disputed participant counts remain `claim` nodes.\n- Documents, recordings, and reporting become `source` and `evidence` nodes.\n\n`life-event` may remain useful when an event specifically marks a person's biography, while the canonical `event` class represents the shared occurrence itself.",
+        "markdown": "# Reuse Existing Classes\n\nThe Event Template should reuse the shared research vocabulary:\n\n- `role`\n- `relationship`\n- `life-event`\n- `work`\n- `media`\n- `claim`\n- `evidence`\n- `source`\n- `quote`\n\nExamples:\n\n- A speech or report may be a `work`.\n- Photos and recordings are `media`.\n- Statements made during the event may be `quote` nodes.\n- Disputed participant counts remain `claim` nodes.\n- Documents, recordings, and reporting become `source` and `evidence` nodes.\n\n`life-event` may remain useful when an event specifically marks a person's biography, while the canonical `event` class represents the shared occurrence itself.\n\n## Compatibility rule\n\nThe canonical `event` represents the shared occurrence. A `life-event` represents that occurrence’s biographical significance to one person and should not duplicate the full event.",
         "memo": "",
         "link": "",
         "visibilityRole": "browser",
@@ -2950,7 +2950,7 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "markdown": "# Initial Dependency Vocabulary\n\nRecommended first implementation:\n\n`text\ndeclaration\nport\nevent\nparticipation\nevent-phase\noutcome\nrole\nrelationship\nwork\nmedia\nclaim\nevidence\nsource\nquote\n`\n\nPossible additions after review:\n\n`text\nplace\nschedule-entry\ncondition\n`\n\nEvery included class should either already exist or have a corresponding node-class graph and bridge declaration.",
+        "markdown": "# Initial Dependency Vocabulary\n\nRecommended first implementation:\n\n`text\ndeclaration\nport\nevent\nparticipation\nevent-phase\noutcome\nrole\nrelationship\nwork\nmedia\nclaim\nevidence\nsource\nquote\n`\n\nDeferred extension points:\n\n`text\nplace\nevent-series\nschedule-entry\ncondition\n`\n\nEvery included class should either already exist or have a corresponding node-class graph and bridge declaration.",
         "memo": "",
         "link": "",
         "visibilityRole": "browser",
@@ -3195,7 +3195,7 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "markdown": "# Validation Cases\n\nTest the same template against very different events.\n\n## Conference\n\nTests schedules, sessions, speakers, organizers, venues, sponsors, and media.\n\n## Election\n\nTests candidates, organizations, voting periods, results, claims, evidence, and geographic scope.\n\n## Product launch\n\nTests organizations, presenters, announcements, media, works, and release outcomes.\n\n## Court case or hearing\n\nTests participants, roles, phases, documents, decisions, evidence, and disputed claims.\n\n## War or prolonged conflict\n\nTests nested phases, locations, organizations, participants, casualties, claims, and long duration.\n\nThe template succeeds when these can share one grammar without becoming vague event soup.",
+        "markdown": "# Validation Cases\n\nTest the same template against very different events.\n\n## Conference\n\nTests schedules, sessions, speakers, organizers, venues, sponsors, and media.\n\n## Election\n\nTests candidates, organizations, voting periods, results, claims, evidence, and geographic scope.\n\n## Product launch\n\nTests organizations, presenters, announcements, media, works, and release outcomes.\n\n## Court case or hearing\n\nTests participants, roles, phases, documents, decisions, evidence, and disputed claims.\n\n## War or prolonged conflict\n\nTests nested phases, locations, organizations, participants, casualties, claims, and long duration.\n\nThe template succeeds when these can share one grammar without becoming vague event soup.\n\n## Additional hostile cases\n\n- An approximate historical event with uncertain dates\n- A hybrid event spanning physical and online locations\n- A recurring series versus one occurrence\n- A disputed participant or disputed causal attribution",
         "memo": "",
         "link": "",
         "visibilityRole": "browser",
@@ -3454,7 +3454,173 @@
       }
     }
   ],
-  "edges": [],
+  "edges": [
+    {
+      "id": "event-plan-overview",
+      "type": "reference",
+      "source": "event-template-plan-declaration",
+      "target": "event-template-overview",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "overview",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "event-plan-schema",
+      "type": "reference",
+      "source": "event-template-plan-declaration",
+      "target": "event-template-canonical-node",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "schema",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "event-plan-implementation",
+      "type": "reference",
+      "source": "event-template-plan-declaration",
+      "target": "event-template-codex-plan",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "implementation",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "event-plan-branch-1",
+      "type": "reference",
+      "source": "event-template-overview",
+      "target": "event-template-design-principles",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "design branch",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "event-plan-branch-2",
+      "type": "reference",
+      "source": "event-template-overview",
+      "target": "event-template-canonical-node",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "design branch",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "event-plan-branch-3",
+      "type": "reference",
+      "source": "event-template-overview",
+      "target": "event-template-kinds",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "design branch",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "event-plan-branch-4",
+      "type": "reference",
+      "source": "event-template-overview",
+      "target": "event-template-participation",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "design branch",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "event-plan-branch-5",
+      "type": "reference",
+      "source": "event-template-overview",
+      "target": "event-template-phase",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "design branch",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "event-plan-branch-6",
+      "type": "reference",
+      "source": "event-template-overview",
+      "target": "event-template-outcome",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "design branch",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "event-plan-branch-7",
+      "type": "reference",
+      "source": "event-template-overview",
+      "target": "event-template-causes-context",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "design branch",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "event-plan-branch-8",
+      "type": "reference",
+      "source": "event-template-overview",
+      "target": "event-template-reused-classes",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "design branch",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "event-plan-branch-9",
+      "type": "reference",
+      "source": "event-template-overview",
+      "target": "event-template-surfaces",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "design branch",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "event-plan-branch-10",
+      "type": "reference",
+      "source": "event-template-overview",
+      "target": "event-template-dependencies",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "design branch",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "event-plan-branch-11",
+      "type": "reference",
+      "source": "event-template-overview",
+      "target": "event-template-validation",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "design branch",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "event-plan-branch-12",
+      "type": "reference",
+      "source": "event-template-overview",
+      "target": "event-template-codex-plan",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "design branch",
+      "style": {},
+      "data": {}
+    }
+  ],
   "clusters": [],
   "settings": {
     "theme": null,
