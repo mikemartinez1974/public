@@ -1,30 +1,32 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Relationship Class",
-    "description": "A typed, directional connection between a person and another entity.",
-    "created": "2026-07-18T12:00:00.000Z",
+    "title": "Organizational Unit Class",
+    "description": "A recognized internal component of an organization.",
+    "graphId": "organizational-unit-organization-class",
+    "version": "0.1.0",
+    "kind": "node-class",
+    "created": "2026-07-19T20:00:00.000Z",
     "modified": "2026-07-19T20:00:00.000Z",
     "author": "",
     "tags": [
       "node-class",
-      "person-template",
-      "profile"
+      "organization"
     ],
     "preferredViewer": "https://twilite.zone"
   },
   "nodes": [
     {
-      "id": "relationship-declaration",
+      "id": "organizational-unit-class-declaration",
       "type": "declaration",
-      "label": "Relationship Declaration",
+      "label": "Organizational Unit Class Declaration",
       "root": false,
       "position": {
         "x": 0,
-        "y": -420
+        "y": -520
       },
-      "width": 220,
-      "height": 100,
+      "width": 260,
+      "height": 130,
       "handles": [
         {
           "id": "root",
@@ -157,22 +159,19 @@
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "relationship-person-class",
-          "name": "Relationship Class",
+          "graphId": "organizational-unit-organization-class",
+          "name": "Organizational Unit Class",
           "version": "0.1.0",
-          "description": "A typed, directional connection between two entities.",
-          "createdAt": "2026-07-18T12:00:00.000Z",
+          "description": "A recognized internal component of an organization.",
+          "createdAt": "2026-07-19T20:00:00.000Z",
           "updatedAt": "2026-07-19T20:00:00.000Z"
         },
-        "intent": {
-          "kind": "node-class",
-          "scope": "local"
-        },
+        "intent": "node-class",
         "dependencies": {
           "nodeTypes": [
             "declaration",
-            "port",
-            "markdown"
+            "markdown",
+            "port"
           ],
           "portContracts": [
             "core"
@@ -185,6 +184,7 @@
           "optional": []
         },
         "authority": {
+          "mode": "graph",
           "mutation": {
             "allowCreate": true,
             "allowUpdate": true,
@@ -195,78 +195,74 @@
             "humans": true,
             "agents": true,
             "tools": true
-          },
-          "styleAuthority": "descriptive",
-          "history": {
-            "rewriteAllowed": false,
-            "squashAllowed": false
           }
         },
         "declaration": {
           "kind": "node-class",
-          "artifactKind": "class-artifact",
-          "graphViewRole": "artifact",
           "targetMode": "artifact",
-          "defaultSurfaceId": "relationship-detail-view",
+          "artifactKind": "node-class",
+          "defaultSurfaceId": "organizational-unit-detail-view",
           "surfaces": [
             {
-              "id": "relationship-detail-view",
+              "id": "organizational-unit-detail-view",
               "kind": "view",
-              "label": "Surface",
-              "viewNodeId": "relationship-detail-view"
+              "label": "Detail",
+              "viewNodeId": "organizational-unit-detail-view"
             },
             {
-              "id": "relationship-summary-view",
+              "id": "organizational-unit-summary-view",
               "kind": "view",
-              "label": "Card",
-              "viewNodeId": "relationship-summary-view"
+              "label": "Summary",
+              "viewNodeId": "organizational-unit-summary-view"
             },
             {
-              "id": "relationship-icon-view",
+              "id": "organizational-unit-icon-view",
               "kind": "view",
               "label": "Icon",
-              "viewNodeId": "relationship-icon-view"
+              "viewNodeId": "organizational-unit-icon-view"
             },
             {
-              "id": "relationship-editor-view",
+              "id": "organizational-unit-editor-view",
               "kind": "view",
               "label": "Editor",
-              "viewNodeId": "relationship-editor-view"
+              "viewNodeId": "organizational-unit-editor-view"
             }
           ]
         },
         "nodeClass": {
           "contractVersion": "1.0.0",
-          "key": "relationship",
-          "label": "Relationship",
-          "meaning": "A typed, directional connection between two entities.",
-          "description": "A typed, directional connection between two entities.",
+          "key": "organizational-unit",
+          "label": "Organizational Unit",
+          "meaning": "A recognized internal component of an organization.",
+          "description": "A recognized internal component of an organization.",
           "requiredDataKeys": [
-            "relationshipType",
-            "subjectRef",
-            "objectRef"
+            "name",
+            "unitType",
+            "parentOrganizationRef"
           ],
           "nodeDef": {
-            "key": "relationship",
-            "ref": "github://mikemartinez1974/public/people/template/relationship.node-class.node",
+            "key": "organizational-unit",
+            "ref": "github://mikemartinez1974/public/organizations/template/organizational-unit.node-class.node",
             "source": "local",
             "version": ">=0.1.0",
             "defaults": {
-              "label": "Relationship",
+              "label": "Organizational Unit",
               "size": {
                 "width": 380,
                 "height": 260
               },
-              "color": "linear-gradient(135deg, #fce7f3, #db2777)",
+              "color": "linear-gradient(135deg, #e0f2fe, #0369a1)",
               "showLabel": false,
               "data": {
-                "title": "Relationship",
-                "relationshipType": "related-to",
-                "subjectRef": "",
-                "objectRef": "",
-                "startDate": "",
-                "endDate": "",
+                "name": "New Unit",
+                "unitType": "department",
                 "description": "",
+                "parentOrganizationRef": "",
+                "parentUnitRef": "",
+                "foundedDate": "",
+                "dissolvedDate": "",
+                "locationRef": "",
+                "website": "",
                 "status": "draft"
               },
               "ports": [
@@ -310,27 +306,484 @@
           }
         },
         "settings": {
-          "theme": null,
-          "backgroundImage": null,
-          "defaultNodeColor": "#1976d2",
-          "defaultEdgeColor": "#666666",
-          "snapToGrid": false,
-          "gridSize": 20,
-          "edgeRouting": "auto",
+          "layout": {
+            "mode": "autoOnMissingPositions",
+            "defaultLayout": "layered",
+            "direction": "DOWN"
+          },
           "autoSave": false
+        },
+        "document": {
+          "url": ""
         }
       }
     },
     {
-      "id": "relationship-notes",
+      "id": "organizational-unit-definition",
       "type": "markdown",
-      "label": "Relationship Contract",
+      "label": "Definition",
       "root": false,
       "position": {
-        "x": -460,
-        "y": -160
+        "x": 0,
+        "y": 300
       },
-      "width": 360,
+      "width": 520,
+      "height": 260,
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "markdown": "# Organizational Unit\n\nA recognized internal component of an organization.\n\n## Required fields\n\n- `name`\n- `unitType`\n- `parentOrganizationRef`\n\n## Modeling boundary\n\nKeep provenance in connected Claim → Evidence → Source nodes rather than embedded source arrays.",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "organizational-unit-detail-view",
+      "type": "port",
+      "label": "Surface",
+      "root": false,
+      "position": {
+        "x": -600,
+        "y": -80
+      },
+      "width": 430,
+      "height": 300,
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "organizational-unit-organization-class"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "renderShape": {
+          "kind": "html"
+        },
+        "html": "<article style=\"width:100%;height:100%;box-sizing:border-box;padding:20px;border-radius:20px;background:linear-gradient(135deg,#e0f2fe,white);border:1px solid #0369a144;color:#172033;font-family:ui-sans-serif,system-ui,sans-serif;overflow:auto\"><div style=\"font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#0369a1\">{{data.unitType}}</div><h2 style=\"margin:8px 0 12px;font-size:24px\">{{data.name}}</h2><div style=\"white-space:pre-wrap;line-height:1.55;color:#334155;margin-bottom:12px\">{{data.description}}</div><div style=\"display:grid;grid-template-columns:132px 1fr;gap:10px;padding:7px 0;border-top:1px solid rgba(100,116,139,.14)\"><strong style=\"font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#64748b\">Organization</strong><span style=\"font-size:13px;line-height:1.45;overflow-wrap:anywhere\">{{data.parentOrganizationRef}}</span></div><div style=\"display:grid;grid-template-columns:132px 1fr;gap:10px;padding:7px 0;border-top:1px solid rgba(100,116,139,.14)\"><strong style=\"font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#64748b\">Parent unit</strong><span style=\"font-size:13px;line-height:1.45;overflow-wrap:anywhere\">{{data.parentUnitRef}}</span></div><div style=\"display:grid;grid-template-columns:132px 1fr;gap:10px;padding:7px 0;border-top:1px solid rgba(100,116,139,.14)\"><strong style=\"font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#64748b\">Founded</strong><span style=\"font-size:13px;line-height:1.45;overflow-wrap:anywhere\">{{data.foundedDate}}</span></div><div style=\"display:grid;grid-template-columns:132px 1fr;gap:10px;padding:7px 0;border-top:1px solid rgba(100,116,139,.14)\"><strong style=\"font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#64748b\">Dissolved</strong><span style=\"font-size:13px;line-height:1.45;overflow-wrap:anywhere\">{{data.dissolvedDate}}</span></div><div style=\"display:grid;grid-template-columns:132px 1fr;gap:10px;padding:7px 0;border-top:1px solid rgba(100,116,139,.14)\"><strong style=\"font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#64748b\">Location</strong><span style=\"font-size:13px;line-height:1.45;overflow-wrap:anywhere\">{{data.locationRef}}</span></div><div style=\"display:grid;grid-template-columns:132px 1fr;gap:10px;padding:7px 0;border-top:1px solid rgba(100,116,139,.14)\"><strong style=\"font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#64748b\">Website</strong><span style=\"font-size:13px;line-height:1.45;overflow-wrap:anywhere\"><a href=\"{{data.website}}\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:#2563eb;font-weight:700;text-decoration:underline\">Open link ↗</a><div style=\"font-size:11px;color:#64748b;margin-top:3px\">{{data.website}}</div></span></div><div style=\"display:grid;grid-template-columns:132px 1fr;gap:10px;padding:7px 0;border-top:1px solid rgba(100,116,139,.14)\"><strong style=\"font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#64748b\">Status</strong><span style=\"font-size:13px;line-height:1.45;overflow-wrap:anywhere\">{{data.status}}</span></div></article>"
+      }
+    },
+    {
+      "id": "organizational-unit-summary-view",
+      "type": "port",
+      "label": "Card",
+      "root": false,
+      "position": {
+        "x": -200,
+        "y": -80
+      },
+      "width": 330,
+      "height": 200,
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "organizational-unit-organization-class"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "renderShape": {
+          "kind": "html"
+        },
+        "html": "<div style=\"width:100%;height:100%;box-sizing:border-box;padding:16px;border-radius:16px;background:#e0f2fe;border-left:7px solid #0369a1;font-family:ui-sans-serif,system-ui,sans-serif\"><small style=\"color:#0369a1;font-weight:800;text-transform:uppercase\">{{data.unitType}}</small><h3 style=\"margin:8px 0 6px;font-size:20px\">{{data.name}}</h3><div style=\"font-size:12px;color:#475569\">{{data.parentOrganizationRef}}</div></div>"
+      }
+    },
+    {
+      "id": "organizational-unit-icon-view",
+      "type": "port",
+      "label": "Icon",
+      "root": false,
+      "position": {
+        "x": 200,
+        "y": -80
+      },
+      "width": 200,
       "height": 210,
       "handles": [
         {
@@ -464,236 +917,29 @@
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "relationship-person-class"
+          "graphId": "organizational-unit-organization-class"
         },
-        "markdown": "## Relationship\n\nA typed, directional connection between a person and another entity.\n\nLayer: **profile**\n\nRequired data: `relationshipType`, `subjectRef`, `objectRef`."
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "renderShape": {
+          "kind": "svg"
+        },
+        "semanticLevel": "icon",
+        "svg": "<svg viewBox=\"0 0 160 160\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"80\" cy=\"80\" r=\"62\" fill=\"#e0f2fe\" stroke=\"#0369a1\" stroke-width=\"8\"/><text x=\"80\" y=\"96\" text-anchor=\"middle\" font-family=\"system-ui\" font-size=\"52\" font-weight=\"800\" fill=\"#0369a1\">U</text></svg>"
       }
     },
     {
-      "id": "relationship-editor-view",
+      "id": "organizational-unit-editor-view",
       "type": "port",
       "label": "Editor",
       "root": false,
       "position": {
-        "x": -420,
-        "y": 140
+        "x": 600,
+        "y": -80
       },
       "width": 360,
-      "height": 240,
-      "handles": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        }
-      ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "identity": {
-          "graphId": "relationship-person-class"
-        },
-        "view": {
-          "intent": "editor",
-          "payload": "editor.web"
-        },
-        "editor": {
-          "web": {
-            "fields": [
-              {
-                "key": "title",
-                "label": "Title",
-                "type": "text",
-                "path": "data.title",
-                "placeholder": "Relationship"
-              },
-              {
-                "key": "relationshipType",
-                "label": "Relationship Type",
-                "type": "text",
-                "path": "data.relationshipType",
-                "placeholder": "related-to"
-              },
-              {
-                "key": "subjectRef",
-                "label": "Subject Ref",
-                "type": "text",
-                "path": "data.subjectRef",
-                "placeholder": ""
-              },
-              {
-                "key": "objectRef",
-                "label": "Object Ref",
-                "type": "text",
-                "path": "data.objectRef",
-                "placeholder": ""
-              },
-              {
-                "key": "startDate",
-                "label": "Start Date",
-                "type": "text",
-                "path": "data.startDate",
-                "placeholder": ""
-              },
-              {
-                "key": "endDate",
-                "label": "End Date",
-                "type": "text",
-                "path": "data.endDate",
-                "placeholder": ""
-              },
-              {
-                "key": "description",
-                "label": "Description",
-                "type": "markdown",
-                "path": "data.description",
-                "placeholder": "",
-                "multiline": true,
-                "rows": 5
-              },
-              {
-                "key": "status",
-                "label": "Status",
-                "type": "text",
-                "path": "data.status",
-                "placeholder": "draft"
-              }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "id": "relationship-detail-view",
-      "type": "port",
-      "label": "Surface",
-      "root": false,
-      "position": {
-        "x": 0,
-        "y": 140
-      },
-      "width": 420,
       "height": 260,
       "handles": [
         {
@@ -827,389 +1073,148 @@
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "relationship-person-class"
+          "graphId": "organizational-unit-organization-class"
         },
         "view": {
-          "intent": "node",
-          "payload": "node.web.detail"
+          "intent": "editor",
+          "payload": "editor.web"
         },
-        "renderShape": {
-          "kind": "html"
-        },
-        "html": "<article style=\"width:100%;height:100%;box-sizing:border-box;padding:20px;border-radius:20px;background:linear-gradient(135deg,#fce7f3,white);border:1px solid #db277744;color:#172033;font-family:ui-sans-serif,system-ui,sans-serif;overflow:auto\"><div style=\"font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#db2777\">Relationship</div><h2 style=\"margin:8px 0 14px;font-size:26px;line-height:1.15\">{{data.title}}</h2><div style=\"display:grid;grid-template-columns:118px 1fr;gap:10px;padding:7px 0;border-top:1px solid rgba(100,116,139,.14)\"><strong style=\"font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#64748b\">Type</strong><span style=\"font-size:13px;line-height:1.45;overflow-wrap:anywhere\">{{data.relationshipType}}</span></div> <div style=\"display:grid;grid-template-columns:118px 1fr;gap:10px;padding:7px 0;border-top:1px solid rgba(100,116,139,.14)\"><strong style=\"font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#64748b\">Subject</strong><span style=\"font-size:13px;line-height:1.45;overflow-wrap:anywhere\">{{data.subjectRef}}</span></div> <div style=\"display:grid;grid-template-columns:118px 1fr;gap:10px;padding:7px 0;border-top:1px solid rgba(100,116,139,.14)\"><strong style=\"font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#64748b\">Object</strong><span style=\"font-size:13px;line-height:1.45;overflow-wrap:anywhere\">{{data.objectRef}}</span></div> <div style=\"display:grid;grid-template-columns:118px 1fr;gap:10px;padding:7px 0;border-top:1px solid rgba(100,116,139,.14)\"><strong style=\"font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#64748b\">Dates</strong><span style=\"font-size:13px;line-height:1.45;overflow-wrap:anywhere\">{{data.startDate}} — {{data.endDate}}</span></div> <div style=\"margin:12px 0 16px;white-space:pre-wrap;line-height:1.6;color:#334155\">{{data.description}}</div><div><span style=\"display:inline-flex;padding:5px 9px;border-radius:999px;background:rgba(100,116,139,.12);font-size:11px;font-weight:800;text-transform:uppercase\">{{data.status}}</span></div></article>"
-      }
-    },
-    {
-      "id": "relationship-summary-view",
-      "type": "port",
-      "label": "Card",
-      "root": false,
-      "position": {
-        "x": 460,
-        "y": 140
-      },
-      "width": 320,
-      "height": 190,
-      "handles": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
+        "editor": {
+          "web": {
+            "fields": [
+              {
+                "key": "name",
+                "label": "Name",
+                "type": "text",
+                "path": "data.name",
+                "placeholder": "New Unit"
+              },
+              {
+                "key": "unitType",
+                "label": "Unit Type",
+                "type": "text",
+                "path": "data.unitType",
+                "placeholder": "department"
+              },
+              {
+                "key": "description",
+                "label": "Description",
+                "type": "markdown",
+                "path": "data.description",
+                "placeholder": "",
+                "multiline": true,
+                "rows": 5
+              },
+              {
+                "key": "parentOrganizationRef",
+                "label": "Parent Organization",
+                "type": "text",
+                "path": "data.parentOrganizationRef",
+                "placeholder": ""
+              },
+              {
+                "key": "parentUnitRef",
+                "label": "Parent Unit",
+                "type": "text",
+                "path": "data.parentUnitRef",
+                "placeholder": ""
+              },
+              {
+                "key": "foundedDate",
+                "label": "Founded Date",
+                "type": "text",
+                "path": "data.foundedDate",
+                "placeholder": ""
+              },
+              {
+                "key": "dissolvedDate",
+                "label": "Dissolved Date",
+                "type": "text",
+                "path": "data.dissolvedDate",
+                "placeholder": ""
+              },
+              {
+                "key": "locationRef",
+                "label": "Location",
+                "type": "text",
+                "path": "data.locationRef",
+                "placeholder": ""
+              },
+              {
+                "key": "website",
+                "label": "Website",
+                "type": "text",
+                "path": "data.website",
+                "placeholder": ""
+              },
+              {
+                "key": "status",
+                "label": "Status",
+                "type": "text",
+                "path": "data.status",
+                "placeholder": "draft"
+              }
+            ]
+          }
         }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        }
-      ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "identity": {
-          "graphId": "relationship-person-class"
-        },
-        "view": {
-          "intent": "node",
-          "payload": "node.web.summary"
-        },
-        "renderShape": {
-          "kind": "html"
-        },
-        "html": "<div style=\"width:100%;height:100%;box-sizing:border-box;padding:16px;border-radius:16px;background:#fce7f3;border-left:7px solid #db2777;font-family:ui-sans-serif,system-ui,sans-serif;color:#172033;overflow:hidden\"><small style=\"color:#db2777;font-weight:800;letter-spacing:.1em;text-transform:uppercase\">Relationship</small><h3 style=\"margin:8px 0 6px;font-size:20px;line-height:1.15\">{{data.title}}</h3><div style=\"font-size:12px;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis\">{{data.relationshipType}} · {{data.startDate}}—{{data.endDate}}</div><div style=\"margin-top:10px;font-size:10px;font-weight:800;text-transform:uppercase;color:#db2777\">{{data.status}}</div></div>"
-      }
-    },
-    {
-      "id": "relationship-icon-view",
-      "type": "port",
-      "label": "Icon",
-      "root": false,
-      "position": {
-        "x": 840,
-        "y": 140
-      },
-      "width": 180,
-      "height": 180,
-      "handles": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        }
-      ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "identity": {
-          "graphId": "relationship-person-class"
-        },
-        "view": {
-          "intent": "node",
-          "payload": "node.web.icon"
-        },
-        "renderShape": {
-          "kind": "svg"
-        },
-        "semanticLevel": "icon",
-        "svg": "<svg viewBox=\"0 0 160 160\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"80\" cy=\"80\" r=\"62\" fill=\"#fce7f3\" stroke=\"#db2777\" stroke-width=\"8\"/><text x=\"80\" y=\"96\" text-anchor=\"middle\" font-family=\"system-ui\" font-size=\"52\" font-weight=\"800\" fill=\"#db2777\">R</text></svg>"
       }
     }
   ],
   "edges": [
     {
-      "id": "relationship-edge-1",
+      "id": "organizational-unit-class-edge-1",
       "type": "reference",
-      "source": "relationship-declaration",
-      "target": "relationship-notes",
+      "source": "organizational-unit-class-declaration",
+      "target": "organizational-unit-definition",
       "sourcePort": "bottom",
       "targetPort": "top",
-      "label": "contract",
+      "label": "definition",
       "style": {},
       "data": {}
     },
     {
-      "id": "relationship-edge-2",
+      "id": "organizational-unit-class-edge-2",
       "type": "reference",
-      "source": "relationship-declaration",
-      "target": "relationship-editor-view",
+      "source": "organizational-unit-class-declaration",
+      "target": "organizational-unit-detail-view",
       "sourcePort": "bottom",
       "targetPort": "top",
-      "label": "surface",
+      "label": "view",
       "style": {},
       "data": {}
     },
     {
-      "id": "relationship-edge-3",
+      "id": "organizational-unit-class-edge-3",
       "type": "reference",
-      "source": "relationship-declaration",
-      "target": "relationship-detail-view",
+      "source": "organizational-unit-class-declaration",
+      "target": "organizational-unit-summary-view",
       "sourcePort": "bottom",
       "targetPort": "top",
-      "label": "surface",
+      "label": "view",
       "style": {},
       "data": {}
     },
     {
-      "id": "relationship-edge-4",
+      "id": "organizational-unit-class-edge-4",
       "type": "reference",
-      "source": "relationship-declaration",
-      "target": "relationship-summary-view",
+      "source": "organizational-unit-class-declaration",
+      "target": "organizational-unit-icon-view",
       "sourcePort": "bottom",
       "targetPort": "top",
-      "label": "surface",
+      "label": "view",
       "style": {},
       "data": {}
     },
     {
-      "id": "relationship-edge-5",
+      "id": "organizational-unit-class-edge-5",
       "type": "reference",
-      "source": "relationship-declaration",
-      "target": "relationship-icon-view",
+      "source": "organizational-unit-class-declaration",
+      "target": "organizational-unit-editor-view",
       "sourcePort": "bottom",
       "targetPort": "top",
-      "label": "surface",
+      "label": "view",
       "style": {},
       "data": {}
     }
-  ],
-  "clusters": [],
-  "scripts": [],
-  "nodeCount": 6,
-  "edgeCount": 5
+  ]
 }
