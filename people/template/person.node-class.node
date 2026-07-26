@@ -4,7 +4,7 @@
     "title": "Person Class",
     "description": "The stable identity record for one person.",
     "created": "2026-07-18T12:00:00.000Z",
-    "modified": "2026-07-19T14:00:00.000Z",
+    "modified": "2026-07-26T12:30:00.000Z",
     "author": "",
     "tags": [
       "node-class",
@@ -622,20 +622,51 @@
         },
         "editor": {
           "web": {
+            "layout": {
+              "sections": [
+                {
+                  "key": "identity",
+                  "title": "Identity",
+                  "summary": "Names used to identify this person."
+                },
+                {
+                  "key": "biography",
+                  "title": "Biography",
+                  "summary": "Readable biographical context and life details."
+                },
+                {
+                  "key": "media",
+                  "title": "Portrait",
+                  "summary": "A directly usable image URL for the person card."
+                },
+                {
+                  "key": "classification",
+                  "title": "Classification",
+                  "summary": "Roles and record lifecycle."
+                },
+                {
+                  "key": "linking",
+                  "title": "Canonical Link",
+                  "summary": "The durable external identity for this person."
+                }
+              ]
+            },
             "fields": [
               {
                 "key": "displayName",
                 "label": "Display Name",
                 "type": "text",
                 "path": "data.displayName",
-                "placeholder": "New Person"
+                "placeholder": "New Person",
+                "section": "identity"
               },
               {
                 "key": "fullName",
                 "label": "Full Name",
                 "type": "text",
                 "path": "data.fullName",
-                "placeholder": ""
+                "placeholder": "",
+                "section": "identity"
               },
               {
                 "key": "aliases",
@@ -643,7 +674,9 @@
                 "type": "tags",
                 "path": "data.aliases",
                 "placeholder": "Candace Owens, Candace Farmer",
-                "helperText": "Separate multiple aliases with commas."
+                "helperText": "Separate multiple aliases with commas.",
+                "section": "identity",
+                "fullWidth": true
               },
               {
                 "key": "summary",
@@ -652,42 +685,53 @@
                 "path": "data.summary",
                 "placeholder": "",
                 "multiline": true,
-                "rows": 5
+                "rows": 5,
+                "section": "biography",
+                "fullWidth": true,
+                "spellCheck": true
               },
               {
                 "key": "portrait",
                 "label": "Portrait",
                 "type": "text",
                 "path": "data.portrait",
-                "placeholder": ""
+                "placeholder": "https://example.com/portrait.jpg",
+                "helperText": "Use an image URL that Twilite can fetch directly.",
+                "section": "media",
+                "fullWidth": true,
+                "monospace": true
               },
               {
                 "key": "birthDate",
                 "label": "Birth Date",
                 "type": "text",
                 "path": "data.birthDate",
-                "placeholder": ""
+                "placeholder": "YYYY-MM-DD",
+                "section": "biography"
               },
               {
                 "key": "deathDate",
                 "label": "Death Date",
                 "type": "text",
                 "path": "data.deathDate",
-                "placeholder": ""
+                "placeholder": "YYYY-MM-DD",
+                "section": "biography"
               },
               {
                 "key": "pronouns",
                 "label": "Pronouns",
                 "type": "text",
                 "path": "data.pronouns",
-                "placeholder": ""
+                "placeholder": "",
+                "section": "biography"
               },
               {
                 "key": "nationality",
                 "label": "Nationality",
                 "type": "text",
                 "path": "data.nationality",
-                "placeholder": ""
+                "placeholder": "",
+                "section": "biography"
               },
               {
                 "key": "primaryRoles",
@@ -695,21 +739,27 @@
                 "type": "tags",
                 "path": "data.primaryRoles",
                 "placeholder": "author, commentator, podcast host",
-                "helperText": "Separate multiple roles with commas."
+                "helperText": "Separate multiple roles with commas.",
+                "section": "classification",
+                "fullWidth": true
               },
               {
                 "key": "canonicalUri",
                 "label": "Canonical Uri",
                 "type": "text",
                 "path": "data.canonicalUri",
-                "placeholder": ""
+                "placeholder": "https://… or github://…",
+                "section": "linking",
+                "fullWidth": true,
+                "monospace": true
               },
               {
                 "key": "status",
                 "label": "Status",
                 "type": "text",
                 "path": "data.status",
-                "placeholder": "draft"
+                "placeholder": "draft",
+                "section": "classification"
               }
             ]
           }
