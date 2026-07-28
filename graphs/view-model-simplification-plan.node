@@ -1,0 +1,564 @@
+{
+  "version": "1.0.0",
+  "nodes": [
+    {
+      "id": "view-model-declaration",
+      "type": "declaration",
+      "label": "View Model Simplification Plan",
+      "position": { "x": 0, "y": -820 },
+      "width": 500,
+      "height": 360,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "left", "label": "left", "direction": "output", "dataType": "value", "angle": 180 },
+        { "id": "right", "label": "right", "direction": "output", "dataType": "value", "angle": 0 },
+        { "id": "top", "label": "top", "direction": "output", "dataType": "value", "angle": 270 },
+        { "id": "bottom", "label": "bottom", "direction": "output", "dataType": "value", "angle": 90 }
+      ],
+      "data": {
+        "identity": {
+          "graphId": "view-model-simplification-plan",
+          "name": "View Model Simplification Plan",
+          "version": "0.1.0",
+          "description": "Reduce Twilite's public view vocabulary to View, Editor View, and Port without breaking existing graphs.",
+          "updatedAt": "2026-07-28T00:00:00.000Z"
+        },
+        "intent": { "kind": "task-graph", "scope": "public" },
+        "declaration": {
+          "kind": "task-graph",
+          "targetMode": "artifact",
+          "artifactKind": "graph",
+          "graphViewRole": "authoring",
+          "defaultSurfaceId": "summary",
+          "surfaces": [
+            {
+              "id": "summary",
+              "kind": "port",
+              "label": "View Model Simplification",
+              "portNodeId": "view-model-port",
+              "viewNodeId": "view-model-port",
+              "memo": "The sole public entry and default root surface.",
+              "exposes": {
+                "views": { "mode": "allow" },
+                "declarations": { "mode": "allow" }
+              }
+            }
+          ],
+          "primaryNodeViewId": "view-model-port",
+          "portViewNodeId": "view-model-port"
+        },
+        "dependencies": {
+          "nodeTypes": [
+            "declaration", "bridge", "port", "goal", "task", "decision",
+            "open-question", "risk", "acceptance-criteria", "summary"
+          ],
+          "skills": ["twilite-planning-graphs"]
+        },
+        "authority": {
+          "mutation": { "allowCreate": true, "allowUpdate": true, "allowDelete": true, "appendOnly": false },
+          "actors": { "humans": true, "agents": true, "tools": true },
+          "styleAuthority": "descriptive"
+        },
+        "summaryNodeId": "view-model-summary",
+        "settings": {
+          "defaultNodeColor": "#1d4ed8",
+          "defaultEdgeColor": "#64748b",
+          "snapToGrid": false,
+          "gridSize": 20,
+          "edgeRouting": "auto",
+          "layout": { "mode": "manual", "defaultLayout": "layered", "direction": "DOWN" }
+        }
+      }
+    },
+    {
+      "id": "view-model-port",
+      "type": "port",
+      "label": "View Model Simplification",
+      "position": { "x": 560, "y": -1240 },
+      "width": 520,
+      "height": 380,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "input", "dataType": "value", "angle": 270 },
+        { "id": "bottom", "label": "bottom", "direction": "output", "dataType": "value", "angle": 90 }
+      ],
+      "data": {
+        "identity": { "graphId": "view-model-simplification-plan", "name": "View Model Simplification" },
+        "view": { "intent": "node", "payload": "node.web.summary", "surfaceId": "summary" },
+        "sourceScope": "graph",
+        "sourceRef": "",
+        "sourceNodeId": "view-model-summary",
+        "sourcePayload": "node.web.summary",
+        "authority": "consume-view",
+        "title": "View Model Simplification",
+        "memo": "Public entry port presenting the live task-graph summary."
+      },
+      "style": {
+        "background": "transparent",
+        "border": "none",
+        "padding": 0,
+        "borderRadius": 24,
+        "boxShadow": "0 24px 70px rgba(59,130,246,0.22)"
+      }
+    },
+    {
+      "id": "view-model-bridge-goal",
+      "type": "bridge",
+      "label": "Goal",
+      "position": { "x": -1120, "y": -720 },
+      "width": 280,
+      "height": 120,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "right", "label": "right", "direction": "input", "dataType": "value", "angle": 0 }],
+      "data": {
+        "bridge": { "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"] },
+        "target": { "mode": "bridge", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-bridge-task",
+      "type": "bridge",
+      "label": "Task",
+      "position": { "x": -1120, "y": -560 },
+      "width": 280,
+      "height": 120,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "right", "label": "right", "direction": "input", "dataType": "value", "angle": 0 }],
+      "data": {
+        "bridge": { "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"] },
+        "target": { "mode": "bridge", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-bridge-decision",
+      "type": "bridge",
+      "label": "Decision",
+      "position": { "x": -1120, "y": -400 },
+      "width": 280,
+      "height": 120,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "right", "label": "right", "direction": "input", "dataType": "value", "angle": 0 }],
+      "data": {
+        "bridge": { "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"] },
+        "target": { "mode": "bridge", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-bridge-question",
+      "type": "bridge",
+      "label": "Open Question",
+      "position": { "x": -1120, "y": -240 },
+      "width": 280,
+      "height": 120,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "right", "label": "right", "direction": "input", "dataType": "value", "angle": 0 }],
+      "data": {
+        "bridge": { "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"] },
+        "target": { "mode": "bridge", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-bridge-risk",
+      "type": "bridge",
+      "label": "Risk",
+      "position": { "x": 840, "y": -720 },
+      "width": 280,
+      "height": 120,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "left", "label": "left", "direction": "input", "dataType": "value", "angle": 180 }],
+      "data": {
+        "bridge": { "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/risk.node-class.node", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"] },
+        "target": { "mode": "bridge", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/risk.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-bridge-criteria",
+      "type": "bridge",
+      "label": "Acceptance Criteria",
+      "position": { "x": 840, "y": -560 },
+      "width": 280,
+      "height": 120,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "left", "label": "left", "direction": "input", "dataType": "value", "angle": 180 }],
+      "data": {
+        "bridge": { "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/acceptance-criteria.node-class.node", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"] },
+        "target": { "mode": "bridge", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/acceptance-criteria.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-bridge-summary",
+      "type": "bridge",
+      "label": "Summary",
+      "position": { "x": 840, "y": -400 },
+      "width": 280,
+      "height": 120,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "left", "label": "left", "direction": "input", "dataType": "value", "angle": 180 }],
+      "data": {
+        "bridge": { "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"] },
+        "target": { "mode": "bridge", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-goal",
+      "type": "goal",
+      "label": "Make views explicit without burdening ordinary nodes",
+      "position": { "x": -40, "y": -300 },
+      "width": 660,
+      "height": 400,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 },
+        { "id": "bottom", "label": "bottom", "direction": "output", "dataType": "value", "angle": 90 }
+      ],
+      "data": {
+        "outcome": "Twilite presents View, Editor View, and Port as a coherent public model while existing nodes keep using built-in or class-provided views.",
+        "priority": "high",
+        "status": "in-progress",
+        "owner": "Michael",
+        "definitionKey": "goal",
+        "_classBinding": { "key": "goal", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node" },
+        "_bridge": { "sourceBridgeNodeId": "view-model-bridge-goal", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node", "classKey": "goal", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-decision-primitives",
+      "type": "decision",
+      "label": "The public primitives are View, Editor View, and Port",
+      "position": { "x": -980, "y": 180 },
+      "width": 430,
+      "height": 280,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 }],
+      "data": {
+        "rationale": "These three concepts have distinct ownership: presentation, editing, and exposure.",
+        "body": "View is always node-facing. Editor View is always editor-facing. Port presents or exposes a View and does not redefine its intent.",
+        "status": "decided",
+        "owner": "Michael",
+        "definitionKey": "decision",
+        "_classBinding": { "key": "decision", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node" },
+        "_bridge": { "sourceBridgeNodeId": "view-model-bridge-decision", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node", "classKey": "decision", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-decision-defaults",
+      "type": "decision",
+      "label": "Ordinary nodes keep automatic views",
+      "position": { "x": -500, "y": 180 },
+      "width": 430,
+      "height": 280,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 }],
+      "data": {
+        "rationale": "Explicit View nodes are optional overrides, not mandatory companions.",
+        "body": "Resolution remains explicit or class-provided view, then built-in primitive view, then safe generic fallback.",
+        "status": "decided",
+        "owner": "Michael",
+        "definitionKey": "decision",
+        "_classBinding": { "key": "decision", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node" },
+        "_bridge": { "sourceBridgeNodeId": "view-model-bridge-decision", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node", "classKey": "decision", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-decision-aliases",
+      "type": "decision",
+      "label": "Specialized view types become compatible presets",
+      "position": { "x": -20, "y": 180 },
+      "width": 430,
+      "height": 280,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 }],
+      "data": {
+        "rationale": "Icon, summary, document, task, node, port, and UI views describe roles more than separate primitives.",
+        "body": "Existing specialized types remain readable while creation guidance and editors prefer View presets.",
+        "status": "decided",
+        "owner": "Michael",
+        "definitionKey": "decision",
+        "_classBinding": { "key": "decision", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node" },
+        "_bridge": { "sourceBridgeNodeId": "view-model-bridge-decision", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node", "classKey": "decision", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-task-resolution",
+      "type": "task",
+      "label": "Centralize the view-resolution cascade",
+      "position": { "x": -980, "y": 540 },
+      "width": 430,
+      "height": 280,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 },
+        { "id": "bottom", "label": "bottom", "direction": "output", "dataType": "value", "angle": 90 }
+      ],
+      "data": {
+        "body": "Make explicit, class-provided, built-in, and generic fallback resolution share one tested contract.",
+        "priority": "high", "status": "todo", "owner": "Michael",
+        "definitionKey": "task",
+        "_classBinding": { "key": "task", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" },
+        "_bridge": { "sourceBridgeNodeId": "view-model-bridge-task", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "classKey": "task", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-task-primitives",
+      "type": "task",
+      "label": "Give View and Editor View first-class creation flows",
+      "position": { "x": -500, "y": 540 },
+      "width": 430,
+      "height": 280,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 },
+        { "id": "bottom", "label": "bottom", "direction": "output", "dataType": "value", "angle": 90 }
+      ],
+      "data": {
+        "body": "Add clear creation choices and focused editors without requiring authors to set intent manually.",
+        "priority": "high", "status": "todo", "owner": "Michael",
+        "definitionKey": "task",
+        "_classBinding": { "key": "task", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" },
+        "_bridge": { "sourceBridgeNodeId": "view-model-bridge-task", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "classKey": "task", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-task-port",
+      "type": "task",
+      "label": "Simplify the port editor around surface ownership",
+      "position": { "x": -20, "y": 540 },
+      "width": 430,
+      "height": 280,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 },
+        { "id": "bottom", "label": "bottom", "direction": "output", "dataType": "value", "angle": 90 }
+      ],
+      "data": {
+        "body": "Separate port identity, authored content, selected local surface, selected external exposure, and handles without exposing view-definition internals.",
+        "priority": "high", "status": "todo", "owner": "Michael",
+        "definitionKey": "task",
+        "_classBinding": { "key": "task", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" },
+        "_bridge": { "sourceBridgeNodeId": "view-model-bridge-task", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "classKey": "task", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-task-compatibility",
+      "type": "task",
+      "label": "Preserve specialized view compatibility",
+      "position": { "x": 460, "y": 540 },
+      "width": 430,
+      "height": 280,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 },
+        { "id": "bottom", "label": "bottom", "direction": "output", "dataType": "value", "angle": 90 }
+      ],
+      "data": {
+        "body": "Map legacy view types to canonical View roles without rewriting existing graphs or changing rendered output.",
+        "priority": "high", "status": "todo", "owner": "Michael",
+        "definitionKey": "task",
+        "_classBinding": { "key": "task", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" },
+        "_bridge": { "sourceBridgeNodeId": "view-model-bridge-task", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "classKey": "task", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-task-tests",
+      "type": "task",
+      "label": "Test primitive, class-backed, and exposed views",
+      "position": { "x": -740, "y": 900 },
+      "width": 430,
+      "height": 280,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 },
+        { "id": "bottom", "label": "bottom", "direction": "output", "dataType": "value", "angle": 90 }
+      ],
+      "data": {
+        "body": "Prove existing nodes render without explicit View nodes and that local and external ports resolve the intended surfaces.",
+        "priority": "high", "status": "todo", "owner": "Michael",
+        "definitionKey": "task",
+        "_classBinding": { "key": "task", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" },
+        "_bridge": { "sourceBridgeNodeId": "view-model-bridge-task", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "classKey": "task", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-task-docs",
+      "type": "task",
+      "label": "Update contracts, onboarding, and examples",
+      "position": { "x": -260, "y": 900 },
+      "width": 430,
+      "height": 280,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 }],
+      "data": {
+        "body": "Teach defaults first and explicit View or Editor View nodes only when customization is required.",
+        "priority": "medium", "status": "todo", "owner": "Michael",
+        "definitionKey": "task",
+        "_classBinding": { "key": "task", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" },
+        "_bridge": { "sourceBridgeNodeId": "view-model-bridge-task", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "classKey": "task", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-question-port-content",
+      "type": "open-question",
+      "label": "How much authored content should a port own?",
+      "position": { "x": 220, "y": 900 },
+      "width": 450,
+      "height": 280,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 }],
+      "data": {
+        "body": "Decide whether port-owned Markdown, SVG, HTML, image, text, and canvas remain first-class or become convenience wrappers around an implicit View.",
+        "status": "open", "owner": "Michael",
+        "resolutionPath": "Inventory common authored ports before narrowing the contract.",
+        "prominence": "high",
+        "definitionKey": "open-question",
+        "_classBinding": { "key": "open-question", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node" },
+        "_bridge": { "sourceBridgeNodeId": "view-model-bridge-question", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node", "classKey": "open-question", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-question-aliases",
+      "type": "open-question",
+      "label": "When should specialized view types leave creation menus?",
+      "position": { "x": 700, "y": 900 },
+      "width": 450,
+      "height": 280,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 }],
+      "data": {
+        "body": "Choose the compatibility window for demoting icon-view, summary-view, document-view, task-view, node-view, port-view, and ui-view from public creation choices.",
+        "status": "open", "owner": "Michael",
+        "resolutionPath": "Keep runtime aliases indefinitely; decide UI demotion after creation-flow tests.",
+        "prominence": "medium",
+        "definitionKey": "open-question",
+        "_classBinding": { "key": "open-question", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node" },
+        "_bridge": { "sourceBridgeNodeId": "view-model-bridge-question", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node", "classKey": "open-question", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-risk-overmodeling",
+      "type": "risk",
+      "label": "The cleanup could become a new view language",
+      "position": { "x": -740, "y": 1240 },
+      "width": 430,
+      "height": 260,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 }],
+      "data": {
+        "body": "Too many roles, presets, aliases, and editor controls would reproduce the complexity this project is meant to remove.",
+        "likelihood": "medium", "impact": "high",
+        "mitigation": "Keep the public model at three primitives and treat roles as optional presets.",
+        "status": "active",
+        "definitionKey": "risk",
+        "_classBinding": { "key": "risk", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/risk.node-class.node", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/risk.node-class.node" },
+        "_bridge": { "sourceBridgeNodeId": "view-model-bridge-risk", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/risk.node-class.node", "classKey": "risk", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/risk.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-criteria",
+      "type": "acceptance-criteria",
+      "label": "The simplified view model is safe to ship",
+      "position": { "x": -260, "y": 1240 },
+      "width": 520,
+      "height": 300,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 }],
+      "data": {
+        "body": "Existing graphs render unchanged; ordinary nodes need no new companion nodes; View and Editor View have clear creation flows; ports do not expose intent; and external consumers address only declaration-exposed ports.",
+        "status": "pending",
+        "definitionKey": "acceptance-criteria",
+        "_classBinding": { "key": "acceptance-criteria", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/acceptance-criteria.node-class.node", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/acceptance-criteria.node-class.node" },
+        "_bridge": { "sourceBridgeNodeId": "view-model-bridge-criteria", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/acceptance-criteria.node-class.node", "classKey": "acceptance-criteria", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/acceptance-criteria.node-class.node" }
+      }
+    },
+    {
+      "id": "view-model-summary",
+      "type": "summary",
+      "label": "View Model Simplification",
+      "position": { "x": 560, "y": -820 },
+      "width": 520,
+      "height": 380,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "left", "label": "left", "direction": "input", "dataType": "value", "angle": 180 },
+        { "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 }
+      ],
+      "data": {
+        "goal": "Make views explicit without burdening ordinary nodes",
+        "status": "in-progress",
+        "priority": "high",
+        "owner": "Michael",
+        "health": "on-track",
+        "nextAction": "Resolve port-owned content policy, then implement the canonical View and Editor View creation flows.",
+        "blockedReason": "",
+        "taskProgress": { "completed": 0, "total": 6 },
+        "questionProgress": { "answered": 0, "total": 2 },
+        "taskTitles": [
+          "Centralize the view-resolution cascade",
+          "Give View and Editor View first-class creation flows",
+          "Simplify the port editor around surface ownership",
+          "Preserve specialized view compatibility",
+          "Test primitive, class-backed, and exposed views",
+          "Update contracts, onboarding, and examples"
+        ],
+        "questionTitles": [
+          "How much authored content should a port own?",
+          "When should specialized view types leave creation menus?"
+        ],
+        "summarySource": "authored",
+        "nodeViewPayload": "node.web",
+        "definitionKey": "summary",
+        "_classBinding": { "key": "summary", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node" },
+        "_bridge": { "sourceBridgeNodeId": "view-model-bridge-summary", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node", "classKey": "summary", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node" }
+      }
+    }
+  ],
+  "edges": [
+    { "id": "view-model-edge-declaration-goal", "type": "defines", "source": "view-model-declaration", "target": "view-model-goal", "sourcePort": "bottom", "targetPort": "top", "label": "goal", "style": { "curved": true } },
+    { "id": "view-model-edge-declaration-port", "type": "exposes", "source": "view-model-declaration", "target": "view-model-port", "sourcePort": "top", "targetPort": "root", "label": "summary · root alias", "style": { "curved": true } },
+    { "id": "view-model-edge-port-summary", "type": "presents", "source": "view-model-port", "target": "view-model-summary", "sourcePort": "bottom", "targetPort": "top", "label": "live summary", "style": { "curved": true } },
+    { "id": "view-model-edge-bridge-goal", "type": "reference", "source": "view-model-declaration", "target": "view-model-bridge-goal", "sourcePort": "left", "targetPort": "right", "label": "class authority", "style": { "curved": true } },
+    { "id": "view-model-edge-bridge-task", "type": "reference", "source": "view-model-declaration", "target": "view-model-bridge-task", "sourcePort": "left", "targetPort": "right", "label": "class authority", "style": { "curved": true } },
+    { "id": "view-model-edge-bridge-decision", "type": "reference", "source": "view-model-declaration", "target": "view-model-bridge-decision", "sourcePort": "left", "targetPort": "right", "label": "class authority", "style": { "curved": true } },
+    { "id": "view-model-edge-bridge-question", "type": "reference", "source": "view-model-declaration", "target": "view-model-bridge-question", "sourcePort": "left", "targetPort": "right", "label": "class authority", "style": { "curved": true } },
+    { "id": "view-model-edge-bridge-risk", "type": "reference", "source": "view-model-declaration", "target": "view-model-bridge-risk", "sourcePort": "right", "targetPort": "left", "label": "class authority", "style": { "curved": true } },
+    { "id": "view-model-edge-bridge-criteria", "type": "reference", "source": "view-model-declaration", "target": "view-model-bridge-criteria", "sourcePort": "right", "targetPort": "left", "label": "class authority", "style": { "curved": true } },
+    { "id": "view-model-edge-bridge-summary", "type": "reference", "source": "view-model-declaration", "target": "view-model-bridge-summary", "sourcePort": "right", "targetPort": "left", "label": "class authority", "style": { "curved": true } },
+    { "id": "view-model-edge-goal-decision-1", "type": "decision", "source": "view-model-goal", "target": "view-model-decision-primitives", "sourcePort": "bottom", "targetPort": "top", "label": "governs", "style": { "curved": true } },
+    { "id": "view-model-edge-goal-decision-2", "type": "decision", "source": "view-model-goal", "target": "view-model-decision-defaults", "sourcePort": "bottom", "targetPort": "top", "label": "governs", "style": { "curved": true } },
+    { "id": "view-model-edge-goal-decision-3", "type": "decision", "source": "view-model-goal", "target": "view-model-decision-aliases", "sourcePort": "bottom", "targetPort": "top", "label": "governs", "style": { "curved": true } },
+    { "id": "view-model-edge-goal-task-1", "type": "task", "source": "view-model-goal", "target": "view-model-task-resolution", "sourcePort": "bottom", "targetPort": "top", "label": "requires", "style": { "curved": true } },
+    { "id": "view-model-edge-goal-task-2", "type": "task", "source": "view-model-goal", "target": "view-model-task-primitives", "sourcePort": "bottom", "targetPort": "top", "label": "requires", "style": { "curved": true } },
+    { "id": "view-model-edge-goal-task-3", "type": "task", "source": "view-model-goal", "target": "view-model-task-port", "sourcePort": "bottom", "targetPort": "top", "label": "requires", "style": { "curved": true } },
+    { "id": "view-model-edge-goal-task-4", "type": "task", "source": "view-model-goal", "target": "view-model-task-compatibility", "sourcePort": "bottom", "targetPort": "top", "label": "requires", "style": { "curved": true } },
+    { "id": "view-model-edge-task-tests", "type": "sequence", "source": "view-model-task-resolution", "target": "view-model-task-tests", "sourcePort": "bottom", "targetPort": "top", "label": "prove", "style": { "curved": true } },
+    { "id": "view-model-edge-task-docs", "type": "sequence", "source": "view-model-task-primitives", "target": "view-model-task-docs", "sourcePort": "bottom", "targetPort": "top", "label": "document", "style": { "curved": true } },
+    { "id": "view-model-edge-task-question-content", "type": "question", "source": "view-model-task-port", "target": "view-model-question-port-content", "sourcePort": "bottom", "targetPort": "top", "label": "needs answer", "style": { "curved": true } },
+    { "id": "view-model-edge-task-question-aliases", "type": "question", "source": "view-model-task-compatibility", "target": "view-model-question-aliases", "sourcePort": "bottom", "targetPort": "top", "label": "needs answer", "style": { "curved": true } },
+    { "id": "view-model-edge-tests-risk", "type": "risk", "source": "view-model-task-tests", "target": "view-model-risk-overmodeling", "sourcePort": "bottom", "targetPort": "top", "label": "guards", "style": { "curved": true } },
+    { "id": "view-model-edge-tests-criteria", "type": "acceptance", "source": "view-model-task-tests", "target": "view-model-criteria", "sourcePort": "bottom", "targetPort": "top", "label": "proves", "style": { "curved": true } }
+  ],
+  "viewport": { "x": 0, "y": 0, "zoom": 0.72 }
+}

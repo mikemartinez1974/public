@@ -77,6 +77,7 @@
           "nodeTypes": [
             "declaration",
             "bridge",
+            "portal",
             "goal",
             "task",
             "decision",
@@ -142,11 +143,14 @@
           "payload": "node.web.summary",
           "surfaceId": "summary"
         },
-        "renderShape": { "kind": "svg" },
-        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 520 300\"><defs><linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop stop-color=\"#0f172a\"/><stop offset=\"1\" stop-color=\"#1d4ed8\"/></linearGradient></defs><rect x=\"6\" y=\"6\" width=\"508\" height=\"288\" rx=\"30\" fill=\"url(#g)\" stroke=\"#67e8f9\" stroke-width=\"4\"/><circle cx=\"132\" cy=\"140\" r=\"62\" fill=\"#082f49\" stroke=\"#22d3ee\" stroke-width=\"5\"/><path d=\"M96 140h72m-23-23 23 23-23 23\" fill=\"none\" stroke=\"#f8fafc\" stroke-width=\"9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><text x=\"226\" y=\"128\" fill=\"#f8fafc\" font-family=\"ui-sans-serif,system-ui\" font-size=\"27\" font-weight=\"800\">EXPOSED PORT</text><text x=\"226\" y=\"164\" fill=\"#bae6fd\" font-family=\"ui-sans-serif,system-ui\" font-size=\"27\" font-weight=\"800\">NAVIGATION</text><text x=\"226\" y=\"205\" fill=\"#a5f3fc\" font-family=\"ui-sans-serif,system-ui\" font-size=\"15\">Public addresses stop at the graph boundary.</text></svg>",
+        "sourceScope": "graph",
+        "sourceRef": "",
+        "sourceNodeId": "exposed-port-navigation-summary",
+        "sourcePayload": "node.web.summary",
+        "authority": "consume-view",
         "title": "Exposed Port Navigation",
         "description": "Implementation plan for declaration-governed public graph entry points.",
-        "authority": { "consumeView": true }
+        "memo": "This graph's public entry port presents the live summary node rather than copying its content."
       },
       "style": {
         "background": "transparent",
@@ -1157,6 +1161,13 @@
           "direction": "input",
           "dataType": "value",
           "angle": 270
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 90
         }
       ],
       "visible": true,
@@ -1205,6 +1216,13 @@
           "direction": "input",
           "dataType": "value",
           "angle": 270
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 90
         }
       ],
       "visible": true,
@@ -1463,6 +1481,37 @@
       }
     },
     {
+      "id": "portal-view-model-simplification",
+      "type": "portal",
+      "label": "View Model Simplification",
+      "position": { "x": 700, "y": 1580 },
+      "width": 520,
+      "height": 380,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 },
+        { "id": "bottom", "label": "bottom", "direction": "output", "dataType": "value", "angle": 90 }
+      ],
+      "data": {
+        "memo": "Open the view-model simplification plan and display its task-graph summary.",
+        "intent": "external",
+        "authority": "navigate",
+        "sourceRef": "github://mikemartinez1974/public/graphs/view-model-simplification-plan.node",
+        "sourceNodeId": "view-model-summary",
+        "sourcePayload": "node.web.summary",
+        "surfaceId": "summary",
+        "target": {
+          "endpoint": "github://mikemartinez1974/public/graphs/view-model-simplification-plan.node:root",
+          "ref": "github://mikemartinez1974/public/graphs/view-model-simplification-plan.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "summary",
+          "label": "Open View Model Simplification"
+        }
+      }
+    },
+    {
       "id": "exposed-port-navigation-summary",
       "type": "summary",
       "label": "Exposed Port Navigation",
@@ -1546,11 +1595,12 @@
     { "id": "edge-task-resolver-tests", "type": "sequence", "source": "task-exposure-resolver", "target": "task-smoke-tests", "sourcePort": "bottom", "targetPort": "top", "label": "then", "style": { "curved": true } },
     { "id": "edge-task-handoff-docs", "type": "sequence", "source": "task-navigation-handoff", "target": "task-documentation", "sourcePort": "bottom", "targetPort": "top", "label": "then", "style": { "curved": true } },
     { "id": "edge-task-errors-question-kinds", "type": "question", "source": "task-error-policy", "target": "question-navigable-kinds", "sourcePort": "bottom", "targetPort": "top", "label": "needs answer", "style": { "curved": true } },
-    { "id": "edge-question-kinds-default", "type": "question", "source": "question-navigable-kinds", "target": "question-default-missing", "sourcePort": "top", "targetPort": "top", "label": "related", "style": { "curved": true } },
+    { "id": "edge-question-kinds-default", "type": "question", "source": "question-navigable-kinds", "target": "question-default-missing", "sourcePort": "bottom", "targetPort": "top", "label": "related", "style": { "curved": true } },
     { "id": "edge-task-editor-risk-leak", "type": "risk", "source": "task-portal-editor", "target": "risk-abstraction-leak", "sourcePort": "bottom", "targetPort": "top", "label": "guards", "style": { "curved": true } },
     { "id": "edge-task-tests-risk-legacy", "type": "risk", "source": "task-smoke-tests", "target": "risk-legacy-links", "sourcePort": "bottom", "targetPort": "top", "label": "guards", "style": { "curved": true } },
-    { "id": "edge-task-docs-constraint", "type": "constraint", "source": "task-documentation", "target": "constraint-exposure-boundary", "sourcePort": "top", "targetPort": "top", "label": "documents", "style": { "curved": true } },
-    { "id": "edge-tests-criteria", "type": "acceptance", "source": "task-smoke-tests", "target": "criteria-navigation-contract", "sourcePort": "bottom", "targetPort": "top", "label": "proves", "style": { "curved": true } }
+    { "id": "edge-task-docs-constraint", "type": "constraint", "source": "task-documentation", "target": "constraint-exposure-boundary", "sourcePort": "bottom", "targetPort": "top", "label": "documents", "style": { "curved": true } },
+    { "id": "edge-tests-criteria", "type": "acceptance", "source": "task-smoke-tests", "target": "criteria-navigation-contract", "sourcePort": "bottom", "targetPort": "top", "label": "proves", "style": { "curved": true } },
+    { "id": "edge-port-editor-view-model", "type": "dependency", "source": "task-portal-editor", "target": "portal-view-model-simplification", "sourcePort": "bottom", "targetPort": "top", "label": "continues in", "style": { "curved": true } }
   ],
   "clusters": [],
   "settings": {
