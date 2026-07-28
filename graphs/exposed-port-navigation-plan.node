@@ -13,6 +13,7 @@
       "ports": [
         { "id": "left", "label": "left", "direction": "output", "dataType": "value", "angle": 180 },
         { "id": "right", "label": "right", "direction": "output", "dataType": "value", "angle": 0 },
+        { "id": "top", "label": "top", "direction": "output", "dataType": "value", "angle": 270 },
         { "id": "bottom", "label": "bottom", "direction": "output", "dataType": "value", "angle": 90 }
       ],
       "data": {
@@ -32,22 +33,23 @@
           "targetMode": "artifact",
           "artifactKind": "graph",
           "graphViewRole": "authoring",
-          "defaultSurfaceId": "root",
+          "defaultSurfaceId": "summary",
           "surfaces": [
             {
-              "id": "root",
-              "kind": "view",
+              "id": "summary",
+              "kind": "port",
               "label": "Navigation Plan",
-              "viewNodeId": "exposed-port-navigation-summary",
-              "memo": "Default exposed port for the implementation plan.",
+              "portNodeId": "exposed-port-navigation-port",
+              "viewNodeId": "exposed-port-navigation-port",
+              "memo": "The graph's sole exposed port and therefore its default root entry.",
               "exposes": {
                 "views": { "mode": "allow" },
                 "declarations": { "mode": "allow" }
               }
             }
           ],
-          "primaryNodeViewId": "exposed-port-navigation-summary",
-          "portViewNodeId": "exposed-port-navigation-summary"
+          "primaryNodeViewId": "exposed-port-navigation-port",
+          "portViewNodeId": "exposed-port-navigation-port"
         },
         "dependencies": {
           "nodeTypes": [
@@ -91,6 +93,43 @@
             "direction": "DOWN"
           }
         }
+      }
+    },
+    {
+      "id": "exposed-port-navigation-port",
+      "type": "port",
+      "label": "Exposed Port Navigation",
+      "position": { "x": 560, "y": -1180 },
+      "width": 520,
+      "height": 300,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "input", "dataType": "value", "angle": 270 },
+        { "id": "bottom", "label": "bottom", "direction": "output", "dataType": "value", "angle": 90 }
+      ],
+      "data": {
+        "identity": {
+          "graphId": "exposed-port-navigation-plan",
+          "name": "Exposed Port Navigation"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary",
+          "surfaceId": "summary"
+        },
+        "renderShape": { "kind": "svg" },
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 520 300\"><defs><linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop stop-color=\"#0f172a\"/><stop offset=\"1\" stop-color=\"#1d4ed8\"/></linearGradient></defs><rect x=\"6\" y=\"6\" width=\"508\" height=\"288\" rx=\"30\" fill=\"url(#g)\" stroke=\"#67e8f9\" stroke-width=\"4\"/><circle cx=\"132\" cy=\"140\" r=\"62\" fill=\"#082f49\" stroke=\"#22d3ee\" stroke-width=\"5\"/><path d=\"M96 140h72m-23-23 23 23-23 23\" fill=\"none\" stroke=\"#f8fafc\" stroke-width=\"9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><text x=\"226\" y=\"128\" fill=\"#f8fafc\" font-family=\"ui-sans-serif,system-ui\" font-size=\"27\" font-weight=\"800\">EXPOSED PORT</text><text x=\"226\" y=\"164\" fill=\"#bae6fd\" font-family=\"ui-sans-serif,system-ui\" font-size=\"27\" font-weight=\"800\">NAVIGATION</text><text x=\"226\" y=\"205\" fill=\"#a5f3fc\" font-family=\"ui-sans-serif,system-ui\" font-size=\"15\">Public addresses stop at the graph boundary.</text></svg>",
+        "title": "Exposed Port Navigation",
+        "description": "Implementation plan for declaration-governed public graph entry points.",
+        "authority": { "consumeView": true }
+      },
+      "style": {
+        "background": "transparent",
+        "border": "none",
+        "padding": 0,
+        "borderRadius": 30,
+        "boxShadow": "0 24px 70px rgba(34,211,238,0.25)"
       }
     },
     {
@@ -439,7 +478,7 @@
     {
       "id": "decision-root-alias",
       "type": "decision",
-      "label": "Root is the default exposure alias",
+      "label": "Root is a virtual alias for the default exposed port",
       "position": { "x": -500, "y": 180 },
       "width": 430,
       "height": 260,
@@ -449,8 +488,8 @@
         { "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 }
       ],
       "data": {
-        "rationale": "Root names the graph's default public entry, not a node handle and not an internal node.",
-        "body": "Leaving the suffix off and explicitly adding :root must resolve the same declaration-governed default port.",
+        "rationale": "Root names a public entry role. It is not a literal port name, node ID, handle, or internal address.",
+        "body": "A graph with no exposed ports opens normally. A graph with one exposed port automatically uses it as root and the editor should persist that choice. A graph with multiple exposed ports requires a valid defaultSurfaceId. Leaving the suffix off and explicitly adding :root are equivalent.",
         "status": "decided",
         "decidedAt": "2026-07-28",
         "owner": "Michael",
@@ -548,7 +587,8 @@
       "data": {
         "body": "Introduce a public navigation parser for graph.node, graph.node:root, and graph.node:port-name without changing the broader internal endpoint parser.",
         "priority": "high",
-        "status": "todo",
+        "status": "done",
+        "completedAt": "2026-07-28",
         "owner": "Michael",
         "acceptanceCriteria": [
           "HTTP host port numbers remain unambiguous",
@@ -584,7 +624,8 @@
       "data": {
         "body": "Resolve bare and :root requests through defaultSurfaceId. Resolve named requests only through declaration.surfaces and return an explicit not-exposed result instead of silently selecting another surface.",
         "priority": "high",
-        "status": "todo",
+        "status": "done",
+        "completedAt": "2026-07-28",
         "owner": "Michael",
         "acceptanceCriteria": [
           "Arbitrary internal node IDs are never considered",
@@ -620,7 +661,8 @@
       "data": {
         "body": "Carry the requested exposed-port name from PortNode through fetchUrl. Fetch only the graph artifact, then resolve and focus the declaration-selected port node after loading.",
         "priority": "high",
-        "status": "todo",
+        "status": "done",
+        "completedAt": "2026-07-28",
         "owner": "Michael",
         "acceptanceCriteria": [
           "Browser history retains the public graph-port address",
@@ -798,8 +840,9 @@
         { "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 }
       ],
       "data": {
-        "body": "Decide whether every declaration surface is a navigable public port or whether navigation is restricted to entry/view surfaces while export surfaces remain non-navigable.",
-        "status": "open",
+        "body": "Resolved: public navigation is restricted to declaration surfaces that bind to an actual node of type port. Export, view, and entry surfaces do not become public navigation targets merely by existing.",
+        "status": "answered",
+        "answer": "Only declaration surfaces resolving through portNodeId or the compatible viewNodeId field to a real port node are navigable.",
         "owner": "Michael",
         "resolutionPath": "Audit current declaration surface kinds and choose an explicit allowlist.",
         "prominence": "high",
@@ -820,7 +863,7 @@
     {
       "id": "question-default-missing",
       "type": "open-question",
-      "label": "What happens when a graph has no valid default exposure?",
+      "label": "How long should ambiguous legacy defaults be tolerated?",
       "position": { "x": 700, "y": 1240 },
       "width": 450,
       "height": 280,
@@ -830,7 +873,7 @@
         { "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 }
       ],
       "data": {
-        "body": "Choose between a hard declaration error, a legacy whole-graph fallback, or a migration-only compatibility rule when defaultSurfaceId is absent or points to a missing node.",
+        "body": "The zero-port case is resolved: open the graph normally. The remaining compatibility question applies only to graphs with multiple exposed ports and no valid defaultSurfaceId; they should open without focus and report a warning rather than choose arbitrarily.",
         "status": "open",
         "owner": "Michael",
         "resolutionPath": "Inventory existing public graphs before selecting the compatibility window.",
@@ -995,7 +1038,8 @@
       "visible": true,
       "showLabel": true,
       "ports": [
-        { "id": "left", "label": "left", "direction": "input", "dataType": "value", "angle": 180 }
+        { "id": "left", "label": "left", "direction": "input", "dataType": "value", "angle": 180 },
+        { "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 }
       ],
       "data": {
         "goal": "Navigate to declared graph ports without exposing internal nodes",
@@ -1003,10 +1047,10 @@
         "priority": "high",
         "owner": "Michael",
         "health": "on-track",
-        "nextAction": "Resolve the two remaining policy questions, then implement the public navigation parser and strict exposure resolver.",
+        "nextAction": "Exercise the new behavior in-app, finish the portal editor selector, then update contracts and onboarding guidance.",
         "blockedReason": "",
-        "taskProgress": { "completed": 0, "total": 7 },
-        "questionProgress": { "answered": 0, "total": 2 },
+        "taskProgress": { "completed": 3, "total": 7 },
+        "questionProgress": { "answered": 1, "total": 2 },
         "taskTitles": [
           "Create a graph-navigation address parser",
           "Build a strict declaration exposure resolver",
@@ -1018,7 +1062,7 @@
         ],
         "questionTitles": [
           "Which declaration surface kinds are navigable?",
-          "What happens when a graph has no valid default exposure?"
+          "How long should ambiguous legacy defaults be tolerated?"
         ],
         "summarySource": "authored",
         "nodeViewPayload": "node.web",
@@ -1047,7 +1091,8 @@
     { "id": "edge-declaration-bridge-criteria", "type": "reference", "source": "exposed-port-navigation-declaration", "target": "bridge-criteria", "sourcePort": "right", "targetPort": "left", "label": "class authority", "style": { "curved": true } },
     { "id": "edge-declaration-bridge-summary", "type": "reference", "source": "exposed-port-navigation-declaration", "target": "bridge-summary", "sourcePort": "right", "targetPort": "left", "label": "class authority", "style": { "curved": true } },
     { "id": "edge-declaration-goal", "type": "defines", "source": "exposed-port-navigation-declaration", "target": "navigation-goal", "sourcePort": "bottom", "targetPort": "top", "label": "goal", "style": { "curved": true } },
-    { "id": "edge-declaration-summary", "type": "exposes", "source": "exposed-port-navigation-declaration", "target": "exposed-port-navigation-summary", "sourcePort": "right", "targetPort": "left", "label": "root", "style": { "curved": true } },
+    { "id": "edge-declaration-port", "type": "exposes", "source": "exposed-port-navigation-declaration", "target": "exposed-port-navigation-port", "sourcePort": "top", "targetPort": "root", "label": "summary · root alias", "style": { "curved": true } },
+    { "id": "edge-port-summary", "type": "presents", "source": "exposed-port-navigation-port", "target": "exposed-port-navigation-summary", "sourcePort": "bottom", "targetPort": "top", "label": "summary view", "style": { "curved": true } },
     { "id": "edge-goal-decision-public", "type": "decision", "source": "navigation-goal", "target": "decision-public-address", "sourcePort": "bottom", "targetPort": "top", "label": "governs", "style": { "curved": true } },
     { "id": "edge-goal-decision-root", "type": "decision", "source": "navigation-goal", "target": "decision-root-alias", "sourcePort": "bottom", "targetPort": "top", "label": "governs", "style": { "curved": true } },
     { "id": "edge-goal-decision-direction", "type": "decision", "source": "navigation-goal", "target": "decision-directed-default", "sourcePort": "bottom", "targetPort": "top", "label": "governs", "style": { "curved": true } },
