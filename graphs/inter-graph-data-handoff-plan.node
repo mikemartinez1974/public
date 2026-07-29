@@ -7,7 +7,7 @@
     "version": "0.1.0",
     "kind": "task-graph",
     "created": "2026-07-29T18:32:54.326Z",
-    "modified": "2026-07-29T18:45:07.000Z",
+    "modified": "2026-07-29T19:06:59.698Z",
     "author": "",
     "tags": [
       "task-graph"
@@ -611,7 +611,7 @@
       "data": {
         "title": "Deliver typed data across a portal-port boundary",
         "outcome": "A portal can navigate to an exposed port with a validated one-way JSON handoff, and the destination graph can receive it without turning graph authoring into programming.",
-        "status": "waiting",
+        "status": "open",
         "priority": "high",
         "owner": "Michael",
         "_classBinding": {
@@ -1258,27 +1258,11 @@
       "label": "Task Graph Updater",
       "root": false,
       "position": {
-        "x": 1200,
-        "y": -500
+        "x": 756.939060205866,
+        "y": -741.6696035240731
       },
       "width": 360,
       "height": 220,
-      "handles": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        }
-      ],
       "ports": [
         {
           "id": "root",
@@ -1308,6 +1292,18 @@
         "source": "const SUMMARY_NODE_ID='data-handoff-summary';const DONE=new Set(['done','complete','completed','closed']);const ANSWERED=new Set(['answered','done','resolved','closed']);const norm=v=>String(v||'').trim().toLowerCase();const normalizeStatus=v=>{const s=norm(v);if(['open','todo','backlog'].includes(s))return 'todo';if(['active','in-progress','in progress'].includes(s))return 'in-progress';if(['achieved','done','complete','completed','closed','resolved'].includes(s))return 'done';if(s==='blocked')return 'blocked';if(['waiting','deferred','paused'].includes(s))return 'waiting';if(['cancelled','canceled','abandoned'].includes(s))return 'cancelled';return s||'todo';};const nodes=await api.getNodes();const summary=nodes.find(n=>n.id===SUMMARY_NODE_ID);const goal=nodes.find(n=>n.type==='goal');if(!summary)return {success:false,error:'Summary node missing'};const byCanvas=(a,b)=>(a.position?.y??0)-(b.position?.y??0)||(a.position?.x??0)-(b.position?.x??0);const tasks=nodes.filter(n=>n.type==='task'&&n.data?.countAsTask!==false).sort(byCanvas);const questions=nodes.filter(n=>n.type==='open-question').sort(byCanvas);const completed=tasks.filter(n=>DONE.has(norm(n.data?.status))).length;const answered=questions.filter(n=>ANSWERED.has(norm(n.data?.status))).length;const goalStatus=normalizeStatus(goal?.data?.status);const active=tasks.some(n=>normalizeStatus(n.data?.status)==='in-progress');const status=goalStatus==='todo'&&(completed>0||active)?'in-progress':goalStatus;const taskTitles=tasks.map(n=>n.data?.title||n.label).filter(Boolean);const questionTitles=questions.map(n=>n.data?.title||n.label).filter(Boolean);const next={...(summary.data||{}),goal:goal?.data?.title||goal?.label||summary.data?.goal||'Task graph',status,priority:goal?.data?.priority||summary.data?.priority||'medium',owner:goal?.data?.owner||summary.data?.owner||'',targetDate:goal?.data?.targetDate||summary.data?.targetDate||'',taskProgress:{completed,total:tasks.length},questionProgress:{answered,total:questions.length},taskTitles,questionTitles,taskListText:taskTitles.map((title,index)=>(index+1)+'. '+title).join('\\n'),questionListText:questionTitles.map((title,index)=>(index+1)+'. '+title).join('\\n'),summarySource:'node-updater',updatedAt:new Date().toISOString()};await api.updateNode(SUMMARY_NODE_ID,{data:next});return {success:true,summary:next};",
         "identity": {
           "graphId": "data-handoff-declaration"
+        },
+        "_semanticLevel": "detail",
+        "scriptId": "",
+        "lastResult": null,
+        "lastRunAt": null,
+        "scriptRef": "",
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1785352008374,
+          "reason": "node-drag"
         }
       }
     },
@@ -1342,7 +1338,7 @@
       "showLabel": true,
       "data": {
         "goal": "Deliver typed data across a portal-port boundary",
-        "status": "waiting",
+        "status": "todo",
         "priority": "high",
         "owner": "Michael",
         "health": "on-track",
@@ -1371,7 +1367,7 @@
           "How does a graph observe received data?"
         ],
         "summarySource": "node-updater",
-        "updatedAt": "2026-07-29T18:45:07.000Z",
+        "updatedAt": "2026-07-29T19:06:50.229Z",
         "nodeViewPayload": "node.web",
         "definitionKey": "summary",
         "_classBinding": {
@@ -1380,7 +1376,12 @@
         },
         "identity": {
           "graphId": "inter-graph-data-handoff-plan"
-        }
+        },
+        "targetDate": "",
+        "taskListText": "1. Define the handoff envelope\n2. Make port inputs and outputs enforceable\n3. Define portal-to-input binding\n4. Carry the handoff through navigation\n5. Deliver to a destination input\n6. Enforce authority and report failures\n7. Build a two-graph smoke test\n8. Document the channel model",
+        "questionListText": "1. Where should a navigation handoff live?\n2. How does a graph observe received data?",
+        "memo": "",
+        "link": ""
       }
     }
   ],
