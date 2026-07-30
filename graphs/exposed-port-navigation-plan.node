@@ -1569,7 +1569,71 @@
           "graphId": "exposed-port-navigation-declaration"
         }
       }
-    }
+    },
+  {
+      "id": "exposed-port-navigation-summary-updater",
+      "type": "script",
+      "label": "Exposed Port Navigation Summary Updater",
+      "root": false,
+      "position": {
+          "x": 1120,
+          "y": -760
+      },
+      "width": 380,
+      "height": 220,
+      "ports": [
+          {
+              "id": "root",
+              "label": "root",
+              "direction": "bidirectional",
+              "dataType": "any",
+              "angle": 210
+          },
+          {
+              "id": "top",
+              "label": "top",
+              "direction": "bidirectional",
+              "dataType": "value",
+              "angle": 270
+          },
+          {
+              "id": "left",
+              "label": "left",
+              "direction": "bidirectional",
+              "dataType": "value",
+              "angle": 180
+          },
+          {
+              "id": "bottom",
+              "label": "bottom",
+              "direction": "bidirectional",
+              "dataType": "value",
+              "angle": 90
+          },
+          {
+              "id": "right",
+              "label": "right",
+              "direction": "bidirectional",
+              "dataType": "value",
+              "angle": 0
+          }
+      ],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+          "allowMutations": true,
+          "autoRun": true,
+          "autoRunOnGraphChange": true,
+          "autoRunOnLoad": true,
+          "dryRun": false,
+          "identity": {
+              "graphId": "exposed-port-navigation-plan"
+          },
+          "scriptName": "Exposed Port Navigation Summary Updater",
+          "source": "const SUMMARY_NODE_ID='exposed-port-navigation-summary';const DONE=new Set(['done','complete','completed','closed']);const ANSWERED=new Set(['answered','done','resolved','closed']);const norm=v=>String(v||'').trim().toLowerCase();const normalizeStatus=v=>{const s=norm(v);if(['open','todo','backlog'].includes(s))return 'todo';if(['active','in-progress','in progress'].includes(s))return 'in-progress';if(['achieved','done','complete','completed','closed','resolved'].includes(s))return 'done';if(s==='blocked')return 'blocked';if(['waiting','deferred','paused'].includes(s))return 'waiting';if(['cancelled','canceled','abandoned'].includes(s))return 'cancelled';return s||'todo';};const nodes=await api.getNodes();const summary=nodes.find(n=>n.id===SUMMARY_NODE_ID);const goal=nodes.find(n=>n.type==='goal');const byCanvasOrder=(a,b)=>(a.position?.y??0)-(b.position?.y??0)||(a.position?.x??0)-(b.position?.x??0);const tasks=nodes.filter(n=>n.type==='task').sort(byCanvasOrder);const questions=nodes.filter(n=>n.type==='open-question').sort(byCanvasOrder);if(!summary)return {success:false,error:'Summary node missing'};const completed=tasks.filter(n=>DONE.has(norm(n.data?.status))).length;const answered=questions.filter(n=>ANSWERED.has(norm(n.data?.status))).length;const hasActive=tasks.some(n=>normalizeStatus(n.data?.status)==='in-progress');const allDone=tasks.length>0&&completed===tasks.length;const goalStatus=normalizeStatus(goal?.data?.status);const status=goalStatus==='done'&&!allDone?'in-progress':goalStatus==='todo'&&(hasActive||completed>0)?'in-progress':goalStatus;const next={...(summary.data||{}),goal:goal?.data?.outcome||goal?.label||summary.data?.goal||'Task graph',status,priority:goal?.data?.priority||summary.data?.priority||'medium',owner:goal?.data?.owner||summary.data?.owner||'',targetDate:goal?.data?.targetDate||summary.data?.targetDate||'',taskProgress:{completed,total:tasks.length},questionProgress:{answered,total:questions.length},taskTitles:tasks.map(n=>n.data?.title||n.label),questionTitles:questions.map(n=>n.data?.question||n.label),taskListText:tasks.map((n,i)=>(i+1)+'. '+(n.data?.title||n.label)).join('\\n'),questionListText:questions.map((n,i)=>(i+1)+'. '+(n.data?.question||n.label)).join('\\n'),summarySource:'node-updater',updatedAt:new Date().toISOString()};await api.updateNode(SUMMARY_NODE_ID,{data:next});return {success:true,summary:next};",
+          "summaryNodeId": "exposed-port-navigation-summary"
+      }
+  }
   ],
   "edges": [
     { "id": "edge-declaration-bridge-goal", "type": "reference", "source": "exposed-port-navigation-declaration", "target": "bridge-goal", "sourcePort": "left", "targetPort": "right", "label": "class authority", "style": { "curved": true } },
