@@ -1,0 +1,470 @@
+{
+  "metadata": {
+    "graphId": "graph-scoped-skills",
+    "title": "Graph-Scoped Skills",
+    "kind": "task",
+    "version": "0.1.0",
+    "updatedAt": "2026-07-31T14:00:00.000Z"
+  },
+  "nodes": [
+    {
+      "id": "graph-skills-declaration",
+      "type": "declaration",
+      "label": "Graph-Scoped Skills",
+      "position": { "x": -1050, "y": -650 },
+      "width": 430,
+      "height": 300,
+      "visible": false,
+      "showLabel": true,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+        { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 },
+        { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 },
+        { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 },
+        { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "data": {
+        "identity": { "graphId": "graph-scoped-skills", "name": "Graph-Scoped Skills", "version": "0.1.0", "description": "Plan safe discovery and contextual activation of graph-declared skill packages." },
+        "intent": { "kind": "task", "scope": "graph-scoped-skill-context" },
+        "summaryNodeId": "graph-skills-summary",
+        "declaration": {
+          "kind": "task",
+          "graphViewRole": "authoring",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "summary",
+          "surfaces": [
+            { "id": "summary", "kind": "view", "label": "Graph-Scoped Skills", "portNodeId": "graph-skills-root-port", "viewNodeId": "graph-skills-summary", "memo": "Task-shaped outward summary for collections and workboards." }
+          ],
+          "notes": [
+            "Graph-declared skills provide scoped context; they do not grant tools or mutation authority.",
+            "Skill references must be explicit, resolvable, inspectable, and attributable.",
+            "This project is not a general plugin framework."
+          ]
+        },
+        "dependencies": {
+          "nodeTypes": ["declaration", "port", "summary", "goal", "task", "decision", "open-question", "risk", "acceptance-criteria", "bridge", "script"],
+          "portContracts": ["core"],
+          "skills": ["twilite-planning-graphs"],
+          "optional": []
+        },
+        "authority": { "mutation": { "allowCreate": true, "allowUpdate": true, "allowDelete": true, "appendOnly": false }, "actors": { "humans": true, "agents": true, "tools": true } },
+        "settings": { "defaultNodeColor": "#2563eb", "defaultEdgeColor": "#64748b", "snapToGrid": false, "gridSize": 20, "edgeRouting": "auto" }
+      }
+    },
+    {
+      "id": "graph-skills-root-port",
+      "type": "port",
+      "label": "Graph-Scoped Skills",
+      "root": true,
+      "position": { "x": 250, "y": -920 },
+      "width": 460,
+      "height": 300,
+      "visible": false,
+      "showLabel": true,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+        { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 },
+        { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 },
+        { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 },
+        { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "data": {
+        "identity": { "graphId": "graph-scoped-skills" },
+        "sourceNodeId": "graph-skills-summary",
+        "sourcePayload": "node.web",
+        "renderedNodeType": "task",
+        "view": { "intent": "node", "payload": "node.web", "nodeType": "task", "label": "Graph-Scoped Skills" },
+        "payload": "node.web",
+        "intent": "node",
+        "viewRole": "summary",
+        "semanticLevel": "summary",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "graph-skills-summary",
+      "type": "summary",
+      "label": "Graph-Scoped Skills",
+      "position": { "x": 250, "y": -730 },
+      "width": 520,
+      "height": 360,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+        { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 },
+        { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 },
+        { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 },
+        { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "data": {
+        "_classBinding": { "key": "summary", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node" },
+        "definitionKey": "summary",
+        "identity": { "graphId": "graph-scoped-skills" },
+        "goal": "Make graph-adjacent skills discoverable as safe, scoped agent context",
+        "status": "todo",
+        "priority": "high",
+        "owner": "Michael",
+        "health": "on-track",
+        "nextAction": "Resolve activation and trust policy, then implement the resolver behind a bounded workboard-template smoke test.",
+        "blockedReason": "",
+        "taskProgress": { "completed": 0, "total": 8 },
+        "questionProgress": { "answered": 0, "total": 3 },
+        "taskTitles": ["Specify the skill reference contract", "Implement graph skill discovery", "Classify trust and provenance", "Assemble bounded agent context", "Expose skill state in the interface", "Define cache and failure behavior", "Prove authority isolation", "Run the workboard-template smoke test"],
+        "questionTitles": ["When should a declared skill activate?", "Which remote skills may load automatically?", "How should skill versions and caches behave?"],
+        "taskListText": "1. Specify the skill reference contract\n2. Implement graph skill discovery\n3. Classify trust and provenance\n4. Assemble bounded agent context\n5. Expose skill state in the interface\n6. Define cache and failure behavior\n7. Prove authority isolation\n8. Run the workboard-template smoke test",
+        "questionListText": "1. When should a declared skill activate?\n2. Which remote skills may load automatically?\n3. How should skill versions and caches behave?",
+        "summarySource": "node-updater",
+        "updatedAt": "2026-07-31T14:00:00.000Z"
+      }
+    },
+    {
+      "id": "graph-skills-goal",
+      "type": "goal",
+      "label": "Make graph-adjacent skills safe, discoverable context",
+      "position": { "x": 250, "y": -250 },
+      "width": 520,
+      "height": 280,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+        { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 },
+        { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 },
+        { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 },
+        { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "data": {
+        "_classBinding": { "key": "goal", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node" },
+        "definitionKey": "goal",
+        "identity": { "graphId": "graph-scoped-skills" },
+        "body": "A graph may explicitly reference a nearby or remote SKILL.md. Twilite resolves and identifies it, exposes its provenance, and makes it available as bounded graph context without allowing the skill to grant tools, mutations, or broader authority.",
+        "owner": "Michael",
+        "priority": "high",
+        "status": "todo",
+        "successMetrics": ["Workboard template skill resolves from an explicit graph declaration reference", "Users can see which skills are active and where they came from", "Untrusted skill text cannot grant tools or mutation authority", "Missing or invalid skills degrade visibly without preventing graph load"]
+      }
+    },
+    {
+      "id": "graph-skills-decision-explicit-ref",
+      "type": "decision",
+      "label": "Skill dependencies require explicit references",
+      "position": { "x": -380, "y": -250 },
+      "width": 500,
+      "height": 250,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "data": { "_classBinding": { "key": "decision", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node" }, "definitionKey": "decision", "identity": { "graphId": "graph-scoped-skills" }, "status": "decided", "owner": "Michael", "decidedAt": "2026-07-31", "rationale": "A bare skill name cannot identify a resource. New declarations should provide a key and durable ref; compatibility may preserve existing string entries as unresolved hints." }
+    },
+    {
+      "id": "graph-skills-decision-context-only",
+      "type": "decision",
+      "label": "Skill text supplies context, never authority",
+      "position": { "x": 880, "y": -250 },
+      "width": 500,
+      "height": 250,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "data": { "_classBinding": { "key": "decision", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node" }, "definitionKey": "decision", "identity": { "graphId": "graph-scoped-skills" }, "status": "decided", "owner": "Michael", "decidedAt": "2026-07-31", "rationale": "Resolved SKILL.md text may guide reasoning only. Tool availability, mutation rights, repository access, and bridge authority remain host-controlled and cannot be expanded by instructions inside the skill." }
+    },
+    {
+      "id": "graph-skills-risk-injection",
+      "type": "risk",
+      "label": "Remote skill content can carry hostile instructions",
+      "position": { "x": -380, "y": 80 },
+      "width": 500,
+      "height": 260,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "data": { "_classBinding": { "key": "risk", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/risk.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/risk.node-class.node" }, "definitionKey": "risk", "identity": { "graphId": "graph-scoped-skills" }, "status": "open", "owner": "Michael", "severity": "critical", "likelihood": "possible", "body": "A graph author can reference arbitrary remote text. Without provenance, size limits, trust classification, and authority isolation, contextual guidance becomes a prompt-injection channel.", "mitigation": "Require explicit refs, identify origin, bound size, show activation, keep tools host-controlled, and fail closed on invalid skill structure." }
+    },
+    {
+      "id": "graph-skills-acceptance",
+      "type": "acceptance-criteria",
+      "label": "A safe contextual handshake",
+      "position": { "x": 880, "y": 80 },
+      "width": 500,
+      "height": 290,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "data": { "_classBinding": { "key": "acceptance-criteria", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/acceptance-criteria.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/acceptance-criteria.node-class.node" }, "definitionKey": "acceptance-criteria", "identity": { "graphId": "graph-scoped-skills" }, "status": "open", "owner": "Michael", "criteria": ["Opening the workboard template resolves its adjacent skill by explicit declaration ref", "The interface shows skill name, origin, scope, trust state, and load failure", "The agent receives bounded skill context only while the graph is focused", "A skill cannot add tools, mutation authority, or bridge grants", "Missing, malformed, oversized, or denied skills do not prevent the graph from opening"] }
+    },
+    {
+      "id": "graph-skills-task-contract",
+      "type": "task",
+      "label": "Specify the skill reference contract",
+      "position": { "x": -380, "y": 470 },
+      "width": 460,
+      "height": 250,
+      "visible": true,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 } ],
+      "data": { "_classBinding": { "key": "task", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" }, "definitionKey": "task", "identity": { "graphId": "graph-scoped-skills" }, "title": "Specify the skill reference contract", "body": "Define explicit key, ref, scope, optional version or digest, activation policy, and backward-compatible treatment of bare string hints.", "status": "todo", "priority": "critical", "owner": "Michael" }
+    },
+    {
+      "id": "graph-skills-task-discovery",
+      "type": "task",
+      "label": "Implement graph skill discovery",
+      "position": { "x": 130, "y": 470 },
+      "width": 460,
+      "height": 250,
+      "visible": true,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 } ],
+      "data": { "_classBinding": { "key": "task", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" }, "definitionKey": "task", "identity": { "graphId": "graph-scoped-skills" }, "title": "Implement graph skill discovery", "body": "Read declared skill refs from the focused graph, resolve legal GitHub and HTTP resources, validate SKILL.md frontmatter, and return stable provenance and failure states.", "status": "todo", "priority": "high", "owner": "Michael" }
+    },
+    {
+      "id": "graph-skills-task-trust",
+      "type": "task",
+      "label": "Classify trust and provenance",
+      "position": { "x": 640, "y": 470 },
+      "width": 460,
+      "height": 250,
+      "visible": true,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 } ],
+      "data": { "_classBinding": { "key": "task", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" }, "definitionKey": "task", "identity": { "graphId": "graph-scoped-skills" }, "title": "Classify trust and provenance", "body": "Distinguish local, same-repository, authenticated private, and arbitrary remote skills. Make the source and trust decision visible and inspectable.", "status": "todo", "priority": "critical", "owner": "Michael" }
+    },
+    {
+      "id": "graph-skills-task-context",
+      "type": "task",
+      "label": "Assemble bounded agent context",
+      "position": { "x": 1150, "y": 470 },
+      "width": 460,
+      "height": 250,
+      "visible": true,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 } ],
+      "data": { "_classBinding": { "key": "task", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" }, "definitionKey": "task", "identity": { "graphId": "graph-scoped-skills" }, "title": "Assemble bounded agent context", "body": "Make validated skill metadata available on graph focus and load the body only under the chosen activation policy. Bound count, size, and lifetime to the focused graph.", "status": "todo", "priority": "high", "owner": "Michael" }
+    },
+    {
+      "id": "graph-skills-task-ui",
+      "type": "task",
+      "label": "Expose skill state in the interface",
+      "position": { "x": -380, "y": 790 },
+      "width": 460,
+      "height": 250,
+      "visible": true,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 } ],
+      "data": { "_classBinding": { "key": "task", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" }, "definitionKey": "task", "identity": { "graphId": "graph-scoped-skills" }, "title": "Expose skill state in the interface", "body": "Show active, available, blocked, invalid, and failed skills with origin and scope. Keep the indication compact and inspectable.", "status": "todo", "priority": "medium", "owner": "Michael" }
+    },
+    {
+      "id": "graph-skills-task-cache",
+      "type": "task",
+      "label": "Define cache and failure behavior",
+      "position": { "x": 130, "y": 790 },
+      "width": 460,
+      "height": 250,
+      "visible": true,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 } ],
+      "data": { "_classBinding": { "key": "task", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" }, "definitionKey": "task", "identity": { "graphId": "graph-scoped-skills" }, "title": "Define cache and failure behavior", "body": "Specify refresh, cache keys, version or digest pinning, stale states, size limits, timeouts, and non-blocking graph load failures.", "status": "todo", "priority": "medium", "owner": "Michael" }
+    },
+    {
+      "id": "graph-skills-task-authority-test",
+      "type": "task",
+      "label": "Prove authority isolation",
+      "position": { "x": 640, "y": 790 },
+      "width": 460,
+      "height": 250,
+      "visible": true,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 } ],
+      "data": { "_classBinding": { "key": "task", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" }, "definitionKey": "task", "identity": { "graphId": "graph-scoped-skills" }, "title": "Prove authority isolation", "body": "Test hostile skill instructions, tool requests, mutation attempts, cross-graph persistence, malformed frontmatter, oversized bodies, and denied private refs.", "status": "todo", "priority": "critical", "owner": "Michael" }
+    },
+    {
+      "id": "graph-skills-task-smoke",
+      "type": "task",
+      "label": "Run the workboard-template smoke test",
+      "position": { "x": 1150, "y": 790 },
+      "width": 460,
+      "height": 250,
+      "visible": true,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 } ],
+      "data": { "_classBinding": { "key": "task", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node" }, "definitionKey": "task", "identity": { "graphId": "graph-scoped-skills" }, "title": "Run the workboard-template smoke test", "body": "Point the workboard template declaration at its adjacent SKILL.md, prove discovery and contextual use, then verify graph behavior remains unchanged when the skill is unavailable.", "status": "todo", "priority": "high", "owner": "Michael" }
+    },
+    {
+      "id": "graph-skills-question-activation",
+      "type": "open-question",
+      "label": "When should a declared skill activate?",
+      "position": { "x": -380, "y": 1130 },
+      "width": 500,
+      "height": 260,
+      "visible": true,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 } ],
+      "data": { "_classBinding": { "key": "open-question", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node" }, "definitionKey": "open-question", "identity": { "graphId": "graph-scoped-skills" }, "body": "Choose between metadata-on-focus with body-on-demand, automatic body activation for trusted graph-local skills, or explicit user activation in every case.", "status": "open", "owner": "Michael", "prominence": "high", "resolutionPath": "" }
+    },
+    {
+      "id": "graph-skills-question-trust",
+      "type": "open-question",
+      "label": "Which remote skills may load automatically?",
+      "position": { "x": 250, "y": 1130 },
+      "width": 500,
+      "height": 260,
+      "visible": true,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 } ],
+      "data": { "_classBinding": { "key": "open-question", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node" }, "definitionKey": "open-question", "identity": { "graphId": "graph-scoped-skills" }, "body": "Define whether same-origin, same-repository, authenticated private, and arbitrary HTTPS skills receive different defaults or always require confirmation.", "status": "open", "owner": "Michael", "prominence": "high", "resolutionPath": "" }
+    },
+    {
+      "id": "graph-skills-question-cache",
+      "type": "open-question",
+      "label": "How should skill versions and caches behave?",
+      "position": { "x": 880, "y": 1130 },
+      "width": 500,
+      "height": 260,
+      "visible": true,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 } ],
+      "data": { "_classBinding": { "key": "open-question", "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node" }, "definitionKey": "open-question", "identity": { "graphId": "graph-scoped-skills" }, "body": "Decide whether refs track moving branch content, optionally pin a digest or version, and how Refresh communicates fresh, stale, and failed skill context.", "status": "open", "owner": "Michael", "prominence": "normal", "resolutionPath": "" }
+    },
+    {
+      "id": "graph-skills-updater",
+      "type": "script",
+      "label": "Summary Updater",
+      "position": { "x": -1050, "y": -300 },
+      "width": 420,
+      "height": 260,
+      "visible": false,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 } ],
+      "data": {
+        "identity": { "graphId": "graph-scoped-skills" },
+        "summaryNodeId": "graph-skills-summary",
+    "autoRunOnGraphChange": true,
+        "source": "const SUMMARY='graph-skills-summary';const DONE=new Set(['done','complete','completed','closed']);const ANSWERED=new Set(['answered','resolved','done','closed']);const norm=v=>String(v||'').trim().toLowerCase();const nodes=await api.getNodes();const summary=nodes.find(n=>n.id===SUMMARY);const goal=nodes.find(n=>n.type==='goal');const tasks=nodes.filter(n=>n.type==='task').sort((a,b)=>(a.position?.y??0)-(b.position?.y??0)||(a.position?.x??0)-(b.position?.x??0));const questions=nodes.filter(n=>n.type==='open-question').sort((a,b)=>(a.position?.y??0)-(b.position?.y??0)||(a.position?.x??0)-(b.position?.x??0));if(!summary)return{success:false,error:'Summary node missing'};const completed=tasks.filter(n=>DONE.has(norm(n.data?.status))).length;const answered=questions.filter(n=>ANSWERED.has(norm(n.data?.status))).length;const next={...(summary.data||{}),goal:goal?.label||summary.data?.goal||'Task graph',status:norm(goal?.data?.status)||'todo',priority:goal?.data?.priority||summary.data?.priority||'medium',owner:goal?.data?.owner||summary.data?.owner||'',taskProgress:{completed,total:tasks.length},questionProgress:{answered,total:questions.length},taskTitles:tasks.map(n=>n.data?.title||n.label),questionTitles:questions.map(n=>n.label),taskListText:tasks.map((n,i)=>(i+1)+'. '+(n.data?.title||n.label)).join('\\n'),questionListText:questions.map((n,i)=>(i+1)+'. '+n.label).join('\\n'),summarySource:'node-updater',updatedAt:new Date().toISOString()};await api.updateNode(SUMMARY,{data:next});return{success:true,summary:next};"
+      }
+    },
+    {
+      "id": "graph-skills-bridge-goal",
+      "type": "bridge",
+      "label": "Goal",
+      "position": { "x": -1050, "y": 50 },
+      "width": 300,
+      "height": 120,
+      "visible": false,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 } ],
+      "data": { "authority": "bridge", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"], "bridge": { "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"] }, "_bridge": { "classKey": "goal", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node", "kind": "node-class", "targetKind": "node-class", "entryPort": "root" } }
+    },
+    {
+      "id": "graph-skills-bridge-task",
+      "type": "bridge",
+      "label": "Task",
+      "position": { "x": -1050, "y": 210 },
+      "width": 300,
+      "height": 120,
+      "visible": false,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 } ],
+      "data": { "authority": "bridge", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"], "bridge": { "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"] }, "_bridge": { "classKey": "task", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node", "kind": "node-class", "targetKind": "node-class", "entryPort": "root" } }
+    },
+    {
+      "id": "graph-skills-bridge-decision",
+      "type": "bridge",
+      "label": "Decision",
+      "position": { "x": -1050, "y": 370 },
+      "width": 300,
+      "height": 120,
+      "visible": false,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 } ],
+      "data": { "authority": "bridge", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"], "bridge": { "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"] }, "_bridge": { "classKey": "decision", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node", "kind": "node-class", "targetKind": "node-class", "entryPort": "root" } }
+    },
+    {
+      "id": "graph-skills-bridge-question",
+      "type": "bridge",
+      "label": "Open Question",
+      "position": { "x": -1050, "y": 530 },
+      "width": 300,
+      "height": 120,
+      "visible": false,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 } ],
+      "data": { "authority": "bridge", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"], "bridge": { "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"] }, "_bridge": { "classKey": "open-question", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node", "kind": "node-class", "targetKind": "node-class", "entryPort": "root" } }
+    },
+    {
+      "id": "graph-skills-bridge-risk",
+      "type": "bridge",
+      "label": "Risk",
+      "position": { "x": -1050, "y": 690 },
+      "width": 300,
+      "height": 120,
+      "visible": false,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 } ],
+      "data": { "authority": "bridge", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"], "bridge": { "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/risk.node-class.node", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"] }, "_bridge": { "classKey": "risk", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/risk.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/risk.node-class.node", "kind": "node-class", "targetKind": "node-class", "entryPort": "root" } }
+    },
+    {
+      "id": "graph-skills-bridge-acceptance",
+      "type": "bridge",
+      "label": "Acceptance Criteria",
+      "position": { "x": -1050, "y": 850 },
+      "width": 300,
+      "height": 120,
+      "visible": false,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 } ],
+      "data": { "authority": "bridge", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"], "bridge": { "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/acceptance-criteria.node-class.node", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"] }, "_bridge": { "classKey": "acceptance-criteria", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/acceptance-criteria.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/acceptance-criteria.node-class.node", "kind": "node-class", "targetKind": "node-class", "entryPort": "root" } }
+    },
+    {
+      "id": "graph-skills-bridge-summary",
+      "type": "bridge",
+      "label": "Summary",
+      "position": { "x": -1050, "y": 1010 },
+      "width": 300,
+      "height": 120,
+      "visible": false,
+      "showLabel": true,
+      "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 } ],
+      "data": { "authority": "bridge", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"], "bridge": { "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"] }, "_bridge": { "classKey": "summary", "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node", "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node", "kind": "node-class", "targetKind": "node-class", "entryPort": "root" } }
+    }
+  ],
+  "edges": [
+    { "id": "graph-skills-edge-summary", "type": "reference", "source": "graph-skills-summary", "target": "graph-skills-goal", "sourcePort": "bottom", "targetPort": "top", "label": "summarizes", "style": { "curved": true, "route": "curved" }, "data": {} },
+    { "id": "graph-skills-edge-decision-ref", "type": "reference", "source": "graph-skills-decision-explicit-ref", "target": "graph-skills-goal", "sourcePort": "right", "targetPort": "left", "label": "constrains", "style": { "curved": true, "route": "curved" }, "data": {} },
+    { "id": "graph-skills-edge-decision-authority", "type": "reference", "source": "graph-skills-decision-context-only", "target": "graph-skills-goal", "sourcePort": "left", "targetPort": "right", "label": "constrains", "style": { "curved": true, "route": "curved" }, "data": {} },
+    { "id": "graph-skills-edge-risk", "type": "reference", "source": "graph-skills-risk-injection", "target": "graph-skills-task-trust", "sourcePort": "bottom", "targetPort": "top", "label": "mitigated by", "style": { "curved": true, "route": "curved" }, "data": {} },
+    { "id": "graph-skills-edge-acceptance", "type": "reference", "source": "graph-skills-goal", "target": "graph-skills-acceptance", "sourcePort": "right", "targetPort": "top", "label": "accepted by", "style": { "curved": true, "route": "curved" }, "data": {} },
+    { "id": "graph-skills-edge-task-1", "type": "reference", "source": "graph-skills-task-discovery", "target": "graph-skills-task-contract", "sourcePort": "left", "targetPort": "right", "label": "depends on", "style": { "curved": true, "route": "curved" }, "data": {} },
+    { "id": "graph-skills-edge-task-2", "type": "reference", "source": "graph-skills-task-trust", "target": "graph-skills-task-discovery", "sourcePort": "left", "targetPort": "right", "label": "depends on", "style": { "curved": true, "route": "curved" }, "data": {} },
+    { "id": "graph-skills-edge-task-3", "type": "reference", "source": "graph-skills-task-context", "target": "graph-skills-task-trust", "sourcePort": "left", "targetPort": "right", "label": "depends on", "style": { "curved": true, "route": "curved" }, "data": {} },
+    { "id": "graph-skills-edge-task-4", "type": "reference", "source": "graph-skills-task-ui", "target": "graph-skills-task-context", "sourcePort": "top", "targetPort": "bottom", "label": "follows", "style": { "curved": true, "route": "curved" }, "data": {} },
+    { "id": "graph-skills-edge-task-5", "type": "reference", "source": "graph-skills-task-cache", "target": "graph-skills-task-ui", "sourcePort": "left", "targetPort": "right", "label": "follows", "style": { "curved": true, "route": "curved" }, "data": {} },
+    { "id": "graph-skills-edge-task-6", "type": "reference", "source": "graph-skills-task-authority-test", "target": "graph-skills-task-cache", "sourcePort": "left", "targetPort": "right", "label": "follows", "style": { "curved": true, "route": "curved" }, "data": {} },
+    { "id": "graph-skills-edge-task-7", "type": "reference", "source": "graph-skills-task-smoke", "target": "graph-skills-task-authority-test", "sourcePort": "left", "targetPort": "right", "label": "follows", "style": { "curved": true, "route": "curved" }, "data": {} },
+    { "id": "graph-skills-edge-question-activation", "type": "reference", "source": "graph-skills-question-activation", "target": "graph-skills-task-context", "sourcePort": "top", "targetPort": "bottom", "label": "blocks", "style": { "curved": true, "route": "curved" }, "data": {} },
+    { "id": "graph-skills-edge-question-trust", "type": "reference", "source": "graph-skills-question-trust", "target": "graph-skills-task-trust", "sourcePort": "top", "targetPort": "bottom", "label": "blocks", "style": { "curved": true, "route": "curved" }, "data": {} },
+    { "id": "graph-skills-edge-question-cache", "type": "reference", "source": "graph-skills-question-cache", "target": "graph-skills-task-cache", "sourcePort": "top", "targetPort": "bottom", "label": "blocks", "style": { "curved": true, "route": "curved" }, "data": {} },
+    { "id": "graph-skills-edge-declaration-port", "type": "reference", "source": "graph-skills-declaration", "target": "graph-skills-root-port", "sourcePort": "right", "targetPort": "left", "label": "exposes", "style": { "curved": true, "route": "curved" }, "data": {} }
+  ],
+  "clusters": [],
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#2563eb",
+    "defaultEdgeColor": "#64748b",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": { "mode": "autoOnMissingPositions", "defaultLayout": "layered", "direction": "RIGHT", "edgeLaneGapPx": 12, "serpentine": { "maxPerRow": 4 }, "cycleFallback": { "enabled": true }, "elk": { "algorithm": "fixed", "edgeRouting": "ORTHOGONAL", "portConstraints": "FIXED_SIDE", "nodeSpacing": 120, "layeredEdgeSpacing": 80 } },
+    "github": { "repo": "mikemartinez1974/public", "path": "tasks/graph-scoped-skills/root.node", "branch": "main", "autoCreateRepo": true, "repoVisibility": "public", "seedOnCommit": false, "enableGithubPages": false },
+    "autoSave": false
+  },
+  "scripts": []
+}
