@@ -5,7 +5,7 @@ description: Create, derive, repair, or maintain Twilite workboards from the gra
 
 # Workboard Template
 
-Use [root.node](root.node) as the executable template. Preserve its declaration, controller, lane anchors, empty states, reconciler, exposed port, class bridges, and bindings before replacing example content.
+Use [root.node](root.node) as the executable template. Preserve its declaration, declared root port, controller, lane anchors, empty states, reconciler, class bridges, and bindings before replacing example content. Root identity comes from the declaration surface named `root`, never from a node-level `root: true` flag.
 
 ## Model
 
@@ -19,7 +19,7 @@ Use [root.node](root.node) as the executable template. Preserve its declaration,
 ## Derive A Workboard
 
 1. Copy `root.node` structurally, not visually.
-2. Retarget graph identity, declaration surfaces, GitHub settings, controller identity, and every graph-specific ID.
+2. Retarget graph identity, the declaration's `root` surface and primitive root port, GitHub settings, controller identity, and every graph-specific ID.
 3. Preserve the hidden `workboard` and `task` class bridges. `dependencies.nodeTypes` does not grant class authority.
 4. Preserve the graph-owned reconciler and retarget every embedded node ID it addresses.
 5. Replace the example Task Library portal with the intended collection, or remove it deliberately.
@@ -45,7 +45,7 @@ Promote a local task into its own graph when it needs subordinate tasks, questio
 ## Validation
 
 - Parse the graph as JSON.
-- Verify declaration-first structure and its default exposed port.
+- Verify declaration-first structure and exactly one declared `root` surface backed by a real primitive `port`.
 - Verify every edge endpoint and named handle.
 - Verify both class bridges and all class bindings.
 - Compile the embedded reconciler with the Twilite script wrapper.
