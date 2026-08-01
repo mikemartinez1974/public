@@ -7,7 +7,7 @@
     "version": "1.0.0",
     "kind": "collection",
     "created": "2026-08-01T00:15:48.450Z",
-    "modified": "2026-08-01T13:03:43.314Z",
+    "modified": "2026-08-01T14:10:00.000Z",
     "author": "",
     "tags": [
       "collection"
@@ -91,6 +91,22 @@
               "portNodeId": "task-collection-root-port",
               "viewNodeId": "task-collection-root-port",
               "memo": "Public entry surface for Michael's durable task collection.",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            },
+            {
+              "id": "agent-readiness",
+              "kind": "port",
+              "label": "Codebase-Free Agent Readiness",
+              "portNodeId": "task-collection-agent-readiness-port",
+              "viewNodeId": "task-collection-agent-readiness-port",
+              "memo": "Exposes the local agent-readiness task as a task projection.",
               "exposes": {
                 "views": {
                   "mode": "allow"
@@ -573,6 +589,106 @@
       }
     },
     {
+      "id": "task-collection-agent-readiness",
+      "type": "task",
+      "label": "Make Twilite self-describing for codebase-free agents",
+      "position": {
+        "x": 1002.3347857720162,
+        "y": 790
+      },
+      "width": 460,
+      "height": 300,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+        { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 },
+        { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 },
+        { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 },
+        { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "_classBinding": {
+          "key": "task",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "_bridge": {
+          "sourceNodeId": "task-collection-bridge-task",
+          "sourceBridgeNodeId": "task-collection-bridge-task",
+          "sourceBridgeLabel": "Task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class",
+          "classKey": "task",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "definitionKey": "task",
+        "identity": {
+          "graphId": "michael-task-collection"
+        },
+        "title": "Make Twilite self-describing for codebase-free agents",
+        "body": "Raise codebase-free graph-authoring reliability by publishing canonical machine-readable schemas, enumerating supported field and view types, returning precise validation and repair guidance, maintaining known-good examples, and exposing runtime capabilities without requiring source-code archaeology.",
+        "status": "todo",
+        "priority": "high",
+        "owner": "Michael",
+        "nextAction": "Inventory the remaining runtime-only assumptions and decide which belong in schemas, validation diagnostics, capability discovery, or canonical examples.",
+        "blockedReason": "",
+        "health": "on-track",
+        "acceptanceHook": [
+          "An onboarding-only agent can create and repair ordinary Twilite graphs with greater than 90 percent first-pass success.",
+          "Unsupported fields and capabilities fail with specific machine-readable repair guidance.",
+          "Ordinary graph authoring no longer requires inspecting the Twilite codebase."
+        ]
+      }
+    },
+    {
+      "id": "task-collection-agent-readiness-port",
+      "type": "port",
+      "label": "Codebase-Free Agent Readiness",
+      "position": {
+        "x": 1490,
+        "y": 790
+      },
+      "width": 440,
+      "height": 300,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+        { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 },
+        { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 },
+        { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 },
+        { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "michael-task-collection",
+          "portId": "agent-readiness",
+          "name": "Codebase-Free Agent Readiness"
+        },
+        "sourceScope": "graph",
+        "authority": "consume-view",
+        "sourceRef": "",
+        "sourceNodeId": "task-collection-agent-readiness",
+        "sourcePayload": "node.web",
+        "renderedNodeType": "task",
+        "view": {
+          "intent": "node",
+          "payload": "node.web",
+          "nodeType": "task",
+          "label": "Codebase-Free Agent Readiness",
+          "surfaceId": "agent-readiness"
+        },
+        "payload": "node.web",
+        "intent": "node",
+        "viewRole": "detail",
+        "semanticLevel": "detail",
+        "visibilityRole": "browser"
+      }
+    },
+    {
       "id": "task-collection-bridge-task",
       "type": "bridge",
       "label": "Task",
@@ -827,6 +943,20 @@
       "type": "reference",
       "source": "task-collection-introduction",
       "target": "task-collection-graph-scoped-skills",
+      "sourcePort": "right",
+      "targetPort": "top",
+      "label": "contains task",
+      "style": {
+        "curved": true,
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "task-collection-edge-agent-readiness",
+      "type": "reference",
+      "source": "task-collection-introduction",
+      "target": "task-collection-agent-readiness",
       "sourcePort": "right",
       "targetPort": "top",
       "label": "contains task",
