@@ -7,7 +7,7 @@
     "version": "1.0.0",
     "kind": "collection",
     "created": "2026-08-01T00:15:48.450Z",
-    "modified": "2026-08-01T14:10:00.000Z",
+    "modified": "2026-08-01T16:30:00.000Z",
     "author": "",
     "tags": [
       "collection"
@@ -689,6 +689,116 @@
       }
     },
     {
+      "id": "task-collection-repo-analytics-switches",
+      "type": "task",
+      "label": "Add analytics switches to repository roots and cards",
+      "position": {
+        "x": 0,
+        "y": 790
+      },
+      "width": 460,
+      "height": 300,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+        { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 },
+        { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 },
+        { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 },
+        { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "_classBinding": {
+          "key": "task",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "_bridge": {
+          "sourceNodeId": "task-collection-bridge-task",
+          "sourceBridgeNodeId": "task-collection-bridge-task",
+          "sourceBridgeLabel": "Task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class",
+          "classKey": "task",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "definitionKey": "task",
+        "identity": {
+          "graphId": "michael-task-collection"
+        },
+        "title": "Add analytics switches to repository roots and cards",
+        "body": "Add an authored repository-level analytics participation control to the class-based repository root and GitHub repository card while keeping provider-verified visibility as the hard safety boundary.",
+        "status": "todo",
+        "priority": "high",
+        "owner": "Michael",
+        "nextAction": "Design the GitHub repository node field contract and connect it to the runtime root-context analytics gate.",
+        "blockedReason": "",
+        "health": "on-track",
+        "acceptanceCriteria": [
+          "A public repository root or card can explicitly enable or exclude analytics participation.",
+          "Private and unverified repositories remain excluded regardless of the authored switch.",
+          "Graph-level analytics settings may narrow repository permission but cannot expand it."
+        ]
+      }
+    },
+    {
+      "id": "task-collection-ideas-collection",
+      "type": "task",
+      "label": "Create a dedicated ideas collection",
+      "position": {
+        "x": 500,
+        "y": 790
+      },
+      "width": 460,
+      "height": 300,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+        { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 },
+        { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 },
+        { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 },
+        { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "_classBinding": {
+          "key": "task",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "_bridge": {
+          "sourceNodeId": "task-collection-bridge-task",
+          "sourceBridgeNodeId": "task-collection-bridge-task",
+          "sourceBridgeLabel": "Task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class",
+          "classKey": "task",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "definitionKey": "task",
+        "identity": {
+          "graphId": "michael-task-collection"
+        },
+        "title": "Create a dedicated ideas collection",
+        "body": "Create an ideas collection in its own folder, populate it with portals to the existing graphs in the repository's graphs folder, and establish it as the durable destination for new ideas.",
+        "status": "todo",
+        "priority": "normal",
+        "owner": "Michael",
+        "nextAction": "Create ideas/root.node using the existing collection grammar, inventory graphs/*.node, and add one navigable portal for each graph.",
+        "blockedReason": "",
+        "health": "on-track",
+        "acceptanceCriteria": [
+          "An ideas collection exists at github://mikemartinez1974/public/ideas/root.node.",
+          "The collection contains working portals for the graph files currently under github://mikemartinez1974/public/graphs/.",
+          "The collection clearly states that future idea graphs belong in the ideas collection."
+        ]
+      }
+    },
+    {
       "id": "task-collection-bridge-task",
       "type": "bridge",
       "label": "Task",
@@ -958,6 +1068,34 @@
       "source": "task-collection-introduction",
       "target": "task-collection-agent-readiness",
       "sourcePort": "right",
+      "targetPort": "top",
+      "label": "contains task",
+      "style": {
+        "curved": true,
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "task-collection-edge-repo-analytics-switches",
+      "type": "reference",
+      "source": "task-collection-introduction",
+      "target": "task-collection-repo-analytics-switches",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "contains task",
+      "style": {
+        "curved": true,
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "task-collection-edge-ideas-collection",
+      "type": "reference",
+      "source": "task-collection-introduction",
+      "target": "task-collection-ideas-collection",
+      "sourcePort": "bottom",
       "targetPort": "top",
       "label": "contains task",
       "style": {
