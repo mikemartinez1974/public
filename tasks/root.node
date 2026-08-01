@@ -4,14 +4,13 @@
     "title": "Michael's Task Collection",
     "kind": "collection",
     "version": "1.0.0",
-    "updatedAt": "2026-07-31T12:00:00.000Z"
+    "updatedAt": "2026-08-01T00:44:15.000Z"
   },
   "nodes": [
     {
       "id": "task-collection-declaration",
       "type": "declaration",
       "label": "Michael's Task Collection",
-      "root": false,
       "position": { "x": -760, "y": -420 },
       "width": 420,
       "height": 280,
@@ -32,20 +31,23 @@
           "version": "1.0.0",
           "description": "Durable collection of Michael's local tasks and projected task graphs."
         },
-        "intent": { "kind": "collection", "scope": "personal-tasks" },
+        "intent": { "kind": "collection", "scope": "public" },
         "declaration": {
           "kind": "collection",
-          "graphViewRole": "index",
           "targetMode": "artifact",
           "defaultSurfaceId": "root",
           "surfaces": [
             {
               "id": "root",
-              "kind": "view",
+              "kind": "port",
               "label": "Task Collection",
               "portNodeId": "task-collection-root-port",
               "viewNodeId": "task-collection-root-port",
-              "memo": "Public entry surface for Michael's durable task collection."
+              "memo": "Public entry surface for Michael's durable task collection.",
+              "exposes": {
+                "views": { "mode": "allow" },
+                "declarations": { "mode": "allow" }
+              }
             }
           ],
           "notes": [
@@ -55,11 +57,17 @@
           ]
         },
         "dependencies": {
-          "nodeTypes": ["declaration", "port", "portal", "markdown", "bridge", "task"]
+          "nodeTypes": ["declaration", "port", "portal", "markdown", "bridge", "task"],
+          "portContracts": ["core"],
+          "skills": ["twilite-planning-graphs"],
+          "schemaVersions": { "nodes": ">=1.0.0", "ports": ">=1.0.0" },
+          "optional": []
         },
         "authority": {
           "mutation": { "allowCreate": true, "allowUpdate": true, "allowDelete": true, "appendOnly": false },
-          "actors": { "humans": true, "agents": true, "tools": true }
+          "actors": { "humans": true, "agents": true, "tools": true },
+          "styleAuthority": "descriptive",
+          "history": { "rewriteAllowed": false, "squashAllowed": false }
         },
         "settings": {
           "defaultNodeColor": "#2563eb",
@@ -74,7 +82,6 @@
       "id": "task-collection-root-port",
       "type": "port",
       "label": "Michael's Task Collection",
-      "root": true,
       "position": { "x": 0, "y": -430 },
       "width": 560,
       "height": 300,
@@ -89,7 +96,7 @@
       ],
       "style": { "background": "transparent", "border": "none", "borderRadius": 28, "padding": 0, "boxShadow": "0 24px 70px rgba(37,99,235,0.30)" },
       "data": {
-        "identity": { "graphId": "michael-task-collection" },
+        "identity": { "graphId": "michael-task-collection", "portId": "root", "name": "Michael's Task Collection" },
         "title": "Michael's Task Collection",
         "purpose": "Durable home for local tasks and projected task graphs.",
         "renderShape": { "kind": "svg" },
@@ -178,7 +185,7 @@
         "ref": "github://mikemartinez1974/public/tasks/task-nodeset-upgrade-plan.node",
         "endpoint": "github://mikemartinez1974/public/tasks/task-nodeset-upgrade-plan.node:summary",
         "sourceRef": "github://mikemartinez1974/public/tasks/task-nodeset-upgrade-plan.node",
-        "sourceNodeId": "task-nodeset-upgrade-summary",
+        "sourceNodeId": "task-nodeset-upgrade-root-port",
         "sourcePayload": "node.web",
         "surfaceId": "summary",
         "target": { "ref": "github://mikemartinez1974/public/tasks/task-nodeset-upgrade-plan.node", "endpoint": "github://mikemartinez1974/public/tasks/task-nodeset-upgrade-plan.node:summary", "mode": "navigate", "portId": "summary", "surfaceId": "summary", "label": "Open Task Nodeset Upgrade" },
@@ -208,7 +215,7 @@
         "ref": "github://mikemartinez1974/public/tasks/graph-scoped-skills/root.node",
         "endpoint": "github://mikemartinez1974/public/tasks/graph-scoped-skills/root.node:summary",
         "sourceRef": "github://mikemartinez1974/public/tasks/graph-scoped-skills/root.node",
-        "sourceNodeId": "graph-skills-summary",
+        "sourceNodeId": "graph-skills-root-port",
         "sourcePayload": "node.web",
         "surfaceId": "summary",
         "target": { "ref": "github://mikemartinez1974/public/tasks/graph-scoped-skills/root.node", "endpoint": "github://mikemartinez1974/public/tasks/graph-scoped-skills/root.node:summary", "mode": "navigate", "portId": "summary", "surfaceId": "summary", "label": "Open Graph-Scoped Skills" },
