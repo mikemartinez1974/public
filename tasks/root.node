@@ -7,7 +7,7 @@
     "version": "1.0.0",
     "kind": "collection",
     "created": "2026-08-01T00:15:48.450Z",
-    "modified": "2026-08-01T16:30:00.000Z",
+    "modified": "2026-08-01T18:30:00.000Z",
     "author": "",
     "tags": [
       "collection"
@@ -744,9 +744,9 @@
       }
     },
     {
-      "id": "task-collection-ideas-collection",
+      "id": "task-collection-large-collections",
       "type": "task",
-      "label": "Create a dedicated ideas collection",
+      "label": "Design Twilite for large collections",
       "position": {
         "x": 500,
         "y": 790
@@ -783,19 +783,61 @@
         "identity": {
           "graphId": "michael-task-collection"
         },
-        "title": "Create a dedicated ideas collection",
-        "body": "Create an ideas collection in its own folder, populate it with portals to the existing graphs in the repository's graphs folder, and establish it as the durable destination for new ideas.",
-        "status": "done",
-        "priority": "normal",
+        "title": "Design Twilite for large collections",
+        "body": "Define and implement a scalable collection model that can handle thousands or millions of subscribers, repositories, nodes, enrollments, and historical tasks without loading or rendering the entire collection at once.",
+        "status": "todo",
+        "priority": "high",
         "owner": "Michael",
-        "nextAction": "",
+        "nextAction": "Define the collection query, pagination, indexing, projection, archival, and incremental reconciliation contracts before expanding Commons enrollment.",
         "blockedReason": "",
         "health": "on-track",
         "acceptanceCriteria": [
-          "An ideas collection exists at github://mikemartinez1974/public/ideas/root.node.",
-          "The collection contains working portals for the graph files currently under github://mikemartinez1974/public/graphs/.",
-          "The collection clearly states that future idea graphs belong in the ideas collection."
+          "Collection views can page, filter, sort, and search without materializing every member as a node at once.",
+          "The source of truth is separated from bounded visual projections and cached indexes.",
+          "Enrollment and policy reconciliation can run incrementally and resume safely.",
+          "Completed or inactive members can be archived without breaking durable references or historical provenance."
         ]
+      }
+    },
+    {
+      "id": "task-collection-archive",
+      "type": "portal",
+      "label": "Task Archive",
+      "position": { "x": 1000, "y": 1180 },
+      "width": 450,
+      "height": 320,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+        { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 },
+        { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 },
+        { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 },
+        { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "memo": "Browse completed work in bounded time partitions.",
+        "authority": "navigate",
+        "src": "github://mikemartinez1974/public/tasks/archive/root.node",
+        "ref": "github://mikemartinez1974/public/tasks/archive/root.node",
+        "endpoint": "github://mikemartinez1974/public/tasks/archive/root.node:root",
+        "intent": "external",
+        "target": {
+          "endpoint": "github://mikemartinez1974/public/tasks/archive/root.node:root",
+          "ref": "github://mikemartinez1974/public/tasks/archive/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "root",
+          "label": "Open Task Archive",
+          "handleId": "root"
+        },
+        "identity": { "graphId": "michael-task-collection" },
+        "security": "prompt",
+        "sourceNodeId": "task-archive-root-port",
+        "sourcePayload": "node.web.summary",
+        "surfaceId": "root",
+        "sourceRef": "github://mikemartinez1974/public/tasks/archive/root.node",
+        "visibilityRole": "browser"
       }
     },
     {
@@ -1091,10 +1133,10 @@
       "data": {}
     },
     {
-      "id": "task-collection-edge-ideas-collection",
+      "id": "task-collection-edge-large-collections",
       "type": "reference",
       "source": "task-collection-introduction",
-      "target": "task-collection-ideas-collection",
+      "target": "task-collection-large-collections",
       "sourcePort": "bottom",
       "targetPort": "top",
       "label": "contains task",
@@ -1112,6 +1154,20 @@
       "sourcePort": "left",
       "targetPort": "right",
       "label": "class authority",
+      "style": {
+        "curved": true,
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "task-collection-edge-archive",
+      "type": "reference",
+      "source": "task-collection-introduction",
+      "target": "task-collection-archive",
+      "sourcePort": "right",
+      "targetPort": "top",
+      "label": "completed work",
       "style": {
         "curved": true,
         "route": "curved"
