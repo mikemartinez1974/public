@@ -4,7 +4,7 @@
     "title": "Graph-Scoped Skills",
     "kind": "task",
     "version": "0.1.0",
-    "updatedAt": "2026-07-31T14:00:00.000Z"
+    "updatedAt": "2026-08-01T00:52:00.000Z"
   },
   "nodes": [
     {
@@ -26,15 +26,15 @@
       "data": {
         "analytics": { "contentGroup": "tasks" },
         "identity": { "graphId": "graph-scoped-skills", "name": "Graph-Scoped Skills", "version": "0.1.0", "description": "Plan safe discovery and contextual activation of graph-declared skill packages." },
-        "intent": { "kind": "task", "scope": "graph-scoped-skill-context" },
+        "intent": { "kind": "task", "scope": "public" },
         "summaryNodeId": "graph-skills-summary",
         "declaration": {
           "kind": "task",
-          "graphViewRole": "authoring",
           "targetMode": "artifact",
-          "defaultSurfaceId": "summary",
+          "defaultSurfaceId": "root",
           "surfaces": [
-            { "id": "summary", "kind": "view", "label": "Graph-Scoped Skills", "portNodeId": "graph-skills-root-port", "viewNodeId": "graph-skills-summary", "memo": "Task-shaped outward summary for collections and workboards." }
+            { "id": "root", "kind": "port", "label": "Graph-Scoped Skills", "portNodeId": "graph-skills-root-port", "viewNodeId": "graph-skills-root-port", "memo": "Safe default entry port for the graph.", "exposes": { "views": { "mode": "allow" }, "declarations": { "mode": "allow" } } },
+            { "id": "summary", "kind": "port", "label": "Graph-Scoped Skills Summary", "portNodeId": "graph-skills-summary-port", "viewNodeId": "graph-skills-summary-port", "memo": "Task-shaped outward summary for collections and workboards.", "exposes": { "views": { "mode": "allow" }, "declarations": { "mode": "allow" } } }
           ],
           "notes": [
             "Graph-declared skills provide scoped context; they do not grant tools or mutation authority.",
@@ -46,9 +46,10 @@
           "nodeTypes": ["declaration", "port", "summary", "goal", "task", "decision", "open-question", "risk", "acceptance-criteria", "bridge", "script"],
           "portContracts": ["core"],
           "skills": ["twilite-planning-graphs"],
+          "schemaVersions": { "nodes": ">=1.0.0", "ports": ">=1.0.0" },
           "optional": []
         },
-        "authority": { "mutation": { "allowCreate": true, "allowUpdate": true, "allowDelete": true, "appendOnly": false }, "actors": { "humans": true, "agents": true, "tools": true } },
+        "authority": { "mutation": { "allowCreate": true, "allowUpdate": true, "allowDelete": true, "appendOnly": false }, "actors": { "humans": true, "agents": true, "tools": true }, "styleAuthority": "descriptive", "history": { "rewriteAllowed": false, "squashAllowed": false } },
         "settings": { "defaultNodeColor": "#2563eb", "defaultEdgeColor": "#64748b", "snapToGrid": false, "gridSize": 20, "edgeRouting": "auto" }
       }
     },
@@ -56,7 +57,6 @@
       "id": "graph-skills-root-port",
       "type": "port",
       "label": "Graph-Scoped Skills",
-      "root": true,
       "position": { "x": 250, "y": -920 },
       "width": 460,
       "height": 300,
@@ -70,11 +70,43 @@
         { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
       ],
       "data": {
-        "identity": { "graphId": "graph-scoped-skills" },
+        "identity": { "graphId": "graph-scoped-skills", "portId": "root", "name": "Graph-Scoped Skills" },
         "sourceNodeId": "graph-skills-summary",
         "sourcePayload": "node.web",
         "renderedNodeType": "task",
-        "view": { "intent": "node", "payload": "node.web", "nodeType": "task", "label": "Graph-Scoped Skills" },
+        "view": { "intent": "node", "payload": "node.web", "nodeType": "task", "label": "Graph-Scoped Skills", "surfaceId": "root" },
+        "payload": "node.web",
+        "intent": "node",
+        "viewRole": "summary",
+        "semanticLevel": "summary",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "graph-skills-summary-port",
+      "type": "port",
+      "label": "Graph-Scoped Skills Summary",
+      "position": { "x": 790, "y": -730 },
+      "width": 460,
+      "height": 300,
+      "visible": false,
+      "showLabel": true,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+        { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 },
+        { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 },
+        { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 },
+        { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "data": {
+        "identity": { "graphId": "graph-scoped-skills", "portId": "summary", "name": "Graph-Scoped Skills Summary" },
+        "sourceScope": "graph",
+        "authority": "consume-view",
+        "sourceRef": "",
+        "sourceNodeId": "graph-skills-summary",
+        "sourcePayload": "node.web",
+        "renderedNodeType": "task",
+        "view": { "intent": "node", "payload": "node.web", "nodeType": "task", "label": "Graph-Scoped Skills Summary", "surfaceId": "summary" },
         "payload": "node.web",
         "intent": "node",
         "viewRole": "summary",
@@ -116,7 +148,7 @@
         "taskListText": "1. Specify the skill reference contract\n2. Implement graph skill discovery\n3. Classify trust and provenance\n4. Assemble bounded agent context\n5. Expose skill state in the interface\n6. Define cache and failure behavior\n7. Prove authority isolation\n8. Run the workboard-template smoke test",
         "questionListText": "1. When should a declared skill activate?\n2. Which remote skills may load automatically?\n3. How should skill versions and caches behave?",
         "summarySource": "node-updater",
-        "updatedAt": "2026-07-31T14:00:00.000Z"
+        "updatedAt": "2026-08-01T00:52:00.000Z"
       }
     },
     {
@@ -346,8 +378,13 @@
       "ports": [ { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }, { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 }, { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 } ],
       "data": {
         "identity": { "graphId": "graph-scoped-skills" },
+        "scriptName": "Graph-Scoped Skills Summary Updater",
         "summaryNodeId": "graph-skills-summary",
-    "autoRunOnGraphChange": true,
+        "autoRun": true,
+        "autoRunOnGraphChange": false,
+        "autoRunOnLoad": true,
+        "allowMutations": true,
+        "dryRun": false,
         "source": "const SUMMARY='graph-skills-summary';const DONE=new Set(['done','complete','completed','closed']);const ANSWERED=new Set(['answered','resolved','done','closed']);const norm=v=>String(v||'').trim().toLowerCase();const nodes=await api.getNodes();const summary=nodes.find(n=>n.id===SUMMARY);const goal=nodes.find(n=>n.type==='goal');const tasks=nodes.filter(n=>n.type==='task').sort((a,b)=>(a.position?.y??0)-(b.position?.y??0)||(a.position?.x??0)-(b.position?.x??0));const questions=nodes.filter(n=>n.type==='open-question').sort((a,b)=>(a.position?.y??0)-(b.position?.y??0)||(a.position?.x??0)-(b.position?.x??0));if(!summary)return{success:false,error:'Summary node missing'};const completed=tasks.filter(n=>DONE.has(norm(n.data?.status))).length;const answered=questions.filter(n=>ANSWERED.has(norm(n.data?.status))).length;const next={...(summary.data||{}),goal:goal?.label||summary.data?.goal||'Task graph',status:norm(goal?.data?.status)||'todo',priority:goal?.data?.priority||summary.data?.priority||'medium',owner:goal?.data?.owner||summary.data?.owner||'',taskProgress:{completed,total:tasks.length},questionProgress:{answered,total:questions.length},taskTitles:tasks.map(n=>n.data?.title||n.label),questionTitles:questions.map(n=>n.label),taskListText:tasks.map((n,i)=>(i+1)+'. '+(n.data?.title||n.label)).join('\\n'),questionListText:questions.map((n,i)=>(i+1)+'. '+n.label).join('\\n'),summarySource:'node-updater',updatedAt:new Date().toISOString()};await api.updateNode(SUMMARY,{data:next});return{success:true,summary:next};"
       }
     },
