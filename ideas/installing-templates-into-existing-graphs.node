@@ -700,8 +700,8 @@
       "showLabel": false,
       "data": {
         "title": "Two Template Modes: Derive and Install",
-        "description": "A whole-graph template may derive a new graph and own its declaration and root. An installable capability instead declares owned nodes, required bridges, dependency merges, configuration, collision policy, update rules, and explicit prohibitions against replacing the host declaration or root.",
-        "differentiator": "The same capability package can support a standalone graph and composition into an existing graph without pretending those operations have the same authority.",
+        "description": "A whole-graph template may derive a new graph. An installable template instead copies a bounded set of functional nodes and edges into an existing graph, adds the bridges those nodes require, and leaves the host declaration and canonical root untouched.",
+        "differentiator": "Installation reuses Twilite's existing class resolution, dependency discovery, view behavior, layout, and save rules. It does not introduce a package manager, ownership ledger, receipt system, or automatic ID suffixing.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
           "key": "idea-proposed-approach",
@@ -839,7 +839,7 @@
       "data": {
         "title": "What Is the Installation Contract?",
         "question": "What minimum manifest, ownership map, configuration, collision policy, and lifecycle hooks make capability installation idempotent, updateable, and removable?",
-        "status": "open",
+        "status": "answered",
         "answer": "",
         "definitionKey": "idea-question",
         "_classBinding": {
@@ -856,7 +856,9 @@
         },
         "identity": {
           "graphId": "installable-template-capabilities"
-        }
+        },
+        "resolution": "A first installable template is a bounded set of nodes, edges, and required bridges copied into an existing graph. It preserves the host declaration and canonical root, relies on Twilite's existing automatic rules, and fails on ID collisions without generating suffixes.",
+        "resolutionPath": "Promoted into Graph Organization as the local implementation task “Implement lean template installation.”"
       }
     },
     {
@@ -1394,8 +1396,8 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Always Create a Separate Graph",
-        "description": "Keep every capability in its own graph and connect it through portals.",
+        "title": "Build a Template Package Manager",
+        "description": "Track manifests, receipts, ownership categories, rollback, update, and uninstall from the first version.",
         "tradeoffs": "This preserves clean authority boundaries but forces unnecessary graph proliferation and prevents useful local behaviors from operating directly over the host graph’s nodes.",
         "definitionKey": "idea-alternative",
         "_classBinding": {
@@ -1412,7 +1414,9 @@
         },
         "identity": {
           "graphId": "installable-template-capabilities"
-        }
+        },
+        "status": "rejected-for-now",
+        "tradeoff": "More lifecycle control, but far more machinery than the first working installation requires. Revisit only when real installed capabilities demonstrate the need."
       }
     },
     {
@@ -1532,11 +1536,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Capability Collisions and Hidden Ownership",
-        "description": "Two installers could claim the same IDs, dependencies, surfaces, scripts, or nodes, while an update could overwrite user-authored changes inside the installed region.",
+        "title": "Overengineering the First Installation",
+        "description": "A receipt, ownership ledger, update system, or uninstall framework could obscure the simple working behavior: copy nodes and edges, add bridges, and let Twilite's existing rules do their jobs.",
         "likelihood": "medium",
         "impact": "high",
-        "mitigation": "Require namespaces, an ownership ledger, deterministic merge rules, explicit configuration, dry-run planning, and idempotence checks.",
+        "mitigation": "Keep the first contract lean and add lifecycle machinery only in response to observed failures.",
         "definitionKey": "idea-risk",
         "_classBinding": {
           "key": "idea-risk",
@@ -1672,10 +1676,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Specify and Prove Capability Installation",
-        "action": "Define an installable-template contract and refactor the workboard package as the first proof: install it into a copy of an idea graph without changing the host declaration, kind, identity, or root.",
-        "expectedEvidence": "A repeated install produces no duplicate nodes, reconciliation works, user content remains intact, and the capability can be updated or removed using its ownership record.",
-        "status": "todo",
+        "title": "Implement Lean Template Installation",
+        "action": "Use the workboard package as the first proof: copy its bounded functional nodes and edges into an idea graph, add its required bridges, and leave the host declaration and canonical root unchanged.",
+        "expectedEvidence": "The installed capability works through Twilite's existing automatic rules, user content remains intact, and an ID collision stops clearly without creating suffixed IDs.",
+        "status": "in-progress",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",
@@ -1691,7 +1695,8 @@
         },
         "identity": {
           "graphId": "installable-template-capabilities"
-        }
+        },
+        "description": "Build one proof that copies a bounded template capability into an existing graph, adds its required bridges, preserves the host declaration and root, and rejects ID collisions without suffixing."
       }
     },
     {
@@ -2396,6 +2401,72 @@
         "sourceRef": "github://mikemartinez1974/public/ideas/root.node",
         "visibilityRole": "browser"
       }
+    },
+    {
+      "id": "installable-template-implementation-task",
+      "type": "portal",
+      "label": "Implementation: Graph Organization",
+      "position": {
+        "x": 1340,
+        "y": -880
+      },
+      "width": 420,
+      "height": 220,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "intent": "navigate",
+        "target": {
+          "endpoint": "github://twilite-zone/public/tasks/graph-organization/root.node:root",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open"
+        },
+        "memo": "Open the Graph Organization task that now owns implementation.",
+        "ref": "github://twilite-zone/public/tasks/graph-organization/root.node",
+        "endpoint": "github://twilite-zone/public/tasks/graph-organization/root.node:root",
+        "sourceRef": "github://twilite-zone/public/tasks/graph-organization/root.node",
+        "sourceNodeId": "graph-organization-root-port",
+        "sourcePayload": "node.web.summary"
+      }
     }
   ],
   "edges": [
@@ -2795,6 +2866,23 @@
       "data": {
         "relation": "collection-navigation"
       }
+    },
+    {
+      "id": "installable-template-next-step-promoted",
+      "type": "reference",
+      "source": "installable-template-idea-next-step",
+      "target": "installable-template-implementation-task",
+      "sourcePort": "right",
+      "targetPort": "left",
+      "label": "promoted to",
+      "style": {
+        "curved": false,
+        "stroke": "#15803d",
+        "strokeWidth": 3,
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {}
     }
   ],
   "clusters": [],
@@ -2837,7 +2925,7 @@
     "autoSave": false
   },
   "scripts": [],
-  "nodeCount": 36,
-  "edgeCount": 23,
-  "timestamp": "2026-08-02T19:00:00.000Z"
+  "nodeCount": 37,
+  "edgeCount": 24,
+  "timestamp": "2026-08-02T21:00:00.000Z"
 }
