@@ -840,7 +840,7 @@
         "title": "What Is the Installation Contract?",
         "question": "What minimum manifest, ownership map, configuration, collision policy, and lifecycle hooks make capability installation idempotent, updateable, and removable?",
         "status": "answered",
-        "answer": "",
+        "answer": "Keep installation lean: copy the bounded nodes and edges, add the required bridges, preserve the host declaration and root, and rely on existing graph rules. A capability may declare itself singleton; Workboard does, so a second Workboard installation is rejected rather than scoped or renamed.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -979,9 +979,10 @@
       "showLabel": false,
       "data": {
         "title": "One Root Can Host Multiple Capabilities",
-        "statement": "A graph can retain one identity and canonical root while hosting multiple graph-local controllers and scripts whose authority is explicitly bounded.",
+        "statement": "A graph can retain one identity and canonical root while hosting multiple bounded capabilities, while each capability may impose its own cardinality rule.",
         "importance": "critical",
-        "status": "partially-tested",
+        "status": "tested",
+        "result": "Supported with a boundary. One canonical root can host several different capabilities, but the Workboard capability is singleton because one graph-local task placement should have one owner.",
         "definitionKey": "idea-assumption",
         "_classBinding": {
           "key": "idea-assumption",
@@ -1256,11 +1257,16 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "The Reconciler Is Already Mostly Graph-Local",
-        "observation": "The script operates on a workboard controller, task nodes, task portals, lane anchors, empty states, and board metadata. Its remaining composition blockers are configuration and ownership, not the host graph root.",
+        "title": "Bounded Template Installation Works",
+        "observation": "A Workboard capability was copied into an existing idea graph with its controller, lanes, empty states, reconciler, edges, and required Workboard and Task bridges. The idea declaration, kind, identity, and canonical root remained intact. A two-board experiment showed that reconciliation order can make both controllers compete for the same graph-local task placement. That evidence established Workboard as a singleton capability rather than a multi-instance capability.",
         "kind": "observation",
         "strength": "strong",
-        "citationSourceId": "github://mikemartinez1974/public/templates/workboard-template/root.node",
+        "citationSourceId": "github://mikemartinez1974/public/graphs/template-installation-smoke.node",
+        "artifactRefs": [
+          "github://mikemartinez1974/public/graphs/template-installation-smoke.node",
+          "github://mikemartinez1974/public/graphs/template-installation-multiple-workboards.node",
+          "github://mikemartinez1974/public/templates/workboard-template/root.node"
+        ],
         "definitionKey": "idea-evidence",
         "_classBinding": {
           "key": "idea-evidence",
@@ -1677,8 +1683,8 @@
       "showLabel": false,
       "data": {
         "title": "Implement Lean Template Installation",
-        "action": "Use the workboard package as the first proof: copy its bounded functional nodes and edges into an idea graph, add its required bridges, and leave the host declaration and canonical root unchanged.",
-        "expectedEvidence": "The installed capability works through Twilite's existing automatic rules, user content remains intact, and an ID collision stops clearly without creating suffixed IDs.",
+        "action": "Confirm that installation rejects both Workboard capability collisions and exact duplicate node IDs without suffixing. The graph-authored copy operation remains the installation mechanism.",
+        "expectedEvidence": "A second Workboard is rejected as a singleton capability collision, and an exact duplicate node ID is rejected without suffixing.",
         "status": "in-progress",
         "definitionKey": "idea-next-step",
         "_classBinding": {
@@ -1696,7 +1702,7 @@
         "identity": {
           "graphId": "installable-template-capabilities"
         },
-        "description": "Build one proof that copies a bounded template capability into an existing graph, adds its required bridges, preserves the host declaration and root, and rejects ID collisions without suffixing."
+        "description": "Graph-authored copying is the chosen installation mechanism. Workboard is now explicitly singleton; the remaining proof is exact-ID collision rejection without suffixing."
       }
     },
     {

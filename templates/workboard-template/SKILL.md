@@ -15,6 +15,7 @@ Use [root.node](root.node) as the executable template. Preserve its declaration,
 - Use a `portal` when another task graph owns the work. The resolved surface must render as `task`; the portal remains only its carrier and provenance.
 - Let source task graphs own status, progress, priority, blockers, next actions, and durable summaries.
 - Let the workboard own lane, rank, pinning, review time, and source-health state under local `data.board`.
+- Install at most one Workboard capability in a graph. The single board owns graph-local placement for every task it can resolve.
 
 ## Derive A Workboard
 
@@ -26,7 +27,7 @@ Use [root.node](root.node) as the executable template. Preserve its declaration,
 6. Add local task nodes or source-backed task portals. Do not copy external summary text into the workboard.
 7. Keep automatic placement unpinned with `data.board.laneMode: "auto"`; keep manual placement pinned with `laneMode: "manual"`.
 8. Retarget the reconciler's `data.controllerNodeId` and embedded `CONTROLLER_NODE_ID` to the installed workboard controller.
-9. When more than one workboard exists in a graph, assign every managed task or projection with `data.board.controllerId` equal to its owning controller node ID.
+9. Before writing, reject installation if the host graph already contains a Workboard controller. Do not rename IDs or create a second controller.
 10. Run reconciliation and save the workboard after source summaries are materialized.
 
 ## Promotion Boundary
@@ -41,8 +42,9 @@ Promote a local task into its own graph when it needs subordinate tasks, questio
 - Normalize legacy `task-graph` to `task`.
 - Map source status to lanes through controller policy.
 - A reconciler must select its own controller by explicit node ID; it must never use the first workboard node it happens to find.
-- With exactly one workboard, unscoped tasks remain eligible and reconciliation stamps them with that controller ID for compatibility.
-- With multiple workboards, each reconciler processes only tasks and projections whose `data.board.controllerId` matches its controller. Unscoped work remains untouched until assigned.
+- Exactly one Workboard controller is required. A reconciler must stop with a clear `WORKBOARD_SINGLETON_VIOLATION` result when the graph contains zero or multiple controllers.
+- Unscoped tasks remain eligible and reconciliation stamps them with the sole controller ID. New local tasks therefore join the graph's board without an extra enrollment step.
+- A task may be projected onto workboards in different graphs, where each graph owns independent local `data.board` placement. Do not place two Workboard controllers in one graph to obtain two placements.
 - Preserve manual placement and `data.board` while refreshing source-owned fields.
 - Keep the reconciler graph-owned. Do not move projection resolution into application React code.
 - Require a second unchanged run after a mutating reconciliation to prove idempotence.
@@ -56,7 +58,7 @@ Promote a local task into its own graph when it needs subordinate tasks, questio
 - Compile the embedded reconciler with the Twilite script wrapper.
 - Confirm local tasks and projected tasks both render as `task`.
 - Confirm source changes move automatic cards and do not move pinned cards.
-- Confirm multiple controllers cannot move one another's scoped tasks, regardless of reconciliation order.
+- Confirm a second controller is rejected as a Workboard capability collision before it can move tasks.
 - Confirm empty-state cards match actual lane contents.
 
 Publish the template or source task graphs before publishing a consumer that depends on their exposed surfaces.
