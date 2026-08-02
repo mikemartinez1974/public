@@ -25,7 +25,9 @@ Use [root.node](root.node) as the executable template. Preserve its declaration,
 5. Replace the example Task Library portal with the intended collection, or remove it deliberately.
 6. Add local task nodes or source-backed task portals. Do not copy external summary text into the workboard.
 7. Keep automatic placement unpinned with `data.board.laneMode: "auto"`; keep manual placement pinned with `laneMode: "manual"`.
-8. Run reconciliation and save the workboard after source summaries are materialized.
+8. Retarget the reconciler's `data.controllerNodeId` and embedded `CONTROLLER_NODE_ID` to the installed workboard controller.
+9. When more than one workboard exists in a graph, assign every managed task or projection with `data.board.controllerId` equal to its owning controller node ID.
+10. Run reconciliation and save the workboard after source summaries are materialized.
 
 ## Promotion Boundary
 
@@ -38,6 +40,9 @@ Promote a local task into its own graph when it needs subordinate tasks, questio
 - Resolve effective type from the exposed port override, then source declaration kind, then selected source node type.
 - Normalize legacy `task-graph` to `task`.
 - Map source status to lanes through controller policy.
+- A reconciler must select its own controller by explicit node ID; it must never use the first workboard node it happens to find.
+- With exactly one workboard, unscoped tasks remain eligible and reconciliation stamps them with that controller ID for compatibility.
+- With multiple workboards, each reconciler processes only tasks and projections whose `data.board.controllerId` matches its controller. Unscoped work remains untouched until assigned.
 - Preserve manual placement and `data.board` while refreshing source-owned fields.
 - Keep the reconciler graph-owned. Do not move projection resolution into application React code.
 - Require a second unchanged run after a mutating reconciliation to prove idempotence.
@@ -51,6 +56,7 @@ Promote a local task into its own graph when it needs subordinate tasks, questio
 - Compile the embedded reconciler with the Twilite script wrapper.
 - Confirm local tasks and projected tasks both render as `task`.
 - Confirm source changes move automatic cards and do not move pinned cards.
+- Confirm multiple controllers cannot move one another's scoped tasks, regardless of reconciliation order.
 - Confirm empty-state cards match actual lane contents.
 
 Publish the template or source task graphs before publishing a consumer that depends on their exposed surfaces.
