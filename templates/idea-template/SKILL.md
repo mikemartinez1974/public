@@ -62,7 +62,10 @@ When promoting work, leave the idea graph as the durable reasoning record. Creat
 - Parse every touched `.node` file as JSON.
 - Verify the declaration exposes a real primitive `port` as `root`.
 - Verify every typed node has matching `definitionKey`, `_classBinding.key`, and class refs.
-- Verify each custom type has a visible editor and node view in its class artifact.
+- Verify each custom node class is an inspectable graph artifact, not a loose manifest with adjacent views. It must contain one real `declaration`, one explanatory `markdown` contract node, and visible primitive `port` nodes for `editor.web`, `node.web.detail`, `node.web.summary`, and `node.web.icon`.
+- Verify the class declaration owns every exposed surface through `declaration.surfaces`, exposes `root` through the detail port, names `root` as its default, retains named detail, summary, icon, and editor surfaces, and connects directly to the contract note and each surface port with meaningful `contract` or `surface` edges.
+- Verify every class node and surface has complete `ports`, `inputs`, and `outputs` shapes and a deliberate position matching the canonical People class-artifact layout.
+- Verify every editor field is represented in the detail surface; summaries may use a deliberate subset and icon surfaces must remain identity-scale.
 - Verify every edge endpoint and named handle exists.
 - Verify every semantic edge points to the matching file under `classes/edges/`.
 - Derive at least one real idea graph before changing the package contract.
