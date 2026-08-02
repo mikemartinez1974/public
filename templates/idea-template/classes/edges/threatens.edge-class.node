@@ -14,9 +14,9 @@
   },
   "nodes": [
     {
-      "id": "idea-edge-threatens-manifest",
-      "type": "manifest",
-      "label": "Threatens Edge Class",
+      "id": "idea-edge-threatens-declaration",
+      "type": "declaration",
+      "label": "Threatens Edge Class Declaration",
       "position": {
         "x": -440,
         "y": -180
@@ -49,7 +49,7 @@
         },
         "dependencies": {
           "nodeTypes": [
-            "manifest",
+            "declaration",
             "port"
           ],
           "portContracts": [
@@ -104,8 +104,33 @@
             "routingHint": "direct"
           }
         },
-        "summaryNodeId": "idea-edge-threatens-port"
-      }
+        "summaryNodeId": "idea-edge-threatens-port",
+        "declaration": {
+          "kind": "edge-class",
+          "targetMode": "artifact",
+          "artifactKind": "edge-class",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Threatens",
+              "memo": "source risk could weaken, delay, distort, or stop the target",
+              "portNodeId": "idea-edge-threatens-port",
+              "viewNodeId": "idea-edge-threatens-port",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "root": false
     },
     {
       "id": "idea-edge-threatens-port",
@@ -151,20 +176,19 @@
         "viewRole": "summary",
         "viewKind": "display",
         "semanticLevel": "summary"
-      }
+      },
+      "root": true
     }
   ],
   "edges": [
     {
-      "id": "idea-edge-threatens-exposes",
-      "type": "reference",
-      "source": "idea-edge-threatens-manifest",
+      "id": "idea-edge-threatens-default-surface",
+      "source": "idea-edge-threatens-declaration",
       "target": "idea-edge-threatens-port",
-      "sourcePort": "root",
-      "targetPort": "root",
-      "label": "class surface",
-      "style": {},
-      "data": {}
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "type": "reference",
+      "label": "default surface"
     }
   ],
   "clusters": [],
@@ -180,4 +204,3 @@
   },
   "scripts": []
 }
-

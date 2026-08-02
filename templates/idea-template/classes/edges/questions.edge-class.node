@@ -14,9 +14,9 @@
   },
   "nodes": [
     {
-      "id": "idea-edge-questions-manifest",
-      "type": "manifest",
-      "label": "Questions Edge Class",
+      "id": "idea-edge-questions-declaration",
+      "type": "declaration",
+      "label": "Questions Edge Class Declaration",
       "position": {
         "x": -440,
         "y": -180
@@ -49,7 +49,7 @@
         },
         "dependencies": {
           "nodeTypes": [
-            "manifest",
+            "declaration",
             "port"
           ],
           "portContracts": [
@@ -106,8 +106,33 @@
             "routingHint": "direct"
           }
         },
-        "summaryNodeId": "idea-edge-questions-port"
-      }
+        "summaryNodeId": "idea-edge-questions-port",
+        "declaration": {
+          "kind": "edge-class",
+          "targetMode": "artifact",
+          "artifactKind": "edge-class",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Questions",
+              "memo": "source asks whether the target claim or assumption holds",
+              "portNodeId": "idea-edge-questions-port",
+              "viewNodeId": "idea-edge-questions-port",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "root": false
     },
     {
       "id": "idea-edge-questions-port",
@@ -153,20 +178,19 @@
         "viewRole": "summary",
         "viewKind": "display",
         "semanticLevel": "summary"
-      }
+      },
+      "root": true
     }
   ],
   "edges": [
     {
-      "id": "idea-edge-questions-exposes",
-      "type": "reference",
-      "source": "idea-edge-questions-manifest",
+      "id": "idea-edge-questions-default-surface",
+      "source": "idea-edge-questions-declaration",
       "target": "idea-edge-questions-port",
-      "sourcePort": "root",
-      "targetPort": "root",
-      "label": "class surface",
-      "style": {},
-      "data": {}
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "type": "reference",
+      "label": "default surface"
     }
   ],
   "clusters": [],
@@ -182,4 +206,3 @@
   },
   "scripts": []
 }
-

@@ -14,9 +14,9 @@
   },
   "nodes": [
     {
-      "id": "idea-edge-tests-manifest",
-      "type": "manifest",
-      "label": "Tests Edge Class",
+      "id": "idea-edge-tests-declaration",
+      "type": "declaration",
+      "label": "Tests Edge Class Declaration",
       "position": {
         "x": -440,
         "y": -180
@@ -49,7 +49,7 @@
         },
         "dependencies": {
           "nodeTypes": [
-            "manifest",
+            "declaration",
             "port"
           ],
           "portContracts": [
@@ -105,8 +105,33 @@
             "routingHint": "direct"
           }
         },
-        "summaryNodeId": "idea-edge-tests-port"
-      }
+        "summaryNodeId": "idea-edge-tests-port",
+        "declaration": {
+          "kind": "edge-class",
+          "targetMode": "artifact",
+          "artifactKind": "edge-class",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Tests",
+              "memo": "source action is designed to test the target uncertainty",
+              "portNodeId": "idea-edge-tests-port",
+              "viewNodeId": "idea-edge-tests-port",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "root": false
     },
     {
       "id": "idea-edge-tests-port",
@@ -152,20 +177,19 @@
         "viewRole": "summary",
         "viewKind": "display",
         "semanticLevel": "summary"
-      }
+      },
+      "root": true
     }
   ],
   "edges": [
     {
-      "id": "idea-edge-tests-exposes",
-      "type": "reference",
-      "source": "idea-edge-tests-manifest",
+      "id": "idea-edge-tests-default-surface",
+      "source": "idea-edge-tests-declaration",
       "target": "idea-edge-tests-port",
-      "sourcePort": "root",
-      "targetPort": "root",
-      "label": "class surface",
-      "style": {},
-      "data": {}
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "type": "reference",
+      "label": "default surface"
     }
   ],
   "clusters": [],
@@ -181,4 +205,3 @@
   },
   "scripts": []
 }
-

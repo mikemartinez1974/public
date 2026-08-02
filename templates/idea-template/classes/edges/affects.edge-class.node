@@ -14,9 +14,9 @@
   },
   "nodes": [
     {
-      "id": "idea-edge-affects-manifest",
-      "type": "manifest",
-      "label": "Affects Edge Class",
+      "id": "idea-edge-affects-declaration",
+      "type": "declaration",
+      "label": "Affects Edge Class Declaration",
       "position": {
         "x": -440,
         "y": -180
@@ -49,7 +49,7 @@
         },
         "dependencies": {
           "nodeTypes": [
-            "manifest",
+            "declaration",
             "port"
           ],
           "portContracts": [
@@ -103,8 +103,33 @@
             "routingHint": "direct"
           }
         },
-        "summaryNodeId": "idea-edge-affects-port"
-      }
+        "summaryNodeId": "idea-edge-affects-port",
+        "declaration": {
+          "kind": "edge-class",
+          "targetMode": "artifact",
+          "artifactKind": "edge-class",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Affects",
+              "memo": "source audience experiences or is affected by the target problem",
+              "portNodeId": "idea-edge-affects-port",
+              "viewNodeId": "idea-edge-affects-port",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "root": false
     },
     {
       "id": "idea-edge-affects-port",
@@ -150,20 +175,19 @@
         "viewRole": "summary",
         "viewKind": "display",
         "semanticLevel": "summary"
-      }
+      },
+      "root": true
     }
   ],
   "edges": [
     {
-      "id": "idea-edge-affects-exposes",
-      "type": "reference",
-      "source": "idea-edge-affects-manifest",
+      "id": "idea-edge-affects-default-surface",
+      "source": "idea-edge-affects-declaration",
       "target": "idea-edge-affects-port",
-      "sourcePort": "root",
-      "targetPort": "root",
-      "label": "class surface",
-      "style": {},
-      "data": {}
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "type": "reference",
+      "label": "default surface"
     }
   ],
   "clusters": [],
@@ -179,4 +203,3 @@
   },
   "scripts": []
 }
-

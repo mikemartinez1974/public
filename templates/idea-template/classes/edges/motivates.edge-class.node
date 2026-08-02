@@ -14,9 +14,9 @@
   },
   "nodes": [
     {
-      "id": "idea-edge-motivates-manifest",
-      "type": "manifest",
-      "label": "Motivates Edge Class",
+      "id": "idea-edge-motivates-declaration",
+      "type": "declaration",
+      "label": "Motivates Edge Class Declaration",
       "position": {
         "x": -440,
         "y": -180
@@ -49,7 +49,7 @@
         },
         "dependencies": {
           "nodeTypes": [
-            "manifest",
+            "declaration",
             "port"
           ],
           "portContracts": [
@@ -103,8 +103,33 @@
             "routingHint": "direct"
           }
         },
-        "summaryNodeId": "idea-edge-motivates-port"
-      }
+        "summaryNodeId": "idea-edge-motivates-port",
+        "declaration": {
+          "kind": "edge-class",
+          "targetMode": "artifact",
+          "artifactKind": "edge-class",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Motivates",
+              "memo": "source establishes the need or reason for the target",
+              "portNodeId": "idea-edge-motivates-port",
+              "viewNodeId": "idea-edge-motivates-port",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "root": false
     },
     {
       "id": "idea-edge-motivates-port",
@@ -150,20 +175,19 @@
         "viewRole": "summary",
         "viewKind": "display",
         "semanticLevel": "summary"
-      }
+      },
+      "root": true
     }
   ],
   "edges": [
     {
-      "id": "idea-edge-motivates-exposes",
-      "type": "reference",
-      "source": "idea-edge-motivates-manifest",
+      "id": "idea-edge-motivates-default-surface",
+      "source": "idea-edge-motivates-declaration",
       "target": "idea-edge-motivates-port",
-      "sourcePort": "root",
-      "targetPort": "root",
-      "label": "class surface",
-      "style": {},
-      "data": {}
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "type": "reference",
+      "label": "default surface"
     }
   ],
   "clusters": [],
@@ -179,4 +203,3 @@
   },
   "scripts": []
 }
-

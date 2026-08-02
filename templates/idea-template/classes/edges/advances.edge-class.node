@@ -14,9 +14,9 @@
   },
   "nodes": [
     {
-      "id": "idea-edge-advances-manifest",
-      "type": "manifest",
-      "label": "Advances Edge Class",
+      "id": "idea-edge-advances-declaration",
+      "type": "declaration",
+      "label": "Advances Edge Class Declaration",
       "position": {
         "x": -440,
         "y": -180
@@ -49,7 +49,7 @@
         },
         "dependencies": {
           "nodeTypes": [
-            "manifest",
+            "declaration",
             "port"
           ],
           "portContracts": [
@@ -104,8 +104,33 @@
             "routingHint": "direct"
           }
         },
-        "summaryNodeId": "idea-edge-advances-port"
-      }
+        "summaryNodeId": "idea-edge-advances-port",
+        "declaration": {
+          "kind": "edge-class",
+          "targetMode": "artifact",
+          "artifactKind": "edge-class",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Advances",
+              "memo": "source action moves the target idea toward a better-supported state",
+              "portNodeId": "idea-edge-advances-port",
+              "viewNodeId": "idea-edge-advances-port",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "root": false
     },
     {
       "id": "idea-edge-advances-port",
@@ -151,20 +176,19 @@
         "viewRole": "summary",
         "viewKind": "display",
         "semanticLevel": "summary"
-      }
+      },
+      "root": true
     }
   ],
   "edges": [
     {
-      "id": "idea-edge-advances-exposes",
-      "type": "reference",
-      "source": "idea-edge-advances-manifest",
+      "id": "idea-edge-advances-default-surface",
+      "source": "idea-edge-advances-declaration",
       "target": "idea-edge-advances-port",
-      "sourcePort": "root",
-      "targetPort": "root",
-      "label": "class surface",
-      "style": {},
-      "data": {}
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "type": "reference",
+      "label": "default surface"
     }
   ],
   "clusters": [],
