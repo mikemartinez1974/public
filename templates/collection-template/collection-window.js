@@ -22,24 +22,19 @@ const listRepositoryDirectory = async (request) => {
   if (typeof api.listRepositoryDirectory === 'function') {
     return api.listRepositoryDirectory(request);
   }
-  const response = await fetch('/api/github/list', {
-    method: 'POST',
-    cache: 'no-store',
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      installationId: clean(request?.installationId),
-      repo: clean(request?.repo),
-      path: cleanPath(request?.path),
-      branch: clean(request?.branch) || 'main',
-      allowPublic: request?.allowPublic !== false
-    })
-  });
-  const payload = await response.json().catch(() => ({}));
-  if (!response.ok || payload?.ok === false) {
-    throw new Error(payload?.message || `Repository directory listing failed (${response.status})`);
-  }
-  return Array.isArray(payload?.entries) ? payload.entries : [];
+  const error = new Error('Repository directory listing is not available in this Twilite runtime.');
+  error.code = 'DIRECTORY_LIST_UNAVAILABLE';
+  throw error;
+};
+
+const membersFromAuthoredPortals = (nodes, parsed) => {
+  const prefix = `github://${parsed.owner}/${parsed.repo}/${parsed.directory ? `${parsed.directory}/` : ''}`.toLowerCase();
+  return [...new Set(nodes
+    .filter((node) => clean(node?.type).toLowerCase() === 'portal')
+    .map((node) => clean(node?.data?.target?.ref || node?.data?.sourceRef || node?.data?.ref || node?.data?.src))
+    .filter((ref) => ref.toLowerCase().startsWith(prefix))
+    .filter((ref) => !ref.toLowerCase().endsWith('/root.node'))
+  )].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 };
 
 const findRootPort = (graph) => {
@@ -103,7 +98,16 @@ const renderWindow = async (direction = 'refresh') => {
   const parsed = parseGithubRef(graphRef);
   if (!parsed) throw new Error('Collection declaration needs data.collection.collectionRef as a github:// graph address.');
 
-  const members = await listMembers(parsed, contract.membership || {});
+  let members;
+  try {
+    members = await listMembers(parsed, contract.membership || {});
+  } catch (error) {
+    if (error?.code !== 'DIRECTORY_LIST_UNAVAILABLE') throw error;
+    members = membersFromAuthoredPortals(nodes, parsed);
+    if (!members.length) {
+      throw new Error('This runtime cannot discover the collection directory yet, and the graph has no authored member portals to use as a compatibility index.');
+    }
+  }
   const windowSize = Math.max(1, Math.min(50, Number(view.windowSize) || 10));
   const prior = globalThis[STATE_KEY] || { start: 0 };
   let start = Number(prior.start) || 0;
