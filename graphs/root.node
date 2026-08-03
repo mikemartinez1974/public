@@ -3,13 +3,14 @@
   "metadata": {
     "title": "Graph Lab",
     "description": "A directory-owned collection of standalone graphs, demonstrations, experiments, and working models.",
-    "graphId": "graphs-collection",
+    "graphId": "graphs-collection-declaration",
     "version": "1.0.0",
     "kind": "collection",
+    "created": "2026-08-03T16:06:54.273Z",
+    "modified": "2026-08-03T16:35:48.382Z",
+    "author": "",
     "tags": [
-      "collection",
-      "graphs",
-      "lab"
+      "collection"
     ],
     "preferredViewer": "https://twilite.zone"
   },
@@ -25,8 +26,6 @@
       },
       "width": 420,
       "height": 300,
-      "visible": false,
-      "showLabel": true,
       "ports": [
         {
           "id": "root",
@@ -43,9 +42,11 @@
           "angle": 0
         }
       ],
+      "visible": false,
+      "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "graphs-collection",
+          "graphId": "graphs-collection-declaration",
           "name": "Graph Lab",
           "version": "1.0.0",
           "description": "A directory-owned collection of standalone graphs, demonstrations, experiments, and working models."
@@ -159,7 +160,26 @@
           "edgeRouting": "auto",
           "autoSave": false,
           "theme": null,
-          "backgroundImage": null
+          "backgroundImage": null,
+          "layout": {
+            "mode": "autoOnMissingPositions",
+            "defaultLayout": "layered",
+            "direction": "DOWN",
+            "edgeLaneGapPx": 10,
+            "serpentine": {
+              "maxPerRow": 6
+            },
+            "cycleFallback": {
+              "enabled": true
+            },
+            "elk": {
+              "algorithm": "fixed",
+              "edgeRouting": "ORTHOGONAL",
+              "portConstraints": "FIXED_SIDE",
+              "nodeSpacing": 120,
+              "layeredEdgeSpacing": 80
+            }
+          }
         },
         "document": {
           "url": "github://mikemartinez1974/public/graphs/root.node"
@@ -177,8 +197,6 @@
       },
       "width": 620,
       "height": 330,
-      "visible": true,
-      "showLabel": true,
       "ports": [
         {
           "id": "root",
@@ -202,6 +220,8 @@
           "angle": 90
         }
       ],
+      "visible": true,
+      "showLabel": true,
       "data": {
         "title": "Graph Lab",
         "purpose": "A working collection of standalone graphs, demonstrations, experiments, and models.",
@@ -249,6 +269,9 @@
               }
             ]
           }
+        },
+        "identity": {
+          "graphId": "graphs-collection-declaration"
         }
       }
     },
@@ -263,8 +286,6 @@
       },
       "width": 300,
       "height": 180,
-      "visible": true,
-      "showLabel": true,
       "ports": [
         {
           "id": "trigger",
@@ -281,6 +302,8 @@
           "angle": 0
         }
       ],
+      "visible": true,
+      "showLabel": true,
       "data": {
         "scriptId": "collection-window-controller",
         "scriptName": "Collection Window Controller",
@@ -290,7 +313,10 @@
         "dryRun": false,
         "autoRunOnLoad": true,
         "autoRunPayload": {},
-        "visibilityRole": "browser"
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "graphs-collection-declaration"
+        }
       }
     },
     {
@@ -304,8 +330,6 @@
       },
       "width": 360,
       "height": 220,
-      "visible": true,
-      "showLabel": true,
       "ports": [
         {
           "id": "root",
@@ -322,24 +346,33 @@
           "angle": 180
         }
       ],
+      "visible": true,
+      "showLabel": true,
       "data": {
         "memo": "Return to repository home. Retarget this portal when deriving the template.",
         "authority": "navigate",
         "src": "github://mikemartinez1974/public/root.node",
         "ref": "github://mikemartinez1974/public/root.node",
-        "endpoint": "github://mikemartinez1974/public/root.node",
+        "endpoint": "github://mikemartinez1974/public/root.node:root",
         "intent": "external",
         "target": {
           "ref": "github://mikemartinez1974/public/root.node",
           "mode": "navigate",
           "portId": "root",
-          "surfaceId": "root",
-          "label": "Open Repository Home"
+          "surfaceId": "repo-home",
+          "label": "Open Repository Home",
+          "endpoint": "github://mikemartinez1974/public/root.node:root",
+          "handleId": "root"
         },
         "sourceRef": "github://mikemartinez1974/public/root.node",
-        "sourcePayload": "node.web",
-        "surfaceId": "root",
-        "visibilityRole": "browser"
+        "sourcePayload": "node.web.summary",
+        "surfaceId": "repo-home",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "graphs-collection-declaration"
+        },
+        "security": "prompt",
+        "sourceNodeId": "public-home-view"
       }
     },
     {
@@ -353,8 +386,6 @@
       },
       "width": 620,
       "height": 260,
-      "visible": true,
-      "showLabel": true,
       "ports": [
         {
           "id": "root",
@@ -371,9 +402,14 @@
           "angle": 270
         }
       ],
+      "visible": true,
+      "showLabel": true,
       "data": {
         "markdown": "## Graph Lab Membership\n\nEvery direct `.node` file in `graphs/` belongs to this collection. The folder is intentionally heterogeneous: demonstrations, architecture maps, experiments, smoke tests, and standalone models may live together here. The graph-owned controller presents ten ordinary root cards at a time.",
-        "visibilityRole": "browser"
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "graphs-collection-declaration"
+        }
       }
     }
   ],
@@ -386,6 +422,7 @@
       "sourcePort": "right",
       "targetPort": "trigger",
       "label": "runs collection window",
+      "style": {},
       "data": {
         "relationship": "runs collection window",
         "semanticRole": "structural"
@@ -399,6 +436,7 @@
       "sourcePort": "right",
       "targetPort": "root",
       "label": "declares root",
+      "style": {},
       "data": {
         "relationship": "declares root",
         "semanticRole": "structural"
@@ -412,6 +450,7 @@
       "sourcePort": "right",
       "targetPort": "left",
       "label": "returns to repository",
+      "style": {},
       "data": {
         "relationship": "returns to repository",
         "semanticRole": "navigation"
@@ -425,13 +464,65 @@
       "sourcePort": "bottom",
       "targetPort": "top",
       "label": "explains membership",
+      "style": {},
       "data": {
         "relationship": "explains membership",
         "semanticRole": "guidance"
       }
     }
   ],
-  "groups": [],
-  "nodeCount": 5,
-  "edgeCount": 4
+  "clusters": [],
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "#666666",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": {
+      "mode": "autoOnMissingPositions",
+      "defaultLayout": "layered",
+      "direction": "DOWN",
+      "edgeLaneGapPx": 10,
+      "serpentine": {
+        "maxPerRow": 6
+      },
+      "cycleFallback": {
+        "enabled": true
+      },
+      "elk": {
+        "algorithm": "fixed",
+        "edgeRouting": "ORTHOGONAL",
+        "portConstraints": "FIXED_SIDE",
+        "nodeSpacing": 120,
+        "layeredEdgeSpacing": 80
+      }
+    },
+    "github": {
+      "repo": "mikemartinez1974/public",
+      "path": "graphs/root.node",
+      "branch": "main",
+      "autoCreateRepo": true,
+      "repoVisibility": "private",
+      "seedOnCommit": false,
+      "enableGithubPages": false,
+      "installationId": "120403738"
+    },
+    "autoSave": false
+  },
+  "scripts": [
+    {
+      "id": "script_1761684730975",
+      "name": "New Script",
+      "source": "// Write your script here\n// Available API:\n//   api.getNodes()\n//   api.getNode(id)\n//   api.getEdges()\n//   api.createNode(data)\n//   api.updateNode(id, patch)\n//   api.deleteNode(id)\n//   api.createEdge(data)\n//   api.deleteEdge(id)\n//   api.log(level, message)\n\nconst nodes = await api.getNodes();\nreturn { count: nodes.length };",
+      "tags": ""
+    },
+    {
+      "id": "script_1761684295367",
+      "name": "Mike",
+      "source": "console.clear();\nconst nodes = await api.getNodes();\nconsole.log(\"Mike\");\nreturn { count: nodes.length };",
+      "tags": ""
+    }
+  ]
 }
