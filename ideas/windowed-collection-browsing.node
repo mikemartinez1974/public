@@ -155,12 +155,12 @@
           "name": "Windowed Collection Browsing"
         },
         "title": "Windowed Collection Browsing",
-        "purpose": "Explore a scrollable collection surface that renders a bounded window of matching nodes from one ordinary graph.",
+        "purpose": "Explore a scrollable collection surface that discovers member graphs from the collection directory and renders a bounded window of their root surfaces.",
         "renderShape": {
           "kind": "svg"
         },
         "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 360' role='img' aria-label='Windowed Collection Browsing'><defs><linearGradient id='wc-bg' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#07111f'/><stop offset='.55' stop-color='#1e3a5f'/><stop offset='1' stop-color='#0f766e'/></linearGradient></defs><rect x='5' y='5' width='690' height='350' rx='32' fill='url(#wc-bg)' stroke='#5eead4' stroke-width='3'/><text x='48' y='72' fill='#99f6e4' font-family='system-ui,sans-serif' font-size='14' font-weight='800' letter-spacing='.16em'>ONE GRAPH · BOUNDED VIEW</text><g transform='translate(48 108)'><rect width='118' height='82' rx='16' fill='#1d4ed8'/><rect x='132' width='118' height='82' rx='16' fill='#2563eb'/><rect x='264' width='118' height='82' rx='16' fill='#0f766e'/><rect x='396' width='118' height='82' rx='16' fill='#0d9488'/><path d='M545 20v42' stroke='#f8fafc' stroke-width='5' stroke-linecap='round'/><path d='m532 49 13 13 13-13' fill='none' stroke='#f8fafc' stroke-width='5'/></g><g transform='translate(48 208)' opacity='.55'><rect width='118' height='48' rx='12' fill='#334155'/><rect x='132' width='118' height='48' rx='12' fill='#334155'/><rect x='264' width='118' height='48' rx='12' fill='#334155'/><rect x='396' width='118' height='48' rx='12' fill='#334155'/></g><text x='48' y='316' fill='#f8fafc' font-family='system-ui,sans-serif' font-size='30' font-weight='850'>Scroll the members, not the graph</text></svg>",
-        "altText": "A bounded row of collection cards scrolls to reveal the next cards while remaining inside one graph.",
+        "altText": "A bounded row of discovered graph cards scrolls to reveal the next collection members.",
         "view": {
           "intent": "node",
           "payload": "node.web.summary",
@@ -228,7 +228,7 @@
         "identity": {
           "graphId": "windowed-collection-view"
         },
-        "markdown": "# Discussion Map\n\nUse the semantic edges to follow the proposal:\n\n- large collections **motivate** a bounded browsing window\n- authors and visitors are **affected by** crowded collection surfaces\n- the idea **assumes** windowing can remain presentation-only\n- existing list virtualization **informs** the membership question\n- observed virtualization behavior **supports** the presentation assumption\n- partitioned page graphs **question** the same-graph approach\n- hidden-state side effects **threaten** the idea\n- a ten-member prototype **tests** the assumption and the proposed surface **advances** the idea\n\nAll members remain ordinary nodes in one graph. Scrolling changes browser state, not authored graph state."
+        "markdown": "# Discussion Map\n\nUse the semantic edges to follow the proposal:\n\n- large collections **motivate** a bounded browsing window\n- authors and visitors are **affected by** crowded collection surfaces\n- the idea **assumes** windowing can remain presentation-only\n- existing list virtualization **informs** the membership question\n- observed virtualization behavior **supports** the presentation assumption\n- explicit page graphs **question** directory discovery\n- address-changing file moves **threaten** the idea\n- a ten-member prototype **tests** the assumption and the proposed surface **advances** the idea\n\nMembership comes from repository structure. Direct `.node` files and `root.node` files in direct child directories become collection members; the collection’s own `root.node` and deeper descendants do not. Scrolling changes browser state, not authored graph state."
       }
     },
     {
@@ -282,10 +282,10 @@
       "showLabel": false,
       "data": {
         "title": "Collections Can Browse Through a Window",
-        "statement": "A collection can keep every member as an ordinary node in one graph while its browse surface renders only a scrollable window of matching members at a time.",
+        "statement": "A collection can discover its member graphs from its repository directory and render only a scrollable window of their root surfaces at a time.",
         "status": "framed",
         "confidence": "promising",
-        "notes": "The first proof should show ten members, advance through the same graph without saving layout mutations, and automatically include a newly added matching node.",
+        "notes": "The first proof should show ten discovered graph members, advance without saving layout mutations, and automatically include a newly added `.node` file or child `root.node`.",
         "definitionKey": "idea",
         "_classBinding": {
           "key": "idea",
@@ -699,8 +699,8 @@
       "showLabel": false,
       "data": {
         "title": "A Windowed Collection Surface",
-        "description": "Let a collection declare how member nodes are recognized and ordered. In browse mode, render a fixed-size window such as ten cards and advance the temporary offset through wheel, touch, or explicit controls. Keep edit mode and saved graph positions unchanged.",
-        "differentiator": "This is a view over one ordinary graph, not page files, copied projections, or graph mutations. The interaction can later consume a query-backed source without changing the browsing model.",
+        "description": "Treat repository structure as collection membership: include direct `.node` files except the collection’s own `root.node`, plus `root.node` from each direct child directory, without recursively flattening deeper descendants. In browse mode, resolve and render a fixed-size window such as ten root-surface cards and advance the temporary offset through wheel, touch, or explicit controls.",
+        "differentiator": "Authors add graph files exactly as they do now; no second portal registry or page graph is required. Directory enumeration supplies lightweight membership, and only the visible window needs its graph root surfaces resolved.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
           "key": "idea-proposed-approach",
@@ -837,9 +837,9 @@
       "showLabel": false,
       "data": {
         "title": "How Does the Collection Recognize Members?",
-        "question": "What is the smallest reliable membership rule that lets a collection automatically include newly added nodes while excluding declarations, bridges, controls, notes, and return navigation?",
-        "status": "open",
-        "answer": "",
+        "question": "What is the smallest reliable membership rule that lets a collection automatically include newly added graphs?",
+        "status": "answered",
+        "answer": "Repository location determines membership. Include direct `.node` files other than the collection’s own `root.node`, and include `root.node` from each direct child directory. Do not recursively flatten deeper descendants; supporting files and directories without a `root.node` are not members.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -856,8 +856,8 @@
         "identity": {
           "graphId": "windowed-collection-view"
         },
-        "resolution": "A first installable template is a bounded set of nodes, edges, and required bridges copied into an existing graph. It preserves the host declaration and canonical root, relies on Twilite's existing automatic rules, and fails on ID collisions without generating suffixes.",
-        "resolutionPath": "Promoted into Graph Organization as the local implementation task “Implement lean template installation.”"
+        "resolution": "The collection directory is authoritative for membership; the collection graph owns presentation rather than a duplicated member registry.",
+        "resolutionPath": "Decision recorded in this idea graph and linked to Graph Organization’s active collection-growth task."
       }
     },
     {
@@ -1404,8 +1404,8 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Partition the Collection Into Page Graphs",
-        "description": "Store groups of members in separate page or partition graphs and navigate between them from a collection index.",
+        "title": "Maintain Explicit Page Graphs",
+        "description": "Store copied member listings in separate page or partition graphs and navigate between them from a collection index.",
         "tradeoffs": "This bounds loading as well as rendering, but introduces page artifacts and changes the authoring experience. It remains a future storage strategy if a single graph payload becomes genuinely too large.",
         "definitionKey": "idea-alternative",
         "_classBinding": {
@@ -1424,8 +1424,8 @@
           "graphId": "windowed-collection-view"
         },
         "status": "rejected-for-now",
-        "tradeoff": "More lifecycle control, but far more machinery than the first working installation requires. Revisit only when real installed capabilities demonstrate the need.",
-        "reasonNotPreferred": "The immediate need is to browse ordinary members already stored in one graph without forcing authors to manage page graphs."
+        "tradeoff": "More control over storage partitions, but a duplicate membership index and additional artifacts for authors to maintain.",
+        "reasonNotPreferred": "Directory discovery already supplies membership automatically and avoids forcing authors to maintain page artifacts or duplicate portal registries."
       }
     },
     {
@@ -1545,11 +1545,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Offscreen Members Still Influence the Canvas",
-        "description": "If windowing merely hides nodes through ordinary graph visibility or layout mutations, offscreen members may distort fit-to-view, minimaps, analytics, selection, undo history, or saved positions.",
+        "title": "Moving a Member Changes Its Durable Address",
+        "description": "Because repository location determines collection membership and the `github://` address, moving a graph between directories can break durable references even when the move is intended only as reorganization.",
         "likelihood": "medium",
         "impact": "high",
-        "mitigation": "Implement the collection window as browse-surface state with explicit membership and ordering; do not rewrite authored visibility or positions.",
+        "mitigation": "Do not physically move source graphs merely to change how they are presented. Prefer filters, archive indexes, or an explicit redirect when a move is unavoidable.",
         "definitionKey": "idea-risk",
         "_classBinding": {
           "key": "idea-risk",
@@ -1686,8 +1686,8 @@
       "showLabel": false,
       "data": {
         "title": "Prototype a Ten-Member Collection Window",
-        "action": "Create a browse-mode collection surface that recognizes matching members, renders ten cards in stable order, scrolls forward and backward, preserves portal navigation, and automatically includes a newly added matching node.",
-        "expectedEvidence": "The same graph can contain more than ten members while only ten collection cards are rendered; scrolling and reload do not mutate authored positions or graph data.",
+        "action": "Create a browse-mode collection surface that enumerates direct member `.node` files and direct child `root.node` files, resolves ten root-surface cards in stable order, scrolls forward and backward, and automatically includes a newly added member graph.",
+        "expectedEvidence": "A collection directory can contain more than ten member graphs while only ten root cards are resolved and rendered; adding a member file makes it appear without editing the collection root graph, and scrolling does not mutate graph data.",
         "status": "todo",
         "definitionKey": "idea-next-step",
         "_classBinding": {
@@ -1705,8 +1705,7 @@
         "identity": {
           "graphId": "windowed-collection-view"
         },
-        "description": "Start with one existing collection and leave large-payload querying out of scope.",
-        "result": "Complete. The first duplicate-ID run was rejected without suffixing."
+        "description": "Start with the Ideas collection. Exclude its own `root.node`, include one level of child graph roots, and leave global search and large remote indexes out of scope."
       }
     },
     {
