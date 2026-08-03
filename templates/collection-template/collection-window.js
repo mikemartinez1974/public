@@ -2,6 +2,7 @@ const RUNTIME_KIND = 'windowed-collection-member';
 const STATE_KEY = '__twiliteCollectionWindow';
 const clean = (value) => String(value || '').trim();
 const cleanPath = (value) => clean(value).replace(/^\/+|\/+$/g, '');
+const pause = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
 const parseGithubRef = (ref) => {
   const raw = clean(ref).split('#')[0];
@@ -131,8 +132,15 @@ const renderWindow = async (direction = 'refresh') => {
 
   const existing = nodes.filter((node) => clean(node?.data?._runtime?.kind) === RUNTIME_KIND);
   const wantedIds = new Set(resolved.map((member) => `runtime-collection-${safeId(member.ref)}`));
-  for (const node of existing) {
-    if (!wantedIds.has(node.id)) await api.deleteNode(node.id);
+  const deleteIds = existing.filter((node) => !wantedIds.has(node.id)).map((node) => node.id);
+  if (deleteIds.length && typeof api.deleteNodes === 'function') {
+    await api.deleteNodes(deleteIds);
+    await pause(80);
+  } else {
+    for (const id of deleteIds) {
+      await api.deleteNode(id);
+      await pause(180);
+    }
   }
 
   const columns = Math.max(1, Math.min(windowSize, Number(view.columns) || 2));
@@ -143,6 +151,8 @@ const renderWindow = async (direction = 'refresh') => {
   const originX = Number.isFinite(Number(view?.origin?.x)) ? Number(view.origin.x) : -720;
   const originY = Number.isFinite(Number(view?.origin?.y)) ? Number(view.origin.y) : 330;
   const existingIds = new Set(existing.map((node) => node.id));
+  const createNodes = [];
+  const updateNodes = [];
 
   for (let index = 0; index < resolved.length; index += 1) {
     const member = resolved[index];
@@ -173,8 +183,20 @@ const renderWindow = async (direction = 'refresh') => {
         _runtime: { kind: RUNTIME_KIND, sourceRef: member.ref, windowStart: start }
       }
     };
-    if (existingIds.has(id)) await api.updateNode(id, portal);
-    else await api.createNode(portal);
+    if (existingIds.has(id)) updateNodes.push(portal);
+    else createNodes.push(portal);
+  }
+  for (const portal of updateNodes) {
+    await api.updateNode(portal.id, portal);
+    await pause(180);
+  }
+  if (createNodes.length && typeof api.createNodes === 'function') {
+    await api.createNodes(createNodes);
+  } else {
+    for (const portal of createNodes) {
+      await api.createNode(portal);
+      await pause(180);
+    }
   }
   return { start, end: Math.min(members.length, start + windowSize), count: members.length };
 };
