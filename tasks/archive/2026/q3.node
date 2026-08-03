@@ -739,6 +739,100 @@
         },
         "visibilityRole": "browser"
       }
+    },
+    {
+      "id": "task-archive-large-collections",
+      "type": "task",
+      "label": "Design Twilite for large collections",
+      "position": {
+        "x": 1560,
+        "y": 460
+      },
+      "width": 460,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "_classBinding": {
+          "key": "task",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "_bridge": {
+          "sourceNodeId": "task-collection-bridge-task",
+          "sourceBridgeNodeId": "task-collection-bridge-task",
+          "sourceBridgeLabel": "Task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class",
+          "classKey": "task",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "definitionKey": "task",
+        "identity": {
+          "graphId": "michael-task-collection"
+        },
+        "title": "Design Twilite for large collections",
+        "body": "Define and implement a scalable collection model that can handle thousands or millions of subscribers, repositories, nodes, enrollments, and historical tasks without loading or rendering the entire collection at once.",
+        "status": "done",
+        "priority": "high",
+        "owner": "Michael",
+        "nextAction": "",
+        "progressNote": "Graph Organization audit found that archive partitions, promotion, portals, summaries, and long-list UI virtualization already exist. The unresolved scaling boundary is earlier in the pipeline: collection graphs still materialize their complete .node membership before the UI can browse them.",
+        "blockedReason": "",
+        "health": "on-track",
+        "acceptanceCriteria": [
+          "Collection views can page, filter, sort, and search without materializing every member as a node at once.",
+          "The source of truth is separated from bounded visual projections and cached indexes.",
+          "Enrollment and policy reconciliation can run incrementally and resume safely.",
+          "Completed or inactive members can be archived without breaking durable references or historical provenance."
+        ],
+        "completedAt": "2026-08-03T21:30:00.000Z",
+        "outcome": "Delivered repository-discovered, ten-card windowed collection browsing with transient rendering, deterministic navigation, and a validated Collection Template and Ideas pilot.",
+        "artifactRefs": [
+          "github://twilite-zone/public/tasks/graph-organization/windowed-collection-browsing/root.node",
+          "github://mikemartinez1974/public/templates/collection-template/root.node",
+          "github://mikemartinez1974/public/ideas/windowed-collection-browsing.node"
+        ]
+      }
     }
   ],
   "edges": [
@@ -858,6 +952,22 @@
         "width": 2
       },
       "data": {}
+    },
+    {
+      "id": "task-archive-large-collections-edge",
+      "type": "reference",
+      "source": "task-archive-exposed-port-navigation",
+      "target": "task-archive-large-collections",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "completed task",
+      "style": {
+        "curved": true
+      },
+      "data": {
+        "relation": "archive-sequence",
+        "rank": 6
+      }
     }
   ],
   "clusters": [],
@@ -868,5 +978,7 @@
     "gridSize": 20,
     "edgeRouting": "auto",
     "autoSave": false
-  }
+  },
+  "nodeCount": 10,
+  "edgeCount": 9
 }
