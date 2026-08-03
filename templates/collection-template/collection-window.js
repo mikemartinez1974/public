@@ -18,6 +18,30 @@ const safeId = (value) => clean(value).toLowerCase()
   .replace(/^-+|-+$/g, '')
   .slice(0, 88) || 'member';
 
+const listRepositoryDirectory = async (request) => {
+  if (typeof api.listRepositoryDirectory === 'function') {
+    return api.listRepositoryDirectory(request);
+  }
+  const response = await fetch('/api/github/list', {
+    method: 'POST',
+    cache: 'no-store',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      installationId: clean(request?.installationId),
+      repo: clean(request?.repo),
+      path: cleanPath(request?.path),
+      branch: clean(request?.branch) || 'main',
+      allowPublic: request?.allowPublic !== false
+    })
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok || payload?.ok === false) {
+    throw new Error(payload?.message || `Repository directory listing failed (${response.status})`);
+  }
+  return Array.isArray(payload?.entries) ? payload.entries : [];
+};
+
 const findRootPort = (graph) => {
   const nodes = Array.isArray(graph?.nodes) ? graph.nodes : [];
   const declaration = nodes.find((node) => ['declaration', 'manifest'].includes(clean(node?.type).toLowerCase()));
@@ -33,7 +57,7 @@ const findRootPort = (graph) => {
 };
 
 const listMembers = async (parsed, membership) => {
-  const entries = await api.listRepositoryDirectory({
+  const entries = await listRepositoryDirectory({
     repo: `${parsed.owner}/${parsed.repo}`,
     path: parsed.directory,
     branch: 'main',
@@ -50,7 +74,7 @@ const listMembers = async (parsed, membership) => {
     const directories = entries.filter((entry) => clean(entry?.type).toLowerCase() === 'dir');
     const childRoots = await Promise.all(directories.map(async (directory) => {
       try {
-        const children = await api.listRepositoryDirectory({
+        const children = await listRepositoryDirectory({
           repo: `${parsed.owner}/${parsed.repo}`,
           path: cleanPath(directory.path),
           branch: 'main',
