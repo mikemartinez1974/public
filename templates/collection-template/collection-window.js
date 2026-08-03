@@ -27,11 +27,13 @@ const listRepositoryDirectory = async (request) => {
   throw error;
 };
 
-const membersFromAuthoredPortals = (nodes, parsed) => {
+const compatibilityMembers = (nodes, parsed, contract) => {
   const prefix = `github://${parsed.owner}/${parsed.repo}/${parsed.directory ? `${parsed.directory}/` : ''}`.toLowerCase();
-  return [...new Set(nodes
+  const declared = Array.isArray(contract?.compatibilityMembers) ? contract.compatibilityMembers.map(clean) : [];
+  const portals = nodes
     .filter((node) => clean(node?.type).toLowerCase() === 'portal')
-    .map((node) => clean(node?.data?.target?.ref || node?.data?.sourceRef || node?.data?.ref || node?.data?.src))
+    .map((node) => clean(node?.data?.target?.ref || node?.data?.sourceRef || node?.data?.ref || node?.data?.src));
+  return [...new Set([...declared, ...portals]
     .filter((ref) => ref.toLowerCase().startsWith(prefix))
     .filter((ref) => !ref.toLowerCase().endsWith('/root.node'))
   )].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
@@ -103,7 +105,7 @@ const renderWindow = async (direction = 'refresh') => {
     members = await listMembers(parsed, contract.membership || {});
   } catch (error) {
     if (error?.code !== 'DIRECTORY_LIST_UNAVAILABLE') throw error;
-    members = membersFromAuthoredPortals(nodes, parsed);
+    members = compatibilityMembers(nodes, parsed, contract);
     if (!members.length) {
       throw new Error('This runtime cannot discover the collection directory yet, and the graph has no authored member portals to use as a compatibility index.');
     }
