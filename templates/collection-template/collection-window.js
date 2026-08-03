@@ -89,8 +89,9 @@ const listMembers = async (parsed, membership) => {
   return [...new Set(refs)].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 };
 
-const renderWindow = async (direction = 'refresh') => {
+const renderWindow = async (direction = 'run') => {
   const nodes = await api.getNodes();
+  const existing = nodes.filter((node) => clean(node?.data?._runtime?.kind) === RUNTIME_KIND);
   const declaration = nodes.find((node) => (
     ['declaration', 'manifest'].includes(clean(node?.type).toLowerCase())
     && clean(node?.data?.intent?.kind).toLowerCase() === 'collection'
@@ -112,11 +113,15 @@ const renderWindow = async (direction = 'refresh') => {
     }
   }
   const windowSize = Math.max(1, Math.min(50, Number(view.windowSize) || 10));
-  const prior = globalThis[STATE_KEY] || { start: 0 };
+  const runtimeStart = Number(existing[0]?.data?._runtime?.windowStart);
+  const prior = globalThis[STATE_KEY] || { start: Number.isFinite(runtimeStart) ? runtimeStart : 0 };
   let start = Number(prior.start) || 0;
+  const maxStart = members.length ? Math.floor((members.length - 1) / windowSize) * windowSize : 0;
   if (direction === 'next') start += windowSize;
   if (direction === 'previous') start -= windowSize;
-  const maxStart = members.length ? Math.floor((members.length - 1) / windowSize) * windowSize : 0;
+  if (direction === 'run' && existing.length) {
+    start = start >= maxStart ? 0 : start + windowSize;
+  }
   start = Math.max(0, Math.min(maxStart, start));
   globalThis[STATE_KEY] = { start, count: members.length };
 
@@ -130,9 +135,16 @@ const renderWindow = async (direction = 'refresh') => {
     }
   }));
 
-  const existing = nodes.filter((node) => clean(node?.data?._runtime?.kind) === RUNTIME_KIND);
   const wantedIds = new Set(resolved.map((member) => `runtime-collection-${safeId(member.ref)}`));
-  const deleteIds = existing.filter((node) => !wantedIds.has(node.id)).map((node) => node.id);
+  const seenRuntimeIds = new Set();
+  const duplicateIds = new Set();
+  existing.forEach((node) => {
+    if (seenRuntimeIds.has(node.id)) duplicateIds.add(node.id);
+    seenRuntimeIds.add(node.id);
+  });
+  const deleteIds = [...new Set(existing
+    .filter((node) => !wantedIds.has(node.id) || duplicateIds.has(node.id))
+    .map((node) => node.id))];
   if (deleteIds.length && typeof api.deleteNodes === 'function') {
     await api.deleteNodes(deleteIds);
     await pause(80);
@@ -150,7 +162,7 @@ const renderWindow = async (direction = 'refresh') => {
   const gapY = Math.max(20, Number(view.gapY) || 70);
   const originX = Number.isFinite(Number(view?.origin?.x)) ? Number(view.origin.x) : -720;
   const originY = Number.isFinite(Number(view?.origin?.y)) ? Number(view.origin.y) : 330;
-  const existingIds = new Set(existing.map((node) => node.id));
+  const existingIds = new Set(existing.filter((node) => !duplicateIds.has(node.id)).map((node) => node.id));
   const createNodes = [];
   const updateNodes = [];
 
@@ -210,4 +222,4 @@ globalThis.__twiliteCollectionUnsubscribe = [
   api.events.on('collection:refresh', () => renderWindow('refresh'))
 ];
 
-return renderWindow('refresh');
+return renderWindow('run');
