@@ -1,0 +1,71 @@
+{
+  "fileVersion": "1.0",
+  "metadata": { "title": "Collection Surface Node Class", "description": "Placeable landing surface and layout context for a collection.", "graphId": "collection-surface-class", "version": "1.0.0", "kind": "node-class", "preferredViewer": "https://twilite.zone" },
+  "nodes": [
+    {
+      "id": "collection-surface-declaration",
+      "type": "declaration",
+      "label": "Collection Surface Declaration",
+      "position": { "x": -700, "y": -300 },
+      "width": 420,
+      "height": 300,
+      "visible": true,
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }],
+      "data": {
+        "identity": { "graphId": "collection-surface-class", "name": "Collection Surface", "version": "1.0.0", "description": "Landing surface and layout context for projected collection members." },
+        "intent": { "kind": "node-class", "scope": "shared" },
+        "declaration": { "kind": "node-class", "targetMode": "artifact", "defaultSurfaceId": "root", "surfaces": [
+          { "id": "root", "kind": "port", "label": "Collection Surface", "portNodeId": "collection-surface-root", "viewNodeId": "collection-surface-detail" },
+          { "id": "detail", "kind": "view", "label": "Detail", "viewNodeId": "collection-surface-detail" },
+          { "id": "summary", "kind": "view", "label": "Summary", "viewNodeId": "collection-surface-summary" },
+          { "id": "icon", "kind": "view", "label": "Icon", "viewNodeId": "collection-surface-icon" },
+          { "id": "editor", "kind": "view", "label": "Editor", "viewNodeId": "collection-surface-editor" }
+        ] },
+        "nodeClass": {
+          "contractVersion": "1.0.0",
+          "key": "collection-surface",
+          "label": "Collection Surface",
+          "meaning": "Names a collection and provides layout context for its projected member cards.",
+          "requiredDataKeys": ["title", "collectionView"],
+          "nodeDef": {
+            "key": "collection-surface",
+            "ref": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-surface.node-class.node",
+            "source": "local",
+            "version": ">=1.0.0",
+            "defaults": {
+              "label": "Collection Surface",
+              "size": { "width": 620, "height": 300 },
+              "showLabel": false,
+              "data": { "title": "My Collection", "purpose": "A windowed collection.", "capabilityRole": "collection-surface", "collectionView": { "columns": 2, "cardWidth": 420, "cardHeight": 260, "gapX": 100, "gapY": 70, "origin": { "x": -360, "y": 600 } } },
+              "ports": [
+                { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+                { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 },
+                { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 },
+                { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 },
+                { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+              ]
+            }
+          }
+        },
+        "dependencies": { "nodeTypes": ["declaration", "port", "view", "bridge"], "portContracts": ["core"], "skills": ["collection-template"], "schemaVersions": { "nodes": ">=1.0.0", "ports": ">=1.0.0" }, "optional": [] }
+      }
+    },
+    { "id": "collection-surface-root", "type": "port", "label": "Collection Surface Class", "position": { "x": -180, "y": -300 }, "width": 420, "height": 260, "visible": true, "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }], "data": { "authority": "consume-view", "sourceScope": "graph", "sourceNodeId": "collection-surface-detail", "sourcePayload": "node.web.detail", "surfaceId": "root", "targetNodeId": "collection-surface-detail", "view": { "intent": "node", "payload": "node.web.detail" }, "visibilityRole": "browser" } },
+    { "id": "collection-surface-detail", "type": "view", "label": "Collection Surface Detail", "position": { "x": 340, "y": -300 }, "width": 620, "height": 300, "visible": true, "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }], "data": { "key": "node.web.detail", "intent": "node", "payload": "node.web.detail", "semanticLevel": "detail", "html": "<div style='width:100%;height:100%;box-sizing:border-box;padding:28px;border-radius:26px;background:linear-gradient(145deg,#0f172a,#164e63);border:2px solid #5eead4;color:white;font-family:system-ui'><div style='color:#99f6e4;font-size:13px;font-weight:850;letter-spacing:.17em'>WINDOWED COLLECTION</div><div style='font-size:38px;font-weight:900;margin-top:18px'>{{data.title || label || 'My Collection'}}</div><div style='font-size:16px;color:#ccfbf1;margin-top:15px'>{{data.purpose || 'A directory-defined collection.'}}</div><div style='margin-top:34px;color:#99f6e4'>Projected member cards appear in this surface's configured region.</div></div>" } },
+    { "id": "collection-surface-summary", "type": "view", "label": "Collection Surface Summary", "position": { "x": 340, "y": 60 }, "width": 440, "height": 190, "visible": true, "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }], "data": { "key": "node.web.summary", "intent": "node", "payload": "node.web.summary", "semanticLevel": "summary", "html": "<div style='width:100%;height:100%;box-sizing:border-box;padding:20px;border-radius:20px;background:#164e63;border:2px solid #5eead4;color:white;font-family:system-ui'><b style='font-size:25px'>{{data.title || label || 'My Collection'}}</b><div style='margin-top:12px;color:#ccfbf1'>{{data.purpose || 'Windowed collection surface'}}</div></div>" } },
+    { "id": "collection-surface-icon", "type": "view", "label": "Collection Surface Icon", "position": { "x": 900, "y": 60 }, "width": 180, "height": 180, "visible": true, "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }], "data": { "key": "node.web.icon", "intent": "node", "payload": "node.web.icon", "semanticLevel": "icon", "html": "<div style='width:100%;height:100%;box-sizing:border-box;border-radius:24px;background:#164e63;color:#99f6e4;display:grid;grid-template-columns:repeat(2,36px);gap:10px;align-content:center;justify-content:center'><i style='height:36px;background:#5eead4;border-radius:8px'></i><i style='height:36px;background:#2dd4bf;border-radius:8px'></i><i style='height:36px;background:#2dd4bf;border-radius:8px'></i><i style='height:36px;background:#5eead4;border-radius:8px'></i></div>" } },
+    { "id": "collection-surface-editor", "type": "view", "label": "Collection Surface Editor", "position": { "x": 340, "y": 320 }, "width": 540, "height": 320, "visible": true, "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }], "data": { "key": "editor.web", "intent": "editor", "payload": "editor.web", "semanticLevel": "detail", "editor": { "web": { "fields": [
+      { "key": "title", "label": "Collection Title", "path": "data.title", "type": "text" },
+      { "key": "purpose", "label": "Purpose", "path": "data.purpose", "type": "multiline", "rows": 3 },
+      { "key": "columns", "label": "Columns", "path": "data.collectionView.columns", "type": "number", "min": 1, "max": 10, "step": 1 },
+      { "key": "cardWidth", "label": "Card Width", "path": "data.collectionView.cardWidth", "type": "number", "min": 220, "max": 1200, "step": 20 },
+      { "key": "cardHeight", "label": "Card Height", "path": "data.collectionView.cardHeight", "type": "number", "min": 140, "max": 900, "step": 20 }
+    ] } } } },
+    { "id": "collection-surface-export", "type": "bridge", "label": "Collection Surface Class Export", "position": { "x": -700, "y": 100 }, "width": 420, "height": 180, "visible": true, "data": { "bridge": { "ref": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-surface.node-class.node", "role": "export", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"], "exposure": { "nodeClasses": { "mode": "allow", "include": ["collection-surface"] }, "views": { "mode": "allow" } } }, "visibilityRole": "editor" } }
+  ],
+  "edges": [
+    { "id": "surface-class-edge-root", "type": "reference", "source": "collection-surface-declaration", "target": "collection-surface-root", "sourcePort": "right", "targetPort": "root", "label": "exposes class" },
+    { "id": "surface-class-edge-view", "type": "reference", "source": "collection-surface-root", "target": "collection-surface-detail", "sourcePort": "root", "targetPort": "root", "label": "renders as" }
+  ],
+  "viewport": { "x": 250, "y": 250, "zoom": 0.65 }
+}

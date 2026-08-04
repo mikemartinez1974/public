@@ -89,10 +89,10 @@
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/collection-window-controller/root.node",
           "role": "import",
-          "resourceKind": "script-capability",
+          "resourceKind": "capability-kit",
           "scope": "focused-graph",
           "grants": ["create", "execute"],
-          "exposure": { "scripts": { "mode": "allow", "include": ["collection-window-controller"] }, "views": { "mode": "allow" } }
+          "exposure": { "nodeClasses": { "mode": "allow", "include": ["collection-surface", "collection-window-controls"] }, "scripts": { "mode": "allow", "include": ["collection-window-controller"] }, "views": { "mode": "allow" } }
         },
         "visibilityRole": "browser"
       }
@@ -111,7 +111,7 @@
         { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }
       ],
       "data": {
-        "markdown": "# Smoke Procedure\n\n1. Confirm **Collection Window Controller** appears in Elements because of the import bridge.\n2. Create it once. Confirm its placed node has the Script class summary with a trusted **Run** button.\n3. Open Detail. Confirm source, singleton multiplicity, requirements, effects, grants, mutation policy, and triggers are visible.\n4. Click **Run**. Two fixture member cards should appear below.\n5. Click **Run** again. The same bounded window should remain coherent—no duplicate controller and no persisted runtime portals.\n6. Save and reload. Runtime member cards may be reconstructed, but they must not be written into this file.\n\n**Pass:** behavior was discovered from the capability graph, placed exactly once, configured visibly, fired through the host runner, and produced only transient collection members.",
+        "markdown": "# Smoke Procedure\n\n1. Confirm the import bridge adds exactly three entries to Elements: **Collection Surface**, **Collection Window Controls**, and **Collection Window Controller**.\n2. Create each entry once. Do not copy configuration from another graph.\n3. Set the Controls page size to `1`, click **Apply Size**, and fire the Controller from its Summary. One fixture card should appear.\n4. Click **Next** and **Previous**. The visible fixture card should change and return.\n5. Set page size to `2`, click **Apply Size**, and confirm both fixture cards appear.\n6. Open Controller Detail and confirm source, singleton multiplicity, requirements, effects, grants, mutation policy, and triggers are visible.\n7. Save and reload. The three authored kit nodes should persist; projected fixture portals must not.\n\n**Pass:** one export bridge produces exactly three placeable nodes, their controls cooperate through graph events, and only transient member portals are created at runtime.",
         "visibilityRole": "browser"
       }
     },

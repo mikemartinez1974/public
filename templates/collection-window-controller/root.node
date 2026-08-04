@@ -44,6 +44,7 @@
               "portNodeId": "collection-window-capability-root",
               "viewNodeId": "collection-window-controller-script",
               "exposes": {
+                "nodeClasses": { "mode": "allow", "include": ["collection-surface", "collection-window-controls"] },
                 "scripts": { "mode": "allow", "include": ["collection-window-controller"] },
                 "views": { "mode": "allow" },
                 "declarations": { "mode": "allow" }
@@ -82,23 +83,55 @@
       ],
       "data": {
         "identity": { "graphId": "collection-window-controller-capability", "portId": "root", "name": "Collection Window Controller" },
-        "authority": "consume-view",
-        "sourceScope": "graph",
-        "sourceNodeId": "collection-window-controller-script",
-        "sourcePayload": "node.web.summary",
         "surfaceId": "root",
-        "targetNodeId": "collection-window-controller-script",
-        "view": { "intent": "node", "payload": "node.web.summary" },
+        "renderShape": { "kind": "svg" },
+        "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 330'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='#0f172a'/><stop offset='1' stop-color='#0f766e'/></linearGradient></defs><rect x='5' y='5' width='690' height='320' rx='34' fill='url(#g)' stroke='#5eead4' stroke-width='3'/><text x='50' y='72' fill='#99f6e4' font-family='system-ui' font-size='14' font-weight='800' letter-spacing='.18em'>COLLECTION CAPABILITY KIT</text><text x='50' y='128' fill='white' font-family='system-ui' font-size='38' font-weight='850'>Windowed Collection</text><rect x='54' y='178' width='164' height='70' rx='14' fill='#164e63' stroke='#5eead4'/><rect x='268' y='178' width='164' height='70' rx='14' fill='#164e63' stroke='#5eead4'/><rect x='482' y='178' width='164' height='70' rx='14' fill='#164e63' stroke='#5eead4'/><text x='91' y='220' fill='white' font-family='system-ui' font-size='16' font-weight='750'>SURFACE</text><text x='300' y='220' fill='white' font-family='system-ui' font-size='16' font-weight='750'>CONTROLS</text><text x='516' y='220' fill='white' font-family='system-ui' font-size='16' font-weight='750'>CONTROLLER</text><text x='50' y='290' fill='#ccfbf1' font-family='system-ui' font-size='16'>Three placeable nodes · one curated export bridge</text></svg>",
+        "altText": "A collection capability kit containing surface, controls, and controller nodes.",
+        "view": { "intent": "node", "payload": "node.web" },
         "visibilityRole": "browser",
         "title": "Collection Window Controller",
         "description": "Placeable collection discovery and windowing behavior."
       }
     },
     {
+      "id": "collection-window-surface-class",
+      "type": "bridge",
+      "label": "Collection Surface Class",
+      "position": { "x": -760, "y": 40 },
+      "width": 420,
+      "height": 190,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }],
+      "data": {
+        "memo": "Placeable landing surface and layout context.",
+        "target": { "ref": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-surface.node-class.node", "mode": "bridge", "kind": "node-class", "role": "import", "key": "collection-surface", "label": "Collection Surface" },
+        "bridge": { "ref": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-surface.node-class.node", "role": "import", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"], "exposure": { "nodeClasses": { "mode": "allow", "include": ["collection-surface"] }, "views": { "mode": "allow" } } },
+        "visibilityRole": "editor"
+      }
+    },
+    {
+      "id": "collection-window-controls-class",
+      "type": "bridge",
+      "label": "Collection Window Controls Class",
+      "position": { "x": -760, "y": 280 },
+      "width": 420,
+      "height": 190,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }],
+      "data": {
+        "memo": "Placeable Previous, Next, and page-size panel.",
+        "target": { "ref": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controls.node-class.node", "mode": "bridge", "kind": "node-class", "role": "import", "key": "collection-window-controls", "label": "Collection Window Controls" },
+        "bridge": { "ref": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controls.node-class.node", "role": "import", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create"], "exposure": { "nodeClasses": { "mode": "allow", "include": ["collection-window-controls"] }, "views": { "mode": "allow" } } },
+        "visibilityRole": "editor"
+      }
+    },
+    {
       "id": "collection-window-controller-script",
       "type": "script",
       "label": "Collection Window Controller",
-      "position": { "x": -120, "y": 40 },
+      "position": { "x": -120, "y": 160 },
       "width": 560,
       "height": 300,
       "visible": true,
@@ -120,12 +153,15 @@
         "multiplicity": "singleton",
         "requirements": [
           "One declaration with data.intent.kind set to collection",
-          "A github:// collectionRef naming the authoritative directory"
+          "A github:// collectionRef naming the authoritative directory",
+          "One Collection Surface carrying layout context",
+          "One Collection Window Controls panel emitting window events"
         ],
         "effects": [
           "Discovers direct .node members and child root.node members",
           "Creates, updates, and removes transient collection member portals",
-          "Maintains graph-local window position"
+          "Maintains graph-local window position and page size",
+          "Reports active range to the controls panel"
         ],
         "grants": ["read", "execute", "create", "update", "delete"],
         "definitionKey": "script",
@@ -145,6 +181,33 @@
       }
     },
     {
+      "id": "collection-window-capability-export",
+      "type": "bridge",
+      "label": "Collection Capability Export",
+      "position": { "x": -120, "y": 520 },
+      "width": 560,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }],
+      "data": {
+        "memo": "Curated outward boundary for the three-node collection kit.",
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/collection-window-controller/root.node",
+          "role": "export",
+          "resourceKind": "capability-kit",
+          "scope": "focused-graph",
+          "grants": ["create", "execute"],
+          "exposure": {
+            "nodeClasses": { "mode": "allow", "include": ["collection-surface", "collection-window-controls"] },
+            "scripts": { "mode": "allow", "include": ["collection-window-controller"] },
+            "views": { "mode": "allow" }
+          }
+        },
+        "visibilityRole": "browser"
+      }
+    },
+    {
       "id": "collection-window-capability-contract",
       "type": "markdown",
       "label": "Placement Contract",
@@ -158,7 +221,7 @@
         { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
       ],
       "data": {
-        "markdown": "## Placement Contract\n\nImport this graph through a real bridge with `scripts: allow` and the `create` plus `execute` grants. Create the exposed **Collection Window Controller** in a collection graph. The placed Script owns configuration and delegates firing to Twilite's trusted runner.\n\nThe host graph supplies collection identity and membership policy; this capability supplies behavior.",
+        "markdown": "## Placement Contract\n\nConsume **Collection Capability Export** through a real import bridge with `nodeClasses: allow`, `scripts: allow`, and the `create` plus `execute` grants. The consumer Legend should receive exactly three entries:\n\n1. **Collection Surface**\n2. **Collection Window Controls**\n3. **Collection Window Controller**\n\nPlace each once. The host graph retains its own identity and collection membership policy; the kit supplies presentation, controls, layout context, and behavior.",
         "visibilityRole": "browser"
       }
     },
@@ -218,7 +281,9 @@
   ],
   "edges": [
     { "id": "collection-window-capability-edge-root", "type": "reference", "source": "collection-window-capability-declaration", "target": "collection-window-capability-root", "sourcePort": "right", "targetPort": "left", "label": "exposes capability", "data": { "relationship": "exposes capability", "semanticRole": "structural" } },
-    { "id": "collection-window-capability-edge-script", "type": "reference", "source": "collection-window-capability-root", "target": "collection-window-controller-script", "sourcePort": "bottom", "targetPort": "trigger", "label": "fires behavior", "data": { "relationship": "fires behavior", "semanticRole": "structural" } },
+    { "id": "collection-window-capability-edge-surface", "type": "reference", "source": "collection-window-surface-class", "target": "collection-window-controller-script", "sourcePort": "right", "targetPort": "trigger", "label": "provides layout", "data": { "relationship": "provides layout", "semanticRole": "structural" } },
+    { "id": "collection-window-capability-edge-controls", "type": "reference", "source": "collection-window-controls-class", "target": "collection-window-controller-script", "sourcePort": "right", "targetPort": "trigger", "label": "controls window", "data": { "relationship": "controls window", "semanticRole": "structural" } },
+    { "id": "collection-window-capability-edge-export", "type": "reference", "source": "collection-window-controller-script", "target": "collection-window-capability-export", "sourcePort": "result", "targetPort": "top", "label": "exports kit", "data": { "relationship": "exports kit", "semanticRole": "structural" } },
     { "id": "collection-window-capability-edge-contract", "type": "reference", "source": "collection-window-controller-script", "target": "collection-window-capability-contract", "sourcePort": "result", "targetPort": "left", "label": "declares placement", "data": { "relationship": "declares placement", "semanticRole": "structural" } },
     { "id": "collection-window-capability-edge-smoke", "type": "reference", "source": "collection-window-capability-contract", "target": "collection-window-capability-smoke", "sourcePort": "root", "targetPort": "left", "label": "proved by", "data": { "relationship": "proved by", "semanticRole": "structural" } }
   ],

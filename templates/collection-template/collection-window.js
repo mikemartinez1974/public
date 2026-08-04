@@ -97,7 +97,11 @@ const renderWindow = async (direction = 'run') => {
     && clean(node?.data?.intent?.kind).toLowerCase() === 'collection'
   ));
   const contract = declaration?.data?.collection || {};
-  const view = contract.view || {};
+  const surface = nodes.find((node) => clean(node?.data?.capabilityRole) === 'collection-surface');
+  const surfaceView = surface?.data?.collectionView && typeof surface.data.collectionView === 'object'
+    ? surface.data.collectionView
+    : {};
+  const view = { ...(contract.view || {}), ...surfaceView };
   const graphRef = clean(contract.collectionRef || declaration?.data?.document?.url);
   const parsed = parseGithubRef(graphRef);
   if (!parsed) throw new Error('Collection declaration needs data.collection.collectionRef as a github:// graph address.');
@@ -112,9 +116,13 @@ const renderWindow = async (direction = 'run') => {
       throw new Error('This runtime cannot discover the collection directory yet, and the graph has no authored member portals to use as a compatibility index.');
     }
   }
-  const windowSize = Math.max(1, Math.min(50, Number(view.windowSize) || 10));
   const runtimeStart = Number(existing[0]?.data?._runtime?.windowStart);
-  const prior = globalThis[STATE_KEY] || { start: Number.isFinite(runtimeStart) ? runtimeStart : 0 };
+  const configuredWindowSize = Math.max(1, Math.min(50, Number(view.windowSize) || 10));
+  const prior = globalThis[STATE_KEY] || {
+    start: Number.isFinite(runtimeStart) ? runtimeStart : 0,
+    pageSize: configuredWindowSize
+  };
+  const windowSize = Math.max(1, Math.min(50, Number(prior.pageSize) || configuredWindowSize));
   let start = Number(prior.start) || 0;
   const maxStart = members.length ? Math.floor((members.length - 1) / windowSize) * windowSize : 0;
   if (direction === 'next') start += windowSize;
@@ -123,7 +131,7 @@ const renderWindow = async (direction = 'run') => {
     start = start >= maxStart ? 0 : start + windowSize;
   }
   start = Math.max(0, Math.min(maxStart, start));
-  globalThis[STATE_KEY] = { start, count: members.length };
+  globalThis[STATE_KEY] = { start, count: members.length, pageSize: windowSize };
 
   const visibleRefs = members.slice(start, start + windowSize);
   const resolved = await Promise.all(visibleRefs.map(async (ref) => {
@@ -210,7 +218,23 @@ const renderWindow = async (direction = 'run') => {
       await pause(180);
     }
   }
-  return { start, end: Math.min(members.length, start + windowSize), count: members.length };
+  const result = { start, end: Math.min(members.length, start + windowSize), count: members.length, pageSize: windowSize };
+  try {
+    api.events.emit('collection:window-state', result);
+  } catch (_) {}
+  return result;
+};
+
+const applyPageSize = (payload) => {
+  const requested = Number(payload?.pageSize ?? payload?.value ?? payload);
+  if (!Number.isFinite(requested)) return renderWindow('refresh');
+  const prior = globalThis[STATE_KEY] || {};
+  globalThis[STATE_KEY] = {
+    ...prior,
+    start: 0,
+    pageSize: Math.max(1, Math.min(50, Math.round(requested)))
+  };
+  return renderWindow('refresh');
 };
 
 if (globalThis.__twiliteCollectionUnsubscribe) {
@@ -219,7 +243,8 @@ if (globalThis.__twiliteCollectionUnsubscribe) {
 globalThis.__twiliteCollectionUnsubscribe = [
   api.events.on('collection:previous', () => renderWindow('previous')),
   api.events.on('collection:next', () => renderWindow('next')),
-  api.events.on('collection:refresh', () => renderWindow('refresh'))
+  api.events.on('collection:refresh', () => renderWindow('refresh')),
+  api.events.on('collection:page-size', (payload) => applyPageSize(payload))
 ];
 
 return renderWindow('run');
