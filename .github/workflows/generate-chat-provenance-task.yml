@@ -1,0 +1,659 @@
+name: Generate Chat provenance task graph
+
+on:
+  push:
+    branches:
+      - task/create-chat-provenance-node
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: task/create-chat-provenance-node
+
+      - name: Build task graph and connect related idea
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL "https://raw.githubusercontent.com/twilite-zone/public/main/library/classes/nodes/task-planning/task-graph-template.node" -o /tmp/task-graph-template.node
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+
+          const templatePath = '/tmp/task-graph-template.node';
+          const collectionPath = 'tasks/root.node';
+          const ideaPath = 'ideas/chat-node-provenance.node';
+          const outputPath = 'tasks/chat-node-provenance/root.node';
+          const oldPrefix = 'task-graph-template';
+          const slug = 'create-chat-provenance-node';
+          const graphId = `${slug}-declaration`;
+          const title = 'Create the Chat Provenance Node';
+          const description = 'Define, implement, and validate a first-class Chat node that preserves an originating conversation as explicit graph provenance.';
+          const now = '2026-08-05T22:44:00.000Z';
+          const graphRef = `github://mikemartinez1974/public/${outputPath}`;
+          const ideaRef = `github://mikemartinez1974/public/${ideaPath}`;
+          const ideaRootNodeId = 'chat-node-provenance-root-port';
+          const ideaNextStepId = 'chat-node-provenance-idea-next-step';
+
+          const graph = JSON.parse(fs.readFileSync(templatePath, 'utf8'));
+          const collection = JSON.parse(fs.readFileSync(collectionPath, 'utf8'));
+          const idea = JSON.parse(fs.readFileSync(ideaPath, 'utf8'));
+          const clone = (value) => JSON.parse(JSON.stringify(value));
+
+          const idMap = new Map();
+          for (const node of graph.nodes || []) {
+            if (typeof node.id === 'string' && node.id.startsWith(oldPrefix)) {
+              idMap.set(node.id, slug + node.id.slice(oldPrefix.length));
+            }
+          }
+
+          const replaceExactIds = (value) => {
+            if (typeof value === 'string') return idMap.get(value) || value;
+            if (Array.isArray(value)) return value.map(replaceExactIds);
+            if (value && typeof value === 'object') {
+              const next = {};
+              for (const [key, child] of Object.entries(value)) next[key] = replaceExactIds(child);
+              return next;
+            }
+            return value;
+          };
+          graph.nodes = (graph.nodes || []).map(replaceExactIds);
+          graph.edges = (graph.edges || []).map(replaceExactIds);
+          for (const edge of graph.edges) {
+            if (typeof edge.id === 'string' && edge.id.startsWith(oldPrefix)) {
+              edge.id = slug + edge.id.slice(oldPrefix.length);
+            }
+          }
+
+          const replacePrefixInStrings = (value) => {
+            if (typeof value === 'string') return value.split(oldPrefix).join(slug);
+            if (Array.isArray(value)) return value.map(replacePrefixInStrings);
+            if (value && typeof value === 'object') {
+              const next = {};
+              for (const [key, child] of Object.entries(value)) next[key] = replacePrefixInStrings(child);
+              return next;
+            }
+            return value;
+          };
+          for (const node of graph.nodes) {
+            if (node.type === 'script') node.data = replacePrefixInStrings(node.data || {});
+          }
+
+          graph.fileVersion = '1.0';
+          graph.metadata = {
+            title,
+            description,
+            graphId,
+            version: '0.1.0',
+            kind: 'task',
+            created: now,
+            modified: now,
+            author: 'Michael Martinez',
+            tags: ['task', 'chat-node', 'provenance', 'conversation', 'access-control', 'prototype'],
+            preferredViewer: 'https://twilite.zone'
+          };
+
+          const byType = (type) => graph.nodes.find((node) => node.type === type);
+          const declaration = byType('declaration');
+          const titleNode = byType('title');
+          const typeNode = byType('type-definition');
+          const portView = byType('port-view');
+          const iconView = byType('icon-view');
+          const goal = byType('goal');
+          const baseTask = graph.nodes.find((node) => node.type === 'task' && node?.data?.countAsTask !== false);
+          const baseQuestion = byType('open-question');
+          const decision = byType('decision');
+          const summary = byType('summary');
+          const summaryTask = graph.nodes.find((node) => node.type === 'task' && node?.data?.countAsTask === false);
+
+          for (const [name, node] of Object.entries({ declaration, titleNode, typeNode, portView, iconView, goal, baseTask, baseQuestion, decision, summary, summaryTask })) {
+            if (!node) throw new Error(`Canonical task template is missing ${name}`);
+          }
+
+          declaration.label = `${title} Declaration`;
+          declaration.data.identity = {
+            graphId,
+            name: title,
+            version: '0.1.0',
+            description,
+            createdAt: now,
+            updatedAt: now
+          };
+          declaration.data.intent = { kind: 'task', scope: 'local' };
+          declaration.data.name = `${title} Declaration`;
+          declaration.data.declaresKind = 'task';
+          declaration.data.purpose = description;
+          declaration.data.summaryNodeId = summary.id;
+          declaration.data.origin = {
+            relation: 'implements-next-step',
+            graphRef: ideaRef,
+            nodeId: ideaNextStepId
+          };
+          declaration.data.dependencies = declaration.data.dependencies || {};
+          declaration.data.dependencies.nodeTypes = Array.from(new Set([...(declaration.data.dependencies.nodeTypes || []), 'portal']));
+          declaration.data.declaration = declaration.data.declaration || {};
+          declaration.data.declaration.kind = 'task';
+          declaration.data.declaration.targetMode = 'artifact';
+          declaration.data.declaration.artifactKind = 'task-graph';
+          declaration.data.declaration.defaultSurfaceId = 'card';
+          declaration.data.declaration.primaryNodeViewId = summary.id;
+          declaration.data.declaration.iconViewNodeId = iconView.id;
+          declaration.data.declaration.portViewNodeId = portView.id;
+          for (const surface of declaration.data.declaration.surfaces || []) {
+            if (surface.id === 'card') {
+              surface.label = title;
+              surface.viewNodeId = portView.id;
+              surface.memo = 'Primary outward-facing card for the Chat provenance node implementation task.';
+            } else if (surface.id === 'summary') {
+              surface.viewNodeId = summary.id;
+            } else if (surface.id === 'workspace') {
+              surface.viewNodeId = summaryTask.id;
+            } else if (surface.id === 'icon') {
+              surface.viewNodeId = iconView.id;
+            }
+          }
+
+          titleNode.label = title;
+          titleNode.data.title = title;
+          titleNode.data.subtitle = 'Preserve the originating conversation without pretending every viewer has the same access.';
+          if (titleNode.data.identity) titleNode.data.identity.graphId = graphId;
+
+          typeNode.label = 'Task Graph';
+          typeNode.data.name = 'Chat Provenance Node Implementation Task';
+          typeNode.data.key = 'create-chat-provenance-node';
+          typeNode.data.meaning = 'A promoted task graph for defining and prototyping the first-class Chat node provenance contract.';
+          typeNode.data.description = description;
+          typeNode.data.category = 'planning';
+          typeNode.data.status = 'active';
+          if (typeNode.data.identity) typeNode.data.identity.graphId = graphId;
+
+          const cardSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" role="img" aria-label="Create the Chat provenance node"><defs><linearGradient id="chat-task-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f172a"/><stop offset="0.55" stop-color="#1e3a8a"/><stop offset="1" stop-color="#6d28d9"/></linearGradient></defs><rect x="5" y="5" width="510" height="310" rx="30" fill="url(#chat-task-bg)" stroke="#c4b5fd" stroke-width="3"/><path d="M72 58h214a28 28 0 0 1 28 28v70a28 28 0 0 1-28 28H174l-50 38 13-38H72a28 28 0 0 1-28-28V86a28 28 0 0 1 28-28z" fill="#172554" stroke="#bfdbfe" stroke-width="4"/><circle cx="111" cy="122" r="9" fill="#93c5fd"/><circle cx="160" cy="122" r="9" fill="#c4b5fd"/><circle cx="209" cy="122" r="9" fill="#f0abfc"/><g transform="translate(340 55)"><rect width="132" height="52" rx="14" fill="#0f766e" stroke="#99f6e4" stroke-width="2"/><text x="66" y="32" text-anchor="middle" fill="#f0fdfa" font-family="system-ui,sans-serif" font-size="14" font-weight="800">SHARED</text><rect y="66" width="132" height="52" rx="14" fill="#1d4ed8" stroke="#bfdbfe" stroke-width="2"/><text x="66" y="98" text-anchor="middle" fill="#eff6ff" font-family="system-ui,sans-serif" font-size="14" font-weight="800">OWNER ONLY</text><rect y="132" width="132" height="52" rx="14" fill="#7c3aed" stroke="#ddd6fe" stroke-width="2"/><text x="66" y="164" text-anchor="middle" fill="#faf5ff" font-family="system-ui,sans-serif" font-size="14" font-weight="800">SNAPSHOT</text></g><path d="M286 122h42" stroke="#e9d5ff" stroke-width="4" stroke-linecap="round"/><text x="260" y="264" text-anchor="middle" fill="#f8fafc" font-family="system-ui,sans-serif" font-size="25" font-weight="850">CHAT AS PROVENANCE</text><text x="260" y="291" text-anchor="middle" fill="#ddd6fe" font-family="system-ui,sans-serif" font-size="14">Contract · Views · Access · Artifact links</text></svg>';
+          portView.label = title;
+          portView.data.title = title;
+          portView.data.purpose = 'Define and prototype a Chat node that records source, access mode, durable context, and produced-artifact relationships.';
+          portView.data.titleSourceNodeId = titleNode.id;
+          portView.data.typeSourceNodeId = typeNode.id;
+          portView.data.status = 'active';
+          portView.data.svg = cardSvg;
+          if (portView.data.identity) portView.data.identity.graphId = graphId;
+
+          iconView.label = 'Chat Provenance';
+          iconView.data.title = 'Chat Provenance';
+          iconView.data.purpose = 'Implementation task for the first-class Chat provenance node.';
+          iconView.data.titleSourceNodeId = titleNode.id;
+          iconView.data.typeSourceNodeId = typeNode.id;
+          iconView.data.status = 'active';
+          iconView.data.svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Chat provenance"><rect x="12" y="12" width="96" height="96" rx="24" fill="#172554" stroke="#c4b5fd" stroke-width="6"/><path d="M31 35h58a12 12 0 0 1 12 12v25a12 12 0 0 1-12 12H61L43 98l5-14H31a12 12 0 0 1-12-12V47a12 12 0 0 1 12-12z" fill="#1e3a8a" stroke="#dbeafe" stroke-width="4"/><circle cx="44" cy="60" r="5" fill="#93c5fd"/><circle cx="60" cy="60" r="5" fill="#c4b5fd"/><circle cx="76" cy="60" r="5" fill="#f0abfc"/></svg>';
+          if (iconView.data.identity) iconView.data.identity.graphId = graphId;
+
+          goal.label = 'Deliver a Trustworthy First-Class Chat Provenance Node';
+          goal.position = { x: -260, y: 160 };
+          goal.data.body = 'Define, implement, and validate a Chat node that can point to a private owner link, a shared conversation snapshot, or a locally archived transcript excerpt while clearly communicating access, permanence, and the artifacts produced by the conversation.';
+          goal.data.priority = 'high';
+          goal.data.status = 'todo';
+          goal.data.owner = 'Michael';
+          goal.data.targetDate = '';
+          goal.data.successMetrics = [
+            'The Chat node has a documented minimum data contract and registered node class.',
+            'Private, shared, archived, inaccessible, and deleted-link states are visually distinguishable.',
+            'A node remains informative when its external conversation cannot be opened.',
+            'Produced, revised, or explained artifacts can be connected through explicit provenance relationships.',
+            'The prototype stores no authentication secrets or falsely implies access.',
+            'Provider-specific API integration remains optional and outside the v0.1 contract.'
+          ];
+          goal.data.identity = { ...(goal.data.identity || {}), graphId };
+
+          const taskSpecs = [
+            {
+              id: baseTask.id,
+              label: 'Define the Minimal Chat Node Data Contract',
+              body: 'Specify the fields for source kind, provider, conversation reference or URL, access mode, snapshot scope, captured summary, optional excerpt, timestamps, status, and produced-artifact references.',
+              estimateHours: '2',
+              acceptanceCriteria: [
+                'The contract distinguishes private owner links, shared snapshots, and locally archived transcripts.',
+                'Access and permanence are explicit fields rather than inferred promises.',
+                'Summary and excerpt fields remain useful when the external source is unavailable.',
+                'No credential, token, or private conversation content is required by the base contract.'
+              ],
+              position: { x: -1080, y: 600 }
+            },
+            {
+              id: `${slug}-task-provenance-relationships`,
+              label: 'Define Chat-to-Artifact Provenance Relationships',
+              body: 'Define how a Chat node records that a conversation created, revised, explained, reviewed, or otherwise contributed to a graph or node without collapsing every relationship into a generic link.',
+              estimateHours: '2',
+              acceptanceCriteria: [
+                'The v0.1 relationship vocabulary is small and semantically distinct.',
+                'Produced-artifact references use durable graph or node addresses.',
+                'The relationship remains understandable from either connected artifact.'
+              ],
+              position: { x: -560, y: 600 }
+            },
+            {
+              id: `${slug}-task-node-class`,
+              label: 'Create the Chat Node Class and Display Views',
+              body: 'Implement the Chat node class with detail, summary, icon, and graph-facing presentation surfaces that expose conversation identity, provenance purpose, and access state.',
+              estimateHours: '4',
+              acceptanceCriteria: [
+                'The node class is declaration-first and registered through normal class bindings and bridge authority.',
+                'Detail, summary, and icon views remain legible at their intended semantic zoom levels.',
+                'The presentation differentiates provenance metadata from a live chat interface.'
+              ],
+              position: { x: -40, y: 600 }
+            },
+            {
+              id: `${slug}-task-editor-access`,
+              label: 'Create the Editor and Access-State Rendering',
+              body: 'Add editing controls for source, access policy, summary, excerpt, provenance role, and artifact references, plus clear badges and degraded states for inaccessible or missing conversations.',
+              estimateHours: '4',
+              acceptanceCriteria: [
+                'The editor supports manual private links, shared links, and local transcript references.',
+                'Owner-only, shared, local snapshot, inaccessible, and unknown states are visually distinct.',
+                'The renderer never claims a link is publicly accessible merely because a URL exists.'
+              ],
+              position: { x: 480, y: 600 }
+            },
+            {
+              id: `${slug}-task-private-prototype`,
+              label: 'Build a Non-Public Prototype Graph',
+              body: 'Create a private test graph containing representative Chat nodes for an owner-only conversation, a shared snapshot, and a locally preserved excerpt, each connected to one or more produced artifacts.',
+              estimateHours: '3',
+              acceptanceCriteria: [
+                'The prototype contains all three source modes.',
+                'Each Chat node has at least one explicit provenance relationship.',
+                'The graph can be inspected without exposing private conversation content.'
+              ],
+              position: { x: -1080, y: 1020 }
+            },
+            {
+              id: `${slug}-task-navigation`,
+              label: 'Implement Conversation and Artifact Navigation',
+              body: 'Make valid conversation references open appropriately and make produced-artifact references navigate back into Twilite while preserving the distinction between external chat access and graph-local provenance.',
+              estimateHours: '3',
+              acceptanceCriteria: [
+                'Valid source links open through the expected security posture.',
+                'Artifact references navigate to durable graph, node, or surface addresses.',
+                'A failed external link does not prevent access to the captured summary and provenance relationships.'
+              ],
+              position: { x: -560, y: 1020 }
+            },
+            {
+              id: `${slug}-task-failure-privacy-tests`,
+              label: 'Test Privacy and Degraded Conversation States',
+              body: 'Exercise private-owner mismatch, revoked shared link, deleted conversation, malformed URL, missing local transcript, and copied-graph scenarios to verify honest access and durability behavior.',
+              estimateHours: '3',
+              acceptanceCriteria: [
+                'Every tested failure state renders without crashing the graph.',
+                'The node clearly says what is unavailable without revealing protected content.',
+                'Copied or shared graphs do not silently broaden conversation access.',
+                'The graph remains useful through summary and artifact provenance when the link fails.'
+              ],
+              position: { x: -40, y: 1020 }
+            },
+            {
+              id: `${slug}-task-v01-decision`,
+              label: 'Finalize the v0.1 Contract and Integration Boundary',
+              body: 'Review the prototype and tests, record the fields and relationships that ship in v0.1, and document what remains deferred to provider-specific or embedded-chat integration.',
+              estimateHours: '2',
+              acceptanceCriteria: [
+                'The final v0.1 contract is documented with examples.',
+                'Deferred provider-specific authentication and transcript retrieval are explicit.',
+                'The task ends with a clear promote, revise, or abandon recommendation.'
+              ],
+              position: { x: 480, y: 1020 }
+            }
+          ];
+
+          const taskNodes = [];
+          for (let index = 0; index < taskSpecs.length; index += 1) {
+            const spec = taskSpecs[index];
+            const node = index === 0 ? baseTask : clone(baseTask);
+            node.id = spec.id;
+            node.label = spec.label;
+            node.position = spec.position;
+            node.data = {
+              ...(node.data || {}),
+              title: spec.label,
+              body: spec.body,
+              priority: index < 4 || index === taskSpecs.length - 1 ? 'high' : 'medium',
+              status: 'todo',
+              owner: 'Michael',
+              estimateHours: spec.estimateHours,
+              acceptanceCriteria: spec.acceptanceCriteria,
+              identity: { ...((node.data || {}).identity || {}), graphId }
+            };
+            if (index > 0) graph.nodes.push(node);
+            taskNodes.push(node);
+          }
+
+          const questionSpecs = [
+            {
+              id: baseQuestion.id,
+              label: 'How much conversation content should v0.1 preserve locally?',
+              body: 'Should the first contract store only a durable summary, allow a short excerpt, or support a complete local transcript reference when the owner explicitly archives one?',
+              position: { x: 1040, y: 590 }
+            },
+            {
+              id: `${slug}-question-access-resolution`,
+              label: 'Is access mode declared, resolved, or both?',
+              body: 'A declared access policy is portable and honest, while runtime resolution can detect revocation or owner mismatch. Decide which values are authoritative and which are observational.',
+              position: { x: 1040, y: 920 }
+            },
+            {
+              id: `${slug}-question-conversation-scope`,
+              label: 'Does one Chat node represent one conversation or a conversation chain?',
+              body: 'Some artifacts emerge from several related chats. Decide whether v0.1 uses one node per conversation and graph edges for continuity, or permits multiple source references inside one node.',
+              position: { x: 1040, y: 1250 }
+            }
+          ];
+          const questionNodes = [];
+          for (let index = 0; index < questionSpecs.length; index += 1) {
+            const spec = questionSpecs[index];
+            const node = index === 0 ? baseQuestion : clone(baseQuestion);
+            node.id = spec.id;
+            node.label = spec.label;
+            node.position = spec.position;
+            node.data = {
+              ...(node.data || {}),
+              body: spec.body,
+              status: 'open',
+              owner: '',
+              resolutionPath: 'Resolve during prototype review before finalizing the v0.1 contract.',
+              prominence: 'high',
+              identity: { ...((node.data || {}).identity || {}), graphId }
+            };
+            if (index > 0) graph.nodes.push(node);
+            questionNodes.push(node);
+          }
+
+          decision.label = 'Keep v0.1 Link-Based and Provider-Neutral';
+          decision.position = { x: 480, y: 160 };
+          decision.data.title = decision.label;
+          decision.data.status = 'decided';
+          decision.data.decidedAt = now;
+          decision.data.owner = 'Michael';
+          decision.data.supersededBy = '';
+          decision.data.body = 'The first Chat node is a provenance node using manually supplied references and explicit access semantics. It is not an embedded live-chat client, does not require provider authentication, and does not promise transcript retrieval. Provider-specific integrations may enrich the node later without redefining its base identity.';
+          decision.data.identity = { ...(decision.data.identity || {}), graphId };
+
+          const taskTitles = taskNodes.map((node) => node.label);
+          const questionTitles = questionNodes.map((node) => node.label);
+          const numbered = (items) => items.map((item, index) => `${index + 1}. ${item}`).join('\n');
+          summary.label = title;
+          summary.data = {
+            ...(summary.data || {}),
+            goal: goal.label,
+            status: 'todo',
+            viewRole: 'document',
+            taskProgress: { completed: 0, total: taskNodes.length },
+            questionProgress: { answered: 0, total: questionNodes.length },
+            summarySource: 'node-updater',
+            nodeViewPayload: 'node.web',
+            taskTitles,
+            questionTitles,
+            taskListText: numbered(taskTitles),
+            questionListText: numbered(questionTitles),
+            priority: 'high',
+            owner: 'Michael',
+            targetDate: '',
+            nextAction: taskTitles[0],
+            blockedReason: '',
+            health: 'unknown',
+            identity: { ...((summary.data || {}).identity || {}), graphId }
+          };
+
+          summaryTask.label = title;
+          summaryTask.data = {
+            ...(summaryTask.data || {}),
+            title,
+            body: `Goal: ${goal.label}\nStatus: todo\n\nTasks in scope:\n${numbered(taskTitles)}\n\nOpen questions:\n${numbered(questionTitles)}`,
+            priority: 'high',
+            status: 'todo',
+            owner: 'Michael',
+            estimateHours: '',
+            acceptanceCriteria: [
+              'Scan the task list for scope and progress',
+              'Review unresolved access and transcript questions before finalizing v0.1'
+            ],
+            countAsTask: false,
+            compatibilityRole: 'legacy-task-summary-consumer',
+            deprecated: true,
+            summarySource: 'node-updater',
+            identity: { ...((summaryTask.data || {}).identity || {}), graphId }
+          };
+
+          const goalTaskEdge = graph.edges.find((edge) => edge.source === goal.id && edge.target === baseTask.id);
+          const goalQuestionEdge = graph.edges.find((edge) => edge.source === goal.id && edge.target === baseQuestion.id);
+          if (!goalTaskEdge || !goalQuestionEdge) throw new Error('Canonical template is missing goal-to-task or goal-to-question edges');
+          for (let index = 1; index < taskNodes.length; index += 1) {
+            const edge = clone(goalTaskEdge);
+            edge.id = `${slug}-edge-goal-task-${index + 1}`;
+            edge.target = taskNodes[index].id;
+            edge.label = 'task';
+            graph.edges.push(edge);
+          }
+          for (let index = 1; index < questionNodes.length; index += 1) {
+            const edge = clone(goalQuestionEdge);
+            edge.id = `${slug}-edge-goal-question-${index + 1}`;
+            edge.target = questionNodes[index].id;
+            edge.label = 'question';
+            graph.edges.push(edge);
+          }
+
+          const addReferenceEdge = (candidate, id, source, target, label, sourcePort = 'right', targetPort = 'left') => {
+            candidate.edges.push({ id, type: 'reference', source: source.id, target: target.id, sourcePort, targetPort, label, style: {}, data: {} });
+          };
+          addReferenceEdge(graph, `${slug}-edge-contract-enables-relationships`, taskNodes[0], taskNodes[1], 'enables');
+          addReferenceEdge(graph, `${slug}-edge-contract-enables-class`, taskNodes[0], taskNodes[2], 'enables');
+          addReferenceEdge(graph, `${slug}-edge-class-enables-editor`, taskNodes[2], taskNodes[3], 'enables');
+          addReferenceEdge(graph, `${slug}-edge-editor-enables-prototype`, taskNodes[3], taskNodes[4], 'enables');
+          addReferenceEdge(graph, `${slug}-edge-prototype-enables-navigation`, taskNodes[4], taskNodes[5], 'enables');
+          addReferenceEdge(graph, `${slug}-edge-navigation-enables-tests`, taskNodes[5], taskNodes[6], 'enables');
+          addReferenceEdge(graph, `${slug}-edge-tests-inform-decision`, taskNodes[6], taskNodes[7], 'informs');
+
+          const samplePortal = (collection.nodes || []).find((node) => node.type === 'portal' && String(node?.data?.sourceRef || '').includes('/tasks/type-and-instance-presentation/root.node'))
+            || (collection.nodes || []).find((node) => node.type === 'portal' && String(node?.data?.sourceRef || '').includes('/tasks/'));
+          if (!samplePortal) throw new Error('No promoted task portal specimen exists in tasks/root.node');
+
+          const ideaPortal = clone(samplePortal);
+          ideaPortal.id = `${slug}-related-idea-portal`;
+          ideaPortal.label = 'Related Idea: Chat Nodes as Graph Provenance';
+          ideaPortal.position = { x: 1120, y: 160 };
+          ideaPortal.visible = true;
+          ideaPortal.showLabel = false;
+          ideaPortal.data = {
+            ...(ideaPortal.data || {}),
+            memo: 'Originating idea graph for the Chat provenance node implementation task.',
+            authority: 'navigate',
+            intent: 'external',
+            src: ideaRef,
+            ref: ideaRef,
+            sourceRef: ideaRef,
+            sourceNodeId: ideaRootNodeId,
+            sourcePayload: 'node.web.summary',
+            endpoint: `${ideaRef}:root`,
+            surfaceId: 'root',
+            visibilityRole: 'browser',
+            identity: { graphId },
+            target: {
+              ...((ideaPortal.data || {}).target || {}),
+              endpoint: `${ideaRef}:root`,
+              ref: ideaRef,
+              mode: 'navigate',
+              portId: 'root',
+              surfaceId: 'root',
+              handleId: 'root',
+              label: 'Open Chat Nodes as Graph Provenance'
+            }
+          };
+          graph.nodes.push(ideaPortal);
+          addReferenceEdge(graph, `${slug}-edge-goal-origin-idea`, goal, ideaPortal, 'originating idea');
+
+          const existingCollectionPortal = (collection.nodes || []).find((node) => node?.data?.sourceRef === graphRef);
+          if (existingCollectionPortal) throw new Error(`Collection already contains ${graphRef}`);
+          const collectionPortal = clone(samplePortal);
+          collectionPortal.id = `task-collection-${slug}-portal`;
+          collectionPortal.label = title;
+          const portalYs = (collection.nodes || []).filter((node) => node.type === 'portal' && Number.isFinite(node?.position?.y)).map((node) => node.position.y);
+          collectionPortal.position = { x: samplePortal?.position?.x ?? 1080, y: (portalYs.length ? Math.max(...portalYs) : 600) + 360 };
+          collectionPortal.visible = true;
+          collectionPortal.showLabel = false;
+          collectionPortal.data = {
+            ...(collectionPortal.data || {}),
+            memo: 'Active projection of the task graph for creating the Chat provenance node.',
+            authority: 'navigate',
+            intent: 'external',
+            src: graphRef,
+            ref: graphRef,
+            sourceRef: graphRef,
+            sourceNodeId: portView.id,
+            sourcePayload: 'node.web.summary',
+            endpoint: `${graphRef}:card`,
+            surfaceId: 'card',
+            visibilityRole: 'browser',
+            target: {
+              ...((collectionPortal.data || {}).target || {}),
+              endpoint: `${graphRef}:card`,
+              ref: graphRef,
+              mode: 'navigate',
+              portId: 'root',
+              surfaceId: 'card',
+              handleId: 'root',
+              label: `Open ${title}`
+            }
+          };
+          collection.nodes.push(collectionPortal);
+          const samplePortalEdges = (collection.edges || []).filter((edge) => edge.source === samplePortal.id || edge.target === samplePortal.id);
+          for (let index = 0; index < samplePortalEdges.length; index += 1) {
+            const edge = clone(samplePortalEdges[index]);
+            edge.id = `${collectionPortal.id}-edge-${index + 1}`;
+            if (edge.source === samplePortal.id) edge.source = collectionPortal.id;
+            if (edge.target === samplePortal.id) edge.target = collectionPortal.id;
+            collection.edges.push(edge);
+          }
+
+          const ideaDeclaration = (idea.nodes || []).find((node) => node.type === 'declaration');
+          const ideaNextStep = (idea.nodes || []).find((node) => node.id === ideaNextStepId);
+          if (!ideaDeclaration || !ideaNextStep) throw new Error('Related idea declaration or next step is missing');
+          ideaDeclaration.data.dependencies = ideaDeclaration.data.dependencies || {};
+          ideaDeclaration.data.dependencies.nodeTypes = Array.from(new Set([...(ideaDeclaration.data.dependencies.nodeTypes || []), 'portal']));
+          if (ideaDeclaration.data.identity) ideaDeclaration.data.identity.updatedAt = now;
+          ideaNextStep.data.status = 'in-progress';
+          ideaNextStep.data.implementationRef = graphRef;
+          ideaNextStep.data.implementationTaskGraphRef = graphRef;
+
+          const taskPortalInIdea = clone(samplePortal);
+          taskPortalInIdea.id = 'chat-node-provenance-implementation-task-portal';
+          taskPortalInIdea.label = 'Implementation Task: Create the Chat Provenance Node';
+          taskPortalInIdea.position = { x: 680, y: 700 };
+          taskPortalInIdea.visible = true;
+          taskPortalInIdea.showLabel = false;
+          taskPortalInIdea.data = {
+            ...(taskPortalInIdea.data || {}),
+            memo: 'Promoted implementation task for the Chat node provenance idea.',
+            authority: 'navigate',
+            intent: 'external',
+            src: graphRef,
+            ref: graphRef,
+            sourceRef: graphRef,
+            sourceNodeId: portView.id,
+            sourcePayload: 'node.web.summary',
+            endpoint: `${graphRef}:card`,
+            surfaceId: 'card',
+            visibilityRole: 'browser',
+            identity: { graphId: 'chat-node-provenance' },
+            target: {
+              ...((taskPortalInIdea.data || {}).target || {}),
+              endpoint: `${graphRef}:card`,
+              ref: graphRef,
+              mode: 'navigate',
+              portId: 'root',
+              surfaceId: 'card',
+              handleId: 'root',
+              label: `Open ${title}`
+            }
+          };
+          idea.nodes.push(taskPortalInIdea);
+          addReferenceEdge(idea, 'chat-node-provenance-next-step-implementation-task', ideaNextStep, taskPortalInIdea, 'promoted to');
+
+          collection.metadata = collection.metadata || {};
+          collection.metadata.modified = now;
+          collection.timestamp = now;
+          collection.nodeCount = collection.nodes.length;
+          collection.edgeCount = collection.edges.length;
+          idea.metadata = idea.metadata || {};
+          idea.metadata.modified = now;
+          idea.timestamp = now;
+          idea.nodeCount = idea.nodes.length;
+          idea.edgeCount = idea.edges.length;
+          graph.timestamp = now;
+          graph.nodeCount = graph.nodes.length;
+          graph.edgeCount = graph.edges.length;
+
+          const handleIds = (node) => new Set([
+            ...((node.ports || []).map((entry) => entry.id)),
+            ...((node.handles || []).map((entry) => entry.id)),
+            ...((node.inputs || []).map((entry) => entry.key)),
+            ...((node.outputs || []).map((entry) => entry.key))
+          ].filter(Boolean));
+          const validateGraph = (candidate, label) => {
+            const ids = new Set();
+            for (const node of candidate.nodes || []) {
+              if (!node.id || ids.has(node.id)) throw new Error(`${label}: duplicate or missing node id ${node.id}`);
+              ids.add(node.id);
+            }
+            const edgeIds = new Set();
+            for (const edge of candidate.edges || []) {
+              if (!edge.id || edgeIds.has(edge.id)) throw new Error(`${label}: duplicate or missing edge id ${edge.id}`);
+              edgeIds.add(edge.id);
+              if (!ids.has(edge.source) || !ids.has(edge.target)) throw new Error(`${label}: unresolved edge ${edge.id}`);
+              const source = candidate.nodes.find((node) => node.id === edge.source);
+              const target = candidate.nodes.find((node) => node.id === edge.target);
+              if (edge.sourcePort && !handleIds(source).has(edge.sourcePort)) throw new Error(`${label}: invalid source port ${edge.sourcePort} on ${edge.id}`);
+              if (edge.targetPort && !handleIds(target).has(edge.targetPort)) throw new Error(`${label}: invalid target port ${edge.targetPort} on ${edge.id}`);
+            }
+            const decl = (candidate.nodes || []).find((node) => node.type === 'declaration');
+            if (!decl) throw new Error(`${label}: declaration missing`);
+            for (const surface of decl?.data?.declaration?.surfaces || []) {
+              const nodeId = surface.viewNodeId || surface.portNodeId || surface.nodeId;
+              if (nodeId && !ids.has(nodeId)) throw new Error(`${label}: surface ${surface.id} targets missing node ${nodeId}`);
+            }
+            JSON.parse(JSON.stringify(candidate));
+          };
+
+          validateGraph(graph, 'task graph');
+          validateGraph(collection, 'task collection');
+          validateGraph(idea, 'idea graph');
+          if ((graph.nodes || []).filter((node) => node.type === 'goal').length !== 1) throw new Error('Task graph must contain exactly one goal');
+          if ((graph.nodes || []).filter((node) => node.type === 'task' && node?.data?.countAsTask !== false).length !== taskSpecs.length) throw new Error('Task count mismatch');
+          if ((graph.nodes || []).filter((node) => node.type === 'open-question').length !== questionSpecs.length) throw new Error('Question count mismatch');
+          if (collectionPortal.data.sourceNodeId !== portView.id || collectionPortal.data.surfaceId !== 'card') throw new Error('Collection portal does not match the task card surface');
+          if (taskPortalInIdea.data.sourceNodeId !== portView.id || taskPortalInIdea.data.surfaceId !== 'card') throw new Error('Idea portal does not match the task card surface');
+          if (ideaPortal.data.sourceNodeId !== ideaRootNodeId || ideaPortal.data.surfaceId !== 'root') throw new Error('Task-to-idea portal does not match the idea root surface');
+          const invalidActiveStatus = (collection.nodes || []).find((node) => node.type === 'task' && ['done', 'cancelled'].includes(String(node?.data?.status || '').toLowerCase()));
+          if (invalidActiveStatus) throw new Error(`Active collection contains completed task ${invalidActiveStatus.id}`);
+
+          fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+          fs.writeFileSync(outputPath, JSON.stringify(graph, null, 2) + '\n');
+          fs.writeFileSync(collectionPath, JSON.stringify(collection, null, 2) + '\n');
+          fs.writeFileSync(ideaPath, JSON.stringify(idea, null, 2) + '\n');
+          console.log(`Wrote ${outputPath} with ${graph.nodes.length} nodes and ${graph.edges.length} edges`);
+          console.log(`Registered ${collectionPortal.id} in ${collectionPath}`);
+          console.log(`Connected ${taskPortalInIdea.id} in ${ideaPath}`);
+          NODE
+
+      - name: Commit generated graph changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "Twilite Graph Builder"
+          git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/generate-chat-provenance-task.yml
+          git add tasks/chat-node-provenance/root.node tasks/root.node ideas/chat-node-provenance.node
+          git commit -m "Add Chat provenance node task graph"
+          git push origin HEAD:task/create-chat-provenance-node
