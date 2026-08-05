@@ -1,0 +1,284 @@
+name: Reopen type and instance presentation task
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/reopen-type-instance-presentation.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update-graphs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Reopen task and repair collection projections
+        shell: bash
+        run: |
+          python <<'PY'
+          import json
+          from pathlib import Path
+
+          NOW = "2026-08-05T01:10:00.000Z"
+          TASK_REF = "github://mikemartinez1974/public/tasks/type-and-instance-presentation/root.node"
+          TARGET_REPO = "github://TwiliteLLC/twilite"
+          TARGET_BRANCH = "dev-master"
+          PROTOTYPE_REPO = "github://mikemartinez1974/nodegraph-editor"
+          PROTOTYPE_COMMIT = "45ebe4d708c77c3b95a6370febe0d088da908351"
+          PROTOTYPE_PR = "https://github.com/mikemartinez1974/nodegraph-editor/pull/1"
+          FAILED_PORT_COMMIT = "886a66c9fbbb6399c278f90a4e51e9f4decf28e7"
+          LIVE_COMMIT = "783a82773ba2dafc8f12f81d7c1218fd7bc9c69c"
+
+          def load(path):
+              return json.loads(Path(path).read_text(encoding="utf-8"))
+
+          def save(path, value):
+              Path(path).write_text(json.dumps(value, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+          def node_by_id(graph, node_id):
+              return next((node for node in graph.get("nodes", []) if node.get("id") == node_id), None)
+
+          def standard_ports():
+              return [
+                  {"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210},
+                  {"id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270},
+                  {"id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0},
+                  {"id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90},
+                  {"id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180},
+              ]
+
+          # Reopen the canonical task graph.
+          task_path = "tasks/type-and-instance-presentation/root.node"
+          task = load(task_path)
+          task.setdefault("metadata", {})["modified"] = NOW
+          task["metadata"]["version"] = "1.1.0"
+          task["metadata"]["description"] = "Active implementation task graph for type and instance presentation in the Twilite application."
+
+          declaration = node_by_id(task, "type-instance-task-declaration")
+          if declaration:
+              data = declaration.setdefault("data", {})
+              identity = data.setdefault("identity", {})
+              identity["version"] = "1.1.0"
+              identity["updatedAt"] = NOW
+              surfaces = data.get("declaration", {}).get("surfaces", [])
+              for surface in surfaces:
+                  if surface.get("id") == "root":
+                      surface["memo"] = "Canonical active-task entry surface."
+              data["completion"] = {
+                  "status": "reopened",
+                  "reopenedAt": NOW,
+                  "reason": "The original implementation landed in a different repository. A whole-file port into the Twilite application failed the production build and was reverted before activation.",
+                  "implementationTarget": {
+                      "repo": TARGET_REPO,
+                      "branch": TARGET_BRANCH
+                  },
+                  "prototype": {
+                      "repo": PROTOTYPE_REPO,
+                      "commit": f"https://github.com/mikemartinez1974/nodegraph-editor/commit/{PROTOTYPE_COMMIT}",
+                      "pullRequest": PROTOTYPE_PR,
+                      "status": "reference-only"
+                  },
+                  "failedPort": {
+                      "repo": TARGET_REPO,
+                      "branch": TARGET_BRANCH,
+                      "commit": FAILED_PORT_COMMIT,
+                      "failure": "ReferenceError: ViewPlugin is not defined while prerendering /browser.",
+                      "cause": "The port replaced the current EntitiesPanel import header with an older repository version while leaving Twilite-specific CodeMirror code in place.",
+                      "releaseActivated": False,
+                      "liveCommitUnchanged": LIVE_COMMIT
+                  }
+              }
+
+          root_port = node_by_id(task, "type-instance-task-root-port")
+          if root_port:
+              root_port.setdefault("data", {})["description"] = "Active implementation task for the Type and Instance Presentation contract."
+
+          goal = node_by_id(task, "type-instance-task-goal")
+          if goal:
+              data = goal.setdefault("data", {})
+              data["status"] = "blocked"
+              data["health"] = "blocked"
+              data["nextAction"] = "Grant the GitHub connector access to TwiliteLLC/twilite, inspect the current dev-master implementation, and rebuild the contract surgically against that codebase."
+              data["blockedReason"] = "The connected GitHub integration currently returns 404 for TwiliteLLC/twilite."
+              data["outcome"] = "Design accepted and prototype available; production implementation remains pending in the correct repository."
+              data.pop("completedAt", None)
+              data["evidence"] = [
+                  f"https://github.com/mikemartinez1974/nodegraph-editor/commit/{PROTOTYPE_COMMIT}",
+                  PROTOTYPE_PR,
+                  f"failed-port:{FAILED_PORT_COMMIT}"
+              ]
+
+          task_actions = {
+              "type-instance-task-document": "Inspect the current document and Markdown rendering paths in TwiliteLLC/twilite before defining the durable Document contract.",
+              "type-instance-task-legend": "Verify the current Legend implementation in TwiliteLLC/twilite and preserve its existing type-identity behavior.",
+              "type-instance-task-elements": "Extend the current Twilite Elements panel without replacing its CodeMirror editing and source-navigation features.",
+              "type-instance-task-edges": "Add compact labeled edge specimens to the current Elements edge rows while retaining existing selection and editing behavior.",
+              "type-instance-task-compat": "Run the current Twilite test suite and production build, including /browser prerendering, before marking the task complete."
+          }
+          for node_id, next_action in task_actions.items():
+              node = node_by_id(task, node_id)
+              if not node:
+                  continue
+              data = node.setdefault("data", {})
+              data["status"] = "blocked"
+              data["health"] = "blocked"
+              data["nextAction"] = next_action
+              data["blockedReason"] = "Repository access is required to implement and validate this task in TwiliteLLC/twilite:dev-master."
+              data.pop("completedAt", None)
+              data.pop("outcome", None)
+              data["evidence"] = [
+                  f"prototype:https://github.com/mikemartinez1974/nodegraph-editor/commit/{PROTOTYPE_COMMIT}",
+                  f"failed-port:{FAILED_PORT_COMMIT}"
+              ]
+
+          decision = node_by_id(task, "type-instance-task-decision")
+          if decision:
+              decision.setdefault("data", {}).pop("implementedAt", None)
+              decision["data"]["implementationStatus"] = "pending"
+
+          notes = node_by_id(task, "type-instance-task-notes")
+          if notes:
+              notes_data = notes.setdefault("data", {})
+              notes_data["title"] = "Implementation Notes"
+              notes_data["markdown"] = f"""# Type and Instance Presentation
+
+**Status:** Reopened and blocked on repository access
+
+The design remains accepted: **the Legend explains what can be created; Elements shows what currently exists.** The previous code is useful as a prototype, but it was not implemented in the repository that powers Twilite.
+
+## Correct implementation target
+
+- Repository: `{TARGET_REPO}`
+- Branch: `{TARGET_BRANCH}`
+
+## What happened
+
+- The reference implementation was completed in `{PROTOTYPE_REPO}` at `{PROTOTYPE_COMMIT}`.
+- A whole-file port into the correct repository produced commit `{FAILED_PORT_COMMIT}`.
+- The production build failed while prerendering `/browser` with `ReferenceError: ViewPlugin is not defined`.
+- The failed release never activated. The live checkout remained `{LIVE_COMMIT}`.
+- `dev-master` was restored to the known-good deployed code.
+
+## Next move
+
+Inspect the current Twilite implementation first, then reapply the contract surgically so existing CodeMirror, Elements-panel, and browser behavior remain intact.
+"""
+              notes_data["reopenedAt"] = NOW
+              notes_data.pop("completedAt", None)
+
+          task["nodeCount"] = len(task.get("nodes", []))
+          task["edgeCount"] = len(task.get("edges", []))
+          save(task_path, task)
+
+          # Remove the premature archive projection.
+          archive_path = "tasks/archive/2026/q3.node"
+          archive = load(archive_path)
+          archive["nodes"] = [node for node in archive.get("nodes", []) if node.get("id") != "task-archive-type-instance-presentation"]
+          archive["edges"] = [edge for edge in archive.get("edges", []) if edge.get("id") != "task-archive-type-instance-presentation-edge"]
+          archive.setdefault("metadata", {})["modified"] = NOW
+          archive["nodeCount"] = len(archive.get("nodes", []))
+          archive["edgeCount"] = len(archive.get("edges", []))
+          save(archive_path, archive)
+
+          # Restore an active projection in the task collection.
+          collection_path = "tasks/root.node"
+          collection = load(collection_path)
+          portal_id = "task-collection-type-instance-presentation"
+          edge_id = "task-collection-type-instance-presentation-edge"
+          if not node_by_id(collection, portal_id):
+              collection.setdefault("nodes", []).append({
+                  "id": portal_id,
+                  "type": "portal",
+                  "label": "Type and Instance Presentation",
+                  "position": {"x": 1080, "y": 420},
+                  "width": 500,
+                  "height": 320,
+                  "ports": standard_ports(),
+                  "visible": True,
+                  "showLabel": False,
+                  "data": {
+                      "memo": "Active projection of the reopened Type and Instance Presentation task graph.",
+                      "authority": "navigate",
+                      "intent": "external",
+                      "src": TASK_REF,
+                      "ref": TASK_REF,
+                      "sourceRef": TASK_REF,
+                      "sourceNodeId": "type-instance-task-root-port",
+                      "sourcePayload": "node.web.summary",
+                      "endpoint": f"{TASK_REF}:root",
+                      "target": {
+                          "endpoint": f"{TASK_REF}:root",
+                          "ref": TASK_REF,
+                          "mode": "navigate",
+                          "portId": "root",
+                          "surfaceId": "root",
+                          "handleId": "root",
+                          "label": "Open Type and Instance Presentation"
+                      },
+                      "identity": {"graphId": "task-collection-declaration"},
+                      "security": "prompt",
+                      "visibilityRole": "browser",
+                      "taskProjection": {
+                          "status": "blocked",
+                          "targetRepo": TARGET_REPO,
+                          "targetBranch": TARGET_BRANCH,
+                          "blockedReason": "GitHub connector access to the implementation repository is pending."
+                      }
+                  }
+              })
+          if not any(edge.get("id") == edge_id for edge in collection.get("edges", [])):
+              collection.setdefault("edges", []).append({
+                  "id": edge_id,
+                  "type": "reference",
+                  "source": "task-collection-root-port",
+                  "target": portal_id,
+                  "sourcePort": "bottom",
+                  "targetPort": "top",
+                  "label": "active task graph",
+                  "style": {"curved": True, "route": "curved"},
+                  "data": {"relation": "task-projection"}
+              })
+          collection.setdefault("metadata", {})["modified"] = NOW
+          collection["nodeCount"] = len(collection.get("nodes", []))
+          collection["edgeCount"] = len(collection.get("edges", []))
+          save(collection_path, collection)
+
+          # Correct the idea graph's next-step status while retaining its reciprocal portal.
+          idea_path = Path("ideas/type-and-instance-presentation.node")
+          if idea_path.exists():
+              idea = load(idea_path)
+              portal = node_by_id(idea, "type-and-instance-presentation-task-portal")
+              if portal:
+                  portal.setdefault("data", {})["memo"] = "Open the active implementation task graph."
+              for edge in idea.get("edges", []):
+                  if edge.get("target") == "type-and-instance-presentation-task-portal" and edge.get("label") == "implemented by":
+                      edge["label"] = "tracked by"
+                      source = node_by_id(idea, edge.get("source"))
+                      if source:
+                          source_data = source.setdefault("data", {})
+                          source_data["status"] = "blocked"
+                          source_data["nextAction"] = "Implement the accepted contract in TwiliteLLC/twilite:dev-master after repository access is granted."
+                          source_data["blockedReason"] = "The connected GitHub integration cannot currently access TwiliteLLC/twilite."
+                          source_data.pop("completedAt", None)
+                          source_data.pop("outcome", None)
+              idea.setdefault("metadata", {})["modified"] = NOW
+              idea["nodeCount"] = len(idea.get("nodes", []))
+              idea["edgeCount"] = len(idea.get("edges", []))
+              save(idea_path, idea)
+          PY
+
+      - name: Commit graph corrections and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name "twilite-task-agent"
+          git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/reopen-type-instance-presentation.yml
+          git add tasks/type-and-instance-presentation/root.node tasks/archive/2026/q3.node tasks/root.node ideas/type-and-instance-presentation.node
+          git commit -m "Reopen type and instance presentation implementation"
+          git push origin HEAD:main
