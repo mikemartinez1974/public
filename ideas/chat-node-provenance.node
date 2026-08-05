@@ -7,7 +7,7 @@
     "version": "0.1.0",
     "kind": "idea",
     "created": "2026-08-05T21:33:00.000Z",
-    "modified": "2026-08-05T21:33:00.000Z",
+    "modified": "2026-08-05T22:44:00.000Z",
     "author": "Michael Martinez",
     "tags": [
       "idea",
@@ -48,7 +48,7 @@
           "version": "0.1.0",
           "description": "Give graphs a first-class node that links to the conversation that created, revised, or explained them.",
           "createdAt": "2026-08-05T21:33:00.000Z",
-          "updatedAt": "2026-08-05T21:33:00.000Z"
+          "updatedAt": "2026-08-05T22:44:00.000Z"
         },
         "intent": {
           "kind": "idea",
@@ -95,7 +95,8 @@
             "idea-evidence",
             "idea-alternative",
             "idea-risk",
-            "idea-next-step"
+            "idea-next-step",
+            "portal"
           ],
           "portContracts": [
             "core"
@@ -1678,7 +1679,7 @@
         "title": "Define and Prototype the Minimal Chat Node Contract",
         "action": "Specify the smallest Chat node data contract and prototype it with manually pasted private and shared links in a non-public graph before adding provider-specific integration.",
         "expectedEvidence": "The prototype should distinguish access modes at a glance, open valid links, remain informative when a link is inaccessible, and make the produced-artifact relationship obvious.",
-        "status": "todo",
+        "status": "in-progress",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",
@@ -1694,7 +1695,9 @@
         },
         "identity": {
           "graphId": "chat-node-provenance"
-        }
+        },
+        "implementationRef": "github://mikemartinez1974/public/tasks/chat-node-provenance/root.node",
+        "implementationTaskGraphRef": "github://mikemartinez1974/public/tasks/chat-node-provenance/root.node"
       }
     },
     {
@@ -2323,6 +2326,88 @@
           "grants": []
         }
       }
+    },
+    {
+      "id": "chat-node-provenance-implementation-task-portal",
+      "type": "portal",
+      "label": "Implementation Task: Create the Chat Provenance Node",
+      "position": {
+        "x": 680,
+        "y": 700
+      },
+      "width": 500,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "memo": "Promoted implementation task for the Chat node provenance idea.",
+        "authority": "navigate",
+        "intent": "external",
+        "src": "github://mikemartinez1974/public/tasks/chat-node-provenance/root.node",
+        "ref": "github://mikemartinez1974/public/tasks/chat-node-provenance/root.node",
+        "sourceRef": "github://mikemartinez1974/public/tasks/chat-node-provenance/root.node",
+        "sourceNodeId": "create-chat-provenance-node-view",
+        "sourcePayload": "node.web.summary",
+        "endpoint": "github://mikemartinez1974/public/tasks/chat-node-provenance/root.node:card",
+        "target": {
+          "endpoint": "github://mikemartinez1974/public/tasks/chat-node-provenance/root.node:card",
+          "ref": "github://mikemartinez1974/public/tasks/chat-node-provenance/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "card",
+          "handleId": "root",
+          "label": "Open Create the Chat Provenance Node"
+        },
+        "identity": {
+          "graphId": "chat-node-provenance"
+        },
+        "security": "prompt",
+        "visibilityRole": "browser",
+        "taskProjection": {
+          "status": "blocked",
+          "targetRepo": "github://TwiliteLLC/twilite",
+          "targetBranch": "dev-master",
+          "blockedReason": "GitHub connector access to the implementation repository is pending."
+        },
+        "surfaceId": "card"
+      }
     }
   ],
   "edges": [
@@ -2684,6 +2769,17 @@
       "targetHandle": "root",
       "type": "reference",
       "label": "edge authority"
+    },
+    {
+      "id": "chat-node-provenance-next-step-implementation-task",
+      "type": "reference",
+      "source": "chat-node-provenance-idea-next-step",
+      "target": "chat-node-provenance-implementation-task-portal",
+      "sourcePort": "right",
+      "targetPort": "left",
+      "label": "promoted to",
+      "style": {},
+      "data": {}
     }
   ],
   "clusters": [],
@@ -2726,7 +2822,7 @@
     "autoSave": false
   },
   "scripts": [],
-  "nodeCount": 35,
-  "edgeCount": 22,
-  "timestamp": "2026-08-05T21:33:00.000Z"
+  "nodeCount": 36,
+  "edgeCount": 23,
+  "timestamp": "2026-08-05T22:44:00.000Z"
 }
