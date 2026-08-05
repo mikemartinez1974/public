@@ -1,0 +1,703 @@
+name: Generate Chat provenance class
+
+on:
+  push:
+    branches:
+      - class/chat-provenance
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: class/chat-provenance
+
+      - name: Build class, collection, and task updates
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL "https://raw.githubusercontent.com/twilite-zone/public/main/library/classes/nodes/task-planning/task.node-class.node" -o /tmp/task.node-class.node
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+
+          const now = '2026-08-05T23:24:00.000Z';
+          const repo = 'mikemartinez1974/public';
+          const classPath = 'classes/chat-provenance.node-class.node';
+          const collectionPath = 'classes/root.node';
+          const repoRootPath = 'root.node';
+          const taskPath = 'tasks/chat-node-provenance/root.node';
+          const classRef = `github://${repo}/${classPath}`;
+          const collectionRef = `github://${repo}/${collectionPath}`;
+          const clone = (value) => JSON.parse(JSON.stringify(value));
+
+          const standardPorts = () => [
+            { id: 'root', label: 'root', direction: 'bidirectional', dataType: 'any', angle: 210 },
+            { id: 'top', label: 'top', direction: 'bidirectional', dataType: 'value', angle: 270 },
+            { id: 'right', label: 'right', direction: 'bidirectional', dataType: 'value', angle: 0 },
+            { id: 'bottom', label: 'bottom', direction: 'bidirectional', dataType: 'value', angle: 90 },
+            { id: 'left', label: 'left', direction: 'bidirectional', dataType: 'value', angle: 180 }
+          ];
+          const inputs = () => standardPorts().map((p) => ({ key: p.id, label: p.label, type: p.dataType }));
+          const outputs = () => standardPorts().map((p) => ({ key: p.id, label: p.label, type: p.dataType }));
+          const makeNode = (id, type, label, position, width, height, data, extra = {}) => ({
+            id,
+            type,
+            label,
+            root: false,
+            position,
+            width,
+            height,
+            handles: standardPorts(),
+            ports: standardPorts(),
+            inputs: inputs(),
+            outputs: outputs(),
+            visible: true,
+            showLabel: true,
+            data,
+            ...extra
+          });
+
+          // Build the reusable class from the canonical planning-class structure.
+          const source = JSON.parse(fs.readFileSync('/tmp/task.node-class.node', 'utf8'));
+          const idMap = new Map();
+          for (const node of source.nodes || []) {
+            if (typeof node.id === 'string' && node.id.startsWith('task-')) {
+              idMap.set(node.id, `chat-provenance-${node.id.slice('task-'.length)}`);
+            }
+          }
+          const replaceExactIds = (value) => {
+            if (typeof value === 'string') return idMap.get(value) || value;
+            if (Array.isArray(value)) return value.map(replaceExactIds);
+            if (value && typeof value === 'object') {
+              const next = {};
+              for (const [key, child] of Object.entries(value)) next[key] = replaceExactIds(child);
+              return next;
+            }
+            return value;
+          };
+          let classGraph = replaceExactIds(source);
+          const wantedIds = new Set([
+            'chat-provenance-declaration',
+            'chat-provenance-notes',
+            'chat-provenance-editor-view',
+            'chat-provenance-detail-view',
+            'chat-provenance-summary-view',
+            'chat-provenance-icon-view'
+          ]);
+          classGraph.nodes = (classGraph.nodes || []).filter((node) => wantedIds.has(node.id));
+          classGraph.edges = [];
+          classGraph.clusters = [];
+          classGraph.scripts = [];
+          classGraph.fileVersion = '1.0';
+          classGraph.metadata = {
+            title: 'Chat Provenance Class',
+            description: 'Reusable node class for linking one conversation to the graph it created, revised, reviewed, or explained.',
+            graphId: 'chat-provenance-class',
+            version: '0.1.0',
+            kind: 'node-class',
+            created: now,
+            modified: now,
+            author: 'Michael Martinez',
+            tags: ['node-class', 'chat', 'provenance', 'conversation', 'access'],
+            preferredViewer: 'https://twilite.zone'
+          };
+
+          const classById = (id) => classGraph.nodes.find((node) => node.id === id);
+          const declaration = classById('chat-provenance-declaration');
+          const notes = classById('chat-provenance-notes');
+          const editorView = classById('chat-provenance-editor-view');
+          const detailView = classById('chat-provenance-detail-view');
+          const summaryView = classById('chat-provenance-summary-view');
+          const iconView = classById('chat-provenance-icon-view');
+          for (const [name, node] of Object.entries({ declaration, notes, editorView, detailView, summaryView, iconView })) {
+            if (!node) throw new Error(`Canonical class template is missing ${name}`);
+          }
+
+          declaration.label = 'Chat Provenance Declaration';
+          declaration.data = {
+            identity: {
+              graphId: 'chat-provenance-class',
+              name: 'Chat Provenance Class',
+              version: '0.1.0',
+              description: 'Reusable node class for linking one conversation to the graph it created, revised, reviewed, or explained.',
+              createdAt: now,
+              updatedAt: now
+            },
+            intent: { kind: 'node-class', scope: 'local' },
+            dependencies: {
+              nodeTypes: ['declaration', 'port', 'markdown', 'bridge'],
+              portContracts: ['core'],
+              skills: [],
+              schemaVersions: { nodes: '>=1.0.0', ports: '>=1.0.0' },
+              optional: []
+            },
+            authority: {
+              mutation: { allowCreate: true, allowUpdate: true, allowDelete: true, appendOnly: false },
+              actors: { humans: true, agents: true, tools: true },
+              styleAuthority: 'descriptive',
+              history: { rewriteAllowed: false, squashAllowed: false }
+            },
+            declaration: {
+              kind: 'node-class',
+              targetMode: 'artifact',
+              artifactKind: 'node-class',
+              graphViewRole: 'browser',
+              defaultSurfaceId: 'root',
+              surfaces: [
+                { id: 'root', kind: 'port', label: 'Overview', portNodeId: 'chat-provenance-class-overview', viewNodeId: 'chat-provenance-class-overview' },
+                { id: 'overview', kind: 'port', label: 'Overview', portNodeId: 'chat-provenance-class-overview', viewNodeId: 'chat-provenance-class-overview' },
+                { id: 'detail', kind: 'view', label: 'Detail', viewNodeId: 'chat-provenance-detail-view' },
+                { id: 'summary', kind: 'view', label: 'Summary', viewNodeId: 'chat-provenance-summary-view' },
+                { id: 'icon', kind: 'view', label: 'Icon', viewNodeId: 'chat-provenance-icon-view' },
+                { id: 'editor', kind: 'view', label: 'Editor', viewNodeId: 'chat-provenance-editor-view' }
+              ],
+              primaryNodeViewId: 'chat-provenance-detail-view',
+              primaryEditorViewId: 'chat-provenance-editor-view',
+              iconViewNodeId: 'chat-provenance-icon-view'
+            },
+            nodeClass: {
+              contractVersion: '1.0.0',
+              key: 'chat-provenance',
+              label: 'Chat',
+              meaning: 'A durable graph record for exactly one external or locally archived conversation.',
+              description: 'Use one Chat provenance node per conversation. A graph may contain many such nodes over its lifetime.',
+              requiredDataKeys: ['title'],
+              cardinality: { chatNodeToConversation: 'one-to-one', graphToChatNodes: 'one-to-many' },
+              historyPolicy: { exposeCommitHistory: false, requireRevisionAnchors: false },
+              relationshipRoles: ['created', 'revised', 'reviewed', 'explained', 'inspired'],
+              nodeDef: {
+                key: 'chat-provenance',
+                ref: classRef,
+                source: 'local',
+                version: '>=0.1.0',
+                defaults: {
+                  label: 'Chat',
+                  size: { width: 420, height: 300 },
+                  color: 'linear-gradient(135deg, #dbeafe, #ddd6fe)',
+                  showLabel: false,
+                  data: {
+                    title: 'Chat',
+                    provider: 'openai',
+                    sourceRef: '',
+                    access: 'unknown',
+                    status: 'unknown',
+                    capturedAt: '',
+                    summary: '',
+                    excerpt: '',
+                    notes: ''
+                  },
+                  ports: standardPorts()
+                }
+              }
+            },
+            settings: {
+              theme: null,
+              backgroundImage: null,
+              defaultNodeColor: '#6366f1',
+              defaultEdgeColor: '#666666',
+              snapToGrid: false,
+              gridSize: 20,
+              edgeRouting: 'auto',
+              autoSave: false
+            }
+          };
+
+          notes.label = 'Chat Provenance Contract';
+          notes.data = {
+            identity: { graphId: 'chat-provenance-class' },
+            markdown: '# Chat Provenance\n\nEach node represents exactly **one conversation**. A graph may accumulate many Chat provenance nodes as it is created, revised, reviewed, and explained.\n\nThe durable record is the Twilite node. The discussion URL is a source doorway, not the node identity. Every node should keep a local summary so it remains useful when a link is private, revoked, deleted, or unavailable.\n\nRelationship meaning belongs on the graph edge: `created`, `revised`, `reviewed`, `explained`, or `inspired`.\n\nThis class does **not** expose commit history or reconstruct prior graph states.'
+          };
+
+          editorView.label = 'Chat Editor';
+          editorView.data = {
+            key: 'editor.web',
+            intent: 'editor',
+            payload: 'editor.web',
+            view: { intent: 'editor', payload: 'editor.web', label: 'Chat Editor' },
+            editor: {
+              web: {
+                fields: [
+                  { key: 'label', label: 'Label', type: 'text', path: 'label', placeholder: 'Chat' },
+                  { key: 'title', label: 'Title', type: 'text', path: 'data.title', placeholder: 'What this discussion was about' },
+                  { key: 'provider', label: 'Provider', type: 'text', path: 'data.provider', placeholder: 'openai, anthropic, google, xai, local' },
+                  { key: 'sourceRef', label: 'Discussion Link', type: 'text', path: 'data.sourceRef', placeholder: 'https://chatgpt.com/share/...' },
+                  {
+                    key: 'access', label: 'Access', type: 'select', path: 'data.access', options: [
+                      { label: 'Owner only', value: 'owner-only' },
+                      { label: 'Shared', value: 'shared' },
+                      { label: 'Local snapshot', value: 'local' },
+                      { label: 'Unknown', value: 'unknown' }
+                    ]
+                  },
+                  {
+                    key: 'status', label: 'Status', type: 'select', path: 'data.status', options: [
+                      { label: 'Available', value: 'available' },
+                      { label: 'Unavailable', value: 'unavailable' },
+                      { label: 'Revoked', value: 'revoked' },
+                      { label: 'Deleted', value: 'deleted' },
+                      { label: 'Unknown', value: 'unknown' }
+                    ]
+                  },
+                  { key: 'capturedAt', label: 'Captured At', type: 'text', path: 'data.capturedAt', placeholder: 'YYYY-MM-DDTHH:mm:ssZ' },
+                  { key: 'summary', label: 'Summary', type: 'markdown', path: 'data.summary', placeholder: 'What the conversation contributed', multiline: true, rows: 7 },
+                  { key: 'excerpt', label: 'Optional Excerpt', type: 'markdown', path: 'data.excerpt', placeholder: 'A short locally retained excerpt', multiline: true, rows: 5 },
+                  { key: 'notes', label: 'Notes', type: 'markdown', path: 'data.notes', placeholder: 'Access caveats or context', multiline: true, rows: 4 }
+                ]
+              }
+            }
+          };
+
+          const openControl = {
+            id: 'open-chat-discussion',
+            type: 'button',
+            label: 'Open Discussion',
+            action: 'navigate',
+            url: '{{data.sourceRef}}',
+            variant: 'contained',
+            priority: 'high'
+          };
+          const editControl = { id: 'edit-chat-provenance', type: 'button', label: 'Edit', action: 'openEditor', icon: 'edit', variant: 'outlined' };
+
+          detailView.label = 'Chat Detail';
+          detailView.data = {
+            key: 'node.web.detail',
+            intent: 'node',
+            payload: 'node.web.detail',
+            view: { intent: 'node', payload: 'node.web.detail', controls: [openControl, editControl] },
+            html: `<div style='width:100%;height:100%;box-sizing:border-box;display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#f8fafc,#eef2ff);border:1px solid rgba(79,70,229,.2);color:#172554;font-family:ui-sans-serif,system-ui,sans-serif;'>
+              <div style='padding:14px 16px;background:linear-gradient(135deg,#1e3a8a,#6d28d9);color:white;display:flex;gap:12px;align-items:center;'>
+                <div style='width:46px;height:40px;border-radius:16px 16px 16px 5px;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.72);display:flex;align-items:center;justify-content:center;font-size:22px;'>💬</div>
+                <div style='min-width:0;flex:1;'><div style='font:800 10px/1 system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.78;'>Chat provenance</div><div style='font:800 19px/1.2 Georgia,serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;'>{{data.title}}</div><div style='font:600 11px/1.3 system-ui,sans-serif;opacity:.82;'>{{data.provider}} · {{data.capturedAt}}</div></div>
+              </div>
+              <div style='padding:14px 16px;display:flex;flex-direction:column;gap:11px;min-height:0;'>
+                <div style='display:flex;gap:7px;flex-wrap:wrap;'><span style='padding:4px 8px;border-radius:999px;background:#dbeafe;color:#1e40af;font:800 10px system-ui,sans-serif;text-transform:uppercase;'>{{data.access}}</span><span style='padding:4px 8px;border-radius:999px;background:#ede9fe;color:#5b21b6;font:800 10px system-ui,sans-serif;text-transform:uppercase;'>{{data.status}}</span></div>
+                <div style='padding:11px 12px;border-radius:14px;background:rgba(255,255,255,.82);border:1px solid rgba(79,70,229,.12);'><div style='font:800 10px system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6366f1;margin-bottom:6px;'>Contribution summary</div><div style='font:500 13px/1.45 system-ui,sans-serif;white-space:pre-wrap;'>{{data.summary}}</div></div>
+                <div style='padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.58);border:1px solid rgba(79,70,229,.08);'><div style='font:800 10px system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7c3aed;margin-bottom:5px;'>Retained excerpt</div><div style='font:500 12px/1.4 system-ui,sans-serif;white-space:pre-wrap;max-height:5.6em;overflow:hidden;'>{{data.excerpt}}</div></div>
+                <div style='font:600 10px/1.4 ui-monospace,SFMono-Regular,monospace;color:#64748b;overflow-wrap:anywhere;'>{{data.sourceRef}}</div>
+                <div style='font:500 10px/1.35 system-ui,sans-serif;color:#64748b;'>This node preserves discussion provenance. It does not expose graph commit history.</div>
+              </div>
+            </div>`
+          };
+
+          summaryView.label = 'Chat Summary';
+          summaryView.data = {
+            key: 'node.web.summary',
+            intent: 'node',
+            payload: 'node.web.summary',
+            view: { intent: 'node', payload: 'node.web.summary', controls: [openControl, editControl] },
+            html: `<div style='width:100%;height:100%;box-sizing:border-box;padding:14px;border-radius:18px;background:linear-gradient(135deg,#eff6ff,#f5f3ff);border:1px solid rgba(79,70,229,.18);display:flex;gap:12px;color:#172554;font-family:ui-sans-serif,system-ui,sans-serif;'>
+              <div style='width:48px;height:42px;border-radius:16px 16px 16px 5px;background:linear-gradient(135deg,#1d4ed8,#7c3aed);color:white;display:flex;align-items:center;justify-content:center;font-size:22px;flex:0 0 auto;'>💬</div>
+              <div style='min-width:0;flex:1;display:flex;flex-direction:column;gap:6px;'><div style='font:800 16px/1.15 Georgia,serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;'>{{data.title}}</div><div style='display:flex;gap:6px;align-items:center;font:800 9px system-ui,sans-serif;text-transform:uppercase;color:#4f46e5;'><span>{{data.provider}}</span><span>·</span><span>{{data.access}}</span><span>·</span><span>{{data.status}}</span></div><div style='font:500 12px/1.38 system-ui,sans-serif;color:#334155;max-height:4.2em;overflow:hidden;'>{{data.summary}}</div><div style='font:600 10px system-ui,sans-serif;color:#64748b;'>{{data.capturedAt}}</div></div>
+            </div>`
+          };
+
+          iconView.label = 'Chat Icon';
+          iconView.data = {
+            key: 'node.web.icon',
+            intent: 'node',
+            payload: 'node.web.icon',
+            semanticLevel: 'icon',
+            html: `<div style='width:100%;height:100%;box-sizing:border-box;border-radius:20px;background:linear-gradient(135deg,#1e3a8a,#6d28d9);border:2px solid #c4b5fd;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:12px;font-family:ui-sans-serif,system-ui,sans-serif;'><div style='width:58px;height:48px;border-radius:20px 20px 20px 7px;border:3px solid rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font-size:25px;'>💬</div><div style='max-width:100%;font:800 12px/1.15 system-ui,sans-serif;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;'>{{data.title}}</div><div style='font:800 9px system-ui,sans-serif;text-transform:uppercase;opacity:.78;'>{{data.access}}</div></div>`
+          };
+
+          const overviewSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Chat Provenance node class"><defs><linearGradient id="chat-class-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#172554"/><stop offset="0.55" stop-color="#312e81"/><stop offset="1" stop-color="#6b21a8"/></linearGradient></defs><rect width="640" height="360" rx="32" fill="url(#chat-class-bg)"/><path d="M92 70h260a34 34 0 0 1 34 34v92a34 34 0 0 1-34 34H222l-72 54 19-54H92a34 34 0 0 1-34-34v-92a34 34 0 0 1 34-34z" fill="#0f172a" stroke="#bfdbfe" stroke-width="6"/><circle cx="145" cy="150" r="11" fill="#93c5fd"/><circle cx="204" cy="150" r="11" fill="#c4b5fd"/><circle cx="263" cy="150" r="11" fill="#f0abfc"/><g transform="translate(425 76)" font-family="system-ui,sans-serif" font-size="13" font-weight="800" text-anchor="middle"><rect width="150" height="50" rx="15" fill="#0f766e" stroke="#99f6e4" stroke-width="2"/><text x="75" y="31" fill="#f0fdfa">ONE CHAT</text><rect y="66" width="150" height="50" rx="15" fill="#1d4ed8" stroke="#bfdbfe" stroke-width="2"/><text x="75" y="97" fill="#eff6ff">ONE NODE</text><rect y="132" width="150" height="50" rx="15" fill="#7c3aed" stroke="#ddd6fe" stroke-width="2"/><text x="75" y="163" fill="#faf5ff">MANY PER GRAPH</text></g><text x="320" y="306" text-anchor="middle" fill="#f8fafc" font-family="system-ui,sans-serif" font-size="32" font-weight="850">CHAT PROVENANCE</text><text x="320" y="334" text-anchor="middle" fill="#ddd6fe" font-family="system-ui,sans-serif" font-size="14">Discussion links without commit-history exposure</text></svg>';
+          const overview = makeNode(
+            'chat-provenance-class-overview',
+            'port',
+            'Chat Provenance Class',
+            { x: 40, y: -420 },
+            520,
+            300,
+            {
+              identity: { graphId: 'chat-provenance-class', portId: 'root', name: 'Chat Provenance Class' },
+              title: 'Chat Provenance Class',
+              purpose: 'Reusable one-conversation provenance node with durable summaries and honest access states.',
+              audience: 'Graph authors and agents',
+              status: 'active',
+              viewRole: 'summary',
+              view: { intent: 'node', payload: 'node.web.summary', label: 'Class Overview' },
+              renderShape: { kind: 'svg' },
+              svg: overviewSvg,
+              payload: 'node.web.summary',
+              intent: 'node',
+              key: 'node.web.summary',
+              semanticLevel: 'detail',
+              visibilityRole: 'editor'
+            }
+          );
+          const exportBridge = makeNode(
+            'chat-provenance-class-export',
+            'bridge',
+            'Chat Provenance Class Export',
+            { x: -500, y: 520 },
+            360,
+            170,
+            {
+              memo: 'Explicit export for the Chat provenance node class.',
+              authority: 'bridge',
+              intent: 'external',
+              bridge: {
+                ref: classRef,
+                resourceKind: 'node-class',
+                scope: 'graph',
+                role: 'export',
+                surfaceId: 'class-export',
+                exportKind: 'class',
+                grants: [],
+                exposure: {
+                  nodeClasses: { mode: 'allowlist', allowKeys: ['chat-provenance'] },
+                  edgeClasses: { mode: 'deny' },
+                  views: { mode: 'deny' },
+                  scripts: { mode: 'deny' },
+                  declarations: { mode: 'allow' }
+                }
+              },
+              target: {
+                mode: 'bridge',
+                ref: classRef,
+                kind: 'node-class',
+                resourceKind: 'node-class',
+                scope: 'graph',
+                key: 'chat-provenance',
+                role: 'export',
+                surfaceId: 'class-export',
+                exportKind: 'class'
+              },
+              resourceKind: 'node-class',
+              surfaceId: 'class-export',
+              exportKind: 'class',
+              nodeViewPayload: 'node.web.icon'
+            }
+          );
+          classGraph.nodes.push(overview, exportBridge);
+          classGraph.nodeCount = classGraph.nodes.length;
+          classGraph.edgeCount = 0;
+          classGraph.timestamp = now;
+
+          // Build the new repository-level Classes collection.
+          const collectionHomeSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Classes collection"><defs><linearGradient id="classes-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f172a"/><stop offset="0.55" stop-color="#1e3a8a"/><stop offset="1" stop-color="#4c1d95"/></linearGradient></defs><rect width="640" height="360" rx="32" fill="url(#classes-bg)"/><g transform="translate(138 52)"><rect x="0" y="42" width="364" height="194" rx="26" fill="#111827" stroke="#c4b5fd" stroke-width="6"/><path d="M0 96h364M90 16v54M274 16v54" stroke="#c4b5fd" stroke-width="14" stroke-linecap="round"/><g fill="none" stroke-width="8"><circle cx="112" cy="158" r="31" stroke="#93c5fd"/><rect x="166" y="127" width="62" height="62" rx="15" stroke="#c4b5fd"/><path d="M280 127l35 62h-70z" stroke="#f0abfc"/></g></g><text x="320" y="306" text-anchor="middle" fill="#f8fafc" font-family="system-ui,sans-serif" font-size="35" font-weight="850" letter-spacing="6">CLASSES</text><text x="320" y="334" text-anchor="middle" fill="#ddd6fe" font-family="system-ui,sans-serif" font-size="14">REUSABLE GRAPH VOCABULARY</text></svg>';
+          const collectionDeclaration = makeNode(
+            'classes-root-declaration',
+            'declaration',
+            'Classes Declaration',
+            { x: -620, y: -480 },
+            420,
+            340,
+            {
+              identity: {
+                graphId: 'classes-root',
+                name: 'Classes',
+                version: '0.1.0',
+                description: 'Michael Martinez’s reusable Twilite node classes.',
+                createdAt: now,
+                updatedAt: now
+              },
+              intent: { kind: 'collection', scope: 'public-class-index' },
+              dependencies: {
+                nodeTypes: ['declaration', 'port', 'portal', 'markdown'],
+                portContracts: ['core'],
+                skills: [],
+                schemaVersions: { nodes: '>=1.0.0', ports: '>=1.0.0' },
+                optional: []
+              },
+              authority: {
+                mutation: { allowCreate: true, allowUpdate: true, allowDelete: true, appendOnly: false },
+                actors: { humans: true, agents: true, tools: true }
+              },
+              declaration: {
+                kind: 'graph',
+                graphViewRole: 'publishing',
+                targetMode: 'artifact',
+                artifactKind: 'collection',
+                defaultSurfaceId: 'root',
+                surfaces: [
+                  { id: 'root', kind: 'port', label: 'Classes', portNodeId: 'classes-home-surface', viewNodeId: 'classes-home-surface' },
+                  { id: 'classes-home', kind: 'port', label: 'Classes', portNodeId: 'classes-home-surface', viewNodeId: 'classes-home-surface' }
+                ]
+              },
+              settings: {
+                theme: null,
+                backgroundImage: null,
+                defaultNodeColor: '#6366f1',
+                defaultEdgeColor: '#666666',
+                snapToGrid: false,
+                gridSize: 20,
+                edgeRouting: 'auto',
+                autoSave: false
+              },
+              name: 'Classes Declaration',
+              purpose: 'Provide one navigable collection for reusable classes authored in this repository.',
+              summary: 'A public shelf of reusable Twilite class graphs.',
+              audience: 'Graph authors and agents',
+              functionalRole: 'collection-root'
+            }
+          );
+          const collectionHome = makeNode(
+            'classes-home-surface',
+            'port',
+            'Classes',
+            { x: -80, y: -440 },
+            520,
+            300,
+            {
+              identity: { graphId: 'classes-root', portId: 'root', name: 'Classes' },
+              port: 'root',
+              title: 'Classes',
+              purpose: 'Reusable node and edge vocabulary authored in this repository.',
+              audience: 'Graph authors and agents',
+              status: 'active',
+              view: { intent: 'node', payload: 'node.web.summary', label: 'Classes Collection' },
+              renderShape: { kind: 'svg' },
+              svg: collectionHomeSvg,
+              payload: 'node.web.summary',
+              intent: 'node',
+              key: 'node.web.summary',
+              viewRole: 'summary',
+              semanticLevel: 'detail',
+              visibilityRole: 'editor',
+              memo: 'Link to this port to return to the Classes collection.'
+            }
+          );
+          const classPortal = makeNode(
+            'classes-chat-provenance-portal',
+            'portal',
+            'Chat Provenance',
+            { x: 580, y: -390 },
+            420,
+            280,
+            {
+              memo: 'Open the Chat Provenance node class.',
+              link: '',
+              authority: 'navigate',
+              src: classRef,
+              ref: classRef,
+              sourceRef: classRef,
+              endpoint: `${classRef}:root`,
+              intent: 'external',
+              target: {
+                endpoint: `${classRef}:root`,
+                ref: classRef,
+                mode: 'navigate',
+                url: '',
+                graphId: '',
+                nodeId: '',
+                portId: 'root',
+                surfaceId: 'root',
+                handleId: 'root',
+                label: 'Open Chat Provenance Class'
+              },
+              security: 'prompt',
+              sourceNodeId: 'chat-provenance-class-overview',
+              sourcePayload: 'node.web.summary',
+              surfaceId: 'root',
+              visibilityRole: 'browser'
+            }
+          );
+          const collectionNotes = makeNode(
+            'classes-root-notes',
+            'markdown',
+            'Collection Notes',
+            { x: -80, y: 20 },
+            520,
+            220,
+            {
+              markdown: '# Classes\n\nThis collection holds reusable node and edge class graphs authored in this repository.\n\nThe first resident is **Chat Provenance**, a durable record linking one conversation to a graph without exposing commit history.'
+            }
+          );
+          const collection = {
+            fileVersion: '1.0',
+            metadata: {
+              title: 'Classes',
+              description: 'Michael Martinez’s reusable Twilite classes.',
+              graphId: 'classes-root',
+              version: '0.1.0',
+              kind: 'collection',
+              created: now,
+              modified: now,
+              author: 'Michael Martinez',
+              tags: ['collection', 'classes', 'node-class'],
+              preferredViewer: 'https://twilite.zone'
+            },
+            nodes: [collectionDeclaration, collectionHome, classPortal, collectionNotes],
+            edges: [
+              {
+                id: 'classes-root-edge-home-chat-provenance',
+                type: 'reference',
+                source: 'classes-home-surface',
+                target: 'classes-chat-provenance-portal',
+                sourcePort: 'right',
+                targetPort: 'left',
+                label: 'contains',
+                style: { width: 3, curved: true },
+                data: {}
+              }
+            ],
+            clusters: [],
+            scripts: [],
+            nodeCount: 4,
+            edgeCount: 1,
+            timestamp: now
+          };
+
+          // Add the Classes collection to the repository home.
+          const repoRoot = JSON.parse(fs.readFileSync(repoRootPath, 'utf8'));
+          if ((repoRoot.nodes || []).some((node) => node?.data?.sourceRef === collectionRef)) {
+            throw new Error('Repository home already contains the Classes collection');
+          }
+          const samplePortal = (repoRoot.nodes || []).find((node) => node.type === 'portal' && String(node?.data?.sourceRef || '').includes('/events/root.node'))
+            || (repoRoot.nodes || []).find((node) => node.type === 'portal' && String(node?.data?.sourceRef || '').endsWith('/root.node'));
+          if (!samplePortal) throw new Error('Repository home has no collection portal specimen');
+          const repoClassesPortal = clone(samplePortal);
+          repoClassesPortal.id = 'public-home-classes-portal';
+          repoClassesPortal.label = 'Classes';
+          const portalYs = (repoRoot.nodes || []).filter((node) => node.type === 'portal' && Number.isFinite(node?.position?.y)).map((node) => node.position.y);
+          repoClassesPortal.position = { x: samplePortal?.position?.x ?? 840, y: (portalYs.length ? Math.max(...portalYs) : 800) + 360 };
+          repoClassesPortal.visible = true;
+          repoClassesPortal.showLabel = true;
+          repoClassesPortal.data = {
+            ...(repoClassesPortal.data || {}),
+            memo: 'Open the reusable Classes collection.',
+            link: '',
+            authority: 'navigate',
+            src: collectionRef,
+            ref: collectionRef,
+            sourceRef: collectionRef,
+            endpoint: `${collectionRef}:classes-home`,
+            intent: 'external',
+            target: {
+              ...((repoClassesPortal.data || {}).target || {}),
+              endpoint: `${collectionRef}:classes-home`,
+              ref: collectionRef,
+              mode: 'navigate',
+              portId: 'root',
+              surfaceId: 'classes-home',
+              handleId: 'root',
+              label: 'Open Classes'
+            },
+            security: 'prompt',
+            sourceNodeId: 'classes-home-surface',
+            sourcePayload: 'node.web.summary',
+            surfaceId: 'classes-home',
+            visibilityRole: 'browser'
+          };
+          repoRoot.nodes.push(repoClassesPortal);
+          const portalEdges = (repoRoot.edges || []).filter((edge) => edge.source === samplePortal.id || edge.target === samplePortal.id);
+          for (let index = 0; index < portalEdges.length; index += 1) {
+            const edge = clone(portalEdges[index]);
+            edge.id = `public-home-classes-edge-${index + 1}`;
+            if (edge.source === samplePortal.id) edge.source = repoClassesPortal.id;
+            if (edge.target === samplePortal.id) edge.target = repoClassesPortal.id;
+            repoRoot.edges.push(edge);
+          }
+          repoRoot.metadata.modified = now;
+          repoRoot.timestamp = now;
+          repoRoot.nodeCount = repoRoot.nodes.length;
+          repoRoot.edgeCount = repoRoot.edges.length;
+
+          // Record implementation progress in the existing task graph.
+          const taskGraph = JSON.parse(fs.readFileSync(taskPath, 'utf8'));
+          const findByLabel = (label) => (taskGraph.nodes || []).find((node) => node.label === label);
+          const contractTask = findByLabel('Define the Minimal Chat Node Data Contract');
+          const relationshipTask = findByLabel('Define Chat-to-Artifact Provenance Relationships');
+          const classTask = findByLabel('Create the Chat Node Class and Display Views');
+          const editorTask = findByLabel('Create the Editor and Access-State Rendering');
+          const taskDeclaration = (taskGraph.nodes || []).find((node) => node.type === 'declaration');
+          const taskSummary = (taskGraph.nodes || []).find((node) => node.type === 'summary');
+          if (!contractTask || !relationshipTask || !classTask || !editorTask || !taskDeclaration || !taskSummary) {
+            throw new Error('Chat provenance task graph is missing expected nodes');
+          }
+          for (const node of [contractTask, classTask]) {
+            node.data.status = 'done';
+            node.data.completedAt = now;
+            node.data.externalRef = classRef;
+          }
+          relationshipTask.data.status = 'in-progress';
+          relationshipTask.data.startedAt = relationshipTask.data.startedAt || now;
+          relationshipTask.data.externalRef = classRef;
+          editorTask.data.status = 'in-progress';
+          editorTask.data.startedAt = editorTask.data.startedAt || now;
+          editorTask.data.externalRef = classRef;
+          taskDeclaration.data.implementation = {
+            classRef,
+            collectionRef,
+            classKey: 'chat-provenance',
+            status: 'prototype'
+          };
+          taskSummary.data.taskProgress = { completed: 2, total: 8 };
+          taskSummary.data.status = 'in-progress';
+          taskSummary.data.nextAction = relationshipTask.label;
+          taskGraph.metadata.modified = now;
+          taskGraph.timestamp = now;
+          taskGraph.nodeCount = taskGraph.nodes.length;
+          taskGraph.edgeCount = taskGraph.edges.length;
+
+          const handleIds = (node) => new Set([
+            ...((node.ports || []).map((entry) => entry.id)),
+            ...((node.handles || []).map((entry) => entry.id)),
+            ...((node.inputs || []).map((entry) => entry.key)),
+            ...((node.outputs || []).map((entry) => entry.key))
+          ].filter(Boolean));
+          const validateGraph = (candidate, label) => {
+            const ids = new Set();
+            for (const node of candidate.nodes || []) {
+              if (!node.id || ids.has(node.id)) throw new Error(`${label}: duplicate or missing node id ${node.id}`);
+              ids.add(node.id);
+            }
+            const edgeIds = new Set();
+            for (const edge of candidate.edges || []) {
+              if (!edge.id || edgeIds.has(edge.id)) throw new Error(`${label}: duplicate or missing edge id ${edge.id}`);
+              edgeIds.add(edge.id);
+              if (!ids.has(edge.source) || !ids.has(edge.target)) throw new Error(`${label}: unresolved edge ${edge.id}`);
+              const sourceNode = candidate.nodes.find((node) => node.id === edge.source);
+              const targetNode = candidate.nodes.find((node) => node.id === edge.target);
+              if (edge.sourcePort && !handleIds(sourceNode).has(edge.sourcePort)) throw new Error(`${label}: invalid source port ${edge.sourcePort} on ${edge.id}`);
+              if (edge.targetPort && !handleIds(targetNode).has(edge.targetPort)) throw new Error(`${label}: invalid target port ${edge.targetPort} on ${edge.id}`);
+            }
+            const decl = (candidate.nodes || []).find((node) => node.type === 'declaration');
+            if (decl) {
+              for (const surface of decl?.data?.declaration?.surfaces || []) {
+                const nodeId = surface.viewNodeId || surface.portNodeId || surface.nodeId;
+                if (nodeId && !ids.has(nodeId)) throw new Error(`${label}: surface ${surface.id} targets missing node ${nodeId}`);
+              }
+            }
+            JSON.parse(JSON.stringify(candidate));
+          };
+
+          validateGraph(classGraph, 'class graph');
+          validateGraph(collection, 'classes collection');
+          validateGraph(repoRoot, 'repository home');
+          validateGraph(taskGraph, 'task graph');
+          if (declaration.data.nodeClass.key !== 'chat-provenance') throw new Error('Wrong class key');
+          if (declaration.data.nodeClass.nodeDef.ref !== classRef) throw new Error('Wrong class reference');
+          for (const payload of ['editor.web', 'node.web.detail', 'node.web.summary', 'node.web.icon']) {
+            if (!(classGraph.nodes || []).some((node) => node?.data?.payload === payload || node?.data?.key === payload)) throw new Error(`Missing class view ${payload}`);
+          }
+          if (classPortal.data.sourceNodeId !== 'chat-provenance-class-overview') throw new Error('Class portal source mismatch');
+          if (repoClassesPortal.data.sourceNodeId !== 'classes-home-surface') throw new Error('Repository portal source mismatch');
+          if (taskDeclaration.data.implementation.classRef !== classRef) throw new Error('Task implementation link mismatch');
+
+          fs.mkdirSync(path.dirname(classPath), { recursive: true });
+          fs.writeFileSync(classPath, JSON.stringify(classGraph, null, 2) + '\n');
+          fs.writeFileSync(collectionPath, JSON.stringify(collection, null, 2) + '\n');
+          fs.writeFileSync(repoRootPath, JSON.stringify(repoRoot, null, 2) + '\n');
+          fs.writeFileSync(taskPath, JSON.stringify(taskGraph, null, 2) + '\n');
+          console.log(`Created ${classPath}`);
+          console.log(`Created ${collectionPath}`);
+          console.log('Updated repository home and task graph');
+          NODE
+
+      - name: Commit generated class artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "Twilite Graph Builder"
+          git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/generate-chat-provenance-class.yml
+          git add classes/root.node classes/chat-provenance.node-class.node root.node tasks/chat-node-provenance/root.node
+          git commit -m "Add Chat provenance class collection"
+          git push origin HEAD:class/chat-provenance
