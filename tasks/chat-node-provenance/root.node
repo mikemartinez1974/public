@@ -7,7 +7,7 @@
     "version": "0.1.0",
     "kind": "task",
     "created": "2026-08-05T22:44:00.000Z",
-    "modified": "2026-08-05T22:57:00.000Z",
+    "modified": "2026-08-05T23:08:00.000Z",
     "author": "Michael Martinez",
     "tags": [
       "task",
@@ -168,7 +168,7 @@
           "version": "0.1.0",
           "description": "Define, implement, and validate a first-class Chat node that preserves an originating conversation as explicit graph provenance.",
           "createdAt": "2026-08-05T22:44:00.000Z",
-          "updatedAt": "2026-08-05T22:57:00.000Z"
+          "updatedAt": "2026-08-05T23:08:00.000Z"
         },
         "intent": {
           "kind": "task",
@@ -358,8 +358,14 @@
           "graphToChatNodes": "one-to-many"
         },
         "notes": [
-          "Each Chat node represents exactly one conversation. A graph may accumulate many Chat nodes across creation, revision, review, and explanation events."
-        ]
+          "Each Chat node represents exactly one conversation. A graph may accumulate many Chat nodes across creation, revision, review, and explanation events.",
+          "Chat provenance records why a conversation mattered to the graph; it does not expose commit history or reconstruct prior graph states."
+        ],
+        "historyPolicy": {
+          "exposeCommitHistory": false,
+          "requireRevisionAnchors": false,
+          "provenanceBasis": "conversation-link-and-graph-relationship"
+        }
       }
     },
     {
@@ -751,7 +757,7 @@
           "The prototype stores no authentication secrets or falsely implies access.",
           "Provider-specific API integration remains optional and outside the v0.1 contract.",
           "A graph can contain multiple Chat nodes, each independently representing one conversation and one provenance event.",
-          "Each Chat node can optionally anchor its contribution to a specific graph revision, commit, node set, or captured state."
+          "Chat provenance remains conversation-centric and does not expose commit history or require revision identifiers."
         ],
         "definitionKey": "goal",
         "_classBinding": {
@@ -5269,7 +5275,7 @@
       "showLabel": true,
       "data": {
         "title": "Define Chat-to-Artifact Provenance Relationships",
-        "body": "Define how each Chat node records that its single conversation created, revised, explained, reviewed, or otherwise contributed to a graph or node. Support many Chat nodes across an artifact lifetime, with optional anchors to a graph revision, commit, captured state, or affected node set.",
+        "body": "Define how each Chat node records that its single conversation created, revised, explained, reviewed, or otherwise contributed to a graph or node. Support many Chat nodes across an artifact lifetime through ordinary graph relationships, without exposing commit history or reconstructing prior graph states.",
         "priority": "high",
         "status": "todo",
         "owner": "Michael",
@@ -5278,9 +5284,9 @@
           "The v0.1 relationship vocabulary is small and semantically distinct.",
           "Produced-artifact references use durable graph or node addresses.",
           "The relationship remains understandable from either connected artifact.",
-          "Each provenance relationship may identify the artifact state or revision affected by that conversation.",
+          "Each provenance relationship identifies the affected graph or node and the contribution role, without requiring a commit or historical snapshot.",
           "Several Chat nodes can independently contribute to the same graph without being merged into one conversation record.",
-          "Chronology can be reconstructed from event timestamps and optional explicit sequence relationships."
+          "Event timestamps provide useful ordering without claiming to reconstruct a complete version history."
         ],
         "definitionKey": "task",
         "_classBinding": {
@@ -5823,7 +5829,7 @@
           "The graph can be inspected without exposing private conversation content.",
           "At least three distinct Chat nodes point to three distinct conversations associated with one evolving graph.",
           "The graph visibly distinguishes creation, revision, and explanation or review provenance events.",
-          "At least one Chat node is anchored to a specific graph revision or captured state."
+          "No Chat node requires or exposes a graph commit, revision identifier, or historical snapshot."
         ],
         "definitionKey": "task",
         "_classBinding": {
@@ -6366,7 +6372,7 @@
           "Deferred provider-specific authentication and transcript retrieval are explicit.",
           "The task ends with a clear promote, revise, or abandon recommendation.",
           "The final contract states one Chat node per conversation and supports many Chat nodes per graph.",
-          "The final contract defines the optional revision-anchor fields used to say what artifact state a conversation affected."
+          "The final contract explicitly excludes commit-history exposure and revision-anchor requirements from v0.1."
         ],
         "definitionKey": "task",
         "_classBinding": {
@@ -6981,7 +6987,7 @@
         "decidedAt": "2026-08-05T22:57:00.000Z",
         "owner": "Michael",
         "supersededBy": "",
-        "body": "A Chat node is a durable provenance record for exactly one conversation. A graph may accumulate any number of Chat nodes as it is created, revised, reviewed, or explained. Each node retains its own source, access state, captured context, timestamp, provenance role, and optional artifact-revision anchor. Conversation history is represented by multiple nodes and graph relationships, not by an array of unrelated conversations inside one node.",
+        "body": "A Chat node is a durable provenance record for exactly one conversation. A graph may accumulate any number of Chat nodes as it is created, revised, reviewed, or explained. Each node retains its own source, access state, captured context, timestamp, and provenance role. Conversation history is represented by multiple nodes and graph relationships, not by an array of unrelated conversations inside one node and not by exposing the graph commit history.",
         "definitionKey": "decision",
         "_classBinding": {
           "key": "decision",
@@ -7010,6 +7016,185 @@
           "reason": "node-drag"
         },
         "title": "Use One Chat Node per Conversation"
+      }
+    },
+    {
+      "id": "create-chat-provenance-node-decision-no-commit-history",
+      "type": "decision",
+      "label": "Keep Chat Provenance Separate from Commit History",
+      "root": false,
+      "position": {
+        "x": 1540,
+        "y": 1580
+      },
+      "width": 420,
+      "height": 240,
+      "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "rationale": "The conversation link already supplies the human context. Exposing commits or reconstructing historical graph states would add complexity and disclose implementation history that the feature does not need.",
+        "status": "decided",
+        "decidedAt": "2026-08-05T23:08:00.000Z",
+        "owner": "Michael",
+        "supersededBy": "",
+        "body": "Chat provenance links a conversation to the graph or node it influenced. It does not expose repository commit history, require revision identifiers, or attempt to recreate the exact graph state at the time of the discussion. A timestamp and provenance role provide lightweight ordering and meaning.",
+        "definitionKey": "decision",
+        "_classBinding": {
+          "key": "decision",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
+        },
+        "_bridge": {
+          "sourceNodeId": "create-chat-provenance-node-bridge-decision",
+          "sourceBridgeNodeId": "create-chat-provenance-node-bridge-decision",
+          "sourceBridgeLabel": "Decision",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class",
+          "classKey": "decision",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
+        },
+        "identity": {
+          "graphId": "create-chat-provenance-node-declaration"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1784322332554,
+          "reason": "node-drag"
+        },
+        "title": "Keep Chat Provenance Separate from Commit History"
       }
     }
   ],
@@ -7379,6 +7564,28 @@
       "label": "constrains",
       "style": {},
       "data": {}
+    },
+    {
+      "id": "create-chat-provenance-node-edge-no-history-constrains-relationships",
+      "type": "reference",
+      "source": "create-chat-provenance-node-decision-no-commit-history",
+      "target": "create-chat-provenance-node-task-provenance-relationships",
+      "sourcePort": "left",
+      "targetPort": "right",
+      "label": "constrains",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "create-chat-provenance-node-edge-no-history-constrains-prototype",
+      "type": "reference",
+      "source": "create-chat-provenance-node-decision-no-commit-history",
+      "target": "create-chat-provenance-node-task-private-prototype",
+      "sourcePort": "left",
+      "targetPort": "right",
+      "label": "constrains",
+      "style": {},
+      "data": {}
     }
   ],
   "clusters": [],
@@ -7435,7 +7642,7 @@
       "tags": ""
     }
   ],
-  "nodeCount": 37,
-  "edgeCount": 33,
-  "timestamp": "2026-08-05T22:57:00.000Z"
+  "nodeCount": 38,
+  "edgeCount": 35,
+  "timestamp": "2026-08-05T23:08:00.000Z"
 }
