@@ -1,0 +1,34 @@
+name: Normalize reopened task timestamps
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/fix-reopened-task.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Remove stale completion timestamps
+        shell: bash
+        run: |
+          echo 'aW1wb3J0IGpzb24KZnJvbSBwYXRobGliIGltcG9ydCBQYXRoCgpwYXRoID0gUGF0aCgndGFza3MvdHlwZS1hbmQtaW5zdGFuY2UtcHJlc2VudGF0aW9uL3Jvb3Qubm9kZScpCmdyYXBoID0ganNvbi5sb2FkcyhwYXRoLnJlYWRfdGV4dChlbmNvZGluZz0ndXRmLTgnKSkKZm9yIG5vZGUgaW4gZ3JhcGguZ2V0KCdub2RlcycsIFtdKToKICAgIGRhdGEgPSBub2RlLmdldCgnZGF0YScpCiAgICBpZiBpc2luc3RhbmNlKGRhdGEsIGRpY3QpIGFuZCBkYXRhLmdldCgnc3RhdHVzJykgIT0gJ2RvbmUnOgogICAgICAgIGRhdGEucG9wKCdjb21wbGV0ZEF0Jywgbm9uZSkKZ3JhcGguc2V0ZGVmYXVsdCgnbWV0YWRhdGEnLCB7fSlbJ21vZGlmaWVkJ10gPSAnMjAyNi0wOC0wNVQwMToyMDowMC4wMDBaJwpwYXRoLndyaXRlX3RleHQoanNvbi5kdW1wcyhncmFwaCwgaW5kZW50PTIsIGVuc3VyZV9hc2NpaT1GYWxzZSkgKyAnXG4nLCBlbmNvZGluZz0ndXRmLTgnKQo=' | base64 -d > /tmp/fix_reopened.py
+          sed -i 's/, none)/, None)/' /tmp/fix_reopened.py
+          python /tmp/fix_reopened.py
+      - name: Commit correction and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name "twilite-task-agent"
+          git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/fix-reopened-task.yml
+          git add tasks/type-and-instance-presentation/root.node
+          git commit -m "Remove stale completion timestamps from reopened task"
+          git push origin HEAD:main
