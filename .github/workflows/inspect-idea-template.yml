@@ -1,0 +1,44 @@
+name: Inspect idea template
+
+on:
+  push:
+    branches:
+      - idea/chat-node-provenance
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Print concise template contract
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const graph = JSON.parse(fs.readFileSync('templates/idea-template/root.node', 'utf8'));
+          const contentNodes = graph.nodes
+            .filter((node) => String(node.type || '').startsWith('idea'))
+            .map((node) => ({
+              id: node.id,
+              type: node.type,
+              label: node.label,
+              position: node.position,
+              width: node.width,
+              height: node.height,
+              ports: node.ports,
+              data: node.data
+            }));
+          console.log('CONTENT_NODES_START');
+          for (const node of contentNodes) console.log(JSON.stringify(node));
+          console.log('CONTENT_NODES_END');
+          console.log('EDGES_START');
+          for (const edge of graph.edges || []) console.log(JSON.stringify(edge));
+          console.log('EDGES_END');
+          console.log('TOP_LEVEL_KEYS', JSON.stringify(Object.keys(graph)));
+          console.log('NODE_COUNT', graph.nodes?.length || 0);
+          console.log('EDGE_COUNT', graph.edges?.length || 0);
+          NODE
