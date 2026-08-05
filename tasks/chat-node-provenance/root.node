@@ -7,7 +7,7 @@
     "version": "0.1.0",
     "kind": "task",
     "created": "2026-08-05T22:44:00.000Z",
-    "modified": "2026-08-05T22:44:00.000Z",
+    "modified": "2026-08-05T22:57:00.000Z",
     "author": "Michael Martinez",
     "tags": [
       "task",
@@ -168,7 +168,7 @@
           "version": "0.1.0",
           "description": "Define, implement, and validate a first-class Chat node that preserves an originating conversation as explicit graph provenance.",
           "createdAt": "2026-08-05T22:44:00.000Z",
-          "updatedAt": "2026-08-05T22:44:00.000Z"
+          "updatedAt": "2026-08-05T22:57:00.000Z"
         },
         "intent": {
           "kind": "task",
@@ -352,7 +352,14 @@
           "relation": "implements-next-step",
           "graphRef": "github://mikemartinez1974/public/ideas/chat-node-provenance.node",
           "nodeId": "chat-node-provenance-idea-next-step"
-        }
+        },
+        "cardinality": {
+          "chatNodeToConversation": "one-to-one",
+          "graphToChatNodes": "one-to-many"
+        },
+        "notes": [
+          "Each Chat node represents exactly one conversation. A graph may accumulate many Chat nodes across creation, revision, review, and explanation events."
+        ]
       }
     },
     {
@@ -742,7 +749,9 @@
           "A node remains informative when its external conversation cannot be opened.",
           "Produced, revised, or explained artifacts can be connected through explicit provenance relationships.",
           "The prototype stores no authentication secrets or falsely implies access.",
-          "Provider-specific API integration remains optional and outside the v0.1 contract."
+          "Provider-specific API integration remains optional and outside the v0.1 contract.",
+          "A graph can contain multiple Chat nodes, each independently representing one conversation and one provenance event.",
+          "Each Chat node can optionally anchor its contribution to a specific graph revision, commit, node set, or captured state."
         ],
         "definitionKey": "goal",
         "_classBinding": {
@@ -910,7 +919,7 @@
       "showLabel": true,
       "data": {
         "title": "Define the Minimal Chat Node Data Contract",
-        "body": "Specify the fields for source kind, provider, conversation reference or URL, access mode, snapshot scope, captured summary, optional excerpt, timestamps, status, and produced-artifact references.",
+        "body": "Specify the fields for one conversation source, source kind, provider, conversation reference or URL, access mode, snapshot scope, captured summary, optional excerpt, timestamps, status, and provenance event metadata. A graph may contain many Chat nodes, but each Chat node represents exactly one conversation.",
         "priority": "high",
         "status": "todo",
         "owner": "Michael",
@@ -919,7 +928,9 @@
           "The contract distinguishes private owner links, shared snapshots, and locally archived transcripts.",
           "Access and permanence are explicit fields rather than inferred promises.",
           "Summary and excerpt fields remain useful when the external source is unavailable.",
-          "No credential, token, or private conversation content is required by the base contract."
+          "No credential, token, or private conversation content is required by the base contract.",
+          "The base contract permits exactly one conversation reference per Chat node rather than an array of conversations.",
+          "Multiple revisions are represented by multiple Chat nodes attached to the graph."
         ],
         "definitionKey": "task",
         "_classBinding": {
@@ -1275,7 +1286,7 @@
           "total": 8
         },
         "questionProgress": {
-          "answered": 0,
+          "answered": 1,
           "total": 3
         },
         "summarySource": "node-updater",
@@ -1314,7 +1325,7 @@
           "classKey": "summary",
           "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node"
         },
-        "updatedAt": "2026-07-22T00:00:00.000Z",
+        "updatedAt": "2026-08-05T22:57:00.000Z",
         "identity": {
           "graphId": "create-chat-provenance-node-declaration"
         },
@@ -1479,7 +1490,7 @@
       "showLabel": true,
       "data": {
         "title": "Create the Chat Provenance Node",
-        "body": "Goal: Deliver a Trustworthy First-Class Chat Provenance Node\nStatus: todo\n\nTasks in scope:\n1. Define the Minimal Chat Node Data Contract\n2. Define Chat-to-Artifact Provenance Relationships\n3. Create the Chat Node Class and Display Views\n4. Create the Editor and Access-State Rendering\n5. Build a Non-Public Prototype Graph\n6. Implement Conversation and Artifact Navigation\n7. Test Privacy and Degraded Conversation States\n8. Finalize the v0.1 Contract and Integration Boundary\n\nOpen questions:\n1. How much conversation content should v0.1 preserve locally?\n2. Is access mode declared, resolved, or both?\n3. Does one Chat node represent one conversation or a conversation chain?",
+        "body": "Goal: Deliver a Trustworthy First-Class Chat Provenance Node\nStatus: todo\n\nTasks in scope:\n1. Define the Minimal Chat Node Data Contract\n2. Define Chat-to-Artifact Provenance Relationships\n3. Create the Chat Node Class and Display Views\n4. Create the Editor and Access-State Rendering\n5. Build a Non-Public Prototype Graph\n6. Implement Conversation and Artifact Navigation\n7. Test Privacy and Degraded Conversation States\n8. Finalize the v0.1 Contract and Integration Boundary\n\nOpen questions:\n1. How much conversation content should v0.1 preserve locally?\n2. Is access mode declared, resolved, or both?\n3. Does one Chat node represent one conversation or a conversation chain? [answered: one conversation per node; many nodes per graph]",
         "priority": "high",
         "status": "todo",
         "owner": "Michael",
@@ -5258,7 +5269,7 @@
       "showLabel": true,
       "data": {
         "title": "Define Chat-to-Artifact Provenance Relationships",
-        "body": "Define how a Chat node records that a conversation created, revised, explained, reviewed, or otherwise contributed to a graph or node without collapsing every relationship into a generic link.",
+        "body": "Define how each Chat node records that its single conversation created, revised, explained, reviewed, or otherwise contributed to a graph or node. Support many Chat nodes across an artifact lifetime, with optional anchors to a graph revision, commit, captured state, or affected node set.",
         "priority": "high",
         "status": "todo",
         "owner": "Michael",
@@ -5266,7 +5277,10 @@
         "acceptanceCriteria": [
           "The v0.1 relationship vocabulary is small and semantically distinct.",
           "Produced-artifact references use durable graph or node addresses.",
-          "The relationship remains understandable from either connected artifact."
+          "The relationship remains understandable from either connected artifact.",
+          "Each provenance relationship may identify the artifact state or revision affected by that conversation.",
+          "Several Chat nodes can independently contribute to the same graph without being merged into one conversation record.",
+          "Chronology can be reconstructed from event timestamps and optional explicit sequence relationships."
         ],
         "definitionKey": "task",
         "_classBinding": {
@@ -5798,7 +5812,7 @@
       "showLabel": true,
       "data": {
         "title": "Build a Non-Public Prototype Graph",
-        "body": "Create a private test graph containing representative Chat nodes for an owner-only conversation, a shared snapshot, and a locally preserved excerpt, each connected to one or more produced artifacts.",
+        "body": "Create a private test graph containing several Chat nodes across the same artifact lifecycle: an originating conversation, at least one revision conversation, and an explanatory or review conversation. Include owner-only, shared-snapshot, and locally preserved source modes.",
         "priority": "medium",
         "status": "todo",
         "owner": "Michael",
@@ -5806,7 +5820,10 @@
         "acceptanceCriteria": [
           "The prototype contains all three source modes.",
           "Each Chat node has at least one explicit provenance relationship.",
-          "The graph can be inspected without exposing private conversation content."
+          "The graph can be inspected without exposing private conversation content.",
+          "At least three distinct Chat nodes point to three distinct conversations associated with one evolving graph.",
+          "The graph visibly distinguishes creation, revision, and explanation or review provenance events.",
+          "At least one Chat node is anchored to a specific graph revision or captured state."
         ],
         "definitionKey": "task",
         "_classBinding": {
@@ -6347,7 +6364,9 @@
         "acceptanceCriteria": [
           "The final v0.1 contract is documented with examples.",
           "Deferred provider-specific authentication and transcript retrieval are explicit.",
-          "The task ends with a clear promote, revise, or abandon recommendation."
+          "The task ends with a clear promote, revise, or abandon recommendation.",
+          "The final contract states one Chat node per conversation and supports many Chat nodes per graph.",
+          "The final contract defines the optional revision-anchor fields used to say what artifact state a conversation affected."
         ],
         "definitionKey": "task",
         "_classBinding": {
@@ -6696,9 +6715,9 @@
       "showLabel": true,
       "data": {
         "body": "Some artifacts emerge from several related chats. Decide whether v0.1 uses one node per conversation and graph edges for continuity, or permits multiple source references inside one node.",
-        "status": "open",
+        "status": "answered",
         "owner": "",
-        "resolutionPath": "Resolve during prototype review before finalizing the v0.1 contract.",
+        "resolutionPath": "Resolved by product decision during task review.",
         "prominence": "high",
         "definitionKey": "open-question",
         "_classBinding": {
@@ -6726,7 +6745,10 @@
           "source": "manual",
           "updatedAt": 1784322329096,
           "reason": "node-drag"
-        }
+        },
+        "answeredAt": "2026-08-05T22:57:00.000Z",
+        "answer": "One Chat node represents exactly one conversation. A graph may contain many Chat nodes as it is created, revised, reviewed, or explained.",
+        "resolution": "Use graph-level multiplicity instead of embedding several conversation references inside one Chat node. Preserve each conversation as its own durable provenance record."
       }
     },
     {
@@ -6809,6 +6831,185 @@
           "blockedReason": "GitHub connector access to the implementation repository is pending."
         },
         "surfaceId": "root"
+      }
+    },
+    {
+      "id": "create-chat-provenance-node-decision-one-conversation-per-node",
+      "type": "decision",
+      "label": "Use One Chat Node per Conversation",
+      "root": false,
+      "position": {
+        "x": 1540,
+        "y": 1250
+      },
+      "width": 420,
+      "height": 240,
+      "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "rationale": "This keeps the conversation anchored to a real graph artifact instead of a floating abstraction.",
+        "status": "decided",
+        "decidedAt": "2026-08-05T22:57:00.000Z",
+        "owner": "Michael",
+        "supersededBy": "",
+        "body": "A Chat node is a durable provenance record for exactly one conversation. A graph may accumulate any number of Chat nodes as it is created, revised, reviewed, or explained. Each node retains its own source, access state, captured context, timestamp, provenance role, and optional artifact-revision anchor. Conversation history is represented by multiple nodes and graph relationships, not by an array of unrelated conversations inside one node.",
+        "definitionKey": "decision",
+        "_classBinding": {
+          "key": "decision",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
+        },
+        "_bridge": {
+          "sourceNodeId": "create-chat-provenance-node-bridge-decision",
+          "sourceBridgeNodeId": "create-chat-provenance-node-bridge-decision",
+          "sourceBridgeLabel": "Decision",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class",
+          "classKey": "decision",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
+        },
+        "identity": {
+          "graphId": "create-chat-provenance-node-declaration"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1784322332554,
+          "reason": "node-drag"
+        },
+        "title": "Use One Chat Node per Conversation"
       }
     }
   ],
@@ -7156,6 +7357,28 @@
       "label": "originating idea",
       "style": {},
       "data": {}
+    },
+    {
+      "id": "create-chat-provenance-node-edge-conversation-scope-resolved-by-cardinality-decision",
+      "type": "reference",
+      "source": "create-chat-provenance-node-question-conversation-scope",
+      "target": "create-chat-provenance-node-decision-one-conversation-per-node",
+      "sourcePort": "right",
+      "targetPort": "left",
+      "label": "resolved by",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "create-chat-provenance-node-edge-cardinality-constrains-contract",
+      "type": "reference",
+      "source": "create-chat-provenance-node-decision-one-conversation-per-node",
+      "target": "create-chat-provenance-node-task",
+      "sourcePort": "left",
+      "targetPort": "right",
+      "label": "constrains",
+      "style": {},
+      "data": {}
     }
   ],
   "clusters": [],
@@ -7212,7 +7435,7 @@
       "tags": ""
     }
   ],
-  "nodeCount": 36,
-  "edgeCount": 31,
-  "timestamp": "2026-08-05T22:44:00.000Z"
+  "nodeCount": 37,
+  "edgeCount": 33,
+  "timestamp": "2026-08-05T22:57:00.000Z"
 }
