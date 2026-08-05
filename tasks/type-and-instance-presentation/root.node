@@ -2,15 +2,16 @@
   "fileVersion": "1.0",
   "metadata": {
     "title": "Type and Instance Presentation",
-    "description": "Active implementation task graph for type and instance presentation in the Twilite application.",
+    "description": "Completed implementation task graph for type and instance presentation in the Twilite application.",
     "graphId": "type-and-instance-presentation-task",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "kind": "task",
     "created": "2026-08-04T23:30:00.000Z",
-    "modified": "2026-08-05T01:22:00.000Z",
+    "modified": "2026-08-05T15:45:00.000Z",
     "author": "Michael Martinez",
     "tags": [
-      "task"
+      "task",
+      "completed"
     ],
     "preferredViewer": "https://twilite.zone"
   },
@@ -41,9 +42,9 @@
         "identity": {
           "graphId": "type-and-instance-presentation-task",
           "name": "Type and Instance Presentation",
-          "version": "1.1.0",
+          "version": "1.2.0",
           "description": "Implement the presentation contract separating stable type identity from authored node and edge instance views.",
-          "updatedAt": "2026-08-05T01:10:00.000Z"
+          "updatedAt": "2026-08-05T15:45:00.000Z"
         },
         "intent": {
           "kind": "task",
@@ -132,7 +133,7 @@
               "label": "Type and Instance Presentation",
               "portNodeId": "type-instance-task-root-port",
               "viewNodeId": "type-instance-task-root-port",
-              "memo": "Canonical active-task entry surface.",
+              "memo": "Canonical completed-task entry surface.",
               "exposes": {
                 "views": {
                   "mode": "allow"
@@ -153,12 +154,29 @@
         },
         "summaryNodeId": "type-instance-task-root-port",
         "completion": {
-          "status": "reopened",
-          "reopenedAt": "2026-08-05T01:10:00.000Z",
-          "reason": "The original implementation landed in a different repository. A whole-file port into the Twilite application failed the production build and was reverted before activation.",
-          "implementationTarget": {
+          "status": "completed",
+          "completedAt": "2026-08-05T15:45:00.000Z",
+          "reason": "The contract was rebuilt directly against the current Twilite codebase and merged after focused tests and a successful production build.",
+          "implementation": {
             "repo": "github://TwiliteLLC/twilite",
-            "branch": "dev-master"
+            "branch": "dev-master",
+            "pullRequest": "https://github.com/TwiliteLLC/twilite/pull/1",
+            "commit": "https://github.com/TwiliteLLC/twilite/commit/bf640b0e1c45c3af94023da614e963032bba41c8",
+            "validationRun": "https://github.com/TwiliteLLC/twilite/actions/runs/31021267652",
+            "status": "merged"
+          },
+          "validation": {
+            "focusedTests": {
+              "passed": 15,
+              "failed": 0
+            },
+            "productionBuild": "passed",
+            "browserPrerender": "passed",
+            "fullSuiteBaseline": {
+              "passed": 153,
+              "failed": 3,
+              "status": "pre-existing failures unrelated to this implementation"
+            }
           },
           "prototype": {
             "repo": "github://mikemartinez1974/nodegraph-editor",
@@ -168,12 +186,10 @@
           },
           "failedPort": {
             "repo": "github://TwiliteLLC/twilite",
-            "branch": "dev-master",
             "commit": "886a66c9fbbb6399c278f90a4e51e9f4decf28e7",
             "failure": "ReferenceError: ViewPlugin is not defined while prerendering /browser.",
-            "cause": "The port replaced the current EntitiesPanel import header with an older repository version while leaving Twilite-specific CodeMirror code in place.",
             "releaseActivated": false,
-            "liveCommitUnchanged": "783a82773ba2dafc8f12f81d7c1218fd7bc9c69c"
+            "status": "superseded by the native implementation"
           }
         }
       }
@@ -229,7 +245,7 @@
         "viewKind": "display",
         "semanticLevel": "summary",
         "visibilityRole": "browser",
-        "description": "Active implementation task for the Type and Instance Presentation contract."
+        "description": "Completed implementation task for the Type and Instance Presentation contract."
       }
     },
     {
@@ -273,19 +289,18 @@
         },
         "title": "Deliver the Type and Instance Presentation Contract",
         "body": "Define and prove a presentation model where stable type identity belongs to the Legend while authored or data-derived instance presentation belongs to Elements.",
-        "status": "blocked",
+        "status": "done",
         "priority": "high",
         "owner": "Michael",
         "target": "A coherent presentation contract spanning Document content, node glyphs and previews, and compact edge specimens.",
-        "outcome": "Design accepted and prototype available; production implementation remains pending in the correct repository.",
+        "outcome": "The native implementation is merged into Twilite dev-master with node specimens, edge specimens, and a first-class Document node.",
         "evidence": [
-          "https://github.com/mikemartinez1974/nodegraph-editor/commit/45ebe4d708c77c3b95a6370febe0d088da908351",
-          "https://github.com/mikemartinez1974/nodegraph-editor/pull/1",
-          "failed-port:886a66c9fbbb6399c278f90a4e51e9f4decf28e7"
+          "https://github.com/TwiliteLLC/twilite/pull/1",
+          "https://github.com/TwiliteLLC/twilite/commit/bf640b0e1c45c3af94023da614e963032bba41c8",
+          "https://github.com/TwiliteLLC/twilite/actions/runs/31021267652"
         ],
-        "health": "blocked",
-        "nextAction": "Grant the GitHub connector access to TwiliteLLC/twilite, inspect the current dev-master implementation, and rebuild the contract surgically against that codebase.",
-        "blockedReason": "The connected GitHub integration currently returns 404 for TwiliteLLC/twilite."
+        "health": "done",
+        "nextAction": "Deploy dev-master and perform a visual smoke check in Twilite."
       }
     },
     {
@@ -329,20 +344,20 @@
         },
         "title": "Define the Document primitive",
         "body": "Create one durable content primitive supporting Markdown, sanitized HTML, and plain text as render formats.",
-        "status": "blocked",
+        "status": "done",
         "priority": "high",
         "owner": "Michael",
-        "nextAction": "Inspect the current document and Markdown rendering paths in TwiliteLLC/twilite before defining the durable Document contract.",
-        "blockedReason": "Repository access is required to implement and validate this task in TwiliteLLC/twilite:dev-master.",
-        "health": "blocked",
+        "nextAction": "No remaining implementation action.",
+        "health": "done",
         "acceptanceCriteria": [
           "Document format and content are stored under data.document.",
           "Legacy markdown, html, text, and memo payloads remain readable.",
           "Runtime input updates preserve the durable document contract."
         ],
         "evidence": [
-          "prototype:https://github.com/mikemartinez1974/nodegraph-editor/commit/45ebe4d708c77c3b95a6370febe0d088da908351",
-          "failed-port:886a66c9fbbb6399c278f90a4e51e9f4decf28e7"
+          "https://github.com/TwiliteLLC/twilite/pull/1",
+          "https://github.com/TwiliteLLC/twilite/commit/bf640b0e1c45c3af94023da614e963032bba41c8",
+          "https://github.com/TwiliteLLC/twilite/actions/runs/31021267652"
         ]
       }
     },
@@ -387,19 +402,19 @@
         },
         "title": "Separate Legend type identity",
         "body": "Keep the Legend focused on stable glyphs and creatable type identity.",
-        "status": "blocked",
+        "status": "done",
         "priority": "high",
         "owner": "Michael",
-        "nextAction": "Verify the current Legend implementation in TwiliteLLC/twilite and preserve its existing type-identity behavior.",
-        "blockedReason": "Repository access is required to implement and validate this task in TwiliteLLC/twilite:dev-master.",
-        "health": "blocked",
+        "nextAction": "No remaining implementation action.",
+        "health": "done",
         "acceptanceCriteria": [
           "Legend entries continue to resolve stable type metadata glyphs.",
           "Authored node instance views are not rendered in the Legend."
         ],
         "evidence": [
-          "prototype:https://github.com/mikemartinez1974/nodegraph-editor/commit/45ebe4d708c77c3b95a6370febe0d088da908351",
-          "failed-port:886a66c9fbbb6399c278f90a4e51e9f4decf28e7"
+          "https://github.com/TwiliteLLC/twilite/pull/1",
+          "https://github.com/TwiliteLLC/twilite/commit/bf640b0e1c45c3af94023da614e963032bba41c8",
+          "https://github.com/TwiliteLLC/twilite/actions/runs/31021267652"
         ]
       }
     },
@@ -444,20 +459,20 @@
         },
         "title": "Present authored node instances",
         "body": "Render authored node icon views in Elements with a stable glyph fallback.",
-        "status": "blocked",
+        "status": "done",
         "priority": "high",
         "owner": "Michael",
-        "nextAction": "Extend the current Twilite Elements panel without replacing its CodeMirror editing and source-navigation features.",
-        "blockedReason": "Repository access is required to implement and validate this task in TwiliteLLC/twilite:dev-master.",
-        "health": "blocked",
+        "nextAction": "No remaining implementation action.",
+        "health": "done",
         "acceptanceCriteria": [
           "Class-backed nodes resolve node.web.icon before summary or legacy views.",
           "Inline SVG, HTML, and image payloads remain visible.",
           "Nodes without authored presentation receive a stable type glyph."
         ],
         "evidence": [
-          "prototype:https://github.com/mikemartinez1974/nodegraph-editor/commit/45ebe4d708c77c3b95a6370febe0d088da908351",
-          "failed-port:886a66c9fbbb6399c278f90a4e51e9f4decf28e7"
+          "https://github.com/TwiliteLLC/twilite/pull/1",
+          "https://github.com/TwiliteLLC/twilite/commit/bf640b0e1c45c3af94023da614e963032bba41c8",
+          "https://github.com/TwiliteLLC/twilite/actions/runs/31021267652"
         ]
       }
     },
@@ -502,20 +517,20 @@
         },
         "title": "Render compact edge specimens",
         "body": "Represent actual edge meaning and style without recreating an entire source graph.",
-        "status": "blocked",
+        "status": "done",
         "priority": "high",
         "owner": "Michael",
-        "nextAction": "Add compact labeled edge specimens to the current Elements edge rows while retaining existing selection and editing behavior.",
-        "blockedReason": "Repository access is required to implement and validate this task in TwiliteLLC/twilite:dev-master.",
-        "health": "blocked",
+        "nextAction": "No remaining implementation action.",
+        "health": "done",
         "acceptanceCriteria": [
           "The edge label is drawn on the specimen rather than repeated as plain primary text.",
           "The specimen reflects route, dash, width, opacity, and arrow settings.",
           "The source and target remain visible as secondary context."
         ],
         "evidence": [
-          "prototype:https://github.com/mikemartinez1974/nodegraph-editor/commit/45ebe4d708c77c3b95a6370febe0d088da908351",
-          "failed-port:886a66c9fbbb6399c278f90a4e51e9f4decf28e7"
+          "https://github.com/TwiliteLLC/twilite/pull/1",
+          "https://github.com/TwiliteLLC/twilite/commit/bf640b0e1c45c3af94023da614e963032bba41c8",
+          "https://github.com/TwiliteLLC/twilite/actions/runs/31021267652"
         ]
       }
     },
@@ -560,20 +575,20 @@
         },
         "title": "Prove compatibility",
         "body": "Verify existing graphs remain readable and existing authored views continue to work.",
-        "status": "blocked",
+        "status": "done",
         "priority": "high",
         "owner": "Michael",
-        "nextAction": "Run the current Twilite test suite and production build, including /browser prerendering, before marking the task complete.",
-        "blockedReason": "Repository access is required to implement and validate this task in TwiliteLLC/twilite:dev-master.",
-        "health": "blocked",
+        "nextAction": "No remaining implementation action.",
+        "health": "done",
         "acceptanceCriteria": [
           "Automated tests pass.",
           "The production bundle builds successfully.",
           "Existing markdown nodes continue to render through the compatibility path."
         ],
         "evidence": [
-          "prototype:https://github.com/mikemartinez1974/nodegraph-editor/commit/45ebe4d708c77c3b95a6370febe0d088da908351",
-          "failed-port:886a66c9fbbb6399c278f90a4e51e9f4decf28e7"
+          "https://github.com/TwiliteLLC/twilite/pull/1",
+          "https://github.com/TwiliteLLC/twilite/commit/bf640b0e1c45c3af94023da614e963032bba41c8",
+          "https://github.com/TwiliteLLC/twilite/actions/runs/31021267652"
         ]
       }
     },
@@ -621,7 +636,7 @@
         "status": "accepted",
         "owner": "Michael",
         "rationale": "The Legend identifies creatable types with stable glyphs. Elements presents actual instances. Nodes use bounded authored compact views with glyph fallback. Edges use a Legend-sized path specimen with the semantic label drawn directly on the specimen.",
-        "implementationStatus": "pending"
+        "implementationStatus": "done"
       }
     },
     {
@@ -747,8 +762,8 @@
           "graphId": "type-and-instance-presentation-task"
         },
         "title": "Implementation Notes",
-        "markdown": "# Type and Instance Presentation\n\n**Status:** Reopened and blocked on repository access\n\nThe design remains accepted: **the Legend explains what can be created; Elements shows what currently exists.** The previous code is useful as a prototype, but it was not implemented in the repository that powers Twilite.\n\n## Correct implementation target\n\n- Repository: `github://TwiliteLLC/twilite`\n- Branch: `dev-master`\n\n## What happened\n\n- The reference implementation was completed in `github://mikemartinez1974/nodegraph-editor` at `45ebe4d708c77c3b95a6370febe0d088da908351`.\n- A whole-file port into the correct repository produced commit `886a66c9fbbb6399c278f90a4e51e9f4decf28e7`.\n- The production build failed while prerendering `/browser` with `ReferenceError: ViewPlugin is not defined`.\n- The failed release never activated. The live checkout remained `783a82773ba2dafc8f12f81d7c1218fd7bc9c69c`.\n- `dev-master` was restored to the known-good deployed code.\n\n## Next move\n\nInspect the current Twilite implementation first, then reapply the contract surgically so existing CodeMirror, Elements-panel, and browser behavior remain intact.",
-        "reopenedAt": "2026-08-05T01:10:00.000Z"
+        "markdown": "# Type and Instance Presentation\n\n**Status:** Completed and merged\n\nThe contract is now implemented in the repository that powers Twilite: **the Legend identifies stable types, while Elements presents actual node and edge instances.**\n\n## Production implementation\n\n- Repository: `github://TwiliteLLC/twilite`\n- Branch: `dev-master`\n- Pull request: `https://github.com/TwiliteLLC/twilite/pull/1`\n- Merge commit: `bf640b0e1c45c3af94023da614e963032bba41c8`\n- Validation run: `https://github.com/TwiliteLLC/twilite/actions/runs/31021267652`\n\n## Delivered\n\n- Native `document` nodes using `data.document: { format, content }` with legacy content compatibility.\n- Bounded node specimens in Elements, including class-backed `node.web.icon` views and stable glyph fallbacks.\n- Compact edge specimens using actual edge styling, with the semantic label on the specimen and endpoints as secondary context.\n- Existing CodeMirror source editing, filtering, tabs, resizing, clustering, and browser behavior preserved.\n\n## Validation\n\n- Focused tests: **15 passed, 0 failed**.\n- Production Next.js build: **passed**.\n- `/browser` prerender: **passed**.\n- Full repository baseline: **153 passed, 3 pre-existing unrelated failures**.\n\n## Historical detour\n\nThe earlier implementation in `mikemartinez1974/nodegraph-editor` remains a reference prototype. The failed whole-file port at `886a66c9fbbb6399c278f90a4e51e9f4decf28e7` never activated and has been superseded by the native implementation.",
+        "completedAt": "2026-08-05T15:45:00.000Z"
       }
     }
   ],
