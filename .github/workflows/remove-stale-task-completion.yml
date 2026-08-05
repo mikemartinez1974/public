@@ -1,0 +1,32 @@
+name: Remove stale task completion marker
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/remove-stale-task-completion.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Remove stale marker
+        shell: bash
+        run: |
+          python -c "import json; p='tasks/type-and-instance-presentation/root.node'; g=json.load(open(p, encoding='utf-8')); n=next(n for n in g['nodes'] if n['id']=='type-instance-task-goal'); n['data'].pop('completedAt', None); g['metadata']['modified']='2026-08-05T01:22:00.000Z'; open(p,'w',encoding='utf-8').write(json.dumps(g, indent=2, ensure_ascii=False)+'\n')"
+      - name: Commit correction and remove workflow
+        shell: bash
+        run: |
+          git config user.name "twilite-task-agent"
+          git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/remove-stale-task-completion.yml
+          git add tasks/type-and-instance-presentation/root.node
+          git commit -m "Remove stale goal completion marker"
+          git push origin HEAD:main
