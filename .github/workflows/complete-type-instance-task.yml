@@ -79,8 +79,7 @@ jobs:
             }
           }
 
-          root_port = nodes['type-instance-task-root-port']['data']
-          root_port['description'] = 'Completed implementation task for the Type and Instance Presentation contract.'
+          nodes['type-instance-task-root-port']['data']['description'] = 'Completed implementation task for the Type and Instance Presentation contract.'
 
           goal = nodes['type-instance-task-goal']['data']
           goal['status'] = 'done'
@@ -107,37 +106,39 @@ jobs:
           nodes['type-instance-task-decision']['data']['implementationStatus'] = 'done'
 
           notes = nodes['type-instance-task-notes']['data']
-          notes['markdown'] = '''# Type and Instance Presentation
-
-**Status:** Completed and merged
-
-The contract is now implemented in the repository that powers Twilite: **the Legend identifies stable types, while Elements presents actual node and edge instances.**
-
-## Production implementation
-
-- Repository: `github://TwiliteLLC/twilite`
-- Branch: `dev-master`
-- Pull request: `https://github.com/TwiliteLLC/twilite/pull/1`
-- Merge commit: `bf640b0e1c45c3af94023da614e963032bba41c8`
-- Validation run: `https://github.com/TwiliteLLC/twilite/actions/runs/31021267652`
-
-## Delivered
-
-- Native `document` nodes using `data.document: { format, content }` with legacy content compatibility.
-- Bounded node specimens in Elements, including class-backed `node.web.icon` views and stable glyph fallbacks.
-- Compact edge specimens using actual edge styling, with the semantic label on the specimen and endpoints as secondary context.
-- Existing CodeMirror source editing, filtering, tabs, resizing, clustering, and browser behavior preserved.
-
-## Validation
-
-- Focused tests: **15 passed, 0 failed**.
-- Production Next.js build: **passed**.
-- `/browser` prerender: **passed**.
-- Full repository baseline: **153 passed, 3 pre-existing unrelated failures**.
-
-## Historical detour
-
-The earlier implementation in `mikemartinez1974/nodegraph-editor` remains a reference prototype. The failed whole-file port at `886a66c9fbbb6399c278f90a4e51e9f4decf28e7` never activated and has been superseded by the native implementation.'''
+          notes['markdown'] = '\n'.join([
+            '# Type and Instance Presentation',
+            '',
+            '**Status:** Completed and merged',
+            '',
+            'The contract is now implemented in the repository that powers Twilite: **the Legend identifies stable types, while Elements presents actual node and edge instances.**',
+            '',
+            '## Production implementation',
+            '',
+            '- Repository: `github://TwiliteLLC/twilite`',
+            '- Branch: `dev-master`',
+            '- Pull request: `https://github.com/TwiliteLLC/twilite/pull/1`',
+            '- Merge commit: `bf640b0e1c45c3af94023da614e963032bba41c8`',
+            '- Validation run: `https://github.com/TwiliteLLC/twilite/actions/runs/31021267652`',
+            '',
+            '## Delivered',
+            '',
+            '- Native `document` nodes using `data.document: { format, content }` with legacy content compatibility.',
+            '- Bounded node specimens in Elements, including class-backed `node.web.icon` views and stable glyph fallbacks.',
+            '- Compact edge specimens using actual edge styling, with the semantic label on the specimen and endpoints as secondary context.',
+            '- Existing CodeMirror source editing, filtering, tabs, resizing, clustering, and browser behavior preserved.',
+            '',
+            '## Validation',
+            '',
+            '- Focused tests: **15 passed, 0 failed**.',
+            '- Production Next.js build: **passed**.',
+            '- `/browser` prerender: **passed**.',
+            '- Full repository baseline: **153 passed, 3 pre-existing unrelated failures**.',
+            '',
+            '## Historical detour',
+            '',
+            'The earlier implementation in `mikemartinez1974/nodegraph-editor` remains a reference prototype. The failed whole-file port at `886a66c9fbbb6399c278f90a4e51e9f4decf28e7` never activated and has been superseded by the native implementation.'
+          ])
           notes['completedAt'] = completed_at
           notes.pop('reopenedAt', None)
 
