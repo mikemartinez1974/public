@@ -1,37 +1,58 @@
 # Lionel Template v1 Classes
 
-Draft v1 is intentionally grammar-first.
+Lionel v1 is now class-backed.
 
-The executable `root.node` currently uses primitive Twilite nodes with `data.templateRole` values so the authoring model can be tested before stable node-class and edge-class contracts are frozen.
+The executable `root.node` owns local class-authority bridges for the node classes below and semantic edge-class authority for the meaning-bearing relationships below. Derived episode graphs should preserve those bridges and full canonical GitHub refs.
 
-Candidate shared classes include:
+## Node classes
 
-- Lionel Episode
-- Issue Scope
-- Topic Thread / Thread Set
-- Media Source / Timed Media Segment / Transcript Segment
-- Media Queue / Queue Item
-- Claim / Standard / Evidence Item / Evidence Bundle / Hypothesis
-- Audience Input
-- Actor Field / Coalition
-- Research Funnel
-- Production Event
+### Episode and analytical structure
 
-Candidate Lionel-specific classes include:
+- `lionel-episode` — singular episode/appearance anchor and configuration object
+- `issue-scope` — a bounded analytical question with scope, standard, and optional burden
+- `topic-thread` — a persistent or temporary conversation thread with branch/return state
 
-- Lionel Frames
-- Lionel States Thesis
-- Lionel Performs Issue Analysis
-- Lionel Comments on Media
-- Lionel Adds Context
-- Lionel Analogizes
-- Lionel Simulates Scenario
-- Lionel Models Another Perspective
-- Lionel Maps Actors
-- Lionel Synthesizes
-- Lionel Qualifies
-- Lionel Incorporates Audience
+### Lionel-specific rhetorical layer
 
-Promotion rule: create class artifacts only after a fresh episode demonstrates that the role is recurrent, semantically distinct, and useful during actual authoring.
+- `lionel-operation` — compact reusable move class with `operationRole`
 
-When class promotion begins, follow the repository's current class-artifact contract: declaration, explanatory contract node, detail/summary/icon/editor surfaces, explicit class refs, local class-authority bridges in the executable template, and semantic edge-class authority for meaning-bearing relationships.
+The v1 operation roles are: frames, states thesis, performs issue analysis, comments on media, adds context, analogizes, simulates scenario, models another perspective, maps actors, synthesizes, qualifies, and incorporates audience.
+
+Use `roleDetail` for narrower variants instead of creating a new class for every rhetorical shade.
+
+### Media layer
+
+- `media-source` — the complete outside source object
+- `media-segment` — a timed source range with speaker/transcript context
+
+The separation is intentional. Lionel commentary ranges live on `lionel-operation`; the outside source range lives on `media-segment`.
+
+### Higher-order analytical structures
+
+- `actor-field` — a scoped set of relevant actors and their observed pattern
+- `research-funnel` — intake → filtering/verification → promoted information flow
+- `coalition` — issue-scoped alignment that can preserve disagreement elsewhere
+
+## Semantic edge classes
+
+- `lionel.belongsToIssue`
+- `lionel.relevantTo`
+- `lionel.triggersBranch`
+- `lionel.returnsTo`
+- `lionel.alignsOn`
+- `lionel.containsSegment`
+- `lionel.referencesMedia`
+
+These live under `classes/edges/` and are exposed to `root.node` through hidden edge-class bridges with declaration-owned `edge authority` edges.
+
+## Design boundary
+
+The package deliberately distinguishes three structures that ordinary transcript/chapter models tend to collapse:
+
+1. **episode composition** — container, sequence controller, navigation mode
+2. **conversation topology** — Topic Threads, branches, returns
+3. **argument topology** — Issue Scopes and relevance
+
+Media, actor, research, coalition, and rhetorical nodes attach to those structures as needed.
+
+This is the first production grammar draft, not a claim that every possible primitive is frozen forever. A new class should require recurrent structure plus real authoring value, not merely a new subject or a new phrase in a transcript.
