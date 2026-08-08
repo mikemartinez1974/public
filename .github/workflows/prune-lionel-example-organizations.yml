@@ -1,0 +1,193 @@
+name: Prune Lionel example organizations
+
+on:
+  push:
+    paths:
+      - '.github/workflows/prune-lionel-example-organizations.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Keep only argument-relevant organizations
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path('templates/lionel/v1/example-01-associative-realignment.node')
+          g = json.loads(path.read_text())
+
+          keep_refs = {
+              'github://mikemartinez1974/public/organizations/turning-point-usa.node',
+              'github://mikemartinez1974/public/organizations/aipac.node',
+              'github://mikemartinez1974/public/organizations/republican-party.node',
+              'github://mikemartinez1974/public/organizations/democratic-party.node',
+              'github://mikemartinez1974/public/organizations/moral-majority.node',
+          }
+
+          nodes = g.get('nodes', [])
+          edges = g.get('edges', [])
+
+          org_portals = []
+          for n in nodes:
+              if n.get('type') != 'portal':
+                  continue
+              d = n.get('data') or {}
+              ref = d.get('ref') or d.get('sourceRef') or d.get('src') or ''
+              if '/organizations/' in ref:
+                  org_portals.append((n, ref))
+
+          keep_ids = {n['id'] for n, ref in org_portals if ref in keep_refs}
+          remove_ids = {n['id'] for n, ref in org_portals if ref not in keep_refs}
+
+          # Identify the temporary organization inventory/bucket nodes created in the prior pass.
+          bucket_phrases = {
+              'organizations mentioned',
+              'political & government',
+              'media & platforms',
+              'advocacy & institutions',
+              'sponsor & cultural',
+          }
+          bucket_ids = set()
+          old_hub_position = {'x': 780, 'y': -40}
+          for n in nodes:
+              if n.get('type') != 'markdown':
+                  continue
+              d = n.get('data') or {}
+              text = ' '.join(str(x) for x in [n.get('label',''), d.get('title',''), d.get('markdown','')]).lower()
+              if any(p in text for p in bucket_phrases):
+                  bucket_ids.add(n['id'])
+                  if 'organizations mentioned' in text:
+                      old_hub_position = dict(n.get('position') or old_hub_position)
+
+          remove_ids |= bucket_ids
+          nodes = [n for n in nodes if n.get('id') not in remove_ids]
+          edges = [e for e in edges if e.get('source') not in remove_ids and e.get('target') not in remove_ids]
+
+          # Remove prior organization-branch edges to kept portals so we can rebuild the branch cleanly.
+          edges = [e for e in edges if not (e.get('target') in keep_ids and ('organization' in (e.get('label') or '').lower() or 'mentioned' in (e.get('label') or '').lower()))]
+
+          ports = [
+              {'id':'root','label':'root','direction':'bidirectional','dataType':'any','angle':210},
+              {'id':'top','label':'top','direction':'bidirectional','dataType':'value','angle':270},
+              {'id':'right','label':'right','direction':'bidirectional','dataType':'value','angle':0},
+              {'id':'bottom','label':'bottom','direction':'bidirectional','dataType':'value','angle':90},
+              {'id':'left','label':'left','direction':'bidirectional','dataType':'value','angle':180},
+          ]
+          io = [
+              {'key':'root','label':'root','type':'any'},
+              {'key':'top','label':'top','type':'value'},
+              {'key':'right','label':'right','type':'value'},
+              {'key':'bottom','label':'bottom','type':'value'},
+              {'key':'left','label':'left','type':'value'},
+          ]
+
+          hub_id = 'argument-organizations'
+          nodes = [n for n in nodes if n.get('id') != hub_id]
+          edges = [e for e in edges if e.get('source') != hub_id and e.get('target') != hub_id]
+          nodes.append({
+              'id': hub_id,
+              'type': 'markdown',
+              'label': 'Argument Organizations',
+              'position': old_hub_position,
+              'width': 430,
+              'height': 190,
+              'handles': ports,
+              'ports': ports,
+              'inputs': io,
+              'outputs': io,
+              'visible': True,
+              'showLabel': False,
+              'data': {
+                  'markdown': '# 🏛️ Argument Organizations\n\nInstitutions that materially carry Lionel’s **political realignment** argument in this episode.\n\n*Included for argumentative relevance, not merely because they were mentioned.*',
+                  'visibilityRole': 'browser',
+                  'identity': {'graphId':'lionel-v1-example-01-associative-realignment'},
+              },
+          })
+
+          # Place five surviving organization portals as a compact, readable cluster.
+          order = [
+              'github://mikemartinez1974/public/organizations/turning-point-usa.node',
+              'github://mikemartinez1974/public/organizations/aipac.node',
+              'github://mikemartinez1974/public/organizations/republican-party.node',
+              'github://mikemartinez1974/public/organizations/democratic-party.node',
+              'github://mikemartinez1974/public/organizations/moral-majority.node',
+          ]
+          by_ref = {}
+          for n in nodes:
+              if n.get('id') in keep_ids:
+                  d = n.get('data') or {}
+                  ref = d.get('ref') or d.get('sourceRef') or d.get('src') or ''
+                  by_ref[ref] = n
+                  # Ensure real directional handles exist on these portals.
+                  n['handles'] = ports
+                  n['ports'] = ports
+                  n['inputs'] = io
+                  n['outputs'] = io
+                  n['width'] = 220
+                  n['height'] = 190
+
+          positions = [
+              (690, 300), (940, 300), (1190, 300),
+              (815, 540), (1065, 540),
+          ]
+          for ref, (x,y) in zip(order, positions):
+              if ref in by_ref:
+                  by_ref[ref]['position'] = {'x':x,'y':y}
+
+          # Connect the episode to the argument-organization hub, then fan out with explicit relevance labels.
+          edges.append({
+              'id':'episode-argument-organizations', 'type':'reference',
+              'source':'episode','target':hub_id,'sourcePort':'right','targetPort':'left',
+              'label':'institutional actors','data':{'semanticRole':'argument organizations'},
+              'style':{'curved':True,'width':1.8}
+          })
+          labels = {
+              'github://mikemartinez1974/public/organizations/turning-point-usa.node':'movement institution',
+              'github://mikemartinez1974/public/organizations/aipac.node':'political pressure actor',
+              'github://mikemartinez1974/public/organizations/republican-party.node':'coalition being reconfigured',
+              'github://mikemartinez1974/public/organizations/democratic-party.node':'historical coalition counterpoint',
+              'github://mikemartinez1974/public/organizations/moral-majority.node':'historical coalition component',
+          }
+          for ref in order:
+              n = by_ref.get(ref)
+              if not n:
+                  continue
+              edges.append({
+                  'id':'argument-org-' + ref.rsplit('/',1)[-1].replace('.node',''),
+                  'type':'reference','source':hub_id,'target':n['id'],
+                  'sourcePort':'bottom','targetPort':'top','label':labels[ref],
+                  'data':{'semanticRole':'argument entity','relevance':'central-or-supporting'},
+                  'style':{'curved':True,'width':1.5}
+              })
+
+          # Refresh metadata/counts.
+          meta = g.setdefault('metadata', {})
+          meta['version'] = '0.3.1'
+          meta['modified'] = '2026-08-07T21:04:00-05:00'
+          tags = meta.setdefault('tags', [])
+          if 'argument-entities' not in tags:
+              tags.append('argument-entities')
+          g['nodes'] = nodes
+          g['edges'] = edges
+          g['nodeCount'] = len(nodes)
+          g['edgeCount'] = len(edges)
+          g['timestamp'] = '2026-08-07T21:04:00-05:00'
+
+          path.write_text(json.dumps(g, indent=2, ensure_ascii=False) + '\n')
+          PY
+      - name: Commit cleanup and remove temporary workflow
+        run: |
+          rm .github/workflows/prune-lionel-example-organizations.yml
+          git config user.name "Twilite Graph Maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add templates/lionel/v1/example-01-associative-realignment.node .github/workflows/prune-lionel-example-organizations.yml
+          git commit -m "Keep only argument organizations in Lionel example"
+          git push
