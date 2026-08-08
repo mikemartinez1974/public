@@ -1,0 +1,164 @@
+name: Add Lionel episode organizations
+on:
+  push:
+    paths:
+      - '.github/workflows/add-lionel-organizations.yml'
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build organization graphs and portals
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          repo = Path('.')
+          example_path = repo / 'templates/lionel/v1/example-01-associative-realignment.node'
+          org_dir = repo / 'organizations'
+          org_dir.mkdir(parents=True, exist_ok=True)
+
+          CLASS_REF = 'github://mikemartinez1974/public/organizations/template/organization.node-class.node'
+          GRAPH_ID = 'lionel-v1-example-01-associative-realignment'
+
+          orgs = [
+            dict(slug='national-wrestling-alliance', name='National Wrestling Alliance', common='National Wrestling Alliance', acronym='NWA', kind='professional wrestling promotion', website='https://www.nationalwrestlingalliance.com', category='sponsor-cultural', context='Referenced in the opening as part of Lionel’s wrestling-match analogy.'),
+            dict(slug='new-york-post', name='New York Post', common='New York Post', acronym='', kind='newspaper and media organization', website='https://nypost.com', category='media-platforms', context='Named near the opening as a publication covering Candace Owens and the Charlie Kirk investigation.'),
+            dict(slug='turning-point-usa', name='Turning Point USA', common='Turning Point USA', acronym='TPUSA', kind='political advocacy organization', website='https://www.tpusa.com', category='political-government', context='Named when Lionel discusses Erika Kirk and the political movement around TPUSA.', existing=True, surface='tpusa-icon-surface'),
+            dict(slug='us-european-command', name='U.S. European Command', common='U.S. European Command', acronym='USEUCOM', kind='U.S. military combatant command', website='https://www.eucom.mil', category='political-government', context='The transcript says “Eurocom head” in a discussion of U.S. weapons and defense; this graph records the likely reference to U.S. European Command.'),
+            dict(slug='my-patriot-supply', name='My Patriot Supply', common='My Patriot Supply', acronym='', kind='emergency-preparedness retailer', website='https://www.mypatriotsupply.com', category='sponsor-cultural', context='Sponsor named in the emergency-food advertisement early in the episode.'),
+            dict(slug='x', name='X Corp.', common='X', acronym='X', kind='social media platform company', website='https://x.com', category='media-platforms', context='Lionel explicitly calls X, formerly Twitter, his go-to place for rapid political and media updates.'),
+            dict(slug='international-criminal-court', name='International Criminal Court', common='International Criminal Court', acronym='ICC', kind='intergovernmental court', website='https://www.icc-cpi.int', category='political-government', context='Named during the Gaza/Israel discussion.'),
+            dict(slug='aipac', name='American Israel Public Affairs Committee', common='AIPAC', acronym='AIPAC', kind='advocacy organization', website='https://www.aipac.org', category='advocacy-institutions', context='Mentioned in Lionel’s discussion of political pressure and support for Israel.'),
+            dict(slug='daily-wire', name='The Daily Wire', common='The Daily Wire', acronym='', kind='media company', website='https://www.dailywire.com', category='media-platforms', context='Named while Lionel criticizes Ben Shapiro and discusses Candace Owens’s departure.'),
+            dict(slug='department-of-homeland-security', name='U.S. Department of Homeland Security', common='Department of Homeland Security', acronym='DHS', kind='federal executive department', website='https://www.dhs.gov', category='political-government', context='Named while Lionel discusses Max Blumenthal and a detention/lawsuit claim.'),
+            dict(slug='washington-post', name='The Washington Post', common='The Washington Post', acronym='', kind='newspaper and media organization', website='https://www.washingtonpost.com', category='media-platforms', context='Named while Lionel references reporting about U.S. arms and missile supplies.'),
+            dict(slug='united-nations', name='United Nations', common='United Nations', acronym='UN', kind='intergovernmental organization', website='https://www.un.org', category='political-government', context='Mentioned in connection with a Netanyahu speech at the UN.'),
+            dict(slug='department-of-health-and-human-services', name='U.S. Department of Health and Human Services', common='Department of Health and Human Services', acronym='HHS', kind='federal executive department', website='https://www.hhs.gov', category='political-government', context='Named while Lionel discusses Marty Makary and Robert F. Kennedy Jr.'),
+            dict(slug='1776-law-center', name='1776 Law Center', common='1776 Law Center', acronym='', kind='legal advocacy organization', website='', category='advocacy-institutions', context='Named by a chat participant as the organization behind a Robert Barnes charity conference. This is a lightweight collection record pending deeper research.'),
+            dict(slug='the-duran', name='The Duran', common='The Duran', acronym='', kind='independent media outlet', website='https://theduran.com', category='media-platforms', context='Named in connection with Alexander Mercouris and Alex Christoforou, including their appearance at the referenced conference.'),
+            dict(slug='department-of-justice', name='U.S. Department of Justice', common='Department of Justice', acronym='DOJ', kind='federal executive department', website='https://www.justice.gov', category='political-government', context='Named in Lionel’s historical discussion of the Republican coalition and civil-rights politics.'),
+            dict(slug='republican-party', name='Republican Party', common='Republican Party', acronym='GOP', kind='political party', website='https://www.gop.com', category='political-government', context='Central organization in Lionel’s historical coalition-building analogy.'),
+            dict(slug='democratic-party', name='Democratic Party', common='Democratic Party', acronym='', kind='political party', website='https://democrats.org', category='political-government', context='Named in Lionel’s historical comparison of political coalitions and defections.'),
+            dict(slug='moral-majority', name='Moral Majority', common='Moral Majority', acronym='', kind='historical political and religious advocacy organization', website='', category='advocacy-institutions', context='Named in Lionel’s discussion of Reagan-era Republican coalition building.'),
+            dict(slug='lynns-warriors', name='Lynn’s Warriors', common='Lynn’s Warriors', acronym='', kind='child-safety advocacy organization', website='https://lynnswarriors.org', category='advocacy-institutions', context='Named near the community close when Lionel asks viewers to follow his wife’s child-safety work.'),
+          ]
+
+          def handles():
+              return [
+                  {'id':'root','label':'root','direction':'bidirectional','dataType':'any','angle':210},
+                  {'id':'top','label':'top','direction':'bidirectional','dataType':'value','angle':270},
+                  {'id':'right','label':'right','direction':'bidirectional','dataType':'value','angle':0},
+                  {'id':'bottom','label':'bottom','direction':'bidirectional','dataType':'value','angle':90},
+                  {'id':'left','label':'left','direction':'bidirectional','dataType':'value','angle':180},
+              ]
+          def io():
+              return [{'key':h['id'],'label':h['label'],'type':h['dataType']} for h in handles()]
+          def node_base(i,t,label,x,y,w,h, visible=True, show=False, all_handles=True):
+              hs = handles() if all_handles else [handles()[0]]
+              n={'id':i,'type':t,'label':label,'position':{'x':x,'y':y},'width':w,'height':h,'ports':hs,'visible':visible,'showLabel':show}
+              if all_handles:
+                  n['handles']=hs; n['inputs']=io(); n['outputs']=io()
+              return n
+          def initials(name, acronym):
+              if acronym: return acronym[:6]
+              words=[w for w in name.replace('U.S.','US').split() if w.lower() not in {'the','of','and'}]
+              return ''.join(w[0].upper() for w in words[:4]) or name[:2].upper()
+          def make_org(o):
+              slug=o['slug']; gid=f'{slug}-organization-graph'; uri=f'github://mikemartinez1974/public/organizations/{slug}.node'
+              init=initials(o['name'],o['acronym'])
+              decl=node_base('decl','declaration',f"{o['common']} Declaration",0,-720,420,280,False,False,False)
+              decl['data']={
+                  'analytics':{'contentGroup':'organizations'},
+                  'identity':{'graphId':gid,'name':o['common'],'version':'0.1.0','description':f"Lightweight organization profile for {o['name']}.",'createdAt':'2026-08-07T20:40:00-05:00','updatedAt':'2026-08-07T20:40:00-05:00'},
+                  'intent':{'kind':'organization','scope':'public'},
+                  'dependencies':{'nodeTypes':['declaration','bridge','port','organization'],'portContracts':['core'],'schemaVersions':{'nodes':'>=1.0.0','ports':'>=1.0.0'}},
+                  'authority':{'mutation':{'allowCreate':True,'allowUpdate':True,'allowDelete':True,'appendOnly':False},'actors':{'humans':True,'agents':True,'tools':True},'history':{'rewriteAllowed':False,'squashAllowed':False}},
+                  'declaration':{'kind':'graph','targetMode':'artifact','artifactKind':'graph','defaultSurfaceId':'root','surfaces':[{'id':'root','kind':'port','label':'Profile','portNodeId':'profile','viewNodeId':'profile'},{'id':'research','kind':'port','label':'Research','portNodeId':'research','viewNodeId':'research'},{'id':'icon','kind':'port','label':'Icon','portNodeId':'icon','viewNodeId':'icon'}]}
+              }
+              profile=node_base('profile','port','Profile',-500,-360,390,220)
+              profile['data']={'identity':{'graphId':gid,'portId':'root','name':o['common']},'renderShape':{'kind':'markdown'},'markdown':f"# {o['common']}\n\n{o['kind'].capitalize()}.\n\n{o['context']}",'view':{'intent':'graph','payload':'graph.web.profile'}}
+              icon=node_base('icon','port','Icon',0,-360,240,210)
+              icon['data']={'identity':{'graphId':gid,'portId':'icon','name':f"{o['common']} Icon"},'displayName':o['common'],'monogram':init,'view':{'intent':'graph','payload':'graph.web.icon'},'renderShape':{'kind':'html'},'html':'<div style="width:100%;height:100%;box-sizing:border-box;padding:14px;border-radius:24px;background:linear-gradient(145deg,#ecfeff,#ccfbf1);border:3px solid #0f766e;color:#134e4a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-family:system-ui"><div style="width:112px;height:112px;border-radius:24px;background:#0f766e;color:white;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;letter-spacing:.04em">{{data.monogram}}</div><b style="text-align:center;font-size:15px">{{data.displayName}}</b></div>'}
+              research=node_base('research','port','Research',500,-360,390,220)
+              research['data']={'identity':{'graphId':gid,'portId':'research','name':'Research'},'renderShape':{'kind':'markdown'},'markdown':f"# Episode mention\n\n{o['context']}\n\nThis is a lightweight organization collection record created from the Lionel *Associative Realignment* episode. It can be enriched independently without changing the episode graph.",'view':{'intent':'graph','payload':'graph.web.research'}}
+              bridge=node_base('bridge-organization','bridge','Organization',-500,0,280,120,False,False,False)
+              bridge['data']={'authority':'bridge','target':{'mode':'bridge','ref':CLASS_REF,'kind':'node-class','resourceKind':'node-class','scope':'focused-graph','grants':['create'],'key':'organization'},'resourceKind':'node-class','scope':'focused-graph','grants':['create'],'bridge':{'ref':CLASS_REF,'resourceKind':'node-class','scope':'focused-graph','grants':['create']},'_classBinding':{'key':'organization','sourceRef':CLASS_REF},'_bridge':{'sourceRef':CLASS_REF,'entryPort':'root','kind':'node-class','targetKind':'node-class','classKey':'organization','classRef':CLASS_REF},'identity':{'graphId':gid}}
+              org=node_base('organization','organization',o['common'],0,20,430,300)
+              org['data']={'officialName':o['name'],'commonName':o['common'],'acronym':o['acronym'],'organizationType':o['kind'],'description':o['context'],'foundedDate':'','dissolvedDate':'','legalStatus':'','website':o['website'],'headquartersRef':'','geographicScope':'','logo':'','status':'published','canonicalUri':uri,'_classBinding':{'key':'organization','sourceRef':CLASS_REF},'_bridge':{'sourceRef':CLASS_REF,'entryPort':'root','kind':'node-class','targetKind':'node-class','classKey':'organization','classRef':CLASS_REF}}
+              edges=[
+                  {'id':'authority','type':'reference','source':'decl','target':'bridge-organization','sourcePort':'root','targetPort':'root','label':'class authority','data':{}},
+                  {'id':'instantiates','type':'reference','source':'bridge-organization','target':'organization','sourcePort':'root','targetPort':'root','label':'instantiates','data':{}},
+                  {'id':'profile','type':'reference','source':'profile','target':'organization','sourcePort':'bottom','targetPort':'top','label':'profile','data':{}},
+                  {'id':'icon-surface','type':'reference','source':'decl','target':'icon','sourcePort':'root','targetPort':'root','label':'icon','data':{}},
+                  {'id':'research-surface','type':'reference','source':'research','target':'organization','sourcePort':'bottom','targetPort':'right','label':'research context','data':{}},
+              ]
+              return {'fileVersion':'1.0','metadata':{'title':o['common'],'description':f"Lightweight organization graph for {o['name']}.",'graphId':gid,'version':'0.1.0','kind':'organization','created':'2026-08-07T20:40:00-05:00','modified':'2026-08-07T20:40:00-05:00','author':'','tags':['organization','episode-derived'],'preferredViewer':'https://twilite.zone'},'nodes':[decl,profile,icon,research,bridge,org],'edges':edges,'clusters':[],'settings':{'edgeRouting':'auto','autoSave':False,'layout':{'mode':'manual','defaultLayout':'layered','direction':'DOWN'}},'scripts':[],'nodeCount':6,'edgeCount':5,'timestamp':'2026-08-07T20:40:00-05:00'}
+
+          created=[]
+          for o in orgs:
+              if o.get('existing'): continue
+              p=org_dir/f"{o['slug']}.node"
+              if not p.exists():
+                  p.write_text(json.dumps(make_org(o),indent=2,ensure_ascii=False)+"\n",encoding='utf-8')
+                  created.append(str(p))
+
+          graph=json.loads(example_path.read_text(encoding='utf-8'))
+          remove_ids={'organizations-mentioned','org-group-political-government','org-group-media-platforms','org-group-advocacy-institutions','org-group-sponsor-cultural'} | {f"org-portal-{o['slug']}" for o in orgs}
+          graph['nodes']=[n for n in graph['nodes'] if n.get('id') not in remove_ids]
+          graph['edges']=[e for e in graph['edges'] if not (e.get('id','').startswith('org-') or e.get('source') in remove_ids or e.get('target') in remove_ids)]
+
+          def graph_node(i,label,x,y,markdown,w=430,h=170):
+              n=node_base(i,'markdown',label,x,y,w,h)
+              n['data']={'identity':{'graphId':GRAPH_ID},'semanticRole':'document-section','markdown':markdown}
+              return n
+          graph['nodes'].append(graph_node('organizations-mentioned','Organizations Mentioned',1720,-100,'## 🏛️ Organizations Mentioned\n\nNamed organizations, institutions, parties, media outlets, and sponsors that materially appear in this episode.'))
+          groups={
+            'political-government':('Political & Government',1320,210,'### 🏛️ Political & Government'),
+            'media-platforms':('Media & Platforms',1820,210,'### 📰 Media & Platforms'),
+            'advocacy-institutions':('Advocacy & Institutions',2320,210,'### 📣 Advocacy & Institutions'),
+            'sponsor-cultural':('Sponsor & Cultural',2820,210,'### 🎙️ Sponsor & Cultural'),
+          }
+          for key,(label,x,y,md) in groups.items(): graph['nodes'].append(graph_node(f'org-group-{key}',label,x,y,md,390,140))
+
+          cat_orgs={k:[o for o in orgs if o['category']==k] for k in groups}
+          for key,(label,base_x,base_y,md) in groups.items():
+              items=cat_orgs[key]
+              for idx,o in enumerate(items):
+                  col=idx%2; row=idx//2
+                  x=base_x-110 + col*245; y=500+row*235
+                  pid=f"org-portal-{o['slug']}"; ref=f"github://mikemartinez1974/public/organizations/{o['slug']}.node"
+                  surface=o.get('surface','icon'); source_node=o.get('surface','icon')
+                  portal=node_base(pid,'portal',o['common'],x,y,220,190)
+                  portal['data']={'memo':f"Open the organization graph for {o['common']}.",'link':'','authority':'navigate','src':ref,'ref':ref,'endpoint':ref+':root','intent':'external','target':{'endpoint':ref+':root','ref':ref,'mode':'navigate','url':'','graphId':f"{o['slug']}-organization-graph" if not o.get('existing') else 'turning-point-usa-organization-graph','nodeId':'','portId':'root','label':f"Open {o['common']}",'handleId':'root','surfaceId':surface},'identity':{'graphId':GRAPH_ID},'security':'prompt','sourceNodeId':source_node,'sourcePayload':'graph.web.icon','sourceRef':ref,'surfaceId':surface}
+                  graph['nodes'].append(portal)
+
+          graph['edges'].append({'id':'org-episode-hub','type':'reference','source':'episode','target':'organizations-mentioned','sourcePort':'right','targetPort':'left','label':'mentions organizations','data':{},'style':{'curved':True,'width':1.8}})
+          for key in groups:
+              graph['edges'].append({'id':f'org-hub-{key}','type':'reference','source':'organizations-mentioned','target':f'org-group-{key}','sourcePort':'bottom','targetPort':'top','label':groups[key][0].lower(),'data':{},'style':{'curved':True,'width':1.4}})
+              for o in cat_orgs[key]:
+                  graph['edges'].append({'id':f"org-link-{o['slug']}",'type':'reference','source':f'org-group-{key}','target':f"org-portal-{o['slug']}",'sourcePort':'bottom','targetPort':'top','label':'mentioned organization','data':{'mentionContext':o['context']},'style':{'curved':True,'width':1.3}})
+
+          graph['metadata']['version']='0.3.0'
+          graph['metadata']['modified']='2026-08-07T20:40:00-05:00'
+          tags=set(graph['metadata'].get('tags',[])); tags.add('organization-portals'); graph['metadata']['tags']=list(tags)
+          if graph.get('nodes') and graph['nodes'][0].get('data',{}).get('identity'):
+              graph['nodes'][0]['data']['identity']['version']='0.3.0'
+          graph['nodeCount']=len(graph['nodes']); graph['edgeCount']=len(graph['edges']); graph['timestamp']='2026-08-07T20:40:00-05:00'
+          example_path.write_text(json.dumps(graph,indent=2,ensure_ascii=False)+"\n",encoding='utf-8')
+          print('Created org files:', len(created))
+          print('Example counts:', graph['nodeCount'], graph['edgeCount'])
+          PY
+          git config user.name "Twilite Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add organizations/*.node templates/lionel/v1/example-01-associative-realignment.node
+          git rm .github/workflows/add-lionel-organizations.yml
+          git commit -m "Add organizations from Lionel associative realignment episode"
+          git push
