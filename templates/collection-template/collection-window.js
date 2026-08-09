@@ -40,10 +40,21 @@ const compatibilityMembers = (nodes, parsed, contract) => {
   )].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 };
 
-const findRootPort = (graph) => {
+const findMemberPort = (graph, payload = 'node.web.icon') => {
   const nodes = Array.isArray(graph?.nodes) ? graph.nodes : [];
   const declaration = nodes.find((node) => ['declaration', 'manifest'].includes(clean(node?.type).toLowerCase()));
-  const surface = declaration?.data?.declaration?.surfaces?.find((entry) => clean(entry?.id) === 'root');
+  const semanticSurfaceId = clean(payload).toLowerCase().includes('icon')
+    ? 'icon'
+    : clean(payload).toLowerCase().includes('summary')
+      ? 'summary'
+      : clean(payload).toLowerCase().includes('detail')
+        ? 'detail'
+        : 'root';
+  const surfaces = Array.isArray(declaration?.data?.declaration?.surfaces)
+    ? declaration.data.declaration.surfaces
+    : [];
+  const surface = surfaces.find((entry) => clean(entry?.id).toLowerCase() === semanticSurfaceId)
+    || surfaces.find((entry) => clean(entry?.id).toLowerCase() === 'root');
   const portId = clean(surface?.portNodeId || surface?.viewNodeId);
   const port = nodes.find((node) => node?.id === portId)
     || nodes.find((node) => clean(node?.type).toLowerCase() === 'port' && clean(node?.data?.surfaceId || node?.id) === 'root')
@@ -101,7 +112,15 @@ const renderWindow = async (direction = 'run') => {
   const surfaceView = surface?.data?.collectionView && typeof surface.data.collectionView === 'object'
     ? surface.data.collectionView
     : {};
-  const view = { ...(contract.view || {}), ...surfaceView };
+  // The reusable surface supplies layout defaults; the host collection owns the
+  // editorial policy for its members and may deliberately override them.
+  const view = { ...surfaceView, ...(contract.view || {}) };
+  const memberPayload = (() => {
+    const configured = clean(view.payload);
+    // node.web was the legacy reader/card request. Collection windows now use
+    // the compact icon surface unless their declaration names another surface.
+    return !configured || configured === 'node.web' ? 'node.web.icon' : configured;
+  })();
   const graphRef = clean(contract.collectionRef || declaration?.data?.document?.url);
   const parsed = parseGithubRef(graphRef);
   if (!parsed) throw new Error('Collection declaration needs data.collection.collectionRef as a github:// graph address.');
@@ -137,7 +156,7 @@ const renderWindow = async (direction = 'run') => {
   const resolved = await Promise.all(visibleRefs.map(async (ref) => {
     try {
       const graph = await api.readGraph(ref, { fresh: true });
-      return { ref, ...findRootPort(graph) };
+      return { ref, ...findMemberPort(graph, memberPayload) };
     } catch (_) {
       return { ref, id: '', label: clean(ref.split('/').pop()).replace(/\.node$/i, '') };
     }
@@ -163,13 +182,45 @@ const renderWindow = async (direction = 'run') => {
     }
   }
 
-  const columns = Math.max(1, Math.min(windowSize, Number(view.columns) || 2));
-  const cardWidth = Math.max(220, Number(view.cardWidth) || 500);
-  const cardHeight = Math.max(140, Number(view.cardHeight) || 320);
+  const usesIconMembers = memberPayload === 'node.web.icon' || memberPayload === 'icon.web';
+  const columns = Math.max(1, Math.min(windowSize, Number(view.columns) || 3));
+  const cardWidth = Math.max(160, Number(
+    usesIconMembers ? (view.iconCardWidth || Math.min(Number(view.cardWidth) || 220, 240)) : view.cardWidth
+  ) || 500);
+  const cardHeight = Math.max(160, Number(
+    usesIconMembers ? (view.iconCardHeight || Math.min(Number(view.cardHeight) || 220, 240)) : view.cardHeight
+  ) || 320);
   const gapX = Math.max(20, Number(view.gapX) || 80);
   const gapY = Math.max(20, Number(view.gapY) || 70);
-  const originX = Number.isFinite(Number(view?.origin?.x)) ? Number(view.origin.x) : -720;
-  const originY = Number.isFinite(Number(view?.origin?.y)) ? Number(view.origin.y) : 330;
+  const surfaceX = Number(surface?.position?.x);
+  const surfaceY = Number(surface?.position?.y);
+  const surfaceWidth = Number(surface?.width);
+  const surfacePaddingX = Math.max(24, Number(view.surfacePaddingX) || 56);
+  const surfaceHeaderHeight = Math.max(80, Number(view.surfaceHeaderHeight) || 190);
+  const contentWidth = columns * cardWidth + Math.max(0, columns - 1) * gapX;
+  const centeredOffset = Number.isFinite(surfaceWidth)
+    ? Math.max(surfacePaddingX, (surfaceWidth - contentWidth) / 2)
+    : surfacePaddingX;
+  const originX = Number.isFinite(surfaceX)
+    ? surfaceX + centeredOffset
+    : (Number.isFinite(Number(view?.origin?.x)) ? Number(view.origin.x) : -720);
+  const originY = Number.isFinite(surfaceY)
+    ? surfaceY + surfaceHeaderHeight
+    : (Number.isFinite(Number(view?.origin?.y)) ? Number(view.origin.y) : 330);
+
+  const collectionName = clean(declaration?.data?.identity?.name || declaration?.label || 'Collection');
+  const collectionPurpose = clean(
+    declaration?.data?.identity?.description || declaration?.data?.document?.description || contract?.description
+  );
+  if (surface?.id && typeof api.updateNode === 'function') {
+    const nextTitle = collectionName || clean(surface?.data?.title) || 'Collection';
+    const nextPurpose = collectionPurpose || clean(surface?.data?.purpose) || 'A windowed collection.';
+    if (surface?.data?.title !== nextTitle || surface?.data?.purpose !== nextPurpose) {
+      await api.updateNode(surface.id, {
+        data: { ...(surface.data || {}), title: nextTitle, purpose: nextPurpose }
+      });
+    }
+  }
   const existingIds = new Set(existing.filter((node) => !duplicateIds.has(node.id)).map((node) => node.id));
   const createNodes = [];
   const updateNodes = [];
@@ -196,7 +247,7 @@ const renderWindow = async (direction = 'run') => {
         endpoint: member.ref,
         sourceRef: member.ref,
         sourceNodeId: member.id,
-        sourcePayload: clean(view.payload) || 'node.web',
+        sourcePayload: memberPayload,
         surfaceId: 'root',
         target: { ref: member.ref, mode: 'navigate', portId: 'root', surfaceId: 'root', label: `Open ${label}` },
         visibilityRole: 'browser',
@@ -216,7 +267,20 @@ const renderWindow = async (direction = 'run') => {
       await pause(180);
     }
   }
-  const result = { start, end: Math.min(members.length, start + windowSize), count: members.length, pageSize: windowSize };
+  if (updateNodes.length) {
+    // Each member has distinct geometry and source data, so this is not the
+    // homogeneous updateNodes(ids, patch) operation. Queue the independent
+    // updates together and let the host apply them as one render batch.
+    await Promise.all(updateNodes.map((portal) => api.updateNode(portal.id, portal)));
+  }
+  const result = {
+    start,
+    end: Math.min(members.length, start + windowSize),
+    count: members.length,
+    pageSize: windowSize,
+    payload: memberPayload,
+    surfaceId: clean(surface?.id)
+  };
   try {
     api.events.emit('collection:window-state', result);
   } catch (_) {}
