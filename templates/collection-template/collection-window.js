@@ -206,10 +206,8 @@ const renderWindow = async (direction = 'run') => {
     if (existingIds.has(id)) updateNodes.push(portal);
     else createNodes.push(portal);
   }
-  for (const portal of updateNodes) {
-    await api.updateNode(portal.id, portal);
-    await pause(180);
-  }
+  // Existing members already carry the same authored projection. Avoid rewriting
+  // every card on Refresh; window changes replace the member set in bulk below.
   if (createNodes.length && typeof api.createNodes === 'function') {
     await api.createNodes(createNodes);
   } else {
