@@ -245,4 +245,9 @@ globalThis.__twiliteCollectionUnsubscribe = [
   api.events.on('collection:page-size', (payload) => applyPageSize(payload))
 ];
 
+const invocationEvent = clean(api?.invocation?.event).toLowerCase();
+if (invocationEvent === 'collection:previous') return renderWindow('previous');
+if (invocationEvent === 'collection:next') return renderWindow('next');
+if (invocationEvent === 'collection:refresh') return renderWindow('refresh');
+if (invocationEvent === 'collection:page-size') return applyPageSize(api?.invocation?.payload);
 return renderWindow('run');
