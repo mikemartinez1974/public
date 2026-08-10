@@ -112,7 +112,8 @@
             "risk",
             "acceptance-criteria",
             "summary",
-            "markdown"
+            "markdown",
+            "portal"
           ],
           "skills": [
             "twilite-planning-graphs"
@@ -769,10 +770,13 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "body": "Classify the target once and route pan, zoom, selection, drag, resize, scroll, navigation, and activation without renderer-local propagation guesses.",
+        "body": "Classify the target once and route pan, zoom, selection, drag, resize, scroll, navigation, and activation without renderer-local propagation guesses. The shared arbiter and focused unit coverage now exist; the Graph Lab smoke fixture is the live proving ground before this phase can close.",
         "priority": "critical",
         "status": "in-progress",
         "owner": "Michael",
+        "evidence": [
+          "github://mikemartinez1974/public/graphs/interaction-arbiter-smoke.node"
+        ],
         "definitionKey": "task",
         "_classBinding": {
           "key": "task",
@@ -1591,6 +1595,48 @@
           "reason": "node-drag"
         }
       }
+    },
+    {
+      "id": "interaction-roadmap-arbiter-smoke",
+      "type": "portal",
+      "label": "Interaction Arbiter Smoke Test",
+      "root": false,
+      "position": {
+        "x": -980,
+        "y": 860
+      },
+      "width": 430,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "value",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/graphs/interaction-arbiter-smoke.node",
+        "sourceNodeId": "interaction-smoke-root",
+        "sourcePayload": "node.web",
+        "target": {
+          "ref": "github://mikemartinez1974/public/graphs/interaction-arbiter-smoke.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "root",
+          "label": "Open Interaction Arbiter Smoke Test"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "interaction-roadmap-declaration"
+        },
+        "security": "prompt"
+      }
     }
   ],
   "edges": [
@@ -1927,6 +1973,19 @@
       "sourcePort": "bottom",
       "targetPort": "root",
       "label": "draft contract",
+      "style": {
+        "curved": true
+      },
+      "data": {}
+    },
+    {
+      "id": "interaction-roadmap-edge-arbiter-smoke",
+      "type": "evidence",
+      "source": "interaction-roadmap-task-primitives",
+      "target": "interaction-roadmap-arbiter-smoke",
+      "sourcePort": "bottom",
+      "targetPort": "root",
+      "label": "prove in Graph Lab",
       "style": {
         "curved": true
       },
