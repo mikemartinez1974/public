@@ -111,7 +111,8 @@
             "open-question",
             "risk",
             "acceptance-criteria",
-            "summary"
+            "summary",
+            "markdown"
           ],
           "skills": [
             "twilite-planning-graphs"
@@ -1198,7 +1199,7 @@
         "priority": "critical",
         "owner": "Michael",
         "health": "needs-focus",
-        "nextAction": "Implement the shared target classifier and interaction arbiter, preserving the existing handle, iframe, pinned-node, control, scroll, drag, and zoom behaviors as explicit adapters.",
+        "nextAction": "Deploy the shared interaction arbiter to dev and run a focused smoke test covering connection and resize handles, edge hover and selection, pinned and unpinned backgrounds, controls, scrolling, canvas pan, and wheel zoom before closing Phase 2.",
         "blockedReason": "",
         "taskProgress": {
           "completed": 1,
@@ -1409,8 +1410,8 @@
     },
     {
       "id": "edge-interaction-selection-task",
-      "type": "task",
-      "label": "Define edge selection and hover behavior",
+      "type": "markdown",
+      "label": "Edge Interaction Review",
       "root": false,
       "position": {
         "x": 1612,
@@ -1483,25 +1484,9 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "title": "Define edge selection and hover behavior",
-        "body": "Edge selection is currently too weak. Treat hover discovery and selection as separate stages instead of making every edge or edge label aggressively own pointer input.\n\nPreferred interaction model:\n\n1. Ordinary edge: visually present but interaction-light. Canvas behavior should continue to win unless the pointer is deliberately near the edge.\n2. Hover or proximity: highlight the candidate edge and use a modest invisible hit corridor around the rendered path so the user does not have to hit a 1-2 px curve precisely.\n3. Click highlighted edge: select it.\n4. Selected edge: make selection unmistakable and expose appropriate edge actions or relationship controls.\n5. Clicking empty canvas deselects the edge.\n\nEdge labels should normally remain pointer-transparent so they do not create invisible islands that interfere with canvas dragging. An unselected label is presentation only. A hovered edge may highlight its label while the label remains pointer-transparent. A selected edge may allow its label or controls to become interactive when useful.\n\nHover can act as preselection, especially where edges cross or run close together, so the user sees exactly which edge will receive the click before committing.\n\nSemantic zoom should participate. At distant zoom levels, individual edge manipulation may be disabled or reduced because the user is interacting with structure rather than individual relationships.\n\nThe gesture ownership contract should explicitly account for edges so they do not evolve renderer-local event rules. Edge geometry or proximity should discover the target; click establishes selection; selected state exposes interaction.",
-        "status": "open",
-        "priority": "high",
-        "owner": "Michael",
-        "definitionKey": "task",
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
-        "_bridge": {
-          "sourceBridgeNodeId": "interaction-roadmap-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
-        "memo": "",
-        "link": "",
+        "title": "Edge Interaction Review",
+        "markdown": "# Edge Interaction Review\n\nEdge selection is currently too weak. Treat hover discovery and selection as separate stages instead of making every edge or edge label aggressively own pointer input.\n\n## Preferred interaction model\n\n1. Ordinary edge: visually present but interaction-light. Canvas behavior should continue to win unless the pointer is deliberately near the edge.\n2. Hover or proximity: highlight the candidate edge and use a modest invisible hit corridor around the rendered path so the user does not have to hit a 1-2 px curve precisely.\n3. Click highlighted edge: select it.\n4. Selected edge: make selection unmistakable and expose appropriate edge actions or relationship controls.\n5. Clicking empty canvas deselects the edge.\n\nEdge labels should normally remain pointer-transparent so they do not create invisible islands that interfere with canvas dragging. An unselected label is presentation only. A hovered edge may highlight its label while the label remains pointer-transparent. A selected edge may allow its label or controls to become interactive when useful.\n\nHover can act as preselection, especially where edges cross or run close together, so the user sees exactly which edge will receive the click before committing.\n\nSemantic zoom should participate. At distant zoom levels, individual edge manipulation may be disabled or reduced because the user is interacting with structure rather than individual relationships.\n\nThe gesture ownership contract should explicitly account for edges so they do not evolve renderer-local event rules. Edge geometry or proximity should discover the target; click establishes selection; selected state exposes interaction.\n\n_Source: exploratory review; not yet committed task scope._",
+        "noteKind": "review-commentary",
         "visibilityRole": "browser",
         "identity": {
           "graphId": "interaction-roadmap-declaration"
@@ -1517,8 +1502,8 @@
     },
     {
       "id": "task-node-presentation-density-feedback",
-      "type": "task",
-      "label": "Improve task card information hierarchy",
+      "type": "markdown",
+      "label": "Task Card Presentation Review",
       "root": false,
       "position": {
         "x": 1609,
@@ -1591,25 +1576,9 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "title": "Improve task card information hierarchy",
-        "body": "ChatGPT review: The current task-card presentation becomes difficult to read when a task contains substantial work text. This appears primarily to be a class/template presentation issue rather than a problem with the task payload.\n\nRecommended behavior:\n\n1. Body first: give the work text substantially more room. Let it expand naturally to a sensible maximum before introducing scrolling or clipping.\n2. Hide empty metadata: do not render Target, Started, Completed, Estimate, or similar fields when they have no value.\n3. Collapse empty sections: acceptance-hook and other optional regions should not reserve large amounts of space until they contain content.\n4. Preserve hierarchy: title and task body should dominate the card. Status, priority, owner, dates, and estimates are secondary information.\n5. Support semantic presentation levels: a summary/card view can show title, status, priority, and a short work preview; a detail/editor view can expose the full body, dates, estimate, acceptance hook, external references, and controls.\n\nThe current renderer appears to be presenting detail-view structure at card-view density. Fix the task node class/template rather than shortening individual task data to accommodate the renderer.\n\nSource: ChatGPT, during review of the rendered edge-selection task node.",
-        "status": "open",
-        "priority": "medium",
-        "owner": "Michael",
-        "definitionKey": "task",
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
-        "_bridge": {
-          "sourceBridgeNodeId": "interaction-roadmap-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
-        "memo": "",
-        "link": "",
+        "title": "Task Card Presentation Review",
+        "markdown": "# Task Card Presentation Review\n\nThe current task-card presentation becomes difficult to read when a task contains substantial work text. This appears primarily to be a class/template presentation issue rather than a problem with the task payload.\n\n## Recommended behavior\n\n1. **Body first:** give the work text substantially more room. Let it expand naturally to a sensible maximum before introducing scrolling or clipping.\n2. **Hide empty metadata:** do not render Target, Started, Completed, Estimate, or similar fields when they have no value.\n3. **Collapse empty sections:** acceptance-hook and other optional regions should not reserve large amounts of space until they contain content.\n4. **Preserve hierarchy:** title and task body should dominate the card. Status, priority, owner, dates, and estimates are secondary information.\n5. **Support semantic presentation levels:** a summary/card view can show title, status, priority, and a short work preview; a detail/editor view can expose the full body, dates, estimate, acceptance hook, external references, and controls.\n\nThe current renderer appears to be presenting detail-view structure at card-view density. Fix the task node class/template rather than shortening individual task data to accommodate the renderer.\n\n_Source: ChatGPT review of the rendered edge-selection note; not yet committed task scope._",
+        "noteKind": "review-commentary",
         "visibilityRole": "browser",
         "identity": {
           "graphId": "interaction-roadmap-declaration"
