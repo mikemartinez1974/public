@@ -53,7 +53,14 @@ const findMemberPort = (graph, payload = 'node.web.icon') => {
   const surfaces = Array.isArray(declaration?.data?.declaration?.surfaces)
     ? declaration.data.declaration.surfaces
     : [];
-  const surface = surfaces.find((entry) => clean(entry?.id).toLowerCase() === semanticSurfaceId)
+  const surface = surfaces.find((entry) => {
+    const id = clean(entry?.id).toLowerCase();
+    const label = clean(entry?.label).toLowerCase();
+    return id === semanticSurfaceId
+      || id === `${semanticSurfaceId}-surface`
+      || id.endsWith(`-${semanticSurfaceId}-surface`)
+      || label === semanticSurfaceId;
+  })
     || surfaces.find((entry) => clean(entry?.id).toLowerCase() === 'root');
   const portId = clean(surface?.portNodeId || surface?.viewNodeId);
   const port = nodes.find((node) => node?.id === portId)
@@ -61,7 +68,12 @@ const findMemberPort = (graph, payload = 'node.web.icon') => {
     || nodes.find((node) => clean(node?.type).toLowerCase() === 'port');
   return {
     id: clean(port?.id),
-    label: clean(declaration?.data?.identity?.name || port?.label)
+    label: clean(declaration?.data?.identity?.name || port?.label),
+    payload: clean(
+      port?.data?.view?.payload ||
+      port?.data?.payload ||
+      payload
+    )
   };
 };
 
@@ -221,7 +233,12 @@ const renderWindow = async (direction = 'run') => {
       });
     }
   }
-  const existingIds = new Set(existing.filter((node) => !duplicateIds.has(node.id)).map((node) => node.id));
+  const existingById = new Map(
+    existing
+      .filter((node) => !duplicateIds.has(node.id))
+      .map((node) => [node.id, node])
+  );
+  const existingIds = new Set(existingById.keys());
   const createNodes = [];
   const updateNodes = [];
 
@@ -229,16 +246,20 @@ const renderWindow = async (direction = 'run') => {
     const member = resolved[index];
     const id = `runtime-collection-${safeId(member.ref)}`;
     const label = member.label || clean(member.ref.split('/').pop()).replace(/\.node$/i, '') || 'Collection member';
+    const priorPortal = existingById.get(id) || null;
     const portal = {
       id,
       type: 'portal',
       label,
-      position: {
-        x: originX + (index % columns) * (cardWidth + gapX),
-        y: originY + Math.floor(index / columns) * (cardHeight + gapY)
-      },
+      position: priorPortal?.positionLocked === true
+        ? priorPortal.position
+        : {
+            x: originX + (index % columns) * (cardWidth + gapX),
+            y: originY + Math.floor(index / columns) * (cardHeight + gapY)
+          },
       width: cardWidth,
       height: cardHeight,
+      ...(priorPortal?.positionLocked === true ? { positionLocked: true } : {}),
       data: {
         authority: 'navigate',
         intent: 'external',
@@ -247,7 +268,7 @@ const renderWindow = async (direction = 'run') => {
         endpoint: member.ref,
         sourceRef: member.ref,
         sourceNodeId: member.id,
-        sourcePayload: memberPayload,
+        sourcePayload: member.payload || memberPayload,
         surfaceId: 'root',
         target: { ref: member.ref, mode: 'navigate', portId: 'root', surfaceId: 'root', label: `Open ${label}` },
         visibilityRole: 'browser',
