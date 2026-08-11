@@ -1,0 +1,199 @@
+{
+  "type": "nodegraph-data",
+  "metadata": {
+    "title": "Semantic Zoom Specimen Node Class",
+    "description": "A diagnostic node class with deliberately distinct icon, summary, and detail views.",
+    "preferredViewer": "https://twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "semantic-zoom-specimen-declaration",
+      "type": "declaration",
+      "label": "Semantic Zoom Specimen Declaration",
+      "position": { "x": 0, "y": -420 },
+      "width": 420,
+      "height": 300,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+        { "id": "bottom", "label": "bottom", "direction": "output", "dataType": "value", "angle": 90 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "semantic-zoom-specimen-class",
+          "name": "Semantic Zoom Specimen Node Class",
+          "version": "0.1.0",
+          "description": "A diagnostic class whose authored surfaces make semantic view switching unmistakable."
+        },
+        "intent": { "kind": "node-class", "scope": "public" },
+        "declaration": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            { "id": "root", "kind": "view", "label": "Detail", "viewNodeId": "semantic-zoom-specimen-detail-view" },
+            { "id": "detail", "kind": "view", "label": "Detail", "viewNodeId": "semantic-zoom-specimen-detail-view" },
+            { "id": "summary", "kind": "view", "label": "Summary", "viewNodeId": "semantic-zoom-specimen-summary-view" },
+            { "id": "icon", "kind": "view", "label": "Icon", "viewNodeId": "semantic-zoom-specimen-icon-view" },
+            { "id": "editor", "kind": "view", "label": "Editor", "viewNodeId": "semantic-zoom-specimen-editor-view" }
+          ]
+        },
+        "nodeClass": {
+          "contractVersion": "1.0.0",
+          "key": "semantic-zoom-specimen",
+          "nodeDef": {
+            "key": "semantic-zoom-specimen",
+            "ref": "github://mikemartinez1974/public/classes/semantic-zoom-specimen.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "label": "Semantic Zoom Specimen",
+            "meaning": "Diagnostic specimen for semantic view selection.",
+            "description": "Proves that zoom changes content as well as geometry.",
+            "requiredDataKeys": ["title"],
+            "defaults": {
+              "label": "Semantic Zoom Specimen",
+              "size": { "width": 440, "height": 320 },
+              "color": "#0f766e",
+              "showLabel": false,
+              "data": {
+                "title": "Semantic Zoom Specimen",
+                "summary": "Summary-band content",
+                "detail": "Detail-band content",
+                "marker": "SZ"
+              },
+              "ports": [
+                { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+                { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 },
+                { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 },
+                { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 },
+                { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+              ]
+            }
+          }
+        },
+        "dependencies": { "nodeTypes": ["declaration", "port", "markdown"] },
+        "authority": {
+          "mutation": { "allowCreate": true, "allowUpdate": true, "allowDelete": true, "appendOnly": false },
+          "actors": { "humans": true, "agents": true, "tools": true },
+          "styleAuthority": "descriptive"
+        }
+      }
+    },
+    {
+      "id": "semantic-zoom-specimen-notes",
+      "type": "markdown",
+      "label": "Semantic Zoom Specimen Contract",
+      "position": { "x": -500, "y": -40 },
+      "width": 400,
+      "height": 260,
+      "ports": [
+        { "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 },
+        { "id": "right", "label": "right", "direction": "output", "dataType": "value", "angle": 0 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Presentation Contract",
+        "markdown": "# Semantic Zoom Specimen\n\nThis class exists only to prove semantic presentation.\n\n- **Icon** says `ICON` and shows the specimen marker.\n- **Summary** says `SUMMARY` and exposes the short summary.\n- **Detail** says `DETAIL`, exposes the complete diagnostic description, and lists the active band boundaries.\n\nNative Twilite rendering supplies glyph and dot levels."
+      }
+    },
+    {
+      "id": "semantic-zoom-specimen-editor-view",
+      "type": "port",
+      "label": "Editor",
+      "position": { "x": -440, "y": 300 },
+      "width": 380,
+      "height": 260,
+      "ports": [
+        { "id": "left", "label": "left", "direction": "input", "dataType": "value", "angle": 180 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": { "intent": "editor", "payload": "editor.web" },
+        "editor": {
+          "web": {
+            "fields": [
+              { "key": "title", "label": "Title", "type": "text", "path": "data.title" },
+              { "key": "marker", "label": "Marker", "type": "text", "path": "data.marker" },
+              { "key": "summary", "label": "Summary Content", "type": "markdown", "path": "data.summary", "multiline": true, "rows": 4 },
+              { "key": "detail", "label": "Detail Content", "type": "markdown", "path": "data.detail", "multiline": true, "rows": 6 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "semantic-zoom-specimen-icon-view",
+      "type": "port",
+      "label": "Icon View",
+      "position": { "x": 0, "y": 300 },
+      "width": 260,
+      "height": 190,
+      "ports": [
+        { "id": "top", "label": "top", "direction": "input", "dataType": "value", "angle": 270 },
+        { "id": "right", "label": "right", "direction": "output", "dataType": "value", "angle": 0 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": { "intent": "node", "payload": "node.web.icon", "semanticLevel": "icon" },
+        "semanticLevel": "icon",
+        "renderShape": { "kind": "html" },
+        "html": "<div style='width:100%;height:100%;box-sizing:border-box;border-radius:24px;background:#042f2e;border:4px solid #2dd4bf;color:#ccfbf1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font-family:system-ui,sans-serif;overflow:hidden;'><div style='width:64px;height:64px;border-radius:18px;background:#14b8a6;color:#042f2e;display:flex;align-items:center;justify-content:center;font:950 22px system-ui,sans-serif;'>{{data.marker}}</div><div style='font:900 12px system-ui,sans-serif;letter-spacing:.18em;'>ICON</div></div>"
+      }
+    },
+    {
+      "id": "semantic-zoom-specimen-summary-view",
+      "type": "port",
+      "label": "Summary View",
+      "position": { "x": 340, "y": 300 },
+      "width": 390,
+      "height": 240,
+      "ports": [
+        { "id": "left", "label": "left", "direction": "input", "dataType": "value", "angle": 180 },
+        { "id": "right", "label": "right", "direction": "output", "dataType": "value", "angle": 0 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": { "intent": "node", "payload": "node.web.summary", "semanticLevel": "summary" },
+        "semanticLevel": "summary",
+        "renderShape": { "kind": "html" },
+        "html": "<div style='width:100%;height:100%;box-sizing:border-box;border-radius:20px;background:#f0fdfa;border:3px solid #14b8a6;color:#134e4a;padding:18px;font-family:system-ui,sans-serif;overflow:hidden;'><div style='font:900 11px system-ui,sans-serif;letter-spacing:.18em;color:#0f766e;'>SUMMARY</div><div style='margin-top:8px;font:850 21px/1.15 system-ui,sans-serif;'>{{data.title}}</div><div style='margin-top:12px;font:600 14px/1.45 system-ui,sans-serif;'>{{data.summary}}</div></div>"
+      }
+    },
+    {
+      "id": "semantic-zoom-specimen-detail-view",
+      "type": "port",
+      "label": "Detail View",
+      "position": { "x": 820, "y": 260 },
+      "width": 500,
+      "height": 340,
+      "ports": [
+        { "id": "left", "label": "left", "direction": "input", "dataType": "value", "angle": 180 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": { "intent": "node", "payload": "node.web.detail", "semanticLevel": "detail" },
+        "semanticLevel": "detail",
+        "renderShape": { "kind": "html" },
+        "html": "<div style='width:100%;height:100%;box-sizing:border-box;border-radius:20px;background:#ffffff;border:3px solid #0f766e;color:#0f172a;font-family:system-ui,sans-serif;overflow:hidden;display:flex;flex-direction:column;'><div style='padding:16px 20px;background:#0f766e;color:white;'><div style='font:900 11px system-ui,sans-serif;letter-spacing:.18em;'>DETAIL</div><div style='margin-top:6px;font:850 24px/1.15 system-ui,sans-serif;'>{{data.title}}</div></div><div style='padding:18px 20px;overflow:auto;'><div style='font:600 14px/1.55 system-ui,sans-serif;'>{{data.detail}}</div><div style='margin-top:16px;padding-top:14px;border-top:1px solid #99f6e4;font:750 12px/1.7 ui-monospace,monospace;color:#0f766e;'>0–12 dot<br/>12–20 glyph<br/>20–45 icon<br/>45–75 summary<br/>75+ detail</div></div></div>"
+      }
+    }
+  ],
+  "edges": [
+    { "id": "semantic-zoom-specimen-edge-declaration-notes", "type": "reference", "source": "semantic-zoom-specimen-declaration", "target": "semantic-zoom-specimen-notes", "sourcePort": "bottom", "targetPort": "top", "label": "defines" },
+    { "id": "semantic-zoom-specimen-edge-notes-editor", "type": "reference", "source": "semantic-zoom-specimen-notes", "target": "semantic-zoom-specimen-editor-view", "sourcePort": "right", "targetPort": "left", "label": "edits as" },
+    { "id": "semantic-zoom-specimen-edge-declaration-icon", "type": "reference", "source": "semantic-zoom-specimen-declaration", "target": "semantic-zoom-specimen-icon-view", "sourcePort": "bottom", "targetPort": "top", "label": "presents icon" },
+    { "id": "semantic-zoom-specimen-edge-icon-summary", "type": "reference", "source": "semantic-zoom-specimen-icon-view", "target": "semantic-zoom-specimen-summary-view", "sourcePort": "right", "targetPort": "left", "label": "expands to summary" },
+    { "id": "semantic-zoom-specimen-edge-summary-detail", "type": "reference", "source": "semantic-zoom-specimen-summary-view", "target": "semantic-zoom-specimen-detail-view", "sourcePort": "right", "targetPort": "left", "label": "expands to detail" }
+  ],
+  "clusters": [],
+  "viewport": { "x": 620, "y": 520, "zoom": 0.72 },
+  "timestamp": "2026-08-11T23:30:00.000Z",
+  "nodeCount": 6,
+  "edgeCount": 5
+}

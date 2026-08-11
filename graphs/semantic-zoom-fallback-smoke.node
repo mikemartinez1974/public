@@ -45,7 +45,7 @@
           "primaryNodeViewId": "semantic-zoom-smoke-root",
           "portViewNodeId": "semantic-zoom-smoke-root"
         },
-        "dependencies": { "nodeTypes": ["declaration", "port", "markdown", "portal", "bridge", "idea", "idea-problem"] },
+        "dependencies": { "nodeTypes": ["declaration", "port", "markdown", "portal", "bridge", "idea", "idea-problem", "semantic-zoom-specimen"] },
         "authority": {
           "mutation": { "allowCreate": true, "allowUpdate": true, "allowDelete": true, "appendOnly": false },
           "actors": { "humans": true, "agents": true, "tools": true },
@@ -104,7 +104,7 @@
       "showLabel": true,
       "data": {
         "title": "Smoke Procedure",
-        "markdown": "# Semantic Zoom Procedure\n\nUse browse mode on `dev.twilite.zone`. Watch the two authored Idea Template specimens change content as well as size.\n\n1. Above 75%, confirm the authored detail view.\n2. From 45% through 75%, confirm the authored summary view.\n3. From 20% through 45%, confirm the authored icon view.\n4. From 12% through 20%, confirm the native glyph.\n5. At or below 12%, confirm the native dot.\n6. Click one node, then use the viewport chip; it must center that node at zoom 1.\n7. Keep the node focused while zooming out; it must remain readable while surrounding nodes simplify.\n8. Confirm the primitive node simplifies rather than expanding into an unavailable richer fallback.\n9. Confirm a single click selects and focuses at every level; navigation requires an explicit Open action."
+        "markdown": "# Semantic Zoom Procedure\n\nUse browse mode on `dev.twilite.zone`. Watch the dedicated **Semantic Zoom View Specimen**: its authored surfaces literally identify themselves as ICON, SUMMARY, and DETAIL.\n\n1. Above 75%, confirm the authored DETAIL view and its boundary list.\n2. From 45% through 75%, confirm the authored SUMMARY view and short diagnostic sentence.\n3. From 20% through 45%, confirm the authored ICON view containing the `SZ` marker.\n4. From 12% through 20%, confirm the native glyph.\n5. At or below 12%, confirm the native dot.\n6. Click the specimen, then use the viewport chip; it must center that node at zoom 1.\n7. Keep the specimen focused while zooming out; it must remain readable while surrounding nodes simplify.\n8. Confirm the primitive node simplifies rather than expanding into an unavailable richer fallback.\n9. Confirm a single click selects and focuses at every level; navigation requires an explicit Open action."
       }
     },
     {
@@ -304,6 +304,58 @@
         "_bridge": { "classKey": "idea-problem", "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node", "entryPort": "root", "kind": "node-class", "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node", "targetKind": "node-class" },
         "identity": { "graphId": "semantic-zoom-fallback-smoke" }
       }
+    },
+    {
+      "id": "semantic-zoom-smoke-specimen-bridge",
+      "type": "bridge",
+      "label": "Semantic Zoom Specimen Class",
+      "position": { "x": 980, "y": 760 },
+      "width": 380,
+      "height": 120,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }
+      ],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "visibilityRole": "editor",
+        "_classBinding": { "key": "semantic-zoom-specimen", "sourceRef": "github://mikemartinez1974/public/classes/semantic-zoom-specimen.node-class.node" },
+        "_bridge": { "classKey": "semantic-zoom-specimen", "classRef": "github://mikemartinez1974/public/classes/semantic-zoom-specimen.node-class.node", "entryPort": "root", "kind": "node-class", "sourceRef": "github://mikemartinez1974/public/classes/semantic-zoom-specimen.node-class.node", "targetKind": "node-class" },
+        "authority": "bridge",
+        "bridge": { "grants": ["create"], "ref": "github://mikemartinez1974/public/classes/semantic-zoom-specimen.node-class.node", "resourceKind": "node-class", "scope": "focused-graph" },
+        "grants": ["create"],
+        "intent": "external",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "target": { "grants": ["create"], "key": "semantic-zoom-specimen", "kind": "node-class", "label": "Create", "mode": "bridge", "ref": "github://mikemartinez1974/public/classes/semantic-zoom-specimen.node-class.node", "resourceKind": "node-class", "scope": "focused-graph" }
+      }
+    },
+    {
+      "id": "semantic-zoom-smoke-specimen",
+      "type": "semantic-zoom-specimen",
+      "label": "Semantic Zoom Specimen",
+      "position": { "x": 1100, "y": 360 },
+      "width": 500,
+      "height": 340,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+        { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 },
+        { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 },
+        { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 },
+        { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "Semantic Zoom View Specimen",
+        "marker": "SZ",
+        "summary": "This is the deliberately short SUMMARY surface. If you can read this sentence, the summary view was selected.",
+        "detail": "This is the deliberately richer DETAIL surface. It identifies itself, includes this diagnostic explanation, and displays every adopted zoom boundary. Its purpose is to make a stale or incorrectly selected view immediately obvious.",
+        "definitionKey": "semantic-zoom-specimen",
+        "_classBinding": { "key": "semantic-zoom-specimen", "sourceRef": "github://mikemartinez1974/public/classes/semantic-zoom-specimen.node-class.node" },
+        "_bridge": { "classKey": "semantic-zoom-specimen", "classRef": "github://mikemartinez1974/public/classes/semantic-zoom-specimen.node-class.node", "entryPort": "root", "kind": "node-class", "sourceRef": "github://mikemartinez1974/public/classes/semantic-zoom-specimen.node-class.node", "targetKind": "node-class" },
+        "identity": { "graphId": "semantic-zoom-fallback-smoke" }
+      }
     }
   ],
   "edges": [
@@ -316,11 +368,12 @@
     { "id": "semantic-zoom-smoke-edge-task-idea", "type": "reference", "source": "semantic-zoom-smoke-task", "target": "semantic-zoom-smoke-idea", "sourcePort": "right", "targetPort": "left", "label": "implements" }
     ,{ "id": "semantic-zoom-smoke-edge-root-authored-idea", "type": "reference", "source": "semantic-zoom-smoke-root", "target": "semantic-zoom-smoke-authored-idea", "sourcePort": "bottom", "targetPort": "top", "label": "tests five views" }
     ,{ "id": "semantic-zoom-smoke-edge-authored-idea-problem", "type": "reference", "source": "semantic-zoom-smoke-authored-idea", "target": "semantic-zoom-smoke-authored-problem", "sourcePort": "right", "targetPort": "left", "label": "corrects" }
+    ,{ "id": "semantic-zoom-smoke-edge-root-specimen", "type": "reference", "source": "semantic-zoom-smoke-root", "target": "semantic-zoom-smoke-specimen", "sourcePort": "bottom", "targetPort": "top", "label": "proves all views" }
   ],
   "clusters": [],
   "viewport": { "x": 840, "y": 720, "zoom": 0.72 },
   "metadata": { "title": "Semantic Zoom Fallback Smoke Test", "description": "Graph Lab proof for dot, glyph, icon, summary, detail, focus, and downward fallback." },
-  "timestamp": "2026-08-11T23:00:00.000Z",
-  "nodeCount": 11,
-  "edgeCount": 9
+  "timestamp": "2026-08-11T23:30:00.000Z",
+  "nodeCount": 13,
+  "edgeCount": 10
 }
