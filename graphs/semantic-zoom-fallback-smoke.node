@@ -45,7 +45,7 @@
           "primaryNodeViewId": "semantic-zoom-smoke-root",
           "portViewNodeId": "semantic-zoom-smoke-root"
         },
-        "dependencies": { "nodeTypes": ["declaration", "port", "markdown", "portal"] },
+        "dependencies": { "nodeTypes": ["declaration", "port", "markdown", "portal", "bridge", "idea", "idea-problem"] },
         "authority": {
           "mutation": { "allowCreate": true, "allowUpdate": true, "allowDelete": true, "appendOnly": false },
           "actors": { "humans": true, "agents": true, "tools": true },
@@ -82,11 +82,11 @@
       "data": {
         "identity": { "graphId": "semantic-zoom-fallback-smoke", "name": "Semantic Zoom Fallback Smoke Test" },
         "title": "Semantic Zoom Fallback Smoke Test",
-        "purpose": "Prove all four semantic bands, stable focus, and downward-only fallback.",
+        "purpose": "Prove all five semantic bands, authored view changes, stable focus, and downward-only fallback.",
         "view": { "intent": "node", "payload": "node.web", "surfaceId": "root" },
         "renderShape": { "kind": "svg" },
-        "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 330' role='img' aria-label='Semantic Zoom Fallback Smoke Test'><defs><linearGradient id='z' x1='0' y1='0' x2='1' y2='1'><stop stop-color='#111827'/><stop offset='.55' stop-color='#4c1d95'/><stop offset='1' stop-color='#0f766e'/></linearGradient></defs><rect x='5' y='5' width='690' height='320' rx='34' fill='url(#z)' stroke='#a78bfa' stroke-width='3'/><text x='48' y='70' fill='#ddd6fe' font-family='system-ui,sans-serif' font-size='15' font-weight='800' letter-spacing='.18em'>GRAPH LAB · SEMANTIC ZOOM</text><text x='48' y='132' fill='white' font-family='system-ui,sans-serif' font-size='40' font-weight='850'>Dot · Glyph · Icon · View</text><circle cx='83' cy='218' r='9' fill='#67e8f9'/><rect x='125' y='195' width='105' height='46' rx='23' fill='#312e81' stroke='#a78bfa' stroke-width='3'/><rect x='275' y='173' width='120' height='90' rx='20' fill='#0f766e' stroke='#5eead4' stroke-width='3'/><rect x='440' y='145' width='205' height='145' rx='22' fill='#172554' stroke='#93c5fd' stroke-width='3'/><path d='M94 218h27m113 0h37m128 0h37' stroke='#c4b5fd' stroke-width='4'/><text x='48' y='306' fill='#ccfbf1' font-family='system-ui,sans-serif' font-size='16'>Focus stays readable; missing views only simplify.</text></svg>",
-        "altText": "Four increasingly detailed semantic representations connected from dot through authored view."
+        "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 330' role='img' aria-label='Semantic Zoom Fallback Smoke Test'><defs><linearGradient id='z' x1='0' y1='0' x2='1' y2='1'><stop stop-color='#111827'/><stop offset='.55' stop-color='#4c1d95'/><stop offset='1' stop-color='#0f766e'/></linearGradient></defs><rect x='5' y='5' width='690' height='320' rx='34' fill='url(#z)' stroke='#a78bfa' stroke-width='3'/><text x='48' y='70' fill='#ddd6fe' font-family='system-ui,sans-serif' font-size='15' font-weight='800' letter-spacing='.18em'>GRAPH LAB · SEMANTIC ZOOM</text><text x='48' y='132' fill='white' font-family='system-ui,sans-serif' font-size='34' font-weight='850'>Dot · Glyph · Icon · Summary · Detail</text><circle cx='65' cy='218' r='8' fill='#67e8f9'/><rect x='100' y='200' width='82' height='36' rx='18' fill='#312e81' stroke='#a78bfa' stroke-width='3'/><rect x='220' y='184' width='92' height='68' rx='18' fill='#0f766e' stroke='#5eead4' stroke-width='3'/><rect x='350' y='166' width='125' height='104' rx='20' fill='#172554' stroke='#93c5fd' stroke-width='3'/><rect x='515' y='145' width='135' height='145' rx='22' fill='#172554' stroke='#f0abfc' stroke-width='3'/><path d='M75 218h21m90 0h30m100 0h30m133 0h32' stroke='#c4b5fd' stroke-width='4'/><text x='48' y='306' fill='#ccfbf1' font-family='system-ui,sans-serif' font-size='16'>Focus stays readable; missing views only simplify.</text></svg>",
+        "altText": "Five increasingly detailed semantic representations connected from dot through detail."
       }
     },
     {
@@ -104,7 +104,7 @@
       "showLabel": true,
       "data": {
         "title": "Smoke Procedure",
-        "markdown": "# Semantic Zoom Procedure\n\nUse browse mode on `dev.twilite.zone`.\n\n1. Above 50%, confirm authored cards or detail views.\n2. Between 25% and 50%, confirm icon views.\n3. Between 12.5% and 25%, confirm native glyph badges.\n4. At or below 12.5%, confirm native dots.\n5. Click one node, then use the viewport chip; it must center that node at zoom 1.\n6. Keep the node focused while zooming out; it must remain readable while surrounding nodes simplify.\n7. Confirm a node without a requested authored view simplifies rather than expanding into a richer fallback.\n8. Confirm a single click selects and focuses at every level; navigation requires an explicit Open action."
+        "markdown": "# Semantic Zoom Procedure\n\nUse browse mode on `dev.twilite.zone`. Watch the two authored Idea Template specimens change content as well as size.\n\n1. Above 75%, confirm the authored detail view.\n2. From 45% through 75%, confirm the authored summary view.\n3. From 20% through 45%, confirm the authored icon view.\n4. From 12% through 20%, confirm the native glyph.\n5. At or below 12%, confirm the native dot.\n6. Click one node, then use the viewport chip; it must center that node at zoom 1.\n7. Keep the node focused while zooming out; it must remain readable while surrounding nodes simplify.\n8. Confirm the primitive node simplifies rather than expanding into an unavailable richer fallback.\n9. Confirm a single click selects and focuses at every level; navigation requires an explicit Open action."
       }
     },
     {
@@ -199,6 +199,111 @@
         "identity": { "graphId": "semantic-zoom-fallback-smoke" },
         "security": "prompt"
       }
+    },
+    {
+      "id": "semantic-zoom-smoke-idea-bridge",
+      "type": "bridge",
+      "label": "Idea Class",
+      "position": { "x": 980, "y": -560 },
+      "width": 360,
+      "height": 120,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }
+      ],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "visibilityRole": "editor",
+        "_classBinding": { "key": "idea", "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node" },
+        "_bridge": { "classKey": "idea", "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node", "entryPort": "root", "kind": "node-class", "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node", "targetKind": "node-class" },
+        "authority": "bridge",
+        "bridge": { "grants": ["create"], "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node", "resourceKind": "node-class", "scope": "focused-graph" },
+        "grants": ["create"],
+        "intent": "external",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "target": { "grants": ["create"], "key": "idea", "kind": "node-class", "label": "Create", "mode": "bridge", "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node", "resourceKind": "node-class", "scope": "focused-graph" }
+      }
+    },
+    {
+      "id": "semantic-zoom-smoke-problem-bridge",
+      "type": "bridge",
+      "label": "Idea Problem Class",
+      "position": { "x": 1380, "y": -560 },
+      "width": 360,
+      "height": 120,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }
+      ],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "visibilityRole": "editor",
+        "_classBinding": { "key": "idea-problem", "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node" },
+        "_bridge": { "classKey": "idea-problem", "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node", "entryPort": "root", "kind": "node-class", "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node", "targetKind": "node-class" },
+        "authority": "bridge",
+        "bridge": { "grants": ["create"], "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node", "resourceKind": "node-class", "scope": "focused-graph" },
+        "grants": ["create"],
+        "intent": "external",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "target": { "grants": ["create"], "key": "idea-problem", "kind": "node-class", "label": "Create", "mode": "bridge", "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node", "resourceKind": "node-class", "scope": "focused-graph" }
+      }
+    },
+    {
+      "id": "semantic-zoom-smoke-authored-idea",
+      "type": "idea",
+      "label": "Five Distinct Semantic Views",
+      "position": { "x": 980, "y": -120 },
+      "width": 430,
+      "height": 300,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+        { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 },
+        { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 },
+        { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 },
+        { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "Five Distinct Semantic Views",
+        "statement": "Semantic zoom must change the information surface, not merely resize the same content.",
+        "status": "testing",
+        "confidence": "high",
+        "notes": "This instance has authored icon, summary, and detail surfaces. Dot and glyph are supplied natively.",
+        "definitionKey": "idea",
+        "_classBinding": { "key": "idea", "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node" },
+        "_bridge": { "classKey": "idea", "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node", "entryPort": "root", "kind": "node-class", "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node", "targetKind": "node-class" },
+        "identity": { "graphId": "semantic-zoom-fallback-smoke" }
+      }
+    },
+    {
+      "id": "semantic-zoom-smoke-authored-problem",
+      "type": "idea-problem",
+      "label": "Size Changed but Content Did Not",
+      "position": { "x": 1460, "y": -120 },
+      "width": 430,
+      "height": 300,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 },
+        { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "value", "angle": 270 },
+        { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 },
+        { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90 },
+        { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "value", "angle": 180 }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "Size Changed but Content Did Not",
+        "statement": "A geometric transition without a corresponding authored-view transition is not semantic zoom.",
+        "impact": "Readers receive cramped or empty content even though the node footprint changes correctly.",
+        "urgency": "high",
+        "definitionKey": "idea-problem",
+        "_classBinding": { "key": "idea-problem", "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node" },
+        "_bridge": { "classKey": "idea-problem", "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node", "entryPort": "root", "kind": "node-class", "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node", "targetKind": "node-class" },
+        "identity": { "graphId": "semantic-zoom-fallback-smoke" }
+      }
     }
   ],
   "edges": [
@@ -209,11 +314,13 @@
     { "id": "semantic-zoom-smoke-edge-primitive-task", "type": "reference", "source": "semantic-zoom-smoke-primitive", "target": "semantic-zoom-smoke-task", "sourcePort": "bottom", "targetPort": "top", "label": "returns to task" },
     { "id": "semantic-zoom-smoke-edge-people-idea", "type": "reference", "source": "semantic-zoom-smoke-people", "target": "semantic-zoom-smoke-idea", "sourcePort": "bottom", "targetPort": "top", "label": "returns to idea" },
     { "id": "semantic-zoom-smoke-edge-task-idea", "type": "reference", "source": "semantic-zoom-smoke-task", "target": "semantic-zoom-smoke-idea", "sourcePort": "right", "targetPort": "left", "label": "implements" }
+    ,{ "id": "semantic-zoom-smoke-edge-root-authored-idea", "type": "reference", "source": "semantic-zoom-smoke-root", "target": "semantic-zoom-smoke-authored-idea", "sourcePort": "bottom", "targetPort": "top", "label": "tests five views" }
+    ,{ "id": "semantic-zoom-smoke-edge-authored-idea-problem", "type": "reference", "source": "semantic-zoom-smoke-authored-idea", "target": "semantic-zoom-smoke-authored-problem", "sourcePort": "right", "targetPort": "left", "label": "corrects" }
   ],
   "clusters": [],
   "viewport": { "x": 840, "y": 720, "zoom": 0.72 },
-  "metadata": { "title": "Semantic Zoom Fallback Smoke Test", "description": "Graph Lab proof for dot, glyph, icon, authored views, focus, and downward fallback." },
-  "timestamp": "2026-08-11T22:00:00.000Z",
-  "nodeCount": 7,
-  "edgeCount": 7
+  "metadata": { "title": "Semantic Zoom Fallback Smoke Test", "description": "Graph Lab proof for dot, glyph, icon, summary, detail, focus, and downward fallback." },
+  "timestamp": "2026-08-11T23:00:00.000Z",
+  "nodeCount": 11,
+  "edgeCount": 9
 }
