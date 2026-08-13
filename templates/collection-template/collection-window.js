@@ -40,7 +40,7 @@ const compatibilityMembers = (nodes, parsed, contract) => {
   )].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 };
 
-const findMemberPort = (graph, payload = 'node.web.icon') => {
+const findMemberProjection = (graph, payload = 'node.web.icon') => {
   const nodes = Array.isArray(graph?.nodes) ? graph.nodes : [];
   const declaration = nodes.find((node) => ['declaration', 'manifest'].includes(clean(node?.type).toLowerCase()));
   const semanticSurfaceId = clean(payload).toLowerCase().includes('icon')
@@ -66,6 +66,19 @@ const findMemberPort = (graph, payload = 'node.web.icon') => {
   const port = nodes.find((node) => node?.id === portId)
     || nodes.find((node) => clean(node?.type).toLowerCase() === 'port' && clean(node?.data?.surfaceId || node?.id) === 'root')
     || nodes.find((node) => clean(node?.type).toLowerCase() === 'port');
+  const infrastructureTypes = new Set([
+    'bridge', 'declaration', 'manifest', 'markdown', 'port', 'portal', 'script', 'title'
+  ]);
+  const isSemanticInstance = (node) => {
+    const type = clean(node?.type).toLowerCase();
+    return Boolean(node && !infrastructureTypes.has(type) && node?.data?._classBinding);
+  };
+  const connected = (Array.isArray(graph?.edges) ? graph.edges : [])
+    .filter((edge) => edge?.source === port?.id || edge?.target === port?.id)
+    .map((edge) => nodes.find((node) => node?.id === (edge.source === port?.id ? edge.target : edge.source)))
+    .find(isSemanticInstance);
+  const rooted = nodes.find((node) => node?.root === true && isSemanticInstance(node));
+  const semanticNode = connected || rooted || nodes.find(isSemanticInstance) || null;
   return {
     id: clean(port?.id),
     label: clean(declaration?.data?.identity?.name || port?.label),
@@ -73,7 +86,8 @@ const findMemberPort = (graph, payload = 'node.web.icon') => {
       port?.data?.view?.payload ||
       port?.data?.payload ||
       payload
-    )
+    ),
+    node: semanticNode
   };
 };
 
@@ -168,13 +182,16 @@ const renderWindow = async (direction = 'run') => {
   const resolved = await Promise.all(visibleRefs.map(async (ref) => {
     try {
       const graph = await api.readGraph(ref, { fresh: true });
-      return { ref, ...findMemberPort(graph, memberPayload) };
+      return { ref, ...findMemberProjection(graph, memberPayload) };
     } catch (_) {
       return { ref, id: '', label: clean(ref.split('/').pop()).replace(/\.node$/i, '') };
     }
   }));
 
   const wantedIds = new Set(resolved.map((member) => `runtime-collection-${safeId(member.ref)}`));
+  const resolvedByRuntimeId = new Map(
+    resolved.map((member) => [`runtime-collection-${safeId(member.ref)}`, member])
+  );
   const seenRuntimeIds = new Set();
   const duplicateIds = new Set();
   existing.forEach((node) => {
@@ -182,7 +199,13 @@ const renderWindow = async (direction = 'run') => {
     seenRuntimeIds.add(node.id);
   });
   const deleteIds = [...new Set(existing
-    .filter((node) => !wantedIds.has(node.id) || duplicateIds.has(node.id))
+    .filter((node) => {
+      const member = resolvedByRuntimeId.get(node.id);
+      const semanticTypeChanged = Boolean(
+        member?.node && clean(node?.type).toLowerCase() !== clean(member.node.type).toLowerCase()
+      );
+      return !wantedIds.has(node.id) || duplicateIds.has(node.id) || semanticTypeChanged;
+    })
     .map((node) => node.id))];
   if (deleteIds.length && typeof api.deleteNodes === 'function') {
     await api.deleteNodes(deleteIds);
@@ -235,7 +258,7 @@ const renderWindow = async (direction = 'run') => {
   }
   const existingById = new Map(
     existing
-      .filter((node) => !duplicateIds.has(node.id))
+      .filter((node) => !duplicateIds.has(node.id) && !deleteIds.includes(node.id))
       .map((node) => [node.id, node])
   );
   const existingIds = new Set(existingById.keys());
@@ -246,20 +269,49 @@ const renderWindow = async (direction = 'run') => {
     const member = resolved[index];
     const id = `runtime-collection-${safeId(member.ref)}`;
     const label = member.label || clean(member.ref.split('/').pop()).replace(/\.node$/i, '') || 'Collection member';
-    const priorPortal = existingById.get(id) || null;
-    const portal = {
+    const priorMember = existingById.get(id) || null;
+    const semanticNode = member.node || null;
+    const projected = semanticNode ? {
+      ...semanticNode,
       id,
-      type: 'portal',
+      root: false,
       label,
-      position: priorPortal?.positionLocked === true
-        ? priorPortal.position
+      position: priorMember?.positionLocked === true
+        ? priorMember.position
         : {
             x: originX + (index % columns) * (cardWidth + gapX),
             y: originY + Math.floor(index / columns) * (cardHeight + gapY)
           },
       width: cardWidth,
       height: cardHeight,
-      ...(priorPortal?.positionLocked === true ? { positionLocked: true } : {}),
+      ...(priorMember?.positionLocked === true ? { positionLocked: true } : {}),
+      data: {
+        ...(semanticNode.data || {}),
+        presentation: {
+          ...(semanticNode.data?.presentation || {}),
+          baseLevel: usesIconMembers ? 'icon' : (semanticNode.data?.presentation?.baseLevel || 'summary')
+        },
+        _origin: {
+          ...(semanticNode.data?._origin || {}),
+          canonicalId: semanticNode.id,
+          ref: member.ref,
+          instanceId: id
+        },
+        _runtime: { kind: RUNTIME_KIND, sourceRef: member.ref, sourceNodeId: semanticNode.id, windowStart: start }
+      }
+    } : {
+      id,
+      type: 'portal',
+      label,
+      position: priorMember?.positionLocked === true
+        ? priorMember.position
+        : {
+            x: originX + (index % columns) * (cardWidth + gapX),
+            y: originY + Math.floor(index / columns) * (cardHeight + gapY)
+          },
+      width: cardWidth,
+      height: cardHeight,
+      ...(priorMember?.positionLocked === true ? { positionLocked: true } : {}),
       data: {
         authority: 'navigate',
         intent: 'external',
@@ -275,16 +327,16 @@ const renderWindow = async (direction = 'run') => {
         _runtime: { kind: RUNTIME_KIND, sourceRef: member.ref, windowStart: start }
       }
     };
-    if (existingIds.has(id)) updateNodes.push(portal);
-    else createNodes.push(portal);
+    if (existingIds.has(id)) updateNodes.push(projected);
+    else createNodes.push(projected);
   }
   // Existing members already carry the same authored projection. Avoid rewriting
   // every card on Refresh; window changes replace the member set in bulk below.
   if (createNodes.length && typeof api.createNodes === 'function') {
     await api.createNodes(createNodes);
   } else {
-    for (const portal of createNodes) {
-      await api.createNode(portal);
+    for (const memberNode of createNodes) {
+      await api.createNode(memberNode);
       await pause(180);
     }
   }
@@ -292,7 +344,7 @@ const renderWindow = async (direction = 'run') => {
     // Each member has distinct geometry and source data, so this is not the
     // homogeneous updateNodes(ids, patch) operation. Queue the independent
     // updates together and let the host apply them as one render batch.
-    await Promise.all(updateNodes.map((portal) => api.updateNode(portal.id, portal)));
+    await Promise.all(updateNodes.map((memberNode) => api.updateNode(memberNode.id, memberNode)));
   }
   const result = {
     start,

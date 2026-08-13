@@ -34,7 +34,7 @@ The graph-owned controller owns membership discovery, window state, placement, a
 
 Until the deployed runtime exposes authorized repository listing to graph scripts, `collection.compatibilityMembers` may hold a temporary explicit index. Keep it synchronized with the directory and remove it after the runtime primitive is available; it is fallback data, not the collection's membership authority.
 
-The live window may load and unload transient portal cards. Never persist those runtime projections into the graph file, and never rewrite member graphs while browsing.
+The live window loads and unloads transient instances of each member graph's canonical semantic node. Preserve `_origin.ref` so the instance retains its source graph identity, but never persist runtime projections into the graph file and never rewrite member graphs while browsing. A portal is only a compatibility fallback when a member graph has no usable class-bound semantic instance.
 
 ## Repository boundary
 
