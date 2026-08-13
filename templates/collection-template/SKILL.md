@@ -32,6 +32,15 @@ Treat this file and the adjacent `root.node` as one versioned package.
 
 The graph-owned controller owns membership discovery, window state, placement, and Previous/Refresh/Next events. The app supplies only generic script execution, authorized repository listing, graph reads, portal rendering, and transient-node persistence protection.
 
+The controller is an operational node at every semantic level from icon upward. Its class owns one event vocabulary and presents it with increasing depth:
+
+- `node.web.icon`: Previous and Next, plus the current range.
+- `node.web.summary`: Previous, Apply Size, Refresh, Next, range, and run status.
+- `node.web.detail`: Previous, Refresh, Next, range, configuration status, source, requirements, effects, and grants.
+- `editor.web`: configuration only, entered explicitly through the node context menu.
+
+Keep those buttons inside the authored card surfaces with `controlsPlacement: content`. They emit `collection:previous`, `collection:page-size`, `collection:refresh`, and `collection:next`; they do not contain or duplicate execution logic. The class-backed Script node receives each event and runs the bridged collection script. Semantic zoom may change the presentation depth, but must not remove the controller's core paging operation from icon, summary, or detail.
+
 Until the deployed runtime exposes authorized repository listing to graph scripts, `collection.compatibilityMembers` may hold a temporary explicit index. Keep it synchronized with the directory and remove it after the runtime primitive is available; it is fallback data, not the collection's membership authority.
 
 The live window loads and unloads transient instances of each member graph's canonical semantic node. Preserve `_origin.ref` so the instance retains its source graph identity, but never persist runtime projections into the graph file and never rewrite member graphs while browsing. A portal is only a compatibility fallback when a member graph has no usable class-bound semantic instance.
