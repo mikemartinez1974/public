@@ -204,7 +204,13 @@ const renderWindow = async (direction = 'run') => {
       const semanticTypeChanged = Boolean(
         member?.node && clean(node?.type).toLowerCase() !== clean(member.node.type).toLowerCase()
       );
-      return !wantedIds.has(node.id) || duplicateIds.has(node.id) || semanticTypeChanged;
+      const projectedBaseLevel = clean(node?.data?.presentation?.baseLevel).toLowerCase();
+      const authoredBaseLevel = clean(member?.node?.data?.presentation?.baseLevel).toLowerCase();
+      const semanticBaselineChanged = projectedBaseLevel !== authoredBaseLevel;
+      return !wantedIds.has(node.id)
+        || duplicateIds.has(node.id)
+        || semanticTypeChanged
+        || semanticBaselineChanged;
     })
     .map((node) => node.id))];
   if (deleteIds.length && typeof api.deleteNodes === 'function') {
@@ -287,10 +293,6 @@ const renderWindow = async (direction = 'run') => {
       ...(priorMember?.positionLocked === true ? { positionLocked: true } : {}),
       data: {
         ...(semanticNode.data || {}),
-        presentation: {
-          ...(semanticNode.data?.presentation || {}),
-          baseLevel: usesIconMembers ? 'icon' : (semanticNode.data?.presentation?.baseLevel || 'summary')
-        },
         _origin: {
           ...(semanticNode.data?._origin || {}),
           canonicalId: semanticNode.id,

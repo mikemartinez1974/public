@@ -29,6 +29,7 @@ Treat this file and the adjacent `root.node` as one versioned package.
 - `view.windowSize` controls the bounded visible group; use `10` unless the user asks otherwise.
 - `view.payload` must remain `node.web` so each member owns its card.
 - Placement and card dimensions are presentation settings owned by the collection graph.
+- A requested member surface controls projection and card sizing only. Never rewrite a projected member's `data.presentation.baseLevel`; preserve the member's authored semantic baseline so ordinary zoom bands still promote it.
 
 The graph-owned controller owns membership discovery, window state, placement, and Previous/Refresh/Next events. The app supplies only generic script execution, authorized repository listing, graph reads, portal rendering, and transient-node persistence protection.
 
