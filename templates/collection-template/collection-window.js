@@ -269,8 +269,7 @@ const renderWindow = async (direction = 'run') => {
         _origin: {
           ...(semanticNode.data?._origin || {}),
           canonicalId: semanticNode.id,
-          ref: member.ref,
-          instanceId: id
+          ref: member.ref
         },
         _runtime: { kind: RUNTIME_KIND, slot: index, sourceRef: member.ref, sourceNodeId: semanticNode.id, windowStart: start }
       }
