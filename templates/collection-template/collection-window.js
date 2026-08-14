@@ -213,16 +213,6 @@ const renderWindow = async (direction = 'run') => {
         || semanticBaselineChanged;
     })
     .map((node) => node.id))];
-  if (deleteIds.length && typeof api.deleteNodes === 'function') {
-    await api.deleteNodes(deleteIds);
-    await pause(80);
-  } else {
-    for (const id of deleteIds) {
-      await api.deleteNode(id);
-      await pause(180);
-    }
-  }
-
   const usesIconMembers = memberPayload === 'node.web.icon' || memberPayload === 'icon.web';
   const columns = Math.max(1, Math.min(windowSize, Number(view.columns) || 3));
   const cardWidth = Math.max(160, Number(
@@ -332,21 +322,37 @@ const renderWindow = async (direction = 'run') => {
     if (existingIds.has(id)) updateNodes.push(projected);
     else createNodes.push(projected);
   }
-  // Existing members already carry the same authored projection. Avoid rewriting
-  // every card on Refresh; window changes replace the member set in bulk below.
-  if (createNodes.length && typeof api.createNodes === 'function') {
-    await api.createNodes(createNodes);
+  // Reconcile the visible window as one host transaction. Script RPC calls are
+  // asynchronous proposals, so separate delete/create calls can otherwise race
+  // and leave the previous window beside the new one.
+  const deltas = [
+    ...(deleteIds.length ? [{ op: 'deleteNodes', ids: deleteIds }] : []),
+    ...(createNodes.length ? [{ op: 'createNodes', data: createNodes }] : []),
+    ...updateNodes.map((memberNode) => ({ op: 'updateNode', id: memberNode.id, patch: memberNode }))
+  ];
+  if (deltas.length && typeof api.applyDeltas === 'function') {
+    await api.applyDeltas(deltas);
   } else {
-    for (const memberNode of createNodes) {
-      await api.createNode(memberNode);
-      await pause(180);
+    if (deleteIds.length && typeof api.deleteNodes === 'function') {
+      await api.deleteNodes(deleteIds);
+      await pause(80);
+    } else {
+      for (const id of deleteIds) {
+        await api.deleteNode(id);
+        await pause(180);
+      }
     }
-  }
-  if (updateNodes.length) {
-    // Each member has distinct geometry and source data, so this is not the
-    // homogeneous updateNodes(ids, patch) operation. Queue the independent
-    // updates together and let the host apply them as one render batch.
-    await Promise.all(updateNodes.map((memberNode) => api.updateNode(memberNode.id, memberNode)));
+    if (createNodes.length && typeof api.createNodes === 'function') {
+      await api.createNodes(createNodes);
+    } else {
+      for (const memberNode of createNodes) {
+        await api.createNode(memberNode);
+        await pause(180);
+      }
+    }
+    if (updateNodes.length) {
+      await Promise.all(updateNodes.map((memberNode) => api.updateNode(memberNode.id, memberNode)));
+    }
   }
   const result = {
     start,
