@@ -14,11 +14,6 @@ const parseGithubRef = (ref) => {
   return { owner, repo, directory };
 };
 
-const safeId = (value) => clean(value).toLowerCase()
-  .replace(/[^a-z0-9]+/g, '-')
-  .replace(/^-+|-+$/g, '')
-  .slice(0, 88) || 'member';
-
 const listRepositoryDirectory = async (request) => {
   if (typeof api.listRepositoryDirectory === 'function') {
     return api.listRepositoryDirectory(request);
@@ -128,7 +123,10 @@ const listMembers = async (parsed, membership) => {
 
 const renderWindow = async (direction = 'run') => {
   const nodes = await api.getNodes();
-  const existing = nodes.filter((node) => clean(node?.data?._runtime?.kind) === RUNTIME_KIND);
+  const existing = nodes.filter((node) => (
+    clean(node?.data?._runtime?.kind) === RUNTIME_KIND
+    || clean(node?.id).startsWith('runtime-collection-')
+  ));
   const declaration = nodes.find((node) => (
     ['declaration', 'manifest'].includes(clean(node?.type).toLowerCase())
     && clean(node?.data?.intent?.kind).toLowerCase() === 'collection'
@@ -188,31 +186,22 @@ const renderWindow = async (direction = 'run') => {
     }
   }));
 
-  const wantedIds = new Set(resolved.map((member) => `runtime-collection-${safeId(member.ref)}`));
-  const resolvedByRuntimeId = new Map(
-    resolved.map((member) => [`runtime-collection-${safeId(member.ref)}`, member])
-  );
-  const seenRuntimeIds = new Set();
-  const duplicateIds = new Set();
-  existing.forEach((node) => {
-    if (seenRuntimeIds.has(node.id)) duplicateIds.add(node.id);
-    seenRuntimeIds.add(node.id);
+  // A collection window owns stable display slots, not one canvas identity per
+  // repository member. Reusing slots makes a page turn an in-place content
+  // update instead of a competing delete/create wave. Durable member identity
+  // remains available through data._origin.ref and data._runtime.sourceRef.
+  const existingSlots = [...existing].sort((left, right) => {
+    const leftSlot = Number(left?.data?._runtime?.slot);
+    const rightSlot = Number(right?.data?._runtime?.slot);
+    if (Number.isFinite(leftSlot) && Number.isFinite(rightSlot)) return leftSlot - rightSlot;
+    if (Number.isFinite(leftSlot)) return -1;
+    if (Number.isFinite(rightSlot)) return 1;
+    const leftY = Number(left?.position?.y) || 0;
+    const rightY = Number(right?.position?.y) || 0;
+    if (leftY !== rightY) return leftY - rightY;
+    return (Number(left?.position?.x) || 0) - (Number(right?.position?.x) || 0);
   });
-  const deleteIds = [...new Set(existing
-    .filter((node) => {
-      const member = resolvedByRuntimeId.get(node.id);
-      const semanticTypeChanged = Boolean(
-        member?.node && clean(node?.type).toLowerCase() !== clean(member.node.type).toLowerCase()
-      );
-      const projectedBaseLevel = clean(node?.data?.presentation?.baseLevel).toLowerCase();
-      const authoredBaseLevel = clean(member?.node?.data?.presentation?.baseLevel).toLowerCase();
-      const semanticBaselineChanged = projectedBaseLevel !== authoredBaseLevel;
-      return !wantedIds.has(node.id)
-        || duplicateIds.has(node.id)
-        || semanticTypeChanged
-        || semanticBaselineChanged;
-    })
-    .map((node) => node.id))];
+  const deleteIds = existingSlots.slice(resolved.length).map((node) => node.id);
   const usesIconMembers = memberPayload === 'node.web.icon' || memberPayload === 'icon.web';
   const columns = Math.max(1, Math.min(windowSize, Number(view.columns) || 3));
   const cardWidth = Math.max(160, Number(
@@ -252,20 +241,14 @@ const renderWindow = async (direction = 'run') => {
       });
     }
   }
-  const existingById = new Map(
-    existing
-      .filter((node) => !duplicateIds.has(node.id) && !deleteIds.includes(node.id))
-      .map((node) => [node.id, node])
-  );
-  const existingIds = new Set(existingById.keys());
   const createNodes = [];
   const updateNodes = [];
 
   for (let index = 0; index < resolved.length; index += 1) {
     const member = resolved[index];
-    const id = `runtime-collection-${safeId(member.ref)}`;
+    const priorMember = existingSlots[index] || null;
+    const id = priorMember?.id || `runtime-collection-slot-${index}`;
     const label = member.label || clean(member.ref.split('/').pop()).replace(/\.node$/i, '') || 'Collection member';
-    const priorMember = existingById.get(id) || null;
     const semanticNode = member.node || null;
     const projected = semanticNode ? {
       ...semanticNode,
@@ -289,7 +272,7 @@ const renderWindow = async (direction = 'run') => {
           ref: member.ref,
           instanceId: id
         },
-        _runtime: { kind: RUNTIME_KIND, sourceRef: member.ref, sourceNodeId: semanticNode.id, windowStart: start }
+        _runtime: { kind: RUNTIME_KIND, slot: index, sourceRef: member.ref, sourceNodeId: semanticNode.id, windowStart: start }
       }
     } : {
       id,
@@ -316,10 +299,10 @@ const renderWindow = async (direction = 'run') => {
         surfaceId: 'root',
         target: { ref: member.ref, mode: 'navigate', portId: 'root', surfaceId: 'root', label: `Open ${label}` },
         visibilityRole: 'browser',
-        _runtime: { kind: RUNTIME_KIND, sourceRef: member.ref, windowStart: start }
+        _runtime: { kind: RUNTIME_KIND, slot: index, sourceRef: member.ref, windowStart: start }
       }
     };
-    if (existingIds.has(id)) updateNodes.push(projected);
+    if (priorMember) updateNodes.push(projected);
     else createNodes.push(projected);
   }
   // Reconcile the visible window as one host transaction. Script RPC calls are

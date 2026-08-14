@@ -18,6 +18,7 @@ Treat this file and the adjacent `root.node` as one versioned package.
    - do not recursively flatten deeper descendants.
 5. Retarget `data.collection.collectionRef` to the collection graph's durable `github://` address.
 6. Preserve the graph-owned Collection Window Controller and its inline `source`. Keep `collection-window.js` as the maintainable source copy; `scriptRef` is provenance and fallback, not a deployment dependency. Do not replace the controller with collection-specific application code.
+7. Treat projected members as reusable window slots. Update those slots in place as the window moves, keep durable member identity in `_origin.ref`, and delete only surplus slots on a short final window. This keeps the canvas and minimap on the same canonical node set.
 7. Do not create authored member portals. The controller discovers and projects member roots at runtime.
 8. Keep intentional navigation portals, such as repository home or a related collection, separate from membership.
 
