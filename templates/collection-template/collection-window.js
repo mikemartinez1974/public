@@ -168,8 +168,12 @@ const renderWindow = async (direction = 'run') => {
   const windowSize = Math.max(1, Math.min(50, Number(prior.pageSize) || configuredWindowSize));
   let start = Number(prior.start) || 0;
   const maxStart = members.length ? Math.floor((members.length - 1) / windowSize) * windowSize : 0;
-  if (direction === 'next') start += windowSize;
-  if (direction === 'previous') start -= windowSize;
+  if (direction === 'next') {
+    start = start >= maxStart ? 0 : start + windowSize;
+  }
+  if (direction === 'previous') {
+    start = start <= 0 ? maxStart : start - windowSize;
+  }
   if (direction === 'run' && existing.length) {
     start = start >= maxStart ? 0 : start + windowSize;
   }
