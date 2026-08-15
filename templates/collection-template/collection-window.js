@@ -212,7 +212,7 @@ const renderWindow = async (direction = 'run') => {
     usesIconMembers ? (view.iconCardWidth || Math.min(Number(view.cardWidth) || 220, 240)) : view.cardWidth
   ) || 500);
   const cardHeight = Math.max(160, Number(
-    usesIconMembers ? (view.iconCardHeight || Math.min(Number(view.cardHeight) || 220, 240)) : view.cardHeight
+    usesIconMembers ? (view.iconCardHeight || Math.min(Number(view.cardHeight) || 220, 220)) : view.cardHeight
   ) || 320);
   const gapX = Math.max(20, Number(view.gapX) || 80);
   const gapY = Math.max(20, Number(view.gapY) || 70);
@@ -270,6 +270,9 @@ const renderWindow = async (direction = 'run') => {
       ...(priorMember?.positionLocked === true ? { positionLocked: true } : {}),
       data: {
         ...(semanticNode.data || {}),
+        presentationBaseLevel: usesIconMembers
+          ? 'icon'
+          : clean(semanticNode.data?.presentationBaseLevel || semanticNode.data?.presentation?.baseLevel),
         _origin: {
           ...(semanticNode.data?._origin || {}),
           canonicalId: semanticNode.id,
