@@ -7,7 +7,7 @@
     "version": "1.0.0",
     "kind": "collection",
     "created": "2026-08-04T23:14:27.760Z",
-    "modified": "2026-08-10T00:00:00.000Z",
+    "modified": "2026-08-16T12:00:00.000Z",
     "author": "",
     "tags": [
       "collection"
@@ -107,6 +107,22 @@
               "portNodeId": "task-collection-agent-readiness-port",
               "viewNodeId": "task-collection-agent-readiness-port",
               "memo": "Exposes the local agent-readiness task as a task projection.",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            },
+            {
+              "id": "analytics-verification",
+              "kind": "port",
+              "label": "Analytics Live Verification",
+              "portNodeId": "task-collection-repo-analytics-switches-port",
+              "viewNodeId": "task-collection-repo-analytics-switches-port",
+              "memo": "Exposes the live analytics verification task as a waiting task projection.",
               "exposes": {
                 "views": {
                   "mode": "allow"
@@ -759,11 +775,11 @@
         },
         "title": "Finish graph-owned analytics participation and reporting",
         "body": "Finish the graph-authored analytics participation surface and verify that public repository graphs produce distinct, inspectable reporting without moving presentation or policy controls into a bespoke backend card.",
-        "status": "todo",
+        "status": "waiting",
         "priority": "high",
         "owner": "Michael",
-        "nextAction": "Deploy and exercise the graph-owned analytics surface, then verify Matrix page delivery and choose a stable graph identity dimension that does not collapse every ?doc= graph into the root page path.",
-        "blockedReason": "",
+        "nextAction": "Open GA4 Realtime, visit several enrolled graphs on live Twilite, and confirm that page_view delivery and graph identity reporting resumed after the consent repair. Record the result, then close this task if reporting is distinct and stable.",
+        "blockedReason": "Implementation is live; completion is waiting on external GA4 Realtime verification.",
         "health": "on-track",
         "acceptanceCriteria": [
           "The GitHub repository node class authors the participation and delivery presentation.",
@@ -771,6 +787,82 @@
           "Private and unverified repositories remain excluded at the repository boundary.",
           "Realtime reporting can distinguish an individual graph even when its browser route uses ?doc=."
         ]
+      }
+    },
+    {
+      "id": "task-collection-repo-analytics-switches-port",
+      "type": "port",
+      "label": "Analytics Live Verification",
+      "root": false,
+      "position": {
+        "x": 520,
+        "y": 790
+      },
+      "width": 440,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "michael-task-collection",
+          "portId": "analytics-verification",
+          "name": "Analytics Live Verification"
+        },
+        "sourceScope": "graph",
+        "authority": "consume-view",
+        "sourceRef": "",
+        "sourceNodeId": "task-collection-repo-analytics-switches",
+        "sourcePayload": "node.web.detail",
+        "renderedNodeType": "task",
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail",
+          "nodeType": "task",
+          "label": "Analytics Live Verification",
+          "surfaceId": "analytics-verification"
+        },
+        "payload": "node.web.detail",
+        "intent": "node",
+        "viewRole": "detail",
+        "semanticLevel": "detail",
+        "visibilityRole": "browser"
       }
     },
     {
@@ -1604,6 +1696,22 @@
       "data": {}
     },
     {
+      "id": "task-collection-edge-repo-analytics-surface",
+      "type": "reference",
+      "source": "task-collection-repo-analytics-switches",
+      "target": "task-collection-repo-analytics-switches-port",
+      "sourcePort": "right",
+      "targetPort": "left",
+      "label": "exposes",
+      "style": {
+        "curved": true,
+        "route": "curved"
+      },
+      "data": {
+        "relation": "surface"
+      }
+    },
+    {
       "id": "task-collection-edge-repo-analytics-switches",
       "type": "reference",
       "source": "task-collection-introduction",
@@ -1826,7 +1934,7 @@
       "tags": ""
     }
   ],
-  "nodeCount": 18,
-  "edgeCount": 15,
-  "timestamp": "2026-08-10T00:00:00.000Z"
+  "nodeCount": 19,
+  "edgeCount": 16,
+  "timestamp": "2026-08-16T12:00:00.000Z"
 }
