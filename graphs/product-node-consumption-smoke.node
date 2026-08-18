@@ -150,7 +150,9 @@
       "visible": true,
       "showLabel": true,
       "ports": [
-        {"id": "root", "label": "root", "direction": "bidirectional", "dataType": "Twilite", "angle": 180}
+        {"id": "root", "label": "Root Port", "direction": "bidirectional", "dataType": "value", "angle": 210, "surfaceId": "root", "metadata": {"graphRef": "github://twilite-zone/public/products/twilite/root.node", "graphId": "root", "sourceNodeId": "twilite-product-view", "sourcePayload": "node.web.summary"}},
+        {"id": "user-benefit", "label": "What Twilite Gives the User", "direction": "output", "dataType": "value", "angle": 210, "surfaceId": "user-benefit", "metadata": {"graphRef": "github://twilite-zone/public/products/twilite/user-benefit.document.node", "graphId": "user-benefit-document", "sourceNodeId": "twilite-user-benefit-port", "sourcePayload": "node.web.summary"}},
+        {"id": "document", "label": "Full Document", "direction": "output", "dataType": "value", "angle": 0, "surfaceId": "document", "metadata": {"graphRef": "github://twilite-zone/public/products/twilite/user-benefit.document.node", "graphId": "user-benefit-document", "sourceNodeId": "twilite-user-benefit-document-port", "sourcePayload": "node.web.document"}}
       ],
       "data": {
         "identity": {
@@ -164,7 +166,16 @@
         "definitionKey": "twilite",
         "_classBinding": {
           "key": "twilite",
-          "sourceRef": "github://twilite-zone/public/products/twilite/root.node"
+          "sourceRef": "github://twilite-zone/public/products/twilite/root.node",
+          "views": [
+            {"key": "twilite", "intent": "node", "payload": "node.web.summary", "ref": "github://twilite-zone/public/products/twilite/root.node", "sourceNodeId": "twilite-product-view", "surfaceId": "root"},
+            {"key": "twilite", "intent": "node", "payload": "node.web.summary", "ref": "github://twilite-zone/public/products/twilite/user-benefit.document.node", "sourceNodeId": "twilite-user-benefit-port", "surfaceId": "user-benefit"},
+            {"key": "twilite", "intent": "node", "payload": "node.web.document", "ref": "github://twilite-zone/public/products/twilite/user-benefit.document.node", "sourceNodeId": "twilite-user-benefit-document-port", "surfaceId": "document"}
+          ],
+          "declarations": [
+            {"ref": "github://twilite-zone/public/products/twilite/root.node", "nodeId": "twilite", "graphId": "root"},
+            {"ref": "github://twilite-zone/public/products/twilite/user-benefit.document.node", "nodeId": "twilite", "graphId": "user-benefit-document"}
+          ]
         },
         "_bridge": {
           "classKey": "twilite",
@@ -180,14 +191,14 @@
           "rootGraphId": "product",
           "discoveredGraphId": "document",
           "expectedHandleId": "document",
-          "expectedCurrentResult": "fail"
+          "expectedCurrentResult": "pass"
         }
       }
     },
     {
       "id": "product-node-smoke-current-result",
       "type": "markdown",
-      "label": "Expected Current Failure",
+      "label": "Runtime Pass Check",
       "position": {"x": 430, "y": -140},
       "width": 520,
       "height": 360,
@@ -197,9 +208,9 @@
         {"id": "bottom", "label": "bottom", "direction": "output", "dataType": "value", "angle": 90}
       ],
       "data": {
-        "title": "Expected Current Failure",
-        "status": "expected-failure",
-        "markdown": "## Expected current result\n\nThe bridge points at the product graph and the fixture authors a `Twilite` instance, but the product graph does not yet publish a node-consumption declaration contract. The runtime may therefore fail to resolve the instance view, fail to register `Twilite` for creation, or render only the authored root handle.\n\nA passing implementation must render the product surface and discover a visible `document` handle without copying the document graph into this fixture."
+        "title": "Runtime Pass Check",
+        "status": "ready-to-verify",
+        "markdown": "## Expected result\n\nRun the Twilite Product Graph bridge. It should create a `Twilite` node whose root surface renders from `root.node`. The instance should have `root`, `user-benefit`, and `document` handles discovered from declarations sharing `nodeId: twilite`; the `document` handle must point at the sibling document graph.\n\nThe authored specimen beside this check records the expected resolved contract so a newly bridged instance can be compared directly."
       }
     },
     {
