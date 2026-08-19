@@ -4,7 +4,7 @@
     "title": "Canvas Smoke Test",
     "description": "Graph Lab smoke test for native canvas rendering and canvas-backed view exposure through a port.",
     "graphId": "canvas-smoke-test",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "kind": "graph",
     "tags": ["graph-lab", "smoke-test", "canvas", "port", "view"],
     "preferredViewer": "https://dev.twilite.zone"
@@ -28,7 +28,7 @@
         "identity": {
           "graphId": "canvas-smoke-test",
           "name": "Canvas Smoke Test",
-          "version": "1.1.0",
+          "version": "1.2.0",
           "description": "Graph Lab smoke test for native canvas rendering and canvas-backed view exposure through a port."
         },
         "intent": {"kind": "test", "scope": "shared"},
@@ -138,15 +138,21 @@
       "data": {
         "identity": {"graphId": "canvas-smoke-test"},
         "view": {"intent": "node", "payload": "node.web.detail"},
-        "renderShape": {"kind": "canvas"},
-        "canvas": {
-          "background": "#07111f",
-          "shapes": [
-            {"type": "circle", "x": 260, "y": 160, "radius": 96, "fill": "#4c1d95", "stroke": "#c4b5fd", "lineWidth": 4},
-            {"type": "circle", "x": 260, "y": 160, "radius": 126, "stroke": "#22d3ee", "lineWidth": 3},
-            {"type": "line", "x1": 110, "y1": 160, "x2": 410, "y2": 160, "stroke": "#fbbf24", "lineWidth": 3},
-            {"type": "text", "x": 260, "y": 153, "text": "CANVAS VIEW", "color": "#ffffff", "fontSize": 20, "align": "center", "baseline": "middle"}
-          ]
+        "renderShape": {"kind": "canvas", "sourcePath": "node.web.detail"},
+        "node": {
+          "web": {
+            "detail": {
+              "canvas": {
+                "background": "#07111f",
+                "shapes": [
+                  {"type": "circle", "x": 260, "y": 160, "radius": 96, "fill": "#4c1d95", "stroke": "#c4b5fd", "lineWidth": 4},
+                  {"type": "circle", "x": 260, "y": 160, "radius": 126, "stroke": "#22d3ee", "lineWidth": 3},
+                  {"type": "line", "x1": 110, "y1": 160, "x2": 410, "y2": 160, "stroke": "#fbbf24", "lineWidth": 3},
+                  {"type": "text", "x": 260, "y": 153, "text": "CANVAS VIEW", "color": "#ffffff", "fontSize": 20, "align": "center", "baseline": "middle"}
+                ]
+              }
+            }
+          }
         },
         "semanticLevel": "detail",
         "visibilityRole": "browser"
@@ -193,7 +199,7 @@
       ],
       "data": {
         "identity": {"graphId": "canvas-smoke-test"},
-        "markdown": "# Canvas Smoke Test\n\n## Native path\n\n- **Wave** renders a visible canvas waveform.\n- **Bars** renders visible canvas bars.\n- Zooming does not leave either panel blank.\n\n## View → Port path\n\n- **Canvas View Source** owns a declarative canvas payload.\n- **Canvas View Port** consumes `node.web.detail` from that source node.\n- Pass if the port reproduces the canvas surface instead of showing `No target` or a blank panel.\n\n## Known issue under investigation\n\nA standalone `port` with its own `data.canvas` currently enters target-resolution behavior instead of rendering the inline canvas payload. This fixture tests the current two-node workaround: canvas-bearing view node exposed through a separate port.\n\nAnimation is intentionally out of scope."
+        "markdown": "# Canvas Smoke Test\n\n## Native path\n\n- **Wave** renders a visible canvas waveform.\n- **Bars** renders visible canvas bars.\n- Zooming does not leave either panel blank.\n\n## View → Port path\n\n- **Canvas View Source** exposes its canvas at the named payload path `node.web.detail`.\n- Its render shape declares `kind: canvas` with `sourcePath: node.web.detail`.\n- **Canvas View Port** consumes `node.web.detail` from that source node.\n- Pass if the port reproduces the canvas surface instead of showing `MISSING_VIEW`, `No target`, or a blank panel.\n\n## Known issue under investigation\n\nA standalone `port` with its own `data.canvas` currently enters target-resolution behavior instead of rendering the inline canvas payload. This fixture tests the current two-node workaround.\n\nAnimation is intentionally out of scope."
       }
     }
   ],
