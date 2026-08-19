@@ -1,0 +1,156 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Canvas Smoke Test",
+    "description": "Graph Lab smoke test for native Twilite canvas rendering.",
+    "graphId": "canvas-smoke-test",
+    "version": "1.0.0",
+    "kind": "graph",
+    "tags": ["graph-lab", "smoke-test", "canvas"],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "canvas-smoke-test",
+      "type": "declaration",
+      "label": "Canvas Smoke Test Declaration",
+      "root": false,
+      "position": {"x": -720, "y": -320},
+      "width": 420,
+      "height": 300,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210},
+        {"id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0}
+      ],
+      "data": {
+        "identity": {
+          "graphId": "canvas-smoke-test",
+          "name": "Canvas Smoke Test",
+          "version": "1.0.0",
+          "description": "Graph Lab smoke test for native Twilite canvas rendering."
+        },
+        "intent": {"kind": "test", "scope": "shared"},
+        "declaration": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Canvas Smoke Test",
+              "portNodeId": "canvas-smoke-test-root",
+              "viewNodeId": "canvas-smoke-test-root"
+            }
+          ]
+        },
+        "dependencies": {
+          "nodeTypes": ["declaration", "port", "markdown", "canvas"],
+          "portContracts": ["core"],
+          "schemaVersions": {"nodes": ">=1.0.0", "ports": ">=1.0.0"},
+          "optional": []
+        }
+      }
+    },
+    {
+      "id": "canvas-smoke-test-root",
+      "type": "port",
+      "label": "Canvas Smoke Test",
+      "root": true,
+      "position": {"x": -180, "y": -320},
+      "width": 620,
+      "height": 320,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210},
+        {"id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "value", "angle": 90}
+      ],
+      "data": {
+        "identity": {"graphId": "canvas-smoke-test", "portId": "root", "name": "Canvas Smoke Test"},
+        "view": {"intent": "node", "payload": "node.web.summary"},
+        "renderShape": {"kind": "html"},
+        "html": "<div style='width:100%;height:100%;box-sizing:border-box;border-radius:28px;background:#08111f;border:3px solid #22d3ee;color:#e6faff;padding:34px;font-family:system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center;'><div style='font-size:13px;font-weight:900;letter-spacing:.16em;color:#67e8f9;'>GRAPH LAB</div><div style='font-size:42px;font-weight:950;margin-top:8px;'>Canvas Smoke Test</div><div style='font-size:18px;line-height:1.5;color:#bae6fd;margin-top:18px;'>Two native canvas nodes exercise the built-in wave and bars render paths. If both panels draw instead of appearing blank, native canvas rendering is alive.</div></div>",
+        "semanticLevel": "summary",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "canvas-wave",
+      "type": "canvas",
+      "label": "Native Canvas · Wave",
+      "root": false,
+      "position": {"x": -560, "y": 160},
+      "width": 520,
+      "height": 300,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210},
+        {"id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0}
+      ],
+      "data": {
+        "identity": {"graphId": "canvas-smoke-test"},
+        "style": "wave",
+        "palette": ["#22d3ee", "#a78bfa", "#f472b6"],
+        "samples": [0, 0.38, 0.71, 0.92, 1, 0.92, 0.71, 0.38, 0, -0.38, -0.71, -0.92, -1, -0.92, -0.71, -0.38, 0],
+        "caption": "Native canvas wave"
+      }
+    },
+    {
+      "id": "canvas-bars",
+      "type": "canvas",
+      "label": "Native Canvas · Bars",
+      "root": false,
+      "position": {"x": 40, "y": 160},
+      "width": 520,
+      "height": 300,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210},
+        {"id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0}
+      ],
+      "data": {
+        "identity": {"graphId": "canvas-smoke-test"},
+        "style": "bars",
+        "palette": ["#60a5fa", "#34d399", "#fbbf24", "#f472b6"],
+        "values": [12, 28, 19, 42, 33, 51, 24, 46],
+        "caption": "Native canvas bars"
+      }
+    },
+    {
+      "id": "canvas-smoke-notes",
+      "type": "markdown",
+      "label": "Smoke Test Criteria",
+      "root": false,
+      "position": {"x": 640, "y": 160},
+      "width": 520,
+      "height": 360,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}
+      ],
+      "data": {
+        "identity": {"graphId": "canvas-smoke-test"},
+        "markdown": "# Canvas Smoke Test\n\n## Pass\n\n- **Wave** renders a visible canvas waveform.\n- **Bars** renders visible canvas bars.\n- Resizing or zooming does not leave either panel blank.\n- No renderer exception appears.\n\n## Scope\n\nThis first smoke test exercises the native `canvas` node only. It deliberately does **not** test animation yet.\n\nOnce this passes, add a second fixture for declarative `renderShape.kind: canvas` views before using canvas as a class detail surface."
+      }
+    }
+  ],
+  "edges": [],
+  "clusters": [],
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "#666666",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "autoSave": false
+  },
+  "scripts": []
+}
