@@ -1,0 +1,156 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Wikipedia Article Source Class",
+    "description": "Root source node for transient, section-oriented Wikipedia browsing.",
+    "graphId": "wikipedia-article-source-class",
+    "version": "0.1.0",
+    "kind": "node-class",
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "wikipedia-article-source-declaration",
+      "type": "declaration",
+      "label": "Wikipedia Article Source Declaration",
+      "position": {"x": 0, "y": -520},
+      "width": 460,
+      "height": 360,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {
+        "identity": {
+          "graphId": "wikipedia-article-source-class",
+          "name": "Wikipedia Article Source",
+          "version": "0.1.0",
+          "description": "Root source node for transient, section-oriented Wikipedia browsing."
+        },
+        "intent": {"kind": "node-class", "scope": "shared"},
+        "declaration": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {"id": "root", "kind": "view", "label": "Root", "viewNodeId": "wikipedia-article-source-detail"},
+            {"id": "detail", "kind": "view", "label": "Detail", "viewNodeId": "wikipedia-article-source-detail"},
+            {"id": "summary", "kind": "view", "label": "Summary", "viewNodeId": "wikipedia-article-source-summary"},
+            {"id": "icon", "kind": "view", "label": "Icon", "viewNodeId": "wikipedia-article-source-icon"},
+            {"id": "editor", "kind": "view", "label": "Editor", "viewNodeId": "wikipedia-article-source-editor"}
+          ]
+        },
+        "nodeClass": {
+          "contractVersion": "1.0.0",
+          "key": "wikipedia-article-source",
+          "label": "Wikipedia Article Source",
+          "meaning": "A transient article root that resolves Wikipedia identity, lead content, and a section manifest, then exposes sections as dynamic labeled expansion handles.",
+          "requiredDataKeys": ["canonicalUrl"],
+          "nodeDef": {
+            "key": "wikipedia-article-source",
+            "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Wikipedia Article",
+              "size": {"width": 680, "height": 500},
+              "showLabel": false,
+              "data": {
+                "canonicalUrl": "",
+                "title": "",
+                "revisionId": "",
+                "lead": "",
+                "firstSection": null,
+                "sections": [],
+                "attribution": {
+                  "source": "Wikipedia",
+                  "license": "CC BY-SA",
+                  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+                }
+              }
+            }
+          },
+          "dynamicPorts": {
+            "sourcePath": "sections",
+            "idPath": "id",
+            "labelPath": "title",
+            "orderPath": "order",
+            "direction": "output",
+            "dataType": "wikipedia-section",
+            "hoverLabel": true,
+            "expansionRole": "instantiate-section"
+          }
+        }
+      }
+    },
+    {
+      "id": "wikipedia-article-source-contract",
+      "type": "markdown",
+      "label": "Article Source Contract",
+      "position": {"x": -560, "y": -80},
+      "width": 500,
+      "height": 380,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {
+        "markdown": "## Wikipedia Article Source\n\nThe root resolves only enough data to browse spatially: canonical URL, title, revision/source identity, attribution, lead content, the first useful section, and a section manifest.\n\nEach section manifest entry must provide a stable `id`, visible `title`, `level`, `order`, and source locator. Runtime presentation derives one labeled expansion handle per section. Section bodies are resolved lazily after expansion.\n\nLarge section counts are a presentation problem, not a reason to weaken the source contract."
+      }
+    },
+    {
+      "id": "wikipedia-article-source-detail",
+      "type": "port",
+      "label": "Detail",
+      "position": {"x": 40, "y": 0},
+      "width": 680,
+      "height": 500,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {
+        "view": {"intent": "node", "payload": "node.web.detail"},
+        "title": "{{title}}",
+        "body": "{{lead}}\n\n{{firstSection.title}}\n{{firstSection.content}}",
+        "footer": "Source: Wikipedia · {{canonicalUrl}} · {{attribution.license}}"
+      }
+    },
+    {
+      "id": "wikipedia-article-source-summary",
+      "type": "port",
+      "label": "Summary",
+      "position": {"x": 780, "y": -20},
+      "width": 440,
+      "height": 300,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {"view": {"intent": "node", "payload": "node.web.summary"}, "title": "{{title}}", "body": "{{lead}}"}
+    },
+    {
+      "id": "wikipedia-article-source-icon",
+      "type": "port",
+      "label": "Icon",
+      "position": {"x": 780, "y": 340},
+      "width": 240,
+      "height": 200,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {"view": {"intent": "node", "payload": "node.web.icon"}, "renderShape": {"kind": "svg"}, "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 200'><rect x='5' y='5' width='230' height='190' rx='24' fill='#111827' stroke='#d1d5db' stroke-width='3'/><circle cx='120' cy='82' r='48' fill='#f8fafc'/><text x='120' y='102' text-anchor='middle' font-family='Georgia,serif' font-size='60' font-weight='700' fill='#111827'>W</text><text x='120' y='162' text-anchor='middle' font-family='system-ui,sans-serif' font-size='16' font-weight='800' fill='#f8fafc'>ARTICLE</text></svg>"}
+    },
+    {
+      "id": "wikipedia-article-source-editor",
+      "type": "port",
+      "label": "Editor",
+      "position": {"x": -540, "y": 380},
+      "width": 480,
+      "height": 320,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {"view": {"intent": "node", "payload": "node.web.editor"}, "fields": ["canonicalUrl"], "memo": "Source URL is the authored field; resolved article data is runtime-derived."}
+    }
+  ],
+  "edges": [],
+  "clusters": [],
+  "settings": {"autoSave": false},
+  "scripts": []
+}
