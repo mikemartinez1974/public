@@ -1,0 +1,144 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Wikipedia Section Class",
+    "description": "Lazy transient projection of one Wikipedia article section.",
+    "graphId": "wikipedia-section-class",
+    "version": "0.1.0",
+    "kind": "node-class",
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "wikipedia-section-declaration",
+      "type": "declaration",
+      "label": "Wikipedia Section Declaration",
+      "position": {"x": 0, "y": -520},
+      "width": 460,
+      "height": 360,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {
+        "identity": {"graphId": "wikipedia-section-class", "name": "Wikipedia Section", "version": "0.1.0", "description": "Lazy transient projection of one Wikipedia article section."},
+        "intent": {"kind": "node-class", "scope": "shared"},
+        "declaration": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {"id": "root", "kind": "view", "label": "Root", "viewNodeId": "wikipedia-section-detail"},
+            {"id": "detail", "kind": "view", "label": "Detail", "viewNodeId": "wikipedia-section-detail"},
+            {"id": "summary", "kind": "view", "label": "Summary", "viewNodeId": "wikipedia-section-summary"},
+            {"id": "icon", "kind": "view", "label": "Icon", "viewNodeId": "wikipedia-section-icon"},
+            {"id": "editor", "kind": "view", "label": "Editor", "viewNodeId": "wikipedia-section-editor"}
+          ]
+        },
+        "nodeClass": {
+          "contractVersion": "1.0.0",
+          "key": "wikipedia-section",
+          "label": "Wikipedia Section",
+          "meaning": "A lazily resolved section from a Wikipedia article, optionally exposing subsections through the same dynamic expansion grammar.",
+          "requiredDataKeys": ["articleUrl", "sectionId", "sectionTitle"],
+          "nodeDef": {
+            "key": "wikipedia-section",
+            "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-section.node-class.node",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Wikipedia Section",
+              "size": {"width": 620, "height": 440},
+              "showLabel": false,
+              "data": {
+                "articleUrl": "",
+                "articleTitle": "",
+                "revisionId": "",
+                "sectionId": "",
+                "sectionTitle": "",
+                "sectionLevel": 1,
+                "sectionOrder": 0,
+                "sourceLocator": "",
+                "content": "",
+                "subsections": [],
+                "attribution": {"source": "Wikipedia", "license": "CC BY-SA", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"}
+              }
+            }
+          },
+          "dynamicPorts": {
+            "sourcePath": "subsections",
+            "idPath": "id",
+            "labelPath": "title",
+            "orderPath": "order",
+            "direction": "output",
+            "dataType": "wikipedia-section",
+            "hoverLabel": true,
+            "expansionRole": "instantiate-section"
+          }
+        }
+      }
+    },
+    {
+      "id": "wikipedia-section-contract",
+      "type": "markdown",
+      "label": "Section Contract",
+      "position": {"x": -560, "y": -80},
+      "width": 500,
+      "height": 360,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {"markdown": "## Wikipedia Section\n\nA Section is instantiated from a labeled expansion handle. It receives article identity plus section identity, resolves its own body lazily, and may expose nested subsections using the same dynamic-port grammar.\n\nThis is a transient browsing projection, not a claim that the section is a new canonical knowledge object."}
+    },
+    {
+      "id": "wikipedia-section-detail",
+      "type": "port",
+      "label": "Detail",
+      "position": {"x": 40, "y": 0},
+      "width": 620,
+      "height": 440,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {"view": {"intent": "node", "payload": "node.web.detail"}, "title": "{{sectionTitle}}", "body": "{{content}}", "footer": "{{articleTitle}} · Wikipedia · {{attribution.license}}"}
+    },
+    {
+      "id": "wikipedia-section-summary",
+      "type": "port",
+      "label": "Summary",
+      "position": {"x": 740, "y": -20},
+      "width": 420,
+      "height": 260,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {"view": {"intent": "node", "payload": "node.web.summary"}, "title": "{{sectionTitle}}", "body": "{{content}}"}
+    },
+    {
+      "id": "wikipedia-section-icon",
+      "type": "port",
+      "label": "Icon",
+      "position": {"x": 740, "y": 300},
+      "width": 240,
+      "height": 180,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {"view": {"intent": "node", "payload": "node.web.icon"}, "renderShape": {"kind": "svg"}, "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 180'><rect x='5' y='5' width='230' height='170' rx='22' fill='#172033' stroke='#93c5fd' stroke-width='3'/><path d='M42 55h156M42 88h125M42 121h145' stroke='#dbeafe' stroke-width='9' stroke-linecap='round'/><text x='120' y='158' text-anchor='middle' font-family='system-ui,sans-serif' font-size='14' font-weight='800' fill='#93c5fd'>SECTION</text></svg>"}
+    },
+    {
+      "id": "wikipedia-section-editor",
+      "type": "port",
+      "label": "Editor",
+      "position": {"x": -540, "y": 340},
+      "width": 460,
+      "height": 280,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {"view": {"intent": "node", "payload": "node.web.editor"}, "fields": ["articleUrl", "sectionId", "sectionTitle"], "memo": "Normally seeded by expansion behavior rather than edited manually."}
+    }
+  ],
+  "edges": [],
+  "clusters": [],
+  "settings": {"autoSave": false},
+  "scripts": []
+}
