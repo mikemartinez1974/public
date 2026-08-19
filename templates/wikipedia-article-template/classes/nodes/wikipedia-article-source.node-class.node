@@ -1,11 +1,17 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Wikipedia Article Source Class",
+    "title": "Wikipedia Article Source",
     "description": "Root source node for transient, section-oriented Wikipedia browsing.",
-    "graphId": "wikipedia-article-source-class",
+    "graphId": "wikipedia-article-source-declaration",
     "version": "0.1.0",
     "kind": "node-class",
+    "created": "2026-08-18T23:00:22.074Z",
+    "modified": "2026-08-19T21:14:56.319Z",
+    "author": "",
+    "tags": [
+      "node-class"
+    ],
     "preferredViewer": "https://dev.twilite.zone"
   },
   "nodes": [
@@ -13,30 +19,70 @@
       "id": "wikipedia-article-source-declaration",
       "type": "declaration",
       "label": "Wikipedia Article Source Declaration",
-      "position": {"x": 0, "y": -520},
+      "root": false,
+      "position": {
+        "x": 0,
+        "y": -520
+      },
       "width": 460,
       "height": 360,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
       "visible": true,
       "showLabel": true,
-      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
       "data": {
         "identity": {
-          "graphId": "wikipedia-article-source-class",
+          "graphId": "wikipedia-article-source-declaration",
           "name": "Wikipedia Article Source",
           "version": "0.1.0",
           "description": "Root source node for transient, section-oriented Wikipedia browsing."
         },
-        "intent": {"kind": "node-class", "scope": "shared"},
+        "intent": {
+          "kind": "node-class",
+          "scope": "shared"
+        },
         "declaration": {
           "kind": "node-class",
           "targetMode": "artifact",
           "defaultSurfaceId": "root",
           "surfaces": [
-            {"id": "root", "kind": "view", "label": "Root", "viewNodeId": "wikipedia-article-source-detail"},
-            {"id": "detail", "kind": "view", "label": "Detail", "viewNodeId": "wikipedia-article-source-detail"},
-            {"id": "summary", "kind": "view", "label": "Summary", "viewNodeId": "wikipedia-article-source-summary"},
-            {"id": "icon", "kind": "view", "label": "Icon", "viewNodeId": "wikipedia-article-source-icon"},
-            {"id": "editor", "kind": "view", "label": "Editor", "viewNodeId": "wikipedia-article-source-editor"}
+            {
+              "id": "root",
+              "kind": "view",
+              "label": "Root",
+              "viewNodeId": "wikipedia-article-source-detail"
+            },
+            {
+              "id": "detail",
+              "kind": "view",
+              "label": "Detail",
+              "viewNodeId": "wikipedia-article-source-detail"
+            },
+            {
+              "id": "summary",
+              "kind": "view",
+              "label": "Summary",
+              "viewNodeId": "wikipedia-article-source-summary"
+            },
+            {
+              "id": "icon",
+              "kind": "view",
+              "label": "Icon",
+              "viewNodeId": "wikipedia-article-source-icon"
+            },
+            {
+              "id": "editor",
+              "kind": "view",
+              "label": "Editor",
+              "viewNodeId": "wikipedia-article-source-editor"
+            }
           ]
         },
         "nodeClass": {
@@ -44,14 +90,19 @@
           "key": "wikipedia-article-source",
           "label": "Wikipedia Article Source",
           "meaning": "A transient article root that resolves Wikipedia identity, lead content, and a section manifest, then exposes sections as dynamic labeled expansion handles.",
-          "requiredDataKeys": ["canonicalUrl"],
+          "requiredDataKeys": [
+            "canonicalUrl"
+          ],
           "nodeDef": {
             "key": "wikipedia-article-source",
             "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node",
             "version": ">=0.1.0",
             "defaults": {
               "label": "Wikipedia Article",
-              "size": {"width": 680, "height": 500},
+              "size": {
+                "width": 680,
+                "height": 500
+              },
               "showLabel": false,
               "data": {
                 "canonicalUrl": "",
@@ -78,6 +129,38 @@
             "hoverLabel": true,
             "expansionRole": "instantiate-section"
           }
+        },
+        "settings": {
+          "theme": null,
+          "backgroundImage": null,
+          "defaultNodeColor": "#1976d2",
+          "defaultEdgeColor": "",
+          "snapToGrid": false,
+          "gridSize": 20,
+          "edgeRouting": "auto",
+          "layout": {
+            "mode": "manual",
+            "defaultLayout": "layered",
+            "direction": "DOWN",
+            "edgeLaneGapPx": 12,
+            "serpentine": {
+              "maxPerRow": 5
+            },
+            "cycleFallback": {
+              "enabled": true
+            },
+            "elk": {
+              "algorithm": "fixed",
+              "edgeRouting": "ORTHOGONAL",
+              "portConstraints": "FIXED_SIDE",
+              "nodeSpacing": 120,
+              "layeredEdgeSpacing": 80
+            }
+          },
+          "autoSave": false
+        },
+        "document": {
+          "url": ""
         }
       }
     },
@@ -85,72 +168,364 @@
       "id": "wikipedia-article-source-contract",
       "type": "markdown",
       "label": "Article Source Contract",
-      "position": {"x": -560, "y": -80},
+      "root": false,
+      "position": {
+        "x": -560,
+        "y": -80
+      },
       "width": 500,
       "height": 380,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
       "visible": true,
       "showLabel": true,
-      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
       "data": {
-        "markdown": "## Wikipedia Article Source\n\nThe root resolves only enough data to browse spatially: canonical URL, title, revision/source identity, attribution, lead content, the first useful section, and a section manifest.\n\nEach section manifest entry must provide a stable `id`, visible `title`, `level`, `order`, and source locator. Runtime presentation derives one labeled expansion handle per section. Section bodies are resolved lazily after expansion.\n\nLarge section counts are a presentation problem, not a reason to weaken the source contract."
+        "markdown": "## Wikipedia Article Source\n\nThe root resolves only enough data to browse spatially: canonical URL, title, revision/source identity, attribution, lead content, the first useful section, and a section manifest.\n\nEach section manifest entry must provide a stable `id`, visible `title`, `level`, `order`, and source locator. Runtime presentation derives one labeled expansion handle per section. Section bodies are resolved lazily after expansion.\n\nLarge section counts are a presentation problem, not a reason to weaken the source contract.",
+        "identity": {
+          "graphId": "wikipedia-article-source-declaration"
+        }
       }
     },
     {
       "id": "wikipedia-article-source-detail",
       "type": "port",
       "label": "Detail",
-      "position": {"x": 40, "y": 0},
+      "root": false,
+      "position": {
+        "x": 40,
+        "y": 0
+      },
       "width": 680,
       "height": 500,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
       "visible": true,
       "showLabel": true,
-      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
       "data": {
-        "view": {"intent": "node", "payload": "node.web.detail"},
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
         "title": "{{title}}",
         "body": "{{lead}}\n\n{{firstSection.title}}\n{{firstSection.content}}",
-        "footer": "Source: Wikipedia · {{canonicalUrl}} · {{attribution.license}}"
+        "footer": "Source: Wikipedia · {{canonicalUrl}} · {{attribution.license}}",
+        "identity": {
+          "graphId": "wikipedia-article-source-declaration"
+        }
       }
     },
     {
       "id": "wikipedia-article-source-summary",
       "type": "port",
       "label": "Summary",
-      "position": {"x": 780, "y": -20},
+      "root": false,
+      "position": {
+        "x": 780,
+        "y": -20
+      },
       "width": 440,
       "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
       "visible": true,
       "showLabel": true,
-      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
-      "data": {"view": {"intent": "node", "payload": "node.web.summary"}, "title": "{{title}}", "body": "{{lead}}"}
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "title": "{{title}}",
+        "body": "{{lead}}",
+        "identity": {
+          "graphId": "wikipedia-article-source-declaration"
+        }
+      }
     },
     {
       "id": "wikipedia-article-source-icon",
       "type": "port",
       "label": "Icon",
-      "position": {"x": 780, "y": 340},
+      "root": false,
+      "position": {
+        "x": 780,
+        "y": 340
+      },
       "width": 240,
       "height": 200,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
       "visible": true,
       "showLabel": true,
-      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
-      "data": {"view": {"intent": "node", "payload": "node.web.icon"}, "renderShape": {"kind": "svg"}, "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 200'><rect x='5' y='5' width='230' height='190' rx='24' fill='#111827' stroke='#d1d5db' stroke-width='3'/><circle cx='120' cy='82' r='48' fill='#f8fafc'/><text x='120' y='102' text-anchor='middle' font-family='Georgia,serif' font-size='60' font-weight='700' fill='#111827'>W</text><text x='120' y='162' text-anchor='middle' font-family='system-ui,sans-serif' font-size='16' font-weight='800' fill='#f8fafc'>ARTICLE</text></svg>"}
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "renderShape": {
+          "kind": "svg"
+        },
+        "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 200'><rect x='5' y='5' width='230' height='190' rx='24' fill='#111827' stroke='#d1d5db' stroke-width='3'/><circle cx='120' cy='82' r='48' fill='#f8fafc'/><text x='120' y='102' text-anchor='middle' font-family='Georgia,serif' font-size='60' font-weight='700' fill='#111827'>W</text><text x='120' y='162' text-anchor='middle' font-family='system-ui,sans-serif' font-size='16' font-weight='800' fill='#f8fafc'>ARTICLE</text></svg>",
+        "identity": {
+          "graphId": "wikipedia-article-source-declaration"
+        }
+      }
     },
     {
       "id": "wikipedia-article-source-editor",
       "type": "port",
       "label": "Editor",
-      "position": {"x": -540, "y": 380},
+      "root": false,
+      "position": {
+        "x": -540,
+        "y": 380
+      },
       "width": 480,
       "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
       "visible": true,
       "showLabel": true,
-      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
-      "data": {"view": {"intent": "node", "payload": "node.web.editor"}, "fields": ["canonicalUrl"], "memo": "Source URL is the authored field; resolved article data is runtime-derived."}
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.editor"
+        },
+        "fields": [
+          "canonicalUrl"
+        ],
+        "memo": "Source URL is the authored field; resolved article data is runtime-derived.",
+        "identity": {
+          "graphId": "wikipedia-article-source-declaration"
+        }
+      }
+    },
+    {
+      "id": "wikipedia-article-resolver-script",
+      "type": "script",
+      "label": "Wikipedia Article Resolver",
+      "root": false,
+      "position": {
+        "x": -560,
+        "y": 780
+      },
+      "width": 560,
+      "height": 360,
+      "ports": [
+        {
+          "id": "trigger",
+          "label": "trigger",
+          "direction": "input",
+          "dataType": "trigger",
+          "angle": 180
+        },
+        {
+          "id": "result",
+          "label": "result",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 0
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "scriptId": "",
+        "scriptName": "Wikipedia Article Resolver",
+        "allowMutations": true,
+        "dryRun": false,
+        "autoRun": false,
+        "autoRunOnLoad": false,
+        "autoRunOnGraphChange": false,
+        "memo": "Resolver capability owned by the Wikipedia Article Source class. Given an article ref, resolve canonical Wikipedia identity, revision metadata, attribution, lead content, first useful section, and the section manifest. Runtime lifecycle integration is still required before this can execute automatically for each article instance.",
+        "status": "runtime-integration-pending",
+        "requirements": [
+          "Receive the owning Wikipedia Article Source instance and its authored ref.",
+          "Fetch Wikipedia through an approved Twilite runtime network API.",
+          "Resolve redirects and determine the canonical article URL.",
+          "Resolve article title and revision/source identity.",
+          "Resolve attribution and license metadata.",
+          "Resolve lead content.",
+          "Resolve the first useful article section.",
+          "Build an ordered section manifest with stable id, title, level, order, and source locator.",
+          "Update only derived article-instance state.",
+          "Do nothing when the same ref is already resolved and current enough for the active session."
+        ],
+        "effects": [
+          "Populate resolved canonical article identity.",
+          "Populate title, revision metadata, attribution, and lead.",
+          "Populate firstSection.",
+          "Populate sections[] for dynamic handle derivation."
+        ],
+        "visibilityRole": "editor",
+        "identity": {
+          "graphId": "wikipedia-article-source-class"
+        },
+        "link": "",
+        "_placement": {
+          "version": 1,
+          "state": "auto-placed",
+          "source": "create",
+          "updatedAt": 1787173975775,
+          "reason": "node-batch-create"
+        },
+        "_semanticLevel": "detail",
+        "_semanticZoomActive": false,
+        "lastResult": null,
+        "lastRunAt": null
+      }
+    },
+    {
+      "id": "wikipedia-article-lifecycle-runtime-task",
+      "type": "markdown",
+      "label": "Codex: Instance Resolver Lifecycle",
+      "root": false,
+      "position": {
+        "x": 80,
+        "y": 660
+      },
+      "width": 560,
+      "height": 440,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "wikipedia-article-source-class"
+        },
+        "markdown": "## Codex task: instance resolver lifecycle\n\nThe Wikipedia Article Source should be self-resolving. The user should create or edit an instance by supplying only an article `ref`; no extra Fetch or Resolve button should be required.\n\n### Required runtime behavior\n\nWhen a `wikipedia-article-source` instance is created with a non-empty `ref`, invoke the class-owned `wikipedia-article-resolver` automatically.\n\nWhen that instance's `ref` changes, invalidate ref-dependent derived state and invoke the resolver again.\n\nOrdinary rendering, focus changes, zoom changes, or unrelated graph mutations must **not** cause repeated network resolution.\n\nThe lifecycle mechanism should be generic enough for other node classes to declare self-resolution behavior later. Do not hard-code Wikipedia behavior into the renderer if a reusable class lifecycle hook can express it.\n\n### State boundary\n\nAuthored state: `ref`.\n\nDerived state: canonical URL, title, revision/source metadata, attribution, lead, first section, and section manifest.\n\nResolution should be idempotent for an unchanged source within the active resolution policy.\n\n### Done when\n\nCreating a Wikipedia Article Source with only a valid `ref` causes the node to resolve itself without an additional user action, and changing that ref causes exactly one appropriate re-resolution.",
+        "memo": "",
+        "link": "",
+        "_placement": {
+          "version": 1,
+          "state": "auto-placed",
+          "source": "create",
+          "updatedAt": 1787173975775,
+          "reason": "node-batch-create"
+        }
+      }
+    },
+    {
+      "id": "wikipedia-article-dynamic-handles-runtime-task",
+      "type": "markdown",
+      "label": "Codex: Dynamic Section Handles",
+      "root": false,
+      "position": {
+        "x": 700,
+        "y": 700
+      },
+      "width": 620,
+      "height": 520,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "wikipedia-article-source-class"
+        },
+        "markdown": "## Codex task: dynamic section handles and drag expansion\n\nThe class declaration already defines a `dynamicPorts` contract sourced from the article section manifest. Twilite runtime must interpret that declaration and materialize real handles on each `wikipedia-article-source` instance.\n\n### Handle derivation\n\nFor each entry in `sections[]`, derive one output handle.\n\nUse the section's stable `id` for handle identity and its human-readable `title` as the handle label. Hovering the handle must tell the user which section will be created.\n\nPreserve section ordering from the manifest. Handle placement may be distributed visually, but presentation policy must not destroy section identity.\n\n### Drag expansion\n\nDragging from a derived section handle should instantiate the template's `wikipedia-section` class without an intermediate button or dialog.\n\nSeed the new instance with enough source information to resolve itself lazily: parent article ref/canonical identity plus section id, title, level, order, and source locator as available.\n\nThe new Section node owns resolution of its body. The Article Source should not eagerly materialize every section body.\n\nThe same mechanism should support subsection handles on Section nodes so the grammar can recurse.\n\n### Runtime design constraint\n\nPrefer a generic dynamic-port and expansion mechanism driven by class declarations. Do not implement a Wikipedia-only special case if the same machinery can support other node classes whose instance data determines their handles.\n\n### Done when\n\nA resolved article automatically displays one labeled handle per section, hovering identifies the section, and dragging a handle creates the correct transient `wikipedia-section` instance with its source identity attached.",
+        "memo": "",
+        "link": "",
+        "_placement": {
+          "version": 1,
+          "state": "auto-placed",
+          "source": "create",
+          "updatedAt": 1787173975775,
+          "reason": "node-batch-create"
+        }
+      }
     }
   ],
   "edges": [],
   "clusters": [],
-  "settings": {"autoSave": false},
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": {
+      "mode": "manual",
+      "defaultLayout": "layered",
+      "direction": "DOWN",
+      "edgeLaneGapPx": 12,
+      "serpentine": {
+        "maxPerRow": 5
+      },
+      "cycleFallback": {
+        "enabled": true
+      },
+      "elk": {
+        "algorithm": "fixed",
+        "edgeRouting": "ORTHOGONAL",
+        "portConstraints": "FIXED_SIDE",
+        "nodeSpacing": 120,
+        "layeredEdgeSpacing": 80
+      }
+    },
+    "github": {
+      "repo": "mikemartinez1974/public",
+      "path": "templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node",
+      "branch": "main",
+      "autoCreateRepo": true,
+      "repoVisibility": "private",
+      "seedOnCommit": false,
+      "enableGithubPages": false,
+      "installationId": "117641611"
+    },
+    "autoSave": false
+  },
   "scripts": []
 }
