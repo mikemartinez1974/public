@@ -1,0 +1,252 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Wikipedia Article Template",
+    "description": "Reusable Twilite template for transient, section-oriented Wikipedia browsing.",
+    "graphId": "wikipedia-article-template",
+    "version": "0.1.0",
+    "kind": "template",
+    "created": "2026-08-19T18:34:00.000Z",
+    "modified": "2026-08-19T18:34:00.000Z",
+    "author": "Michael Martinez",
+    "tags": ["template", "wikipedia", "browser", "sections", "transient"],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "wikipedia-article-template-declaration",
+      "type": "declaration",
+      "label": "Wikipedia Article Template Declaration",
+      "root": false,
+      "position": {"x": -1120, "y": -760},
+      "width": 480,
+      "height": 360,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210},
+        {"id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0}
+      ],
+      "data": {
+        "identity": {
+          "graphId": "wikipedia-article-template",
+          "name": "Wikipedia Article Template",
+          "version": "0.1.0",
+          "description": "Reusable Twilite template for transient, section-oriented Wikipedia browsing."
+        },
+        "intent": {"kind": "template", "scope": "shared"},
+        "declaration": {
+          "kind": "template",
+          "targetMode": "artifact",
+          "artifactKind": "graph-template",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Wikipedia Article Template",
+              "portNodeId": "wikipedia-article-template-root-port",
+              "viewNodeId": "wikipedia-article-template-root-port",
+              "memo": "Template entry and article browsing specimen.",
+              "exposes": {"views": {"mode": "allow"}, "declarations": {"mode": "allow"}}
+            }
+          ]
+        },
+        "dependencies": {
+          "nodeTypes": ["declaration", "port", "bridge", "markdown", "script", "wikipedia-article-source", "wikipedia-section"],
+          "skills": [],
+          "schemaVersions": {"nodes": ">=1.0.0", "ports": ">=1.0.0"}
+        },
+        "origin": {
+          "relation": "implements-task",
+          "graphRef": "github://mikemartinez1974/public/tasks/wikipedia-browser-template-design/root.node",
+          "nodeId": "wiki-template-task-specimen"
+        }
+      }
+    },
+    {
+      "id": "wikipedia-article-template-root-port",
+      "type": "port",
+      "label": "Wikipedia Article Template",
+      "root": true,
+      "position": {"x": -520, "y": -760},
+      "width": 620,
+      "height": 340,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {
+        "identity": {"graphId": "wikipedia-article-template", "portId": "root", "name": "Wikipedia Article Template"},
+        "view": {"intent": "node", "payload": "node.web.summary"},
+        "renderShape": {"kind": "svg"},
+        "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 620 340' role='img' aria-label='Wikipedia Article Template'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='#111827'/><stop offset='1' stop-color='#1e3a5f'/></linearGradient></defs><rect x='5' y='5' width='610' height='330' rx='32' fill='url(#g)' stroke='#dbeafe' stroke-width='3'/><circle cx='132' cy='112' r='56' fill='#f8fafc'/><text x='132' y='134' text-anchor='middle' fill='#111827' font-family='Georgia,serif' font-size='70' font-weight='700'>W</text><path d='M210 112H300M300 112C330 112 334 75 372 75H505M300 112C330 112 334 150 372 150H505M300 112C330 112 334 225 372 225H505' fill='none' stroke='#60a5fa' stroke-width='5' stroke-linecap='round'/><circle cx='510' cy='75' r='10' fill='#bfdbfe'/><circle cx='510' cy='150' r='10' fill='#bfdbfe'/><circle cx='510' cy='225' r='10' fill='#bfdbfe'/><text x='310' y='286' text-anchor='middle' fill='#f8fafc' font-family='system-ui,sans-serif' font-size='28' font-weight='850'>Wikipedia Article Template</text><text x='310' y='313' text-anchor='middle' fill='#bfdbfe' font-family='system-ui,sans-serif' font-size='14'>Article root · labeled section handles · lazy expansion</text></svg>",
+        "semanticLevel": "summary",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "wikipedia-article-source-class-import",
+      "type": "bridge",
+      "label": "Wikipedia Article Source Class",
+      "position": {"x": -1120, "y": -280},
+      "width": 420,
+      "height": 220,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}, {"id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0}],
+      "data": {
+        "memo": "Create article root instances for this template.",
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node",
+          "resourceKind": "node-class",
+          "role": "import",
+          "scope": "focused-graph",
+          "grants": ["create"]
+        },
+        "target": {"mode": "bridge", "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node"},
+        "identity": {"graphId": "wikipedia-article-template"}
+      }
+    },
+    {
+      "id": "wikipedia-section-class-import",
+      "type": "bridge",
+      "label": "Wikipedia Section Class",
+      "position": {"x": -1120, "y": 0},
+      "width": 420,
+      "height": 220,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}, {"id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0}],
+      "data": {
+        "memo": "Create lazily materialized Wikipedia section instances.",
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-section.node-class.node",
+          "resourceKind": "node-class",
+          "role": "import",
+          "scope": "focused-graph",
+          "grants": ["create"]
+        },
+        "target": {"mode": "bridge", "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-section.node-class.node"},
+        "identity": {"graphId": "wikipedia-article-template"}
+      }
+    },
+    {
+      "id": "wikipedia-article-specimen",
+      "type": "wikipedia-article-source",
+      "label": "Wikipedia Article",
+      "root": false,
+      "position": {"x": -380, "y": -220},
+      "width": 680,
+      "height": 500,
+      "visible": true,
+      "showLabel": false,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {
+        "canonicalUrl": "https://en.wikipedia.org/wiki/Wikipedia",
+        "title": "Wikipedia",
+        "revisionId": "runtime",
+        "lead": "Runtime-resolved article lead appears here.",
+        "firstSection": {"id": "runtime-first", "title": "First section", "content": "The first useful article section is resolved into the detail surface."},
+        "sections": [],
+        "attribution": {"source": "Wikipedia", "license": "CC BY-SA", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"},
+        "dynamicPortContract": {
+          "sourcePath": "sections",
+          "idPath": "id",
+          "labelPath": "title",
+          "hoverLabel": true,
+          "onDrag": "instantiate wikipedia-section with articleUrl + section identity"
+        },
+        "definitionKey": "wikipedia-article-source",
+        "_classBinding": {"key": "wikipedia-article-source", "sourceRef": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node"},
+        "_bridge": {"classKey": "wikipedia-article-source", "classRef": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node", "entryPort": "root", "kind": "node-class", "sourceRef": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node", "targetKind": "node-class"},
+        "identity": {"graphId": "wikipedia-article-template"}
+      }
+    },
+    {
+      "id": "wikipedia-section-expansion-contract",
+      "type": "markdown",
+      "label": "Section Expansion Contract",
+      "position": {"x": 420, "y": -180},
+      "width": 600,
+      "height": 460,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {
+        "markdown": "## Section expansion\n\n1. Resolve the article shell and section manifest.\n2. Derive one **labeled dynamic handle** per section. The visible hover label is the section title.\n3. Dragging from a section handle instantiates a `wikipedia-section` node.\n4. Seed the new node with the parent article URL/title/revision plus section id/title/level/order/source locator.\n5. The new Section resolves its own body lazily.\n6. If it contains subsections, apply the same handle grammar recursively.\n\nThe template deliberately does **not** materialize the whole article graph up front. References, infoboxes, categories, images, and general link semantics stay outside v1.\n\n### Runtime boundary\n\nThe classes and instance contract are defined here. Runtime support still needs to read `dynamicPorts` / `dynamicPortContract` and turn section manifest entries into real labeled handles whose drag expansion instantiates the declared Section class."
+      }
+    },
+    {
+      "id": "wikipedia-template-runtime-controller",
+      "type": "script",
+      "label": "Wikipedia Section Expansion",
+      "position": {"x": 420, "y": 340},
+      "width": 600,
+      "height": 320,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "trigger", "label": "trigger", "direction": "input", "dataType": "trigger", "angle": 180}, {"id": "result", "label": "result", "direction": "output", "dataType": "value", "angle": 0}],
+      "data": {
+        "scriptId": "wikipedia-section-expansion",
+        "scriptName": "Wikipedia Section Expansion",
+        "allowMutations": true,
+        "dryRun": false,
+        "autoRun": false,
+        "autoRunOnLoad": false,
+        "autoRunOnGraphChange": false,
+        "memo": "Runtime integration point for resolving article manifests, creating labeled section handles, and instantiating Section nodes from drag expansion.",
+        "status": "contract-defined-runtime-pending",
+        "requirements": [
+          "Wikipedia article resolver",
+          "Dynamic handle derivation from a node data array",
+          "Hover labels sourced from section.title",
+          "Drag expansion event with originating dynamic handle metadata",
+          "Permission to instantiate wikipedia-section"
+        ],
+        "effects": [
+          "Populate article title, lead, revision, attribution, first section, and section manifest",
+          "Expose one labeled handle per section",
+          "Instantiate a transient Wikipedia Section from the dragged handle",
+          "Repeat recursively for subsections"
+        ],
+        "visibilityRole": "editor"
+      }
+    },
+    {
+      "id": "wikipedia-template-design-task-portal",
+      "type": "portal",
+      "label": "Wikipedia Template Design Task",
+      "position": {"x": -380, "y": 420},
+      "width": 520,
+      "height": 300,
+      "visible": true,
+      "showLabel": true,
+      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
+      "data": {
+        "memo": "Return to the task graph that designed this template.",
+        "authority": "navigate",
+        "intent": "external",
+        "src": "github://mikemartinez1974/public/tasks/wikipedia-browser-template-design/root.node",
+        "ref": "github://mikemartinez1974/public/tasks/wikipedia-browser-template-design/root.node",
+        "endpoint": "github://mikemartinez1974/public/tasks/wikipedia-browser-template-design/root.node:root",
+        "target": {"mode": "navigate", "ref": "github://mikemartinez1974/public/tasks/wikipedia-browser-template-design/root.node", "portId": "root", "surfaceId": "root", "label": "Open Wikipedia Template Design Task"},
+        "sourceRef": "github://mikemartinez1974/public/tasks/wikipedia-browser-template-design/root.node",
+        "sourceNodeId": "wikipedia-browser-template-design-root-port",
+        "sourcePayload": "node.web.summary",
+        "surfaceId": "root",
+        "identity": {"graphId": "wikipedia-article-template"},
+        "visibilityRole": "browser"
+      }
+    }
+  ],
+  "edges": [
+    {"id": "wiki-template-default-surface", "type": "reference", "source": "wikipedia-article-template-declaration", "target": "wikipedia-article-template-root-port", "sourcePort": "right", "targetPort": "root", "label": "default surface"},
+    {"id": "wiki-template-article-authority", "type": "reference", "source": "wikipedia-article-template-declaration", "target": "wikipedia-article-source-class-import", "sourcePort": "root", "targetPort": "root", "label": "article class"},
+    {"id": "wiki-template-section-authority", "type": "reference", "source": "wikipedia-article-template-declaration", "target": "wikipedia-section-class-import", "sourcePort": "root", "targetPort": "root", "label": "section class"},
+    {"id": "wiki-template-article-instance", "type": "reference", "source": "wikipedia-article-source-class-import", "target": "wikipedia-article-specimen", "sourcePort": "right", "targetPort": "root", "label": "instantiates"},
+    {"id": "wiki-template-expansion-contract", "type": "reference", "source": "wikipedia-article-specimen", "target": "wikipedia-section-expansion-contract", "sourcePort": "root", "targetPort": "root", "label": "expands sections"}
+  ],
+  "clusters": [],
+  "settings": {"autoSave": false},
+  "scripts": []
+}
