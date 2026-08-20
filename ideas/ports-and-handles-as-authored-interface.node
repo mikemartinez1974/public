@@ -159,7 +159,7 @@
           "payload": "node.web.summary"
         },
         "payload": "node.web.summary",
-        "html": "<div style='width:100%;height:100%;box-sizing:border-box;border-radius:30px;background:linear-gradient(145deg,#111827,#312e81);border:3px solid #a5b4fc;color:#fff;padding:34px;font-family:system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center'><div style='font-size:13px;font-weight:900;letter-spacing:.16em;color:#c7d2fe'>TWILITE INTERFACE MODEL</div><div style='font-size:39px;font-weight:950;line-height:1.08;margin-top:12px'>Ports receive. Handles act.</div><div style='font-size:18px;line-height:1.5;color:#e0e7ff;margin-top:20px'>The Declaration owns root entry and connects structurally to the Title surface. Authors arrange Ports and Handles around that pair; graph positions project onto the resulting node perimeter.</div></div>"
+        "html": "<div style='width:100%;height:100%;box-sizing:border-box;border-radius:30px;background:linear-gradient(145deg,#111827,#312e81);border:3px solid #a5b4fc;color:#fff;padding:34px;font-family:system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center'><div style='font-size:13px;font-weight:900;letter-spacing:.16em;color:#c7d2fe'>TWILITE INTERFACE MODEL</div><div style='font-size:39px;font-weight:950;line-height:1.08;margin-top:12px'>Ports receive. Handles act.</div><div style='font-size:18px;line-height:1.5;color:#e0e7ff;margin-top:20px'>The Title is the center. The Declaration establishes root direction and radius. Ports and Handles project to the boundary; portals and other content arrange inside it.</div></div>"
       }
     },
     {
@@ -275,9 +275,9 @@
         }
       ],
       "data": {
-        "title": "Author Receptive Ports and Operative Handles Around the Node Surface",
-        "description": "Introduce Handle as a primitive beside Port. Port primitives declare accepted semantic inputs. Handle primitives declare actions such as create, connect, navigate, materialize, invoke, or emit. Relationships bind actions to authorized targets. The Declaration owns the root Port and its title Handle connects to the Title node's receptive Port. That structural pair establishes root navigation and the coordinate frame used to project other interface primitives onto the node perimeter.",
-        "differentiator": "The interface becomes inspectable graph structure. Authors design logical flow and physical placement in the same space instead of managing unrelated angle, side, radius, and offset fields.",
+        "title": "Author Receptive Ports and Actionable Handle Ports Around the Node Surface",
+        "description": "Treat Port as the base endpoint primitive and Handle as its operative specialization: every Handle is a Port, but not every Port is a Handle. Plain Ports receive compatible connections. Handles retain that receptive Port identity, can initiate a drag, and may declare optional actions such as create, navigate, materialize, invoke, or emit. Relationships and their meanings remain on edges and edge classes. The Declaration owns the root Port and its title Handle connects to the Title node's receptive Port. The Title is the center of a circular interface frame; the Declaration's position establishes the root direction and frame radius. Ports and Handles project to the boundary, while portals and other content may be auto-arranged inside it. In three dimensions the same contract becomes a sphere.",
+        "differentiator": "The interface becomes inspectable graph structure. Authors design receptive endpoints, operative endpoints, logical flow, and physical placement in the same space. A Handle requires no separate matching Port because it already carries the Port contract.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
           "key": "idea-proposed-approach",
@@ -319,8 +319,8 @@
         }
       ],
       "data": {
-        "title": "Scoped Graph Geometry Can Be Functional Authoring Data",
-        "statement": "When a graph explicitly declares a node-interface design frame, the relative positions of Port and Handle primitives can safely control instance perimeter placement.",
+        "title": "A Bounded Interface Frame Can Make Graph Geometry Functional Safely",
+        "statement": "When a graph structurally declares a Title-centered interface frame whose radius is established by the Declaration, Port and Handle directions can control endpoint projection while ordinary portals and content remain freely arrangeable inside the boundary.",
         "importance": "critical",
         "status": "untested",
         "definitionKey": "idea-assumption",
@@ -368,7 +368,7 @@
         "question": "What structure establishes the geometric frame and the focus target when navigation enters through root?",
         "whyItMatters": "The anchor determines both placement math and the navigation affordance for entering a node's defining graph.",
         "status": "answered",
-        "answer": "The Declaration serves as the durable root Port. A Handle on the Declaration creates a typed structural edge to a receptive Port on the Title node. The Declaration and Title positions establish the interface coordinate frame, while the Title bounds establish the projected node body. Navigation entering through root resolves the Declaration and follows that structural relationship to focus the Title node.",
+        "answer": "The Declaration serves as the durable root Port. A Handle on the Declaration creates a typed structural edge to a receptive Port on the Title node. The Title position is the frame center. The vector from Title to Declaration establishes the root direction, and their distance establishes the circular frame radius. Ports and Handles project onto that boundary. Navigation entering through root resolves the Declaration and follows the structural title relationship to focus the Title node. In three dimensions, the circle becomes a sphere and the same vector math applies.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -410,11 +410,11 @@
         }
       ],
       "data": {
-        "title": "Does an Operative Handle Require a Matching Receptive Port?",
-        "question": "For a bidirectional relationship, should every operative Handle be paired with a matching receptive Port for the same semantic channel? The Handle would initiate an action or connection and the Port would accept the reciprocal interaction, while the edge or edge class—not the Handle—continues to own the relationship meaning.",
-        "whyItMatters": "A required or explicitly declared Handle/Port pair could preserve current bidirectional behavior without making Handles own relationships. It would also make the node's outgoing affordance and incoming listener independently visible and placeable in the authoring graph.",
-        "status": "open",
-        "answer": "",
+        "title": "Is a Handle a Port with Additional Functionality?",
+        "question": "Does bidirectional interaction require a separate matching Port for each Handle, or can Handle formally specialize Port while relationship meaning remains on the edge?",
+        "whyItMatters": "The answer determines whether authors maintain paired endpoint primitives or one endpoint with an optional operative capability.",
+        "status": "answered",
+        "answer": "A Handle is a Port with additional operative functionality. Every Handle retains a receptive Port identity, can initiate a drag, and may declare optional gesture actions. Not every Port is a Handle. No separate matching Port is required. Dropping a Handle on an existing compatible Port creates an edge; dropping it on empty canvas performs its declared empty-drop action or does nothing. The edge or edge class—not the Handle—owns relationship meaning.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -457,11 +457,11 @@
       ],
       "data": {
         "title": "Automatic Layout Could Accidentally Rewrite the Interface",
-        "description": "If ordinary node movement is treated as functional geometry, auto-layout, cleanup, or incidental dragging could move runtime endpoints and destabilize existing diagrams.",
+        "description": "If boundary primitives and interior presentation content participate in the same unconstrained layout pass, auto-layout, cleanup, or incidental dragging could rotate runtime endpoints and silently redesign the node interface.",
         "severity": "high",
         "likelihood": "medium",
         "impact": "high",
-        "mitigation": "Only project geometry inside an explicit interface-design frame. Preserve semantic role independently, store normalized derived placement, lock or deliberately version functional layout, and warn before auto-layout changes the frame.",
+        "mitigation": "Treat Title, Declaration, Ports, and Handles as structural boundary participants. Title remains the center; Declaration fixes root direction and radius; Port and Handle directions are protected. Auto-layout packs portals and other content only inside the circle and may translate or scale the frame as a unit without changing boundary directions. In 3D, apply the same rule to the enclosing sphere.",
         "definitionKey": "idea-risk",
         "_classBinding": {
           "key": "idea-risk",
@@ -504,8 +504,8 @@
       ],
       "data": {
         "title": "Build the Handle Primitive and One Projection Smoke Test",
-        "action": "Define the Handle primitive, Handle-to-Port edge contract, action-target authority, and graph-position projection. Upgrade the Dynamic Port Expansion smoke graph so three authored section records project three Handles that create Wikipedia Section nodes and connect to their receptive Ports.",
-        "expectedEvidence": "The class graph visibly explains what the node accepts, what actions it offers, and where those affordances appear. Runtime instances contain no unexplained synthetic side handles and require no manually authored angle, side, radius, or offset.",
+        "action": "Define Port as the base endpoint primitive and Handle as its operative specialization. Define the Title-centered circular interface frame, Declaration-derived root direction and radius, Handle-to-Port edge creation, optional empty-drop actions, and action-target authority. Upgrade the Dynamic Port Expansion smoke graph so three authored section records project three Handles onto the boundary, create Wikipedia Section nodes, and connect to their receiving Ports.",
+        "expectedEvidence": "The class graph visibly explains what the node accepts, which Ports are actionable Handles, what optional actions they offer, and where those endpoints project on the circle. Auto-layout arranges portals and other content inside the frame without changing endpoint directions. Runtime instances contain no unexplained synthetic side handles, redundant matching Ports, or manually authored angle, side, radius, or offset.",
         "status": "todo",
         "definitionKey": "idea-next-step",
         "_classBinding": {
@@ -550,7 +550,7 @@
         "identity": {
           "graphId": "ports-and-handles-as-authored-interface"
         },
-        "markdown": "# Projection geometry\n\nLet the Declaration center be `D` and the connected Title-node center be `T`. The vector `D -> T` establishes the local entry axis. The Title node's width and height establish the projected node body.\n\nFor an authored Port or Handle primitive with center `Q`:\n\n1. Translate `Q` relative to `T`.\n2. Rotate that vector into the local frame established by `D -> T`.\n3. Cast a ray from the Title center through the transformed primitive position.\n4. Intersect the ray with the Title rectangle perimeter. For relative vector `d = (dx, dy)`: `scale = min((w/2)/abs(dx), (h/2)/abs(dy))`, using only defined nonzero terms, then `P = T + scale * d`.\n5. Convert `P` into a normalized perimeter coordinate.\n6. At runtime, map that normalized coordinate onto the rendered node bounds or shape perimeter.\n\nThe authored graph supplies one intuitive degree of freedom: **where the primitive is placed relative to the Declaration/Title frame**. New contracts do not independently author `angle`, `side`, `offset`, and `radius`.\n\nSemantic role remains explicit. Geometry controls presentation, not whether a primitive receives or acts."
+        "markdown": "# Circular interface geometry\n\nLet the Title position be the center `C`. Let the Declaration position be `D`.\n\n`rootDirection = normalize(D - C)`\n\n`radius = length(D - C)`\n\nThe Declaration is therefore the root point on the authored interaction boundary. For a Port or Handle primitive at position `Q`:\n\n`direction = normalize(Q - C)`\n\n`boundaryPoint = C + radius * direction`\n\nOnly the primitive's direction from the Title determines its projected endpoint position. Its authored distance from the Title may be chosen for graph readability.\n\n## Layout domains\n\n- **Boundary participants:** Declaration, Ports, and Handles. Their directions are functional and protected from ordinary auto-layout.\n- **Center:** Title. Root navigation focuses it.\n- **Interior participants:** portals, documentation, examples, implementation nodes, and other presentation content. Auto-layout may arrange these within the circle.\n- **Whole frame:** may translate or scale as a unit without changing normalized endpoint directions.\n\nThe circular frame is shape-independent. At runtime, each normalized direction may be intersected with a rectangle, rounded card, circle, SVG silhouette, or another rendered node boundary.\n\n## Three dimensions\n\nReplace 2D vectors with 3D vectors. Title remains center, the Title-to-Declaration distance establishes the radius, Ports and Handles project to the sphere, and content arranges within the enclosed ball. A global up vector or later orientation anchor may be used for camera and label orientation, but endpoint projection needs only the center and each primitive's direction."
       }
     },
     {
@@ -578,7 +578,7 @@
         "identity": {
           "graphId": "ports-and-handles-as-authored-interface"
         },
-        "markdown": "# Authored node interface\n\n```text\n[Declaration: root Port]\n          |\n          +-- [title Handle] --> [Title: receptive Port]\n                                      |\n                    [Handle: History] | [Handle: Applications]\n                         creates      |      creates\n                                      |\n                              [Port: Source]\n                               accepts any\n```\n\n- The **Declaration** is the durable root receiving endpoint.\n- Its **title Handle -> Title Port** edge establishes presentation, focus delegation, and the geometric frame.\n- **Port primitives** describe what the node listens for.\n- **Handle primitives** describe available graph actions.\n- **Handle -> Port** is the canonical connection direction.\n- **Handle -> class/surface/capability** relationships describe behavior, but relationship meaning remains on the edge or edge class.\n- Primitive placement around the Declaration/Title frame becomes instance perimeter placement.\n\nOpen question: when an interaction is bidirectional, should its Handle be paired with a matching receptive Port for the same semantic channel?"
+        "markdown": "# Authored node interface\n\n```text\n                         [Handle]\n                            *\n                    .---------------.\n                Port*                 *Handle\n                  /                     \\\n                 |   Portal   Content   |\n                 |      o       o       |\n                 |        [Title]       |\n                 |           O          |\n                  \\                     /\n                   *-------------------'\n              [Declaration: root Port]\n```\n\n- **Title** is the center and root focus target.\n- **Declaration** is the durable root Port and establishes the root boundary direction and radius.\n- A plain **Port** receives compatible connections.\n- A **Handle** is a Port that can initiate interaction and may declare optional actions.\n- Ports and Handles project to the circular boundary from their directions relative to Title.\n- Portals consume surfaces but remain ordinary movable interior content.\n- **Handle -> Port** is the canonical connection direction.\n- Relationship meaning remains on the edge or edge class.\n- In three dimensions the same authored boundary becomes a sphere."
       }
     },
     {
