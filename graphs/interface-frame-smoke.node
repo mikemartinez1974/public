@@ -29,26 +29,53 @@
               "portNodeId": "interface-frame-smoke-view",
               "viewNodeId": "interface-frame-smoke-view",
               "exposes": { "views": { "mode": "allow" } }
+            },
+            {
+              "id": "action",
+              "kind": "port",
+              "label": "Action Port",
+              "portNodeId": "interface-frame-smoke-action-port",
+              "viewNodeId": "interface-frame-smoke-action-port",
+              "exposes": { "views": { "mode": "allow" } }
             }
           ]
         }
       },
-      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "value", "side": "top", "offset": 0.5 }]
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "value", "side": "top", "offset": 0.5 },
+        { "id": "action", "label": "action", "direction": "bidirectional", "dataType": "any", "side": "left", "offset": 0.5 }
+      ]
     },
     {
       "id": "interface-frame-smoke-title",
-      "type": "title",
+      "type": "markdown",
       "label": "Authored Interface Frame",
       "position": { "x": 80, "y": 80 },
       "width": 320,
       "height": 160,
       "data": {
-        "title": "Authored Interface Frame",
-        "subtitle": "Title is the structural center; root orientation points toward the Declaration.",
-        "intent": "smoke-test",
+        "markdown": "# Authored Interface Frame\n\nThis ordinary Markdown node has the Title role because it is the target of the Declaration's `title` relationship.",
         "identity": { "graphId": "interface-frame-smoke" }
       },
       "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "value", "side": "bottom", "offset": 0.5 }]
+    },
+    {
+      "id": "interface-frame-smoke-action-port",
+      "type": "port",
+      "label": "Action Port",
+      "position": { "x": -300, "y": 80 },
+      "width": 260,
+      "height": 180,
+      "data": {
+        "portId": "action",
+        "surfaceId": "action",
+        "payload": "node.web",
+        "intent": "node",
+        "accepts": ["any"],
+        "identity": { "graphId": "interface-frame-smoke" },
+        "memo": "Second authored Port for inspecting how graph position should project onto the node interface."
+      },
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "side": "right", "offset": 0.5 }]
     },
     {
       "id": "interface-frame-smoke-view",
@@ -89,8 +116,17 @@
       "sourcePort": "root",
       "targetPort": "root",
       "type": "reference",
-      "label": "root title",
-      "data": { "role": "interface-title", "structural": true }
+      "label": "title",
+      "data": { "role": "title", "structural": true }
+    },
+    {
+      "id": "interface-frame-smoke-action-surface",
+      "source": "interface-frame-smoke-declaration",
+      "target": "interface-frame-smoke-action-port",
+      "sourcePort": "action",
+      "targetPort": "root",
+      "type": "reference",
+      "label": "action surface"
     },
     {
       "id": "interface-frame-smoke-default-surface",
@@ -111,6 +147,6 @@
       "label": "explains"
     }
   ],
-  "nodeCount": 4,
-  "edgeCount": 3
+  "nodeCount": 5,
+  "edgeCount": 4
 }
