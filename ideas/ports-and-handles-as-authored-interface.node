@@ -159,7 +159,7 @@
           "payload": "node.web.summary"
         },
         "payload": "node.web.summary",
-        "html": "<div style='width:100%;height:100%;box-sizing:border-box;border-radius:30px;background:linear-gradient(145deg,#111827,#312e81);border:3px solid #a5b4fc;color:#fff;padding:34px;font-family:system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center'><div style='font-size:13px;font-weight:900;letter-spacing:.16em;color:#c7d2fe'>TWILITE INTERFACE MODEL</div><div style='font-size:39px;font-weight:950;line-height:1.08;margin-top:12px'>Ports receive. Handles act.</div><div style='font-size:18px;line-height:1.5;color:#e0e7ff;margin-top:20px'>Authors arrange both primitives around a root or title surface. Their graph positions are projected onto the resulting node perimeter.</div></div>"
+        "html": "<div style='width:100%;height:100%;box-sizing:border-box;border-radius:30px;background:linear-gradient(145deg,#111827,#312e81);border:3px solid #a5b4fc;color:#fff;padding:34px;font-family:system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center'><div style='font-size:13px;font-weight:900;letter-spacing:.16em;color:#c7d2fe'>TWILITE INTERFACE MODEL</div><div style='font-size:39px;font-weight:950;line-height:1.08;margin-top:12px'>Ports receive. Handles act.</div><div style='font-size:18px;line-height:1.5;color:#e0e7ff;margin-top:20px'>The Declaration owns root entry and connects structurally to the Title surface. Authors arrange Ports and Handles around that pair; graph positions project onto the resulting node perimeter.</div></div>"
       }
     },
     {
@@ -276,7 +276,7 @@
       ],
       "data": {
         "title": "Author Receptive Ports and Operative Handles Around the Node Surface",
-        "description": "Introduce Handle as a primitive beside Port. Port primitives declare accepted semantic inputs. Handle primitives declare actions such as create, connect, navigate, materialize, invoke, or emit. Relationships bind actions to authorized targets. The compiler projects primitive positions relative to the root or title surface onto the node perimeter.",
+        "description": "Introduce Handle as a primitive beside Port. Port primitives declare accepted semantic inputs. Handle primitives declare actions such as create, connect, navigate, materialize, invoke, or emit. Relationships bind actions to authorized targets. The Declaration owns the root Port and its title Handle connects to the Title node's receptive Port. That structural pair establishes root navigation and the coordinate frame used to project other interface primitives onto the node perimeter.",
         "differentiator": "The interface becomes inspectable graph structure. Authors design logical flow and physical placement in the same space instead of managing unrelated angle, side, radius, and offset fields.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
@@ -365,10 +365,10 @@
       ],
       "data": {
         "title": "What Is the Geometric and Navigational Anchor?",
-        "question": "Should interface primitives project relative to the declared root surface, the title surface, or a dedicated node-body frame? If the title surface is the anchor, should activating it navigate into the node-description graph while root remains the durable address?",
+        "question": "What structure establishes the geometric frame and the focus target when navigation enters through root?",
         "whyItMatters": "The anchor determines both placement math and the navigation affordance for entering a node's defining graph.",
-        "status": "open",
-        "answer": "",
+        "status": "answered",
+        "answer": "The Declaration serves as the durable root Port. A Handle on the Declaration creates a typed structural edge to a receptive Port on the Title node. The Declaration and Title positions establish the interface coordinate frame, while the Title bounds establish the projected node body. Navigation entering through root resolves the Declaration and follows that structural relationship to focus the Title node.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -410,9 +410,9 @@
         }
       ],
       "data": {
-        "title": "How Explicit Should Direction Remain?",
-        "question": "Ports are receptive and Handles are operative, but should compatible types and graph relationships fully determine direction, or should each primitive retain an explicit receive/act role for validation and accessibility?",
-        "whyItMatters": "Spatial placement should communicate flow without making ordinary layout edits silently change semantics.",
+        "title": "Does an Operative Handle Require a Matching Receptive Port?",
+        "question": "For a bidirectional relationship, should every operative Handle be paired with a matching receptive Port for the same semantic channel? The Handle would initiate an action or connection and the Port would accept the reciprocal interaction, while the edge or edge class—not the Handle—continues to own the relationship meaning.",
+        "whyItMatters": "A required or explicitly declared Handle/Port pair could preserve current bidirectional behavior without making Handles own relationships. It would also make the node's outgoing affordance and incoming listener independently visible and placeable in the authoring graph.",
         "status": "open",
         "answer": "",
         "definitionKey": "idea-question",
@@ -550,7 +550,7 @@
         "identity": {
           "graphId": "ports-and-handles-as-authored-interface"
         },
-        "markdown": "# Projection geometry\\n\\nLet the chosen node-body anchor have center `C = (cx, cy)`, width `w`, and height `h`. Let an authored Port or Handle primitive have center `Q = (qx, qy)`.\\n\\n1. Compute the relative vector `d = Q - C`.\\n2. Cast the ray from `C` through `Q`.\\n3. Intersect that ray with the anchor rectangle perimeter:\\n\\n`scale = min((w/2)/abs(dx), (h/2)/abs(dy))` using only defined nonzero terms.\\n\\n`P = C + scale * d`\\n\\n4. Convert `P` to a normalized perimeter coordinate.\\n5. At runtime, map that normalized coordinate onto the rendered node bounds or shape perimeter.\\n\\nThe authored graph therefore supplies one intuitive degree of freedom: **where the primitive is placed relative to the node body**. New contracts do not independently author `angle`, `side`, `offset`, and `radius`.\\n\\nSemantic role remains explicit. Geometry controls presentation, not whether the primitive receives or acts."
+        "markdown": "# Projection geometry\n\nLet the Declaration center be `D` and the connected Title-node center be `T`. The vector `D -> T` establishes the local entry axis. The Title node's width and height establish the projected node body.\n\nFor an authored Port or Handle primitive with center `Q`:\n\n1. Translate `Q` relative to `T`.\n2. Rotate that vector into the local frame established by `D -> T`.\n3. Cast a ray from the Title center through the transformed primitive position.\n4. Intersect the ray with the Title rectangle perimeter. For relative vector `d = (dx, dy)`: `scale = min((w/2)/abs(dx), (h/2)/abs(dy))`, using only defined nonzero terms, then `P = T + scale * d`.\n5. Convert `P` into a normalized perimeter coordinate.\n6. At runtime, map that normalized coordinate onto the rendered node bounds or shape perimeter.\n\nThe authored graph supplies one intuitive degree of freedom: **where the primitive is placed relative to the Declaration/Title frame**. New contracts do not independently author `angle`, `side`, `offset`, and `radius`.\n\nSemantic role remains explicit. Geometry controls presentation, not whether a primitive receives or acts."
       }
     },
     {
@@ -578,7 +578,7 @@
         "identity": {
           "graphId": "ports-and-handles-as-authored-interface"
         },
-        "markdown": "# Authored node interface\\n\\n```text\\n                    [Handle: History]\\n                           | creates\\n[Port: Source]   [Root or Title Surface]   [Handle: Applications]\\n  accepts any                                | creates\\n                           |                 v\\n                    [Handle: Definitions]  [Wikipedia Section Class]\\n```\\n\\n- **Port primitives** describe what the node listens for.\\n- **Handle primitives** describe available graph actions.\\n- **Handle -> Port** is the canonical connection direction.\\n- **Handle -> class/surface/capability** relationships describe behavior.\\n- Primitive placement around the surface becomes instance perimeter placement.\\n\\nThe title/root surface is not merely decoration: it may become the spatial anchor and the navigation affordance into the graph that defines the node."
+        "markdown": "# Authored node interface\n\n```text\n[Declaration: root Port]\n          |\n          +-- [title Handle] --> [Title: receptive Port]\n                                      |\n                    [Handle: History] | [Handle: Applications]\n                         creates      |      creates\n                                      |\n                              [Port: Source]\n                               accepts any\n```\n\n- The **Declaration** is the durable root receiving endpoint.\n- Its **title Handle -> Title Port** edge establishes presentation, focus delegation, and the geometric frame.\n- **Port primitives** describe what the node listens for.\n- **Handle primitives** describe available graph actions.\n- **Handle -> Port** is the canonical connection direction.\n- **Handle -> class/surface/capability** relationships describe behavior, but relationship meaning remains on the edge or edge class.\n- Primitive placement around the Declaration/Title frame becomes instance perimeter placement.\n\nOpen question: when an interaction is bidirectional, should its Handle be paired with a matching receptive Port for the same semantic channel?"
       }
     },
     {
