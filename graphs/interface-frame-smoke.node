@@ -1,0 +1,116 @@
+{
+  "type": "nodegraph-data",
+  "metadata": {
+    "title": "Authored Interface Frame Smoke Test",
+    "description": "Graph Lab proof that edit mode replaces the watermark with a zoom-1 node outline derived from the default surface and oriented by the Declaration-to-Title relationship.",
+    "tags": ["graph-lab", "smoke-test", "edit-mode", "interface-frame", "title", "declaration"]
+  },
+  "nodes": [
+    {
+      "id": "interface-frame-smoke-declaration",
+      "type": "declaration",
+      "label": "Interface Frame Declaration",
+      "position": { "x": 80, "y": 420 },
+      "width": 320,
+      "height": 180,
+      "data": {
+        "identity": { "nodeId": "interface-frame-smoke", "graphId": "interface-frame-smoke" },
+        "intent": { "kind": "smoke-test", "scope": "graph-lab" },
+        "declaration": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "artifactKind": "smoke-test",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Root",
+              "portNodeId": "interface-frame-smoke-view",
+              "viewNodeId": "interface-frame-smoke-view",
+              "exposes": { "views": { "mode": "allow" } }
+            }
+          ]
+        }
+      },
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "value", "side": "top", "offset": 0.5 }]
+    },
+    {
+      "id": "interface-frame-smoke-title",
+      "type": "title",
+      "label": "Authored Interface Frame",
+      "position": { "x": 80, "y": 80 },
+      "width": 320,
+      "height": 160,
+      "data": {
+        "title": "Authored Interface Frame",
+        "subtitle": "Title is the structural center; root orientation points toward the Declaration.",
+        "intent": "smoke-test",
+        "identity": { "graphId": "interface-frame-smoke" }
+      },
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "value", "side": "bottom", "offset": 0.5 }]
+    },
+    {
+      "id": "interface-frame-smoke-view",
+      "type": "port",
+      "label": "Zoom-1 Node Surface: 420 × 260",
+      "position": { "x": 600, "y": 80 },
+      "width": 420,
+      "height": 260,
+      "data": {
+        "portId": "root",
+        "surfaceId": "root",
+        "payload": "node.web",
+        "intent": "node",
+        "identity": { "graphId": "interface-frame-smoke" },
+        "memo": "These authored dimensions define the projected zoom-1 node outline. Moving the Declaration must not resize it."
+      },
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "value", "side": "left", "offset": 0.5 }]
+    },
+    {
+      "id": "interface-frame-smoke-instructions",
+      "type": "markdown",
+      "label": "Smoke Test",
+      "position": { "x": 600, "y": 420 },
+      "width": 520,
+      "height": 300,
+      "data": {
+        "identity": { "graphId": "interface-frame-smoke" },
+        "markdown": "# Smoke test\n\n1. Open this graph and switch to **Edit** mode.\n2. The Twilite watermark should disappear.\n3. A dashed **420 × 260** node outline should appear centered on the Title node.\n4. A root-direction line should run downward from Title toward the Declaration and meet the outline at its bottom edge.\n5. Drag the Declaration farther down. The direction marker should remain downward and the outline must remain 420 × 260 graph units.\n6. Switch to Browse mode. The interface outline should disappear."
+      },
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "value", "side": "left", "offset": 0.5 }]
+    }
+  ],
+  "edges": [
+    {
+      "id": "interface-frame-smoke-root-title",
+      "source": "interface-frame-smoke-declaration",
+      "target": "interface-frame-smoke-title",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "type": "reference",
+      "label": "root title",
+      "data": { "role": "interface-title", "structural": true }
+    },
+    {
+      "id": "interface-frame-smoke-default-surface",
+      "source": "interface-frame-smoke-declaration",
+      "target": "interface-frame-smoke-view",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "type": "reference",
+      "label": "default surface"
+    },
+    {
+      "id": "interface-frame-smoke-explains",
+      "source": "interface-frame-smoke-title",
+      "target": "interface-frame-smoke-instructions",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "type": "reference",
+      "label": "explains"
+    }
+  ],
+  "nodeCount": 4,
+  "edgeCount": 3
+}
