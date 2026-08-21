@@ -1,124 +1,830 @@
 {
-  "type": "nodegraph-data",
+  "fileVersion": "1.0",
   "metadata": {
-    "title": "Authored Interface Frame Smoke Test",
-    "description": "Graph Lab proof that edit mode replaces the watermark with a zoom-1 node outline centered, oriented, and sized by the Declaration's default-view relationship.",
-    "tags": ["graph-lab", "smoke-test", "edit-mode", "interface-frame", "title", "declaration"]
+    "title": "Node Composition Smoke Test",
+    "description": "A real authored two-Port node specimen proving shared and Port-specific presentation resolution.",
+    "graphId": "interface-frame-smoke",
+    "version": "2.0.0",
+    "kind": "smoke-test",
+    "tags": [
+      "graph-lab",
+      "smoke-test",
+      "node-composition",
+      "ports",
+      "semantic-zoom"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
   },
   "nodes": [
     {
       "id": "interface-frame-smoke-declaration",
       "type": "declaration",
-      "label": "Interface Frame Declaration",
-      "position": { "x": 80, "y": 420 },
-      "width": 320,
-      "height": 180,
+      "label": "Composition Smoke Declaration",
+      "position": {
+        "x": -760,
+        "y": 40
+      },
+      "width": 380,
+      "height": 280,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "action",
+          "label": "action",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 0
+        },
+        {
+          "id": "detail",
+          "label": "detail",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 315
+        },
+        {
+          "id": "summary",
+          "label": "summary",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 335
+        },
+        {
+          "id": "icon",
+          "label": "icon",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 25
+        },
+        {
+          "id": "glyph",
+          "label": "glyph",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 45
+        }
+      ],
       "data": {
-        "identity": { "nodeId": "interface-frame-smoke", "graphId": "interface-frame-smoke" },
-        "intent": { "kind": "smoke-test", "scope": "graph-lab" },
+        "identity": {
+          "nodeId": "composition-smoke-node",
+          "graphId": "interface-frame-smoke",
+          "name": "Composition Smoke Node",
+          "version": "2.0.0",
+          "description": "Two authored Ports with shared and specialized semantic presentations."
+        },
+        "intent": {
+          "kind": "node-class-smoke-test",
+          "scope": "graph-lab"
+        },
         "declaration": {
-          "kind": "graph",
+          "kind": "node-class",
           "targetMode": "artifact",
           "artifactKind": "smoke-test",
-          "interfaceFrame": { "shape": "rounded-rectangle", "aspectRatio": 1.6153846153846154 },
+          "defaultSurfaceId": "root",
+          "interfaceFrame": {
+            "shape": "rounded-rectangle",
+            "aspectRatio": 1.6153846153846154
+          },
+          "sharedPresentation": {
+            "detailViewNodeId": "composition-smoke-shared-detail",
+            "summaryViewNodeId": "composition-smoke-shared-summary",
+            "iconViewNodeId": "composition-smoke-shared-icon",
+            "glyphViewNodeId": "composition-smoke-shared-glyph"
+          },
           "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Root",
+              "portNodeId": "composition-smoke-root-port",
+              "viewNodeId": "composition-smoke-root-port",
+              "handle": {
+                "angle": 210
+              },
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            },
             {
               "id": "action",
               "kind": "port",
-              "label": "Action Port",
-              "portNodeId": "interface-frame-smoke-action-port",
-              "viewNodeId": "interface-frame-smoke-action-port",
-              "exposes": { "views": { "mode": "allow" } }
+              "label": "Action",
+              "portNodeId": "composition-smoke-action-port",
+              "viewNodeId": "composition-smoke-action-port",
+              "handle": {
+                "angle": 0
+              },
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
             }
           ]
+        },
+        "dependencies": {
+          "nodeTypes": [
+            "declaration",
+            "port",
+            "view",
+            "markdown"
+          ],
+          "portContracts": [
+            "core",
+            "node-composition"
+          ],
+          "schemaVersions": {
+            "nodes": ">=1.0.0",
+            "ports": ">=1.0.0"
+          }
         }
-      },
-      "ports": [
-        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "value", "side": "top", "offset": 0.5 },
-        { "id": "action", "label": "action", "direction": "bidirectional", "dataType": "any", "side": "left", "offset": 0.5 }
-      ]
+      }
     },
     {
-      "id": "interface-frame-smoke-root",
-      "type": "view",
-      "label": "Root / Default View",
-      "position": { "x": 80, "y": 80 },
+      "id": "composition-smoke-root-port",
+      "type": "port",
+      "label": "Root Port",
+      "position": {
+        "x": -320,
+        "y": -150
+      },
       "width": 320,
-      "height": 160,
+      "height": 210,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 0
+        }
+      ],
       "data": {
-        "identity": { "graphId": "interface-frame-smoke" },
-        "key": "node.web",
+        "identity": {
+          "nodeId": "composition-smoke-node",
+          "graphId": "interface-frame-smoke",
+          "portId": "root",
+          "name": "Root"
+        },
+        "portId": "root",
+        "surfaceId": "root",
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "payload": "node.web.detail",
         "intent": "node",
-        "payload": "node.web",
-        "semanticLevel": "detail",
-        "view": { "intent": "node", "payload": "node.web" },
-        "renderShape": { "kind": "markdown", "sourcePath": "node.web" },
-        "markdown": "# Authored Interface Frame\n\nThis View supplies the root node's default surface because it is the target of the Declaration's `default-view` relationship."
-      },
-      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "value", "side": "bottom", "offset": 0.5 }]
+        "accepts": [
+          "any"
+        ],
+        "presentation": {
+          "detail": {
+            "mode": "delegate",
+            "scope": "shared",
+            "viewNodeId": "composition-smoke-shared-detail"
+          },
+          "summary": {
+            "mode": "fallback",
+            "scope": "shared",
+            "viewNodeId": "composition-smoke-shared-summary"
+          },
+          "icon": {
+            "mode": "shared",
+            "viewNodeId": "composition-smoke-shared-icon"
+          },
+          "glyph": {
+            "mode": "shared",
+            "viewNodeId": "composition-smoke-shared-glyph"
+          }
+        },
+        "memo": "Public root interface. Explicitly delegates Detail and uses shared Summary, Icon, and Glyph."
+      }
     },
     {
-      "id": "interface-frame-smoke-action-port",
+      "id": "composition-smoke-action-port",
       "type": "port",
       "label": "Action Port",
-      "position": { "x": -300, "y": 80 },
-      "width": 260,
-      "height": 180,
+      "position": {
+        "x": 440,
+        "y": 40
+      },
+      "width": 320,
+      "height": 230,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 0
+        }
+      ],
       "data": {
+        "identity": {
+          "nodeId": "composition-smoke-node",
+          "graphId": "interface-frame-smoke",
+          "portId": "action",
+          "name": "Action"
+        },
         "portId": "action",
         "surfaceId": "action",
-        "payload": "node.web",
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "payload": "node.web.detail",
         "intent": "node",
-        "accepts": ["any"],
-        "identity": { "graphId": "interface-frame-smoke" },
-        "memo": "Second authored Port for inspecting how graph position should project onto the node interface."
-      },
-      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "side": "right", "offset": 0.5 }]
+        "accepts": [
+          "any"
+        ],
+        "presentation": {
+          "detail": {
+            "mode": "own",
+            "viewNodeId": "composition-smoke-action-detail"
+          },
+          "summary": {
+            "mode": "own",
+            "viewNodeId": "composition-smoke-action-summary"
+          },
+          "icon": {
+            "mode": "shared",
+            "viewNodeId": "composition-smoke-shared-icon"
+          },
+          "glyph": {
+            "mode": "shared",
+            "viewNodeId": "composition-smoke-shared-glyph"
+          }
+        },
+        "behaviors": [
+          {
+            "id": "create-action-target",
+            "trigger": "drag-create",
+            "action": "emit-port-drop-context",
+            "returns": [
+              "node",
+              "port",
+              "graphCoordinates"
+            ]
+          }
+        ],
+        "memo": "Specialized interface. Owns Detail and Summary; shares Icon and Glyph."
+      }
     },
     {
-      "id": "interface-frame-smoke-instructions",
-      "type": "markdown",
-      "label": "Smoke Test",
-      "position": { "x": 600, "y": 420 },
-      "width": 520,
-      "height": 300,
-      "data": {
-        "identity": { "graphId": "interface-frame-smoke" },
-        "markdown": "# Smoke test\n\n1. Open the bare graph address or enter through its root Port. The **Root / Default View** node should receive focus.\n2. Switch to **Edit** mode. The Twilite watermark should disappear.\n3. The root View is the default surface because it is the target of the Declaration's `default-view` relationship.\n4. A rounded node outline should appear centered on that View.\n5. A root-direction line should run from the default View toward the Declaration and meet the outline at its bottom edge.\n6. Drag the Declaration farther down. The outline should grow while preserving its 420:260 aspect ratio.\n7. The additional Action Port should remain projected on the boundary.\n8. Navigating explicitly through `:action` should focus the Action Port instead.\n9. Switch to Browse mode. The interface outline should disappear."
+      "id": "composition-smoke-shared-detail",
+      "type": "view",
+      "label": "Shared Detail",
+      "position": {
+        "x": -80,
+        "y": -360
       },
-      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "value", "side": "left", "offset": 0.5 }]
+      "width": 380,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 0
+        }
+      ],
+      "data": {
+        "identity": {
+          "nodeId": "composition-smoke-node",
+          "graphId": "interface-frame-smoke"
+        },
+        "key": "node.web.detail",
+        "intent": "node",
+        "payload": "node.web.detail",
+        "semanticLevel": "detail",
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "renderShape": {
+          "kind": "html"
+        },
+        "html": "<article style='height:100%;box-sizing:border-box;padding:22px;border-radius:24px;background:#eff6ff;color:#172554;border:3px solid #60a5fa;font-family:system-ui'><small>SHARED DETAIL</small><h1>Composition Smoke Node</h1><p>Root delegates here explicitly. This is also the graph's default-view focus target.</p></article>"
+      }
+    },
+    {
+      "id": "composition-smoke-shared-summary",
+      "type": "view",
+      "label": "Shared Summary",
+      "position": {
+        "x": -40,
+        "y": 430
+      },
+      "width": 380,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 0
+        }
+      ],
+      "data": {
+        "identity": {
+          "nodeId": "composition-smoke-node",
+          "graphId": "interface-frame-smoke"
+        },
+        "key": "node.web.summary",
+        "intent": "node",
+        "payload": "node.web.summary",
+        "semanticLevel": "summary",
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "renderShape": {
+          "kind": "html"
+        },
+        "html": "<article style='height:100%;box-sizing:border-box;padding:18px;border-radius:20px;background:#172554;color:white;border:3px solid #93c5fd;font-family:system-ui'><small>SHARED SUMMARY</small><h2>Composition Smoke Node</h2><p>Used when the active Port does not own a Summary override.</p></article>"
+      }
+    },
+    {
+      "id": "composition-smoke-shared-icon",
+      "type": "view",
+      "label": "Shared Icon",
+      "position": {
+        "x": 400,
+        "y": 430
+      },
+      "width": 380,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 0
+        }
+      ],
+      "data": {
+        "identity": {
+          "nodeId": "composition-smoke-node",
+          "graphId": "interface-frame-smoke"
+        },
+        "key": "node.web.icon",
+        "intent": "node",
+        "payload": "node.web.icon",
+        "semanticLevel": "icon",
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "renderShape": {
+          "kind": "html"
+        },
+        "html": "<div style='height:100%;display:grid;place-content:center;text-align:center;border-radius:28px;background:#312e81;color:white;border:4px solid #c4b5fd;font-family:system-ui'><div style='font-size:54px'>◉</div><b>COMPOSED NODE</b><small>SHARED ICON</small></div>"
+      }
+    },
+    {
+      "id": "composition-smoke-shared-glyph",
+      "type": "view",
+      "label": "Shared Glyph",
+      "position": {
+        "x": 840,
+        "y": 430
+      },
+      "width": 380,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 0
+        }
+      ],
+      "data": {
+        "identity": {
+          "nodeId": "composition-smoke-node",
+          "graphId": "interface-frame-smoke"
+        },
+        "key": "node.web.glyph",
+        "intent": "node",
+        "payload": "node.web.glyph",
+        "semanticLevel": "glyph",
+        "view": {
+          "intent": "node",
+          "payload": "node.web.glyph"
+        },
+        "renderShape": {
+          "kind": "html"
+        },
+        "html": "<div style='height:100%;display:grid;place-content:center;text-align:center;border-radius:999px;background:#111827;color:#fbbf24;border:5px solid #fbbf24;font:900 72px system-ui'>C</div>"
+      }
+    },
+    {
+      "id": "composition-smoke-action-detail",
+      "type": "view",
+      "label": "Action Detail",
+      "position": {
+        "x": 860,
+        "y": -210
+      },
+      "width": 380,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 0
+        }
+      ],
+      "data": {
+        "identity": {
+          "nodeId": "composition-smoke-node",
+          "graphId": "interface-frame-smoke"
+        },
+        "key": "node.web.detail",
+        "intent": "node",
+        "payload": "node.web.detail",
+        "semanticLevel": "detail",
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "renderShape": {
+          "kind": "html"
+        },
+        "html": "<article style='height:100%;box-sizing:border-box;padding:22px;border-radius:24px;background:#ecfdf5;color:#064e3b;border:3px solid #34d399;font-family:system-ui'><small>PORT-OWNED DETAIL</small><h1>Action Interface</h1><p>This Detail belongs to the Action Port.</p></article>"
+      }
+    },
+    {
+      "id": "composition-smoke-action-summary",
+      "type": "view",
+      "label": "Action Summary",
+      "position": {
+        "x": 860,
+        "y": 80
+      },
+      "width": 380,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 0
+        }
+      ],
+      "data": {
+        "identity": {
+          "nodeId": "composition-smoke-node",
+          "graphId": "interface-frame-smoke"
+        },
+        "key": "node.web.summary",
+        "intent": "node",
+        "payload": "node.web.summary",
+        "semanticLevel": "summary",
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "renderShape": {
+          "kind": "html"
+        },
+        "html": "<article style='height:100%;box-sizing:border-box;padding:18px;border-radius:20px;background:#064e3b;color:white;border:3px solid #6ee7b7;font-family:system-ui'><small>PORT-OWNED SUMMARY</small><h2>Action Interface</h2><p>This Summary overrides the shared Summary only for Action.</p></article>"
+      }
+    },
+    {
+      "id": "composition-smoke-instructions",
+      "type": "markdown",
+      "label": "Smoke Matrix",
+      "position": {
+        "x": -760,
+        "y": 390
+      },
+      "width": 500,
+      "height": 410,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "view",
+          "angle": 0
+        }
+      ],
+      "data": {
+        "identity": {
+          "graphId": "interface-frame-smoke"
+        },
+        "markdown": "## Node Composition Smoke Matrix\n\n| Level | Root Port | Action Port |\n|---|---|---|\n| Detail | Explicitly delegates to Shared Detail | Owns Action Detail |\n| Summary | Falls back to Shared Summary | Owns Action Summary |\n| Icon | Shared Icon | Shared Icon |\n| Glyph | Shared Glyph | Shared Glyph |\n\n### Existing proof\n\n- Edit mode projects the interface frame.\n- Root navigation focuses Shared Detail through `default-view`.\n- Root and Action project as widget Ports.\n\n### New proof target\n\nSemantic zoom and addressed Port entry must resolve the matrix above while preserving the active Port identity."
+      }
     }
   ],
   "edges": [
     {
-      "id": "interface-frame-smoke-default-view",
+      "id": "composition-smoke-default-view",
+      "type": "reference",
       "source": "interface-frame-smoke-declaration",
-      "target": "interface-frame-smoke-root",
+      "target": "composition-smoke-shared-detail",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
       "label": "default view",
-      "data": { "role": "default-view", "structural": true }
+      "data": {
+        "role": "default-view",
+        "semanticRole": "default-view"
+      }
     },
     {
-      "id": "interface-frame-smoke-action-surface",
+      "id": "composition-smoke-expose-root",
+      "type": "reference",
       "source": "interface-frame-smoke-declaration",
-      "target": "interface-frame-smoke-action-port",
+      "target": "composition-smoke-root-port",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "exposes root",
+      "data": {
+        "role": "exposes-port",
+        "surfaceId": "root"
+      }
+    },
+    {
+      "id": "composition-smoke-expose-action",
+      "type": "reference",
+      "source": "interface-frame-smoke-declaration",
+      "target": "composition-smoke-action-port",
       "sourcePort": "action",
       "targetPort": "root",
-      "type": "reference",
-      "label": "action surface"
+      "label": "exposes action",
+      "data": {
+        "role": "exposes-port",
+        "surfaceId": "action"
+      }
     },
     {
-      "id": "interface-frame-smoke-explains",
-      "source": "interface-frame-smoke-root",
-      "target": "interface-frame-smoke-instructions",
-      "sourcePort": "root",
-      "targetPort": "root",
+      "id": "composition-smoke-shared-detail-edge",
       "type": "reference",
-      "label": "explains"
+      "source": "interface-frame-smoke-declaration",
+      "target": "composition-smoke-shared-detail",
+      "sourcePort": "detail",
+      "targetPort": "root",
+      "label": "shared detail",
+      "data": {
+        "role": "shared-detail",
+        "semanticLevel": "detail"
+      }
+    },
+    {
+      "id": "composition-smoke-shared-summary-edge",
+      "type": "reference",
+      "source": "interface-frame-smoke-declaration",
+      "target": "composition-smoke-shared-summary",
+      "sourcePort": "summary",
+      "targetPort": "root",
+      "label": "shared summary",
+      "data": {
+        "role": "shared-summary",
+        "semanticLevel": "summary"
+      }
+    },
+    {
+      "id": "composition-smoke-shared-icon-edge",
+      "type": "reference",
+      "source": "interface-frame-smoke-declaration",
+      "target": "composition-smoke-shared-icon",
+      "sourcePort": "icon",
+      "targetPort": "root",
+      "label": "shared icon",
+      "data": {
+        "role": "shared-icon",
+        "semanticLevel": "icon"
+      }
+    },
+    {
+      "id": "composition-smoke-shared-glyph-edge",
+      "type": "reference",
+      "source": "interface-frame-smoke-declaration",
+      "target": "composition-smoke-shared-glyph",
+      "sourcePort": "glyph",
+      "targetPort": "root",
+      "label": "shared glyph",
+      "data": {
+        "role": "shared-glyph",
+        "semanticLevel": "glyph"
+      }
+    },
+    {
+      "id": "composition-smoke-root-delegates-detail",
+      "type": "reference",
+      "source": "composition-smoke-root-port",
+      "target": "composition-smoke-shared-detail",
+      "sourcePort": "right",
+      "targetPort": "left",
+      "label": "delegates detail",
+      "data": {
+        "role": "delegates-detail",
+        "semanticLevel": "detail"
+      }
+    },
+    {
+      "id": "composition-smoke-action-owns-detail",
+      "type": "reference",
+      "source": "composition-smoke-action-port",
+      "target": "composition-smoke-action-detail",
+      "sourcePort": "right",
+      "targetPort": "left",
+      "label": "owns detail",
+      "data": {
+        "role": "owns-detail",
+        "semanticLevel": "detail"
+      }
+    },
+    {
+      "id": "composition-smoke-action-owns-summary",
+      "type": "reference",
+      "source": "composition-smoke-action-port",
+      "target": "composition-smoke-action-summary",
+      "sourcePort": "right",
+      "targetPort": "left",
+      "label": "owns summary",
+      "data": {
+        "role": "owns-summary",
+        "semanticLevel": "summary"
+      }
+    },
+    {
+      "id": "composition-smoke-instructions-edge",
+      "type": "reference",
+      "source": "composition-smoke-instructions",
+      "target": "interface-frame-smoke-declaration",
+      "sourcePort": "right",
+      "targetPort": "root",
+      "label": "tests",
+      "data": {
+        "role": "tests-contract"
+      }
     }
   ],
-  "nodeCount": 4,
-  "edgeCount": 3
+  "clusters": [],
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "#666666",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "autoSave": false
+  },
+  "scripts": []
 }
