@@ -196,10 +196,10 @@
       ],
       "data": {
         "title": "Compose Node Identity and Port Interfaces",
-        "statement": "A node graph composes one shared identity presentation with port-selected detail views and optional port behaviors.",
+        "statement": "A node graph composes shared presentations with Port-resolved Detail, optional Port-specific Summary, and independently authored Port behaviors.",
         "status": "framed",
         "confidence": "emerging",
-        "notes": "A View is not a Port. A Port accepts connections, selects or delegates a detail view, and may declare behavior. Summary, icon, and glyph describe the node identity shared across ports.",
+        "notes": "A View is not a Port. Every Port owns a Detail View or explicitly delegates to shared Detail. A Port may own a Summary View; otherwise it falls back to shared Summary. Icon and Glyph remain shared node identity presentations.",
         "definitionKey": "idea",
         "_classBinding": {
           "key": "idea",
@@ -335,8 +335,8 @@
       ],
       "data": {
         "title": "Layer Port Detail Over Shared Node Identity",
-        "description": "The Declaration identifies the composed node and exposes Ports. Each Port names an accepted contract, selects or delegates its Detail View, and may declare behaviors. The Declaration associates the node-wide Summary, Icon, and Glyph. Semantic zoom first chooses a level, then resolves that level through the active Port and shared-node fallback rules.",
-        "differentiator": "This preserves Port as the single interface primitive without multiplying summary and icon artifacts for every port.",
+        "description": "The Declaration identifies the composed node, exposes Ports, and associates the shared Detail, Summary, Icon, and Glyph presentations. Every Port resolves Detail explicitly: it either owns a port-specific Detail View or delegates to the shared Detail View. A Port may optionally own a Summary View; otherwise Summary falls back to the shared Summary View. Icon and Glyph remain shared. Port connection acceptance and behaviors remain independent authored concerns.",
+        "differentiator": "This makes Detail resolution total and intentional while allowing meaningful Summary overrides without multiplying every presentation level across every Port.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
           "key": "idea-proposed-approach",
@@ -391,10 +391,10 @@
         }
       ],
       "data": {
-        "title": "Only Detail Varies by Port",
-        "statement": "Summary, Icon, and Glyph remain meaningful across all port entry points, while Detail alone needs port-specific composition.",
-        "confidence": "medium",
-        "validation": "A two-port smoke graph must render distinct Root and Action details while resolving the same summary, icon, and glyph.",
+        "title": "Ports Resolve Detail and May Override Summary",
+        "statement": "Every Port must resolve a Detail View by owning one or explicitly delegating to the shared Detail View. A Port may own a Summary View; when it does not, resolution falls back to the shared Summary. Icon and Glyph remain shared node identity presentations.",
+        "confidence": "high",
+        "validation": "A two-port smoke graph must prove both Detail paths and both Summary paths: one Port delegates to shared Detail and shared Summary; another owns Detail and optionally overrides Summary; both resolve the shared Icon and Glyph.",
         "definitionKey": "idea-assumption",
         "_classBinding": {
           "key": "idea-assumption",
@@ -436,10 +436,11 @@
       ],
       "data": {
         "title": "Where Does Shared Presentation Live?",
-        "question": "Does the Declaration directly associate Summary, Icon, and Glyph, or does it identify a shared presentation node that owns those views?",
-        "status": "open",
-        "importance": "blocking",
-        "notes": "Keep View separate from Port either way; the question is ownership and delegation, not ontology.",
+        "question": "Where do shared presentations live, and which presentation levels may a Port specialize?",
+        "status": "answered",
+        "importance": "resolved",
+        "notes": "Resolution: the Declaration associates the shared Detail, Summary, Icon, and Glyph. A Port owns or delegates Detail, may override Summary, and uses the shared Icon and Glyph. View remains distinct from Port.",
+        "resolutionPath": "Declaration owns shared presentation associations; Ports explicitly resolve Detail and optionally override Summary.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -481,10 +482,11 @@
       ],
       "data": {
         "title": "What Is the Resolution and Fallback Order?",
-        "question": "When semantic zoom requests a level, how does the runtime resolve active-port Detail, shared Summary/Icon/Glyph, delegated views, and missing authored views without hiding an authoring error?",
-        "status": "open",
-        "importance": "blocking",
-        "notes": "The answer must preserve which Port was entered even when the rendered presentation is shared.",
+        "question": "What is the deterministic presentation resolution order for an active Port?",
+        "status": "answered",
+        "importance": "resolved",
+        "notes": "Resolution: Detail uses the Port's owned Detail or its explicit delegation to shared Detail. Summary uses the Port's owned Summary when present, otherwise shared Summary. Icon and Glyph use their shared node presentations. Active Port identity is preserved at every level.",
+        "resolutionPath": "Detail: port-owned or explicitly shared. Summary: port-owned then shared fallback. Icon and Glyph: shared.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -578,7 +580,7 @@
       ],
       "data": {
         "title": "Specify and Prove the Two-Port Composition Matrix",
-        "action": "Resolve ownership and fallback, write the declaration-port-view contract, then build one smoke graph with Root and Action ports: distinct Detail views; shared Summary, Icon, and Glyph; root navigation focuses Root Detail; action entry preserves Action identity.",
+        "action": "Write the resolved declaration-port-view contract, then build one smoke graph with Root and Action Ports. Prove a Port-owned Detail, an explicitly delegated shared Detail, a Port-owned Summary override, shared-Summary fallback, shared Icon and Glyph resolution, root navigation, and preservation of active Port identity.",
         "expectedLearning": "Whether the minimal composition model is sufficient before migrating node classes or changing semantic zoom runtime behavior.",
         "status": "planned",
         "definitionKey": "idea-next-step",
