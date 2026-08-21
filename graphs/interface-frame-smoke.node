@@ -97,27 +97,9 @@
             "detailViewNodeId": "composition-smoke-shared-detail",
             "summaryViewNodeId": "composition-smoke-shared-summary",
             "iconViewNodeId": "composition-smoke-shared-icon",
-            "glyphViewNodeId": "composition-smoke-shared-glyph"
+            "glyphNodeId": "composition-smoke-shared-glyph"
           },
           "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Root",
-              "portNodeId": "composition-smoke-root-port",
-              "viewNodeId": "composition-smoke-root-port",
-              "handle": {
-                "angle": 210
-              },
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            },
             {
               "id": "action",
               "kind": "port",
@@ -154,75 +136,6 @@
             "ports": ">=1.0.0"
           }
         }
-      }
-    },
-    {
-      "id": "composition-smoke-root-port",
-      "type": "port",
-      "label": "Root Port",
-      "position": {
-        "x": -320,
-        "y": -150
-      },
-      "width": 320,
-      "height": 210,
-      "visible": true,
-      "showLabel": true,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "view",
-          "angle": 0
-        }
-      ],
-      "data": {
-        "identity": {
-          "nodeId": "composition-smoke-node",
-          "graphId": "interface-frame-smoke",
-          "portId": "root",
-          "name": "Root"
-        },
-        "portId": "root",
-        "surfaceId": "root",
-        "view": {
-          "intent": "node",
-          "payload": "node.web.detail"
-        },
-        "payload": "node.web.detail",
-        "intent": "node",
-        "accepts": [
-          "any"
-        ],
-        "presentation": {
-          "detail": {
-            "mode": "delegate",
-            "scope": "shared",
-            "viewNodeId": "composition-smoke-shared-detail"
-          },
-          "summary": {
-            "mode": "fallback",
-            "scope": "shared",
-            "viewNodeId": "composition-smoke-shared-summary"
-          },
-          "icon": {
-            "mode": "shared",
-            "viewNodeId": "composition-smoke-shared-icon"
-          },
-          "glyph": {
-            "mode": "shared",
-            "viewNodeId": "composition-smoke-shared-glyph"
-          }
-        },
-        "memo": "Public root interface. Explicitly delegates Detail and uses shared Summary, Icon, and Glyph."
       }
     },
     {
@@ -362,7 +275,7 @@
         "renderShape": {
           "kind": "html"
         },
-        "html": "<article style='height:100%;box-sizing:border-box;padding:22px;border-radius:24px;background:#eff6ff;color:#172554;border:3px solid #60a5fa;font-family:system-ui'><small>SHARED DETAIL</small><h1>Composition Smoke Node</h1><p>Root delegates here explicitly. This is also the graph's default-view focus target.</p></article>"
+        "html": "<article style='height:100%;box-sizing:border-box;padding:22px;border-radius:24px;background:#eff6ff;color:#172554;border:3px solid #60a5fa;font-family:system-ui'><small>ROOT / SHARED DETAIL</small><h1>Composition Smoke Node</h1><p>The Declaration's default-view makes this the structurally necessary root Detail and navigation focus.</p></article>"
       }
     },
     {
@@ -671,7 +584,7 @@
         "identity": {
           "graphId": "interface-frame-smoke"
         },
-        "markdown": "## Node Composition Smoke Matrix\n\n| Level | Root Port | Action Port |\n|---|---|---|\n| Detail | Explicitly delegates to Shared Detail | Owns Action Detail |\n| Summary | Falls back to Shared Summary | Owns Action Summary |\n| Icon | Shared Icon | Shared Icon |\n| Glyph | Shared Glyph | Shared Glyph |\n\n### Existing proof\n\n- Edit mode projects the interface frame.\n- Root navigation focuses Shared Detail through `default-view`.\n- Root and Action project as widget Ports.\n\n### New proof target\n\nSemantic zoom and addressed Port entry must resolve the matrix above while preserving the active Port identity."
+        "markdown": "## Node Composition Smoke Matrix\n\n| Level | Declaration Root | Action Port |\n|---|---|---|\n| Detail | Structurally owns Root / Shared Detail through `default-view` | Owns Action Detail |\n| Summary | Falls back to Shared Summary | Owns Action Summary |\n| Icon | Shared Icon | Shared Icon |\n| Glyph | Shared Glyph | Shared Glyph |\n\n### Existing proof\n\n- Edit mode projects the interface frame.\n- Root navigation focuses Root / Shared Detail through `default-view`.\n- The Declaration synthesizes the widget's Root handle; Action projects as an authored Port.\n\n### End-to-end proof target\n\nImport this graph through a Bridge, instantiate `composition-smoke-node`, and verify semantic zoom and addressed Port entry resolve the matrix while preserving active Port identity."
       }
     }
   ],
@@ -687,19 +600,6 @@
       "data": {
         "role": "default-view",
         "semanticRole": "default-view"
-      }
-    },
-    {
-      "id": "composition-smoke-expose-root",
-      "type": "reference",
-      "source": "interface-frame-smoke-declaration",
-      "target": "composition-smoke-root-port",
-      "sourcePort": "root",
-      "targetPort": "root",
-      "label": "exposes root",
-      "data": {
-        "role": "exposes-port",
-        "surfaceId": "root"
       }
     },
     {
@@ -765,19 +665,6 @@
       "data": {
         "role": "shared-glyph",
         "semanticLevel": "glyph"
-      }
-    },
-    {
-      "id": "composition-smoke-root-delegates-detail",
-      "type": "reference",
-      "source": "composition-smoke-root-port",
-      "target": "composition-smoke-shared-detail",
-      "sourcePort": "right",
-      "targetPort": "left",
-      "label": "delegates detail",
-      "data": {
-        "role": "delegates-detail",
-        "semanticLevel": "detail"
       }
     },
     {
