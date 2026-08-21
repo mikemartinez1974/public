@@ -837,8 +837,8 @@
       "data": {
         "title": "How Should Scripts Author Port, View, and Content Composition?",
         "question": "What is the smallest safe scripting API for declaring Ports, attaching or delegating Views, creating Content, and connecting the structure without allowing scripts to produce half-valid interfaces?",
-        "status": "open",
-        "answer": "",
+        "status": "answered",
+        "answer": "Expose composePort as a first-class validate-first scripting operation. It accepts stable author IDs, direction and type acceptance, Detail and Summary ownership or delegation, optional Content, optional Port behavior, and graph position. It computes ordinary nodes, edges, and Declaration surfaces; validates the whole composition; then commits the result atomically. Re-running the same specification upserts the same stable records. Interaction behavior scripts remain separately bounded by Port authority and return mutation intent rather than receiving unrestricted graph access.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -855,7 +855,8 @@
         "identity": {
           "graphId": "content-node"
         },
-        "notes": "Discuss builder versus transaction semantics, stable IDs, validation timing, authority, idempotency, and whether scripts express intent or write normalized graph records directly."
+        "notes": "Resolution: composePort is a validated convenience operation over visible graph structure, not a hidden representation. Validation happens before mutation; stable IDs make the operation idempotent; the output remains inspectable and editable as ordinary graph records.",
+        "resolutionPath": "First-class composePort operation -> validate complete proposed graph -> atomically upsert ordinary Port/View/Content nodes, semantic edges, and Declaration exposure."
       }
     },
     {
@@ -1674,7 +1675,7 @@
         "title": "Specify Scripted Composition and Build a Two-View Smoke Test",
         "action": "Resolve how scripts author Ports, Views, and Content; then implement the shared Content contract and prove two Views can render one Content node differently while legacy Markdown remains readable.",
         "expectedEvidence": "A script-authored specimen passes structural validation, renders Detail and Summary from the same Content source, and round-trips without duplicate or synthetic interface records.",
-        "status": "todo",
+        "status": "in-progress",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",

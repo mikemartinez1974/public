@@ -1,0 +1,269 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Scripted Port Composition Smoke Test",
+    "description": "Graph Lab smoke test for the first-class composePort scripting operation.",
+    "created": "2026-08-21T00:00:00.000Z",
+    "modified": "2026-08-21T00:00:00.000Z",
+    "author": "",
+    "tags": [
+      "smoke-test",
+      "compose-port",
+      "scripting",
+      "content"
+    ],
+    "preferredViewer": "https://twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "scripted-port-smoke-declaration",
+      "type": "declaration",
+      "label": "Scripted Port Smoke Declaration",
+      "position": {
+        "x": -620,
+        "y": -420
+      },
+      "width": 440,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "scripted-port-composition-smoke",
+          "name": "Scripted Port Composition Smoke Test",
+          "version": "0.1.0"
+        },
+        "intent": {
+          "kind": "graph",
+          "scope": "shared"
+        },
+        "declaration": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "root",
+          "surfaces": []
+        },
+        "dependencies": {
+          "nodeTypes": [
+            "declaration",
+            "view",
+            "content",
+            "port",
+            "script",
+            "markdown"
+          ]
+        },
+        "authority": {
+          "mutation": {
+            "allowCreate": true,
+            "allowUpdate": true,
+            "allowDelete": true,
+            "appendOnly": false
+          },
+          "actors": {
+            "humans": true,
+            "agents": true,
+            "tools": true
+          },
+          "styleAuthority": "descriptive"
+        }
+      }
+    },
+    {
+      "id": "scripted-port-smoke-default-view",
+      "type": "view",
+      "label": "Scripted Port Composition",
+      "position": {
+        "x": 0,
+        "y": -420
+      },
+      "width": 520,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail",
+          "semanticLevel": "detail"
+        },
+        "semanticLevel": "detail",
+        "renderShape": {
+          "kind": "markdown",
+          "profile": "markdown.default"
+        },
+        "markdown": "# Scripted Port Composition\n\nRun the script twice. The first run authors an Action Port, Detail View, and Content node. The second run must update the same stable records without duplicates."
+      }
+    },
+    {
+      "id": "scripted-port-smoke-script",
+      "type": "script",
+      "label": "Compose Action Port",
+      "position": {
+        "x": -620,
+        "y": 80
+      },
+      "width": 520,
+      "height": 360,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "name": "Compose Action Port",
+        "source": "const result = await api.composePort({\n  id: 'scripted-action-port',\n  label: 'Action',\n  direction: 'output',\n  accepts: 'section',\n  position: { x: 620, y: 80 },\n  detail: {\n    mode: 'own',\n    content: {\n      id: 'scripted-action-content',\n      label: 'Action Content',\n      kind: 'markdown',\n      value: '# Action\\n\\nThis durable Content node was authored through `api.composePort()`.'\n    }\n  },\n  summary: { mode: 'fallback' },\n  behavior: {\n    trigger: 'drag-create',\n    action: 'create-node',\n    nodeType: 'section',\n    targetPort: 'root'\n  }\n});\nreturn result;",
+        "autoRun": false
+      }
+    },
+    {
+      "id": "scripted-port-smoke-procedure",
+      "type": "markdown",
+      "label": "Pass Procedure",
+      "position": {
+        "x": 0,
+        "y": 80
+      },
+      "width": 520,
+      "height": 400,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "markdown": "## Pass procedure\n\n1. Run **Compose Action Port** once.\n2. Confirm ordinary `port`, `view`, and `content` nodes appear.\n3. Confirm the Declaration exposes `scripted-action-port`.\n4. Confirm the Port owns its Detail View and the View points to Content.\n5. Run the script again.\n6. Confirm no node, edge, or surface duplicates appear.\n7. Change the Content text in the script and run again; the existing Content node should update.\n8. An input Port with `drag-create` must be rejected before the graph changes."
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "scripted-port-smoke-default-view-edge",
+      "type": "reference",
+      "source": "scripted-port-smoke-declaration",
+      "target": "scripted-port-smoke-default-view",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "default-view",
+      "data": {
+        "role": "default-view",
+        "semanticRole": "declaration.default-view"
+      }
+    },
+    {
+      "id": "scripted-port-smoke-script-edge",
+      "type": "reference",
+      "source": "scripted-port-smoke-default-view",
+      "target": "scripted-port-smoke-script",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "authors",
+      "data": {}
+    },
+    {
+      "id": "scripted-port-smoke-procedure-edge",
+      "type": "reference",
+      "source": "scripted-port-smoke-script",
+      "target": "scripted-port-smoke-procedure",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "tests",
+      "data": {}
+    }
+  ],
+  "clusters": [],
+  "viewport": {
+    "x": 650,
+    "y": 520,
+    "zoom": 0.72
+  },
+  "timestamp": "2026-08-21T00:00:00.000Z",
+  "nodeCount": 4,
+  "edgeCount": 3
+}
