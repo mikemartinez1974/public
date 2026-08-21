@@ -103,7 +103,8 @@
             {
               "id": "action",
               "kind": "port",
-              "label": "Action",
+              "label": "Action Socket",
+              "direction": "input",
               "portNodeId": "composition-smoke-action-port",
               "viewNodeId": "composition-smoke-action-port",
               "handle": {
@@ -117,20 +118,27 @@
                   "mode": "allow"
                 }
               }
+            },
+            {
+              "id": "create-action",
+              "kind": "port",
+              "label": "Create Action",
+              "direction": "output",
+              "portNodeId": "composition-smoke-create-action-port",
+              "exposes": {
+                "views": {
+                  "mode": "deny"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
             }
           ]
         },
         "dependencies": {
-          "nodeTypes": [
-            "declaration",
-            "port",
-            "view",
-            "markdown"
-          ],
-          "portContracts": [
-            "core",
-            "node-composition"
-          ],
+          "nodeTypes": ["declaration", "port", "view", "markdown"],
+          "portContracts": ["core", "node-composition"],
           "schemaVersions": {
             "nodes": ">=1.0.0",
             "ports": ">=1.0.0"
@@ -182,15 +190,14 @@
         },
         "portId": "action",
         "surfaceId": "action",
+        "direction": "input",
         "view": {
           "intent": "node",
           "payload": "node.web.detail"
         },
         "payload": "node.web.detail",
         "intent": "node",
-        "accepts": [
-          "any"
-        ],
+        "accepts": ["any"],
         "presentation": {
           "detail": {
             "mode": "own",
@@ -209,19 +216,52 @@
             "viewNodeId": "composition-smoke-shared-glyph"
           }
         },
+        "memo": "Specialized interface. Owns Detail and Summary; shares Icon and Glyph."
+      }
+    },
+    {
+      "id": "composition-smoke-create-action-port",
+      "type": "port",
+      "label": "Create Action Plug",
+      "position": {
+        "x": 240,
+        "y": -300
+      },
+      "width": 320,
+      "height": 190,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "data": {
+        "identity": {
+          "nodeId": "composition-smoke-node",
+          "graphId": "interface-frame-smoke",
+          "portId": "create-action",
+          "name": "Create Action"
+        },
+        "portId": "create-action",
+        "surfaceId": "create-action",
+        "direction": "output",
+        "dataType": "composition-smoke-node",
         "behaviors": [
           {
-            "id": "create-action-target",
+            "id": "create-action-node",
             "trigger": "drag-create",
-            "action": "emit-port-drop-context",
-            "returns": [
-              "node",
-              "port",
-              "graphCoordinates"
-            ]
+            "action": "create-node",
+            "nodeType": "composition-smoke-node",
+            "targetPort": "action",
+            "targetSurfaceId": "action"
           }
         ],
-        "memo": "Specialized interface. Owns Detail and Summary; shares Icon and Glyph."
+        "memo": "Outbound creation affordance. Creates another Composition Smoke Node and connects to its Action socket."
       }
     },
     {
@@ -584,7 +624,7 @@
         "identity": {
           "graphId": "interface-frame-smoke"
         },
-        "markdown": "## Node Composition Smoke Matrix\n\n| Level | Declaration Root | Action Port |\n|---|---|---|\n| Detail | Structurally owns Root / Shared Detail through `default-view` | Owns Action Detail |\n| Summary | Falls back to Shared Summary | Owns Action Summary |\n| Icon | Shared Icon | Shared Icon |\n| Glyph | Shared Glyph | Shared Glyph |\n\n### Existing proof\n\n- Edit mode projects the interface frame.\n- Root navigation focuses Root / Shared Detail through `default-view`.\n- The Declaration synthesizes the widget's Root handle; Action projects as an authored Port.\n\n### End-to-end proof target\n\nImport this graph through a Bridge, instantiate `composition-smoke-node`, and verify semantic zoom and addressed Port entry resolve the matrix while preserving active Port identity."
+        "markdown": "## Node Composition Smoke Matrix\n\n| Interface | Direction | Behavior |\n|---|---|---|\n| Root | Input socket | Enters through Shared Detail |\n| Action | Input socket | Enters through Action Detail |\n| Create Action | Output plug | Creates a Composition Smoke Node and connects to Action |\n\n### Presentation matrix\n\n- Root uses Shared Detail, Shared Summary, Shared Icon, and Shared Glyph.\n- Action owns Detail and Summary while sharing Icon and Glyph.\n- Create Action is functionality, not a view-bearing interface.\n\n### End-to-end proof target\n\nDrag Create Action into open graph space. The new node must connect through its Action socket and render Action Detail at detail zoom."
       }
     }
   ],
@@ -613,6 +653,19 @@
       "data": {
         "role": "exposes-port",
         "surfaceId": "action"
+      }
+    },
+    {
+      "id": "composition-smoke-expose-create-action",
+      "type": "reference",
+      "source": "interface-frame-smoke-declaration",
+      "target": "composition-smoke-create-action-port",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "exposes create action",
+      "data": {
+        "role": "exposes-port",
+        "surfaceId": "create-action"
       }
     },
     {

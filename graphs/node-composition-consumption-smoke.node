@@ -87,10 +87,7 @@
             "markdown",
             "composition-smoke-node"
           ],
-          "portContracts": [
-            "core",
-            "node-composition"
-          ],
+          "portContracts": ["core", "node-composition"],
           "schemaVersions": {
             "nodes": ">=1.0.0",
             "ports": ">=1.0.0"
@@ -178,16 +175,12 @@
         "intent": "external",
         "resourceKind": "graph",
         "scope": "focused-graph",
-        "grants": [
-          "create"
-        ],
+        "grants": ["create"],
         "bridge": {
           "ref": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
           "resourceKind": "graph",
           "scope": "focused-graph",
-          "grants": [
-            "create"
-          ]
+          "grants": ["create"]
         },
         "target": {
           "endpoint": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node:root",
@@ -198,9 +191,7 @@
           "label": "Composition Smoke Node",
           "resourceKind": "graph",
           "scope": "focused-graph",
-          "grants": [
-            "create"
-          ]
+          "grants": ["create"]
         }
       }
     },
@@ -220,7 +211,7 @@
         {
           "id": "root",
           "label": "Root",
-          "direction": "bidirectional",
+          "direction": "input",
           "dataType": "any",
           "angle": 148.29857033049427,
           "surfaceId": "root",
@@ -233,8 +224,8 @@
         },
         {
           "id": "action",
-          "label": "Action",
-          "direction": "output",
+          "label": "Action Socket",
+          "direction": "input",
           "dataType": "any",
           "angle": 38.873066994505905,
           "surfaceId": "action",
@@ -243,6 +234,30 @@
             "graphId": "interface-frame-smoke",
             "sourceNodeId": "composition-smoke-action-port",
             "sourcePayload": "node.web.detail"
+          }
+        },
+        {
+          "id": "create-action",
+          "label": "Create Action",
+          "direction": "output",
+          "dataType": "composition-smoke-node",
+          "angle": 6.881723630636941,
+          "surfaceId": "create-action",
+          "metadata": {
+            "graphRef": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
+            "graphId": "interface-frame-smoke",
+            "sourceNodeId": "composition-smoke-create-action-port",
+            "sourcePayload": "node.web",
+            "behaviors": [
+              {
+                "id": "create-action-node",
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "composition-smoke-node",
+                "targetPort": "action",
+                "targetSurfaceId": "action"
+              }
+            ]
           }
         }
       ],
@@ -487,9 +502,13 @@
         },
         "smokeExpectation": {
           "implicitRoot": true,
-          "authoredPorts": [
-            "action"
-          ],
+          "authoredPorts": ["action", "create-action"],
+          "portDirections": {
+            "root": "input",
+            "action": "input",
+            "create-action": "output"
+          },
+          "createActionTarget": "action",
           "rootDetail": "composition-smoke-shared-detail",
           "actionDetail": "composition-smoke-action-detail",
           "rootSummary": "composition-smoke-shared-summary",
@@ -527,7 +546,7 @@
         "identity": {
           "graphId": "node-composition-consumption-smoke"
         },
-        "markdown": "## Pass procedure\n\n1. Confirm **Composition Smoke Node** is available from the Bridge.\n2. Create another instance from Elements or the Bridge create handle.\n3. Confirm the widget has **Root** and **Action** handles only.\n4. Root Detail renders **Root / Shared Detail**.\n5. Root Summary renders **Shared Summary**.\n6. Action Detail renders **Action Detail**.\n7. Action Summary renders **Action Summary**.\n8. Both interfaces use the shared Icon and Hub glyph.\n9. Entering through Root focuses the default-view target.\n\n**Pass:** the newly created instance matches the authored specimen already placed here."
+        "markdown": "## Pass procedure\n\n1. Confirm the widget exposes **Root** and **Action** as input sockets.\n2. Confirm **Create Action** is the single output plug.\n3. Drag **Create Action** into open graph space.\n4. Confirm a Composition Smoke Node is created and the edge terminates at its **Action** socket.\n5. Confirm the created node opens on **Action Detail**.\n6. Enter the original node through Root and confirm **Root / Shared Detail** is focused.\n7. Verify semantic zoom: Root uses Shared Summary; Action uses Action Summary; both share Icon and Glyph.\n\n**Pass:** direction, creation behavior, addressed entry, and presentation all follow the authored ports."
       }
     }
   ],
