@@ -196,6 +196,52 @@
       }
     },
     {
+      "id": "composition-consumer-action-portal",
+      "type": "portal",
+      "label": "Enter Through Action",
+      "position": {
+        "x": -390,
+        "y": 180
+      },
+      "width": 390,
+      "height": 220,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "data": {
+        "identity": {
+          "graphId": "node-composition-consumption-smoke"
+        },
+        "memo": "Navigation proof: opens the source graph through its authored Action interface rather than through Root.",
+        "authority": "navigate",
+        "intent": "external",
+        "ref": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
+        "src": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
+        "endpoint": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node:action",
+        "sourceRef": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
+        "sourceNodeId": "composition-smoke-action-port",
+        "sourcePayload": "node.web.detail",
+        "surfaceId": "action",
+        "target": {
+          "ref": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
+          "endpoint": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node:action",
+          "mode": "navigate",
+          "portId": "action",
+          "surfaceId": "action",
+          "handleId": "action"
+        },
+        "visibilityRole": "browser"
+      }
+    },
+    {
       "id": "composition-consumer-instance",
       "type": "composition-smoke-node",
       "label": "Composition Smoke Node",
@@ -546,7 +592,7 @@
         "identity": {
           "graphId": "node-composition-consumption-smoke"
         },
-        "markdown": "## Pass procedure\n\n1. Confirm the widget exposes **Root** and **Action** as input sockets.\n2. Confirm **Create Action** is the single output plug.\n3. Drag **Create Action** into open graph space.\n4. Confirm a Composition Smoke Node is created and the edge terminates at its **Action** socket.\n5. Confirm the created node opens on **Action Detail**.\n6. Enter the original node through Root and confirm **Root / Shared Detail** is focused.\n7. Verify semantic zoom: Root uses Shared Summary; Action uses Action Summary; both share Icon and Glyph.\n\n**Pass:** direction, creation behavior, addressed entry, and presentation all follow the authored ports."
+        "markdown": "## Pass procedure\n\n### Navigation proof\n\n1. Open **Enter Through Action**.\n2. Confirm the source graph opens focused through its Action interface rather than Root.\n3. Confirm **Action Detail** is the active presentation.\n\n### Creation proof\n\n1. Confirm the widget exposes **Root** and **Action** as input sockets.\n2. Confirm **Create Action** is the single output plug.\n3. Drag **Create Action** into open graph space.\n4. Confirm a Composition Smoke Node is created and the edge terminates at its **Action** socket.\n5. Confirm the created node opens on **Action Detail**.\n\n### UI review still required\n\nReview Port configuration authoring for direction, exposed view, creation behavior, created node type, target port, and projected placement.\n\n**Pass:** navigation and creation independently honor the authored Action port."
       }
     }
   ],
@@ -573,6 +619,19 @@
       "label": "instantiates",
       "data": {
         "role": "creates-node"
+      }
+    },
+    {
+      "id": "composition-consumer-action-navigation",
+      "type": "reference",
+      "source": "composition-consumer-root",
+      "target": "composition-consumer-action-portal",
+      "sourcePort": "bottom",
+      "targetPort": "root",
+      "label": "tests action navigation",
+      "data": {
+        "role": "tests-addressed-port-navigation",
+        "surfaceId": "action"
       }
     },
     {
