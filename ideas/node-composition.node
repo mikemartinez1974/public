@@ -510,6 +510,42 @@
       }
     },
     {
+      "id": "node-composition-question-content",
+      "type": "idea-question",
+      "label": "Question",
+      "position": { "x": -500, "y": 880 },
+      "width": 400,
+      "height": 300,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }
+      ],
+      "data": {
+        "title": "What Owns Content?",
+        "question": "Should Markdown remain a node type, or should Content become a format-neutral primitive that Views render?",
+        "status": "answered",
+        "importance": "resolved",
+        "answer": "Content is the durable material; View is its presentation; Port is the interface that owns or delegates Views. Content supports Markdown, sanitized HTML, plain text, SVG, image/media, canvas, and future structured formats through one contract. A View may own Content inline for simple authoring or delegate to a Content node for structural reuse. Markdown remains readable as a compatibility alias and becomes a Content preset for new authoring.",
+        "notes": "The same Content node may be rendered through different Detail and Summary Views. Content does not declare semantic zoom level. Port and View identity remain separate from the material they present.",
+        "resolutionPath": "Port -> View -> Content; inline Content for convenience, delegated Content for reuse; Markdown is a read-old compatibility alias and write-new preset.",
+        "definitionKey": "idea-question",
+        "_classBinding": {
+          "key": "idea-question",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
+        },
+        "_bridge": {
+          "classKey": "idea-question",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "targetKind": "node-class"
+        },
+        "identity": { "graphId": "node-composition" }
+      }
+    },
+    {
       "id": "node-composition-risk",
       "type": "idea-risk",
       "label": "Risk",
@@ -583,9 +619,9 @@
         }
       ],
       "data": {
-        "title": "Specify and Prove the Two-Port Composition Matrix",
-        "action": "Write the resolved declaration-port-view contract, then build one smoke graph with Root and Action Ports. Prove a Port-owned Detail, an explicitly delegated shared Detail, a Port-owned Summary override, shared-Summary fallback, shared Icon and Glyph resolution, root navigation, and preservation of active Port identity.",
-        "expectedLearning": "Whether the minimal composition model is sufficient before migrating node classes or changing semantic zoom runtime behavior.",
+        "title": "Extract and Prove the Content Primitive",
+        "action": "Extract the existing multi-format payload contract into a reusable Content contract. Keep legacy Markdown readable, make new Markdown creation a Content preset, then build a smoke graph in which two Views render the same delegated Content at different semantic levels.",
+        "expectedLearning": "Whether Port -> View -> Content cleanly supports inline convenience, structural reuse, and backward compatibility without allowing Content to absorb presentation concerns.",
         "status": "planned",
         "definitionKey": "idea-next-step",
         "_classBinding": {
@@ -781,6 +817,20 @@
     }
   ],
   "edges": [
+    {
+      "id": "node-composition-content-questions",
+      "type": "reference",
+      "source": "node-composition-question-content",
+      "target": "node-composition-approach",
+      "sourcePort": "right",
+      "targetPort": "bottom",
+      "label": "questions",
+      "data": {
+        "edgeClassKey": "idea.questions",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
+        "semanticRole": "idea.questions"
+      }
+    },
     {
       "id": "node-composition-entry",
       "type": "reference",
