@@ -21,16 +21,7 @@
           "targetMode": "artifact",
           "artifactKind": "smoke-test",
           "interfaceFrame": { "shape": "rounded-rectangle", "aspectRatio": 1.6153846153846154 },
-          "defaultSurfaceId": "root",
           "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Root",
-              "portNodeId": "interface-frame-smoke-view",
-              "viewNodeId": "interface-frame-smoke-view",
-              "exposes": { "views": { "mode": "allow" } }
-            },
             {
               "id": "action",
               "kind": "port",
@@ -48,15 +39,21 @@
       ]
     },
     {
-      "id": "interface-frame-smoke-title",
-      "type": "markdown",
-      "label": "Authored Interface Frame",
+      "id": "interface-frame-smoke-root",
+      "type": "view",
+      "label": "Root / Default View",
       "position": { "x": 80, "y": 80 },
       "width": 320,
       "height": 160,
       "data": {
-        "markdown": "# Authored Interface Frame\n\nThis ordinary Markdown node supplies the default view because it is the target of the Declaration's `default-view` relationship.",
-        "identity": { "graphId": "interface-frame-smoke" }
+        "identity": { "graphId": "interface-frame-smoke" },
+        "key": "node.web",
+        "intent": "node",
+        "payload": "node.web",
+        "semanticLevel": "detail",
+        "view": { "intent": "node", "payload": "node.web" },
+        "renderShape": { "kind": "markdown", "sourcePath": "node.web" },
+        "markdown": "# Authored Interface Frame\n\nThis View supplies the root node's default surface because it is the target of the Declaration's `default-view` relationship."
       },
       "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "value", "side": "bottom", "offset": 0.5 }]
     },
@@ -79,23 +76,6 @@
       "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "side": "right", "offset": 0.5 }]
     },
     {
-      "id": "interface-frame-smoke-view",
-      "type": "port",
-      "label": "Zoom-1 Node Surface: 420 × 260",
-      "position": { "x": 600, "y": 80 },
-      "width": 420,
-      "height": 260,
-      "data": {
-        "portId": "root",
-        "surfaceId": "root",
-        "payload": "node.web",
-        "intent": "node",
-        "identity": { "graphId": "interface-frame-smoke" },
-        "memo": "These authored dimensions define the projected zoom-1 node outline. Moving the Declaration must not resize it."
-      },
-      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "value", "side": "left", "offset": 0.5 }]
-    },
-    {
       "id": "interface-frame-smoke-instructions",
       "type": "markdown",
       "label": "Smoke Test",
@@ -104,7 +84,7 @@
       "height": 300,
       "data": {
         "identity": { "graphId": "interface-frame-smoke" },
-        "markdown": "# Smoke test\n\n1. Open this graph and switch to **Edit** mode.\n2. The Twilite watermark should disappear.\n3. A rounded node outline should appear centered on the target of the Declaration's `default-view` relationship.\n4. A root-direction line should run from the default view toward the Declaration and meet the outline at its bottom edge.\n5. Drag the Declaration farther down. The direction marker should remain downward and the outline should grow while preserving its 420:260 aspect ratio.\n6. Both exposed Ports should remain projected on the boundary.\n7. Switch to Browse mode. The interface outline should disappear."
+        "markdown": "# Smoke test\n\n1. Open this graph and switch to **Edit** mode.\n2. The Twilite watermark should disappear.\n3. The root View is the default surface because it is the target of the Declaration's `default-view` relationship.\n4. A rounded node outline should appear centered on that View.\n5. A root-direction line should run from the default View toward the Declaration and meet the outline at its bottom edge.\n6. Drag the Declaration farther down. The outline should grow while preserving its 420:260 aspect ratio.\n7. The additional Action Port should remain projected on the boundary.\n8. Switch to Browse mode. The interface outline should disappear."
       },
       "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "value", "side": "left", "offset": 0.5 }]
     }
@@ -113,7 +93,7 @@
     {
       "id": "interface-frame-smoke-default-view",
       "source": "interface-frame-smoke-declaration",
-      "target": "interface-frame-smoke-title",
+      "target": "interface-frame-smoke-root",
       "sourcePort": "root",
       "targetPort": "root",
       "type": "reference",
@@ -130,17 +110,8 @@
       "label": "action surface"
     },
     {
-      "id": "interface-frame-smoke-default-surface",
-      "source": "interface-frame-smoke-declaration",
-      "target": "interface-frame-smoke-view",
-      "sourcePort": "root",
-      "targetPort": "root",
-      "type": "reference",
-      "label": "default surface"
-    },
-    {
       "id": "interface-frame-smoke-explains",
-      "source": "interface-frame-smoke-title",
+      "source": "interface-frame-smoke-root",
       "target": "interface-frame-smoke-instructions",
       "sourcePort": "root",
       "targetPort": "root",
@@ -148,6 +119,6 @@
       "label": "explains"
     }
   ],
-  "nodeCount": 5,
-  "edgeCount": 4
+  "nodeCount": 4,
+  "edgeCount": 3
 }
