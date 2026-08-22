@@ -1,14 +1,14 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Declaration Primary View Toolbar Smoke",
-    "description": "Proves that a new Declaration authors only its primary-view relationship handle and retains it through save and reload.",
+    "title": "Declaration Root Interface Toolbar Smoke",
+    "description": "Proves that a new Declaration authors the complete implicit root Port relationship grammar and retains it through save and reload.",
     "graphId": "declaration-primary-view-toolbar-smoke",
     "version": "0.1.0",
     "kind": "graph",
     "created": "2026-08-22T00:00:00.000Z",
     "modified": "2026-08-22T00:00:00.000Z",
-    "tags": ["smoke-test", "declaration", "primary-view", "toolbar", "handles"]
+    "tags": ["smoke-test", "declaration", "root-port", "views", "glyph", "toolbar", "handles"]
   },
   "nodes": [
     {
@@ -20,9 +20,9 @@
       "height": 220,
       "ports": [
         {
-          "id": "primary-view",
-          "key": "primary-view",
-          "label": "primary view",
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default view",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
@@ -30,7 +30,10 @@
           "allowedEdgeTypes": ["default-view"],
           "metadata": {
             "structural": true,
+            "relationship": true,
             "role": "default-view",
+            "required": true,
+            "repeatable": false,
             "behaviors": [
               {
                 "trigger": "drag-create",
@@ -40,28 +43,46 @@
               }
             ]
           }
-        }
+        },
+        { "id": "summary-view", "key": "summary-view", "label": "summary view", "direction": "output", "dataType": "any", "angle": 60, "role": "shared-summary", "allowedEdgeTypes": ["reference"], "metadata": { "structural": true, "relationship": true, "role": "shared-summary", "required": true, "repeatable": false, "behaviors": [{ "trigger": "drag-create", "action": "create-node", "nodeType": "view", "targetPort": "root" }] } },
+        { "id": "icon-view", "key": "icon-view", "label": "icon view", "direction": "output", "dataType": "any", "angle": 120, "role": "shared-icon", "allowedEdgeTypes": ["reference"], "metadata": { "structural": true, "relationship": true, "role": "shared-icon", "required": true, "repeatable": false, "behaviors": [{ "trigger": "drag-create", "action": "create-node", "nodeType": "view", "targetPort": "root" }] } },
+        { "id": "glyph", "key": "glyph", "label": "glyph", "direction": "output", "dataType": "any", "angle": 180, "role": "shared-glyph", "allowedEdgeTypes": ["reference"], "metadata": { "structural": true, "relationship": true, "role": "shared-glyph", "required": true, "repeatable": false, "behaviors": [{ "trigger": "drag-create", "action": "create-node", "nodeType": "glyph", "targetPort": "root" }] } },
+        { "id": "port", "key": "port", "label": "port", "direction": "output", "dataType": "any", "angle": 240, "role": "exposes-port", "allowedEdgeTypes": ["reference"], "metadata": { "structural": true, "relationship": true, "role": "exposes-port", "required": false, "repeatable": true, "behaviors": [{ "trigger": "drag-create", "action": "create-node", "nodeType": "port", "targetPort": "root" }] } },
+        { "id": "landing-surface", "key": "landing-surface", "label": "landing surface", "direction": "output", "dataType": "any", "angle": 300, "role": "landing-surface", "allowedEdgeTypes": ["reference"], "metadata": { "structural": true, "relationship": true, "role": "landing-surface", "required": true, "repeatable": false } }
       ],
       "handles": [
         {
-          "id": "primary-view",
-          "key": "primary-view",
-          "portId": "primary-view",
-          "label": "primary view",
+          "id": "default-view",
+          "key": "default-view",
+          "portId": "default-view",
+          "label": "default view",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "default-view"
-        }
+          "role": "default-view",
+          "allowedEdgeTypes": ["default-view"],
+          "metadata": { "structural": true, "relationship": true, "role": "default-view", "required": true, "repeatable": false, "behaviors": [{ "trigger": "drag-create", "action": "create-node", "nodeType": "view", "targetPort": "root" }] }
+        },
+        { "id": "summary-view", "key": "summary-view", "portId": "summary-view", "label": "summary view", "direction": "output", "dataType": "any", "angle": 60, "role": "shared-summary", "allowedEdgeTypes": ["reference"], "metadata": { "structural": true, "relationship": true, "role": "shared-summary", "required": true, "repeatable": false, "behaviors": [{ "trigger": "drag-create", "action": "create-node", "nodeType": "view", "targetPort": "root" }] } },
+        { "id": "icon-view", "key": "icon-view", "portId": "icon-view", "label": "icon view", "direction": "output", "dataType": "any", "angle": 120, "role": "shared-icon", "allowedEdgeTypes": ["reference"], "metadata": { "structural": true, "relationship": true, "role": "shared-icon", "required": true, "repeatable": false, "behaviors": [{ "trigger": "drag-create", "action": "create-node", "nodeType": "view", "targetPort": "root" }] } },
+        { "id": "glyph", "key": "glyph", "portId": "glyph", "label": "glyph", "direction": "output", "dataType": "any", "angle": 180, "role": "shared-glyph", "allowedEdgeTypes": ["reference"], "metadata": { "structural": true, "relationship": true, "role": "shared-glyph", "required": true, "repeatable": false, "behaviors": [{ "trigger": "drag-create", "action": "create-node", "nodeType": "glyph", "targetPort": "root" }] } },
+        { "id": "port", "key": "port", "portId": "port", "label": "port", "direction": "output", "dataType": "any", "angle": 240, "role": "exposes-port", "allowedEdgeTypes": ["reference"], "metadata": { "structural": true, "relationship": true, "role": "exposes-port", "required": false, "repeatable": true, "behaviors": [{ "trigger": "drag-create", "action": "create-node", "nodeType": "port", "targetPort": "root" }] } },
+        { "id": "landing-surface", "key": "landing-surface", "portId": "landing-surface", "label": "landing surface", "direction": "output", "dataType": "any", "angle": 300, "role": "landing-surface", "allowedEdgeTypes": ["reference"], "metadata": { "structural": true, "relationship": true, "role": "landing-surface", "required": true, "repeatable": false } }
       ],
       "outputs": [
-        { "key": "primary-view", "label": "primary view", "type": "any" }
+        { "key": "default-view", "label": "default view", "type": "any" },
+        { "key": "summary-view", "label": "summary view", "type": "any" },
+        { "key": "icon-view", "label": "icon view", "type": "any" },
+        { "key": "glyph", "label": "glyph", "type": "any" },
+        { "key": "port", "label": "port", "type": "any" },
+        { "key": "landing-surface", "label": "landing surface", "type": "any" }
       ],
       "visible": true,
       "showLabel": true,
       "data": {
         "identity": {
           "graphId": "declaration-primary-view-toolbar-smoke",
+          "nodeId": "declaration-root-interface-smoke",
           "name": "Declaration Primary View Toolbar Smoke",
           "version": "0.1.0",
           "description": "A serialized specimen of the toolbar Declaration contract."
@@ -70,11 +91,12 @@
         "declaration": {
           "kind": "graph",
           "targetMode": "artifact",
+          "interfaceContract": { "version": 1, "implicitRootPort": true },
           "defaultSurfaceId": "",
-          "surfaces": []
+          "surfaces": [{ "id": "action", "kind": "port", "portNodeId": "declaration-root-interface-smoke-port" }]
         },
         "dependencies": {
-          "nodeTypes": ["declaration", "view", "content"]
+          "nodeTypes": ["declaration", "view", "content", "glyph", "port"]
         },
         "authority": {
           "mutation": { "allowCreate": true, "allowUpdate": true, "allowDelete": true, "appendOnly": false },
@@ -118,10 +140,58 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Pass Procedure\n\n1. Delete this specimen Declaration and create a fresh Declaration from the toolbar.\n2. Confirm it has only one handle: **primary view**, at the right edge.\n3. Confirm it has no root or legacy side handles.\n4. Drag **primary view** into open space and confirm a View plus `default-view` edge are created.\n5. Save and reload the graph.\n6. Confirm the Declaration still contains the serialized `primary-view` port and handle and the landing relationship still resolves.\n\nExplicitly authored legacy root ports remain readable, but new Declarations do not create one."
+          "value": "# Pass Procedure\n\n1. Create a fresh Declaration from the toolbar.\n2. Confirm six handles: **default view**, **summary view**, **icon view**, **glyph**, **port**, and **landing surface**. There must be no root or legacy side handles.\n3. Drag **default view**, **summary view**, and **icon view** into open space; each must create a View.\n4. Drag **glyph** into open space; it must create a Glyph Definition, not an Icon View.\n5. Drag **port** into open space more than once; each drag must create a Port.\n6. Drag **landing surface** into open space; it must create nothing and explain that the relationship connects to an existing node. Connect it to a focusable node instead.\n7. Save and reload. Confirm every relationship and handle remains in place.\n\nThe Declaration is the implicit root Port. Its default, summary, icon, and glyph relationships are required. Landing controls navigation independently. Explicit legacy `primary-view` and root declarations remain readable."
         },
         "renderShape": { "kind": "markdown" }
       }
+    },
+    {
+      "id": "declaration-root-interface-smoke-summary-view",
+      "type": "view",
+      "label": "Summary View",
+      "position": { "x": -40, "y": 430 },
+      "width": 360,
+      "height": 220,
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 180 }],
+      "visible": true,
+      "showLabel": true,
+      "data": { "view": { "intent": "node", "payload": "node.web.summary", "semanticLevel": "summary" }, "semanticLevel": "summary", "text": "Declaration root interface summary" }
+    },
+    {
+      "id": "declaration-root-interface-smoke-icon-view",
+      "type": "view",
+      "label": "Icon View",
+      "position": { "x": -420, "y": 430 },
+      "width": 300,
+      "height": 200,
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 180 }],
+      "visible": true,
+      "showLabel": true,
+      "data": { "view": { "intent": "node", "payload": "node.web.icon", "semanticLevel": "icon" }, "semanticLevel": "icon", "text": "Root interface icon presentation" }
+    },
+    {
+      "id": "declaration-root-interface-smoke-glyph",
+      "type": "glyph",
+      "label": "Root Glyph Definition",
+      "position": { "x": -820, "y": 120 },
+      "width": 260,
+      "height": 180,
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 0 }],
+      "visible": true,
+      "showLabel": true,
+      "data": { "glyph": { "kind": "icon", "name": "Hub" } }
+    },
+    {
+      "id": "declaration-root-interface-smoke-port",
+      "type": "port",
+      "label": "Action Port",
+      "position": { "x": -820, "y": -260 },
+      "width": 320,
+      "height": 200,
+      "ports": [{ "id": "root", "label": "root", "direction": "input", "dataType": "any", "angle": 0 }],
+      "visible": true,
+      "showLabel": true,
+      "data": { "surfaceId": "action", "direction": "input", "dataType": "any", "presentation": { "detail": { "mode": "delegate", "viewNodeId": "declaration-primary-view-smoke-landing-view" }, "summary": { "mode": "fallback" }, "icon": { "mode": "shared" } } }
     }
   ],
   "edges": [
@@ -130,10 +200,60 @@
       "type": "default-view",
       "source": "declaration-primary-view-smoke-declaration",
       "target": "declaration-primary-view-smoke-landing-view",
-      "sourcePort": "primary-view",
+      "sourcePort": "default-view",
       "targetPort": "root",
       "label": "default view",
-      "data": { "role": "default-view", "semanticRole": "declaration.default-view" }
+      "data": { "role": "default-view", "semanticRole": "default-view" }
+    },
+    {
+      "id": "declaration-root-interface-smoke-summary",
+      "type": "reference",
+      "source": "declaration-primary-view-smoke-declaration",
+      "target": "declaration-root-interface-smoke-summary-view",
+      "sourcePort": "summary-view",
+      "targetPort": "root",
+      "label": "summary view",
+      "data": { "role": "shared-summary", "semanticRole": "shared-summary" }
+    },
+    {
+      "id": "declaration-root-interface-smoke-icon",
+      "type": "reference",
+      "source": "declaration-primary-view-smoke-declaration",
+      "target": "declaration-root-interface-smoke-icon-view",
+      "sourcePort": "icon-view",
+      "targetPort": "root",
+      "label": "icon view",
+      "data": { "role": "shared-icon", "semanticRole": "shared-icon" }
+    },
+    {
+      "id": "declaration-root-interface-smoke-glyph-edge",
+      "type": "reference",
+      "source": "declaration-primary-view-smoke-declaration",
+      "target": "declaration-root-interface-smoke-glyph",
+      "sourcePort": "glyph",
+      "targetPort": "root",
+      "label": "glyph",
+      "data": { "role": "shared-glyph", "semanticRole": "shared-glyph" }
+    },
+    {
+      "id": "declaration-root-interface-smoke-port-edge",
+      "type": "reference",
+      "source": "declaration-primary-view-smoke-declaration",
+      "target": "declaration-root-interface-smoke-port",
+      "sourcePort": "port",
+      "targetPort": "root",
+      "label": "port",
+      "data": { "role": "exposes-port", "semanticRole": "exposes-port" }
+    },
+    {
+      "id": "declaration-root-interface-smoke-landing",
+      "type": "reference",
+      "source": "declaration-primary-view-smoke-declaration",
+      "target": "declaration-primary-view-smoke-content",
+      "sourcePort": "landing-surface",
+      "targetPort": "root",
+      "label": "landing surface",
+      "data": { "role": "landing-surface", "semanticRole": "landing-surface" }
     },
     {
       "id": "declaration-primary-view-smoke-view-content",
@@ -168,8 +288,8 @@
     "autoSave": false
   },
   "scripts": [],
-  "nodeCount": 3,
-  "edgeCount": 2,
+  "nodeCount": 7,
+  "edgeCount": 7,
   "timestamp": "2026-08-22T00:00:00.000Z",
   "viewport": { "x": 700, "y": 420, "zoom": 0.78 }
 }
