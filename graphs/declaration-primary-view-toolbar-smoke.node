@@ -1,0 +1,175 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Declaration Primary View Toolbar Smoke",
+    "description": "Proves that a new Declaration authors only its primary-view relationship handle and retains it through save and reload.",
+    "graphId": "declaration-primary-view-toolbar-smoke",
+    "version": "0.1.0",
+    "kind": "graph",
+    "created": "2026-08-22T00:00:00.000Z",
+    "modified": "2026-08-22T00:00:00.000Z",
+    "tags": ["smoke-test", "declaration", "primary-view", "toolbar", "handles"]
+  },
+  "nodes": [
+    {
+      "id": "declaration-primary-view-smoke-declaration",
+      "type": "declaration",
+      "label": "Declaration",
+      "position": { "x": -520, "y": 0 },
+      "width": 360,
+      "height": 220,
+      "ports": [
+        {
+          "id": "primary-view",
+          "key": "primary-view",
+          "label": "primary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "default-view",
+          "allowedEdgeTypes": ["default-view"],
+          "metadata": {
+            "structural": true,
+            "role": "default-view",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "primary-view",
+          "key": "primary-view",
+          "portId": "primary-view",
+          "label": "primary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "default-view"
+        }
+      ],
+      "outputs": [
+        { "key": "primary-view", "label": "primary view", "type": "any" }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "declaration-primary-view-toolbar-smoke",
+          "name": "Declaration Primary View Toolbar Smoke",
+          "version": "0.1.0",
+          "description": "A serialized specimen of the toolbar Declaration contract."
+        },
+        "intent": { "kind": "graph", "scope": "shared" },
+        "declaration": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "",
+          "surfaces": []
+        },
+        "dependencies": {
+          "nodeTypes": ["declaration", "view", "content"]
+        },
+        "authority": {
+          "mutation": { "allowCreate": true, "allowUpdate": true, "allowDelete": true, "appendOnly": false },
+          "actors": { "humans": true, "agents": true, "tools": true },
+          "styleAuthority": "descriptive"
+        }
+      }
+    },
+    {
+      "id": "declaration-primary-view-smoke-landing-view",
+      "type": "view",
+      "label": "Landing View",
+      "position": { "x": 120, "y": 0 },
+      "width": 420,
+      "height": 300,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 180 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": { "intent": "node", "payload": "node.web.detail", "semanticLevel": "detail" },
+        "semanticLevel": "detail",
+        "sourceScope": "graph",
+        "sourceNodeId": "declaration-primary-view-smoke-content",
+        "sourcePayload": "content"
+      }
+    },
+    {
+      "id": "declaration-primary-view-smoke-content",
+      "type": "content",
+      "label": "Pass Procedure",
+      "position": { "x": 120, "y": 400 },
+      "width": 520,
+      "height": 340,
+      "ports": [
+        { "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 180 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Pass Procedure\n\n1. Delete this specimen Declaration and create a fresh Declaration from the toolbar.\n2. Confirm it has only one handle: **primary view**, at the right edge.\n3. Confirm it has no root or legacy side handles.\n4. Drag **primary view** into open space and confirm a View plus `default-view` edge are created.\n5. Save and reload the graph.\n6. Confirm the Declaration still contains the serialized `primary-view` port and handle and the landing relationship still resolves.\n\nExplicitly authored legacy root ports remain readable, but new Declarations do not create one."
+        },
+        "renderShape": { "kind": "markdown" }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "declaration-primary-view-smoke-default-view",
+      "type": "default-view",
+      "source": "declaration-primary-view-smoke-declaration",
+      "target": "declaration-primary-view-smoke-landing-view",
+      "sourcePort": "primary-view",
+      "targetPort": "root",
+      "label": "default view",
+      "data": { "role": "default-view", "semanticRole": "declaration.default-view" }
+    },
+    {
+      "id": "declaration-primary-view-smoke-view-content",
+      "type": "reference",
+      "source": "declaration-primary-view-smoke-landing-view",
+      "target": "declaration-primary-view-smoke-content",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "content",
+      "data": { "role": "content", "semanticRole": "view.content" }
+    }
+  ],
+  "clusters": [],
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "#666666",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": { "mode": "manual", "defaultLayout": "layered", "direction": "RIGHT" },
+    "github": {
+      "repo": "mikemartinez1974/public",
+      "path": "graphs/declaration-primary-view-toolbar-smoke.node",
+      "branch": "main",
+      "autoCreateRepo": false,
+      "repoVisibility": "private",
+      "seedOnCommit": false,
+      "enableGithubPages": false
+    },
+    "autoSave": false
+  },
+  "scripts": [],
+  "nodeCount": 3,
+  "edgeCount": 2,
+  "timestamp": "2026-08-22T00:00:00.000Z",
+  "viewport": { "x": 700, "y": 420, "zoom": 0.78 }
+}
