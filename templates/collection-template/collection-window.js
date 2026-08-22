@@ -254,12 +254,13 @@ const renderWindow = async (direction = 'run') => {
     const id = priorMember?.id || `runtime-collection-slot-${index}`;
     const label = member.label || clean(member.ref.split('/').pop()).replace(/\.node$/i, '') || 'Collection member';
     const semanticNode = member.node || null;
+    const preserveManualPlacement = view.allowManualMemberPlacement === true && priorMember?.positionLocked === true;
     const projected = semanticNode ? {
       ...semanticNode,
       id,
       root: false,
       label,
-      position: priorMember?.positionLocked === true
+      position: preserveManualPlacement
         ? priorMember.position
         : {
             x: originX + (index % columns) * (cardWidth + gapX),
@@ -267,7 +268,7 @@ const renderWindow = async (direction = 'run') => {
           },
       width: cardWidth,
       height: cardHeight,
-      ...(priorMember?.positionLocked === true ? { positionLocked: true } : {}),
+      ...(preserveManualPlacement ? { positionLocked: true } : { positionLocked: false }),
       data: {
         ...(semanticNode.data || {}),
         presentationBaseLevel: usesIconMembers
@@ -284,7 +285,7 @@ const renderWindow = async (direction = 'run') => {
       id,
       type: 'portal',
       label,
-      position: priorMember?.positionLocked === true
+      position: preserveManualPlacement
         ? priorMember.position
         : {
             x: originX + (index % columns) * (cardWidth + gapX),
@@ -292,7 +293,7 @@ const renderWindow = async (direction = 'run') => {
           },
       width: cardWidth,
       height: cardHeight,
-      ...(priorMember?.positionLocked === true ? { positionLocked: true } : {}),
+      ...(preserveManualPlacement ? { positionLocked: true } : { positionLocked: false }),
       data: {
         authority: 'navigate',
         intent: 'external',
