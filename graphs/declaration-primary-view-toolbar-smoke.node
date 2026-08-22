@@ -188,10 +188,25 @@
       "position": { "x": -820, "y": -260 },
       "width": 320,
       "height": 200,
-      "ports": [{ "id": "root", "label": "root", "direction": "input", "dataType": "any", "angle": 0 }],
+      "ports": [
+        { "id": "root", "key": "root", "label": "root", "direction": "input", "dataType": "any", "angle": 240, "metadata": { "interface": true, "structural": true } },
+        { "id": "default-view", "key": "default-view", "label": "default view", "direction": "output", "dataType": "any", "angle": 0, "role": "default-view", "allowedEdgeTypes": ["default-view"], "metadata": { "structural": true, "relationship": true, "role": "default-view", "required": true, "repeatable": false, "behaviors": [{ "trigger": "drag-create", "action": "create-node", "nodeType": "view", "targetPort": "root" }] } },
+        { "id": "summary-view", "key": "summary-view", "label": "summary view", "direction": "output", "dataType": "any", "angle": 60, "role": "shared-summary", "allowedEdgeTypes": ["reference"], "metadata": { "structural": true, "relationship": true, "role": "shared-summary", "required": true, "repeatable": false, "behaviors": [{ "trigger": "drag-create", "action": "create-node", "nodeType": "view", "targetPort": "root" }] } },
+        { "id": "icon-view", "key": "icon-view", "label": "icon view", "direction": "output", "dataType": "any", "angle": 120, "role": "shared-icon", "allowedEdgeTypes": ["reference"], "metadata": { "structural": true, "relationship": true, "role": "shared-icon", "required": true, "repeatable": false, "behaviors": [{ "trigger": "drag-create", "action": "create-node", "nodeType": "view", "targetPort": "root" }] } },
+        { "id": "glyph", "key": "glyph", "label": "glyph", "direction": "output", "dataType": "any", "angle": 180, "role": "shared-glyph", "allowedEdgeTypes": ["reference"], "metadata": { "structural": true, "relationship": true, "role": "shared-glyph", "required": true, "repeatable": false, "behaviors": [{ "trigger": "drag-create", "action": "create-node", "nodeType": "glyph", "targetPort": "root" }] } },
+        { "id": "landing-surface", "key": "landing-surface", "label": "landing surface", "direction": "output", "dataType": "any", "angle": 300, "role": "landing-surface", "allowedEdgeTypes": ["reference"], "metadata": { "structural": true, "relationship": true, "role": "landing-surface", "required": true, "repeatable": false } }
+      ],
+      "handles": [
+        { "id": "root", "key": "root", "portId": "root", "label": "root", "direction": "input", "dataType": "any", "angle": 240, "metadata": { "interface": true, "structural": true } },
+        { "id": "default-view", "key": "default-view", "portId": "default-view", "label": "default view", "direction": "output", "dataType": "any", "angle": 0, "role": "default-view" },
+        { "id": "summary-view", "key": "summary-view", "portId": "summary-view", "label": "summary view", "direction": "output", "dataType": "any", "angle": 60, "role": "shared-summary" },
+        { "id": "icon-view", "key": "icon-view", "portId": "icon-view", "label": "icon view", "direction": "output", "dataType": "any", "angle": 120, "role": "shared-icon" },
+        { "id": "glyph", "key": "glyph", "portId": "glyph", "label": "glyph", "direction": "output", "dataType": "any", "angle": 180, "role": "shared-glyph" },
+        { "id": "landing-surface", "key": "landing-surface", "portId": "landing-surface", "label": "landing surface", "direction": "output", "dataType": "any", "angle": 300, "role": "landing-surface" }
+      ],
       "visible": true,
       "showLabel": true,
-      "data": { "surfaceId": "action", "direction": "input", "dataType": "any", "presentation": { "detail": { "mode": "delegate", "viewNodeId": "declaration-primary-view-smoke-landing-view" }, "summary": { "mode": "fallback" }, "icon": { "mode": "shared" } } }
+      "data": { "surfaceId": "action", "direction": "input", "dataType": "any", "interfaceContract": { "version": 1, "semanticViews": true }, "presentation": { "detail": { "mode": "own" }, "summary": { "mode": "own" }, "icon": { "mode": "own" }, "glyph": { "mode": "own" } } }
     }
   ],
   "edges": [
@@ -264,6 +279,56 @@
       "targetPort": "root",
       "label": "content",
       "data": { "role": "content", "semanticRole": "view.content" }
+    },
+    {
+      "id": "declaration-root-interface-action-default",
+      "type": "default-view",
+      "source": "declaration-root-interface-smoke-port",
+      "target": "declaration-primary-view-smoke-landing-view",
+      "sourcePort": "default-view",
+      "targetPort": "root",
+      "label": "default view",
+      "data": { "role": "default-view", "semanticRole": "default-view" }
+    },
+    {
+      "id": "declaration-root-interface-action-summary",
+      "type": "reference",
+      "source": "declaration-root-interface-smoke-port",
+      "target": "declaration-root-interface-smoke-summary-view",
+      "sourcePort": "summary-view",
+      "targetPort": "root",
+      "label": "summary view",
+      "data": { "role": "shared-summary", "semanticRole": "shared-summary" }
+    },
+    {
+      "id": "declaration-root-interface-action-icon",
+      "type": "reference",
+      "source": "declaration-root-interface-smoke-port",
+      "target": "declaration-root-interface-smoke-icon-view",
+      "sourcePort": "icon-view",
+      "targetPort": "root",
+      "label": "icon view",
+      "data": { "role": "shared-icon", "semanticRole": "shared-icon" }
+    },
+    {
+      "id": "declaration-root-interface-action-glyph",
+      "type": "reference",
+      "source": "declaration-root-interface-smoke-port",
+      "target": "declaration-root-interface-smoke-glyph",
+      "sourcePort": "glyph",
+      "targetPort": "root",
+      "label": "glyph",
+      "data": { "role": "shared-glyph", "semanticRole": "shared-glyph" }
+    },
+    {
+      "id": "declaration-root-interface-action-landing",
+      "type": "reference",
+      "source": "declaration-root-interface-smoke-port",
+      "target": "declaration-primary-view-smoke-content",
+      "sourcePort": "landing-surface",
+      "targetPort": "root",
+      "label": "landing surface",
+      "data": { "role": "landing-surface", "semanticRole": "landing-surface" }
     }
   ],
   "clusters": [],
@@ -289,7 +354,7 @@
   },
   "scripts": [],
   "nodeCount": 7,
-  "edgeCount": 7,
+  "edgeCount": 12,
   "timestamp": "2026-08-22T00:00:00.000Z",
   "viewport": { "x": 700, "y": 420, "zoom": 0.78 }
 }
