@@ -74,15 +74,24 @@ const findMemberProjection = (graph, payload = 'node.web.icon') => {
     .find(isSemanticInstance);
   const rooted = nodes.find((node) => node?.root === true && isSemanticInstance(node));
   const semanticNode = connected || rooted || nodes.find(isSemanticInstance) || null;
+  const glyphEdge = (Array.isArray(graph?.edges) ? graph.edges : []).find((edge) => (
+    edge?.source === declaration?.id
+    && ['shared-glyph', 'glyph'].includes(clean(edge?.data?.role || edge?.data?.semanticRole || edge?.label).toLowerCase())
+  ));
+  const glyphNode = nodes.find((node) => node?.id === glyphEdge?.target);
+  const glyph = glyphNode?.data?.glyph && typeof glyphNode.data.glyph === 'object'
+    ? glyphNode.data.glyph
+    : null;
   return {
-    id: clean(port?.id),
+    id: clean(port?.id || declaration?.id),
     label: clean(declaration?.data?.identity?.name || port?.label),
     payload: clean(
       port?.data?.view?.payload ||
       port?.data?.payload ||
       payload
     ),
-    node: semanticNode
+    node: semanticNode,
+    glyph
   };
 };
 
@@ -253,35 +262,8 @@ const renderWindow = async (direction = 'run') => {
     const priorMember = existingSlots[index] || null;
     const id = priorMember?.id || `runtime-collection-slot-${index}`;
     const label = member.label || clean(member.ref.split('/').pop()).replace(/\.node$/i, '') || 'Collection member';
-    const semanticNode = member.node || null;
     const preserveManualPlacement = view.allowManualMemberPlacement === true && priorMember?.positionLocked === true;
-    const projected = semanticNode ? {
-      ...semanticNode,
-      id,
-      root: false,
-      label,
-      position: preserveManualPlacement
-        ? priorMember.position
-        : {
-            x: originX + (index % columns) * (cardWidth + gapX),
-            y: originY + Math.floor(index / columns) * (cardHeight + gapY)
-          },
-      width: cardWidth,
-      height: cardHeight,
-      ...(preserveManualPlacement ? { positionLocked: true } : { positionLocked: false }),
-      data: {
-        ...(semanticNode.data || {}),
-        presentationBaseLevel: usesIconMembers
-          ? 'icon'
-          : clean(semanticNode.data?.presentationBaseLevel || semanticNode.data?.presentation?.baseLevel),
-        _origin: {
-          ...(semanticNode.data?._origin || {}),
-          canonicalId: semanticNode.id,
-          ref: member.ref
-        },
-        _runtime: { kind: RUNTIME_KIND, slot: index, sourceRef: member.ref, sourceNodeId: semanticNode.id, windowStart: start }
-      }
-    } : {
+    const projected = {
       id,
       type: 'portal',
       label,
@@ -294,6 +276,10 @@ const renderWindow = async (direction = 'run') => {
       width: cardWidth,
       height: cardHeight,
       ...(preserveManualPlacement ? { positionLocked: true } : { positionLocked: false }),
+      ports: [],
+      handles: [],
+      inputs: [],
+      outputs: [],
       data: {
         authority: 'navigate',
         intent: 'external',
@@ -306,7 +292,15 @@ const renderWindow = async (direction = 'run') => {
         surfaceId: 'root',
         target: { ref: member.ref, mode: 'navigate', portId: 'root', surfaceId: 'root', label: `Open ${label}` },
         visibilityRole: 'browser',
-        _runtime: { kind: RUNTIME_KIND, slot: index, sourceRef: member.ref, windowStart: start }
+        presentationBaseLevel: usesIconMembers
+          ? 'icon'
+          : 'summary',
+        ...(member.glyph ? { presentation: { glyph: member.glyph } } : {}),
+        _origin: {
+          canonicalId: member.node?.id || member.id,
+          ref: member.ref
+        },
+        _runtime: { kind: RUNTIME_KIND, slot: index, sourceRef: member.ref, sourceNodeId: member.id, windowStart: start }
       }
     };
     if (priorMember) updateNodes.push(projected);
