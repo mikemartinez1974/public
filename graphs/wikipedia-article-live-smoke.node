@@ -2,16 +2,16 @@
   "type": "nodegraph-data",
   "nodes": [
     {
-      "id": "wikipedia-article-source-declaration",
+      "id": "wikipedia-article-live-smoke-declaration",
       "type": "declaration",
-      "label": "Wikipedia Article Source Declaration",
+      "label": "Wikipedia Article Live Smoke Test",
       "root": false,
       "position": {
-        "x": -1280,
-        "y": 0
+        "x": -1500,
+        "y": -120
       },
-      "width": 420,
-      "height": 300,
+      "width": 400,
+      "height": 280,
       "ports": [
         {
           "id": "default-view",
@@ -242,141 +242,40 @@
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "wikipedia-article-source-declaration",
-          "nodeId": "wikipedia-article-source",
-          "name": "Wikipedia Article Source",
-          "version": "0.2.0",
-          "description": "A graph-native Wikipedia article with lazy, section-oriented expansion."
+          "graphId": "wikipedia-article-live-smoke",
+          "nodeId": "wikipedia-article-live-smoke",
+          "name": "Wikipedia Article Live Smoke Test",
+          "version": "0.1.0",
+          "description": "Proves live Article resolution and recursive Section expansion."
         },
         "intent": {
-          "kind": "node-class",
+          "kind": "graph",
           "scope": "shared"
         },
         "declaration": {
-          "kind": "node-class",
+          "kind": "graph",
           "targetMode": "artifact",
-          "artifactKind": "node-class",
+          "artifactKind": "graph",
           "interfaceContract": {
             "version": 1,
             "implicitRootPort": true
           },
           "defaultSurfaceId": "",
           "surfaces": []
-        },
-        "nodeClass": {
-          "contractVersion": "1.0.0",
-          "key": "wikipedia-article-source",
-          "label": "Wikipedia Article Source",
-          "meaning": "A Wikipedia article projection that owns article identity, lead content, provenance, and an immediate section manifest.",
-          "requiredDataKeys": [
-            "articleRef"
-          ],
-          "nodeDef": {
-            "key": "wikipedia-article-source",
-            "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node",
-            "version": ">=0.2.0",
-            "defaults": {
-              "label": "Wikipedia Article",
-              "size": {
-                "width": 680,
-                "height": 500
-              },
-              "showLabel": false,
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "input",
-                  "dataType": "any",
-                  "angle": 180,
-                  "metadata": {
-                    "interface": true,
-                    "structural": true
-                  }
-                }
-              ],
-              "data": {
-                "articleRef": "",
-                "canonicalUrl": "",
-                "title": "",
-                "revisionId": "",
-                "lead": "",
-                "sections": [],
-                "attribution": {
-                  "source": "Wikipedia",
-                  "license": "CC BY-SA",
-                  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
-                },
-                "resolution": {
-                  "status": "idle",
-                  "resolvedRef": "",
-                  "lastResolvedAt": "",
-                  "error": ""
-                }
-              }
-            },
-            "dynamicPorts": {
-              "version": 1,
-              "sourcePath": "sections",
-              "idPath": "id",
-              "labelPath": "title",
-              "orderPath": "order",
-              "direction": "output",
-              "dataType": "wikipedia-section",
-              "placement": {
-                "side": "right"
-              },
-              "behavior": {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "wikipedia-section",
-                "targetPort": "root",
-                "seed": {
-                  "articleRef": "$node.articleRef",
-                  "canonicalUrl": "$node.canonicalUrl",
-                  "articleTitle": "$node.title",
-                  "revisionId": "$node.revisionId",
-                  "sectionId": "$entry.id",
-                  "title": "$entry.title",
-                  "level": "$entry.level",
-                  "order": "$entry.order",
-                  "sourceLocator": "$entry.sourceLocator"
-                }
-              }
-            },
-            "lifecycle": {
-              "version": 1,
-              "resolve": {
-                "trigger": "authored-identity-change",
-                "identityPath": "articleRef",
-                "adapter": "wikimedia-article-v1",
-                "inputPaths": [
-                  "articleRef"
-                ],
-                "requiredInputPaths": [
-                  "articleRef"
-                ],
-                "resolverNodeId": "wikipedia-article-resolver-script",
-                "policy": "latest-with-revision-provenance",
-                "preserveLastKnownGoodOnError": true
-              }
-            }
-          }
         }
       }
     },
     {
-      "id": "wikipedia-article-source-detail",
+      "id": "wikipedia-article-live-smoke-detail",
       "type": "view",
-      "label": "Article Detail",
+      "label": "Smoke Detail",
       "root": false,
       "position": {
-        "x": -720,
-        "y": -300
+        "x": -980,
+        "y": -360
       },
-      "width": 480,
-      "height": 320,
+      "width": 420,
+      "height": 260,
       "ports": [
         {
           "id": "root",
@@ -451,25 +350,24 @@
           "ownsContent": true,
           "surfaceDelegation": true
         },
-        "title": "{{title}}",
-        "body": "{{lead}}",
-        "footer": "Source: Wikipedia · {{canonicalUrl}} · revision {{revisionId}} · {{attribution.license}}",
+        "title": "Wikipedia Article Live Smoke Test",
+        "body": "A real Article instance resolves itself and exposes live section handles.",
         "identity": {
-          "graphId": "wikipedia-article-source-declaration"
+          "graphId": "wikipedia-article-live-smoke"
         }
       }
     },
     {
-      "id": "wikipedia-article-source-summary",
+      "id": "wikipedia-article-live-smoke-summary",
       "type": "view",
-      "label": "Article Summary",
+      "label": "Smoke Summary",
       "root": false,
       "position": {
-        "x": -720,
-        "y": 80
+        "x": -980,
+        "y": -40
       },
-      "width": 420,
-      "height": 240,
+      "width": 380,
+      "height": 220,
       "ports": [
         {
           "id": "root",
@@ -544,24 +442,24 @@
           "ownsContent": true,
           "surfaceDelegation": true
         },
-        "title": "{{title}}",
-        "body": "{{lead}}",
+        "title": "Wikipedia Live Smoke",
+        "body": "Resolve Article, expand Section, recurse.",
         "identity": {
-          "graphId": "wikipedia-article-source-declaration"
+          "graphId": "wikipedia-article-live-smoke"
         }
       }
     },
     {
-      "id": "wikipedia-article-source-icon",
+      "id": "wikipedia-article-live-smoke-icon",
       "type": "view",
-      "label": "Article Icon",
+      "label": "Smoke Icon",
       "root": false,
       "position": {
-        "x": -720,
-        "y": 380
+        "x": -980,
+        "y": 240
       },
-      "width": 320,
-      "height": 220,
+      "width": 300,
+      "height": 200,
       "ports": [
         {
           "id": "root",
@@ -636,23 +534,21 @@
           "ownsContent": true,
           "surfaceDelegation": true
         },
-        "renderShape": {
-          "kind": "svg"
-        },
-        "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 200'><rect x='5' y='5' width='230' height='190' rx='24' fill='#111827' stroke='#d1d5db' stroke-width='3'/><circle cx='120' cy='82' r='48' fill='#f8fafc'/><text x='120' y='102' text-anchor='middle' font-family='Georgia,serif' font-size='60' font-weight='700' fill='#111827'>W</text><text x='120' y='162' text-anchor='middle' font-family='system-ui,sans-serif' font-size='16' font-weight='800' fill='#f8fafc'>ARTICLE</text></svg>",
+        "title": "Wikipedia Live Smoke",
+        "body": "W",
         "identity": {
-          "graphId": "wikipedia-article-source-declaration"
+          "graphId": "wikipedia-article-live-smoke"
         }
       }
     },
     {
-      "id": "wikipedia-article-source-glyph",
+      "id": "wikipedia-article-live-smoke-glyph",
       "type": "glyph",
-      "label": "Wikipedia Glyph",
+      "label": "Smoke Glyph",
       "root": false,
       "position": {
-        "x": -1180,
-        "y": -480
+        "x": -1420,
+        "y": -500
       },
       "width": 240,
       "height": 160,
@@ -693,166 +589,354 @@
           "receivesGlyphDefinition": true
         },
         "identity": {
-          "graphId": "wikipedia-article-source-declaration"
+          "graphId": "wikipedia-article-live-smoke"
         }
       }
     },
     {
-      "id": "wikipedia-article-source-landing",
+      "id": "wikipedia-article-live-smoke-landing",
       "type": "content",
-      "label": "Article Landing Surface",
+      "label": "Smoke Landing Surface",
       "root": false,
       "position": {
-        "x": -120,
-        "y": -40
-      },
-      "width": 680,
-      "height": 500,
-      "ports": [
-        {
-          "id": "root",
-          "key": "root",
-          "label": "root",
-          "direction": "input",
-          "dataType": "any",
-          "angle": 270,
-          "metadata": {
-            "interface": true,
-            "structural": true
-          }
-        }
-      ],
-      "handles": [
-        {
-          "id": "root",
-          "key": "root",
-          "portId": "root",
-          "label": "root",
-          "direction": "input",
-          "dataType": "any",
-          "angle": 270
-        }
-      ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "content": {
-          "kind": "markdown",
-          "value": "# Wikipedia Article\n\nThe landing surface defines the article node frame. Runtime semantic Views render resolved article data inside this boundary."
-        },
-        "interfaceContract": {
-          "version": 1,
-          "receivesViewContent": true
-        },
-        "identity": {
-          "graphId": "wikipedia-article-source-declaration"
-        }
-      }
-    },
-    {
-      "id": "wikipedia-article-source-contract",
-      "type": "content",
-      "label": "Article Source Contract",
-      "root": false,
-      "position": {
-        "x": 660,
-        "y": -40
-      },
-      "width": 560,
-      "height": 500,
-      "ports": [
-        {
-          "id": "root",
-          "key": "root",
-          "label": "root",
-          "direction": "input",
-          "dataType": "any",
-          "angle": 270,
-          "metadata": {
-            "interface": true,
-            "structural": true
-          }
-        }
-      ],
-      "handles": [
-        {
-          "id": "root",
-          "key": "root",
-          "portId": "root",
-          "label": "root",
-          "direction": "input",
-          "dataType": "any",
-          "angle": 270
-        }
-      ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "content": {
-          "kind": "markdown",
-          "value": "## Wikipedia Article Source\n\nAuthored identity is `articleRef`. Derived state is canonical URL, title, revision provenance, attribution, lead, and an ordered manifest of immediate top-level sections. `firstSection` is not stored. Section bodies resolve lazily. The resolver preserves last-known-good content on transient failure and does not rerun for rendering, focus, or zoom."
-        },
-        "interfaceContract": {
-          "version": 1,
-          "receivesViewContent": true
-        },
-        "identity": {
-          "graphId": "wikipedia-article-source-declaration"
-        }
-      }
-    },
-    {
-      "id": "wikipedia-article-resolver-script",
-      "type": "script",
-      "label": "Wikipedia Article Resolver",
-      "root": false,
-      "position": {
-        "x": 660,
-        "y": 540
+        "x": -420,
+        "y": -120
       },
       "width": 560,
       "height": 360,
       "ports": [
         {
-          "id": "trigger",
-          "label": "trigger",
+          "id": "root",
+          "key": "root",
+          "label": "root",
           "direction": "input",
-          "dataType": "trigger",
-          "angle": 180
-        },
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          }
+        }
+      ],
+      "handles": [
         {
-          "id": "result",
-          "label": "result",
-          "direction": "output",
-          "dataType": "value",
-          "angle": 0
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
         }
       ],
       "visible": true,
       "showLabel": true,
       "data": {
-        "scriptName": "Wikipedia Article Resolver",
-        "allowMutations": true,
-        "autoRun": false,
-        "lifecycleRole": "node-class-resolver",
-        "authoredIdentityPath": "articleRef",
-        "resolutionPolicy": "latest-with-revision-provenance",
-        "preserveLastKnownGoodOnError": true,
-        "memo": "Resolve redirects and normalize articleRef into canonical identity, revision provenance, lead, attribution, and immediate top-level section manifest. The generic runtime lifecycle supplies the owning instance and commits derived state exactly once per authored identity change.",
-        "status": "implemented",
+        "content": {
+          "kind": "markdown",
+          "value": "# Wikipedia Article Live Smoke Test\n\nThe Article node below is configured with a real Wikipedia reference. It should resolve automatically and expose its immediate sections as labeled handles."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "wikipedia-article-live-smoke"
+        }
+      }
+    },
+    {
+      "id": "wikipedia-article-live-smoke-article-class",
+      "type": "bridge",
+      "label": "Wikipedia Article Source Class",
+      "position": {
+        "x": -1400,
+        "y": 360
+      },
+      "width": 380,
+      "height": 170,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "data": {
+        "authority": "bridge",
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node",
+          "role": "import",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ],
+          "exposure": {
+            "nodeClasses": {
+              "mode": "allow",
+              "include": [
+                "wikipedia-article-source"
+              ]
+            },
+            "views": {
+              "mode": "allow"
+            }
+          }
+        },
+        "target": {
+          "mode": "bridge",
+          "kind": "node-class",
+          "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node",
+          "key": "wikipedia-article-source",
+          "grants": [
+            "create"
+          ]
+        },
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "wikipedia-article-source-declaration"
+          "graphId": "wikipedia-article-live-smoke"
+        }
+      }
+    },
+    {
+      "id": "wikipedia-article-live-smoke-section-class",
+      "type": "bridge",
+      "label": "Wikipedia Section Class",
+      "position": {
+        "x": -960,
+        "y": 520
+      },
+      "width": 380,
+      "height": 170,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "data": {
+        "authority": "bridge",
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-section.node-class.node",
+          "role": "import",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ],
+          "exposure": {
+            "nodeClasses": {
+              "mode": "allow",
+              "include": [
+                "wikipedia-section"
+              ]
+            },
+            "views": {
+              "mode": "allow"
+            }
+          }
+        },
+        "target": {
+          "mode": "bridge",
+          "kind": "node-class",
+          "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-section.node-class.node",
+          "key": "wikipedia-section",
+          "grants": [
+            "create"
+          ]
+        },
+        "visibilityRole": "editor",
+        "identity": {
+          "graphId": "wikipedia-article-live-smoke"
+        }
+      }
+    },
+    {
+      "id": "wikipedia-article-live-smoke-article",
+      "type": "wikipedia-article-source",
+      "label": "Graph (discrete mathematics)",
+      "root": true,
+      "position": {
+        "x": 260,
+        "y": -80
+      },
+      "width": 680,
+      "height": 500,
+      "visible": true,
+      "showLabel": false,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "data": {
+        "articleRef": "https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)",
+        "canonicalUrl": "",
+        "title": "",
+        "revisionId": "",
+        "lead": "",
+        "sections": [],
+        "attribution": {
+          "source": "Wikipedia",
+          "license": "CC BY-SA",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+        },
+        "resolution": {
+          "status": "idle",
+          "resolvedRef": "",
+          "lastResolvedAt": "",
+          "error": ""
+        },
+        "lifecycle": {
+          "resolve": {
+            "trigger": "authored-identity-change",
+            "adapter": "wikimedia-article-v1",
+            "inputPaths": [
+              "articleRef"
+            ],
+            "requiredInputPaths": [
+              "articleRef"
+            ],
+            "preserveLastKnownGoodOnError": true
+          }
+        },
+        "dynamicPorts": {
+          "version": 1,
+          "sourcePath": "sections",
+          "idPath": "id",
+          "labelPath": "title",
+          "orderPath": "order",
+          "direction": "output",
+          "dataType": "wikipedia-section",
+          "placement": {
+            "side": "right"
+          },
+          "behavior": {
+            "trigger": "drag-create",
+            "action": "create-node",
+            "nodeType": "wikipedia-section",
+            "targetPort": "root",
+            "seed": {
+              "articleRef": "$node.articleRef",
+              "canonicalUrl": "$node.canonicalUrl",
+              "articleTitle": "$node.title",
+              "revisionId": "$node.revisionId",
+              "sectionId": "$entry.id",
+              "title": "$entry.title",
+              "level": "$entry.level",
+              "order": "$entry.order",
+              "sourceLocator": "$entry.sourceLocator"
+            }
+          }
+        },
+        "definitionKey": "wikipedia-article-source",
+        "_classBinding": {
+          "key": "wikipedia-article-source",
+          "sourceRef": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node",
+          "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node"
+        },
+        "_bridge": {
+          "classKey": "wikipedia-article-source",
+          "classRef": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class"
+        },
+        "identity": {
+          "graphId": "wikipedia-article-live-smoke"
+        }
+      }
+    },
+    {
+      "id": "wikipedia-article-live-smoke-criteria",
+      "type": "content",
+      "label": "Pass Criteria",
+      "root": false,
+      "position": {
+        "x": 1040,
+        "y": -40
+      },
+      "width": 520,
+      "height": 500,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## Pass criteria\n\n1. Article resolves to **Graph (discrete mathematics)** without a button.\n2. Detail and Summary show resolved title and lead.\n3. Revision provenance is populated.\n4. Immediate top-level sections appear as labeled handles on the right.\n5. Dragging a section creates `wikipedia-section` through its root.\n6. The Section resolves readable content and exposes only its immediate child sections.\n7. Changing `articleRef` triggers one new resolution; zoom and focus do not."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "wikipedia-article-live-smoke"
         }
       }
     }
   ],
   "edges": [
     {
-      "id": "article-default-view",
+      "id": "wikipedia-article-live-smoke-default-view",
       "type": "default-view",
-      "source": "wikipedia-article-source-declaration",
-      "target": "wikipedia-article-source-detail",
+      "source": "wikipedia-article-live-smoke-declaration",
+      "target": "wikipedia-article-live-smoke-detail",
       "sourcePort": "default-view",
       "targetPort": "root",
       "label": "default view",
@@ -862,10 +946,10 @@
       }
     },
     {
-      "id": "article-summary-view",
+      "id": "wikipedia-article-live-smoke-summary-view",
       "type": "reference",
-      "source": "wikipedia-article-source-declaration",
-      "target": "wikipedia-article-source-summary",
+      "source": "wikipedia-article-live-smoke-declaration",
+      "target": "wikipedia-article-live-smoke-summary",
       "sourcePort": "summary-view",
       "targetPort": "root",
       "label": "summary view",
@@ -875,10 +959,10 @@
       }
     },
     {
-      "id": "article-icon-view",
+      "id": "wikipedia-article-live-smoke-icon-view",
       "type": "reference",
-      "source": "wikipedia-article-source-declaration",
-      "target": "wikipedia-article-source-icon",
+      "source": "wikipedia-article-live-smoke-declaration",
+      "target": "wikipedia-article-live-smoke-icon",
       "sourcePort": "icon-view",
       "targetPort": "root",
       "label": "icon view",
@@ -888,10 +972,10 @@
       }
     },
     {
-      "id": "article-glyph",
+      "id": "wikipedia-article-live-smoke-glyph-edge",
       "type": "reference",
-      "source": "wikipedia-article-source-declaration",
-      "target": "wikipedia-article-source-glyph",
+      "source": "wikipedia-article-live-smoke-declaration",
+      "target": "wikipedia-article-live-smoke-glyph",
       "sourcePort": "glyph",
       "targetPort": "root",
       "label": "glyph",
@@ -901,10 +985,10 @@
       }
     },
     {
-      "id": "article-landing",
+      "id": "wikipedia-article-live-smoke-landing-edge",
       "type": "reference",
-      "source": "wikipedia-article-source-declaration",
-      "target": "wikipedia-article-source-landing",
+      "source": "wikipedia-article-live-smoke-declaration",
+      "target": "wikipedia-article-live-smoke-landing",
       "sourcePort": "landing-surface",
       "targetPort": "root",
       "label": "landing surface",
@@ -912,9 +996,22 @@
         "role": "landing-surface",
         "semanticRole": "landing-surface"
       }
+    },
+    {
+      "id": "wikipedia-article-live-smoke-article-import",
+      "type": "reference",
+      "source": "wikipedia-article-live-smoke-article-class",
+      "target": "wikipedia-article-live-smoke-article",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "instantiates",
+      "data": {
+        "role": "instantiates",
+        "semanticRole": "instantiates"
+      }
     }
   ],
-  "timestamp": "2026-08-24T22:51:50.796Z",
-  "nodeCount": 8,
-  "edgeCount": 5
+  "timestamp": "2026-08-24T22:51:50.837Z",
+  "nodeCount": 10,
+  "edgeCount": 6
 }

@@ -381,7 +381,7 @@ function reconcileTaskGraph() {
   Object.assign(byId('wiki-template-task-specimen').data, {
     status: 'in-progress',
     description: 'Use one real Wikipedia article to prove self-resolution, semantic lead presentation, ordered labeled section handles, and lazy Section expansion.',
-    nextAction: 'Refresh the template in Graph Lab, confirm the Article resolves visually, and drag one live section handle through the full Section lifecycle.'
+    nextAction: 'Open the dedicated live smoke graph, confirm the Article resolves visually, and drag one live section handle through the full Section lifecycle.'
   });
   Object.assign(byId('wiki-template-question-expansion').data, {
     status: 'answered',
@@ -391,7 +391,7 @@ function reconcileTaskGraph() {
   Object.assign(byId('wikipedia-browser-template-design-summary').data, {
     status: 'in-progress',
     summary: 'The V1 Article/Section contract, declaration-first class graphs, generic self-resolution lifecycle, authorized Wikimedia adapters, dynamic handle derivation, and seeded child creation are implemented. Live API validation resolved the Wikipedia article and lazily resolved its History section with immediate children.',
-    nextAction: 'Visually confirm the live Article-to-Section interaction in Graph Lab, then complete the end-to-end specimen task.',
+    nextAction: 'Visually confirm the dedicated live Article-to-Section smoke graph in Graph Lab, then complete the end-to-end specimen task.',
     blockedReason: ''
   });
   graph.timestamp = new Date().toISOString();
@@ -400,7 +400,101 @@ function reconcileTaskGraph() {
   fs.writeFileSync(taskPath, `${JSON.stringify(graph, null, 2)}\n`);
 }
 
+function bridgeNode({ id, label, x, y, graphId, classKey, ref }) {
+  return {
+    id, type: 'bridge', label, position: { x, y }, width: 380, height: 170,
+    visible: true, showLabel: true,
+    ports: [{ id: 'root', label: 'root', direction: 'bidirectional', dataType: 'any', angle: 210 }],
+    data: {
+      authority: 'bridge',
+      bridge: {
+        ref, role: 'import', resourceKind: 'node-class', scope: 'focused-graph', grants: ['create'],
+        exposure: { nodeClasses: { mode: 'allow', include: [classKey] }, views: { mode: 'allow' } }
+      },
+      target: { mode: 'bridge', kind: 'node-class', ref, key: classKey, grants: ['create'] },
+      visibilityRole: 'editor', identity: { graphId }
+    }
+  };
+}
+
+function liveSmokeGraph() {
+  const graphId = 'wikipedia-article-live-smoke';
+  const declarationId = `${graphId}-declaration`;
+  const declaration = {
+    id: declarationId, type: 'declaration', label: 'Wikipedia Article Live Smoke Test', root: false,
+    position: { x: -1500, y: -120 }, width: 400, height: 280,
+    ports: declarationPorts(), handles: declarationHandles(declarationPorts()), visible: true, showLabel: true,
+    data: {
+      identity: { graphId, nodeId: graphId, name: 'Wikipedia Article Live Smoke Test', version: '0.1.0', description: 'Proves live Article resolution and recursive Section expansion.' },
+      intent: { kind: 'graph', scope: 'shared' },
+      declaration: { kind: 'graph', targetMode: 'artifact', artifactKind: 'graph', interfaceContract: { version: 1, implicitRootPort: true }, defaultSurfaceId: '', surfaces: [] }
+    }
+  };
+  const detail = viewNode({ id: `${graphId}-detail`, label: 'Smoke Detail', x: -980, y: -360, width: 420, height: 260, payload: 'node.web.detail', data: {
+    title: 'Wikipedia Article Live Smoke Test', body: 'A real Article instance resolves itself and exposes live section handles.', identity: { graphId }
+  }});
+  const summary = viewNode({ id: `${graphId}-summary`, label: 'Smoke Summary', x: -980, y: -40, width: 380, height: 220, payload: 'node.web.summary', data: {
+    title: 'Wikipedia Live Smoke', body: 'Resolve Article, expand Section, recurse.', identity: { graphId }
+  }});
+  const icon = viewNode({ id: `${graphId}-icon`, label: 'Smoke Icon', x: -980, y: 240, width: 300, height: 200, payload: 'node.web.icon', data: {
+    title: 'Wikipedia Live Smoke', body: 'W', identity: { graphId }
+  }});
+  const glyph = glyphNode({ id: `${graphId}-glyph`, label: 'Smoke Glyph', x: -1420, y: -500, graphId });
+  const landing = contentNode({ id: `${graphId}-landing`, label: 'Smoke Landing Surface', x: -420, y: -120, width: 560, height: 360, graphId,
+    value: '# Wikipedia Article Live Smoke Test\n\nThe Article node below is configured with a real Wikipedia reference. It should resolve automatically and expose its immediate sections as labeled handles.'
+  });
+  const articleRef = 'https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)';
+  const articleClassRef = 'github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node';
+  const sectionClassRef = 'github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-section.node-class.node';
+  const articleBridge = bridgeNode({ id: `${graphId}-article-class`, label: 'Wikipedia Article Source Class', x: -1400, y: 360, graphId, classKey: 'wikipedia-article-source', ref: articleClassRef });
+  const sectionBridge = bridgeNode({ id: `${graphId}-section-class`, label: 'Wikipedia Section Class', x: -960, y: 520, graphId, classKey: 'wikipedia-section', ref: sectionClassRef });
+  const article = {
+    id: `${graphId}-article`, type: 'wikipedia-article-source', label: 'Graph (discrete mathematics)', root: true,
+    position: { x: 260, y: -80 }, width: 680, height: 500, visible: true, showLabel: false,
+    ports: [rootPort('input', 180)], handles: [rootHandle('input', 180)],
+    data: {
+      articleRef, canonicalUrl: '', title: '', revisionId: '', lead: '', sections: [], attribution,
+      resolution: { status: 'idle', resolvedRef: '', lastResolvedAt: '', error: '' },
+      lifecycle: {
+        resolve: {
+          trigger: 'authored-identity-change', adapter: 'wikimedia-article-v1', inputPaths: ['articleRef'],
+          requiredInputPaths: ['articleRef'], preserveLastKnownGoodOnError: true
+        }
+      },
+      dynamicPorts: {
+        version: 1, sourcePath: 'sections', idPath: 'id', labelPath: 'title', orderPath: 'order',
+        direction: 'output', dataType: 'wikipedia-section', placement: { side: 'right' },
+        behavior: {
+          trigger: 'drag-create', action: 'create-node', nodeType: 'wikipedia-section', targetPort: 'root',
+          seed: {
+            articleRef: '$node.articleRef', canonicalUrl: '$node.canonicalUrl', articleTitle: '$node.title', revisionId: '$node.revisionId',
+            sectionId: '$entry.id', title: '$entry.title', level: '$entry.level', order: '$entry.order', sourceLocator: '$entry.sourceLocator'
+          }
+        }
+      },
+      definitionKey: 'wikipedia-article-source',
+      _classBinding: { key: 'wikipedia-article-source', sourceRef: articleClassRef, ref: articleClassRef },
+      _bridge: { classKey: 'wikipedia-article-source', classRef: articleClassRef, sourceRef: articleClassRef, entryPort: 'root', kind: 'node-class', targetKind: 'node-class' },
+      identity: { graphId }
+    }
+  };
+  const criteria = contentNode({ id: `${graphId}-criteria`, label: 'Pass Criteria', x: 1040, y: -40, width: 520, height: 500, graphId,
+    value: '## Pass criteria\n\n1. Article resolves to **Graph (discrete mathematics)** without a button.\n2. Detail and Summary show resolved title and lead.\n3. Revision provenance is populated.\n4. Immediate top-level sections appear as labeled handles on the right.\n5. Dragging a section creates `wikipedia-section` through its root.\n6. The Section resolves readable content and exposes only its immediate child sections.\n7. Changing `articleRef` triggers one new resolution; zoom and focus do not.'
+  });
+  const nodes = [declaration, detail, summary, icon, glyph, landing, articleBridge, sectionBridge, article, criteria];
+  const edges = [
+    edge({ id: `${graphId}-default-view`, source: declarationId, sourcePort: 'default-view', target: detail.id, type: 'default-view', label: 'default view', role: 'default-view' }),
+    edge({ id: `${graphId}-summary-view`, source: declarationId, sourcePort: 'summary-view', target: summary.id, label: 'summary view', role: 'shared-summary' }),
+    edge({ id: `${graphId}-icon-view`, source: declarationId, sourcePort: 'icon-view', target: icon.id, label: 'icon view', role: 'shared-icon' }),
+    edge({ id: `${graphId}-glyph-edge`, source: declarationId, sourcePort: 'glyph', target: glyph.id, label: 'glyph', role: 'shared-glyph' }),
+    edge({ id: `${graphId}-landing-edge`, source: declarationId, sourcePort: 'landing-surface', target: landing.id, label: 'landing surface', role: 'landing-surface' }),
+    { id: `${graphId}-article-import`, type: 'reference', source: articleBridge.id, target: article.id, sourcePort: 'root', targetPort: 'root', label: 'instantiates', data: { role: 'instantiates', semanticRole: 'instantiates' } }
+  ];
+  return { type: 'nodegraph-data', nodes, edges, timestamp: new Date().toISOString(), nodeCount: nodes.length, edgeCount: edges.length };
+}
+
 fs.writeFileSync(path.join(classDir, 'wikipedia-article-source.node-class.node'), `${JSON.stringify(articleGraph(), null, 2)}\n`);
 fs.writeFileSync(path.join(classDir, 'wikipedia-section.node-class.node'), `${JSON.stringify(sectionGraph(), null, 2)}\n`);
 reconcileTemplate();
 reconcileTaskGraph();
+fs.writeFileSync(path.resolve(here, '..', '..', 'graphs', 'wikipedia-article-live-smoke.node'), `${JSON.stringify(liveSmokeGraph(), null, 2)}\n`);
