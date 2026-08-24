@@ -115,6 +115,13 @@ function declarationNode({ id, nodeId, name, description, classKey, classRef, me
             resolve: {
               trigger: 'authored-identity-change',
               identityPath: classKey === 'wikipedia-article-source' ? 'articleRef' : 'sourceIdentity',
+              adapter: classKey === 'wikipedia-article-source' ? 'wikimedia-article-v1' : 'wikimedia-section-v1',
+              inputPaths: classKey === 'wikipedia-article-source'
+                ? ['articleRef']
+                : ['articleRef', 'canonicalUrl', 'articleTitle', 'revisionId', 'sectionId', 'title', 'level', 'order', 'sourceLocator'],
+              requiredInputPaths: classKey === 'wikipedia-article-source'
+                ? ['articleRef']
+                : ['articleRef', 'sectionId', 'sourceLocator'],
               resolverNodeId: classKey === 'wikipedia-article-source' ? 'wikipedia-article-resolver-script' : 'wikipedia-section-resolver-script',
               policy: 'latest-with-revision-provenance',
               preserveLastKnownGoodOnError: true
@@ -185,8 +192,8 @@ function articleGraph() {
       scriptName: 'Wikipedia Article Resolver', allowMutations: true, autoRun: false,
       lifecycleRole: 'node-class-resolver', authoredIdentityPath: 'articleRef',
       resolutionPolicy: 'latest-with-revision-provenance', preserveLastKnownGoodOnError: true,
-      memo: 'Resolve redirects and normalize articleRef into canonical identity, revision provenance, lead, attribution, and immediate top-level section manifest. Runtime supplies the owning instance and commits derived state exactly once per authored identity change.',
-      status: 'runtime-integration-pending', visibilityRole: 'editor', identity: { graphId }
+      memo: 'Resolve redirects and normalize articleRef into canonical identity, revision provenance, lead, attribution, and immediate top-level section manifest. The generic runtime lifecycle supplies the owning instance and commits derived state exactly once per authored identity change.',
+      status: 'implemented', visibilityRole: 'editor', identity: { graphId }
     }
   };
   const nodes = [declaration, detail, summary, icon, glyph, landing, contract, script];
@@ -259,8 +266,8 @@ function sectionGraph() {
       scriptName: 'Wikipedia Section Resolver', allowMutations: true, autoRun: false,
       lifecycleRole: 'node-class-resolver', authoredIdentityPath: 'sourceIdentity',
       resolutionPolicy: 'pinned-to-parent-revision', preserveLastKnownGoodOnError: true,
-      memo: 'Resolve one section body as markdown and normalize immediate child sections. Runtime supplies the owning instance and commits derived state once per source identity change.',
-      status: 'runtime-integration-pending', visibilityRole: 'editor', identity: { graphId }
+      memo: 'Resolve one section body as markdown and normalize immediate child sections. The generic runtime lifecycle supplies the owning instance and commits derived state once per source identity change.',
+      status: 'implemented', visibilityRole: 'editor', identity: { graphId }
     }
   };
   const nodes = [declaration, detail, summary, icon, glyph, landing, contract, script];
@@ -299,6 +306,13 @@ function reconcileTemplate() {
       resolution: article.data?.resolution?.resolvedRef
         ? article.data.resolution
         : { status: 'fixture', resolvedRef: '', lastResolvedAt: '', error: '' },
+      lifecycle: {
+        resolve: {
+          trigger: 'authored-identity-change', adapter: 'wikimedia-article-v1',
+          inputPaths: ['articleRef'], requiredInputPaths: ['articleRef'],
+          preserveLastKnownGoodOnError: true
+        }
+      },
       dynamicPorts: {
         version: 1,
         sourcePath: 'sections', idPath: 'id', labelPath: 'title', orderPath: 'order',
@@ -367,7 +381,7 @@ function reconcileTaskGraph() {
   Object.assign(byId('wiki-template-task-specimen').data, {
     status: 'in-progress',
     description: 'Use one real Wikipedia article to prove self-resolution, semantic lead presentation, ordered labeled section handles, and lazy Section expansion.',
-    nextAction: 'Integrate the generic resolver lifecycle, refresh the class bridges, and run the specimen in Graph Lab.'
+    nextAction: 'Refresh the template in Graph Lab, confirm the Article resolves visually, and drag one live section handle through the full Section lifecycle.'
   });
   Object.assign(byId('wiki-template-question-expansion').data, {
     status: 'answered',
@@ -376,8 +390,8 @@ function reconcileTaskGraph() {
   });
   Object.assign(byId('wikipedia-browser-template-design-summary').data, {
     status: 'in-progress',
-    summary: 'The V1 Article/Section contract and both declaration-first class graphs are complete. Article owns authored reference, resolved lead, provenance, and immediate section manifest; Section owns readable markdown and immediate child manifest. Generic dynamic handle derivation and seeded child creation are implemented.',
-    nextAction: 'Finish the generic self-resolution lifecycle and validate one live Article-to-Section expansion.',
+    summary: 'The V1 Article/Section contract, declaration-first class graphs, generic self-resolution lifecycle, authorized Wikimedia adapters, dynamic handle derivation, and seeded child creation are implemented. Live API validation resolved the Wikipedia article and lazily resolved its History section with immediate children.',
+    nextAction: 'Visually confirm the live Article-to-Section interaction in Graph Lab, then complete the end-to-end specimen task.',
     blockedReason: ''
   });
   graph.timestamp = new Date().toISOString();
