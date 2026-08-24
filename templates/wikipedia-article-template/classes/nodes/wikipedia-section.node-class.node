@@ -1,144 +1,920 @@
 {
-  "fileVersion": "1.0",
-  "metadata": {
-    "title": "Wikipedia Section Class",
-    "description": "Lazy transient projection of one Wikipedia article section.",
-    "graphId": "wikipedia-section-class",
-    "version": "0.1.0",
-    "kind": "node-class",
-    "preferredViewer": "https://dev.twilite.zone"
-  },
+  "type": "nodegraph-data",
   "nodes": [
     {
       "id": "wikipedia-section-declaration",
       "type": "declaration",
       "label": "Wikipedia Section Declaration",
-      "position": {"x": 0, "y": -520},
-      "width": 460,
-      "height": 360,
+      "root": false,
+      "position": {
+        "x": -1280,
+        "y": 0
+      },
+      "width": 420,
+      "height": 300,
+      "ports": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view",
+          "allowedEdgeTypes": [
+            "default-view"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-view",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-summary",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-icon",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-glyph",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "glyph",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "landing-surface",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "portId": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "portId": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "portId": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "portId": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "portId": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port"
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "portId": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface"
+        }
+      ],
       "visible": true,
       "showLabel": true,
-      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
       "data": {
-        "identity": {"graphId": "wikipedia-section-class", "name": "Wikipedia Section", "version": "0.1.0", "description": "Lazy transient projection of one Wikipedia article section."},
-        "intent": {"kind": "node-class", "scope": "shared"},
+        "identity": {
+          "graphId": "wikipedia-section-declaration",
+          "nodeId": "wikipedia-section",
+          "name": "Wikipedia Section",
+          "version": "0.2.0",
+          "description": "A lazy graph-native projection of one Wikipedia article section."
+        },
+        "intent": {
+          "kind": "node-class",
+          "scope": "shared"
+        },
         "declaration": {
           "kind": "node-class",
           "targetMode": "artifact",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {"id": "root", "kind": "view", "label": "Root", "viewNodeId": "wikipedia-section-detail"},
-            {"id": "detail", "kind": "view", "label": "Detail", "viewNodeId": "wikipedia-section-detail"},
-            {"id": "summary", "kind": "view", "label": "Summary", "viewNodeId": "wikipedia-section-summary"},
-            {"id": "icon", "kind": "view", "label": "Icon", "viewNodeId": "wikipedia-section-icon"},
-            {"id": "editor", "kind": "view", "label": "Editor", "viewNodeId": "wikipedia-section-editor"}
-          ]
+          "artifactKind": "node-class",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "",
+          "surfaces": []
         },
         "nodeClass": {
           "contractVersion": "1.0.0",
           "key": "wikipedia-section",
           "label": "Wikipedia Section",
-          "meaning": "A lazily resolved section from a Wikipedia article, optionally exposing subsections through the same dynamic expansion grammar.",
-          "requiredDataKeys": ["articleUrl", "sectionId", "sectionTitle"],
+          "meaning": "A lazily resolved Wikipedia section with revision-scoped provenance, readable content, and an immediate child-section manifest.",
+          "requiredDataKeys": [
+            "articleRef",
+            "revisionId",
+            "sectionId"
+          ],
           "nodeDef": {
             "key": "wikipedia-section",
             "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-section.node-class.node",
-            "version": ">=0.1.0",
+            "version": ">=0.2.0",
             "defaults": {
               "label": "Wikipedia Section",
-              "size": {"width": 620, "height": 440},
+              "size": {
+                "width": 620,
+                "height": 440
+              },
               "showLabel": false,
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "input",
+                  "dataType": "any",
+                  "angle": 180,
+                  "metadata": {
+                    "interface": true,
+                    "structural": true
+                  }
+                }
+              ],
               "data": {
-                "articleUrl": "",
+                "articleRef": "",
+                "canonicalUrl": "",
                 "articleTitle": "",
                 "revisionId": "",
                 "sectionId": "",
-                "sectionTitle": "",
-                "sectionLevel": 1,
-                "sectionOrder": 0,
+                "title": "",
+                "level": 1,
+                "order": 0,
                 "sourceLocator": "",
                 "content": "",
-                "subsections": [],
-                "attribution": {"source": "Wikipedia", "license": "CC BY-SA", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"}
+                "sections": [],
+                "attribution": {
+                  "source": "Wikipedia",
+                  "license": "CC BY-SA",
+                  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+                },
+                "resolution": {
+                  "status": "idle",
+                  "resolvedIdentity": "",
+                  "lastResolvedAt": "",
+                  "error": ""
+                }
+              }
+            },
+            "dynamicPorts": {
+              "version": 1,
+              "sourcePath": "sections",
+              "idPath": "id",
+              "labelPath": "title",
+              "orderPath": "order",
+              "direction": "output",
+              "dataType": "wikipedia-section",
+              "placement": {
+                "side": "right"
+              },
+              "behavior": {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "wikipedia-section",
+                "targetPort": "root",
+                "seed": {
+                  "articleRef": "$node.articleRef",
+                  "canonicalUrl": "$node.canonicalUrl",
+                  "articleTitle": "$node.articleTitle",
+                  "revisionId": "$node.revisionId",
+                  "sectionId": "$entry.id",
+                  "title": "$entry.title",
+                  "level": "$entry.level",
+                  "order": "$entry.order",
+                  "sourceLocator": "$entry.sourceLocator"
+                }
+              }
+            },
+            "lifecycle": {
+              "version": 1,
+              "resolve": {
+                "trigger": "authored-identity-change",
+                "identityPath": "sourceIdentity",
+                "resolverNodeId": "wikipedia-section-resolver-script",
+                "policy": "latest-with-revision-provenance",
+                "preserveLastKnownGoodOnError": true
               }
             }
-          },
-          "dynamicPorts": {
-            "sourcePath": "subsections",
-            "idPath": "id",
-            "labelPath": "title",
-            "orderPath": "order",
-            "direction": "output",
-            "dataType": "wikipedia-section",
-            "hoverLabel": true,
-            "expansionRole": "instantiate-section"
           }
         }
       }
     },
     {
-      "id": "wikipedia-section-contract",
-      "type": "markdown",
-      "label": "Section Contract",
-      "position": {"x": -560, "y": -80},
-      "width": 500,
-      "height": 360,
-      "visible": true,
-      "showLabel": true,
-      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
-      "data": {"markdown": "## Wikipedia Section\n\nA Section is instantiated from a labeled expansion handle. It receives article identity plus section identity, resolves its own body lazily, and may expose nested subsections using the same dynamic-port grammar.\n\nThis is a transient browsing projection, not a claim that the section is a new canonical knowledge object."}
-    },
-    {
       "id": "wikipedia-section-detail",
-      "type": "port",
-      "label": "Detail",
-      "position": {"x": 40, "y": 0},
-      "width": 620,
-      "height": 440,
+      "type": "view",
+      "label": "Section Detail",
+      "root": false,
+      "position": {
+        "x": -720,
+        "y": -300
+      },
+      "width": 460,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          }
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
       "visible": true,
       "showLabel": true,
-      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
-      "data": {"view": {"intent": "node", "payload": "node.web.detail"}, "title": "{{sectionTitle}}", "body": "{{content}}", "footer": "{{articleTitle}} · Wikipedia · {{attribution.license}}"}
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "title": "{{title}}",
+        "body": "{{content}}",
+        "footer": "{{articleTitle}} · revision {{revisionId}} · {{attribution.license}}",
+        "identity": {
+          "graphId": "wikipedia-section-declaration"
+        }
+      }
     },
     {
       "id": "wikipedia-section-summary",
-      "type": "port",
-      "label": "Summary",
-      "position": {"x": 740, "y": -20},
-      "width": 420,
-      "height": 260,
+      "type": "view",
+      "label": "Section Summary",
+      "root": false,
+      "position": {
+        "x": -720,
+        "y": 60
+      },
+      "width": 400,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          }
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
       "visible": true,
       "showLabel": true,
-      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
-      "data": {"view": {"intent": "node", "payload": "node.web.summary"}, "title": "{{sectionTitle}}", "body": "{{content}}"}
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "title": "{{title}}",
+        "body": "{{content}}",
+        "identity": {
+          "graphId": "wikipedia-section-declaration"
+        }
+      }
     },
     {
       "id": "wikipedia-section-icon",
-      "type": "port",
-      "label": "Icon",
-      "position": {"x": 740, "y": 300},
-      "width": 240,
-      "height": 180,
+      "type": "view",
+      "label": "Section Icon",
+      "root": false,
+      "position": {
+        "x": -720,
+        "y": 360
+      },
+      "width": 320,
+      "height": 220,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          }
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
       "visible": true,
       "showLabel": true,
-      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
-      "data": {"view": {"intent": "node", "payload": "node.web.icon"}, "renderShape": {"kind": "svg"}, "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 180'><rect x='5' y='5' width='230' height='170' rx='22' fill='#172033' stroke='#93c5fd' stroke-width='3'/><path d='M42 55h156M42 88h125M42 121h145' stroke='#dbeafe' stroke-width='9' stroke-linecap='round'/><text x='120' y='158' text-anchor='middle' font-family='system-ui,sans-serif' font-size='14' font-weight='800' fill='#93c5fd'>SECTION</text></svg>"}
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "renderShape": {
+          "kind": "svg"
+        },
+        "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 180'><rect x='5' y='5' width='230' height='170' rx='22' fill='#172033' stroke='#93c5fd' stroke-width='3'/><path d='M42 55h156M42 88h125M42 121h145' stroke='#dbeafe' stroke-width='9' stroke-linecap='round'/><text x='120' y='158' text-anchor='middle' font-family='system-ui,sans-serif' font-size='14' font-weight='800' fill='#93c5fd'>SECTION</text></svg>",
+        "identity": {
+          "graphId": "wikipedia-section-declaration"
+        }
+      }
     },
     {
-      "id": "wikipedia-section-editor",
-      "type": "port",
-      "label": "Editor",
-      "position": {"x": -540, "y": 340},
-      "width": 460,
-      "height": 280,
+      "id": "wikipedia-section-glyph",
+      "type": "glyph",
+      "label": "Section Glyph",
+      "root": false,
+      "position": {
+        "x": -1180,
+        "y": -480
+      },
+      "width": 240,
+      "height": 160,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
       "visible": true,
       "showLabel": true,
-      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210}],
-      "data": {"view": {"intent": "node", "payload": "node.web.editor"}, "fields": ["articleUrl", "sectionId", "sectionTitle"], "memo": "Normally seeded by expansion behavior rather than edited manually."}
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "Subject"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
+        },
+        "identity": {
+          "graphId": "wikipedia-section-declaration"
+        }
+      }
+    },
+    {
+      "id": "wikipedia-section-landing",
+      "type": "content",
+      "label": "Section Landing Surface",
+      "root": false,
+      "position": {
+        "x": -120,
+        "y": -20
+      },
+      "width": 620,
+      "height": 440,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Wikipedia Section\n\nThe landing surface defines the Section node frame. The semantic Views present lazily resolved section content."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "wikipedia-section-declaration"
+        }
+      }
+    },
+    {
+      "id": "wikipedia-section-contract",
+      "type": "content",
+      "label": "Section Contract",
+      "root": false,
+      "position": {
+        "x": 620,
+        "y": -20
+      },
+      "width": 560,
+      "height": 440,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## Wikipedia Section\n\nA Section is created from a labeled expansion handle. Identity is article identity plus revision identity plus section locator. It owns readable markdown for the current section and an ordered `sections[]` manifest containing immediate children only. Re-expanding the same source may create another graph projection with the same addressed source identity."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "wikipedia-section-declaration"
+        }
+      }
+    },
+    {
+      "id": "wikipedia-section-resolver-script",
+      "type": "script",
+      "label": "Wikipedia Section Resolver",
+      "root": false,
+      "position": {
+        "x": 620,
+        "y": 500
+      },
+      "width": 560,
+      "height": 340,
+      "ports": [
+        {
+          "id": "trigger",
+          "label": "trigger",
+          "direction": "input",
+          "dataType": "trigger",
+          "angle": 180
+        },
+        {
+          "id": "result",
+          "label": "result",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 0
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "scriptName": "Wikipedia Section Resolver",
+        "allowMutations": true,
+        "autoRun": false,
+        "lifecycleRole": "node-class-resolver",
+        "authoredIdentityPath": "sourceIdentity",
+        "resolutionPolicy": "pinned-to-parent-revision",
+        "preserveLastKnownGoodOnError": true,
+        "memo": "Resolve one section body as markdown and normalize immediate child sections. Runtime supplies the owning instance and commits derived state once per source identity change.",
+        "status": "runtime-integration-pending",
+        "visibilityRole": "editor",
+        "identity": {
+          "graphId": "wikipedia-section-declaration"
+        }
+      }
     }
   ],
-  "edges": [],
-  "clusters": [],
-  "settings": {"autoSave": false},
-  "scripts": []
+  "edges": [
+    {
+      "id": "section-default-view",
+      "type": "default-view",
+      "source": "wikipedia-section-declaration",
+      "target": "wikipedia-section-detail",
+      "sourcePort": "default-view",
+      "targetPort": "root",
+      "label": "default view",
+      "data": {
+        "role": "default-view",
+        "semanticRole": "default-view"
+      }
+    },
+    {
+      "id": "section-summary-view",
+      "type": "reference",
+      "source": "wikipedia-section-declaration",
+      "target": "wikipedia-section-summary",
+      "sourcePort": "summary-view",
+      "targetPort": "root",
+      "label": "summary view",
+      "data": {
+        "role": "shared-summary",
+        "semanticRole": "shared-summary"
+      }
+    },
+    {
+      "id": "section-icon-view",
+      "type": "reference",
+      "source": "wikipedia-section-declaration",
+      "target": "wikipedia-section-icon",
+      "sourcePort": "icon-view",
+      "targetPort": "root",
+      "label": "icon view",
+      "data": {
+        "role": "shared-icon",
+        "semanticRole": "shared-icon"
+      }
+    },
+    {
+      "id": "section-glyph",
+      "type": "reference",
+      "source": "wikipedia-section-declaration",
+      "target": "wikipedia-section-glyph",
+      "sourcePort": "glyph",
+      "targetPort": "root",
+      "label": "glyph",
+      "data": {
+        "role": "shared-glyph",
+        "semanticRole": "shared-glyph"
+      }
+    },
+    {
+      "id": "section-landing",
+      "type": "reference",
+      "source": "wikipedia-section-declaration",
+      "target": "wikipedia-section-landing",
+      "sourcePort": "landing-surface",
+      "targetPort": "root",
+      "label": "landing surface",
+      "data": {
+        "role": "landing-surface",
+        "semanticRole": "landing-surface"
+      }
+    }
+  ],
+  "timestamp": "2026-08-24T21:35:34.040Z",
+  "nodeCount": 8,
+  "edgeCount": 5
 }

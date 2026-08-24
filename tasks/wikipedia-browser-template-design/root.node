@@ -198,10 +198,10 @@
       "showLabel": false,
       "data": {
         "title": "Define the smallest coherent Wikipedia browsing template",
-        "description": "Produce a reusable template whose root sources one Wikipedia article, renders the lead and first useful section, and exposes additional sections as expandable graph entry points.",
-        "status": "waiting",
-        "blockedReason": "Implementation intentionally paused until the Wikipedia node's product and runtime contract is discussed.",
-        "nextAction": "Discuss what the Wikipedia node represents, which data is durable versus transient, and how section discovery and expansion should behave.",
+        "description": "Produce a reusable template whose root resolves one Wikipedia article, renders its lead, and exposes immediate sections as lazy graph expansion points.",
+        "status": "in-progress",
+        "blockedReason": "",
+        "nextAction": "Complete the generic instance-resolution lifecycle and prove one live article-to-section expansion.",
         "definitionKey": "goal",
         "_classBinding": {
           "key": "goal",
@@ -295,7 +295,7 @@
       "data": {
         "title": "Define the article source contract",
         "description": "Choose the minimum Wikipedia data to resolve at runtime: canonical URL/title, lead, section index, section identifiers, revision/source metadata, and attribution needed for transient browsing.",
-        "status": "todo",
+        "status": "done",
         "definitionKey": "task",
         "_classBinding": {
           "key": "task",
@@ -303,7 +303,8 @@
         },
         "identity": {
           "graphId": "wikipedia-browser-template-design"
-        }
+        },
+        "outcome": "Article and Section V1 contracts now define authored identity, revision provenance, immediate-child manifests, lazy bodies, and last-known-good error behavior."
       }
     },
     {
@@ -331,7 +332,7 @@
       "data": {
         "title": "Design the first node classes",
         "description": "Design the root article node class and section node class first. Keep other Wikipedia structures such as references, infoboxes, categories, and images outside the initial contract unless the prototype proves they are necessary.",
-        "status": "todo",
+        "status": "done",
         "definitionKey": "task",
         "_classBinding": {
           "key": "task",
@@ -339,7 +340,8 @@
         },
         "identity": {
           "graphId": "wikipedia-browser-template-design"
-        }
+        },
+        "outcome": "Article Source and Section class graphs now use declaration, View, Content, Glyph, landing-surface, and recursive dynamic-port contracts."
       }
     },
     {
@@ -366,8 +368,8 @@
       "showLabel": false,
       "data": {
         "title": "Build one end-to-end specimen",
-        "description": "Use one real Wikipedia article to prove article loading, lead/first-section presentation, section ports, and transient section expansion before widening the template.",
-        "status": "todo",
+        "description": "Use one real Wikipedia article to prove self-resolution, semantic lead presentation, ordered labeled section handles, and lazy Section expansion.",
+        "status": "in-progress",
         "definitionKey": "task",
         "_classBinding": {
           "key": "task",
@@ -375,7 +377,8 @@
         },
         "identity": {
           "graphId": "wikipedia-browser-template-design"
-        }
+        },
+        "nextAction": "Integrate the generic resolver lifecycle, refresh the class bridges, and run the specimen in Graph Lab."
       }
     },
     {
@@ -439,7 +442,7 @@
       "data": {
         "title": "How should section expansion materialize?",
         "question": "When a user drags from a section port, should Twilite create a transient section node, reveal a prepared child node, or invoke a reusable expansion behavior that creates the node on demand?",
-        "status": "open",
+        "status": "answered",
         "definitionKey": "open-question",
         "_classBinding": {
           "key": "open-question",
@@ -447,7 +450,9 @@
         },
         "identity": {
           "graphId": "wikipedia-browser-template-design"
-        }
+        },
+        "answer": "A generic data-driven handle derives from each immediate section manifest entry. Dragging creates a new Section projection, seeds revision-scoped source identity, connects to its root, and lets the Section resolve lazily.",
+        "resolutionPath": "github://mikemartinez1974/public/templates/wikipedia-article-template/root.node"
       }
     },
     {
@@ -516,10 +521,10 @@
       "showLabel": false,
       "data": {
         "title": "Wikipedia Browser Template Design",
-        "summary": "Design a reusable Twilite template rather than a single special-purpose node. The first pass centers on two semantic roles: an article-source root and expandable section nodes. The template should prove spatial browsing of one real Wikipedia article before adding references, infoboxes, categories, images, or deeper knowledge ingestion.",
-        "status": "waiting",
-        "nextAction": "Discuss the Wikipedia node contract before implementing article resolution or section expansion.",
-        "blockedReason": "Intentional design pause; presentation and semantic composition prerequisites have passed.",
+        "summary": "The V1 Article/Section contract and both declaration-first class graphs are complete. Article owns authored reference, resolved lead, provenance, and immediate section manifest; Section owns readable markdown and immediate child manifest. Generic dynamic handle derivation and seeded child creation are implemented.",
+        "status": "in-progress",
+        "nextAction": "Finish the generic self-resolution lifecycle and validate one live Article-to-Section expansion.",
+        "blockedReason": "",
         "definitionKey": "summary",
         "_classBinding": {
           "key": "summary",
@@ -620,10 +625,21 @@
       "id": "wikipedia-article-template-portal",
       "type": "portal",
       "label": "Wikipedia Article Template",
-      "position": {"x": 1380, "y": 620},
+      "position": {
+        "x": 1380,
+        "y": 620
+      },
       "width": 420,
       "height": 280,
-      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "value", "angle": 210}],
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 210
+        }
+      ],
       "visible": true,
       "showLabel": true,
       "data": {
@@ -635,8 +651,16 @@
         "sourceNodeId": "wikipedia-summary-view",
         "sourcePayload": "node.web.summary",
         "surfaceId": "root",
-        "target": {"mode": "navigate", "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/root.node", "portId": "root", "surfaceId": "root", "label": "Open Wikipedia Article Template"},
-        "identity": {"graphId": "wikipedia-browser-template-design"},
+        "target": {
+          "mode": "navigate",
+          "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/root.node",
+          "portId": "root",
+          "surfaceId": "root",
+          "label": "Open Wikipedia Article Template"
+        },
+        "identity": {
+          "graphId": "wikipedia-browser-template-design"
+        },
         "visibilityRole": "browser"
       }
     }
@@ -749,7 +773,9 @@
       "targetPort": "root",
       "label": "produces template",
       "style": {},
-      "data": {"semanticRole": "implementation artifact"}
+      "data": {
+        "semanticRole": "implementation artifact"
+      }
     }
   ],
   "clusters": [],
@@ -792,5 +818,8 @@
     },
     "autoSave": false
   },
-  "scripts": []
+  "scripts": [],
+  "timestamp": "2026-08-24T21:35:34.059Z",
+  "nodeCount": 13,
+  "edgeCount": 9
 }
