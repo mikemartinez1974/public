@@ -6,8 +6,8 @@
     "graphId": "wikipedia-article-template-declaration",
     "version": "0.2.0",
     "kind": "template",
-    "created": "2026-08-23T00:01:08.604Z",
-    "modified": "2026-08-23T00:04:54.603Z",
+    "created": "2026-08-24T19:59:20.368Z",
+    "modified": "2026-08-24T20:27:38.036Z",
     "author": "",
     "tags": [
       "template"
@@ -873,8 +873,8 @@
       "label": "Wikipedia Article Specimen",
       "root": false,
       "position": {
-        "x": 980,
-        "y": 160
+        "x": 1292.2635434244903,
+        "y": -119.24363182329176
       },
       "width": 520,
       "height": 340,
@@ -927,6 +927,13 @@
         },
         "identity": {
           "graphId": "wikipedia-article-template"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1787601637090,
+          "reason": "node-drag"
         }
       }
     },
@@ -1035,8 +1042,8 @@
       "label": "Wikipedia Article Node Idea",
       "root": false,
       "position": {
-        "x": 940,
-        "y": -520
+        "x": 982.170881659109,
+        "y": -593.799042903441
       },
       "width": 480,
       "height": 280,
@@ -1070,7 +1077,196 @@
         "identity": {
           "graphId": "wikipedia-article-template-declaration"
         },
-        "security": "prompt"
+        "security": "prompt",
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1787601582834,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "wiki-article-v1-design-notes",
+      "type": "markdown",
+      "label": "Codex: Wikipedia Article V1",
+      "root": false,
+      "position": {
+        "x": 2117.3695686787687,
+        "y": -1280.3474623036793
+      },
+      "width": 560,
+      "height": 620,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "side": "left",
+          "offset": 0.2,
+          "position": {
+            "side": "left",
+            "offset": 0.2
+          }
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "side": "top",
+          "offset": 0.5,
+          "position": {
+            "side": "top",
+            "offset": 0.5
+          }
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "side": "bottom",
+          "offset": 0.5,
+          "position": {
+            "side": "bottom",
+            "offset": 0.5
+          }
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "side": "left",
+          "offset": 0.5,
+          "position": {
+            "side": "left",
+            "offset": 0.5
+          }
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "side": "right",
+          "offset": 0.5,
+          "position": {
+            "side": "right",
+            "offset": 0.5
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "markdown": "## Codex: Wikipedia Article V1\n\nKeep the first Wikipedia node deliberately simple: **one node represents one Wikipedia article**.\n\nThe goal is not to reproduce the Wikipedia website inside a node. The goal is to represent an article as a useful graph-native object.\n\n### Authored state\n\nThe user should only need to provide an article reference, ideally `ref`.\n\n### Derived article state\n\nResolve and maintain:\n\n- `canonicalUrl`\n- `title`\n- `revisionId` or equivalent source-version identity\n- `lead`\n- `sections[]`\n- `attribution`\n\nDo not require the user to manually author resolved Wikipedia content.\n\n### Article structure\n\n`sections[]` is the structural manifest for the article. Each section entry should contain enough information to identify, label, order, and later resolve that section without eagerly storing every section body on the article node.\n\nA useful minimum section entry is:\n\n- stable `id`\n- visible `title`\n- `level`\n- `order`\n- source locator or equivalent resolver identity\n\n### Dynamic section handles\n\nDerive labeled expansion handles from `sections[]`.\n\nDragging or expanding a section handle should instantiate a `wikipedia-section` node representing that section. Section content may be resolved lazily when the section is instantiated.\n\nThe handles represent article structure, not duplicated section bodies.\n\n### Views\n\nSemantic views should progressively expose the same article:\n\n- glyph: Wikipedia identity\n- icon: recognizable Wikipedia article representation\n- summary: title plus concise lead content\n- detail: readable title, lead, source information, and useful article presentation\n\nSection handles are graph interaction and should remain available independently of how much prose a particular semantic view renders.\n\n### Data-model cleanup\n\nTreat `lead` and `sections[]` as the fundamental article content structure. Avoid making `firstSection` a required source-model concept. If a detail view wants to display the first section after the lead, derive that presentation from the ordered section manifest instead.\n\n### Scope for V1\n\nDo not expand the contract yet to model infoboxes, citations, categories, backlinks, Wikidata entities, edit history, galleries, tables, or every inline Wikipedia link.\n\nThose can be added later without weakening the basic article contract.\n\n### V1 success condition\n\nGiven one Wikipedia article reference, Twilite can resolve a recognizable, readable article node and expose its section structure as labeled graph expansion points. Expanding one of those points produces a useful Wikipedia section node.",
+        "memo": "",
+        "link": "",
+        "identity": {
+          "graphId": "wikipedia-article-template-declaration"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1787602398463,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "wiki-section-v1-design-notes",
+      "type": "markdown",
+      "label": "Codex: Wikipedia Section V1",
+      "root": false,
+      "position": {
+        "x": 2129.4858088809956,
+        "y": -498.54089442783834
+      },
+      "width": 580,
+      "height": 680,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "side": "left",
+          "offset": 0.2,
+          "position": {
+            "side": "left",
+            "offset": 0.2
+          }
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "side": "top",
+          "offset": 0.5,
+          "position": {
+            "side": "top",
+            "offset": 0.5
+          }
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "side": "bottom",
+          "offset": 0.5,
+          "position": {
+            "side": "bottom",
+            "offset": 0.5
+          }
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "side": "left",
+          "offset": 0.5,
+          "position": {
+            "side": "left",
+            "offset": 0.5
+          }
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "side": "right",
+          "offset": 0.5,
+          "position": {
+            "side": "right",
+            "offset": 0.5
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "markdown": "## Codex: Wikipedia Section V1\n\nA `wikipedia-section` node represents **one named section of one Wikipedia article**, with enough source identity to remain meaningful after it has been expanded away from the parent article node.\n\n### Identity\n\nA section should retain enough information to identify both its article and its position within that article:\n\n- article reference or canonical URL\n- article title\n- revision/source identity\n- stable section id\n- section title\n- heading level\n- section order\n- source locator or equivalent resolver identity\n\n### Content\n\nThe section node owns the readable content belonging directly to that section.\n\nMarkdown is the preferred first-pass representation because it already provides useful internal structure without requiring every meaningful subdivision to become another graph node.\n\nUse markdown headings, paragraphs, lists, emphasis, links, and other ordinary markdown structure for subdivisions that are useful to read but do **not** warrant independent graph identity.\n\nThe graph boundary should therefore be semantic rather than purely document-structural: not every heading or subdivision needs a node.\n\n### Child sections\n\nA section may contain child sections according to Wikipedia's heading hierarchy.\n\nRepresent immediate child sections as an ordered manifest, similar to the article's top-level `sections[]` manifest. Derive labeled expansion handles from those child entries.\n\nExpanding a child handle creates another `wikipedia-section` node.\n\nThis makes the section model recursive:\n\n`wikipedia-article` -> `wikipedia-section` -> `wikipedia-section` -> ...\n\nOnly immediate children should be exposed by a section instance. Deeper descendants become available when their parent section is expanded.\n\n### Suggested derived state\n\nA first-pass section instance likely needs:\n\n- `articleRef` or `canonicalUrl`\n- `articleTitle`\n- `revisionId`\n- `sectionId`\n- `title`\n- `level`\n- `order`\n- `content`\n- `sections[]` for immediate child sections\n- `attribution`\n\nExact field names may be aligned with the article contract, but article and section identity should remain explicit.\n\n### Resolution behavior\n\nSection bodies should be resolved lazily when a section node is instantiated or when its source identity changes.\n\nDo not eagerly duplicate every article section body into the parent article node merely to support expansion.\n\nResolution should produce the section's own readable markdown content plus the manifest of its immediate child sections.\n\n### Presentation boundary\n\nUse graph nodes for subdivisions that benefit from independent identity, spatial expansion, reuse, focus, or further graph navigation.\n\nUse markdown inside the section for finer-grained structure that remains best understood as part of the same section.\n\nThis boundary is intentionally flexible. Wikipedia's document hierarchy informs the graph, but Twilite does not need to mechanically convert every heading into a node.\n\n### V1 success condition\n\nExpanding a section handle from an article produces a readable `wikipedia-section` node with durable source identity. If that section contains meaningful child sections, it exposes those children as labeled expansion handles. Smaller subdivisions remain naturally represented inside the section's markdown.",
+        "memo": "",
+        "link": "",
+        "identity": {
+          "graphId": "wikipedia-article-template-declaration"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1787602966533,
+          "reason": "node-drag"
+        }
       }
     }
   ],
