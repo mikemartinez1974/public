@@ -166,11 +166,11 @@ function articleGraph() {
     defaults, requiredDataKeys: ['articleRef'], dynamicPorts, position: { x: -1280, y: 0 }
   });
   const detail = viewNode({ id: 'wikipedia-article-source-detail', label: 'Article Detail', x: -720, y: -300, width: 480, height: 320, payload: 'node.web.detail', data: {
-    title: '{{title}}', body: '{{lead}}', footer: 'Source: Wikipedia · {{canonicalUrl}} · revision {{revisionId}} · {{attribution.license}}',
+    markdown: '# {{data.title}}\n\n{{data.lead}}\n\n---\n\nSource: [Wikipedia]({{data.canonicalUrl}}) · revision {{data.revisionId}} · {{data.attribution.license}}',
     identity: { graphId }
   }});
   const summary = viewNode({ id: 'wikipedia-article-source-summary', label: 'Article Summary', x: -720, y: 80, width: 420, height: 240, payload: 'node.web.summary', data: {
-    title: '{{title}}', body: '{{lead}}', identity: { graphId }
+    markdown: '## {{data.title}}\n\n{{data.lead}}', identity: { graphId }
   }});
   const icon = viewNode({ id: 'wikipedia-article-source-icon', label: 'Article Icon', x: -720, y: 380, width: 320, height: 220, payload: 'node.web.icon', data: {
     renderShape: { kind: 'svg' },
@@ -241,10 +241,10 @@ function sectionGraph() {
     defaults, requiredDataKeys: ['articleRef', 'revisionId', 'sectionId'], dynamicPorts, position: { x: -1280, y: 0 }
   });
   const detail = viewNode({ id: 'wikipedia-section-detail', label: 'Section Detail', x: -720, y: -300, width: 460, height: 300, payload: 'node.web.detail', data: {
-    title: '{{title}}', body: '{{content}}', footer: '{{articleTitle}} · revision {{revisionId}} · {{attribution.license}}', identity: { graphId }
+    markdown: '# {{data.title}}\n\n{{data.content}}\n\n---\n\n{{data.articleTitle}} · revision {{data.revisionId}} · {{data.attribution.license}}', identity: { graphId }
   }});
   const summary = viewNode({ id: 'wikipedia-section-summary', label: 'Section Summary', x: -720, y: 60, width: 400, height: 240, payload: 'node.web.summary', data: {
-    title: '{{title}}', body: '{{content}}', identity: { graphId }
+    markdown: '## {{data.title}}\n\n{{data.content}}', identity: { graphId }
   }});
   const icon = viewNode({ id: 'wikipedia-section-icon', label: 'Section Icon', x: -720, y: 360, width: 320, height: 220, payload: 'node.web.icon', data: {
     renderShape: { kind: 'svg' },
