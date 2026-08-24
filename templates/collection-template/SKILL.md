@@ -1,6 +1,6 @@
 ---
 name: collection-template
-description: Create and maintain Twilite collection graphs whose membership comes from repository-directory structure and whose browse surface presents a transient window of ordinary member root cards. Use when creating a collection, converting a portal index into automatic membership, or adding collection browsing without authoring one portal per member.
+description: Create and maintain Twilite collection graphs whose membership comes from repository-directory structure and whose browse surface presents a transient window of handle-free member Portals. Use when creating a collection, converting a portal index into automatic membership, or adding collection browsing without authoring one portal per member.
 ---
 
 # Collection Template
@@ -10,8 +10,8 @@ Treat this file and the adjacent `root.node` as one versioned package.
 ## Derive a collection
 
 1. Copy `root.node` into the target collection directory.
-2. Retarget declaration identity, scope, root labels, repository-home portal, and graph-local IDs.
-3. Preserve `intent.kind: collection`, the canonical `root` surface, and the `data.collection` contract.
+2. Retarget declaration identity, scope, root labels, repository-home portal, and graph-local IDs. For a new collection, bring the host graph up to the current Declaration relationship model instead of copying legacy Port-as-View structure forward.
+3. Preserve `intent.kind: collection`, the Declaration's implicit root interface, and the `data.collection` contract. Occupy required Declaration relationships: default, summary, icon, glyph, and landing surface. Additional exposed Ports remain optional.
 4. Put member graphs in the collection directory:
    - include direct `.node` files except the collection's own `root.node`;
    - include `root.node` from each direct child directory;
@@ -19,8 +19,8 @@ Treat this file and the adjacent `root.node` as one versioned package.
 5. Retarget `data.collection.collectionRef` to the collection graph's durable `github://` address.
 6. Preserve the graph-owned Collection Window Controller and its inline `source`. Keep `collection-window.js` as the maintainable source copy; `scriptRef` is provenance and fallback, not a deployment dependency. Do not replace the controller with collection-specific application code.
 7. Treat projected members as reusable window slots. Update those slots in place as the window moves, keep durable member identity in `_origin.ref`, and delete only surplus slots on a short final window. This keeps the canvas and minimap on the same canonical node set.
-7. Do not create authored member portals. The controller discovers and projects member roots at runtime.
-8. Keep intentional navigation portals, such as repository home or a related collection, separate from membership.
+8. Do not create authored member portals. The controller discovers members and projects transient Portals at runtime.
+9. Keep intentional navigation portals, such as repository home or a related collection, separate from membership.
 
 ## Collection view contract
 
@@ -28,7 +28,7 @@ Treat this file and the adjacent `root.node` as one versioned package.
 - `membership.recursive` must remain `false`.
 - `view.mode` must be `windowed`.
 - `view.windowSize` controls the bounded visible group; use `10` unless the user asks otherwise.
-- `view.payload` must remain `node.web` so each member owns its card.
+- `view.payload` names the member Port initially consumed by the collection. It is a semantic baseline, not a locked View.
 - Placement and card dimensions are presentation settings owned by the collection graph.
 - A requested member surface controls projection and card sizing only. Never rewrite a projected member's `data.presentation.baseLevel`; preserve the member's authored semantic baseline so ordinary zoom bands still promote it.
 
@@ -45,7 +45,15 @@ Keep those buttons inside the authored card surfaces with `controlsPlacement: co
 
 Until the deployed runtime exposes authorized repository listing to graph scripts, `collection.compatibilityMembers` may hold a temporary explicit index. Keep it synchronized with the directory and remove it after the runtime primitive is available; it is fallback data, not the collection's membership authority.
 
-The live window loads and unloads transient instances of each member graph's canonical semantic node. Preserve `_origin.ref` so the instance retains its source graph identity, but never persist runtime projections into the graph file and never rewrite member graphs while browsing. A portal is only a compatibility fallback when a member graph has no usable class-bound semantic instance.
+The live window loads and unloads transient Portal projections of members. A projected Portal:
+
+- preserves member identity in `_origin.ref` and the target Glyph in `data.presentation.glyph`;
+- addresses the member Declaration or exposed Port and negotiates icon, summary, and detail Views through semantic zoom;
+- exposes no Ports or handles of its own;
+- navigates to the addressed member when activated;
+- uses the authored-frame minimap only as fallback when no semantic View resolves.
+
+Never copy a member's semantic instance into the collection as though it were locally instantiated. Never persist runtime projections into the graph file, and never rewrite member graphs while browsing.
 
 ## Repository boundary
 
@@ -53,7 +61,8 @@ Discover members only inside the repository containing the collection graph. Pub
 
 ## Validation
 
-- Confirm the declaration exposes exactly one canonical `root` port.
+- Confirm the Declaration supplies the implicit root interface and all required presentation/frame relationships are occupied.
+- Confirm every runtime member is a handle-free Portal carrying the target Glyph and semantic View address.
 - Confirm adding a direct `.node` member requires no edit to `root.node`.
 - Confirm child directories without `root.node` are ignored.
 - Confirm only the visible window resolves member graphs.
