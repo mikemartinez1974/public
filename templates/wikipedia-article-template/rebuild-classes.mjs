@@ -75,6 +75,7 @@ const glyphNode = ({ id, label, x, y, graphId, name = 'Language' }) => ({
   ports: [rootPort()], handles: [rootHandle()], visible: true, showLabel: true,
   data: {
     glyph: { kind: 'icon', name },
+    visibilityRole: 'editor',
     interfaceContract: { version: 1, receivesGlyphDefinition: true },
     identity: { graphId }
   }
@@ -439,6 +440,15 @@ function liveSmokeGraph() {
   const icon = viewNode({ id: `${graphId}-icon`, label: 'Smoke Icon', x: -980, y: 240, width: 300, height: 200, payload: 'node.web.icon', data: {
     title: 'Wikipedia Live Smoke', body: 'W', identity: { graphId }
   }});
+  const detailContent = contentNode({ id: `${graphId}-detail-content`, label: 'Smoke Detail Content', x: -500, y: -500, width: 420, height: 260, graphId,
+    value: '# Wikipedia Article Live Smoke Test\n\nA real Article instance resolves itself and exposes live section handles.'
+  });
+  const summaryContent = contentNode({ id: `${graphId}-summary-content`, label: 'Smoke Summary Content', x: -460, y: 300, width: 380, height: 220, graphId,
+    value: '## Wikipedia Live Smoke\n\nResolve Article, expand Section, recurse.'
+  });
+  const iconContent = contentNode({ id: `${graphId}-icon-content`, label: 'Smoke Icon Content', x: -80, y: 420, width: 300, height: 200, graphId, kind: 'svg',
+    value: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200'><rect width='300' height='200' rx='24' fill='#111827'/><circle cx='150' cy='82' r='52' fill='#f8fafc'/><text x='150' y='105' text-anchor='middle' fill='#111827' font-family='Georgia,serif' font-size='64' font-weight='700'>W</text><text x='150' y='165' text-anchor='middle' fill='#f8fafc' font-family='system-ui,sans-serif' font-size='16' font-weight='800'>LIVE SMOKE</text></svg>"
+  });
   const glyph = glyphNode({ id: `${graphId}-glyph`, label: 'Smoke Glyph', x: -1420, y: -500, graphId });
   const landing = contentNode({ id: `${graphId}-landing`, label: 'Smoke Landing Surface', x: -420, y: -120, width: 560, height: 360, graphId,
     value: '# Wikipedia Article Live Smoke Test\n\nThe Article node below is configured with a real Wikipedia reference. It should resolve automatically and expose its immediate sections as labeled handles.'
@@ -481,13 +491,16 @@ function liveSmokeGraph() {
   const criteria = contentNode({ id: `${graphId}-criteria`, label: 'Pass Criteria', x: 1040, y: -40, width: 520, height: 500, graphId,
     value: '## Pass criteria\n\n1. Article resolves to **Graph (discrete mathematics)** without a button.\n2. Detail and Summary show resolved title and lead.\n3. Revision provenance is populated.\n4. Immediate top-level sections appear as labeled handles on the right.\n5. Dragging a section creates `wikipedia-section` through its root.\n6. The Section resolves readable content and exposes only its immediate child sections.\n7. Changing `articleRef` triggers one new resolution; zoom and focus do not.'
   });
-  const nodes = [declaration, detail, summary, icon, glyph, landing, articleBridge, sectionBridge, article, criteria];
+  const nodes = [declaration, detail, summary, icon, detailContent, summaryContent, iconContent, glyph, landing, articleBridge, sectionBridge, article, criteria];
   const edges = [
     edge({ id: `${graphId}-default-view`, source: declarationId, sourcePort: 'default-view', target: detail.id, type: 'default-view', label: 'default view', role: 'default-view' }),
     edge({ id: `${graphId}-summary-view`, source: declarationId, sourcePort: 'summary-view', target: summary.id, label: 'summary view', role: 'shared-summary' }),
     edge({ id: `${graphId}-icon-view`, source: declarationId, sourcePort: 'icon-view', target: icon.id, label: 'icon view', role: 'shared-icon' }),
     edge({ id: `${graphId}-glyph-edge`, source: declarationId, sourcePort: 'glyph', target: glyph.id, label: 'glyph', role: 'shared-glyph' }),
     edge({ id: `${graphId}-landing-edge`, source: declarationId, sourcePort: 'landing-surface', target: landing.id, label: 'landing surface', role: 'landing-surface' }),
+    edge({ id: `${graphId}-detail-content-edge`, source: detail.id, sourcePort: 'surface-delegate', target: detailContent.id, label: 'content', role: 'view.content' }),
+    edge({ id: `${graphId}-summary-content-edge`, source: summary.id, sourcePort: 'surface-delegate', target: summaryContent.id, label: 'content', role: 'view.content' }),
+    edge({ id: `${graphId}-icon-content-edge`, source: icon.id, sourcePort: 'surface-delegate', target: iconContent.id, label: 'content', role: 'view.content' }),
     { id: `${graphId}-article-import`, type: 'reference', source: articleBridge.id, target: article.id, sourcePort: 'root', targetPort: 'root', label: 'instantiates', data: { role: 'instantiates', semanticRole: 'instantiates' } }
   ];
   return { type: 'nodegraph-data', nodes, edges, timestamp: new Date().toISOString(), nodeCount: nodes.length, edgeCount: edges.length };
