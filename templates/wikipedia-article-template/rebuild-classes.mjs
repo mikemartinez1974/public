@@ -71,11 +71,11 @@ const contentNode = ({ id, label, x, y, width, height, kind = 'markdown', value,
   }
 });
 
-const glyphNode = ({ id, label, x, y, graphId, name = 'Language' }) => ({
+const glyphNode = ({ id, label, x, y, graphId, name = 'Language', glyph = null }) => ({
   id, type: 'glyph', label, root: false, position: { x, y }, width: 240, height: 160,
   ports: [rootPort()], handles: [rootHandle()], visible: true, showLabel: true,
   data: {
-    glyph: { kind: 'icon', name },
+    glyph: glyph || { kind: 'icon', name },
     visibilityRole: 'editor',
     interfaceContract: { version: 1, receivesGlyphDefinition: true },
     identity: { graphId }
@@ -302,7 +302,10 @@ function sectionGraph() {
     svg: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 180'><rect x='5' y='5' width='230' height='170' rx='22' fill='#172033' stroke='#93c5fd' stroke-width='3'/><path d='M42 55h156M42 88h125M42 121h145' stroke='#dbeafe' stroke-width='9' stroke-linecap='round'/><text x='120' y='158' text-anchor='middle' font-family='system-ui,sans-serif' font-size='14' font-weight='800' fill='#93c5fd'>SECTION</text></svg>",
     identity: { graphId }
   }});
-  const glyph = glyphNode({ id: 'wikipedia-section-glyph', label: 'Section Glyph', x: -1180, y: -480, graphId, name: 'Subject' });
+  const glyph = glyphNode({
+    id: 'wikipedia-section-glyph', label: 'Section Glyph', x: -1180, y: -480, graphId,
+    glyph: { kind: 'symbol', name: 'Section', value: '§' }
+  });
   const landing = contentNode({ id: 'wikipedia-section-landing', label: 'Section Landing Surface', x: -120, y: -20, width: 620, height: 440, graphId,
     value: '# Wikipedia Section\n\nThe landing surface defines the Section node frame. The semantic Views present lazily resolved section content.'
   });
