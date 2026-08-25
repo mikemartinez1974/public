@@ -165,6 +165,7 @@ function declarationNode({ id, nodeId, name, description, classKey, classRef, me
 function articleGraph() {
   const graphId = 'wikipedia-article-source-declaration';
   const classRef = 'github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node';
+  const articleGlyph = { kind: 'symbol', name: 'Wikipedia Article', value: 'W' };
   const dynamicPorts = {
     version: 1,
     sourcePath: 'sections', idPath: 'id', labelPath: 'title', orderPath: 'order',
@@ -185,6 +186,7 @@ function articleGraph() {
     data: {
       articleRef: '', canonicalUrl: '', title: '', description: '', pageId: '', revisionId: '', revisionTimestamp: '',
       lead: '', thumbnailUrl: '', thumbnail: null, originalImageUrl: '', sections: [], attribution,
+      presentation: { glyph: articleGlyph },
       resolution: { status: 'idle', resolvedRef: '', lastResolvedAt: '', error: '' }
     }
   };
@@ -225,7 +227,10 @@ function articleGraph() {
     },
     identity: { graphId }
   }});
-  const glyph = glyphNode({ id: 'wikipedia-article-source-glyph', label: 'Wikipedia Glyph', x: -1180, y: -480, graphId });
+  const glyph = glyphNode({
+    id: 'wikipedia-article-source-glyph', label: 'Wikipedia Glyph', x: -1180, y: -480, graphId,
+    glyph: articleGlyph
+  });
   const landing = contentNode({ id: 'wikipedia-article-source-landing', label: 'Article Landing Surface', x: -120, y: -40, width: 680, height: 500, graphId,
     value: '# Wikipedia Article\n\nThe landing surface defines the article node frame. Runtime semantic Views render resolved article data inside this boundary.'
   });
