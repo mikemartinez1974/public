@@ -260,6 +260,7 @@ function articleGraph() {
 function sectionGraph() {
   const graphId = 'wikipedia-section-declaration';
   const classRef = 'github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-section.node-class.node';
+  const sectionGlyph = { kind: 'symbol', name: 'Section', value: '§' };
   const dynamicPorts = {
     version: 1,
     sourcePath: 'sections', idPath: 'id', labelPath: 'title', orderPath: 'order',
@@ -281,6 +282,7 @@ function sectionGraph() {
       articleRef: '', canonicalUrl: '', articleTitle: '', description: '', thumbnailUrl: '', revisionId: '',
       sectionId: '', title: '', level: 1, order: 0, sourceLocator: '',
       content: '', contentHtml: '', contentSummary: '', sections: [], attribution,
+      presentation: { glyph: sectionGlyph },
       resolution: { status: 'idle', resolvedIdentity: '', lastResolvedAt: '', error: '' }
     }
   };
@@ -304,7 +306,7 @@ function sectionGraph() {
   }});
   const glyph = glyphNode({
     id: 'wikipedia-section-glyph', label: 'Section Glyph', x: -1180, y: -480, graphId,
-    glyph: { kind: 'symbol', name: 'Section', value: '§' }
+    glyph: sectionGlyph
   });
   const landing = contentNode({ id: 'wikipedia-section-landing', label: 'Section Landing Surface', x: -120, y: -20, width: 620, height: 440, graphId,
     value: '# Wikipedia Section\n\nThe landing surface defines the Section node frame. The semantic Views present lazily resolved section content.'
