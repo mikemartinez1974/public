@@ -194,11 +194,11 @@ function articleGraph() {
     defaults, requiredDataKeys: ['articleRef'], dynamicPorts, position: { x: -1280, y: 0 }, includeEditor: true
   });
   const detail = viewNode({ id: 'wikipedia-article-source-detail', label: 'Article Detail', x: -720, y: -300, width: 480, height: 320, payload: 'node.web.detail', data: {
-    renderShape: { kind: 'html' }, html: articleDetailHtml,
+    renderShape: { kind: 'html' }, html: articleDetailScrollableHtml,
     identity: { graphId }
   }});
   const summary = viewNode({ id: 'wikipedia-article-source-summary', label: 'Article Summary', x: -720, y: 80, width: 420, height: 240, payload: 'node.web.summary', data: {
-    renderShape: { kind: 'html' }, html: articleSummaryHtml, identity: { graphId }
+    renderShape: { kind: 'html' }, html: articleSummaryScrollableHtml, identity: { graphId }
   }});
   const icon = viewNode({ id: 'wikipedia-article-source-icon', label: 'Article Icon', x: -720, y: 380, width: 320, height: 220, payload: 'node.web.icon', data: {
     renderShape: { kind: 'svg' },
@@ -289,10 +289,10 @@ function sectionGraph() {
     defaults, requiredDataKeys: ['articleRef', 'revisionId', 'sectionId'], dynamicPorts, position: { x: -1280, y: 0 }
   });
   const detail = viewNode({ id: 'wikipedia-section-detail', label: 'Section Detail', x: -720, y: -300, width: 460, height: 300, payload: 'node.web.detail', data: {
-    renderShape: { kind: 'html' }, html: sectionDetailHtml, identity: { graphId }
+    renderShape: { kind: 'html' }, html: sectionDetailScrollableHtml, identity: { graphId }
   }});
   const summary = viewNode({ id: 'wikipedia-section-summary', label: 'Section Summary', x: -720, y: 60, width: 400, height: 240, payload: 'node.web.summary', data: {
-    renderShape: { kind: 'html' }, html: sectionSummaryHtml, identity: { graphId }
+    renderShape: { kind: 'html' }, html: sectionSummaryScrollableHtml, identity: { graphId }
   }});
   const icon = viewNode({ id: 'wikipedia-section-icon', label: 'Section Icon', x: -720, y: 360, width: 320, height: 220, payload: 'node.web.icon', data: {
     renderShape: { kind: 'svg' },
