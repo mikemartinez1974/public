@@ -27,10 +27,11 @@ const relationshipPort = ({ id, label, angle, role, nodeType, edgeType = 'refere
   }
 });
 
-const declarationPorts = () => [
+const declarationPorts = ({ includeEditor = false } = {}) => [
   relationshipPort({ id: 'default-view', label: 'default view', angle: 165, role: 'default-view', nodeType: 'view', edgeType: 'default-view' }),
   relationshipPort({ id: 'summary-view', label: 'summary view', angle: 180, role: 'shared-summary', nodeType: 'view' }),
   relationshipPort({ id: 'icon-view', label: 'icon view', angle: 195, role: 'shared-icon', nodeType: 'view' }),
+  ...(includeEditor ? [relationshipPort({ id: 'editor-view', label: 'editor view', angle: 210, role: 'editor-view', nodeType: 'view' })] : []),
   relationshipPort({ id: 'glyph', label: 'glyph', angle: 270, role: 'shared-glyph', nodeType: 'glyph' }),
   relationshipPort({ id: 'port', label: 'port', angle: 90, role: 'exposes-port', nodeType: 'port', required: false, repeatable: true }),
   relationshipPort({ id: 'landing-surface', label: 'landing surface', angle: 0, role: 'landing-surface', nodeType: 'content' })
@@ -41,7 +42,7 @@ const declarationHandles = (ports) => ports.map((port) => ({
   direction: port.direction, dataType: port.dataType, angle: port.angle, role: port.role
 }));
 
-const viewNode = ({ id, label, x, y, width, height, payload, data = {} }) => ({
+const viewNode = ({ id, label, x, y, width, height, payload, intent = 'node', data = {} }) => ({
   id, type: 'view', label, root: false, position: { x, y }, width, height,
   ports: [
     rootPort(),
@@ -54,7 +55,7 @@ const viewNode = ({ id, label, x, y, width, height, payload, data = {} }) => ({
   visible: true,
   showLabel: true,
   data: {
-    view: { intent: 'node', payload },
+    view: { intent, payload },
     interfaceContract: { version: 1, ownsContent: true, surfaceDelegation: true },
     ...data
   }
@@ -92,8 +93,8 @@ const attribution = {
   licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/'
 };
 
-function declarationNode({ id, nodeId, name, description, classKey, classRef, meaning, defaults, requiredDataKeys, dynamicPorts, position }) {
-  const ports = declarationPorts();
+function declarationNode({ id, nodeId, name, description, classKey, classRef, meaning, defaults, requiredDataKeys, dynamicPorts, position, includeEditor = false }) {
+  const ports = declarationPorts({ includeEditor });
   return {
     id, type: 'declaration', label: `${name} Declaration`, root: false,
     position, width: 420, height: 300, ports, handles: declarationHandles(ports), visible: true, showLabel: true,
@@ -163,7 +164,7 @@ function articleGraph() {
     description: 'A graph-native Wikipedia article with lazy, section-oriented expansion.',
     classKey: 'wikipedia-article-source', classRef,
     meaning: 'A Wikipedia article projection that owns article identity, lead content, provenance, and an immediate section manifest.',
-    defaults, requiredDataKeys: ['articleRef'], dynamicPorts, position: { x: -1280, y: 0 }
+    defaults, requiredDataKeys: ['articleRef'], dynamicPorts, position: { x: -1280, y: 0 }, includeEditor: true
   });
   const detail = viewNode({ id: 'wikipedia-article-source-detail', label: 'Article Detail', x: -720, y: -300, width: 480, height: 320, payload: 'node.web.detail', data: {
     markdown: '# {{data.title}}\n\n{{data.lead}}\n\n---\n\nSource: [Wikipedia]({{data.canonicalUrl}}) · revision {{data.revisionId}} · {{data.attribution.license}}',
@@ -175,6 +176,24 @@ function articleGraph() {
   const icon = viewNode({ id: 'wikipedia-article-source-icon', label: 'Article Icon', x: -720, y: 380, width: 320, height: 220, payload: 'node.web.icon', data: {
     renderShape: { kind: 'svg' },
     svg: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 200'><rect x='5' y='5' width='230' height='190' rx='24' fill='#111827' stroke='#d1d5db' stroke-width='3'/><circle cx='120' cy='82' r='48' fill='#f8fafc'/><text x='120' y='102' text-anchor='middle' font-family='Georgia,serif' font-size='60' font-weight='700' fill='#111827'>W</text><text x='120' y='162' text-anchor='middle' font-family='system-ui,sans-serif' font-size='16' font-weight='800' fill='#f8fafc'>ARTICLE</text></svg>",
+    identity: { graphId }
+  }});
+  const editor = viewNode({ id: 'wikipedia-article-source-editor', label: 'Article Editor', x: -720, y: 680, width: 440, height: 260, payload: 'editor.web', intent: 'editor', data: {
+    editor: {
+      web: {
+        layout: {
+          mode: 'stack',
+          sections: [{ key: 'identity', title: 'Wikipedia Article', summary: 'Choose the article represented by this node.' }]
+        },
+        fields: [
+          {
+            key: 'articleRef', label: 'Article', type: 'text', path: 'data.articleRef', section: 'identity', required: true,
+            placeholder: 'https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)',
+            helperText: 'Enter a Wikipedia article URL or article title. Saving this field triggers resolution of the new article.'
+          }
+        ]
+      }
+    },
     identity: { graphId }
   }});
   const glyph = glyphNode({ id: 'wikipedia-article-source-glyph', label: 'Wikipedia Glyph', x: -1180, y: -480, graphId });
@@ -197,11 +216,12 @@ function articleGraph() {
       status: 'implemented', visibilityRole: 'editor', identity: { graphId }
     }
   };
-  const nodes = [declaration, detail, summary, icon, glyph, landing, contract, script];
+  const nodes = [declaration, detail, summary, icon, editor, glyph, landing, contract, script];
   const edges = [
     edge({ id: 'article-default-view', source: graphId, sourcePort: 'default-view', target: detail.id, type: 'default-view', label: 'default view', role: 'default-view' }),
     edge({ id: 'article-summary-view', source: graphId, sourcePort: 'summary-view', target: summary.id, label: 'summary view', role: 'shared-summary' }),
     edge({ id: 'article-icon-view', source: graphId, sourcePort: 'icon-view', target: icon.id, label: 'icon view', role: 'shared-icon' }),
+    edge({ id: 'article-editor-view', source: graphId, sourcePort: 'editor-view', target: editor.id, label: 'editor view', role: 'editor-view' }),
     edge({ id: 'article-glyph', source: graphId, sourcePort: 'glyph', target: glyph.id, label: 'glyph', role: 'shared-glyph' }),
     edge({ id: 'article-landing', source: graphId, sourcePort: 'landing-surface', target: landing.id, label: 'landing surface', role: 'landing-surface' })
   ];

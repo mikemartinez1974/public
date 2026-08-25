@@ -95,6 +95,33 @@
           }
         },
         {
+          "id": "editor-view",
+          "key": "editor-view",
+          "label": "editor view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 210,
+          "role": "editor-view",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "editor-view",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
           "id": "glyph",
           "key": "glyph",
           "label": "glyph",
@@ -206,6 +233,16 @@
           "dataType": "any",
           "angle": 195,
           "role": "shared-icon"
+        },
+        {
+          "id": "editor-view",
+          "key": "editor-view",
+          "portId": "editor-view",
+          "label": "editor view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 210,
+          "role": "editor-view"
         },
         {
           "id": "glyph",
@@ -643,6 +680,122 @@
       }
     },
     {
+      "id": "wikipedia-article-source-editor",
+      "type": "view",
+      "label": "Article Editor",
+      "root": false,
+      "position": {
+        "x": -720,
+        "y": 680
+      },
+      "width": 440,
+      "height": 260,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          }
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "editor",
+          "payload": "editor.web"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "editor": {
+          "web": {
+            "layout": {
+              "mode": "stack",
+              "sections": [
+                {
+                  "key": "identity",
+                  "title": "Wikipedia Article",
+                  "summary": "Choose the article represented by this node."
+                }
+              ]
+            },
+            "fields": [
+              {
+                "key": "articleRef",
+                "label": "Article",
+                "type": "text",
+                "path": "data.articleRef",
+                "section": "identity",
+                "required": true,
+                "placeholder": "https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)",
+                "helperText": "Enter a Wikipedia article URL or article title. Saving this field triggers resolution of the new article."
+              }
+            ]
+          }
+        },
+        "identity": {
+          "graphId": "wikipedia-article-source-declaration"
+        }
+      }
+    },
+    {
       "id": "wikipedia-article-source-glyph",
       "type": "glyph",
       "label": "Wikipedia Glyph",
@@ -886,6 +1039,19 @@
       }
     },
     {
+      "id": "article-editor-view",
+      "type": "reference",
+      "source": "wikipedia-article-source-declaration",
+      "target": "wikipedia-article-source-editor",
+      "sourcePort": "editor-view",
+      "targetPort": "root",
+      "label": "editor view",
+      "data": {
+        "role": "editor-view",
+        "semanticRole": "editor-view"
+      }
+    },
+    {
       "id": "article-glyph",
       "type": "reference",
       "source": "wikipedia-article-source-declaration",
@@ -912,7 +1078,7 @@
       }
     }
   ],
-  "timestamp": "2026-08-24T23:30:19.412Z",
-  "nodeCount": 8,
-  "edgeCount": 5
+  "timestamp": "2026-08-25T00:08:31.437Z",
+  "nodeCount": 9,
+  "edgeCount": 6
 }
