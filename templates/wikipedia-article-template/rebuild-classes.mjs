@@ -113,10 +113,12 @@ const articleSummaryScrollableHtml = articleSummaryHtml
   .replace('min-height:0;flex:1;font:400 12px/1.42 Georgia,\'Times New Roman\',serif;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:6px', 'font:400 12px/1.42 Georgia,\'Times New Roman\',serif');
 const sectionDetailScrollableHtml = sectionDetailHtml
   .replace('min-height:0;flex:1;display:flex;flex-direction:column;overflow:hidden;padding:18px 21px', 'min-height:0;flex:1;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:18px 21px')
-  .replace('min-height:0;flex:1;font:400 13px/1.52 Georgia,\'Times New Roman\',serif;white-space:pre-wrap;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:8px', 'font:400 13px/1.52 Georgia,\'Times New Roman\',serif;white-space:pre-wrap;padding-right:8px');
+  .replace('min-height:0;flex:1;font:400 13px/1.52 Georgia,\'Times New Roman\',serif;white-space:pre-wrap;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:8px', 'font:400 13px/1.52 Georgia,\'Times New Roman\',serif;overflow-wrap:anywhere;padding-right:8px')
+  .replace('{{data.content}}', '{{data.contentHtml || data.content}}');
 const sectionSummaryScrollableHtml = sectionSummaryHtml
   .replace('min-width:0;min-height:0;padding:15px 17px;display:flex;flex-direction:column', 'min-width:0;min-height:0;padding:15px 17px;display:flex;flex-direction:column;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable')
-  .replace('min-height:0;flex:1;font:400 12px/1.42 Georgia,\'Times New Roman\',serif;white-space:pre-wrap;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:6px', 'font:400 12px/1.42 Georgia,\'Times New Roman\',serif;white-space:pre-wrap;padding-right:6px');
+  .replace('min-height:0;flex:1;font:400 12px/1.42 Georgia,\'Times New Roman\',serif;white-space:pre-wrap;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:6px', 'font:400 12px/1.42 Georgia,\'Times New Roman\',serif;white-space:pre-wrap;padding-right:6px')
+  .replace('{{data.content}}', '{{data.contentSummary || data.content}}');
 
 function declarationNode({ id, nodeId, name, description, classKey, classRef, meaning, defaults, requiredDataKeys, dynamicPorts, position, includeEditor = false }) {
   const ports = declarationPorts({ includeEditor });
@@ -277,7 +279,8 @@ function sectionGraph() {
     ports: [rootPort('input', 180)],
     data: {
       articleRef: '', canonicalUrl: '', articleTitle: '', description: '', thumbnailUrl: '', revisionId: '',
-      sectionId: '', title: '', level: 1, order: 0, sourceLocator: '', content: '', sections: [], attribution,
+      sectionId: '', title: '', level: 1, order: 0, sourceLocator: '',
+      content: '', contentHtml: '', contentSummary: '', sections: [], attribution,
       resolution: { status: 'idle', resolvedIdentity: '', lastResolvedAt: '', error: '' }
     }
   };
