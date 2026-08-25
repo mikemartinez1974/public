@@ -170,7 +170,7 @@ function articleGraph() {
     sourcePath: 'sections', idPath: 'id', labelPath: 'title', orderPath: 'order',
     direction: 'output', dataType: 'wikipedia-section', placement: { side: 'right' },
     behavior: {
-      trigger: 'drag-create', action: 'create-node', nodeType: 'wikipedia-section', targetPort: 'root',
+      trigger: 'drag-create', action: 'create-node', nodeType: 'wikipedia-section', targetPort: 'root', label: 'Section',
       seed: {
         articleRef: '$node.articleRef', canonicalUrl: '$node.canonicalUrl', articleTitle: '$node.title',
         description: '$node.description', thumbnailUrl: '$node.thumbnailUrl',
@@ -266,7 +266,7 @@ function sectionGraph() {
     sourcePath: 'sections', idPath: 'id', labelPath: 'title', orderPath: 'order',
     direction: 'output', dataType: 'wikipedia-section', placement: { side: 'right' },
     behavior: {
-      trigger: 'drag-create', action: 'create-node', nodeType: 'wikipedia-section', targetPort: 'root',
+      trigger: 'drag-create', action: 'create-node', nodeType: 'wikipedia-section', targetPort: 'root', label: 'Section',
       seed: {
         articleRef: '$node.articleRef', canonicalUrl: '$node.canonicalUrl', articleTitle: '$node.articleTitle',
         description: '$node.description', thumbnailUrl: '$node.thumbnailUrl',
@@ -381,7 +381,7 @@ function reconcileTemplate() {
         sourcePath: 'sections', idPath: 'id', labelPath: 'title', orderPath: 'order',
         direction: 'output', dataType: 'wikipedia-section', placement: { side: 'right' },
         behavior: {
-          trigger: 'drag-create', action: 'create-node', nodeType: 'wikipedia-section', targetPort: 'root',
+          trigger: 'drag-create', action: 'create-node', nodeType: 'wikipedia-section', targetPort: 'root', label: 'Section',
           seed: {
             articleRef: '$node.articleRef', canonicalUrl: '$node.canonicalUrl', articleTitle: '$node.title',
             description: '$node.description', thumbnailUrl: '$node.thumbnailUrl',
@@ -539,7 +539,7 @@ function liveSmokeGraph() {
         version: 1, sourcePath: 'sections', idPath: 'id', labelPath: 'title', orderPath: 'order',
         direction: 'output', dataType: 'wikipedia-section', placement: { side: 'right' },
         behavior: {
-          trigger: 'drag-create', action: 'create-node', nodeType: 'wikipedia-section', targetPort: 'root',
+          trigger: 'drag-create', action: 'create-node', nodeType: 'wikipedia-section', targetPort: 'root', label: 'Section',
           seed: {
             articleRef: '$node.articleRef', canonicalUrl: '$node.canonicalUrl', articleTitle: '$node.title',
             description: '$node.description', thumbnailUrl: '$node.thumbnailUrl', revisionId: '$node.revisionId',
