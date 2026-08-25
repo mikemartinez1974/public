@@ -93,6 +93,16 @@ const attribution = {
   licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/'
 };
 
+const wikipediaFallbackImage = 'https://upload.wikimedia.org/wikipedia/commons/8/80/Wikipedia-logo-v2.svg';
+
+const articleDetailHtml = `<article style="width:100%;height:100%;box-sizing:border-box;overflow:hidden;border-radius:18px;background:#fff;color:#202122;border:1px solid #a2a9b1;box-shadow:0 12px 32px rgba(0,0,0,.18);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;display:flex;flex-direction:column"><header style="height:70px;box-sizing:border-box;display:flex;align-items:center;gap:13px;padding:12px 22px;border-bottom:1px solid #c8ccd1;background:#f8f9fa"><div style="width:43px;height:43px;border:1px solid #72777d;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;font:700 29px/1 Georgia,'Times New Roman',serif">W</div><div><div style="font:500 20px/1 Georgia,'Times New Roman',serif;letter-spacing:.08em">WIKIPEDIA</div><div style="font:500 9px/1.4 Georgia,'Times New Roman',serif;letter-spacing:.08em">THE FREE ENCYCLOPEDIA</div></div><div style="margin-left:auto;padding:5px 9px;border:1px solid #a2a9b1;border-radius:999px;background:#fff;font:700 9px/1 sans-serif;color:#54595d">ARTICLE</div></header><div style="min-height:0;flex:1;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(180px,.8fr);gap:22px;padding:22px"><main style="min-width:0;overflow:hidden"><h1 style="margin:0;font:400 34px/1.08 Georgia,'Times New Roman',serif;color:#101418">{{data.title}}</h1><div style="width:100%;height:1px;background:#a2a9b1;margin:8px 0 5px"></div><div style="font:italic 13px/1.35 Georgia,'Times New Roman',serif;color:#54595d;margin-bottom:15px">{{data.description || 'From Wikipedia, the free encyclopedia'}}</div><div style="font:400 14px/1.55 Georgia,'Times New Roman',serif;color:#202122;display:-webkit-box;-webkit-line-clamp:13;-webkit-box-orient:vertical;overflow:hidden">{{data.lead}}</div></main><aside style="min-width:0;display:flex;flex-direction:column;gap:10px"><div style="height:228px;border:1px solid #c8ccd1;background:#eaecf0;padding:5px;box-sizing:border-box"><img src="{{data.thumbnailUrl || '${wikipediaFallbackImage}'}}" alt="" style="display:block;width:100%;height:100%;object-fit:cover;background:#fff" /></div><div style="font:600 10px/1.4 sans-serif;color:#54595d;text-align:center">{{data.description || data.title}}</div></aside></div><footer style="height:38px;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:8px 22px;border-top:1px solid #c8ccd1;background:#f8f9fa;font:500 10px/1 sans-serif;color:#54595d"><span style="color:#36c;font-weight:700">Wikipedia</span><span>revision {{data.revisionId}}</span><span style="margin-left:auto">CC BY-SA</span></footer></article>`;
+
+const articleSummaryHtml = `<article style="width:100%;height:100%;box-sizing:border-box;overflow:hidden;border-radius:16px;background:#fff;color:#202122;border:1px solid #a2a9b1;box-shadow:0 8px 22px rgba(0,0,0,.16);display:grid;grid-template-columns:36% 64%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"><div style="background:#eaecf0;padding:5px;min-width:0"><img src="{{data.thumbnailUrl || '${wikipediaFallbackImage}'}}" alt="" style="width:100%;height:100%;display:block;object-fit:cover;background:#fff" /></div><div style="min-width:0;padding:15px 17px;display:flex;flex-direction:column"><div style="display:flex;align-items:center;gap:7px;color:#54595d;font:700 9px/1 sans-serif;letter-spacing:.1em"><span style="width:21px;height:21px;border:1px solid #72777d;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;font:700 15px Georgia,serif;color:#202122;letter-spacing:0">W</span> WIKIPEDIA ARTICLE</div><h2 style="margin:10px 0 4px;font:400 25px/1.08 Georgia,'Times New Roman',serif;color:#101418;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{data.title}}</h2><div style="font:italic 11px/1.3 Georgia,'Times New Roman',serif;color:#54595d;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{data.description}}</div><div style="height:1px;background:#c8ccd1;margin:9px 0"></div><div style="font:400 12px/1.42 Georgia,'Times New Roman',serif;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden">{{data.lead}}</div><div style="margin-top:auto;padding-top:6px;font:600 9px/1 sans-serif;color:#36c">Read and explore sections</div></div></article>`;
+
+const sectionDetailHtml = `<article style="width:100%;height:100%;box-sizing:border-box;overflow:hidden;border-radius:18px;background:#fff;color:#202122;border:1px solid #a2a9b1;box-shadow:0 10px 28px rgba(0,0,0,.16);display:grid;grid-template-columns:8px minmax(0,1fr);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"><div style="background:#36c"></div><div style="min-width:0;display:flex;flex-direction:column"><header style="display:flex;align-items:center;gap:9px;padding:13px 18px;border-bottom:1px solid #c8ccd1;background:#f8f9fa"><span style="width:27px;height:27px;border:1px solid #72777d;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;font:700 18px Georgia,serif">W</span><div style="min-width:0"><div style="font:700 9px/1.2 sans-serif;letter-spacing:.1em;color:#54595d">WIKIPEDIA · SECTION</div><div style="font:500 11px/1.2 sans-serif;color:#36c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{data.articleTitle}}</div></div></header><main style="min-height:0;flex:1;overflow:hidden;padding:18px 21px"><h1 style="margin:0;font:400 29px/1.1 Georgia,'Times New Roman',serif;color:#101418">{{data.title}}</h1><div style="height:1px;background:#a2a9b1;margin:8px 0 12px"></div><div style="font:400 13px/1.52 Georgia,'Times New Roman',serif;white-space:pre-wrap;display:-webkit-box;-webkit-line-clamp:14;-webkit-box-orient:vertical;overflow:hidden">{{data.content}}</div></main><footer style="padding:9px 20px;border-top:1px solid #c8ccd1;background:#f8f9fa;font:500 9px/1 sans-serif;color:#54595d">Revision {{data.revisionId}} · CC BY-SA</footer></div></article>`;
+
+const sectionSummaryHtml = `<article style="width:100%;height:100%;box-sizing:border-box;overflow:hidden;border-radius:16px;background:#fff;color:#202122;border:1px solid #a2a9b1;box-shadow:0 7px 20px rgba(0,0,0,.14);display:grid;grid-template-columns:7px minmax(0,1fr);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"><div style="background:#36c"></div><div style="min-width:0;padding:15px 17px;display:flex;flex-direction:column"><div style="font:700 9px/1.2 sans-serif;letter-spacing:.1em;color:#54595d">WIKIPEDIA SECTION</div><h2 style="margin:8px 0 3px;font:400 23px/1.08 Georgia,'Times New Roman',serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{data.title}}</h2><div style="font:500 10px/1.3 sans-serif;color:#36c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{data.articleTitle}}</div><div style="height:1px;background:#c8ccd1;margin:9px 0"></div><div style="font:400 12px/1.42 Georgia,'Times New Roman',serif;white-space:pre-wrap;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden">{{data.content}}</div></div></article>`;
+
 function declarationNode({ id, nodeId, name, description, classKey, classRef, meaning, defaults, requiredDataKeys, dynamicPorts, position, includeEditor = false }) {
   const ports = declarationPorts({ includeEditor });
   return {
@@ -120,7 +130,7 @@ function declarationNode({ id, nodeId, name, description, classKey, classRef, me
               adapter: classKey === 'wikipedia-article-source' ? 'wikimedia-article-v1' : 'wikimedia-section-v1',
               inputPaths: classKey === 'wikipedia-article-source'
                 ? ['articleRef']
-                : ['articleRef', 'canonicalUrl', 'articleTitle', 'revisionId', 'sectionId', 'title', 'level', 'order', 'sourceLocator'],
+                : ['articleRef', 'canonicalUrl', 'articleTitle', 'description', 'thumbnailUrl', 'revisionId', 'sectionId', 'title', 'level', 'order', 'sourceLocator'],
               requiredInputPaths: classKey === 'wikipedia-article-source'
                 ? ['articleRef']
                 : ['articleRef', 'sectionId', 'sourceLocator'],
@@ -146,6 +156,7 @@ function articleGraph() {
       trigger: 'drag-create', action: 'create-node', nodeType: 'wikipedia-section', targetPort: 'root',
       seed: {
         articleRef: '$node.articleRef', canonicalUrl: '$node.canonicalUrl', articleTitle: '$node.title',
+        description: '$node.description', thumbnailUrl: '$node.thumbnailUrl',
         revisionId: '$node.revisionId', sectionId: '$entry.id', title: '$entry.title',
         level: '$entry.level', order: '$entry.order', sourceLocator: '$entry.sourceLocator'
       }
@@ -155,7 +166,8 @@ function articleGraph() {
     label: 'Wikipedia Article', size: { width: 680, height: 500 }, showLabel: false,
     ports: [rootPort('input', 180)],
     data: {
-      articleRef: '', canonicalUrl: '', title: '', revisionId: '', lead: '', sections: [], attribution,
+      articleRef: '', canonicalUrl: '', title: '', description: '', pageId: '', revisionId: '', revisionTimestamp: '',
+      lead: '', thumbnailUrl: '', thumbnail: null, originalImageUrl: '', sections: [], attribution,
       resolution: { status: 'idle', resolvedRef: '', lastResolvedAt: '', error: '' }
     }
   };
@@ -167,11 +179,11 @@ function articleGraph() {
     defaults, requiredDataKeys: ['articleRef'], dynamicPorts, position: { x: -1280, y: 0 }, includeEditor: true
   });
   const detail = viewNode({ id: 'wikipedia-article-source-detail', label: 'Article Detail', x: -720, y: -300, width: 480, height: 320, payload: 'node.web.detail', data: {
-    markdown: '# {{data.title}}\n\n{{data.lead}}\n\n---\n\nSource: [Wikipedia]({{data.canonicalUrl}}) · revision {{data.revisionId}} · {{data.attribution.license}}',
+    renderShape: { kind: 'html' }, html: articleDetailHtml,
     identity: { graphId }
   }});
   const summary = viewNode({ id: 'wikipedia-article-source-summary', label: 'Article Summary', x: -720, y: 80, width: 420, height: 240, payload: 'node.web.summary', data: {
-    markdown: '## {{data.title}}\n\n{{data.lead}}', identity: { graphId }
+    renderShape: { kind: 'html' }, html: articleSummaryHtml, identity: { graphId }
   }});
   const icon = viewNode({ id: 'wikipedia-article-source-icon', label: 'Article Icon', x: -720, y: 380, width: 320, height: 220, payload: 'node.web.icon', data: {
     renderShape: { kind: 'svg' },
@@ -239,6 +251,7 @@ function sectionGraph() {
       trigger: 'drag-create', action: 'create-node', nodeType: 'wikipedia-section', targetPort: 'root',
       seed: {
         articleRef: '$node.articleRef', canonicalUrl: '$node.canonicalUrl', articleTitle: '$node.articleTitle',
+        description: '$node.description', thumbnailUrl: '$node.thumbnailUrl',
         revisionId: '$node.revisionId', sectionId: '$entry.id', title: '$entry.title',
         level: '$entry.level', order: '$entry.order', sourceLocator: '$entry.sourceLocator'
       }
@@ -248,7 +261,7 @@ function sectionGraph() {
     label: 'Wikipedia Section', size: { width: 620, height: 440 }, showLabel: false,
     ports: [rootPort('input', 180)],
     data: {
-      articleRef: '', canonicalUrl: '', articleTitle: '', revisionId: '',
+      articleRef: '', canonicalUrl: '', articleTitle: '', description: '', thumbnailUrl: '', revisionId: '',
       sectionId: '', title: '', level: 1, order: 0, sourceLocator: '', content: '', sections: [], attribution,
       resolution: { status: 'idle', resolvedIdentity: '', lastResolvedAt: '', error: '' }
     }
@@ -261,10 +274,10 @@ function sectionGraph() {
     defaults, requiredDataKeys: ['articleRef', 'revisionId', 'sectionId'], dynamicPorts, position: { x: -1280, y: 0 }
   });
   const detail = viewNode({ id: 'wikipedia-section-detail', label: 'Section Detail', x: -720, y: -300, width: 460, height: 300, payload: 'node.web.detail', data: {
-    markdown: '# {{data.title}}\n\n{{data.content}}\n\n---\n\n{{data.articleTitle}} · revision {{data.revisionId}} · {{data.attribution.license}}', identity: { graphId }
+    renderShape: { kind: 'html' }, html: sectionDetailHtml, identity: { graphId }
   }});
   const summary = viewNode({ id: 'wikipedia-section-summary', label: 'Section Summary', x: -720, y: 60, width: 400, height: 240, payload: 'node.web.summary', data: {
-    markdown: '## {{data.title}}\n\n{{data.content}}', identity: { graphId }
+    renderShape: { kind: 'html' }, html: sectionSummaryHtml, identity: { graphId }
   }});
   const icon = viewNode({ id: 'wikipedia-section-icon', label: 'Section Icon', x: -720, y: 360, width: 320, height: 220, payload: 'node.web.icon', data: {
     renderShape: { kind: 'svg' },
@@ -312,7 +325,10 @@ function reconcileTemplate() {
       articleRef: article.data?.articleRef || article.data?.canonicalUrl || 'https://en.wikipedia.org/wiki/Wikipedia',
       canonicalUrl: article.data?.canonicalUrl || '',
       title: article.data?.title || 'Wikipedia',
+      description: article.data?.description || '',
+      pageId: article.data?.pageId || '',
       revisionId: article.data?.revisionId === 'runtime' ? '' : (article.data?.revisionId || ''),
+      revisionTimestamp: article.data?.revisionTimestamp || '',
       lead: article.data?.lead === 'Resolved lead content appears here.'
         ? 'A deterministic authoring fixture for validating semantic presentation and graph-native section expansion.'
         : (article.data?.lead || 'A deterministic authoring fixture for validating semantic presentation and graph-native section expansion.'),
@@ -323,6 +339,9 @@ function reconcileTemplate() {
             { id: 'fixture-organization', title: 'Organization', level: 2, order: 2, sourceLocator: 'fixture:organization' },
             { id: 'fixture-community', title: 'Community', level: 2, order: 3, sourceLocator: 'fixture:community' }
           ],
+      thumbnailUrl: article.data?.thumbnailUrl || '',
+      thumbnail: article.data?.thumbnail || null,
+      originalImageUrl: article.data?.originalImageUrl || '',
       attribution: article.data?.attribution || attribution,
       resolution: article.data?.resolution?.resolvedRef
         ? article.data.resolution
@@ -342,6 +361,7 @@ function reconcileTemplate() {
           trigger: 'drag-create', action: 'create-node', nodeType: 'wikipedia-section', targetPort: 'root',
           seed: {
             articleRef: '$node.articleRef', canonicalUrl: '$node.canonicalUrl', articleTitle: '$node.title',
+            description: '$node.description', thumbnailUrl: '$node.thumbnailUrl',
             revisionId: '$node.revisionId', sectionId: '$entry.id', title: '$entry.title',
             level: '$entry.level', order: '$entry.order', sourceLocator: '$entry.sourceLocator'
           }
@@ -483,7 +503,8 @@ function liveSmokeGraph() {
     position: { x: 260, y: -80 }, width: 680, height: 500, visible: true, showLabel: false,
     ports: [rootPort('input', 180)], handles: [rootHandle('input', 180)],
     data: {
-      articleRef, canonicalUrl: '', title: '', revisionId: '', lead: '', sections: [], attribution,
+      articleRef, canonicalUrl: '', title: '', description: '', pageId: '', revisionId: '', revisionTimestamp: '',
+      lead: '', thumbnailUrl: '', thumbnail: null, originalImageUrl: '', sections: [], attribution,
       resolution: { status: 'idle', resolvedRef: '', lastResolvedAt: '', error: '' },
       lifecycle: {
         resolve: {
@@ -497,7 +518,8 @@ function liveSmokeGraph() {
         behavior: {
           trigger: 'drag-create', action: 'create-node', nodeType: 'wikipedia-section', targetPort: 'root',
           seed: {
-            articleRef: '$node.articleRef', canonicalUrl: '$node.canonicalUrl', articleTitle: '$node.title', revisionId: '$node.revisionId',
+            articleRef: '$node.articleRef', canonicalUrl: '$node.canonicalUrl', articleTitle: '$node.title',
+            description: '$node.description', thumbnailUrl: '$node.thumbnailUrl', revisionId: '$node.revisionId',
             sectionId: '$entry.id', title: '$entry.title', level: '$entry.level', order: '$entry.order', sourceLocator: '$entry.sourceLocator'
           }
         }
