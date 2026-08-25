@@ -103,6 +103,21 @@ const sectionDetailHtml = `<article style="width:100%;height:100%;box-sizing:bor
 
 const sectionSummaryHtml = `<article style="width:100%;height:100%;box-sizing:border-box;overflow:hidden;border-radius:16px;background:#fff;color:#202122;border:1px solid #a2a9b1;box-shadow:0 7px 20px rgba(0,0,0,.14);display:grid;grid-template-columns:7px minmax(0,1fr);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"><div style="background:#36c"></div><div style="min-width:0;min-height:0;padding:15px 17px;display:flex;flex-direction:column"><div style="font:700 9px/1.2 sans-serif;letter-spacing:.1em;color:#54595d;flex:none">WIKIPEDIA SECTION</div><h2 style="margin:8px 0 3px;font:400 23px/1.08 Georgia,'Times New Roman',serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:none">{{data.title}}</h2><div style="font:500 10px/1.3 sans-serif;color:#36c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:none">{{data.articleTitle}}</div><div style="height:1px;background:#c8ccd1;margin:9px 0;flex:none"></div><div style="min-height:0;flex:1;font:400 12px/1.42 Georgia,'Times New Roman',serif;white-space:pre-wrap;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:6px">{{data.content}}</div></div></article>`;
 
+// A single scrolling pane is more reliable inside the resizable canvas host than
+// a nested flex child. Keep the authored chrome intact and let its reading column scroll.
+const articleDetailScrollableHtml = articleDetailHtml
+  .replace('min-width:0;min-height:0;display:flex;flex-direction:column;overflow:hidden', 'min-width:0;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:8px')
+  .replace('min-height:0;flex:1;font:400 14px/1.55 Georgia,\'Times New Roman\',serif;color:#202122;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:8px', 'font:400 14px/1.55 Georgia,\'Times New Roman\',serif;color:#202122');
+const articleSummaryScrollableHtml = articleSummaryHtml
+  .replace('min-width:0;min-height:0;padding:15px 17px;display:flex;flex-direction:column', 'min-width:0;min-height:0;padding:15px 17px;display:flex;flex-direction:column;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable')
+  .replace('min-height:0;flex:1;font:400 12px/1.42 Georgia,\'Times New Roman\',serif;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:6px', 'font:400 12px/1.42 Georgia,\'Times New Roman\',serif');
+const sectionDetailScrollableHtml = sectionDetailHtml
+  .replace('min-height:0;flex:1;display:flex;flex-direction:column;overflow:hidden;padding:18px 21px', 'min-height:0;flex:1;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:18px 21px')
+  .replace('min-height:0;flex:1;font:400 13px/1.52 Georgia,\'Times New Roman\',serif;white-space:pre-wrap;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:8px', 'font:400 13px/1.52 Georgia,\'Times New Roman\',serif;white-space:pre-wrap;padding-right:8px');
+const sectionSummaryScrollableHtml = sectionSummaryHtml
+  .replace('min-width:0;min-height:0;padding:15px 17px;display:flex;flex-direction:column', 'min-width:0;min-height:0;padding:15px 17px;display:flex;flex-direction:column;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable')
+  .replace('min-height:0;flex:1;font:400 12px/1.42 Georgia,\'Times New Roman\',serif;white-space:pre-wrap;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:6px', 'font:400 12px/1.42 Georgia,\'Times New Roman\',serif;white-space:pre-wrap;padding-right:6px');
+
 function declarationNode({ id, nodeId, name, description, classKey, classRef, meaning, defaults, requiredDataKeys, dynamicPorts, position, includeEditor = false }) {
   const ports = declarationPorts({ includeEditor });
   return {
