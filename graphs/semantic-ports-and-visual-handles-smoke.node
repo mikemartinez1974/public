@@ -1,0 +1,235 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Semantic Ports and Visual Handles Smoke Test",
+    "description": "A bounded Graph Lab specimen for separating durable semantic endpoints from rendered connection anchors.",
+    "graphId": "semantic-ports-and-visual-handles-smoke",
+    "version": "0.1.0",
+    "kind": "graph",
+    "created": "2026-08-26T00:00:00.000Z",
+    "modified": "2026-08-26T00:00:00.000Z",
+    "tags": ["smoke-test", "ports", "handles", "anchors", "edges", "compatibility"]
+  },
+  "nodes": [
+    {
+      "id": "endpoint-anchor-smoke-declaration",
+      "type": "declaration",
+      "label": "Semantic Ports and Visual Handles Smoke",
+      "position": { "x": -760, "y": -420 },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        { "id": "default-view", "key": "default-view", "label": "default view", "direction": "output", "dataType": "any", "angle": 0, "role": "default-view" },
+        { "id": "summary-view", "key": "summary-view", "label": "summary view", "direction": "output", "dataType": "any", "angle": 30, "role": "shared-summary" },
+        { "id": "icon-view", "key": "icon-view", "label": "icon view", "direction": "output", "dataType": "any", "angle": 55, "role": "shared-icon" },
+        { "id": "glyph", "key": "glyph", "label": "glyph", "direction": "output", "dataType": "any", "angle": 90, "role": "shared-glyph" },
+        { "id": "port", "key": "port", "label": "port", "direction": "output", "dataType": "any", "angle": 270, "role": "exposes-port" },
+        { "id": "landing-surface", "key": "landing-surface", "label": "landing surface", "direction": "output", "dataType": "any", "angle": 330, "role": "landing-surface" }
+      ],
+      "handles": [
+        { "id": "default-view", "portId": "default-view", "label": "default view", "direction": "output", "dataType": "any", "angle": 0 },
+        { "id": "summary-view", "portId": "summary-view", "label": "summary view", "direction": "output", "dataType": "any", "angle": 30 },
+        { "id": "icon-view", "portId": "icon-view", "label": "icon view", "direction": "output", "dataType": "any", "angle": 55 },
+        { "id": "glyph", "portId": "glyph", "label": "glyph", "direction": "output", "dataType": "any", "angle": 90 },
+        { "id": "port", "portId": "port", "label": "port", "direction": "output", "dataType": "any", "angle": 270 },
+        { "id": "landing-surface", "portId": "landing-surface", "label": "landing surface", "direction": "output", "dataType": "any", "angle": 330 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": { "graphId": "semantic-ports-and-visual-handles-smoke", "nodeId": "semantic-ports-and-visual-handles-smoke", "name": "Semantic Ports and Visual Handles Smoke Test", "version": "0.1.0" },
+        "intent": { "kind": "graph", "scope": "shared" },
+        "declaration": { "kind": "graph", "targetMode": "artifact", "interfaceContract": { "version": 1, "implicitRootPort": true } },
+        "dependencies": { "nodeTypes": ["declaration", "view", "content", "glyph", "port"] }
+      }
+    },
+    {
+      "id": "endpoint-anchor-landing",
+      "type": "content",
+      "label": "Endpoint and Anchor Laboratory",
+      "position": { "x": -220, "y": -420 },
+      "width": 520,
+      "height": 300,
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 180 }],
+      "visible": true,
+      "showLabel": true,
+      "data": { "content": { "kind": "markdown", "value": "# Endpoint / Anchor Laboratory\n\nA **Port** is the durable semantic endpoint. A **Handle** is a rendered interaction anchor bound to that Port. This graph keeps those concerns visibly separate." }, "renderShape": { "kind": "markdown" } }
+    },
+    {
+      "id": "endpoint-anchor-detail-view",
+      "type": "view",
+      "label": "Smoke Detail",
+      "position": { "x": -220, "y": -40 },
+      "width": 420,
+      "height": 260,
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 180 }],
+      "visible": true,
+      "showLabel": true,
+      "data": { "view": { "intent": "node", "payload": "node.web.detail", "semanticLevel": "detail" }, "semanticLevel": "detail", "sourceScope": "graph", "sourceNodeId": "endpoint-anchor-landing", "sourcePayload": "content" }
+    },
+    {
+      "id": "named-endpoint",
+      "type": "port",
+      "label": "1. Named Semantic Port",
+      "position": { "x": 420, "y": -430 },
+      "width": 330,
+      "height": 210,
+      "ports": [{ "id": "section-output", "key": "section-output", "label": "section output", "direction": "output", "dataType": "section", "angle": 0 }],
+      "handles": [{ "id": "section-output-east", "key": "section-output-east", "portId": "section-output", "label": "section output", "direction": "output", "dataType": "section", "angle": 0 }],
+      "visible": true,
+      "showLabel": true,
+      "data": { "surfaceId": "section-output", "direction": "output", "dataType": "section", "smokeCase": "Explicit named Port remains the semantic endpoint." }
+    },
+    {
+      "id": "implicit-root-target",
+      "type": "content",
+      "label": "2. Implicit Root Target",
+      "position": { "x": 900, "y": -430 },
+      "width": 330,
+      "height": 210,
+      "ports": [{ "id": "root", "key": "root", "label": "root", "direction": "input", "dataType": "any", "angle": 180 }],
+      "visible": true,
+      "showLabel": true,
+      "data": { "content": { "kind": "markdown", "value": "## Implicit root\n\nA node without an authored named endpoint remains connectable through `root`." }, "renderShape": { "kind": "markdown" }, "smokeCase": "Root fallback." }
+    },
+    {
+      "id": "multi-anchor-port",
+      "type": "port",
+      "label": "3. One Port, Two Handles",
+      "position": { "x": 420, "y": -80 },
+      "width": 330,
+      "height": 220,
+      "ports": [{ "id": "result", "key": "result", "label": "result", "direction": "output", "dataType": "any", "angle": 0 }],
+      "handles": [
+        { "id": "result-left-anchor", "key": "result-left-anchor", "portId": "result", "label": "result", "direction": "output", "dataType": "any", "angle": 180 },
+        { "id": "result-right-anchor", "key": "result-right-anchor", "portId": "result", "label": "result", "direction": "output", "dataType": "any", "angle": 0 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": { "surfaceId": "result", "direction": "output", "dataType": "any", "smokeCase": "Two anchors bind to the same Port." }
+    },
+    {
+      "id": "multi-anchor-target",
+      "type": "content",
+      "label": "Shared Endpoint Target",
+      "position": { "x": 900, "y": -80 },
+      "width": 330,
+      "height": 220,
+      "ports": [{ "id": "root", "label": "root", "direction": "input", "dataType": "any", "angle": 180 }],
+      "visible": true,
+      "showLabel": true,
+      "data": { "content": { "kind": "markdown", "value": "Both visual anchors should produce an edge whose semantic source remains `result`." }, "renderShape": { "kind": "markdown" } }
+    },
+    {
+      "id": "hidden-handle-port",
+      "type": "port",
+      "label": "4. Hidden Handle, Live Port",
+      "position": { "x": 420, "y": 270 },
+      "width": 330,
+      "height": 220,
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 0 }],
+      "handles": [{ "id": "root-focus-anchor", "portId": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 0, "visible": false }],
+      "visible": true,
+      "showLabel": true,
+      "data": { "surfaceId": "hidden-handle", "direction": "bidirectional", "dataType": "any", "handleVisibility": "focused", "smokeCase": "Hiding the anchor must not delete root or its edge." }
+    },
+    {
+      "id": "legacy-side-node",
+      "type": "content",
+      "label": "5. Legacy Side Handle",
+      "position": { "x": 900, "y": 270 },
+      "width": 330,
+      "height": 220,
+      "ports": [
+        { "id": "top", "label": "top", "direction": "bidirectional", "dataType": "any", "angle": 90 },
+        { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "any", "angle": 0 },
+        { "id": "bottom", "label": "bottom", "direction": "bidirectional", "dataType": "any", "angle": 270 },
+        { "id": "left", "label": "left", "direction": "bidirectional", "dataType": "any", "angle": 180 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": { "content": { "kind": "markdown", "value": "A legacy side endpoint means a same-named semantic Port only when explicitly declared. Otherwise it migrates to `root` plus that side as its anchor." }, "renderShape": { "kind": "markdown" } }
+    },
+    {
+      "id": "edge-edit-target",
+      "type": "port",
+      "label": "6. Edge Reassignment Target",
+      "position": { "x": 900, "y": 620 },
+      "width": 330,
+      "height": 240,
+      "ports": [
+        { "id": "accept", "key": "accept", "label": "accept", "direction": "input", "dataType": "any", "angle": 180 },
+        { "id": "alternate", "key": "alternate", "label": "alternate", "direction": "input", "dataType": "any", "angle": 0 }
+      ],
+      "handles": [
+        { "id": "accept-left", "portId": "accept", "label": "accept", "direction": "input", "dataType": "any", "angle": 180 },
+        { "id": "accept-top", "portId": "accept", "label": "accept", "direction": "input", "dataType": "any", "angle": 90 },
+        { "id": "alternate-right", "portId": "alternate", "label": "alternate", "direction": "input", "dataType": "any", "angle": 0 }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": { "surfaceId": "edge-edit", "direction": "input", "dataType": "any", "smokeCase": "Move between accept anchors without semantic change; move to alternate for an explicit Port change." }
+    },
+    {
+      "id": "endpoint-anchor-pass-procedure",
+      "type": "content",
+      "label": "Pass Procedure",
+      "position": { "x": -220, "y": 330 },
+      "width": 520,
+      "height": 500,
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 180 }],
+      "visible": true,
+      "showLabel": true,
+      "data": { "content": { "kind": "markdown", "value": "# Pass procedure\n\n1. Confirm the named `section-output` edge persists that semantic endpoint.\n2. Confirm an otherwise ordinary node remains connectable through `root`.\n3. Focus **One Port, Two Handles**. Both anchors must represent `result`; dragging either must not create two semantic Ports.\n4. Unfocus **Hidden Handle, Live Port**. Its handle may disappear, but its Port and edge must survive.\n5. Confirm the legacy `right` edge remains readable. Its migration interpretation is `root` with `right` as the visual anchor unless `right` is explicitly exposed semantically.\n6. Focus the edge entering **Edge Reassignment Target**. Move its endpoint from the left anchor to the top anchor: `targetPort` must remain `accept`. Move it to the right anchor: `targetPort` must become `alternate`.\n7. Save, reload, pan, and move nodes. Labels and anchors must remain attached to their handles, and every edge must retain its semantic endpoints.\n\n## Serialized contract\n\n`sourcePort` / `targetPort` identify meaning. `sourceAnchor` / `targetAnchor` identify drawing and interaction placement." }, "renderShape": { "kind": "markdown" } }
+    },
+    {
+      "id": "endpoint-anchor-summary-view",
+      "type": "view",
+      "label": "Smoke Summary",
+      "position": { "x": -600, "y": 120 },
+      "width": 320,
+      "height": 200,
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 0 }],
+      "visible": true,
+      "showLabel": true,
+      "data": { "view": { "intent": "node", "payload": "node.web.summary", "semanticLevel": "summary" }, "semanticLevel": "summary", "text": "Ports carry meaning. Handles place interaction." }
+    },
+    {
+      "id": "endpoint-anchor-icon-view",
+      "type": "view",
+      "label": "Smoke Icon",
+      "position": { "x": -760, "y": -40 },
+      "width": 260,
+      "height": 180,
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 0 }],
+      "visible": true,
+      "showLabel": true,
+      "data": { "view": { "intent": "node", "payload": "node.web.icon", "semanticLevel": "icon" }, "semanticLevel": "icon", "text": "↔" }
+    },
+    {
+      "id": "endpoint-anchor-glyph",
+      "type": "glyph",
+      "label": "Endpoint Glyph",
+      "position": { "x": -760, "y": -700 },
+      "width": 260,
+      "height": 180,
+      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 0 }],
+      "visible": true,
+      "showLabel": true,
+      "data": { "glyph": { "kind": "character", "value": "↔", "name": "Endpoint" } }
+    }
+  ],
+  "edges": [
+    { "id": "endpoint-anchor-landing-edge", "type": "reference", "source": "endpoint-anchor-smoke-declaration", "target": "endpoint-anchor-landing", "sourcePort": "landing-surface", "targetPort": "root", "label": "landing surface", "data": { "role": "landing-surface", "semanticRole": "landing-surface" } },
+    { "id": "endpoint-anchor-default-edge", "type": "default-view", "source": "endpoint-anchor-smoke-declaration", "target": "endpoint-anchor-detail-view", "sourcePort": "default-view", "targetPort": "root", "label": "default view", "data": { "role": "default-view", "semanticRole": "default-view" } },
+    { "id": "endpoint-anchor-detail-content", "type": "reference", "source": "endpoint-anchor-detail-view", "target": "endpoint-anchor-landing", "sourcePort": "root", "targetPort": "root", "label": "content", "data": { "role": "content", "semanticRole": "view.content" } },
+    { "id": "endpoint-anchor-glyph-edge", "type": "reference", "source": "endpoint-anchor-smoke-declaration", "target": "endpoint-anchor-glyph", "sourcePort": "glyph", "targetPort": "root", "label": "glyph", "data": { "role": "shared-glyph", "semanticRole": "shared-glyph" } },
+    { "id": "endpoint-anchor-summary-edge", "type": "reference", "source": "endpoint-anchor-smoke-declaration", "target": "endpoint-anchor-summary-view", "sourcePort": "summary-view", "targetPort": "root", "label": "summary view", "data": { "role": "shared-summary", "semanticRole": "shared-summary" } },
+    { "id": "endpoint-anchor-icon-edge", "type": "reference", "source": "endpoint-anchor-smoke-declaration", "target": "endpoint-anchor-icon-view", "sourcePort": "icon-view", "targetPort": "root", "label": "icon view", "data": { "role": "shared-icon", "semanticRole": "shared-icon" } },
+    { "id": "named-to-root", "type": "reference", "source": "named-endpoint", "target": "implicit-root-target", "sourcePort": "section-output", "targetPort": "root", "label": "named to root", "data": { "sourceAnchor": "section-output-east", "targetAnchor": "root", "smokeCase": 1 } },
+    { "id": "multi-anchor-edge", "type": "reference", "source": "multi-anchor-port", "target": "multi-anchor-target", "sourcePort": "result", "targetPort": "root", "label": "same endpoint", "data": { "sourceAnchor": "result-right-anchor", "targetAnchor": "root", "smokeCase": 3 } },
+    { "id": "hidden-handle-edge", "type": "reference", "source": "hidden-handle-port", "target": "legacy-side-node", "sourcePort": "root", "targetPort": "left", "label": "hidden anchor survives", "data": { "sourceAnchor": "root-focus-anchor", "targetAnchor": "left", "smokeCase": 4 } },
+    { "id": "legacy-side-edge", "type": "reference", "source": "legacy-side-node", "target": "edge-edit-target", "sourcePort": "right", "targetPort": "accept", "label": "legacy side", "data": { "sourceAnchor": "right", "targetAnchor": "accept-left", "legacyInterpretation": { "sourcePort": "root", "sourceAnchor": "right" }, "smokeCase": 5 } },
+    { "id": "edge-edit-control", "type": "reference", "source": "multi-anchor-port", "target": "edge-edit-target", "sourcePort": "result", "targetPort": "accept", "label": "reassign me", "data": { "sourceAnchor": "result-left-anchor", "targetAnchor": "accept-left", "smokeCase": 6 } }
+  ]
+}
