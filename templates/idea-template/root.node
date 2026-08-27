@@ -23,18 +23,173 @@
       "type": "declaration",
       "label": "Idea Template Declaration",
       "position": {
-        "x": -1180,
-        "y": -1180
+        "x": -900,
+        "y": -1500
       },
-      "width": 460,
-      "height": 360,
+      "width": 360,
+      "height": 240,
       "ports": [
         {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default view",
+          "direction": "output",
           "dataType": "any",
-          "angle": 210
+          "angle": 165,
+          "role": "default-view",
+          "allowedEdgeTypes": [
+            "default-view"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-view",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-summary",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-icon",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-glyph",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "glyph",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "landing-surface",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "visible": true,
@@ -43,43 +198,30 @@
         "identity": {
           "graphId": "idea-template",
           "name": "Idea Template",
-          "version": "1.0.0",
-          "description": "A reusable graph for framing, testing, supporting, rejecting, and advancing an idea."
+          "version": "1.1.0",
+          "description": "Modern declaration-first template for framing, testing, and advancing an idea.",
+          "nodeId": "idea-graph"
         },
         "intent": {
           "kind": "graph",
           "scope": "shared"
         },
         "declaration": {
-          "kind": "graph",
+          "kind": "template",
           "targetMode": "artifact",
-          "artifactKind": "graph",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Idea Template",
-              "memo": "Entry surface for deriving an evidence-driven idea graph.",
-              "portNodeId": "idea-template-root-port",
-              "viewNodeId": "idea-template-root-port",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            }
-          ]
+          "artifactKind": "graph-template",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "",
+          "surfaces": []
         },
         "dependencies": {
           "nodeTypes": [
             "declaration",
             "port",
             "bridge",
-            "markdown",
             "idea",
             "idea-problem",
             "idea-audience",
@@ -90,7 +232,10 @@
             "idea-evidence",
             "idea-alternative",
             "idea-risk",
-            "idea-next-step"
+            "idea-next-step",
+            "view",
+            "content",
+            "glyph"
           ],
           "portContracts": [
             "core"
@@ -122,55 +267,102 @@
             "squashAllowed": false
           }
         }
-      }
-    },
-    {
-      "id": "idea-template-root-port",
-      "type": "port",
-      "label": "Idea Template",
-      "position": {
-        "x": -620,
-        "y": -1180
       },
-      "width": 560,
-      "height": 320,
-      "ports": [
+      "handles": [
         {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
+          "id": "default-view",
+          "key": "default-view",
+          "portId": "default-view",
+          "label": "default view",
+          "direction": "output",
           "dataType": "any",
-          "angle": 210
+          "angle": 165,
+          "role": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "portId": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "portId": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "portId": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "portId": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port"
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "portId": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface"
         }
       ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "identity": {
-          "graphId": "idea-template",
-          "portId": "root",
-          "name": "Idea Template"
+      "inputs": [],
+      "outputs": [
+        {
+          "key": "default-view",
+          "label": "default view",
+          "type": "any"
         },
-        "title": "Idea Template",
-        "purpose": "Frame an idea, test its riskiest assumptions, and advance it with evidence.",
-        "renderShape": {
-          "kind": "svg"
+        {
+          "key": "summary-view",
+          "label": "summary view",
+          "type": "any"
         },
-        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 320\" role=\"img\" aria-label=\"Idea Template\"><defs><linearGradient id=\"idea-template-bg\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#172554\"/><stop offset=\".55\" stop-color=\"#312e81\"/><stop offset=\"1\" stop-color=\"#581c87\"/></linearGradient></defs><rect x=\"5\" y=\"5\" width=\"550\" height=\"310\" rx=\"32\" fill=\"url(#idea-template-bg)\" stroke=\"#c4b5fd\" stroke-width=\"3\"/><circle cx=\"280\" cy=\"112\" r=\"58\" fill=\"#fbbf24\" opacity=\".18\"/><path d=\"M280 58c-31 0-56 23-56 52 0 19 10 33 23 45 7 6 11 14 12 23h42c1-9 5-17 12-23 13-12 23-26 23-45 0-29-25-52-56-52z\" fill=\"#fbbf24\" stroke=\"#fef3c7\" stroke-width=\"4\"/><path d=\"M258 184h44M264 198h32\" stroke=\"#ddd6fe\" stroke-width=\"7\" stroke-linecap=\"round\"/><text x=\"280\" y=\"250\" text-anchor=\"middle\" fill=\"#f8fafc\" font-family=\"system-ui,sans-serif\" font-size=\"34\" font-weight=\"850\">Idea Template</text><text x=\"280\" y=\"280\" text-anchor=\"middle\" fill=\"#ddd6fe\" font-family=\"system-ui,sans-serif\" font-size=\"15\">Frame · Test · Learn · Advance</text></svg>",
-        "altText": "A glowing lightbulb representing an idea being framed and tested.",
-        "view": {
-          "intent": "node",
-          "payload": "node.web.summary",
-          "label": "Idea Template"
+        {
+          "key": "icon-view",
+          "label": "icon view",
+          "type": "any"
         },
-        "payload": "node.web.summary",
-        "intent": "node",
-        "key": "node.web.summary",
-        "viewRole": "summary",
-        "viewKind": "display",
-        "semanticLevel": "summary",
-        "visibilityRole": "browser"
-      }
+        {
+          "key": "glyph",
+          "label": "glyph",
+          "type": "any"
+        },
+        {
+          "key": "port",
+          "label": "port",
+          "type": "any"
+        },
+        {
+          "key": "landing-surface",
+          "label": "landing surface",
+          "type": "any"
+        }
+      ]
     },
     {
       "id": "idea-template-instructions",
@@ -2316,23 +2508,433 @@
           "grants": []
         }
       }
+    },
+    {
+      "id": "idea-template-detail-view",
+      "type": "view",
+      "label": "Idea Detail View",
+      "root": false,
+      "position": {
+        "x": -1500,
+        "y": -1580
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "semanticLevel": "detail",
+        "content": {
+          "kind": "markdown",
+          "value": "# Idea\\n\\nA working graph for turning a spark into a supported, rejected, or actionable idea."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "idea-template"
+        }
+      }
+    },
+    {
+      "id": "idea-template-summary-view",
+      "type": "view",
+      "label": "Idea Summary View",
+      "root": false,
+      "position": {
+        "x": -1500,
+        "y": -1240
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "semanticLevel": "summary",
+        "content": {
+          "kind": "markdown",
+          "value": "## Idea\\n\\nFrame it, question it, test it, and advance it with evidence."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "idea-template"
+        }
+      }
+    },
+    {
+      "id": "idea-template-icon-view",
+      "type": "view",
+      "label": "Idea Icon View",
+      "root": false,
+      "position": {
+        "x": -1500,
+        "y": -900
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "semanticLevel": "icon",
+        "content": {
+          "kind": "svg",
+          "value": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220'><rect width='320' height='220' rx='28' fill='#312e81'/><circle cx='160' cy='92' r='54' fill='#fbbf24'/><path d='M132 91c0-18 13-32 28-32s28 14 28 32c0 12-6 20-14 28-5 5-7 10-7 17h-14c0-7-2-12-7-17-8-8-14-16-14-28z' fill='#fff7ed'/><text x='160' y='184' text-anchor='middle' fill='#fff' font-family='system-ui' font-size='20' font-weight='800'>IDEA</text></svg>"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "idea-template"
+        }
+      }
+    },
+    {
+      "id": "idea-template-glyph",
+      "type": "glyph",
+      "label": "Idea Glyph",
+      "root": false,
+      "position": {
+        "x": -900,
+        "y": -1900
+      },
+      "width": 220,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "Lightbulb"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
+        },
+        "identity": {
+          "graphId": "idea-template"
+        }
+      }
+    },
+    {
+      "id": "idea-template-landing-surface",
+      "type": "content",
+      "label": "Idea Template Landing Surface",
+      "root": false,
+      "position": {
+        "x": -260,
+        "y": -1500
+      },
+      "width": 520,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Idea Graph\\n\\nFrame the problem, audience, approach, assumptions, questions, evidence, risks, and next useful step."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "idea-template"
+        }
+      }
     }
   ],
   "edges": [
-    {
-      "id": "idea-template-entry-edge",
-      "type": "reference",
-      "source": "idea-template-declaration",
-      "target": "idea-template-root-port",
-      "sourcePort": "root",
-      "targetPort": "root",
-      "label": "default surface",
-      "style": {
-        "curved": true,
-        "width": 2
-      },
-      "data": {}
-    },
     {
       "id": "idea-template-problem-motivates",
       "type": "reference",
@@ -2595,7 +3197,9 @@
       "sourceHandle": "root",
       "targetHandle": "root",
       "type": "reference",
-      "label": "edge authority"
+      "label": "edge authority",
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "idea-template-declaration-edge-class-authority-affects",
@@ -2604,7 +3208,9 @@
       "sourceHandle": "root",
       "targetHandle": "root",
       "type": "reference",
-      "label": "edge authority"
+      "label": "edge authority",
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "idea-template-declaration-edge-class-authority-assumes",
@@ -2613,7 +3219,9 @@
       "sourceHandle": "root",
       "targetHandle": "root",
       "type": "reference",
-      "label": "edge authority"
+      "label": "edge authority",
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "idea-template-declaration-edge-class-authority-contradicts",
@@ -2622,7 +3230,9 @@
       "sourceHandle": "root",
       "targetHandle": "root",
       "type": "reference",
-      "label": "edge authority"
+      "label": "edge authority",
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "idea-template-declaration-edge-class-authority-informs",
@@ -2631,7 +3241,9 @@
       "sourceHandle": "root",
       "targetHandle": "root",
       "type": "reference",
-      "label": "edge authority"
+      "label": "edge authority",
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "idea-template-declaration-edge-class-authority-motivates",
@@ -2640,7 +3252,9 @@
       "sourceHandle": "root",
       "targetHandle": "root",
       "type": "reference",
-      "label": "edge authority"
+      "label": "edge authority",
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "idea-template-declaration-edge-class-authority-questions",
@@ -2649,7 +3263,9 @@
       "sourceHandle": "root",
       "targetHandle": "root",
       "type": "reference",
-      "label": "edge authority"
+      "label": "edge authority",
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "idea-template-declaration-edge-class-authority-supports",
@@ -2658,7 +3274,9 @@
       "sourceHandle": "root",
       "targetHandle": "root",
       "type": "reference",
-      "label": "edge authority"
+      "label": "edge authority",
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "idea-template-declaration-edge-class-authority-tests",
@@ -2667,7 +3285,9 @@
       "sourceHandle": "root",
       "targetHandle": "root",
       "type": "reference",
-      "label": "edge authority"
+      "label": "edge authority",
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "idea-template-declaration-edge-class-authority-threatens",
@@ -2676,7 +3296,74 @@
       "sourceHandle": "root",
       "targetHandle": "root",
       "type": "reference",
-      "label": "edge authority"
+      "label": "edge authority",
+      "sourcePort": "port",
+      "targetPort": "root"
+    },
+    {
+      "id": "idea-template-default-view",
+      "type": "default-view",
+      "source": "idea-template-declaration",
+      "target": "idea-template-detail-view",
+      "sourcePort": "default-view",
+      "targetPort": "root",
+      "label": "default view",
+      "data": {
+        "role": "default-view",
+        "semanticRole": "default-view"
+      }
+    },
+    {
+      "id": "idea-template-summary-view-edge",
+      "type": "reference",
+      "source": "idea-template-declaration",
+      "target": "idea-template-summary-view",
+      "sourcePort": "summary-view",
+      "targetPort": "root",
+      "label": "summary view",
+      "data": {
+        "role": "shared-summary",
+        "semanticRole": "shared-summary"
+      }
+    },
+    {
+      "id": "idea-template-icon-view-edge",
+      "type": "reference",
+      "source": "idea-template-declaration",
+      "target": "idea-template-icon-view",
+      "sourcePort": "icon-view",
+      "targetPort": "root",
+      "label": "icon view",
+      "data": {
+        "role": "shared-icon",
+        "semanticRole": "shared-icon"
+      }
+    },
+    {
+      "id": "idea-template-glyph-edge",
+      "type": "reference",
+      "source": "idea-template-declaration",
+      "target": "idea-template-glyph",
+      "sourcePort": "glyph",
+      "targetPort": "root",
+      "label": "glyph",
+      "data": {
+        "role": "shared-glyph",
+        "semanticRole": "shared-glyph"
+      }
+    },
+    {
+      "id": "idea-template-landing-edge",
+      "type": "reference",
+      "source": "idea-template-declaration",
+      "target": "idea-template-landing-surface",
+      "sourcePort": "landing-surface",
+      "targetPort": "root",
+      "label": "landing surface",
+      "data": {
+        "role": "landing-surface",
+        "semanticRole": "landing-surface"
+      }
     }
   ],
   "clusters": [],
@@ -2719,7 +3406,7 @@
     "autoSave": false
   },
   "scripts": [],
-  "nodeCount": 35,
-  "edgeCount": 22,
-  "timestamp": "2026-08-02T00:00:00.000Z"
+  "nodeCount": 39,
+  "edgeCount": 26,
+  "timestamp": "2026-08-27T16:23:02.116Z"
 }

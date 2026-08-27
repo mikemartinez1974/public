@@ -5,12 +5,12 @@ description: Create, derive, or maintain Twilite idea graphs from the canonical 
 
 # Idea Template
 
-Use `root.node` as the executable template. Preserve its declaration, declared `root` port, custom node bridges, class bindings, and semantic edge-class authority before replacing example content. Treat starter content and starter relationships as demonstrations, not facts about the derived idea.
+Use `root.node` as the executable template. Preserve its declaration, landing surface, semantic Views, Glyph, custom node bridges, class bindings, and semantic edge-class authority before replacing example content. Treat starter content and starter relationships as demonstrations, not facts about the derived idea.
 
 ## Derive An Idea Graph
 
 1. Copy `root.node` structurally.
-2. Retarget graph identity, declaration identity, primitive root port identity, GitHub settings, every content-node identity, and every bridge identity.
+2. Retarget graph identity, declaration identity, semantic View identities, landing-surface identity, Glyph identity, GitHub settings, every content-node identity, and every bridge identity.
 3. Preserve the local bridges and `_classBinding` / `_bridge` data on typed nodes. `dependencies.nodeTypes` does not grant runtime class authority.
 4. Replace the starter content with the real idea. Re-evaluate every starter relationship; keep, retarget, or remove it so every remaining edge is truthful.
 5. Duplicate repeatable working nodes as needed; do not create multiple competing anchor nodes without an explicit reason.
@@ -60,7 +60,8 @@ When promoting work, leave the idea graph as the durable reasoning record. Creat
 ## Validation
 
 - Parse every touched `.node` file as JSON.
-- Verify the declaration exposes a real primitive `port` as `root`.
+- Verify the declaration supplies its implicit root interface and occupies `default-view`, `summary-view`, `icon-view`, `glyph`, and `landing-surface`. An additional authored `port` is optional unless the idea exposes a distinct named surface.
+- Verify declaration-to-landing-surface geometry defines the node frame; the default View selects content and navigation focus but does not determine geometry.
 - Verify every typed node has matching `definitionKey`, `_classBinding.key`, and class refs.
 - Verify each custom node class is an inspectable graph artifact, not a loose manifest with adjacent views. It must contain one real `declaration`, one explanatory `markdown` contract node, and visible primitive `port` nodes for `editor.web`, `node.web.detail`, `node.web.summary`, and `node.web.icon`.
 - Verify the class declaration owns every exposed surface through `declaration.surfaces`, exposes `root` through the detail port, names `root` as its default, retains named detail, summary, icon, and editor surfaces, and connects directly to the contract note and each surface port with meaningful `contract` or `surface` edges.
