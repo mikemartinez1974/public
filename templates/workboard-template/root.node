@@ -25,43 +25,170 @@
         "x": -1600,
         "y": -720
       },
-      "width": 460,
-      "height": 340,
+      "width": 360,
+      "height": 240,
       "ports": [
         {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default view",
+          "direction": "output",
           "dataType": "any",
-          "angle": 210
+          "angle": 165,
+          "role": "default-view",
+          "allowedEdgeTypes": [
+            "default-view"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-view",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-summary",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-icon",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-glyph",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "glyph",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 360
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "landing-surface",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "visible": true,
@@ -76,7 +203,8 @@
           "version": "1.0.0",
           "description": "A declaration-first operational workboard template backed by source task graphs.",
           "createdAt": "2026-07-30T00:00:00.000Z",
-          "updatedAt": "2026-07-30T00:00:00.000Z"
+          "updatedAt": "2026-08-27T00:00:00.000Z",
+          "nodeId": "workboard"
         },
         "intent": {
           "kind": "workboard",
@@ -85,11 +213,13 @@
         "dependencies": {
           "nodeTypes": [
             "declaration",
-            "markdown",
             "portal",
             "port",
             "task",
-            "workboard"
+            "workboard",
+            "content",
+            "view",
+            "glyph"
           ],
           "portContracts": [
             "core"
@@ -167,10 +297,24 @@
             {
               "id": "root",
               "kind": "port",
-              "label": "Root Port",
+              "label": "Workboard Root",
               "portNodeId": "workboard-home-port",
-              "viewNodeId": "workboard-home-port",
-              "memo": "Safe default entry surface for workboards derived from this template.",
+              "viewNodeId": "workboard-detail-view",
+              "memo": "Explicit root port for workboard navigation and semantic presentation.",
+              "presentation": {
+                "detail": {
+                  "mode": "shared",
+                  "viewNodeId": "workboard-detail-view"
+                },
+                "summary": {
+                  "mode": "shared",
+                  "viewNodeId": "workboard-summary-view"
+                },
+                "icon": {
+                  "mode": "shared",
+                  "viewNodeId": "workboard-icon-view"
+                }
+              },
               "exposes": {
                 "views": {
                   "mode": "allow"
@@ -180,9 +324,115 @@
                 }
               }
             }
-          ]
+          ],
+          "sharedPresentation": {
+            "detailViewNodeId": "workboard-detail-view",
+            "summaryViewNodeId": "workboard-summary-view",
+            "iconViewNodeId": "workboard-icon-view",
+            "glyphNodeId": "workboard-glyph"
+          },
+          "primaryNodeViewId": "workboard-detail-view",
+          "primaryEditorViewId": "",
+          "iconViewNodeId": "workboard-icon-view",
+          "portViewNodeId": "workboard-home-port"
+        },
+        "primaryNodeViewId": "workboard-detail-view"
+      },
+      "handles": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "portId": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "portId": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "portId": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "portId": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "portId": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port"
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "portId": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface"
         }
-      }
+      ],
+      "inputs": [],
+      "outputs": [
+        {
+          "key": "default-view",
+          "label": "default view",
+          "type": "any"
+        },
+        {
+          "key": "summary-view",
+          "label": "summary view",
+          "type": "any"
+        },
+        {
+          "key": "icon-view",
+          "label": "icon view",
+          "type": "any"
+        },
+        {
+          "key": "glyph",
+          "label": "glyph",
+          "type": "any"
+        },
+        {
+          "key": "port",
+          "label": "port",
+          "type": "any"
+        },
+        {
+          "key": "landing-surface",
+          "label": "landing surface",
+          "type": "any"
+        }
+      ]
     },
     {
       "id": "workboard-home-port",
@@ -434,7 +684,293 @@
         },
         "_classBinding": {
           "key": "workboard",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/workboard.node-class.node"
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/workboard.node-class.node",
+          "defaults": {
+            "label": "Workboard",
+            "size": {
+              "width": 720,
+              "height": 260
+            },
+            "showLabel": false,
+            "data": {
+              "name": "Workboard",
+              "description": "A focused operational view of source-owned task graphs.",
+              "editorContributions": [
+                {
+                  "id": "workboard-task-placement",
+                  "match": {
+                    "nodeType": "portal",
+                    "pathExists": "data.board"
+                  },
+                  "section": {
+                    "key": "placement",
+                    "title": "Placement",
+                    "summary": "Local workboard lane, ordering, and review state."
+                  },
+                  "fields": [
+                    {
+                      "key": "boardLaneMode",
+                      "label": "Placement",
+                      "type": "select",
+                      "path": "data.board.laneMode",
+                      "options": [
+                        {
+                          "label": "Automatic from task status",
+                          "value": "auto"
+                        },
+                        {
+                          "label": "Manual lane",
+                          "value": "manual"
+                        }
+                      ],
+                      "helperText": "Manual placement and pinning are synchronized for now. A pinned task keeps its selected lane; an unpinned task follows workboard policy."
+                    },
+                    {
+                      "key": "boardLane",
+                      "label": "Lane",
+                      "type": "select",
+                      "path": "data.board.lane",
+                      "options": [
+                        {
+                          "label": "Inbox",
+                          "value": "inbox"
+                        },
+                        {
+                          "label": "Now",
+                          "value": "now"
+                        },
+                        {
+                          "label": "Next",
+                          "value": "next"
+                        },
+                        {
+                          "label": "Waiting",
+                          "value": "waiting"
+                        },
+                        {
+                          "label": "Recently Completed",
+                          "value": "recently-completed"
+                        }
+                      ],
+                      "visibleWhen": {
+                        "path": "data.board.laneMode",
+                        "equals": "manual"
+                      }
+                    },
+                    {
+                      "key": "boardPinned",
+                      "label": "Pinned",
+                      "type": "boolean",
+                      "path": "data.board.pinned",
+                      "helperText": "Pinned currently means manually placed: the task keeps its selected lane and is excluded from automatic placement."
+                    },
+                    {
+                      "key": "boardRank",
+                      "label": "Rank",
+                      "type": "number",
+                      "path": "data.board.rank",
+                      "helperText": "Lower ranks appear first after pinning and priority rules."
+                    },
+                    {
+                      "key": "boardReviewedAt",
+                      "label": "Reviewed At",
+                      "type": "text",
+                      "path": "data.board.reviewedAt",
+                      "placeholder": "YYYY-MM-DDTHH:mm:ss.sssZ"
+                    }
+                  ]
+                }
+              ],
+              "policy": {
+                "defaultLaneMode": "auto",
+                "unknownLane": "inbox",
+                "statusLanes": {
+                  "todo": "next",
+                  "in-progress": "now",
+                  "blocked": "waiting",
+                  "waiting": "waiting",
+                  "done": "recently-completed",
+                  "cancelled": "recently-completed"
+                },
+                "ordering": {
+                  "pinnedFirst": true,
+                  "priorityOrder": [
+                    "critical",
+                    "high",
+                    "medium",
+                    "low"
+                  ],
+                  "tieBreaker": "rank"
+                },
+                "automation": {
+                  "freshReads": true,
+                  "retainFailures": true
+                }
+              },
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Dashboard"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "workboard",
+            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/workboard.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Workboard",
+              "size": {
+                "width": 720,
+                "height": 260
+              },
+              "showLabel": false,
+              "data": {
+                "name": "Workboard",
+                "description": "A focused operational view of source-owned task graphs.",
+                "editorContributions": [
+                  {
+                    "id": "workboard-task-placement",
+                    "match": {
+                      "nodeType": "portal",
+                      "pathExists": "data.board"
+                    },
+                    "section": {
+                      "key": "placement",
+                      "title": "Placement",
+                      "summary": "Local workboard lane, ordering, and review state."
+                    },
+                    "fields": [
+                      {
+                        "key": "boardLaneMode",
+                        "label": "Placement",
+                        "type": "select",
+                        "path": "data.board.laneMode",
+                        "options": [
+                          {
+                            "label": "Automatic from task status",
+                            "value": "auto"
+                          },
+                          {
+                            "label": "Manual lane",
+                            "value": "manual"
+                          }
+                        ],
+                        "helperText": "Manual placement and pinning are synchronized for now. A pinned task keeps its selected lane; an unpinned task follows workboard policy."
+                      },
+                      {
+                        "key": "boardLane",
+                        "label": "Lane",
+                        "type": "select",
+                        "path": "data.board.lane",
+                        "options": [
+                          {
+                            "label": "Inbox",
+                            "value": "inbox"
+                          },
+                          {
+                            "label": "Now",
+                            "value": "now"
+                          },
+                          {
+                            "label": "Next",
+                            "value": "next"
+                          },
+                          {
+                            "label": "Waiting",
+                            "value": "waiting"
+                          },
+                          {
+                            "label": "Recently Completed",
+                            "value": "recently-completed"
+                          }
+                        ],
+                        "visibleWhen": {
+                          "path": "data.board.laneMode",
+                          "equals": "manual"
+                        }
+                      },
+                      {
+                        "key": "boardPinned",
+                        "label": "Pinned",
+                        "type": "boolean",
+                        "path": "data.board.pinned",
+                        "helperText": "Pinned currently means manually placed: the task keeps its selected lane and is excluded from automatic placement."
+                      },
+                      {
+                        "key": "boardRank",
+                        "label": "Rank",
+                        "type": "number",
+                        "path": "data.board.rank",
+                        "helperText": "Lower ranks appear first after pinning and priority rules."
+                      },
+                      {
+                        "key": "boardReviewedAt",
+                        "label": "Reviewed At",
+                        "type": "text",
+                        "path": "data.board.reviewedAt",
+                        "placeholder": "YYYY-MM-DDTHH:mm:ss.sssZ"
+                      }
+                    ]
+                  }
+                ],
+                "policy": {
+                  "defaultLaneMode": "auto",
+                  "unknownLane": "inbox",
+                  "statusLanes": {
+                    "todo": "next",
+                    "in-progress": "now",
+                    "blocked": "waiting",
+                    "waiting": "waiting",
+                    "done": "recently-completed",
+                    "cancelled": "recently-completed"
+                  },
+                  "ordering": {
+                    "pinnedFirst": true,
+                    "priorityOrder": [
+                      "critical",
+                      "high",
+                      "medium",
+                      "low"
+                    ],
+                    "tieBreaker": "rank"
+                  },
+                  "automation": {
+                    "freshReads": true,
+                    "retainFailures": true
+                  }
+                },
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Dashboard"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          }
         },
         "_bridge": {
           "classKey": "workboard",
@@ -447,6 +983,12 @@
         "definitionKey": "workboard",
         "identity": {
           "graphId": "workboard-template"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Dashboard"
+          }
         }
       }
     },
@@ -1301,7 +1843,293 @@
         },
         "_classBinding": {
           "key": "workboard",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/workboard.node-class.node"
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/workboard.node-class.node",
+          "defaults": {
+            "label": "Workboard",
+            "size": {
+              "width": 720,
+              "height": 260
+            },
+            "showLabel": false,
+            "data": {
+              "name": "Workboard",
+              "description": "A focused operational view of source-owned task graphs.",
+              "editorContributions": [
+                {
+                  "id": "workboard-task-placement",
+                  "match": {
+                    "nodeType": "portal",
+                    "pathExists": "data.board"
+                  },
+                  "section": {
+                    "key": "placement",
+                    "title": "Placement",
+                    "summary": "Local workboard lane, ordering, and review state."
+                  },
+                  "fields": [
+                    {
+                      "key": "boardLaneMode",
+                      "label": "Placement",
+                      "type": "select",
+                      "path": "data.board.laneMode",
+                      "options": [
+                        {
+                          "label": "Automatic from task status",
+                          "value": "auto"
+                        },
+                        {
+                          "label": "Manual lane",
+                          "value": "manual"
+                        }
+                      ],
+                      "helperText": "Manual placement and pinning are synchronized for now. A pinned task keeps its selected lane; an unpinned task follows workboard policy."
+                    },
+                    {
+                      "key": "boardLane",
+                      "label": "Lane",
+                      "type": "select",
+                      "path": "data.board.lane",
+                      "options": [
+                        {
+                          "label": "Inbox",
+                          "value": "inbox"
+                        },
+                        {
+                          "label": "Now",
+                          "value": "now"
+                        },
+                        {
+                          "label": "Next",
+                          "value": "next"
+                        },
+                        {
+                          "label": "Waiting",
+                          "value": "waiting"
+                        },
+                        {
+                          "label": "Recently Completed",
+                          "value": "recently-completed"
+                        }
+                      ],
+                      "visibleWhen": {
+                        "path": "data.board.laneMode",
+                        "equals": "manual"
+                      }
+                    },
+                    {
+                      "key": "boardPinned",
+                      "label": "Pinned",
+                      "type": "boolean",
+                      "path": "data.board.pinned",
+                      "helperText": "Pinned currently means manually placed: the task keeps its selected lane and is excluded from automatic placement."
+                    },
+                    {
+                      "key": "boardRank",
+                      "label": "Rank",
+                      "type": "number",
+                      "path": "data.board.rank",
+                      "helperText": "Lower ranks appear first after pinning and priority rules."
+                    },
+                    {
+                      "key": "boardReviewedAt",
+                      "label": "Reviewed At",
+                      "type": "text",
+                      "path": "data.board.reviewedAt",
+                      "placeholder": "YYYY-MM-DDTHH:mm:ss.sssZ"
+                    }
+                  ]
+                }
+              ],
+              "policy": {
+                "defaultLaneMode": "auto",
+                "unknownLane": "inbox",
+                "statusLanes": {
+                  "todo": "next",
+                  "in-progress": "now",
+                  "blocked": "waiting",
+                  "waiting": "waiting",
+                  "done": "recently-completed",
+                  "cancelled": "recently-completed"
+                },
+                "ordering": {
+                  "pinnedFirst": true,
+                  "priorityOrder": [
+                    "critical",
+                    "high",
+                    "medium",
+                    "low"
+                  ],
+                  "tieBreaker": "rank"
+                },
+                "automation": {
+                  "freshReads": true,
+                  "retainFailures": true
+                }
+              },
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Dashboard"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "workboard",
+            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/workboard.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Workboard",
+              "size": {
+                "width": 720,
+                "height": 260
+              },
+              "showLabel": false,
+              "data": {
+                "name": "Workboard",
+                "description": "A focused operational view of source-owned task graphs.",
+                "editorContributions": [
+                  {
+                    "id": "workboard-task-placement",
+                    "match": {
+                      "nodeType": "portal",
+                      "pathExists": "data.board"
+                    },
+                    "section": {
+                      "key": "placement",
+                      "title": "Placement",
+                      "summary": "Local workboard lane, ordering, and review state."
+                    },
+                    "fields": [
+                      {
+                        "key": "boardLaneMode",
+                        "label": "Placement",
+                        "type": "select",
+                        "path": "data.board.laneMode",
+                        "options": [
+                          {
+                            "label": "Automatic from task status",
+                            "value": "auto"
+                          },
+                          {
+                            "label": "Manual lane",
+                            "value": "manual"
+                          }
+                        ],
+                        "helperText": "Manual placement and pinning are synchronized for now. A pinned task keeps its selected lane; an unpinned task follows workboard policy."
+                      },
+                      {
+                        "key": "boardLane",
+                        "label": "Lane",
+                        "type": "select",
+                        "path": "data.board.lane",
+                        "options": [
+                          {
+                            "label": "Inbox",
+                            "value": "inbox"
+                          },
+                          {
+                            "label": "Now",
+                            "value": "now"
+                          },
+                          {
+                            "label": "Next",
+                            "value": "next"
+                          },
+                          {
+                            "label": "Waiting",
+                            "value": "waiting"
+                          },
+                          {
+                            "label": "Recently Completed",
+                            "value": "recently-completed"
+                          }
+                        ],
+                        "visibleWhen": {
+                          "path": "data.board.laneMode",
+                          "equals": "manual"
+                        }
+                      },
+                      {
+                        "key": "boardPinned",
+                        "label": "Pinned",
+                        "type": "boolean",
+                        "path": "data.board.pinned",
+                        "helperText": "Pinned currently means manually placed: the task keeps its selected lane and is excluded from automatic placement."
+                      },
+                      {
+                        "key": "boardRank",
+                        "label": "Rank",
+                        "type": "number",
+                        "path": "data.board.rank",
+                        "helperText": "Lower ranks appear first after pinning and priority rules."
+                      },
+                      {
+                        "key": "boardReviewedAt",
+                        "label": "Reviewed At",
+                        "type": "text",
+                        "path": "data.board.reviewedAt",
+                        "placeholder": "YYYY-MM-DDTHH:mm:ss.sssZ"
+                      }
+                    ]
+                  }
+                ],
+                "policy": {
+                  "defaultLaneMode": "auto",
+                  "unknownLane": "inbox",
+                  "statusLanes": {
+                    "todo": "next",
+                    "in-progress": "now",
+                    "blocked": "waiting",
+                    "waiting": "waiting",
+                    "done": "recently-completed",
+                    "cancelled": "recently-completed"
+                  },
+                  "ordering": {
+                    "pinnedFirst": true,
+                    "priorityOrder": [
+                      "critical",
+                      "high",
+                      "medium",
+                      "low"
+                    ],
+                    "tieBreaker": "rank"
+                  },
+                  "automation": {
+                    "freshReads": true,
+                    "retainFailures": true
+                  }
+                },
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Dashboard"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          }
         },
         "authority": "bridge",
         "bridge": {
@@ -1333,6 +2161,12 @@
           "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/workboard.node-class.node",
           "resourceKind": "node-class",
           "scope": "focused-graph"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Dashboard"
+          }
         }
       }
     },
@@ -1396,7 +2230,93 @@
         },
         "_classBinding": {
           "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "defaults": {
+            "label": "Task",
+            "size": {
+              "width": 380,
+              "height": 260
+            },
+            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+            "showLabel": false,
+            "data": {
+              "title": "",
+              "body": "Describe the concrete work to execute.",
+              "priority": "high",
+              "status": "todo",
+              "owner": "",
+              "estimateHours": "",
+              "targetDate": "",
+              "startedAt": "",
+              "completedAt": "",
+              "externalRef": "",
+              "acceptanceCriteria": [
+                "Describe what done looks like"
+              ],
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Checklist"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "task",
+            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Task",
+              "size": {
+                "width": 380,
+                "height": 260
+              },
+              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "body": "Describe the concrete work to execute.",
+                "priority": "high",
+                "status": "todo",
+                "owner": "",
+                "estimateHours": "",
+                "targetDate": "",
+                "startedAt": "",
+                "completedAt": "",
+                "externalRef": "",
+                "acceptanceCriteria": [
+                  "Describe what done looks like"
+                ],
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Checklist"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          }
         },
         "authority": "bridge",
         "bridge": {
@@ -1428,29 +2348,382 @@
           "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
           "resourceKind": "node-class",
           "scope": "focused-graph"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Checklist"
+          }
+        }
+      }
+    },
+    {
+      "id": "workboard-detail-view",
+      "type": "view",
+      "label": "Workboard Detail",
+      "position": {
+        "x": -760,
+        "y": -1120
+      },
+      "width": 420,
+      "height": 300,
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workboard-template",
+          "nodeId": "workboard"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail",
+          "html": {
+            "chrome": true
+          }
+        },
+        "renderShape": {
+          "kind": "html"
+        },
+        "semanticLevel": "detail",
+        "html": "<div style='width:100%;height:100%;box-sizing:border-box;padding:18px;border-radius:18px;background:linear-gradient(145deg,#0f172a,#1e293b);color:#f8fafc;border:2px solid #38bdf8;overflow:auto;font-family:system-ui,sans-serif;'><div style='font:800 10px system-ui;letter-spacing:.16em;text-transform:uppercase;color:#7dd3fc;'>Operational Workboard</div><div style='margin-top:8px;font:800 24px/1.15 system-ui;'>Workboard Template</div><div style='margin-top:12px;font:500 13px/1.5 system-ui;color:#cbd5e1;'>Five lanes for local and source-backed tasks. Source graphs own task truth; this board owns lane, rank, pinning, and review state.</div><div style='margin-top:16px;display:grid;grid-template-columns:repeat(5,1fr);gap:5px;'><span style='height:8px;border-radius:9px;background:#7c3aed;'></span><span style='height:8px;border-radius:9px;background:#dc2626;'></span><span style='height:8px;border-radius:9px;background:#d97706;'></span><span style='height:8px;border-radius:9px;background:#2563eb;'></span><span style='height:8px;border-radius:9px;background:#059669;'></span></div></div>"
+      }
+    },
+    {
+      "id": "workboard-summary-view",
+      "type": "view",
+      "label": "Workboard Summary",
+      "position": {
+        "x": -280,
+        "y": -1120
+      },
+      "width": 420,
+      "height": 240,
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workboard-template",
+          "nodeId": "workboard"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary",
+          "html": {
+            "chrome": true
+          }
+        },
+        "renderShape": {
+          "kind": "html"
+        },
+        "semanticLevel": "summary",
+        "html": "<div style='width:100%;height:100%;box-sizing:border-box;padding:14px;border-radius:16px;background:#0f172a;color:#f8fafc;border:2px solid #38bdf8;overflow:hidden;font-family:system-ui,sans-serif;'><div style='font:800 10px system-ui;letter-spacing:.14em;text-transform:uppercase;color:#7dd3fc;'>Workboard</div><div style='margin-top:6px;font:800 18px/1.2 system-ui;'>Five-lane operational view</div><div style='margin-top:12px;display:flex;gap:5px;'><span style='flex:1;height:7px;border-radius:8px;background:#7c3aed;'></span><span style='flex:1;height:7px;border-radius:8px;background:#dc2626;'></span><span style='flex:1;height:7px;border-radius:8px;background:#d97706;'></span><span style='flex:1;height:7px;border-radius:8px;background:#2563eb;'></span><span style='flex:1;height:7px;border-radius:8px;background:#059669;'></span></div></div>"
+      }
+    },
+    {
+      "id": "workboard-icon-view",
+      "type": "view",
+      "label": "Workboard Icon",
+      "position": {
+        "x": 200,
+        "y": -1120
+      },
+      "width": 420,
+      "height": 240,
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workboard-template",
+          "nodeId": "workboard"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon",
+          "html": {
+            "chrome": true
+          }
+        },
+        "renderShape": {
+          "kind": "html"
+        },
+        "semanticLevel": "icon",
+        "html": "<div style='width:100%;height:100%;box-sizing:border-box;border-radius:22px;background:#0f172a;border:3px solid #38bdf8;color:white;display:flex;align-items:center;justify-content:center;font:900 38px system-ui,sans-serif;'>▦</div>"
+      }
+    },
+    {
+      "id": "workboard-glyph",
+      "type": "glyph",
+      "label": "Workboard Glyph",
+      "position": {
+        "x": -1510,
+        "y": -1020
+      },
+      "width": 220,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "Dashboard"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
+        },
+        "identity": {
+          "graphId": "workboard-template",
+          "nodeId": "workboard"
+        }
+      }
+    },
+    {
+      "id": "workboard-landing-surface",
+      "type": "content",
+      "label": "Workboard Landing Surface",
+      "position": {
+        "x": -1040,
+        "y": -1120
+      },
+      "width": 460,
+      "height": 220,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180,
+          "metadata": {
+            "interface": true,
+            "structural": true,
+            "role": "content.root"
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workboard-template",
+          "nodeId": "workboard"
+        },
+        "markdown": "## Workboard Template\n\nA reusable five-lane operational projection. Task truth remains in source task graphs; the board owns placement and review state.",
+        "content": {
+          "kind": "markdown",
+          "value": "## Workboard Template\n\nA reusable five-lane operational projection. Task truth remains in source task graphs; the board owns placement and review state."
+        },
+        "renderShape": {
+          "kind": "markdown"
         }
       }
     }
   ],
   "edges": [
-    {
-      "id": "workboard-edge-declaration-home-port",
-      "type": "reference",
-      "source": "workboard-declaration",
-      "target": "workboard-home-port",
-      "sourcePort": "right",
-      "targetPort": "left",
-      "label": "default surface",
-      "style": {
-        "route": "smoothstep",
-        "color": "#94A3B8",
-        "width": 3,
-        "opacity": 0.86
-      },
-      "data": {
-        "relation": "surface"
-      }
-    },
     {
       "id": "workboard-edge-controller-reconciler",
       "type": "reference",
@@ -1467,42 +2740,6 @@
       },
       "data": {
         "relation": "policy-controls"
-      }
-    },
-    {
-      "id": "workboard-edge-declaration-bridge-controller",
-      "type": "reference",
-      "source": "workboard-declaration",
-      "target": "workboard-bridge-controller",
-      "sourcePort": "left",
-      "targetPort": "right",
-      "label": "class authority",
-      "style": {
-        "route": "smoothstep",
-        "color": "#64748B",
-        "width": 3,
-        "opacity": 0.86
-      },
-      "data": {
-        "relation": "class-authority"
-      }
-    },
-    {
-      "id": "workboard-edge-declaration-bridge-task",
-      "type": "reference",
-      "source": "workboard-declaration",
-      "target": "workboard-bridge-task",
-      "sourcePort": "left",
-      "targetPort": "right",
-      "label": "class authority",
-      "style": {
-        "route": "smoothstep",
-        "color": "#64748B",
-        "width": 3,
-        "opacity": 0.86
-      },
-      "data": {
-        "relation": "class-authority"
       }
     },
     {
@@ -1629,6 +2866,84 @@
       },
       "data": {
         "relation": "lane-state"
+      }
+    },
+    {
+      "id": "workboard-edge-default-view",
+      "type": "default-view",
+      "source": "workboard-declaration",
+      "target": "workboard-detail-view",
+      "sourcePort": "default-view",
+      "targetPort": "root",
+      "label": "default view",
+      "data": {
+        "role": "default view",
+        "semanticRole": "declaration.default-view"
+      }
+    },
+    {
+      "id": "workboard-edge-summary-view",
+      "type": "reference",
+      "source": "workboard-declaration",
+      "target": "workboard-summary-view",
+      "sourcePort": "summary-view",
+      "targetPort": "root",
+      "label": "summary view",
+      "data": {
+        "role": "summary view",
+        "semanticRole": "declaration.shared-summary"
+      }
+    },
+    {
+      "id": "workboard-edge-icon-view",
+      "type": "reference",
+      "source": "workboard-declaration",
+      "target": "workboard-icon-view",
+      "sourcePort": "icon-view",
+      "targetPort": "root",
+      "label": "icon view",
+      "data": {
+        "role": "icon view",
+        "semanticRole": "declaration.shared-icon"
+      }
+    },
+    {
+      "id": "workboard-edge-glyph",
+      "type": "reference",
+      "source": "workboard-declaration",
+      "target": "workboard-glyph",
+      "sourcePort": "glyph",
+      "targetPort": "root",
+      "label": "glyph",
+      "data": {
+        "role": "glyph",
+        "semanticRole": "declaration.shared-glyph"
+      }
+    },
+    {
+      "id": "workboard-edge-landing-surface",
+      "type": "reference",
+      "source": "workboard-declaration",
+      "target": "workboard-landing-surface",
+      "sourcePort": "landing-surface",
+      "targetPort": "root",
+      "label": "landing surface",
+      "data": {
+        "role": "landing surface",
+        "semanticRole": "declaration.landing-surface"
+      }
+    },
+    {
+      "id": "workboard-edge-root-port",
+      "type": "reference",
+      "source": "workboard-declaration",
+      "target": "workboard-home-port",
+      "sourcePort": "port",
+      "targetPort": "root",
+      "label": "root port",
+      "data": {
+        "role": "root port",
+        "semanticRole": "declaration.exposes-port"
       }
     }
   ],
