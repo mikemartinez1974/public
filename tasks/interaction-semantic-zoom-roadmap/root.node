@@ -28,32 +28,166 @@
       "height": 360,
       "ports": [
         {
-          "id": "left",
-          "label": "left",
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default view",
           "direction": "output",
-          "dataType": "value",
-          "angle": 180
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view",
+          "allowedEdgeTypes": [
+            "default-view"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-view",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "right",
-          "label": "right",
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary view",
           "direction": "output",
-          "dataType": "value",
-          "angle": 0
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-summary",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "top",
-          "label": "top",
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon view",
           "direction": "output",
-          "dataType": "value",
-          "angle": 270
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-icon",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "bottom",
-          "label": "bottom",
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
           "direction": "output",
-          "dataType": "value",
-          "angle": 90
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-glyph",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "glyph",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "landing-surface",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "visible": true,
@@ -70,23 +204,22 @@
           "updatedAt": "2026-08-10T00:00:00.000Z"
         },
         "intent": {
-          "kind": "roadmap",
+          "kind": "task",
           "scope": "public"
         },
         "declaration": {
-          "kind": "roadmap",
+          "kind": "task",
           "targetMode": "artifact",
           "artifactKind": "graph",
           "graphViewRole": "authoring",
-          "defaultSurfaceId": "summary",
+          "defaultSurfaceId": "",
           "surfaces": [
             {
               "id": "summary",
               "kind": "port",
-              "label": "Interaction Roadmap",
+              "label": "Make graph interaction dependable enough to disappear",
               "portNodeId": "interaction-roadmap-port",
-              "viewNodeId": "interaction-roadmap-port",
-              "memo": "The sole public entry and default root surface.",
+              "viewNodeId": "interaction-roadmap-declaration-summary-view",
               "exposes": {
                 "views": {
                   "mode": "allow"
@@ -98,7 +231,11 @@
             }
           ],
           "primaryNodeViewId": "interaction-roadmap-port",
-          "portViewNodeId": "interaction-roadmap-port"
+          "portViewNodeId": "interaction-roadmap-port",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          }
         },
         "dependencies": {
           "nodeTypes": [
@@ -166,12 +303,107 @@
         "document": {
           "url": ""
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "portId": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "portId": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "portId": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "portId": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "portId": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port"
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "portId": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface"
+        }
+      ],
+      "inputs": [],
+      "outputs": [
+        {
+          "key": "default-view",
+          "label": "default view",
+          "type": "any"
+        },
+        {
+          "key": "summary-view",
+          "label": "summary view",
+          "type": "any"
+        },
+        {
+          "key": "icon-view",
+          "label": "icon view",
+          "type": "any"
+        },
+        {
+          "key": "glyph",
+          "label": "glyph",
+          "type": "any"
+        },
+        {
+          "key": "port",
+          "label": "port",
+          "type": "any"
+        },
+        {
+          "key": "landing-surface",
+          "label": "landing surface",
+          "type": "any"
+        }
+      ]
     },
     {
       "id": "interaction-roadmap-port",
       "type": "port",
-      "label": "Interaction Roadmap",
+      "label": "Make graph interaction dependable enough to disappear",
       "root": false,
       "position": {
         "x": 560,
@@ -182,17 +414,11 @@
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "input",
-          "dataType": "value",
+          "dataType": "any",
           "angle": 270
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "output",
-          "dataType": "value",
-          "angle": 90
         }
       ],
       "style": {
@@ -206,22 +432,64 @@
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "interaction-semantic-zoom-roadmap",
+          "graphId": "interaction-roadmap-declaration",
           "name": "Interaction Roadmap"
         },
         "view": {
           "intent": "node",
-          "payload": "node.web.summary",
-          "surfaceId": "summary"
+          "payload": "node.web",
+          "nodeType": "task"
         },
         "sourceScope": "graph",
         "sourceRef": "",
         "sourceNodeId": "interaction-roadmap-summary",
-        "sourcePayload": "node.web.summary",
+        "sourcePayload": "node.web",
         "authority": "consume-view",
         "title": "Interaction Roadmap",
-        "memo": "Root surface presenting the stabilization roadmap."
-      }
+        "memo": "Root surface presenting the stabilization roadmap.",
+        "surfaceId": "summary",
+        "direction": "output",
+        "targetNodeId": "interaction-roadmap-summary",
+        "dataType": "task",
+        "renderedNodeType": "task",
+        "presentation": {
+          "detail": {
+            "mode": "own",
+            "viewNodeId": "interaction-roadmap-summary"
+          },
+          "summary": {
+            "mode": "own",
+            "viewNodeId": "interaction-roadmap-summary"
+          },
+          "icon": {
+            "mode": "own",
+            "viewNodeId": "interaction-roadmap-summary"
+          },
+          "glyph": {
+            "mode": "own",
+            "viewNodeId": "interaction-roadmap-summary"
+          }
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": []
     },
     {
       "id": "interaction-roadmap-bridge-goal",
@@ -1216,34 +1484,141 @@
           "total": 2
         },
         "taskTitles": [
-          "Write the gesture ownership contract",
-          "Build one interaction arbiter",
-          "Adapt every rendering boundary",
-          "Prove the People collection smoke test",
-          "Stabilize semantic zoom",
-          "Resume feature work behind regression coverage"
+          "1 · Write the gesture ownership contract",
+          "2 · Build one interaction arbiter",
+          "3 · Adapt every rendering boundary",
+          "4 · Prove the People collection smoke test",
+          "5 · Stabilize semantic zoom",
+          "6 · Resume feature work behind regression coverage"
         ],
         "questionTitles": [
           "Which interactions become content-first in each zoom band?",
           "What is the exit gate for stabilization?"
         ],
-        "summarySource": "authored",
+        "summarySource": "node-updater",
         "nodeViewPayload": "node.web",
-        "definitionKey": "summary",
+        "definitionKey": "task",
         "_classBinding": {
-          "key": "summary",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node"
+          "key": "task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "defaults": {
+            "label": "Task",
+            "size": {
+              "width": 380,
+              "height": 260
+            },
+            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+            "showLabel": false,
+            "data": {
+              "title": "",
+              "body": "Describe the concrete work to execute.",
+              "priority": "high",
+              "status": "todo",
+              "owner": "",
+              "estimateHours": "",
+              "targetDate": "",
+              "startedAt": "",
+              "completedAt": "",
+              "externalRef": "",
+              "acceptanceCriteria": [
+                "Describe what done looks like"
+              ],
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Checklist"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "task",
+            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Task",
+              "size": {
+                "width": 380,
+                "height": 260
+              },
+              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "body": "Describe the concrete work to execute.",
+                "priority": "high",
+                "status": "todo",
+                "owner": "",
+                "estimateHours": "",
+                "targetDate": "",
+                "startedAt": "",
+                "completedAt": "",
+                "externalRef": "",
+                "acceptanceCriteria": [
+                  "Describe what done looks like"
+                ],
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Checklist"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          }
         },
         "_bridge": {
           "sourceBridgeNodeId": "interaction-roadmap-bridge-summary",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-          "classKey": "summary",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node"
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "classKey": "task",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "sourceNodeId": "",
+          "sourceBridgeLabel": "Task"
         },
         "identity": {
           "graphId": "interaction-roadmap-declaration"
-        }
+        },
+        "title": "Make graph interaction dependable enough to disappear",
+        "body": "Goal: Make graph interaction dependable enough to disappear\nStatus: in-progress\n\nTasks in scope:\n1. 1 · Write the gesture ownership contract\n2. 2 · Build one interaction arbiter\n3. 3 · Adapt every rendering boundary\n4. 4 · Prove the People collection smoke test\n\nOpen questions:\n1. Which interactions become content-first in each zoom band?\n2. What is the exit gate for stabilization?",
+        "estimateHours": "",
+        "targetDate": "",
+        "startedAt": "",
+        "completedAt": "",
+        "externalRef": "",
+        "acceptanceCriteria": [
+          "Review the graph-owned task summary for current scope and progress"
+        ],
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Checklist"
+          }
+        },
+        "taskListText": "1. 1 · Write the gesture ownership contract\n2. 2 · Build one interaction arbiter\n3. 3 · Adapt every rendering boundary\n4. 4 · Prove the People collection smoke test\n5. 5 · Stabilize semantic zoom\n6. 6 · Resume feature work behind regression coverage",
+        "questionListText": "1. Which interactions become content-first in each zoom band?\n2. What is the exit gate for stabilization?",
+        "updatedAt": "2026-08-27T22:21:14.585Z"
       }
     },
     {
@@ -1681,6 +2056,590 @@
         },
         "security": "prompt"
       }
+    },
+    {
+      "id": "interaction-roadmap-declaration-detail-view",
+      "type": "view",
+      "label": "Make graph interaction dependable enough to disappear Detail",
+      "position": {
+        "x": -600,
+        "y": -900
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "semanticLevel": "detail",
+        "content": {
+          "kind": "markdown",
+          "value": "# Make graph interaction dependable enough to disappear\n\nA graph-owned task with its goal, concrete work, decisions, questions, and current operational summary."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "interaction-roadmap-declaration"
+        }
+      }
+    },
+    {
+      "id": "interaction-roadmap-declaration-summary-view",
+      "type": "view",
+      "label": "Make graph interaction dependable enough to disappear Summary View",
+      "position": {
+        "x": -600,
+        "y": -560
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "semanticLevel": "summary",
+        "content": {
+          "kind": "markdown",
+          "value": "## Make graph interaction dependable enough to disappear\n\nCurrent status, priority, progress, next action, blockers, and unresolved questions."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "interaction-roadmap-declaration"
+        }
+      }
+    },
+    {
+      "id": "interaction-roadmap-declaration-icon-view-modern",
+      "type": "view",
+      "label": "Make graph interaction dependable enough to disappear Icon View",
+      "position": {
+        "x": -600,
+        "y": -220
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "semanticLevel": "icon",
+        "content": {
+          "kind": "svg",
+          "value": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220'><rect width='320' height='220' rx='28' fill='#172554'/><circle cx='160' cy='92' r='54' fill='#dbeafe'/><path d='M132 92l18 18 40-44' fill='none' stroke='#2563eb' stroke-width='14' stroke-linecap='round' stroke-linejoin='round'/><text x='160' y='184' text-anchor='middle' fill='#fff' font-family='system-ui' font-size='20' font-weight='800'>TASK</text></svg>"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "interaction-roadmap-declaration"
+        }
+      }
+    },
+    {
+      "id": "interaction-roadmap-declaration-glyph",
+      "type": "glyph",
+      "label": "Make graph interaction dependable enough to disappear Glyph",
+      "position": {
+        "x": 0,
+        "y": -1220
+      },
+      "width": 220,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "TaskAlt"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
+        },
+        "identity": {
+          "graphId": "interaction-roadmap-declaration"
+        }
+      }
+    },
+    {
+      "id": "interaction-roadmap-declaration-landing-surface",
+      "type": "content",
+      "label": "Make graph interaction dependable enough to disappear Landing Surface",
+      "position": {
+        "x": 620,
+        "y": -820
+      },
+      "width": 520,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Make graph interaction dependable enough to disappear\n\nOpen this task graph to inspect and advance its authoritative work."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "interaction-roadmap-declaration"
+        }
+      }
+    },
+    {
+      "id": "interaction-roadmap-declaration-summary-updater",
+      "type": "script",
+      "label": "Make graph interaction dependable enough to disappear Summary Updater",
+      "root": false,
+      "position": {
+        "x": 0,
+        "y": -60
+      },
+      "width": 320,
+      "height": 190,
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "scriptName": "Task Node Updater",
+        "summaryNodeId": "interaction-roadmap-summary",
+        "autoRun": true,
+        "autoRunOnGraphChange": false,
+        "autoRunOnLoad": true,
+        "allowMutations": true,
+        "dryRun": false,
+        "source": "const SUMMARY_NODE_ID = 'interaction-roadmap-summary';\nconst DONE_TASK_STATUSES = new Set(['done', 'complete', 'completed', 'closed']);\nconst ANSWERED_STATUSES = new Set(['answered', 'done', 'resolved', 'closed']);\nconst normalize = (value) => String(value || '').trim().toLowerCase();\nconst normalizeSummaryStatus = (value) => {\n  const status = normalize(value);\n  if (['open', 'todo', 'backlog'].includes(status)) return 'todo';\n  if (['active', 'in-progress', 'in progress'].includes(status)) return 'in-progress';\n  if (['achieved', 'done', 'complete', 'completed', 'closed', 'resolved'].includes(status)) return 'done';\n  if (status === 'blocked') return 'blocked';\n  if (['waiting', 'deferred', 'paused'].includes(status)) return 'waiting';\n  if (['cancelled', 'canceled', 'abandoned'].includes(status)) return 'cancelled';\n  return status || 'todo';\n};\nconst toTitle = (entry, fallback) => String(entry?.data?.title || entry?.label || entry?.data?.summary || entry?.data?.body || fallback || '').trim();\nconst toListText = (items, emptyLabel, maxItems = 4) => {\n  const visible = items.filter(Boolean).slice(0, maxItems);\n  if (!visible.length) return emptyLabel;\n  return visible.map((item, index) => `${index + 1}. ${item}`).join('\\n');\n};\nconst fetchJson = async (ref) => {\n  const normalizedRef = String(ref || '').trim();\n  if (!normalizedRef) return null;\n  try {\n    const response = await fetch(normalizedRef, { cache: 'no-store' });\n    if (!response.ok) return null;\n    return await response.json();\n  } catch (error) {\n    return null;\n  }\n};\nconst summaryStatusCache = new Map();\nconst getExternalSummaryStatus = async (entry) => {\n  const sourceRef = String(entry?.data?.sourceRef || '').trim();\n  const sourceNodeId = String(entry?.data?.sourceNodeId || '').trim();\n  if (!sourceRef || !sourceNodeId || sourceNodeId === SUMMARY_NODE_ID) return '';\n  const cacheKey = sourceRef + '#' + sourceNodeId;\n  if (summaryStatusCache.has(cacheKey)) return summaryStatusCache.get(cacheKey);\n  const graphData = await fetchJson(sourceRef);\n  const sourceNode = Array.isArray(graphData?.nodes)\n    ? graphData.nodes.find((node) => node?.id === sourceNodeId)\n    : null;\n  const status = normalizeSummaryStatus(sourceNode?.data?.status);\n  summaryStatusCache.set(cacheKey, status);\n  return status;\n};\nconst isEqual = (a, b) => {\n  if (a === b) return true;\n  if (!a || !b || typeof a !== 'object' || typeof b !== 'object') return false;\n  const aKeys = Object.keys(a);\n  const bKeys = Object.keys(b);\n  if (aKeys.length != bKeys.length) return false;\n  for (const key of aKeys) {\n    if (!Object.prototype.hasOwnProperty.call(b, key)) return false;\n    const aVal = a[key];\n    const bVal = b[key];\n    if (Array.isArray(aVal) || Array.isArray(bVal)) {\n      if (JSON.stringify(aVal) != JSON.stringify(bVal)) return false;\n      continue;\n    }\n    if (aVal && typeof aVal === 'object') {\n      if (!isEqual(aVal, bVal)) return false;\n      continue;\n    }\n    if (aVal != bVal) return false;\n  }\n  return true;\n};\n\nconst nodes = await api.getNodes();\nconst summaryNode = nodes.find((entry) => entry?.id === SUMMARY_NODE_ID);\nif (!summaryNode) {\n  return { success: false, error: 'Summary node missing' };\n}\nconst goalNode = nodes.find((entry) => entry?.type === 'goal');\n\nconst taskLikeNodes = nodes.filter((entry) => {\n  if (!entry) return false;\n  if (entry?.id === SUMMARY_NODE_ID) return false;\n  if (entry?.data?.countAsTask === false) return false;\n  if (entry?.type === 'task' || entry?.type === 'task-summary') return true;\n  return entry?.data?.countAsTask === true;\n});\nconst questions = nodes.filter((entry) => entry?.type === 'open-question');\nconst taskItems = (await Promise.all(taskLikeNodes.map(async (entry) => {\n  const fallback = entry?.type === 'task-summary' ? 'Untitled task summary' : 'Untitled task';\n  const title = toTitle(entry, fallback);\n  let status = normalizeSummaryStatus(entry?.data?.status);\n  if (entry?.type === 'task-summary') {\n    const externalStatus = await getExternalSummaryStatus(entry);\n    if (externalStatus) status = externalStatus;\n  }\n  return { title, status };\n}))).filter((entry) => entry?.title);\n\nconst taskTitles = taskItems.map((entry) => entry.title);\nconst questionTitles = questions.map((entry) => toTitle(entry, 'Untitled question')).filter(Boolean);\nconst completedTaskCount = taskItems.filter((entry) => DONE_TASK_STATUSES.has(entry.status)).length;\nconst activeTaskCount = taskItems.filter((entry) => normalize(entry.status) === 'in-progress').length;\nconst allTasksDone = taskItems.length > 0 && completedTaskCount === taskItems.length;\nconst goalStatus = normalizeSummaryStatus(goalNode?.data?.status);\nconst derivedStatus = goalStatus === 'done'\n  ? (allTasksDone ? 'done' : 'in-progress')\n  : (goalStatus === 'todo' && (completedTaskCount > 0 || activeTaskCount > 0) ? 'in-progress' : goalStatus);\n\nconst taskListText = toListText(taskTitles, 'No tasks listed.', taskTitles.length || 4);\nconst questionListText = toListText(questionTitles, 'No open questions.');\nconst nextData = {\n  ...(summaryNode.data || {}),\n  goal: goalNode?.label || summaryNode?.data?.goal || 'Task graph',\n  status: derivedStatus,\n  priority: goalNode?.data?.priority || summaryNode?.data?.priority || 'medium',\n  owner: goalNode?.data?.owner || summaryNode?.data?.owner || '',\n  targetDate: goalNode?.data?.targetDate || summaryNode?.data?.targetDate || '',\n  taskProgress: {\n    completed: completedTaskCount,\n    total: taskItems.length\n  },\n  questionProgress: {\n    answered: questions.filter((entry) => ANSWERED_STATUSES.has(normalize(entry?.data?.status))).length,\n    total: questions.length\n  },\n  taskTitles,\n  questionTitles,\n  taskListText,\n  questionListText,\n  title: goalNode?.label || summaryNode?.data?.goal || 'Task graph',\n  body: `Goal: ${goalNode?.label || summaryNode?.data?.goal || 'Task graph'}\\nStatus: ${derivedStatus}\\n\\nTasks in scope:\\n${toListText(taskTitles, 'No tasks listed.')}\\n\\nOpen questions:\\n${toListText(questionTitles, 'No open questions.')}`,\n  estimateHours: summaryNode?.data?.estimateHours || '',\n  startedAt: summaryNode?.data?.startedAt || '',\n  completedAt: summaryNode?.data?.completedAt || '',\n  externalRef: summaryNode?.data?.externalRef || '',\n  acceptanceCriteria: Array.isArray(summaryNode?.data?.acceptanceCriteria) ? summaryNode.data.acceptanceCriteria : ['Review the graph-owned task summary for current scope and progress'],\n  summarySource: 'node-updater',\n  updatedAt: new Date().toISOString()\n};\n\nconst summaryData = summaryNode.data || {};\nif (!isEqual(summaryData, nextData)) {\n  await api.updateNode(SUMMARY_NODE_ID, { data: nextData });\n}\n\nreturn { success: true, summary: nextData };",
+        "_semanticLevel": "detail",
+        "scriptId": "",
+        "identity": {
+          "graphId": "interaction-roadmap-declaration"
+        },
+        "scriptRef": "",
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1784322245587,
+          "reason": "node-drag"
+        }
+      }
     }
   ],
   "edges": [
@@ -1689,7 +2648,7 @@
       "type": "defines",
       "source": "interaction-roadmap-declaration",
       "target": "interaction-roadmap-goal",
-      "sourcePort": "bottom",
+      "sourcePort": "port",
       "targetPort": "top",
       "label": "goal",
       "style": {
@@ -1702,7 +2661,7 @@
       "type": "exposes",
       "source": "interaction-roadmap-declaration",
       "target": "interaction-roadmap-port",
-      "sourcePort": "top",
+      "sourcePort": "port",
       "targetPort": "root",
       "label": "summary · root alias",
       "style": {
@@ -1715,7 +2674,7 @@
       "type": "presents",
       "source": "interaction-roadmap-port",
       "target": "interaction-roadmap-summary",
-      "sourcePort": "bottom",
+      "sourcePort": "root",
       "targetPort": "top",
       "label": "live summary",
       "style": {
@@ -1728,7 +2687,7 @@
       "type": "reference",
       "source": "interaction-roadmap-declaration",
       "target": "interaction-roadmap-bridge-goal",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -1741,7 +2700,7 @@
       "type": "reference",
       "source": "interaction-roadmap-declaration",
       "target": "interaction-roadmap-bridge-task",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -1754,7 +2713,7 @@
       "type": "reference",
       "source": "interaction-roadmap-declaration",
       "target": "interaction-roadmap-bridge-decision",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -1767,7 +2726,7 @@
       "type": "reference",
       "source": "interaction-roadmap-declaration",
       "target": "interaction-roadmap-bridge-question",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -1780,7 +2739,7 @@
       "type": "reference",
       "source": "interaction-roadmap-declaration",
       "target": "interaction-roadmap-bridge-risk",
-      "sourcePort": "right",
+      "sourcePort": "port",
       "targetPort": "left",
       "label": "class authority",
       "style": {
@@ -1793,7 +2752,7 @@
       "type": "reference",
       "source": "interaction-roadmap-declaration",
       "target": "interaction-roadmap-bridge-criteria",
-      "sourcePort": "right",
+      "sourcePort": "port",
       "targetPort": "left",
       "label": "class authority",
       "style": {
@@ -1806,7 +2765,7 @@
       "type": "reference",
       "source": "interaction-roadmap-declaration",
       "target": "interaction-roadmap-bridge-summary",
-      "sourcePort": "right",
+      "sourcePort": "port",
       "targetPort": "left",
       "label": "class authority",
       "style": {
@@ -2049,6 +3008,96 @@
       "data": {
         "relationship": "idea-followup"
       }
+    },
+    {
+      "id": "interaction-roadmap-declaration-default-view-edge",
+      "type": "default-view",
+      "source": "interaction-roadmap-declaration",
+      "target": "interaction-roadmap-declaration-detail-view",
+      "sourcePort": "default-view",
+      "targetPort": "root",
+      "label": "default view",
+      "data": {
+        "role": "default-view",
+        "semanticRole": "default-view"
+      }
+    },
+    {
+      "id": "interaction-roadmap-declaration-summary-view-edge",
+      "type": "reference",
+      "source": "interaction-roadmap-declaration",
+      "target": "interaction-roadmap-declaration-summary-view",
+      "sourcePort": "summary-view",
+      "targetPort": "root",
+      "label": "summary view",
+      "data": {
+        "role": "shared-summary",
+        "semanticRole": "shared-summary"
+      }
+    },
+    {
+      "id": "interaction-roadmap-declaration-icon-view-edge",
+      "type": "reference",
+      "source": "interaction-roadmap-declaration",
+      "target": "interaction-roadmap-declaration-icon-view-modern",
+      "sourcePort": "icon-view",
+      "targetPort": "root",
+      "label": "icon view",
+      "data": {
+        "role": "shared-icon",
+        "semanticRole": "shared-icon"
+      }
+    },
+    {
+      "id": "interaction-roadmap-declaration-glyph-edge",
+      "type": "reference",
+      "source": "interaction-roadmap-declaration",
+      "target": "interaction-roadmap-declaration-glyph",
+      "sourcePort": "glyph",
+      "targetPort": "root",
+      "label": "glyph",
+      "data": {
+        "role": "shared-glyph",
+        "semanticRole": "shared-glyph"
+      }
+    },
+    {
+      "id": "interaction-roadmap-declaration-landing-surface-edge",
+      "type": "reference",
+      "source": "interaction-roadmap-declaration",
+      "target": "interaction-roadmap-declaration-landing-surface",
+      "sourcePort": "landing-surface",
+      "targetPort": "root",
+      "label": "landing surface",
+      "data": {
+        "role": "landing-surface",
+        "semanticRole": "landing-surface"
+      }
+    },
+    {
+      "id": "interaction-roadmap-declaration-port-edge",
+      "type": "reference",
+      "source": "interaction-roadmap-declaration",
+      "target": "interaction-roadmap-port",
+      "sourcePort": "port",
+      "targetPort": "root",
+      "label": "port",
+      "data": {
+        "role": "exposes-port",
+        "semanticRole": "exposes-port"
+      }
+    },
+    {
+      "id": "interaction-roadmap-declaration-summary-updater-summary-edge",
+      "type": "reference",
+      "source": "interaction-roadmap-declaration-summary-updater",
+      "target": "interaction-roadmap-summary",
+      "sourcePort": "root",
+      "label": "updates",
+      "data": {
+        "role": "updates",
+        "semanticRole": "updates"
+      }
     }
   ],
   "clusters": [],
@@ -2091,5 +3140,7 @@
     },
     "autoSave": false
   },
-  "scripts": []
+  "scripts": [],
+  "nodeCount": 38,
+  "edgeCount": 35
 }

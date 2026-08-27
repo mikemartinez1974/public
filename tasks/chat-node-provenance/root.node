@@ -28,39 +28,166 @@
       "height": 320,
       "ports": [
         {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default view",
+          "direction": "output",
           "dataType": "any",
-          "angle": 210
+          "angle": 165,
+          "role": "default-view",
+          "allowedEdgeTypes": [
+            "default-view"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-view",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-summary",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-icon",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-glyph",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "glyph",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 360
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "landing-surface",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "visible": true,
@@ -171,59 +298,14 @@
           "targetMode": "artifact",
           "artifactKind": "task-graph",
           "graphViewRole": "authoring",
-          "defaultSurfaceId": "card",
+          "defaultSurfaceId": "",
           "surfaces": [
             {
-              "id": "card",
-              "kind": "port",
-              "label": "Create the Chat Provenance Node",
-              "viewNodeId": "create-chat-provenance-node-view",
-              "memo": "Primary outward-facing card for the Chat provenance node implementation task.",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            },
-            {
-              "id": "icon",
-              "kind": "icon",
-              "label": "Icon",
-              "viewNodeId": "create-chat-provenance-node-icon-view",
-              "memo": "Minimal semantic-zoom identity surface for the task graph template.",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            },
-            {
               "id": "summary",
-              "kind": "view",
-              "label": "Summary",
-              "viewNodeId": "create-chat-provenance-node-summary",
-              "memo": "Readable derived summary surface sourced from the authoritative summary node.",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            },
-            {
-              "id": "workspace",
-              "kind": "view",
-              "label": "Workspace",
-              "viewNodeId": "create-chat-provenance-node-summary-task",
-              "memo": "Task-shaped authoring rollup surface for legacy and workspace-style consumers.",
+              "kind": "port",
+              "label": "Deliver a Trustworthy First-Class Chat Provenance Node",
+              "portNodeId": "create-chat-provenance-node-root-port",
+              "viewNodeId": "create-chat-provenance-node-declaration-summary-view",
               "exposes": {
                 "views": {
                   "mode": "allow"
@@ -237,7 +319,11 @@
           "primaryNodeViewId": "create-chat-provenance-node-summary",
           "primaryEditorViewId": "",
           "iconViewNodeId": "create-chat-provenance-node-icon-view",
-          "portViewNodeId": "create-chat-provenance-node-view"
+          "portViewNodeId": "create-chat-provenance-node-view",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          }
         },
         "_classBinding": {
           "key": "declaration",
@@ -297,7 +383,102 @@
         },
         "memo": "",
         "link": ""
-      }
+      },
+      "handles": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "portId": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "portId": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "portId": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "portId": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "portId": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port"
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "portId": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface"
+        }
+      ],
+      "inputs": [],
+      "outputs": [
+        {
+          "key": "default-view",
+          "label": "default view",
+          "type": "any"
+        },
+        {
+          "key": "summary-view",
+          "label": "summary view",
+          "type": "any"
+        },
+        {
+          "key": "icon-view",
+          "label": "icon view",
+          "type": "any"
+        },
+        {
+          "key": "glyph",
+          "label": "glyph",
+          "type": "any"
+        },
+        {
+          "key": "port",
+          "label": "port",
+          "type": "any"
+        },
+        {
+          "key": "landing-surface",
+          "label": "landing surface",
+          "type": "any"
+        }
+      ]
     },
     {
       "id": "create-chat-provenance-node-export-kit",
@@ -785,7 +966,7 @@
         "status": "in-progress",
         "viewRole": "document",
         "taskProgress": {
-          "completed": 5,
+          "completed": 3,
           "total": 8
         },
         "questionProgress": {
@@ -811,24 +992,110 @@
         ],
         "taskListText": "1. Define the Minimal Chat Node Data Contract\n2. Define Chat-to-Artifact Provenance Relationships\n3. Create the Chat Node Class and Display Views\n4. Create the Editor and Access-State Rendering\n5. Build a Non-Public Prototype Graph\n6. Implement Conversation and Artifact Navigation\n7. Test Privacy and Degraded Conversation States\n8. Finalize the v0.1 Contract and Integration Boundary",
         "questionListText": "1. How much conversation content should v0.1 preserve locally?\n2. Is access mode declared, resolved, or both?\n3. Does one Chat node represent one conversation or a conversation chain?",
-        "definitionKey": "summary",
+        "definitionKey": "task",
         "_classBinding": {
-          "key": "summary",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node"
+          "key": "task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "defaults": {
+            "label": "Task",
+            "size": {
+              "width": 380,
+              "height": 260
+            },
+            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+            "showLabel": false,
+            "data": {
+              "title": "",
+              "body": "Describe the concrete work to execute.",
+              "priority": "high",
+              "status": "todo",
+              "owner": "",
+              "estimateHours": "",
+              "targetDate": "",
+              "startedAt": "",
+              "completedAt": "",
+              "externalRef": "",
+              "acceptanceCriteria": [
+                "Describe what done looks like"
+              ],
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Checklist"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "task",
+            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Task",
+              "size": {
+                "width": 380,
+                "height": 260
+              },
+              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "body": "Describe the concrete work to execute.",
+                "priority": "high",
+                "status": "todo",
+                "owner": "",
+                "estimateHours": "",
+                "targetDate": "",
+                "startedAt": "",
+                "completedAt": "",
+                "externalRef": "",
+                "acceptanceCriteria": [
+                  "Describe what done looks like"
+                ],
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Checklist"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          }
         },
         "_bridge": {
-          "sourceNodeId": "create-chat-provenance-node-bridge-summary",
-          "sourceBridgeNodeId": "create-chat-provenance-node-bridge-summary",
-          "sourceBridgeLabel": "Summary",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
+          "sourceNodeId": "create-chat-provenance-node-bridge-task",
+          "sourceBridgeNodeId": "create-chat-provenance-node-bridge-task",
+          "sourceBridgeLabel": "Task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
           "entryPort": "root",
           "kind": "node-class",
           "targetKind": "node-class",
-          "classKey": "summary",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node"
+          "classKey": "task",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
         },
-        "updatedAt": "2026-08-06T02:24:00.000Z",
+        "updatedAt": "2026-08-27T22:21:14.345Z",
         "identity": {
           "graphId": "create-chat-provenance-node-declaration"
         },
@@ -846,7 +1113,22 @@
         "targetDate": "",
         "nextAction": "Complete the remaining privacy and degraded-state matrix, then finalize the v0.1 contract. External web-link activation remains deferred.",
         "blockedReason": "",
-        "health": "on-track"
+        "health": "on-track",
+        "title": "Deliver a Trustworthy First-Class Chat Provenance Node",
+        "body": "Goal: Deliver a Trustworthy First-Class Chat Provenance Node",
+        "estimateHours": "",
+        "startedAt": "",
+        "completedAt": "",
+        "externalRef": "",
+        "acceptanceCriteria": [
+          "Review the graph-owned task summary for current scope and progress"
+        ],
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Checklist"
+          }
+        }
       }
     },
     {
@@ -901,8 +1183,8 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "title": "Create the Chat Provenance Node",
-        "body": "Goal: Deliver a Trustworthy First-Class Chat Provenance Node\nStatus: in-progress\n\nTasks in scope:\n1. Define the Minimal Chat Node Data Contract [done]\n2. Define Chat-to-Artifact Provenance Relationships [done]\n3. Create the Chat Node Class and Display Views [done]\n4. Create the Editor and Access-State Rendering [done]\n5. Build the multi-conversation prototype [done]\n6. Finish conversation and artifact navigation [waiting: explicitly deferred]\n7. Complete privacy and degraded-state testing [in progress]\n8. Finalize the v0.1 contract and integration boundary [waiting]\n\nPrototype proof:\n• Shared + available conversation connected by created\n• Owner-only + unavailable conversation connected by revised\n• Local + available archive connected by explained\n\nOpen questions:\n1. Local content scope [answered: summary required; excerpt and notes optional]\n2. Access semantics [answered: declared access plus observed status]\n3. Conversation scope [answered: one conversation per Chat node]",
+        "title": "Deliver a Trustworthy First-Class Chat Provenance Node",
+        "body": "Goal: Deliver a Trustworthy First-Class Chat Provenance Node\nStatus: in-progress\n\nTasks in scope:\n1. Define the Minimal Chat Node Data Contract\n2. Define Chat-to-Artifact Provenance Relationships\n3. Create the Chat Node Class and Display Views\n4. Create the Editor and Access-State Rendering\n5. Build a Non-Public Prototype Graph\n6. Implement Conversation and Artifact Navigation\n7. Test Privacy and Degraded Conversation States\n8. Finalize the v0.1 Contract and Integration Boundary\n\nOpen questions:\n1. How much conversation content should v0.1 preserve locally?\n2. Is access mode declared, resolved, or both?\n3. Does one Chat node represent one conversation or a conversation chain?",
         "priority": "high",
         "status": "in-progress",
         "owner": "Michael",
@@ -937,7 +1219,7 @@
         },
         "_semanticLevel": "detail",
         "taskProgress": {
-          "completed": 5,
+          "completed": 3,
           "total": 8
         },
         "questionProgress": {
@@ -3900,6 +4182,504 @@
         },
         "title": "Keep Chat Provenance Separate from Commit History"
       }
+    },
+    {
+      "id": "create-chat-provenance-node-root-port",
+      "type": "port",
+      "label": "Deliver a Trustworthy First-Class Chat Provenance Node",
+      "position": {
+        "x": -918.849925570385,
+        "y": -857.4930670588806
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "surfaceId": "summary",
+        "direction": "output",
+        "dataType": "task",
+        "sourceNodeId": "create-chat-provenance-node-summary",
+        "sourcePayload": "node.web",
+        "presentation": {
+          "detail": {
+            "mode": "own",
+            "viewNodeId": "create-chat-provenance-node-summary"
+          },
+          "summary": {
+            "mode": "own",
+            "viewNodeId": "create-chat-provenance-node-summary"
+          },
+          "icon": {
+            "mode": "own",
+            "viewNodeId": "create-chat-provenance-node-summary"
+          },
+          "glyph": {
+            "mode": "own",
+            "viewNodeId": "create-chat-provenance-node-summary"
+          }
+        },
+        "identity": {
+          "graphId": "create-chat-provenance-node-declaration"
+        },
+        "authority": "consume-view",
+        "sourceScope": "graph",
+        "renderedNodeType": "task",
+        "view": {
+          "intent": "node",
+          "payload": "node.web",
+          "nodeType": "task"
+        },
+        "targetNodeId": "create-chat-provenance-node-summary"
+      }
+    },
+    {
+      "id": "create-chat-provenance-node-declaration-detail-view",
+      "type": "view",
+      "label": "Deliver a Trustworthy First-Class Chat Provenance Node Detail",
+      "position": {
+        "x": -1518.849925570385,
+        "y": -1337.4930670588806
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "semanticLevel": "detail",
+        "content": {
+          "kind": "markdown",
+          "value": "# Deliver a Trustworthy First-Class Chat Provenance Node\n\nA graph-owned task with its goal, concrete work, decisions, questions, and current operational summary."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "create-chat-provenance-node-declaration"
+        }
+      }
+    },
+    {
+      "id": "create-chat-provenance-node-declaration-summary-view",
+      "type": "view",
+      "label": "Deliver a Trustworthy First-Class Chat Provenance Node Summary View",
+      "position": {
+        "x": -1518.849925570385,
+        "y": -997.4930670588806
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "semanticLevel": "summary",
+        "content": {
+          "kind": "markdown",
+          "value": "## Deliver a Trustworthy First-Class Chat Provenance Node\n\nCurrent status, priority, progress, next action, blockers, and unresolved questions."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "create-chat-provenance-node-declaration"
+        }
+      }
+    },
+    {
+      "id": "create-chat-provenance-node-declaration-icon-view-modern",
+      "type": "view",
+      "label": "Deliver a Trustworthy First-Class Chat Provenance Node Icon View",
+      "position": {
+        "x": -1518.849925570385,
+        "y": -657.4930670588806
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "semanticLevel": "icon",
+        "content": {
+          "kind": "svg",
+          "value": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220'><rect width='320' height='220' rx='28' fill='#172554'/><circle cx='160' cy='92' r='54' fill='#dbeafe'/><path d='M132 92l18 18 40-44' fill='none' stroke='#2563eb' stroke-width='14' stroke-linecap='round' stroke-linejoin='round'/><text x='160' y='184' text-anchor='middle' fill='#fff' font-family='system-ui' font-size='20' font-weight='800'>TASK</text></svg>"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "create-chat-provenance-node-declaration"
+        }
+      }
+    },
+    {
+      "id": "create-chat-provenance-node-declaration-glyph",
+      "type": "glyph",
+      "label": "Deliver a Trustworthy First-Class Chat Provenance Node Glyph",
+      "position": {
+        "x": -918.849925570385,
+        "y": -1657.4930670588806
+      },
+      "width": 220,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "TaskAlt"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
+        },
+        "identity": {
+          "graphId": "create-chat-provenance-node-declaration"
+        }
+      }
+    },
+    {
+      "id": "create-chat-provenance-node-declaration-landing-surface",
+      "type": "content",
+      "label": "Deliver a Trustworthy First-Class Chat Provenance Node Landing Surface",
+      "position": {
+        "x": -298.84992557038504,
+        "y": -1257.4930670588806
+      },
+      "width": 520,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Deliver a Trustworthy First-Class Chat Provenance Node\n\nOpen this task graph to inspect and advance its authoritative work."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "create-chat-provenance-node-declaration"
+        }
+      }
     }
   ],
   "edges": [
@@ -3908,7 +4688,7 @@
       "type": "reference",
       "source": "create-chat-provenance-node-declaration",
       "target": "create-chat-provenance-node-export-kit",
-      "sourcePort": "right",
+      "sourcePort": "port",
       "targetPort": "left",
       "label": "exports",
       "style": {
@@ -4032,7 +4812,7 @@
       "type": "reference",
       "source": "create-chat-provenance-node-declaration",
       "target": "create-chat-provenance-node-view",
-      "sourcePort": "right",
+      "sourcePort": "port",
       "targetPort": "left",
       "label": "port view",
       "style": {},
@@ -4054,7 +4834,7 @@
       "type": "reference",
       "source": "create-chat-provenance-node-declaration",
       "target": "create-chat-provenance-node-icon-view",
-      "sourcePort": "right",
+      "sourcePort": "port",
       "targetPort": "left",
       "label": "icon view",
       "style": {},
@@ -4290,6 +5070,84 @@
       "label": "constrains",
       "style": {},
       "data": {}
+    },
+    {
+      "id": "create-chat-provenance-node-declaration-default-view-edge",
+      "type": "default-view",
+      "source": "create-chat-provenance-node-declaration",
+      "target": "create-chat-provenance-node-declaration-detail-view",
+      "sourcePort": "default-view",
+      "targetPort": "root",
+      "label": "default view",
+      "data": {
+        "role": "default-view",
+        "semanticRole": "default-view"
+      }
+    },
+    {
+      "id": "create-chat-provenance-node-declaration-summary-view-edge",
+      "type": "reference",
+      "source": "create-chat-provenance-node-declaration",
+      "target": "create-chat-provenance-node-declaration-summary-view",
+      "sourcePort": "summary-view",
+      "targetPort": "root",
+      "label": "summary view",
+      "data": {
+        "role": "shared-summary",
+        "semanticRole": "shared-summary"
+      }
+    },
+    {
+      "id": "create-chat-provenance-node-declaration-icon-view-edge",
+      "type": "reference",
+      "source": "create-chat-provenance-node-declaration",
+      "target": "create-chat-provenance-node-declaration-icon-view-modern",
+      "sourcePort": "icon-view",
+      "targetPort": "root",
+      "label": "icon view",
+      "data": {
+        "role": "shared-icon",
+        "semanticRole": "shared-icon"
+      }
+    },
+    {
+      "id": "create-chat-provenance-node-declaration-glyph-edge",
+      "type": "reference",
+      "source": "create-chat-provenance-node-declaration",
+      "target": "create-chat-provenance-node-declaration-glyph",
+      "sourcePort": "glyph",
+      "targetPort": "root",
+      "label": "glyph",
+      "data": {
+        "role": "shared-glyph",
+        "semanticRole": "shared-glyph"
+      }
+    },
+    {
+      "id": "create-chat-provenance-node-declaration-landing-surface-edge",
+      "type": "reference",
+      "source": "create-chat-provenance-node-declaration",
+      "target": "create-chat-provenance-node-declaration-landing-surface",
+      "sourcePort": "landing-surface",
+      "targetPort": "root",
+      "label": "landing surface",
+      "data": {
+        "role": "landing-surface",
+        "semanticRole": "landing-surface"
+      }
+    },
+    {
+      "id": "create-chat-provenance-node-declaration-port-edge",
+      "type": "reference",
+      "source": "create-chat-provenance-node-declaration",
+      "target": "create-chat-provenance-node-root-port",
+      "sourcePort": "port",
+      "targetPort": "root",
+      "label": "port",
+      "data": {
+        "role": "exposes-port",
+        "semanticRole": "exposes-port"
+      }
     }
   ],
   "clusters": [],
@@ -4345,5 +5203,7 @@
       "source": "console.clear();\nconst nodes = await api.getNodes();\nconsole.log(\"Mike\");\nreturn { count: nodes.length };",
       "tags": ""
     }
-  ]
+  ],
+  "nodeCount": 44,
+  "edgeCount": 41
 }

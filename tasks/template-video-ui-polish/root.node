@@ -28,39 +28,166 @@
       "height": 340,
       "ports": [
         {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default view",
+          "direction": "output",
           "dataType": "any",
-          "angle": 210
+          "angle": 165,
+          "role": "default-view",
+          "allowedEdgeTypes": [
+            "default-view"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-view",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-summary",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-icon",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-glyph",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "glyph",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 360
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "landing-surface",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "visible": false,
@@ -132,20 +259,32 @@
           "targetMode": "artifact",
           "artifactKind": "graph",
           "graphViewRole": "authoring",
-          "defaultSurfaceId": "root",
+          "defaultSurfaceId": "",
           "surfaces": [
             {
-              "id": "root",
+              "id": "summary",
               "kind": "port",
-              "label": "Root Port",
+              "label": "Publish a polished new-template demonstration",
               "portNodeId": "b18c32e0-b18b-46c9-8325-bb68c717b0c1",
-              "viewNodeId": "b18c32e0-b18b-46c9-8325-bb68c717b0c1"
+              "viewNodeId": "template-video-ui-polish-declaration-summary-view",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
             }
           ],
           "primaryNodeViewId": "template-video-ui-polish-summary",
           "primaryEditorViewId": "",
           "iconViewNodeId": "",
-          "portViewNodeId": "template-video-ui-polish-summary"
+          "portViewNodeId": "template-video-ui-polish-summary",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          }
         },
         "settings": {
           "theme": null,
@@ -181,7 +320,102 @@
         },
         "memo": "",
         "link": ""
-      }
+      },
+      "handles": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "portId": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "portId": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "portId": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "portId": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "portId": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port"
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "portId": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface"
+        }
+      ],
+      "inputs": [],
+      "outputs": [
+        {
+          "key": "default-view",
+          "label": "default view",
+          "type": "any"
+        },
+        {
+          "key": "summary-view",
+          "label": "summary view",
+          "type": "any"
+        },
+        {
+          "key": "icon-view",
+          "label": "icon view",
+          "type": "any"
+        },
+        {
+          "key": "glyph",
+          "label": "glyph",
+          "type": "any"
+        },
+        {
+          "key": "port",
+          "label": "port",
+          "type": "any"
+        },
+        {
+          "key": "landing-surface",
+          "label": "landing surface",
+          "type": "any"
+        }
+      ]
     },
     {
       "id": "template-video-ui-polish-bridge-goal",
@@ -1663,56 +1897,108 @@
         ],
         "taskListText": "1. Audit the five critical edit panels\n2. Define the shared edit-panel grammar\n3. Polish Declaration and Port editors\n4. Polish the Markdown editor\n5. Expose and evaluate the SVG editor\n6. Prove the new-template workflow\n7. Write and rehearse the new-template demonstration\n8. Record and publish the template video",
         "questionListText": "1. What new template should anchor the demonstration?",
-        "definitionKey": "summary",
+        "definitionKey": "task",
         "_classBinding": {
-          "key": "summary",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-          "views": [
-            {
-              "key": "summary",
-              "intent": "node",
-              "payload": "node.web",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-              "source": "external",
-              "version": ">=0.2.0"
+          "key": "task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "defaults": {
+            "label": "Task",
+            "size": {
+              "width": 380,
+              "height": 260
             },
-            {
-              "key": "summary",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-              "source": "external",
-              "version": ">=0.2.0"
-            }
-          ],
-          "nodeView": {
-            "key": "summary",
-            "intent": "node",
-            "payload": "node.web",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-            "source": "external",
-            "version": ">=0.2.0"
+            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+            "showLabel": false,
+            "data": {
+              "title": "",
+              "body": "Describe the concrete work to execute.",
+              "priority": "high",
+              "status": "todo",
+              "owner": "",
+              "estimateHours": "",
+              "targetDate": "",
+              "startedAt": "",
+              "completedAt": "",
+              "externalRef": "",
+              "acceptanceCriteria": [
+                "Describe what done looks like"
+              ],
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Checklist"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
           },
-          "editorView": {
-            "key": "summary",
-            "intent": "editor",
-            "payload": "editor.web",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-            "source": "external",
-            "version": ">=0.2.0"
+          "nodeDef": {
+            "key": "task",
+            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Task",
+              "size": {
+                "width": 380,
+                "height": 260
+              },
+              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "body": "Describe the concrete work to execute.",
+                "priority": "high",
+                "status": "todo",
+                "owner": "",
+                "estimateHours": "",
+                "targetDate": "",
+                "startedAt": "",
+                "completedAt": "",
+                "externalRef": "",
+                "acceptanceCriteria": [
+                  "Describe what done looks like"
+                ],
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Checklist"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
           }
         },
         "_bridge": {
-          "sourceNodeId": "template-video-ui-polish-bridge-summary",
-          "sourceBridgeNodeId": "template-video-ui-polish-bridge-summary",
-          "sourceBridgeLabel": "Summary",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
+          "sourceNodeId": "template-video-ui-polish-bridge-task",
+          "sourceBridgeNodeId": "template-video-ui-polish-bridge-task",
+          "sourceBridgeLabel": "Task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
           "entryPort": "root",
           "kind": "node-class",
           "targetKind": "node-class",
-          "classKey": "summary",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node"
+          "classKey": "task",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
         },
         "updatedAt": "2026-08-02T02:05:00.000Z",
         "identity": {
@@ -1725,7 +2011,22 @@
         "blockedReason": "",
         "health": "on-track",
         "memo": "",
-        "link": ""
+        "link": "",
+        "title": "Publish a polished new-template demonstration",
+        "body": "Goal: Publish a polished new-template demonstration",
+        "estimateHours": "",
+        "startedAt": "",
+        "completedAt": "",
+        "externalRef": "",
+        "acceptanceCriteria": [
+          "Review the graph-owned task summary for current scope and progress"
+        ],
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Checklist"
+          }
+        }
       }
     },
     {
@@ -1907,7 +2208,7 @@
     {
       "id": "b18c32e0-b18b-46c9-8325-bb68c717b0c1",
       "type": "port",
-      "label": "Root Port",
+      "label": "Publish a polished new-template demonstration",
       "root": false,
       "position": {
         "x": 580,
@@ -1918,63 +2219,11 @@
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "side": "left",
-          "offset": 0.2,
-          "position": {
-            "side": "left",
-            "offset": 0.2
-          }
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "side": "top",
-          "offset": 0.5,
-          "position": {
-            "side": "top",
-            "offset": 0.5
-          }
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "side": "bottom",
-          "offset": 0.5,
-          "position": {
-            "side": "bottom",
-            "offset": 0.5
-          }
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "side": "left",
-          "offset": 0.5,
-          "position": {
-            "side": "left",
-            "offset": 0.5
-          }
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "side": "right",
-          "offset": 0.5,
-          "position": {
-            "side": "right",
-            "offset": 0.5
-          }
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
         }
       ],
       "visible": true,
@@ -1987,7 +2236,8 @@
         },
         "view": {
           "intent": "node",
-          "payload": "node.web.summary"
+          "payload": "node.web",
+          "nodeType": "task"
         },
         "renderShape": {},
         "markdown": "",
@@ -2010,7 +2260,468 @@
         "src": "",
         "canvas": null,
         "sourceNodeId": "template-video-ui-polish-summary",
-        "sourcePayload": "node.web.detail"
+        "sourcePayload": "node.web",
+        "surfaceId": "summary",
+        "direction": "output",
+        "targetNodeId": "template-video-ui-polish-summary",
+        "dataType": "task",
+        "renderedNodeType": "task",
+        "presentation": {
+          "detail": {
+            "mode": "own",
+            "viewNodeId": "template-video-ui-polish-summary"
+          },
+          "summary": {
+            "mode": "own",
+            "viewNodeId": "template-video-ui-polish-summary"
+          },
+          "icon": {
+            "mode": "own",
+            "viewNodeId": "template-video-ui-polish-summary"
+          },
+          "glyph": {
+            "mode": "own",
+            "viewNodeId": "template-video-ui-polish-summary"
+          }
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "template-video-ui-polish-declaration-detail-view",
+      "type": "view",
+      "label": "Publish a polished new-template demonstration Detail",
+      "position": {
+        "x": -600,
+        "y": -700
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "semanticLevel": "detail",
+        "content": {
+          "kind": "markdown",
+          "value": "# Publish a polished new-template demonstration\n\nA graph-owned task with its goal, concrete work, decisions, questions, and current operational summary."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "template-video-ui-polish-declaration"
+        }
+      }
+    },
+    {
+      "id": "template-video-ui-polish-declaration-summary-view",
+      "type": "view",
+      "label": "Publish a polished new-template demonstration Summary View",
+      "position": {
+        "x": -600,
+        "y": -360
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "semanticLevel": "summary",
+        "content": {
+          "kind": "markdown",
+          "value": "## Publish a polished new-template demonstration\n\nCurrent status, priority, progress, next action, blockers, and unresolved questions."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "template-video-ui-polish-declaration"
+        }
+      }
+    },
+    {
+      "id": "template-video-ui-polish-declaration-icon-view-modern",
+      "type": "view",
+      "label": "Publish a polished new-template demonstration Icon View",
+      "position": {
+        "x": -600,
+        "y": -20
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "semanticLevel": "icon",
+        "content": {
+          "kind": "svg",
+          "value": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220'><rect width='320' height='220' rx='28' fill='#172554'/><circle cx='160' cy='92' r='54' fill='#dbeafe'/><path d='M132 92l18 18 40-44' fill='none' stroke='#2563eb' stroke-width='14' stroke-linecap='round' stroke-linejoin='round'/><text x='160' y='184' text-anchor='middle' fill='#fff' font-family='system-ui' font-size='20' font-weight='800'>TASK</text></svg>"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "template-video-ui-polish-declaration"
+        }
+      }
+    },
+    {
+      "id": "template-video-ui-polish-declaration-glyph",
+      "type": "glyph",
+      "label": "Publish a polished new-template demonstration Glyph",
+      "position": {
+        "x": 0,
+        "y": -1020
+      },
+      "width": 220,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "TaskAlt"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
+        },
+        "identity": {
+          "graphId": "template-video-ui-polish-declaration"
+        }
+      }
+    },
+    {
+      "id": "template-video-ui-polish-declaration-landing-surface",
+      "type": "content",
+      "label": "Publish a polished new-template demonstration Landing Surface",
+      "position": {
+        "x": 620,
+        "y": -620
+      },
+      "width": 520,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Publish a polished new-template demonstration\n\nOpen this task graph to inspect and advance its authoritative work."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "template-video-ui-polish-declaration"
+        }
       }
     }
   ],
@@ -2020,7 +2731,7 @@
       "type": "reference",
       "source": "template-video-ui-polish-declaration",
       "target": "template-video-ui-polish-bridge-goal",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -2034,7 +2745,7 @@
       "type": "reference",
       "source": "template-video-ui-polish-declaration",
       "target": "template-video-ui-polish-bridge-task",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -2048,7 +2759,7 @@
       "type": "reference",
       "source": "template-video-ui-polish-declaration",
       "target": "template-video-ui-polish-bridge-question",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -2062,7 +2773,7 @@
       "type": "reference",
       "source": "template-video-ui-polish-declaration",
       "target": "template-video-ui-polish-bridge-summary",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -2076,7 +2787,7 @@
       "type": "reference",
       "source": "template-video-ui-polish-declaration",
       "target": "template-video-ui-polish-bridge-decision",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -2090,7 +2801,7 @@
       "type": "reference",
       "source": "template-video-ui-polish-declaration",
       "target": "template-video-ui-polish-goal",
-      "sourcePort": "bottom",
+      "sourcePort": "port",
       "targetPort": "top",
       "label": "goal",
       "style": {
@@ -2266,6 +2977,84 @@
         "route": "curved"
       },
       "data": {}
+    },
+    {
+      "id": "template-video-ui-polish-declaration-default-view-edge",
+      "type": "default-view",
+      "source": "template-video-ui-polish-declaration",
+      "target": "template-video-ui-polish-declaration-detail-view",
+      "sourcePort": "default-view",
+      "targetPort": "root",
+      "label": "default view",
+      "data": {
+        "role": "default-view",
+        "semanticRole": "default-view"
+      }
+    },
+    {
+      "id": "template-video-ui-polish-declaration-summary-view-edge",
+      "type": "reference",
+      "source": "template-video-ui-polish-declaration",
+      "target": "template-video-ui-polish-declaration-summary-view",
+      "sourcePort": "summary-view",
+      "targetPort": "root",
+      "label": "summary view",
+      "data": {
+        "role": "shared-summary",
+        "semanticRole": "shared-summary"
+      }
+    },
+    {
+      "id": "template-video-ui-polish-declaration-icon-view-edge",
+      "type": "reference",
+      "source": "template-video-ui-polish-declaration",
+      "target": "template-video-ui-polish-declaration-icon-view-modern",
+      "sourcePort": "icon-view",
+      "targetPort": "root",
+      "label": "icon view",
+      "data": {
+        "role": "shared-icon",
+        "semanticRole": "shared-icon"
+      }
+    },
+    {
+      "id": "template-video-ui-polish-declaration-glyph-edge",
+      "type": "reference",
+      "source": "template-video-ui-polish-declaration",
+      "target": "template-video-ui-polish-declaration-glyph",
+      "sourcePort": "glyph",
+      "targetPort": "root",
+      "label": "glyph",
+      "data": {
+        "role": "shared-glyph",
+        "semanticRole": "shared-glyph"
+      }
+    },
+    {
+      "id": "template-video-ui-polish-declaration-landing-surface-edge",
+      "type": "reference",
+      "source": "template-video-ui-polish-declaration",
+      "target": "template-video-ui-polish-declaration-landing-surface",
+      "sourcePort": "landing-surface",
+      "targetPort": "root",
+      "label": "landing surface",
+      "data": {
+        "role": "landing-surface",
+        "semanticRole": "landing-surface"
+      }
+    },
+    {
+      "id": "template-video-ui-polish-declaration-port-edge",
+      "type": "reference",
+      "source": "template-video-ui-polish-declaration",
+      "target": "b18c32e0-b18b-46c9-8325-bb68c717b0c1",
+      "sourcePort": "port",
+      "targetPort": "root",
+      "label": "port",
+      "data": {
+        "role": "exposes-port",
+        "semanticRole": "exposes-port"
+      }
     }
   ],
   "clusters": [],
@@ -2308,5 +3097,7 @@
     },
     "autoSave": false
   },
-  "scripts": []
+  "scripts": [],
+  "nodeCount": 25,
+  "edgeCount": 24
 }

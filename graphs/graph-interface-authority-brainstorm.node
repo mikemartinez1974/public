@@ -1,0 +1,2887 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Graph Interface and Bridge Authority",
+    "description": "Explore removal of redundant root metadata, graph-authored aspect ratio, and direct bridge-mediated type resolution.",
+    "graphId": "graph-interface-authority-brainstorm",
+    "version": "0.1.0",
+    "kind": "brainstorm",
+    "created": "2026-08-27T18:00:00.000Z",
+    "modified": "2026-08-27T18:00:00.000Z",
+    "author": "",
+    "tags": [
+      "brainstorm",
+      "architecture"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "graph-interface-authority-brainstorm-declaration",
+      "type": "declaration",
+      "label": "Graph Interface and Bridge Authority Declaration",
+      "position": {
+        "x": -900,
+        "y": -1500
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view",
+          "allowedEdgeTypes": [
+            "default-view"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-view",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-summary",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-icon",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-glyph",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "glyph",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "landing-surface",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "portId": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "portId": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "portId": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "portId": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "portId": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port"
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "portId": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm",
+          "nodeId": "brainstorm",
+          "name": "Graph Interface and Bridge Authority",
+          "version": "0.1.0",
+          "description": "Explore removal of redundant root metadata, graph-authored aspect ratio, and direct bridge-mediated type resolution.",
+          "createdAt": "2026-08-27T18:00:00.000Z",
+          "updatedAt": "2026-08-27T18:00:00.000Z"
+        },
+        "intent": {
+          "kind": "brainstorm",
+          "scope": "shared"
+        },
+        "declaration": {
+          "kind": "brainstorm",
+          "targetMode": "artifact",
+          "artifactKind": "brainstorm",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "brainstorm",
+          "surfaces": [
+            {
+              "id": "brainstorm",
+              "kind": "port",
+              "label": "Graph Interface and Bridge Authority",
+              "presentation": {
+                "detail": {
+                  "mode": "shared",
+                  "viewNodeId": "graph-interface-authority-brainstorm-detail-view"
+                },
+                "summary": {
+                  "mode": "shared",
+                  "viewNodeId": "graph-interface-authority-brainstorm-summary-view"
+                },
+                "icon": {
+                  "mode": "shared",
+                  "viewNodeId": "graph-interface-authority-brainstorm-icon-view"
+                }
+              },
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ]
+        },
+        "dependencies": {
+          "nodeTypes": [
+            "declaration",
+            "content",
+            "view",
+            "glyph",
+            "port",
+            "bridge",
+            "idea",
+            "idea-question",
+            "constraint",
+            "decision"
+          ],
+          "portContracts": [
+            "core"
+          ],
+          "skills": [
+            "brainstorm-template"
+          ],
+          "schemaVersions": {
+            "nodes": ">=1.0.0",
+            "ports": ">=1.0.0"
+          },
+          "optional": []
+        },
+        "authority": {
+          "mutation": {
+            "allowCreate": true,
+            "allowUpdate": true,
+            "allowDelete": true,
+            "appendOnly": false
+          },
+          "actors": {
+            "humans": true,
+            "agents": true,
+            "tools": true
+          },
+          "styleAuthority": "descriptive",
+          "history": {
+            "rewriteAllowed": false,
+            "squashAllowed": false
+          }
+        },
+        "settings": {
+          "theme": null,
+          "backgroundImage": null,
+          "defaultNodeColor": "#1976d2",
+          "defaultEdgeColor": "",
+          "snapToGrid": false,
+          "gridSize": 20,
+          "edgeRouting": "auto",
+          "layout": {
+            "mode": "manual",
+            "defaultLayout": "layered",
+            "direction": "DOWN",
+            "edgeLaneGapPx": 12,
+            "serpentine": {
+              "maxPerRow": 5
+            },
+            "cycleFallback": {
+              "enabled": true
+            },
+            "elk": {
+              "algorithm": "fixed",
+              "edgeRouting": "ORTHOGONAL",
+              "portConstraints": "FIXED_SIDE",
+              "nodeSpacing": 120,
+              "layeredEdgeSpacing": 80
+            }
+          },
+          "autoSave": false
+        },
+        "document": {
+          "url": ""
+        }
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-detail-view",
+      "type": "view",
+      "label": "Idea Detail View",
+      "position": {
+        "x": -1500,
+        "y": -1580
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "semanticLevel": "detail",
+        "content": {
+          "kind": "markdown",
+          "value": "# Graph Interface and Bridge Authority\n\nExplore removal of redundant root metadata, graph-authored aspect ratio, and direct bridge-mediated type resolution."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm"
+        }
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-summary-view",
+      "type": "view",
+      "label": "Idea Summary View",
+      "position": {
+        "x": -1500,
+        "y": -1240
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "semanticLevel": "summary",
+        "content": {
+          "kind": "markdown",
+          "value": "## Graph Interface and Bridge Authority\n\nA loose graph where ideas, questions, constraints, references, and outcomes can acquire structure."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm"
+        }
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-icon-view",
+      "type": "view",
+      "label": "Idea Icon View",
+      "position": {
+        "x": -1500,
+        "y": -900
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "semanticLevel": "icon",
+        "content": {
+          "kind": "svg",
+          "value": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220'><rect width='320' height='220' rx='28' fill='#172554'/><circle cx='95' cy='105' r='28' fill='#fbbf24'/><circle cx='160' cy='70' r='22' fill='#a78bfa'/><circle cx='225' cy='120' r='25' fill='#38bdf8'/><path d='M115 92L140 79M180 80L205 105M120 116L200 120' stroke='#fff' stroke-width='8' stroke-linecap='round'/><text x='160' y='190' text-anchor='middle' fill='#fff' font-family='system-ui' font-size='20' font-weight='800'>BRAINSTORM</text></svg>"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm"
+        }
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-glyph",
+      "type": "glyph",
+      "label": "Idea Glyph",
+      "position": {
+        "x": -900,
+        "y": -1900
+      },
+      "width": 220,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": {
+          "kind": "character",
+          "value": "✦"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
+        },
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm"
+        }
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-landing-surface",
+      "type": "content",
+      "label": "Idea Template Landing Surface",
+      "position": {
+        "x": -223.20927807556004,
+        "y": -1532.1918816838852
+      },
+      "width": 520,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Graph Interface and Bridge Authority\n\nExplore removal of redundant root metadata, graph-authored aspect ratio, and direct bridge-mediated type resolution."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1787849375818,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-brainstorm",
+      "type": "content",
+      "label": "Graph Interface and Bridge Authority",
+      "position": {
+        "x": -100,
+        "y": 0
+      },
+      "width": 520,
+      "height": 340,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "brainstorm.root",
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "brainstorm.root",
+            "required": false,
+            "repeatable": true
+          }
+        },
+        {
+          "id": "ideas",
+          "key": "ideas",
+          "label": "ideas",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 330,
+          "role": "brainstorm.ideas",
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "brainstorm.ideas",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "idea",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "questions",
+          "key": "questions",
+          "label": "questions",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 345,
+          "role": "brainstorm.questions",
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "brainstorm.questions",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "idea-question",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "constraints",
+          "key": "constraints",
+          "label": "constraints",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "brainstorm.constraints",
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "brainstorm.constraints",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "constraint",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "references",
+          "key": "references",
+          "label": "references",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 15,
+          "role": "brainstorm.references",
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "brainstorm.references",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "outcomes",
+          "key": "outcomes",
+          "label": "outcomes",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 30,
+          "role": "brainstorm.outcomes",
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "brainstorm.outcomes",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "decision",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "brainstorm.root"
+        },
+        {
+          "id": "ideas",
+          "key": "ideas",
+          "portId": "ideas",
+          "label": "ideas",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 330,
+          "role": "brainstorm.ideas"
+        },
+        {
+          "id": "questions",
+          "key": "questions",
+          "portId": "questions",
+          "label": "questions",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 345,
+          "role": "brainstorm.questions"
+        },
+        {
+          "id": "constraints",
+          "key": "constraints",
+          "portId": "constraints",
+          "label": "constraints",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "brainstorm.constraints"
+        },
+        {
+          "id": "references",
+          "key": "references",
+          "portId": "references",
+          "label": "references",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 15,
+          "role": "brainstorm.references"
+        },
+        {
+          "id": "outcomes",
+          "key": "outcomes",
+          "portId": "outcomes",
+          "label": "outcomes",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 30,
+          "role": "brainstorm.outcomes"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm",
+          "nodeId": "brainstorm"
+        },
+        "semanticType": "brainstorm",
+        "title": "Graph Interface and Bridge Authority",
+        "framing": "Explore removal of redundant root metadata, graph-authored aspect ratio, and direct bridge-mediated type resolution.",
+        "content": {
+          "kind": "markdown",
+          "value": "# Graph Interface and Bridge Authority\n\nExplore removal of redundant root metadata, graph-authored aspect ratio, and direct bridge-mediated type resolution."
+        },
+        "renderShape": {
+          "kind": "markdown"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "role": "brainstorm-provider",
+          "freeformEdgesAllowed": true,
+          "spatialClustersAreAdvisory": true
+        }
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-port",
+      "type": "port",
+      "label": "Brainstorm",
+      "position": {
+        "x": -980,
+        "y": 620
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "port.root",
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "port.root",
+            "required": false,
+            "repeatable": true
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "port.root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm",
+          "nodeId": "brainstorm-port"
+        },
+        "surfaceId": "brainstorm",
+        "direction": "bidirectional",
+        "dataType": "brainstorm",
+        "sourceScope": "graph",
+        "sourceNodeId": "graph-interface-authority-brainstorm-brainstorm",
+        "sourcePayload": "content",
+        "renderedNodeType": "brainstorm",
+        "presentation": {
+          "detail": {
+            "mode": "shared"
+          },
+          "summary": {
+            "mode": "shared"
+          },
+          "icon": {
+            "mode": "shared"
+          }
+        },
+        "authority": {
+          "consume": true,
+          "navigate": true
+        }
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-idea",
+      "type": "idea",
+      "label": "Remove redundant root property",
+      "position": {
+        "x": 620,
+        "y": -320
+      },
+      "width": 400,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "Remove redundant root property",
+        "statement": "Stop writing top-level root metadata and derive root semantics from the declaration interface while retaining legacy read compatibility.",
+        "status": "spark",
+        "confidence": "medium",
+        "notes": "Everything else in this graph should explain, test, challenge, support, or advance this idea.",
+        "definitionKey": "idea",
+        "_classBinding": {
+          "key": "idea",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
+          "defaults": {
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ],
+            "data": {
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Lightbulb"
+                }
+              }
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "idea",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
+          "targetKind": "node-class"
+        },
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Lightbulb"
+          }
+        }
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-idea-bridge",
+      "type": "bridge",
+      "label": "Remove redundant root property",
+      "position": {
+        "x": 200,
+        "y": -320
+      },
+      "width": 360,
+      "height": 120,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "_bridge": {
+          "classKey": "idea",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
+          "targetKind": "node-class"
+        },
+        "_classBinding": {
+          "key": "idea",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
+          "defaults": {
+            "label": "Idea",
+            "size": {
+              "width": 400,
+              "height": 300
+            },
+            "color": "#7c3aed",
+            "showLabel": false,
+            "data": {
+              "title": "",
+              "statement": "",
+              "status": "spark",
+              "confidence": "unproven",
+              "notes": "",
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Lightbulb"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "idea",
+            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Idea",
+              "size": {
+                "width": 400,
+                "height": 300
+              },
+              "color": "#7c3aed",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "statement": "",
+                "status": "spark",
+                "confidence": "unproven",
+                "notes": "",
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Lightbulb"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          },
+          "views": [
+            {
+              "key": "idea",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "idea",
+              "intent": "node",
+              "payload": "node.web.detail",
+              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "idea",
+              "intent": "node",
+              "payload": "node.web.summary",
+              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "idea",
+              "intent": "node",
+              "payload": "node.web.icon",
+              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            }
+          ]
+        },
+        "authority": "bridge",
+        "bridge": {
+          "grants": [
+            "create"
+          ],
+          "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph"
+        },
+        "grants": [
+          "create"
+        ],
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm"
+        },
+        "intent": "external",
+        "memo": "Create and resolve Idea nodes in this graph.",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "target": {
+          "grants": [
+            "create"
+          ],
+          "key": "idea",
+          "kind": "node-class",
+          "label": "Create",
+          "mode": "bridge",
+          "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1787849288042,
+          "reason": "node-drag"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Lightbulb"
+          }
+        }
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-question",
+      "type": "idea-question",
+      "label": "Where should aspect ratio live?",
+      "position": {
+        "x": 620,
+        "y": 80
+      },
+      "width": 400,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "Where should aspect ratio live?",
+        "question": "Should interface aspect ratio be explicit declaration metadata, inferred from landing-surface geometry, or an authored constraint combined with that geometry?",
+        "status": "open",
+        "answer": "",
+        "definitionKey": "idea-question",
+        "_classBinding": {
+          "key": "idea-question",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "defaults": {
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ],
+            "data": {
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "HelpOutline"
+                }
+              }
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "idea-question",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "targetKind": "node-class"
+        },
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "HelpOutline"
+          }
+        }
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-question-bridge",
+      "type": "bridge",
+      "label": "Where should aspect ratio live?",
+      "position": {
+        "x": 200,
+        "y": 80
+      },
+      "width": 360,
+      "height": 120,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "_bridge": {
+          "classKey": "idea-question",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "targetKind": "node-class"
+        },
+        "_classBinding": {
+          "key": "idea-question",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "defaults": {
+            "label": "Question",
+            "size": {
+              "width": 400,
+              "height": 300
+            },
+            "color": "#ca8a04",
+            "showLabel": false,
+            "data": {
+              "title": "",
+              "question": "",
+              "status": "open",
+              "answer": "",
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "HelpOutline"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "idea-question",
+            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Question",
+              "size": {
+                "width": 400,
+                "height": 300
+              },
+              "color": "#ca8a04",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "question": "",
+                "status": "open",
+                "answer": "",
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "HelpOutline"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          },
+          "views": [
+            {
+              "key": "idea-question",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "idea-question",
+              "intent": "node",
+              "payload": "node.web.detail",
+              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "idea-question",
+              "intent": "node",
+              "payload": "node.web.summary",
+              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "idea-question",
+              "intent": "node",
+              "payload": "node.web.icon",
+              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            }
+          ]
+        },
+        "authority": "bridge",
+        "bridge": {
+          "grants": [
+            "create"
+          ],
+          "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph"
+        },
+        "grants": [
+          "create"
+        ],
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm"
+        },
+        "intent": "external",
+        "memo": "Create and resolve Question nodes in this graph.",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "target": {
+          "grants": [
+            "create"
+          ],
+          "key": "idea-question",
+          "kind": "node-class",
+          "label": "Create",
+          "mode": "bridge",
+          "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1787849288060,
+          "reason": "node-drag"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "HelpOutline"
+          }
+        }
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-outcome",
+      "type": "decision",
+      "label": "Bridge authority must remain visible",
+      "position": {
+        "x": 620,
+        "y": 480
+      },
+      "width": 420,
+      "height": 240,
+      "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "rationale": "Silent fallback would conceal broken authority.",
+        "status": "proposed",
+        "decidedAt": "",
+        "owner": "",
+        "supersededBy": "",
+        "body": "Nodes carry domain data plus an optional bridgeRef. Bridge resolution supplies external type authority; failures must be explicit unless the graph opts into a safe fallback.",
+        "definitionKey": "decision",
+        "_classBinding": {
+          "key": "decision",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "defaults": {
+            "label": "Decision",
+            "size": {
+              "width": 420,
+              "height": 240
+            },
+            "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
+            "showLabel": false,
+            "data": {
+              "rationale": "State why this decision was made.",
+              "status": "decided",
+              "decidedAt": "",
+              "owner": "",
+              "supersededBy": "",
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Gavel"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "decision",
+            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Decision",
+              "size": {
+                "width": 420,
+                "height": 240
+              },
+              "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
+              "showLabel": false,
+              "data": {
+                "rationale": "State why this decision was made.",
+                "status": "decided",
+                "decidedAt": "",
+                "owner": "",
+                "supersededBy": "",
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Gavel"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "_bridge": {
+          "sourceNodeId": "task-graph-template-bridge-decision",
+          "sourceBridgeNodeId": "task-graph-template-bridge-decision",
+          "sourceBridgeLabel": "Decision",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class",
+          "classKey": "decision",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
+        },
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1784322332554,
+          "reason": "node-drag"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Gavel"
+          }
+        }
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-outcome-bridge",
+      "type": "bridge",
+      "label": "Bridge authority must remain visible",
+      "position": {
+        "x": 200,
+        "y": 480
+      },
+      "width": 300,
+      "height": 120,
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "memo": "Visible node-class bridge for Decision.",
+        "target": {
+          "mode": "bridge",
+          "label": "Create",
+          "kind": "node-class",
+          "key": "decision",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "intent": "external",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "grants": [
+          "create"
+        ],
+        "authority": "bridge",
+        "bridge": {
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "_classBinding": {
+          "key": "decision",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "defaults": {
+            "label": "Decision",
+            "size": {
+              "width": 420,
+              "height": 240
+            },
+            "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
+            "showLabel": false,
+            "data": {
+              "rationale": "State why this decision was made.",
+              "status": "decided",
+              "decidedAt": "",
+              "owner": "",
+              "supersededBy": "",
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Gavel"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "decision",
+            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Decision",
+              "size": {
+                "width": 420,
+                "height": 240
+              },
+              "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
+              "showLabel": false,
+              "data": {
+                "rationale": "State why this decision was made.",
+                "status": "decided",
+                "decidedAt": "",
+                "owner": "",
+                "supersededBy": "",
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Gavel"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "_bridge": {
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class",
+          "classKey": "decision",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
+        },
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Gavel"
+          }
+        }
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-constraint",
+      "type": "constraint",
+      "label": "Bridge-required data belongs behind authority",
+      "position": {
+        "x": -40,
+        "y": -480
+      },
+      "width": 420,
+      "height": 260,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210,
+          "key": "root"
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270,
+          "key": "top"
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0,
+          "key": "right"
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90,
+          "key": "bottom"
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180,
+          "key": "left"
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "body": "A node must not carry cached class data whose meaning depends on a Bridge. It may carry domain data and an optional bridgeRef.",
+        "type": "architecture",
+        "severity": "hard",
+        "scope": "graph",
+        "affectedNodes": [],
+        "definitionKey": "constraint",
+        "_classBinding": {
+          "key": "constraint",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/constraint.node-class.node",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/constraint.node-class.node"
+        },
+        "_bridge": {
+          "classKey": "constraint",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/constraint.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/constraint.node-class.node",
+          "targetKind": "node-class"
+        },
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm"
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "key": "top",
+          "portId": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "key": "right",
+          "portId": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "key": "bottom",
+          "portId": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "key": "left",
+          "portId": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-constraint-bridge",
+      "type": "bridge",
+      "label": "Constraint",
+      "position": {
+        "x": -460,
+        "y": -480
+      },
+      "width": 300,
+      "height": 120,
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        },
+        {
+          "key": "top",
+          "label": "top",
+          "type": "value"
+        },
+        {
+          "key": "left",
+          "label": "left",
+          "type": "value"
+        },
+        {
+          "key": "bottom",
+          "label": "bottom",
+          "type": "value"
+        },
+        {
+          "key": "right",
+          "label": "right",
+          "type": "value"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "memo": "Visible node-class bridge for Decision.",
+        "target": {
+          "mode": "bridge",
+          "label": "Create",
+          "kind": "node-class",
+          "key": "constraint",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/constraint.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "intent": "external",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "grants": [
+          "create"
+        ],
+        "authority": "bridge",
+        "bridge": {
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/constraint.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "_classBinding": {
+          "key": "constraint",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/constraint.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/constraint.node-class.node",
+          "defaults": {
+            "label": "Constraint",
+            "size": {
+              "width": 420,
+              "height": 260
+            },
+            "color": "linear-gradient(135deg, #ffd2d2, #c44747)",
+            "showLabel": false,
+            "data": {
+              "body": "Describe the boundary that must be respected.",
+              "type": "policy",
+              "severity": "hard",
+              "scope": "subgraph",
+              "affectedNodes": []
+            },
+            "ports": [
+              {
+                "id": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 210
+              },
+              {
+                "id": "top",
+                "label": "top",
+                "direction": "bidirectional",
+                "dataType": "value",
+                "angle": 270
+              },
+              {
+                "id": "right",
+                "label": "right",
+                "direction": "bidirectional",
+                "dataType": "value",
+                "angle": 0
+              },
+              {
+                "id": "bottom",
+                "label": "bottom",
+                "direction": "bidirectional",
+                "dataType": "value",
+                "angle": 90
+              },
+              {
+                "id": "left",
+                "label": "left",
+                "direction": "bidirectional",
+                "dataType": "value",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "constraint",
+            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/constraint.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Constraint",
+              "size": {
+                "width": 420,
+                "height": 260
+              },
+              "color": "linear-gradient(135deg, #ffd2d2, #c44747)",
+              "showLabel": false,
+              "data": {
+                "body": "Describe the boundary that must be respected.",
+                "type": "policy",
+                "severity": "hard",
+                "scope": "subgraph",
+                "affectedNodes": []
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 210
+                },
+                {
+                  "id": "top",
+                  "label": "top",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 270
+                },
+                {
+                  "id": "right",
+                  "label": "right",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 0
+                },
+                {
+                  "id": "bottom",
+                  "label": "bottom",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 90
+                },
+                {
+                  "id": "left",
+                  "label": "left",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "_bridge": {
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/constraint.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class",
+          "classKey": "constraint",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/constraint.node-class.node"
+        },
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Gavel"
+          }
+        }
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-reference",
+      "type": "content",
+      "label": "Bridge resolution sketch",
+      "position": {
+        "x": -100,
+        "y": 520
+      },
+      "width": 460,
+      "height": 260,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "content.root",
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "content.root",
+            "required": false,
+            "repeatable": true
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "graph-interface-authority-brainstorm"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "## Resolution sketch\n\n`node → bridgeRef → graph-local Bridge → external class/type`\n\nFallback should be explicit, inspectable, and never disguise lost authority."
+        },
+        "renderShape": {
+          "kind": "markdown"
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "content.root"
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "graph-interface-authority-brainstorm-default-view-edge",
+      "type": "reference",
+      "source": "graph-interface-authority-brainstorm-declaration",
+      "target": "graph-interface-authority-brainstorm-detail-view",
+      "sourcePort": "default-view",
+      "targetPort": "root",
+      "label": "default view",
+      "style": {},
+      "data": {
+        "semanticRole": "default-view"
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-summary-view-edge",
+      "type": "reference",
+      "source": "graph-interface-authority-brainstorm-declaration",
+      "target": "graph-interface-authority-brainstorm-summary-view",
+      "sourcePort": "summary-view",
+      "targetPort": "root",
+      "label": "summary view",
+      "style": {},
+      "data": {
+        "semanticRole": "shared-summary"
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-icon-view-edge",
+      "type": "reference",
+      "source": "graph-interface-authority-brainstorm-declaration",
+      "target": "graph-interface-authority-brainstorm-icon-view",
+      "sourcePort": "icon-view",
+      "targetPort": "root",
+      "label": "icon view",
+      "style": {},
+      "data": {
+        "semanticRole": "shared-icon"
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-glyph-edge",
+      "type": "reference",
+      "source": "graph-interface-authority-brainstorm-declaration",
+      "target": "graph-interface-authority-brainstorm-glyph",
+      "sourcePort": "glyph",
+      "targetPort": "root",
+      "label": "glyph",
+      "style": {},
+      "data": {
+        "semanticRole": "shared-glyph"
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-landing-edge",
+      "type": "reference",
+      "source": "graph-interface-authority-brainstorm-declaration",
+      "target": "graph-interface-authority-brainstorm-landing-surface",
+      "sourcePort": "landing-surface",
+      "targetPort": "root",
+      "label": "landing surface",
+      "style": {},
+      "data": {
+        "semanticRole": "landing-surface"
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-port-edge",
+      "type": "reference",
+      "source": "graph-interface-authority-brainstorm-declaration",
+      "target": "graph-interface-authority-brainstorm-port",
+      "sourcePort": "port",
+      "targetPort": "root",
+      "label": "exposes brainstorm",
+      "style": {},
+      "data": {
+        "semanticRole": "exposes-port"
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-idea-edge",
+      "type": "reference",
+      "source": "graph-interface-authority-brainstorm-brainstorm",
+      "target": "graph-interface-authority-brainstorm-idea",
+      "sourcePort": "ideas",
+      "targetPort": "root",
+      "label": "idea",
+      "style": {},
+      "data": {
+        "semanticRole": "brainstorm.idea"
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-question-edge",
+      "type": "reference",
+      "source": "graph-interface-authority-brainstorm-brainstorm",
+      "target": "graph-interface-authority-brainstorm-question",
+      "sourcePort": "questions",
+      "targetPort": "root",
+      "label": "raises",
+      "style": {},
+      "data": {
+        "semanticRole": "raises"
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-constraint-edge",
+      "type": "reference",
+      "source": "graph-interface-authority-brainstorm-brainstorm",
+      "target": "graph-interface-authority-brainstorm-constraint",
+      "sourcePort": "constraints",
+      "targetPort": "root",
+      "label": "constrained by",
+      "style": {},
+      "data": {
+        "semanticRole": "constrains"
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-reference-edge",
+      "type": "reference",
+      "source": "graph-interface-authority-brainstorm-brainstorm",
+      "target": "graph-interface-authority-brainstorm-reference",
+      "sourcePort": "references",
+      "targetPort": "root",
+      "label": "derived from",
+      "style": {},
+      "data": {
+        "semanticRole": "derived-from"
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-outcome-edge",
+      "type": "reference",
+      "source": "graph-interface-authority-brainstorm-brainstorm",
+      "target": "graph-interface-authority-brainstorm-outcome",
+      "sourcePort": "outcomes",
+      "targetPort": "root",
+      "label": "suggests",
+      "style": {},
+      "data": {
+        "semanticRole": "relates-to"
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-bridge-depends",
+      "type": "reference",
+      "source": "graph-interface-authority-brainstorm-idea",
+      "target": "graph-interface-authority-brainstorm-reference",
+      "sourcePort": "right",
+      "targetPort": "root",
+      "label": "depends on",
+      "style": {},
+      "data": {
+        "semanticRole": "depends-on"
+      }
+    },
+    {
+      "id": "graph-interface-authority-brainstorm-decision-constrains",
+      "type": "reference",
+      "source": "graph-interface-authority-brainstorm-outcome",
+      "target": "graph-interface-authority-brainstorm-idea",
+      "sourcePort": "left",
+      "targetPort": "root",
+      "label": "constrains",
+      "style": {},
+      "data": {
+        "semanticRole": "constrains"
+      }
+    }
+  ],
+  "clusters": [],
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1e3a8a",
+    "defaultEdgeColor": "#64748b",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": {
+      "mode": "manual"
+    },
+    "github": {
+      "repo": "mikemartinez1974/public",
+      "path": "graphs/graph-interface-authority-brainstorm.node",
+      "branch": "main",
+      "autoCreateRepo": true,
+      "repoVisibility": "public",
+      "seedOnCommit": false,
+      "enableGithubPages": false,
+      "installationId": "120403738"
+    },
+    "autoSave": false
+  },
+  "scripts": []
+}

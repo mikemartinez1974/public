@@ -28,31 +28,174 @@
       "height": 390,
       "ports": [
         {
-          "id": "left",
-          "label": "left",
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default view",
           "direction": "output",
-          "dataType": "value",
-          "angle": 180
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view",
+          "allowedEdgeTypes": [
+            "default-view"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-view",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "right",
-          "label": "right",
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary view",
           "direction": "output",
-          "dataType": "value",
-          "angle": 0
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-summary",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "bottom",
-          "label": "bottom",
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon view",
           "direction": "output",
-          "dataType": "value",
-          "angle": 90
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-icon",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-glyph",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "glyph",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "landing-surface",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "visible": true,
       "showLabel": true,
       "data": {
-        "analytics": { "contentGroup": "planning" },
+        "analytics": {
+          "contentGroup": "planning"
+        },
         "identity": {
           "graphId": "data-handoff-declaration",
           "name": "Inter-Graph Data Handoff Plan",
@@ -61,11 +204,11 @@
           "updatedAt": "2026-07-28T00:00:00.000Z"
         },
         "intent": {
-          "kind": "task-graph",
+          "kind": "task",
           "scope": "public"
         },
         "declaration": {
-          "kind": "task-graph",
+          "kind": "task",
           "targetMode": "artifact",
           "artifactKind": "graph",
           "graphViewRole": "authoring",
@@ -73,10 +216,9 @@
             {
               "id": "summary",
               "kind": "port",
-              "label": "Data Handoff Plan",
+              "label": "Deliver typed data across a portal-port boundary",
               "portNodeId": "data-handoff-summary-port",
-              "viewNodeId": "data-handoff-summary-port",
-              "memo": "Public summary surface consumed by the workboard.",
+              "viewNodeId": "data-handoff-declaration-summary-view",
               "exposes": {
                 "views": {
                   "mode": "allow"
@@ -88,7 +230,12 @@
             }
           ],
           "primaryNodeViewId": "data-handoff-summary-port",
-          "portViewNodeId": "data-handoff-summary-port"
+          "portViewNodeId": "data-handoff-summary-port",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": ""
         },
         "dependencies": {
           "nodeTypes": [
@@ -156,12 +303,107 @@
         "document": {
           "url": ""
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "portId": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "portId": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "portId": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "portId": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "portId": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port"
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "portId": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface"
+        }
+      ],
+      "inputs": [],
+      "outputs": [
+        {
+          "key": "default-view",
+          "label": "default view",
+          "type": "any"
+        },
+        {
+          "key": "summary-view",
+          "label": "summary view",
+          "type": "any"
+        },
+        {
+          "key": "icon-view",
+          "label": "icon view",
+          "type": "any"
+        },
+        {
+          "key": "glyph",
+          "label": "glyph",
+          "type": "any"
+        },
+        {
+          "key": "port",
+          "label": "port",
+          "type": "any"
+        },
+        {
+          "key": "landing-surface",
+          "label": "landing surface",
+          "type": "any"
+        }
+      ]
     },
     {
       "id": "data-handoff-summary-port",
       "type": "port",
-      "label": "Data Handoff Plan",
+      "label": "Deliver typed data across a portal-port boundary",
       "root": false,
       "position": {
         "x": 620,
@@ -172,17 +414,11 @@
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "input",
-          "dataType": "value",
+          "dataType": "any",
           "angle": 270
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "output",
-          "dataType": "value",
-          "angle": 90
         }
       ],
       "style": {
@@ -196,21 +432,63 @@
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "inter-graph-data-handoff-plan",
+          "graphId": "data-handoff-declaration",
           "name": "Inter-Graph Data Handoff"
         },
         "view": {
           "intent": "node",
-          "payload": "node.web.summary",
-          "surfaceId": "summary"
+          "payload": "node.web",
+          "nodeType": "task"
         },
         "sourceScope": "graph",
         "sourceRef": "",
         "sourceNodeId": "data-handoff-summary",
-        "sourcePayload": "node.web.summary",
+        "sourcePayload": "node.web",
         "authority": "consume-view",
-        "memo": "Hidden public interface that delegates presentation and focus to the live summary node."
-      }
+        "memo": "Hidden public interface that delegates presentation and focus to the live summary node.",
+        "surfaceId": "summary",
+        "direction": "output",
+        "targetNodeId": "data-handoff-summary",
+        "dataType": "task",
+        "renderedNodeType": "task",
+        "presentation": {
+          "detail": {
+            "mode": "own",
+            "viewNodeId": "data-handoff-summary"
+          },
+          "summary": {
+            "mode": "own",
+            "viewNodeId": "data-handoff-summary"
+          },
+          "icon": {
+            "mode": "own",
+            "viewNodeId": "data-handoff-summary"
+          },
+          "glyph": {
+            "mode": "own",
+            "viewNodeId": "data-handoff-summary"
+          }
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": []
     },
     {
       "id": "bridge-goal",
@@ -1368,12 +1646,99 @@
           "How does a graph observe received data?"
         ],
         "summarySource": "node-updater",
-        "updatedAt": "2026-07-30T17:01:05.488Z",
+        "updatedAt": "2026-08-27T22:21:14.507Z",
         "nodeViewPayload": "node.web",
-        "definitionKey": "summary",
+        "definitionKey": "task",
         "_classBinding": {
-          "key": "summary",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node"
+          "key": "task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "defaults": {
+            "label": "Task",
+            "size": {
+              "width": 380,
+              "height": 260
+            },
+            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+            "showLabel": false,
+            "data": {
+              "title": "",
+              "body": "Describe the concrete work to execute.",
+              "priority": "high",
+              "status": "todo",
+              "owner": "",
+              "estimateHours": "",
+              "targetDate": "",
+              "startedAt": "",
+              "completedAt": "",
+              "externalRef": "",
+              "acceptanceCriteria": [
+                "Describe what done looks like"
+              ],
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Checklist"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "task",
+            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Task",
+              "size": {
+                "width": 380,
+                "height": 260
+              },
+              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "body": "Describe the concrete work to execute.",
+                "priority": "high",
+                "status": "todo",
+                "owner": "",
+                "estimateHours": "",
+                "targetDate": "",
+                "startedAt": "",
+                "completedAt": "",
+                "externalRef": "",
+                "acceptanceCriteria": [
+                  "Describe what done looks like"
+                ],
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Checklist"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          }
         },
         "identity": {
           "graphId": "inter-graph-data-handoff-plan"
@@ -1382,7 +1747,449 @@
         "taskListText": "1. Define the handoff envelope\n2. Make port inputs and outputs enforceable\n3. Define portal-to-input binding\n4. Carry the handoff through navigation\n5. Deliver to a destination input\n6. Enforce authority and report failures\n7. Build a two-graph smoke test\n8. Document the channel model",
         "questionListText": "1. Where should a navigation handoff live?\n2. How does a graph observe received data?",
         "memo": "",
-        "link": ""
+        "link": "",
+        "title": "Deliver typed data across a portal-port boundary",
+        "body": "Goal: Deliver typed data across a portal-port boundary",
+        "estimateHours": "",
+        "startedAt": "",
+        "completedAt": "",
+        "externalRef": "",
+        "acceptanceCriteria": [
+          "Review the graph-owned task summary for current scope and progress"
+        ],
+        "_bridge": {
+          "sourceNodeId": "",
+          "sourceBridgeNodeId": "",
+          "sourceBridgeLabel": "Task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "classKey": "task",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Checklist"
+          }
+        }
+      }
+    },
+    {
+      "id": "data-handoff-declaration-detail-view",
+      "type": "view",
+      "label": "Deliver typed data across a portal-port boundary Detail",
+      "position": {
+        "x": -600,
+        "y": -1040
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "semanticLevel": "detail",
+        "content": {
+          "kind": "markdown",
+          "value": "# Deliver typed data across a portal-port boundary\n\nA graph-owned task with its goal, concrete work, decisions, questions, and current operational summary."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "data-handoff-declaration"
+        }
+      }
+    },
+    {
+      "id": "data-handoff-declaration-summary-view",
+      "type": "view",
+      "label": "Deliver typed data across a portal-port boundary Summary View",
+      "position": {
+        "x": -600,
+        "y": -700
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "semanticLevel": "summary",
+        "content": {
+          "kind": "markdown",
+          "value": "## Deliver typed data across a portal-port boundary\n\nCurrent status, priority, progress, next action, blockers, and unresolved questions."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "data-handoff-declaration"
+        }
+      }
+    },
+    {
+      "id": "data-handoff-declaration-icon-view-modern",
+      "type": "view",
+      "label": "Deliver typed data across a portal-port boundary Icon View",
+      "position": {
+        "x": -600,
+        "y": -360
+      },
+      "width": 420,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "semanticLevel": "icon",
+        "content": {
+          "kind": "svg",
+          "value": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220'><rect width='320' height='220' rx='28' fill='#172554'/><circle cx='160' cy='92' r='54' fill='#dbeafe'/><path d='M132 92l18 18 40-44' fill='none' stroke='#2563eb' stroke-width='14' stroke-linecap='round' stroke-linejoin='round'/><text x='160' y='184' text-anchor='middle' fill='#fff' font-family='system-ui' font-size='20' font-weight='800'>TASK</text></svg>"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "data-handoff-declaration"
+        }
+      }
+    },
+    {
+      "id": "data-handoff-declaration-glyph",
+      "type": "glyph",
+      "label": "Deliver typed data across a portal-port boundary Glyph",
+      "position": {
+        "x": 0,
+        "y": -1360
+      },
+      "width": 220,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "TaskAlt"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
+        },
+        "identity": {
+          "graphId": "data-handoff-declaration"
+        }
+      }
+    },
+    {
+      "id": "data-handoff-declaration-landing-surface",
+      "type": "content",
+      "label": "Deliver typed data across a portal-port boundary Landing Surface",
+      "position": {
+        "x": 620,
+        "y": -960
+      },
+      "width": 520,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Deliver typed data across a portal-port boundary\n\nOpen this task graph to inspect and advance its authoritative work."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "data-handoff-declaration"
+        }
       }
     }
   ],
@@ -1392,7 +2199,7 @@
       "type": "exposes",
       "source": "data-handoff-declaration",
       "target": "data-handoff-summary-port",
-      "sourcePort": "right",
+      "sourcePort": "port",
       "targetPort": "root",
       "label": "summary",
       "style": {
@@ -1405,7 +2212,7 @@
       "type": "presents",
       "source": "data-handoff-summary-port",
       "target": "data-handoff-summary",
-      "sourcePort": "bottom",
+      "sourcePort": "root",
       "targetPort": "top",
       "label": "summary view",
       "style": {
@@ -1431,7 +2238,7 @@
       "type": "defines",
       "source": "data-handoff-declaration",
       "target": "data-handoff-goal",
-      "sourcePort": "bottom",
+      "sourcePort": "port",
       "targetPort": "top",
       "label": "goal",
       "style": {
@@ -1444,7 +2251,7 @@
       "type": "reference",
       "source": "data-handoff-declaration",
       "target": "bridge-goal",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -1457,7 +2264,7 @@
       "type": "reference",
       "source": "data-handoff-declaration",
       "target": "bridge-task",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -1470,7 +2277,7 @@
       "type": "reference",
       "source": "data-handoff-declaration",
       "target": "bridge-decision",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -1483,7 +2290,7 @@
       "type": "reference",
       "source": "data-handoff-declaration",
       "target": "bridge-question",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -1496,7 +2303,7 @@
       "type": "reference",
       "source": "data-handoff-declaration",
       "target": "bridge-risk",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -1509,7 +2316,7 @@
       "type": "reference",
       "source": "data-handoff-declaration",
       "target": "bridge-constraint",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -1522,7 +2329,7 @@
       "type": "reference",
       "source": "data-handoff-declaration",
       "target": "bridge-criteria",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -1535,7 +2342,7 @@
       "type": "reference",
       "source": "data-handoff-declaration",
       "target": "bridge-summary",
-      "sourcePort": "left",
+      "sourcePort": "port",
       "targetPort": "right",
       "label": "class authority",
       "style": {
@@ -1737,6 +2544,84 @@
         "curved": true
       },
       "data": {}
+    },
+    {
+      "id": "data-handoff-declaration-default-view-edge",
+      "type": "default-view",
+      "source": "data-handoff-declaration",
+      "target": "data-handoff-declaration-detail-view",
+      "sourcePort": "default-view",
+      "targetPort": "root",
+      "label": "default view",
+      "data": {
+        "role": "default-view",
+        "semanticRole": "default-view"
+      }
+    },
+    {
+      "id": "data-handoff-declaration-summary-view-edge",
+      "type": "reference",
+      "source": "data-handoff-declaration",
+      "target": "data-handoff-declaration-summary-view",
+      "sourcePort": "summary-view",
+      "targetPort": "root",
+      "label": "summary view",
+      "data": {
+        "role": "shared-summary",
+        "semanticRole": "shared-summary"
+      }
+    },
+    {
+      "id": "data-handoff-declaration-icon-view-edge",
+      "type": "reference",
+      "source": "data-handoff-declaration",
+      "target": "data-handoff-declaration-icon-view-modern",
+      "sourcePort": "icon-view",
+      "targetPort": "root",
+      "label": "icon view",
+      "data": {
+        "role": "shared-icon",
+        "semanticRole": "shared-icon"
+      }
+    },
+    {
+      "id": "data-handoff-declaration-glyph-edge",
+      "type": "reference",
+      "source": "data-handoff-declaration",
+      "target": "data-handoff-declaration-glyph",
+      "sourcePort": "glyph",
+      "targetPort": "root",
+      "label": "glyph",
+      "data": {
+        "role": "shared-glyph",
+        "semanticRole": "shared-glyph"
+      }
+    },
+    {
+      "id": "data-handoff-declaration-landing-surface-edge",
+      "type": "reference",
+      "source": "data-handoff-declaration",
+      "target": "data-handoff-declaration-landing-surface",
+      "sourcePort": "landing-surface",
+      "targetPort": "root",
+      "label": "landing surface",
+      "data": {
+        "role": "landing-surface",
+        "semanticRole": "landing-surface"
+      }
+    },
+    {
+      "id": "data-handoff-declaration-port-edge",
+      "type": "reference",
+      "source": "data-handoff-declaration",
+      "target": "data-handoff-summary-port",
+      "sourcePort": "port",
+      "targetPort": "root",
+      "label": "port",
+      "data": {
+        "role": "exposes-port",
+        "semanticRole": "exposes-port"
+      }
     }
   ],
   "clusters": [],
@@ -1779,5 +2664,7 @@
     },
     "autoSave": false
   },
-  "scripts": []
+  "scripts": [],
+  "nodeCount": 33,
+  "edgeCount": 33
 }
