@@ -20,6 +20,27 @@ const remap = (value) => {
 
 const result = remap(graph);
 const now = new Date().toISOString();
+
+// Edges attach to authored handles. Handles route those interactions to ports.
+// Materialize every port-backed handle so a derived idea never relies on the
+// renderer's legacy side-handle fallback.
+for (const node of result.nodes || []) {
+  const handles = [...(node.handles || [])];
+  for (const port of node.ports || []) {
+    if (handles.some((handle) => handle.id === port.id)) continue;
+    handles.push({
+      id: port.id,
+      key: port.key || port.id,
+      portId: port.id,
+      label: port.label || port.id,
+      direction: port.direction || 'bidirectional',
+      dataType: port.dataType || 'any',
+      ...(port.angle == null ? {} : { angle: port.angle }),
+      ...(port.role == null ? {} : { role: port.role }),
+    });
+  }
+  node.handles = handles;
+}
 result.metadata = {
   ...result.metadata,
   title: 'Edge and Label Navigation',
@@ -94,8 +115,8 @@ setData('idea-proposed-approach', {
 setData('idea-question', {
   title: 'How Does an Edge Choose Its Destination?',
   question: 'For directed, bidirectional, and currently focused edges, which endpoint should a click focus, and when should the UI require an explicit choice?',
-  status: 'open',
-  answer: '',
+  status: 'answered',
+  answer: 'The selected endpoint is the endpoint opposite the focused node. Require an explicit choice whenever multiple edges connect at the same port. The handle or portal acts as a logical door: it either enters one room directly or opens an elevator-like choice among available destinations.',
 });
 setData('idea-assumption', {
   title: 'Focus Can Drive Navigation Without Becoming Selection',
@@ -129,8 +150,8 @@ setData('idea-risk', {
 setData('idea-next-step', {
   title: 'Build the Navigation Interaction Smoke Test',
   action: 'Create a small graph that proves edge-label focus, edge focus, back restoration, portal entry, bidirectional choice, and edit-mode non-interference.',
-  expectedEvidence: 'Every navigation gesture lands on the intended node and surface, while edge selection and reconnection remain functional.',
-  status: 'todo',
+  expectedEvidence: 'Every navigation gesture lands on the intended node and surface, while edge selection and reconnection remain functional. Smoke graph: github://mikemartinez1974/public/graphs/edge-label-navigation-smoke.node',
+  status: 'done',
 });
 
 result.timestamp = now;
