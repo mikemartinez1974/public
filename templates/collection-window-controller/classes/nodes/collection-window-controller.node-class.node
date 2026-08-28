@@ -1,96 +1,582 @@
 {
   "fileVersion": "1.0",
-  "metadata": { "title": "Collection Window Controller Node Class", "description": "Executable collection window behavior with an authored firing surface and configuration view.", "graphId": "collection-window-controller-class", "version": "1.0.0", "kind": "node-class", "preferredViewer": "https://twilite.zone" },
+  "metadata": {
+    "title": "Collection Window Controller Node Class",
+    "description": "Executable collection window behavior with an authored firing surface and configuration view.",
+    "graphId": "collection-window-controller-class",
+    "version": "1.0.0",
+    "kind": "node-class",
+    "preferredViewer": "https://twilite.zone"
+  },
   "nodes": [
     {
-      "id": "collection-window-controller-declaration", "type": "declaration", "label": "Collection Window Controller Declaration", "position": { "x": -760, "y": -340 }, "width": 440, "height": 330, "visible": true,
-      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }, { "id": "right", "label": "right", "direction": "bidirectional", "dataType": "value", "angle": 0 }],
-      "data": {
-        "identity": { "graphId": "collection-window-controller-class", "name": "Collection Window Controller", "version": "1.0.0", "description": "Discover, project, and navigate a bounded collection window." },
-        "intent": { "kind": "node-class", "scope": "shared" },
-        "declaration": { "kind": "node-class", "targetMode": "artifact", "defaultSurfaceId": "root", "surfaces": [
-          { "id": "root", "kind": "port", "label": "Collection Window Controller", "portNodeId": "collection-window-controller-root", "viewNodeId": "collection-window-controller-summary" },
-          { "id": "summary", "kind": "view", "label": "Firing Surface", "viewNodeId": "collection-window-controller-summary" },
-          { "id": "detail", "kind": "view", "label": "Configuration", "viewNodeId": "collection-window-controller-detail" },
-          { "id": "icon", "kind": "view", "label": "Icon", "viewNodeId": "collection-window-controller-icon" },
-          { "id": "editor", "kind": "view", "label": "Editor", "viewNodeId": "collection-window-controller-editor" }
-        ] },
-        "nodeClass": {
-          "contractVersion": "1.0.0", "key": "collection-window-controller", "label": "Collection Window Controller", "meaning": "Executable, configurable collection window behavior.", "requiredDataKeys": ["scriptRef", "pageSize"],
-          "nodeDef": { "key": "collection-window-controller", "ref": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controller.node-class.node", "source": "local", "version": ">=1.0.0", "defaults": {
-            "label": "Collection Window Controller", "type": "script", "size": { "width": 380, "height": 120 }, "showLabel": true,
-            "data": { "scriptId": "collection-window-controller", "scriptName": "Collection Window Controller", "scriptRef": "github://mikemartinez1974/public/templates/collection-template/collection-window.js", "pageSize": 10, "allowMutations": true, "dryRun": false, "autoRun": false, "autoRunOnLoad": false, "autoRunOnGraphChange": false, "multiplicity": "singleton", "capabilityRole": "collection-window-controller", "rangeLabel": "Ready", "runStatus": "idle", "preferredView": "summary", "nodeViewPayload": "node.web.summary" },
-            "ports": [{ "id": "trigger", "label": "trigger", "direction": "input", "dataType": "trigger", "angle": 180 }, { "id": "result", "label": "result", "direction": "output", "dataType": "value", "angle": 0 }]
-          } }
+      "id": "collection-window-controller-declaration",
+      "type": "declaration",
+      "label": "Collection Window Controller Declaration",
+      "position": {
+        "x": -760,
+        "y": -340
+      },
+      "width": 440,
+      "height": 330,
+      "visible": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
         },
-        "dependencies": { "nodeTypes": ["declaration", "port", "view", "bridge", "script"], "portContracts": ["core"], "skills": ["collection-template"], "schemaVersions": { "nodes": ">=1.0.0", "ports": ">=1.0.0" }, "optional": [] }
-      }
-    },
-    {
-      "id": "collection-window-controller-root", "type": "port", "label": "Collection Window Controller Class", "position": { "x": -220, "y": -340 }, "width": 440, "height": 260, "visible": true,
-      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }],
-      "data": { "authority": "consume-view", "sourceScope": "graph", "sourceNodeId": "collection-window-controller-summary", "sourcePayload": "node.web.summary", "surfaceId": "root", "targetNodeId": "collection-window-controller-summary", "view": { "intent": "node", "payload": "node.web.summary" }, "visibilityRole": "browser" }
-    },
-    {
-      "id": "collection-window-controller-summary", "type": "view", "label": "Controller Firing Surface", "position": { "x": 320, "y": -340 }, "width": 380, "height": 120, "visible": true,
-      "ports": [{ "id": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 210 }],
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        }
+      ],
       "data": {
-        "key": "node.web.summary", "intent": "node", "payload": "node.web.summary", "semanticLevel": "summary", "view": { "controlsPlacement": "content" },
-        "node": { "web": {
-          "controls": [
-            { "id": "previous", "type": "button", "label": "Previous", "icon": "back", "action": "emit", "event": "collection:previous", "priority": 10 },
-            { "id": "apply-page-size", "type": "button", "label": "Apply Size", "icon": "refresh", "action": "emit", "event": "collection:page-size", "payloadPath": "data.pageSize", "priority": 20 },
-            { "id": "run-controller", "type": "button", "label": "Refresh", "icon": "refresh", "action": "emit", "event": "collection:refresh", "priority": 30 },
-            { "id": "next", "type": "button", "label": "Next", "icon": "forward", "action": "emit", "event": "collection:next", "priority": 40 }
+        "identity": {
+          "graphId": "collection-window-controller-class",
+          "name": "Collection Window Controller",
+          "version": "1.0.0",
+          "description": "Discover, project, and navigate a bounded collection window."
+        },
+        "intent": {
+          "kind": "node-class",
+          "scope": "shared"
+        },
+        "declaration": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Collection Window Controller",
+              "portNodeId": "collection-window-controller-root",
+              "viewNodeId": "collection-window-controller-summary"
+            },
+            {
+              "id": "summary",
+              "kind": "view",
+              "label": "Firing Surface",
+              "viewNodeId": "collection-window-controller-summary"
+            },
+            {
+              "id": "detail",
+              "kind": "view",
+              "label": "Configuration",
+              "viewNodeId": "collection-window-controller-detail"
+            },
+            {
+              "id": "icon",
+              "kind": "view",
+              "label": "Icon",
+              "viewNodeId": "collection-window-controller-icon"
+            },
+            {
+              "id": "editor",
+              "kind": "view",
+              "label": "Editor",
+              "viewNodeId": "collection-window-controller-editor"
+            }
+          ]
+        },
+        "nodeClass": {
+          "contractVersion": "1.0.0",
+          "key": "collection-window-controller",
+          "label": "Collection Window Controller",
+          "meaning": "Executable, configurable collection window behavior.",
+          "requiredDataKeys": [
+            "scriptRef",
+            "pageSize"
           ],
-          "events": [{ "id": "window-state", "event": "collection:window-state", "patch": { "rangeLabel": "{{event.start}}–{{event.end}} of {{event.count}}", "activePageSize": "{{event.pageSize}}" } }]
-        } },
+          "nodeDef": {
+            "key": "collection-window-controller",
+            "ref": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controller.node-class.node",
+            "source": "local",
+            "version": ">=1.0.0",
+            "defaults": {
+              "label": "Collection Window Controller",
+              "type": "script",
+              "size": {
+                "width": 380,
+                "height": 120
+              },
+              "showLabel": true,
+              "data": {
+                "scriptId": "collection-window-controller",
+                "scriptName": "Collection Window Controller",
+                "scriptRef": "github://mikemartinez1974/public/templates/collection-template/collection-window.js",
+                "pageSize": 10,
+                "allowMutations": true,
+                "dryRun": false,
+                "autoRun": false,
+                "autoRunOnLoad": false,
+                "autoRunOnGraphChange": false,
+                "multiplicity": "singleton",
+                "capabilityRole": "collection-window-controller",
+                "rangeLabel": "Ready",
+                "runStatus": "idle",
+                "preferredView": "summary",
+                "nodeViewPayload": "node.web.summary"
+              },
+              "ports": [
+                {
+                  "id": "trigger",
+                  "label": "trigger",
+                  "direction": "input",
+                  "dataType": "trigger",
+                  "angle": 180
+                },
+                {
+                  "id": "result",
+                  "label": "result",
+                  "direction": "output",
+                  "dataType": "value",
+                  "angle": 0
+                }
+              ]
+            }
+          }
+        },
+        "dependencies": {
+          "nodeTypes": [
+            "declaration",
+            "port",
+            "view",
+            "bridge",
+            "script"
+          ],
+          "portContracts": [
+            "core"
+          ],
+          "skills": [
+            "collection-template"
+          ],
+          "schemaVersions": {
+            "nodes": ">=1.0.0",
+            "ports": ">=1.0.0"
+          },
+          "optional": []
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        }
+      ]
+    },
+    {
+      "id": "collection-window-controller-root",
+      "type": "port",
+      "label": "Collection Window Controller Class",
+      "position": {
+        "x": -220,
+        "y": -340
+      },
+      "width": 440,
+      "height": 260,
+      "visible": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "data": {
+        "authority": "consume-view",
+        "sourceScope": "graph",
+        "sourceNodeId": "collection-window-controller-summary",
+        "sourcePayload": "node.web.summary",
+        "surfaceId": "root",
+        "targetNodeId": "collection-window-controller-summary",
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "visibilityRole": "browser"
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
+    },
+    {
+      "id": "collection-window-controller-summary",
+      "type": "view",
+      "label": "Controller Firing Surface",
+      "position": {
+        "x": 320,
+        "y": -340
+      },
+      "width": 380,
+      "height": 120,
+      "visible": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "data": {
+        "key": "node.web.summary",
+        "intent": "node",
+        "payload": "node.web.summary",
+        "semanticLevel": "summary",
+        "view": {
+          "controlsPlacement": "content"
+        },
+        "node": {
+          "web": {
+            "controls": [
+              {
+                "id": "previous",
+                "type": "button",
+                "label": "Previous",
+                "icon": "back",
+                "action": "emit",
+                "event": "collection:previous",
+                "priority": 10
+              },
+              {
+                "id": "apply-page-size",
+                "type": "button",
+                "label": "Apply Size",
+                "icon": "refresh",
+                "action": "emit",
+                "event": "collection:page-size",
+                "payloadPath": "data.pageSize",
+                "priority": 20
+              },
+              {
+                "id": "run-controller",
+                "type": "button",
+                "label": "Refresh",
+                "icon": "refresh",
+                "action": "emit",
+                "event": "collection:refresh",
+                "priority": 30
+              },
+              {
+                "id": "next",
+                "type": "button",
+                "label": "Next",
+                "icon": "forward",
+                "action": "emit",
+                "event": "collection:next",
+                "priority": 40
+              }
+            ],
+            "events": [
+              {
+                "id": "window-state",
+                "event": "collection:window-state",
+                "patch": {
+                  "rangeLabel": "{{event.start}}–{{event.end}} of {{event.count}}",
+                  "activePageSize": "{{event.pageSize}}"
+                }
+              }
+            ]
+          }
+        },
         "html": "<div style='width:100%;height:100%;box-sizing:border-box;padding:10px 12px;border-radius:14px;background:linear-gradient(145deg,#ecfeff,#f8fafc);border:2px solid #14b8a6;color:#134e4a;font-family:system-ui;display:flex;flex-direction:column;justify-content:center;gap:8px'><div style='display:flex;align-items:center;gap:6px;flex-wrap:nowrap'><button type='button' aria-label='Previous collection window' title='Previous' data-twilite-control='previous' style='width:32px;height:30px;border:1px solid #5eead4;border-radius:8px;background:#fff;color:#115e59;font:900 16px system-ui;cursor:pointer'>←</button><button type='button' aria-label='Next collection window' title='Next' data-twilite-control='next' style='width:32px;height:30px;border:1px solid #0f766e;border-radius:8px;background:#0f766e;color:#fff;font:900 16px system-ui;cursor:pointer'>→</button><label title='Page size' style='height:30px;display:flex;align-items:center;gap:4px;padding:0 6px;border:1px solid #99f6e4;border-radius:8px;background:white;color:#64748b;font:700 10px system-ui'>Size <input type='number' min='1' max='50' step='1' value='{{data.pageSize || 10}}' data-twilite-control-value='apply-page-size' data-twilite-value-type='number' style='width:32px;border:0;background:#f0fdfa;color:#134e4a;font:800 11px system-ui;padding:2px;border-radius:5px'></label><button type='button' aria-label='Apply page size' title='Apply page size' data-twilite-control='apply-page-size' style='height:30px;border:1px solid #5eead4;border-radius:8px;padding:0 8px;background:#ccfbf1;color:#115e59;font:800 10px system-ui;cursor:pointer'>Apply</button><button type='button' aria-label='Refresh collection' title='Refresh' data-twilite-control='run-controller' style='width:32px;height:30px;border:1px solid #5eead4;border-radius:8px;background:#fff;color:#115e59;font:900 14px system-ui;cursor:pointer'>↻</button></div><div style='display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0'><strong style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px'>{{data.scriptName || label || 'Collection'}}</strong><span style='flex:none;color:#64748b;font:700 10px system-ui'>{{data.rangeLabel || 'Ready'}}</span></div></div>"
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
-      "id": "collection-window-controller-detail", "type": "view", "label": "Controller Configuration", "position": { "x": 320, "y": 20 }, "width": 620, "height": 390, "visible": true,
+      "id": "collection-window-controller-detail",
+      "type": "view",
+      "label": "Controller Configuration",
+      "position": {
+        "x": 320,
+        "y": 20
+      },
+      "width": 620,
+      "height": 390,
+      "visible": true,
       "data": {
-        "key": "node.web.detail", "intent": "node", "payload": "node.web.detail", "semanticLevel": "detail", "view": { "controlsPlacement": "content" },
-        "node": { "web": { "controls": [
-          { "id": "previous", "type": "button", "label": "Previous", "icon": "back", "action": "emit", "event": "collection:previous", "priority": 10 },
-          { "id": "apply-page-size", "type": "button", "label": "Apply Size", "icon": "refresh", "action": "emit", "event": "collection:page-size", "payloadPath": "data.pageSize", "priority": 20 },
-          { "id": "run-controller", "type": "button", "label": "Refresh", "icon": "refresh", "action": "emit", "event": "collection:refresh", "priority": 30 },
-          { "id": "next", "type": "button", "label": "Next", "icon": "forward", "action": "emit", "event": "collection:next", "priority": 40 }
-        ], "events": [{ "id": "window-state", "event": "collection:window-state", "patch": { "rangeLabel": "{{event.start}}–{{event.end}} of {{event.count}}", "activePageSize": "{{event.pageSize}}" } }] } },
+        "key": "node.web.detail",
+        "intent": "node",
+        "payload": "node.web.detail",
+        "semanticLevel": "detail",
+        "view": {
+          "controlsPlacement": "content"
+        },
+        "node": {
+          "web": {
+            "controls": [
+              {
+                "id": "previous",
+                "type": "button",
+                "label": "Previous",
+                "icon": "back",
+                "action": "emit",
+                "event": "collection:previous",
+                "priority": 10
+              },
+              {
+                "id": "apply-page-size",
+                "type": "button",
+                "label": "Apply Size",
+                "icon": "refresh",
+                "action": "emit",
+                "event": "collection:page-size",
+                "payloadPath": "data.pageSize",
+                "priority": 20
+              },
+              {
+                "id": "run-controller",
+                "type": "button",
+                "label": "Refresh",
+                "icon": "refresh",
+                "action": "emit",
+                "event": "collection:refresh",
+                "priority": 30
+              },
+              {
+                "id": "next",
+                "type": "button",
+                "label": "Next",
+                "icon": "forward",
+                "action": "emit",
+                "event": "collection:next",
+                "priority": 40
+              }
+            ],
+            "events": [
+              {
+                "id": "window-state",
+                "event": "collection:window-state",
+                "patch": {
+                  "rangeLabel": "{{event.start}}–{{event.end}} of {{event.count}}",
+                  "activePageSize": "{{event.pageSize}}"
+                }
+              }
+            ]
+          }
+        },
         "html": "<div style='width:100%;height:100%;box-sizing:border-box;padding:16px;border-radius:18px;background:#f8fafc;border:2px solid #14b8a6;color:#134e4a;font-family:system-ui;overflow:auto;display:flex;flex-direction:column;gap:12px'><div style='display:flex;gap:7px;align-items:center;flex-wrap:wrap'><button type='button' data-twilite-control='previous' style='border:1px solid #5eead4;border-radius:9px;padding:7px 10px;background:#fff;color:#115e59;font:800 12px system-ui;cursor:pointer'>← Previous</button><button type='button' data-twilite-control='next' style='border:1px solid #0f766e;border-radius:9px;padding:7px 11px;background:#0f766e;color:#fff;font:800 12px system-ui;cursor:pointer'>Next →</button><label style='display:flex;align-items:center;gap:5px;font:700 11px system-ui'>Size <input type='number' min='1' max='50' step='1' value='{{data.pageSize || 10}}' data-twilite-control-value='apply-page-size' data-twilite-value-type='number' style='width:44px;border:1px solid #99f6e4;background:white;color:#134e4a;font:800 12px system-ui;padding:6px;border-radius:7px'></label><button type='button' data-twilite-control='apply-page-size' style='border:1px solid #5eead4;border-radius:9px;padding:7px 10px;background:#ccfbf1;color:#115e59;font:800 12px system-ui;cursor:pointer'>Apply</button><button type='button' data-twilite-control='run-controller' style='border:1px solid #5eead4;border-radius:9px;padding:7px 10px;background:#fff;color:#115e59;font:900 13px system-ui;cursor:pointer'>↻</button></div><div><div style='font-size:10px;font-weight:900;letter-spacing:.12em;color:#0f766e'>COLLECTION CONTROLLER</div><h2 style='font-size:18px;margin:4px 0 2px'>{{data.scriptName || label}}</h2><span style='font-size:11px;color:#64748b'>{{data.rangeLabel || 'Ready'}}</span></div><div style='display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px'><div><b>Multiplicity</b><br>{{data.multiplicity || 'singleton'}}</div><div><b>Mutations</b><br>{{data.allowMutations}}</div><div><b>Dry run</b><br>{{data.dryRun}}</div></div><hr style='border:0;border-top:1px solid #cbd5e1;margin:0'><b>Source</b><div style='padding:9px;border:1px solid #99f6e4;border-radius:9px;background:white;overflow-wrap:anywhere;font:11px ui-monospace'>{{data.scriptRef}}</div><p style='margin:0;font-size:12px'><b>Effects:</b> {{data.effects}}</p><p style='margin:0;font-size:12px'><b>Requires:</b> {{data.requirements}}</p><p style='margin:0;font-size:12px'><b>Grants:</b> {{data.grants}}</p></div>"
-      }
+      },
+      "handles": []
     },
     {
-      "id": "collection-window-controller-icon", "type": "view", "label": "Controller Icon", "position": { "x": 1000, "y": 20 }, "width": 180, "height": 180, "visible": true,
+      "id": "collection-window-controller-icon",
+      "type": "view",
+      "label": "Controller Icon",
+      "position": {
+        "x": 1000,
+        "y": 20
+      },
+      "width": 180,
+      "height": 180,
+      "visible": true,
       "data": {
-        "key": "node.web.icon", "intent": "node", "payload": "node.web.icon", "semanticLevel": "icon", "view": { "controlsPlacement": "content" },
-        "node": { "web": { "controls": [
-          { "id": "previous", "type": "button", "label": "Previous", "icon": "back", "action": "emit", "event": "collection:previous", "priority": 10 },
-          { "id": "next", "type": "button", "label": "Next", "icon": "forward", "action": "emit", "event": "collection:next", "priority": 20 }
-        ], "events": [{ "id": "window-state", "event": "collection:window-state", "patch": { "rangeLabel": "{{event.start}}–{{event.end}} of {{event.count}}" } }] } },
+        "key": "node.web.icon",
+        "intent": "node",
+        "payload": "node.web.icon",
+        "semanticLevel": "icon",
+        "view": {
+          "controlsPlacement": "content"
+        },
+        "node": {
+          "web": {
+            "controls": [
+              {
+                "id": "previous",
+                "type": "button",
+                "label": "Previous",
+                "icon": "back",
+                "action": "emit",
+                "event": "collection:previous",
+                "priority": 10
+              },
+              {
+                "id": "next",
+                "type": "button",
+                "label": "Next",
+                "icon": "forward",
+                "action": "emit",
+                "event": "collection:next",
+                "priority": 20
+              }
+            ],
+            "events": [
+              {
+                "id": "window-state",
+                "event": "collection:window-state",
+                "patch": {
+                  "rangeLabel": "{{event.start}}–{{event.end}} of {{event.count}}"
+                }
+              }
+            ]
+          }
+        },
         "html": "<div style='width:100%;height:100%;box-sizing:border-box;border-radius:26px;background:#0f766e;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-family:system-ui'><div style='font-size:11px;font-weight:900;letter-spacing:.12em;text-align:center'>{{data.rangeLabel || 'COLLECTION'}}</div><div style='display:flex;gap:9px'><button type='button' aria-label='Previous collection window' title='Previous' data-twilite-control='previous' style='width:46px;height:40px;border:1px solid #99f6e4;border-radius:11px;background:#ecfeff;color:#115e59;font:900 20px system-ui;cursor:pointer'>←</button><button type='button' aria-label='Next collection window' title='Next' data-twilite-control='next' style='width:46px;height:40px;border:1px solid #99f6e4;border-radius:11px;background:#ccfbf1;color:#115e59;font:900 20px system-ui;cursor:pointer'>→</button></div></div>"
-      }
+      },
+      "handles": []
     },
     {
-      "id": "collection-window-controller-editor", "type": "view", "label": "Controller Editor", "position": { "x": 320, "y": 480 }, "width": 620, "height": 390, "visible": true,
-      "data": { "key": "editor.web", "intent": "editor", "payload": "editor.web", "semanticLevel": "detail", "editor": { "web": { "fields": [
-        { "key": "scriptName", "label": "Name", "path": "data.scriptName", "type": "text" },
-        { "key": "memo", "label": "Description", "path": "data.memo", "type": "textarea" },
-        { "key": "scriptRef", "label": "Script Source", "path": "data.scriptRef", "type": "text" },
-        { "key": "pageSize", "label": "Page Size", "path": "data.pageSize", "type": "number", "min": 1, "max": 50, "step": 1 },
-        { "key": "allowMutations", "label": "Allow Mutations", "path": "data.allowMutations", "type": "checkbox" },
-        { "key": "dryRun", "label": "Dry Run", "path": "data.dryRun", "type": "checkbox" }
-      ] } } }
+      "id": "collection-window-controller-editor",
+      "type": "view",
+      "label": "Controller Editor",
+      "position": {
+        "x": 320,
+        "y": 480
+      },
+      "width": 620,
+      "height": 390,
+      "visible": true,
+      "data": {
+        "key": "editor.web",
+        "intent": "editor",
+        "payload": "editor.web",
+        "semanticLevel": "detail",
+        "editor": {
+          "web": {
+            "fields": [
+              {
+                "key": "scriptName",
+                "label": "Name",
+                "path": "data.scriptName",
+                "type": "text"
+              },
+              {
+                "key": "memo",
+                "label": "Description",
+                "path": "data.memo",
+                "type": "textarea"
+              },
+              {
+                "key": "scriptRef",
+                "label": "Script Source",
+                "path": "data.scriptRef",
+                "type": "text"
+              },
+              {
+                "key": "pageSize",
+                "label": "Page Size",
+                "path": "data.pageSize",
+                "type": "number",
+                "min": 1,
+                "max": 50,
+                "step": 1
+              },
+              {
+                "key": "allowMutations",
+                "label": "Allow Mutations",
+                "path": "data.allowMutations",
+                "type": "checkbox"
+              },
+              {
+                "key": "dryRun",
+                "label": "Dry Run",
+                "path": "data.dryRun",
+                "type": "checkbox"
+              }
+            ]
+          }
+        }
+      },
+      "handles": []
     },
     {
-      "id": "collection-window-controller-export", "type": "bridge", "label": "Collection Window Controller Class Export", "position": { "x": -760, "y": 100 }, "width": 440, "height": 190, "visible": true,
-      "data": { "bridge": { "ref": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controller.node-class.node", "role": "export", "resourceKind": "node-class", "scope": "focused-graph", "grants": ["create", "execute", "runtime", "update", "delete"], "exposure": { "nodeClasses": { "mode": "allow", "include": ["collection-window-controller"] }, "views": { "mode": "allow" } } }, "visibilityRole": "editor" }
+      "id": "collection-window-controller-export",
+      "type": "bridge",
+      "label": "Collection Window Controller Class Export",
+      "position": {
+        "x": -760,
+        "y": 100
+      },
+      "width": 440,
+      "height": 190,
+      "visible": true,
+      "data": {
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controller.node-class.node",
+          "role": "export",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create",
+            "execute",
+            "runtime",
+            "update",
+            "delete"
+          ],
+          "exposure": {
+            "nodeClasses": {
+              "mode": "allow",
+              "include": [
+                "collection-window-controller"
+              ]
+            },
+            "views": {
+              "mode": "allow"
+            }
+          }
+        },
+        "visibilityRole": "editor"
+      },
+      "handles": []
     }
   ],
   "edges": [
-    { "id": "controller-class-edge-root", "type": "reference", "source": "collection-window-controller-declaration", "target": "collection-window-controller-root", "sourcePort": "right", "targetPort": "root", "label": "exposes class" },
-    { "id": "controller-class-edge-summary", "type": "reference", "source": "collection-window-controller-root", "target": "collection-window-controller-summary", "sourcePort": "root", "targetPort": "root", "label": "fires as" }
+    {
+      "id": "controller-class-edge-root",
+      "type": "reference",
+      "source": "collection-window-controller-declaration",
+      "target": "collection-window-controller-root",
+      "label": "exposes class",
+      "sourceHandle": "right",
+      "targetHandle": "root"
+    },
+    {
+      "id": "controller-class-edge-summary",
+      "type": "reference",
+      "source": "collection-window-controller-root",
+      "target": "collection-window-controller-summary",
+      "label": "fires as",
+      "sourceHandle": "root",
+      "targetHandle": "root"
+    }
   ],
-  "viewport": { "x": 250, "y": 250, "zoom": 0.62 }
+  "viewport": {
+    "x": 250,
+    "y": 250,
+    "zoom": 0.62
+  }
 }

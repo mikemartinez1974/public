@@ -2,10 +2,10 @@
   "fileVersion": "1.0",
   "metadata": {
     "title": "Collection Template",
-    "description": "Directory-discovered, windowed collection starter.",
+    "description": "A directory-backed collection that discovers direct graph members and presents them through a bounded semantic window.",
     "graphId": "collection-template",
     "version": "1.0.0",
-    "kind": "collection",
+    "kind": "template",
     "tags": [
       "collection",
       "template"
@@ -17,77 +17,280 @@
       "id": "collection-template-declaration",
       "type": "declaration",
       "label": "Collection Template Declaration",
-      "root": false,
       "position": {
-        "x": -760,
-        "y": -360
+        "x": -900,
+        "y": -1400
       },
-      "width": 420,
-      "height": 300,
-      "visible": false,
-      "showLabel": true,
+      "width": 360,
+      "height": 240,
       "ports": [
         {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default view",
+          "direction": "output",
           "dataType": "any",
-          "angle": 210
+          "angle": 165,
+          "role": "default-view",
+          "allowedEdgeTypes": [
+            "default-view"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-view",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-summary",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-icon",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-glyph",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "glyph",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "landing-surface",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
+      "handles": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "portId": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "portId": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "portId": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "portId": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "portId": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port"
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "portId": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
       "data": {
         "identity": {
           "graphId": "collection-template",
+          "nodeId": "collection",
           "name": "Collection Template",
           "version": "1.0.0",
-          "description": "Directory-discovered, windowed collection starter."
+          "description": "A directory-backed collection that discovers direct graph members and presents them through a bounded semantic window."
         },
         "intent": {
           "kind": "collection",
           "scope": "shared"
         },
-        "collection": {
-          "collectionRef": "github://mikemartinez1974/public/templates/collection-template/root.node",
-          "membership": {
-            "source": "repository-directory",
-            "includeDirectNodeFiles": true,
-            "includeDirectChildRoots": true,
-            "recursive": false
-          },
-          "view": {
-            "mode": "windowed",
-            "windowSize": 10,
-            "payload": "node.web",
-            "columns": 2,
-            "cardWidth": 500,
-            "cardHeight": 320,
-            "gapX": 140,
-            "gapY": 70,
-            "origin": {
-              "x": -720,
-              "y": 260
-            }
-          }
-        },
         "declaration": {
           "kind": "collection",
           "targetMode": "artifact",
-          "defaultSurfaceId": "root",
+          "artifactKind": "collection",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "collection",
           "surfaces": [
             {
-              "id": "root",
+              "id": "collection",
               "kind": "port",
-              "label": "Collection",
-              "memo": "Canonical collection landing card.",
-              "portNodeId": "collection-template-root-port",
-              "viewNodeId": "collection-template-root-port",
+              "label": "Collection Template",
+              "presentation": {
+                "detail": {
+                  "mode": "shared",
+                  "viewNodeId": "collection-template-detail-view"
+                },
+                "summary": {
+                  "mode": "shared",
+                  "viewNodeId": "collection-template-summary-view"
+                },
+                "icon": {
+                  "mode": "shared",
+                  "viewNodeId": "collection-template-icon-view"
+                }
+              },
               "exposes": {
                 "views": {
                   "mode": "allow"
@@ -97,27 +300,31 @@
                 }
               }
             }
-          ]
+          ],
+          "sharedPresentation": {
+            "detailViewNodeId": "collection-template-detail-view",
+            "summaryViewNodeId": "collection-template-summary-view",
+            "iconViewNodeId": "collection-template-icon-view",
+            "glyphNodeId": "collection-template-glyph"
+          }
         },
         "dependencies": {
           "nodeTypes": [
             "declaration",
+            "content",
+            "view",
+            "glyph",
             "port",
-            "portal",
-            "markdown",
-            "script"
+            "script",
+            "portal"
           ],
           "portContracts": [
             "core"
           ],
-          "skills": [
-            "collection-template"
-          ],
           "schemaVersions": {
             "nodes": ">=1.0.0",
             "ports": ">=1.0.0"
-          },
-          "optional": []
+          }
         },
         "authority": {
           "mutation": {
@@ -131,31 +338,401 @@
             "agents": true,
             "tools": true
           },
-          "styleAuthority": "descriptive",
-          "history": {
-            "rewriteAllowed": false,
-            "squashAllowed": false
-          }
+          "styleAuthority": "descriptive"
         },
         "settings": {
-          "defaultNodeColor": "#1976d2",
-          "defaultEdgeColor": "#666666",
-          "snapToGrid": false,
-          "gridSize": 20,
-          "edgeRouting": "auto",
-          "autoSave": false,
-          "theme": null,
-          "backgroundImage": null
+          "layout": {
+            "mode": "manual"
+          },
+          "autoSave": false
         },
         "document": {
-          "url": ""
+          "url": "github://owner/repository/path/to/collection/root.node"
+        },
+        "collection": {
+          "collectionRef": "github://owner/repository/path/to/collection/root.node",
+          "membership": {
+            "source": "repository-directory",
+            "includeDirectNodeFiles": true,
+            "includeDirectChildRoots": true,
+            "recursive": false
+          },
+          "view": {
+            "mode": "windowed",
+            "windowSize": 10,
+            "payload": "node.web.icon",
+            "columns": 3
+          }
         }
       }
     },
     {
+      "id": "collection-template-detail-view",
+      "type": "view",
+      "label": "Collection Template Detail",
+      "position": {
+        "x": -1500,
+        "y": -1480
+      },
+      "width": 420,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "semanticLevel": "detail",
+        "content": {
+          "kind": "markdown",
+          "value": "# Collection Template\n\nA directory-backed collection that discovers direct graph members and presents them through a bounded semantic window."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "collection-template"
+        }
+      }
+    },
+    {
+      "id": "collection-template-summary-view",
+      "type": "view",
+      "label": "Collection Template Summary",
+      "position": {
+        "x": -1500,
+        "y": -1140
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "semanticLevel": "summary",
+        "content": {
+          "kind": "markdown",
+          "value": "## Collection Template\n\nA directory-backed collection that discovers direct graph members and presents them through a bounded semantic window."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "collection-template"
+        }
+      }
+    },
+    {
+      "id": "collection-template-icon-view",
+      "type": "view",
+      "label": "Collection Template Icon",
+      "position": {
+        "x": -1500,
+        "y": -840
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "semanticLevel": "icon",
+        "content": {
+          "kind": "markdown",
+          "value": "▦"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "collection-template"
+        }
+      }
+    },
+    {
+      "id": "collection-template-glyph",
+      "type": "glyph",
+      "label": "Collection Template Glyph",
+      "position": {
+        "x": -900,
+        "y": -1800
+      },
+      "width": 220,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": {
+          "kind": "character",
+          "value": "▦"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
+        },
+        "identity": {
+          "graphId": "collection-template"
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ]
+    },
+    {
+      "id": "collection-template-landing-surface",
+      "type": "content",
+      "label": "Collection Template Landing Surface",
+      "position": {
+        "x": -280,
+        "y": -1440
+      },
+      "width": 520,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Collection Template\n\nA directory-backed collection that discovers direct graph members and presents them through a bounded semantic window."
+        },
+        "renderShape": {
+          "kind": "markdown"
+        },
+        "identity": {
+          "graphId": "collection-template"
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ]
+    },
+    {
       "id": "collection-template-root-port",
       "type": "port",
-      "label": "My Collection",
+      "label": "Collection Surface",
       "root": false,
       "position": {
         "x": -180,
@@ -198,7 +775,7 @@
         "altText": "A teal collection card with a row of member cards.",
         "view": {
           "intent": "node",
-          "payload": "node.web"
+          "payload": "node.web.summary"
         },
         "payload": "node.web",
         "intent": "node",
@@ -235,8 +812,59 @@
               }
             ]
           }
+        },
+        "identity": {
+          "graphId": "collection-template",
+          "portId": "collection",
+          "name": "Collection Surface"
+        },
+        "surfaceId": "collection",
+        "direction": "bidirectional",
+        "dataType": "collection",
+        "presentation": {
+          "detail": {
+            "mode": "shared",
+            "viewNodeId": "collection-template-detail-view"
+          },
+          "summary": {
+            "mode": "shared",
+            "viewNodeId": "collection-template-summary-view"
+          },
+          "icon": {
+            "mode": "shared",
+            "viewNodeId": "collection-template-icon-view"
+          }
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "right",
+          "key": "right",
+          "portId": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "key": "bottom",
+          "portId": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        }
+      ]
     },
     {
       "id": "collection-template-window-controller",
@@ -314,7 +942,27 @@
           "targetKind": "node-class"
         },
         "visibilityRole": "browser"
-      }
+      },
+      "handles": [
+        {
+          "id": "trigger",
+          "key": "trigger",
+          "portId": "trigger",
+          "label": "trigger",
+          "direction": "input",
+          "dataType": "trigger",
+          "angle": 180
+        },
+        {
+          "id": "result",
+          "key": "result",
+          "portId": "result",
+          "label": "result",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 0
+        }
+      ]
     },
     {
       "id": "collection-template-repo-home",
@@ -363,7 +1011,27 @@
         "sourcePayload": "node.web",
         "surfaceId": "root",
         "visibilityRole": "browser"
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "key": "left",
+          "portId": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     },
     {
       "id": "collection-template-guidance",
@@ -397,34 +1065,113 @@
       "data": {
         "markdown": "## Collection Membership\n\nAdd direct `.node` files or direct-child `root.node` graphs to this directory. The collection discovers them automatically and presents their ordinary root `node.web` cards in a bounded window. Intentional navigation portals remain authored separately.",
         "visibilityRole": "browser"
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "key": "top",
+          "portId": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        }
+      ]
     }
   ],
   "edges": [
     {
-      "id": "collection-template-edge-controller",
-      "type": "reference",
+      "id": "collection-template-default-view-edge",
+      "type": "default-view",
       "source": "collection-template-declaration",
-      "target": "collection-template-window-controller",
-      "sourcePort": "right",
-      "targetPort": "trigger",
-      "label": "runs collection window",
+      "target": "collection-template-detail-view",
+      "sourceHandle": "default-view",
+      "targetHandle": "root",
+      "label": "default view",
       "data": {
-        "relationship": "runs collection window",
-        "semanticRole": "structural"
+        "semanticRole": "default-view"
       }
     },
     {
-      "id": "collection-template-edge-entry",
+      "id": "collection-template-summary-view-edge",
+      "type": "reference",
+      "source": "collection-template-declaration",
+      "target": "collection-template-summary-view",
+      "sourceHandle": "summary-view",
+      "targetHandle": "root",
+      "label": "summary view",
+      "data": {
+        "semanticRole": "shared-summary"
+      }
+    },
+    {
+      "id": "collection-template-icon-view-edge",
+      "type": "reference",
+      "source": "collection-template-declaration",
+      "target": "collection-template-icon-view",
+      "sourceHandle": "icon-view",
+      "targetHandle": "root",
+      "label": "icon view",
+      "data": {
+        "semanticRole": "shared-icon"
+      }
+    },
+    {
+      "id": "collection-template-glyph-edge",
+      "type": "reference",
+      "source": "collection-template-declaration",
+      "target": "collection-template-glyph",
+      "sourceHandle": "glyph",
+      "targetHandle": "root",
+      "label": "glyph",
+      "data": {
+        "semanticRole": "shared-glyph"
+      }
+    },
+    {
+      "id": "collection-template-landing-surface-edge",
+      "type": "reference",
+      "source": "collection-template-declaration",
+      "target": "collection-template-landing-surface",
+      "sourceHandle": "landing-surface",
+      "targetHandle": "root",
+      "label": "landing surface",
+      "data": {
+        "semanticRole": "landing-surface"
+      }
+    },
+    {
+      "id": "collection-template-port-edge",
       "type": "reference",
       "source": "collection-template-declaration",
       "target": "collection-template-root-port",
-      "sourcePort": "right",
-      "targetPort": "root",
-      "label": "declares root",
+      "sourceHandle": "port",
+      "targetHandle": "root",
+      "label": "exposes port",
       "data": {
-        "relationship": "declares root",
-        "semanticRole": "structural"
+        "semanticRole": "exposes-port"
+      }
+    },
+    {
+      "id": "collection-template-edge-controller",
+      "type": "reference",
+      "source": "collection-template-root-port",
+      "target": "collection-template-window-controller",
+      "sourceHandle": "bottom",
+      "targetHandle": "trigger",
+      "label": "runs collection window",
+      "data": {
+        "relationship": "runs collection window",
+        "semanticRole": "collection.controller"
       }
     },
     {
@@ -432,8 +1179,8 @@
       "type": "reference",
       "source": "collection-template-root-port",
       "target": "collection-template-repo-home",
-      "sourcePort": "right",
-      "targetPort": "left",
+      "sourceHandle": "right",
+      "targetHandle": "left",
       "label": "returns to repository",
       "data": {
         "relationship": "returns to repository",
@@ -445,8 +1192,8 @@
       "type": "reference",
       "source": "collection-template-root-port",
       "target": "collection-template-guidance",
-      "sourcePort": "bottom",
-      "targetPort": "top",
+      "sourceHandle": "bottom",
+      "targetHandle": "top",
       "label": "explains membership",
       "data": {
         "relationship": "explains membership",
@@ -455,6 +1202,6 @@
     }
   ],
   "groups": [],
-  "nodeCount": 5,
-  "edgeCount": 4
+  "nodeCount": 10,
+  "edgeCount": 9
 }

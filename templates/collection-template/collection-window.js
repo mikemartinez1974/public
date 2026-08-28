@@ -102,15 +102,23 @@ const listMembers = async (parsed, membership) => {
     branch: 'main',
     allowPublic: true
   });
+  const excludedNames = new Set(
+    (Array.isArray(membership?.excludeNames) ? membership.excludeNames : [])
+      .map((value) => clean(value).toLowerCase())
+      .filter(Boolean)
+  );
   const refs = [];
   if (membership?.includeDirectNodeFiles !== false) {
     entries.filter((entry) => clean(entry?.type).toLowerCase() === 'file')
       .filter((entry) => clean(entry?.name).toLowerCase().endsWith('.node'))
       .filter((entry) => clean(entry?.name).toLowerCase() !== 'root.node')
+      .filter((entry) => !excludedNames.has(clean(entry?.name).toLowerCase()))
       .forEach((entry) => refs.push(`github://${parsed.owner}/${parsed.repo}/${cleanPath(entry.path)}`));
   }
   if (membership?.includeDirectChildRoots !== false) {
-    const directories = entries.filter((entry) => clean(entry?.type).toLowerCase() === 'dir');
+    const directories = entries
+      .filter((entry) => clean(entry?.type).toLowerCase() === 'dir')
+      .filter((entry) => !excludedNames.has(clean(entry?.name).toLowerCase()));
     const childRoots = await Promise.all(directories.map(async (directory) => {
       try {
         const children = await listRepositoryDirectory({

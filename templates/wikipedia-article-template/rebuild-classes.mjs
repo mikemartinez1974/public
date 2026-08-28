@@ -83,7 +83,7 @@ const glyphNode = ({ id, label, x, y, graphId, name = 'Language', glyph = null }
 });
 
 const edge = ({ id, source, sourcePort, target, type = 'reference', label, role }) => ({
-  id, type, source, target, sourcePort, targetPort: 'root', label,
+  id, type, source, target, sourceHandle: sourcePort, targetHandle: 'root', label,
   data: { role, semanticRole: role }
 });
 
@@ -571,7 +571,7 @@ function liveSmokeGraph() {
     edge({ id: `${graphId}-detail-content-edge`, source: detail.id, sourcePort: 'surface-delegate', target: detailContent.id, label: 'content', role: 'view.content' }),
     edge({ id: `${graphId}-summary-content-edge`, source: summary.id, sourcePort: 'surface-delegate', target: summaryContent.id, label: 'content', role: 'view.content' }),
     edge({ id: `${graphId}-icon-content-edge`, source: icon.id, sourcePort: 'surface-delegate', target: iconContent.id, label: 'content', role: 'view.content' }),
-    { id: `${graphId}-article-import`, type: 'reference', source: articleBridge.id, target: article.id, sourcePort: 'root', targetPort: 'root', label: 'instantiates', data: { role: 'instantiates', semanticRole: 'instantiates' } }
+    { id: `${graphId}-article-import`, type: 'reference', source: articleBridge.id, target: article.id, sourceHandle: 'root', targetHandle: 'root', label: 'instantiates', data: { role: 'instantiates', semanticRole: 'instantiates' } }
   ];
   return { type: 'nodegraph-data', nodes, edges, timestamp: new Date().toISOString(), nodeCount: nodes.length, edgeCount: edges.length };
 }

@@ -159,7 +159,7 @@ function constraintSeed(prefix, graphId, specimen) {
 }
 
 function edge(id, source, target, sourcePort, label, semanticRole) {
-  return { id, type: 'reference', source, target, sourcePort, targetPort: 'root', label, style: {}, data: { semanticRole } };
+  return { id, type: 'reference', source, target, sourceHandle: sourcePort, targetHandle: 'root', label, style: {}, data: { semanticRole } };
 }
 
 function build({ prefix, graphId, title, description, githubPath, specimen = false }) {
