@@ -28,42 +28,183 @@
       "height": 280,
       "ports": [
         {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default view",
+          "direction": "output",
           "dataType": "any",
-          "angle": 210
+          "angle": 165,
+          "role": "default-view",
+          "allowedEdgeTypes": [
+            "default-view"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-view",
+            "required": true,
+            "repeatable": false
+          }
         },
         {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-summary",
+            "required": true,
+            "repeatable": false
+          }
         },
         {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-icon",
+            "required": true,
+            "repeatable": false
+          }
         },
         {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-glyph",
+            "required": true,
+            "repeatable": false
+          }
         },
         {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true
+          }
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "landing-surface",
+            "required": true,
+            "repeatable": false
+          }
         }
       ],
-      "visible": false,
+      "handles": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "portId": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "portId": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "portId": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "portId": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "portId": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port"
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "portId": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface"
+        }
+      ],
+      "visible": true,
       "showLabel": true,
       "data": {
         "analytics": {
@@ -71,6 +212,7 @@
         },
         "identity": {
           "graphId": "task-collection-declaration",
+          "nodeId": "task-collection",
           "name": "Michael's Task Collection",
           "version": "1.0.0",
           "description": "Durable collection of Michael's local tasks and projected task graphs."
@@ -82,15 +224,32 @@
         "declaration": {
           "kind": "collection",
           "targetMode": "artifact",
+          "artifactKind": "collection",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
           "defaultSurfaceId": "root",
           "surfaces": [
             {
               "id": "root",
               "kind": "port",
               "label": "Task Collection",
-              "portNodeId": "task-collection-root-port",
-              "viewNodeId": "task-collection-root-port",
               "memo": "Public entry surface for Michael's durable task collection.",
+              "presentation": {
+                "detail": {
+                  "mode": "shared",
+                  "viewNodeId": "task-collection-detail-view"
+                },
+                "summary": {
+                  "mode": "shared",
+                  "viewNodeId": "task-collection-summary-view"
+                },
+                "icon": {
+                  "mode": "shared",
+                  "viewNodeId": "task-collection-icon-view"
+                }
+              },
               "exposes": {
                 "views": {
                   "mode": "allow"
@@ -104,8 +263,6 @@
               "id": "agent-readiness",
               "kind": "port",
               "label": "Codebase-Free Agent Readiness",
-              "portNodeId": "task-collection-agent-readiness-port",
-              "viewNodeId": "task-collection-agent-readiness-port",
               "memo": "Exposes the local agent-readiness task as a task projection.",
               "exposes": {
                 "views": {
@@ -120,8 +277,6 @@
               "id": "analytics-verification",
               "kind": "port",
               "label": "Analytics Live Verification",
-              "portNodeId": "task-collection-repo-analytics-switches-port",
-              "viewNodeId": "task-collection-repo-analytics-switches-port",
               "memo": "Exposes the live analytics verification task as a waiting task projection.",
               "exposes": {
                 "views": {
@@ -136,8 +291,6 @@
               "id": "mcp-integration",
               "kind": "port",
               "label": "Define Twilite MCP Integration",
-              "portNodeId": "task-collection-mcp-integration-port",
-              "viewNodeId": "task-collection-mcp-integration-port",
               "memo": "Exposes the collection-owned MCP integration discovery task.",
               "exposes": {
                 "views": {
@@ -149,6 +302,12 @@
               }
             }
           ],
+          "sharedPresentation": {
+            "detailViewNodeId": "task-collection-detail-view",
+            "summaryViewNodeId": "task-collection-summary-view",
+            "iconViewNodeId": "task-collection-icon-view",
+            "glyphNodeId": "task-collection-glyph"
+          },
           "notes": [
             "A task remains a task inside its own graph and when projected into another graph.",
             "Project describes scope and point of view; it is not a separate semantic node type.",
@@ -159,6 +318,9 @@
         "dependencies": {
           "nodeTypes": [
             "declaration",
+            "content",
+            "view",
+            "glyph",
             "port",
             "portal",
             "markdown",
@@ -231,6 +393,212 @@
       }
     },
     {
+      "id": "task-collection-detail-view",
+      "type": "view",
+      "label": "Task Collection Detail",
+      "position": {
+        "x": -1360,
+        "y": -500
+      },
+      "width": 420,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "semanticLevel": "detail",
+        "content": {
+          "kind": "markdown",
+          "value": "# Michael's Task Collection\n\nDurable home for local tasks and projected task graphs. Tasks remain tasks as they move between their source graphs, this collection, and the workboard."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "michael-task-collection"
+        }
+      }
+    },
+    {
+      "id": "task-collection-summary-view",
+      "type": "view",
+      "label": "Task Collection Summary",
+      "position": {
+        "x": -1360,
+        "y": -160
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "semanticLevel": "summary",
+        "content": {
+          "kind": "markdown",
+          "value": "## Michael's Task Collection\n\nLocal tasks and source-owned task graphs, gathered without changing their semantic identity."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "michael-task-collection"
+        }
+      }
+    },
+    {
+      "id": "task-collection-icon-view",
+      "type": "view",
+      "label": "Task Collection Icon",
+      "position": {
+        "x": -1360,
+        "y": 120
+      },
+      "width": 260,
+      "height": 180,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "semanticLevel": "icon",
+        "content": {
+          "kind": "markdown",
+          "value": "▦"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "michael-task-collection"
+        }
+      }
+    },
+    {
+      "id": "task-collection-glyph",
+      "type": "glyph",
+      "label": "Task Collection Glyph",
+      "position": {
+        "x": -760,
+        "y": -760
+      },
+      "width": 220,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": {
+          "kind": "character",
+          "value": "▦"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
+        },
+        "identity": {
+          "graphId": "michael-task-collection"
+        }
+      }
+    },
+    {
       "id": "task-collection-root-port",
       "type": "port",
       "label": "Michael's Task Collection",
@@ -293,6 +661,9 @@
           "portId": "root",
           "name": "Michael's Task Collection"
         },
+        "surfaceId": "root",
+        "direction": "bidirectional",
+        "dataType": "collection",
         "title": "Michael's Task Collection",
         "purpose": "Durable home for local tasks and projected task graphs.",
         "renderShape": {
@@ -309,12 +680,26 @@
         "viewRole": "summary",
         "viewKind": "display",
         "semanticLevel": "summary",
-        "visibilityRole": "browser"
+        "visibilityRole": "browser",
+        "presentation": {
+          "detail": {
+            "mode": "shared",
+            "viewNodeId": "task-collection-detail-view"
+          },
+          "summary": {
+            "mode": "shared",
+            "viewNodeId": "task-collection-summary-view"
+          },
+          "icon": {
+            "mode": "shared",
+            "viewNodeId": "task-collection-icon-view"
+          }
+        }
       }
     },
     {
       "id": "task-collection-introduction",
-      "type": "markdown",
+      "type": "content",
       "label": "Tasks remain tasks",
       "root": false,
       "position": {
@@ -370,7 +755,13 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "markdown": "# Tasks remain tasks\n\nA task is a regular task inside its own graph and when projected into another graph. **Project** describes scope and point of view—not a separate semantic type.\n\nLocal tasks live here. A task that needs its own subtasks, questions, decisions, risks, or durable summary may own a graph and appear here through a portal.",
+        "content": {
+          "kind": "markdown",
+          "value": "# Tasks remain tasks\n\nA task is a regular task inside its own graph and when projected into another graph. **Project** describes scope and point of view—not a separate semantic type.\n\nLocal tasks live here. A task that needs its own subtasks, questions, decisions, risks, or durable summary may own a graph and appear here through a portal."
+        },
+        "renderShape": {
+          "kind": "markdown"
+        },
         "identity": {
           "graphId": "michael-task-collection"
         }
@@ -682,6 +1073,7 @@
           "portId": "agent-readiness",
           "name": "Codebase-Free Agent Readiness"
         },
+        "surfaceId": "agent-readiness",
         "sourceScope": "graph",
         "authority": "consume-view",
         "sourceRef": "",
@@ -853,6 +1245,7 @@
           "portId": "analytics-verification",
           "name": "Analytics Live Verification"
         },
+        "surfaceId": "analytics-verification",
         "sourceScope": "graph",
         "authority": "consume-view",
         "sourceRef": "",
@@ -1556,6 +1949,7 @@
           "portId": "mcp-integration",
           "name": "Define Twilite MCP Integration"
         },
+        "surfaceId": "mcp-integration",
         "sourceScope": "graph",
         "authority": "consume-view",
         "sourceRef": "",
@@ -1710,6 +2104,114 @@
   ],
   "edges": [
     {
+      "id": "task-collection-default-view-edge",
+      "type": "default-view",
+      "source": "task-collection-declaration",
+      "target": "task-collection-detail-view",
+      "sourceHandle": "default-view",
+      "targetHandle": "root",
+      "label": "default view",
+      "data": {
+        "semanticRole": "default-view"
+      }
+    },
+    {
+      "id": "task-collection-summary-view-edge",
+      "type": "reference",
+      "source": "task-collection-declaration",
+      "target": "task-collection-summary-view",
+      "sourceHandle": "summary-view",
+      "targetHandle": "root",
+      "label": "summary view",
+      "data": {
+        "semanticRole": "shared-summary"
+      }
+    },
+    {
+      "id": "task-collection-icon-view-edge",
+      "type": "reference",
+      "source": "task-collection-declaration",
+      "target": "task-collection-icon-view",
+      "sourceHandle": "icon-view",
+      "targetHandle": "root",
+      "label": "icon view",
+      "data": {
+        "semanticRole": "shared-icon"
+      }
+    },
+    {
+      "id": "task-collection-glyph-edge",
+      "type": "reference",
+      "source": "task-collection-declaration",
+      "target": "task-collection-glyph",
+      "sourceHandle": "glyph",
+      "targetHandle": "root",
+      "label": "glyph",
+      "data": {
+        "semanticRole": "shared-glyph"
+      }
+    },
+    {
+      "id": "task-collection-landing-surface-edge",
+      "type": "reference",
+      "source": "task-collection-declaration",
+      "target": "task-collection-introduction",
+      "sourceHandle": "landing-surface",
+      "targetHandle": "root",
+      "label": "landing surface",
+      "data": {
+        "semanticRole": "landing-surface"
+      }
+    },
+    {
+      "id": "task-collection-root-port-edge",
+      "type": "reference",
+      "source": "task-collection-declaration",
+      "target": "task-collection-root-port",
+      "sourceHandle": "port",
+      "targetHandle": "root",
+      "label": "exposes root port",
+      "data": {
+        "semanticRole": "exposes-port"
+      }
+    },
+    {
+      "id": "task-collection-agent-readiness-declaration-edge",
+      "type": "reference",
+      "source": "task-collection-declaration",
+      "target": "task-collection-agent-readiness-port",
+      "sourceHandle": "port",
+      "targetHandle": "root",
+      "label": "exposes agent readiness",
+      "data": {
+        "semanticRole": "exposes-port"
+      }
+    },
+    {
+      "id": "task-collection-analytics-declaration-edge",
+      "type": "reference",
+      "source": "task-collection-declaration",
+      "target": "task-collection-repo-analytics-switches-port",
+      "sourceHandle": "port",
+      "targetHandle": "root",
+      "label": "exposes analytics verification",
+      "data": {
+        "semanticRole": "exposes-port"
+      }
+    },
+    {
+      "id": "task-collection-mcp-declaration-edge",
+      "type": "reference",
+      "source": "task-collection-declaration",
+      "target": "task-collection-mcp-integration-port",
+      "sourceHandle": "port",
+      "targetHandle": "root",
+      "label": "exposes MCP integration",
+      "data": {
+        "semanticRole": "exposes-port"
+      }
+    },
+    {
       "id": "task-collection-edge-introduction",
       "type": "reference",
       "source": "task-collection-root-port",
@@ -1789,20 +2291,6 @@
       "sourceHandle": "bottom",
       "targetHandle": "top",
       "label": "contains task",
-      "style": {
-        "curved": true,
-        "route": "curved"
-      },
-      "data": {}
-    },
-    {
-      "id": "task-collection-edge-task-authority",
-      "type": "reference",
-      "source": "task-collection-declaration",
-      "target": "task-collection-bridge-task",
-      "sourceHandle": "left",
-      "targetHandle": "right",
-      "label": "class authority",
       "style": {
         "curved": true,
         "route": "curved"
