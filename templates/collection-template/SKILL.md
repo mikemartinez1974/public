@@ -59,9 +59,17 @@ Never copy a member's semantic instance into the collection as though it were lo
 
 Discover members only inside the repository containing the collection graph. Public and authorized private repositories use the same rule. A portal may navigate to another repository, but its destination never becomes a member through traversal.
 
+## Edge contract
+
+- Author edge endpoints with `sourceHandle` and `targetHandle`. Do not emit the legacy edge-record aliases `sourcePort` or `targetPort`.
+- Every handle named by an edge must exist as an authored handle or exposed Port on the corresponding endpoint node.
+- Keep relationship intent explicit in the edge label and `data.semanticRole`; endpoint handles describe attachment, not meaning.
+- Preserve `targetPort` inside behavior metadata such as `drag-create`. There it names the semantic input Port on a newly created node and is not an edge endpoint field.
+
 ## Validation
 
 - Confirm the Declaration supplies the implicit root interface and all required presentation/frame relationships are occupied.
+- Confirm every authored edge uses `sourceHandle` and `targetHandle`, contains no edge-record `sourcePort` or `targetPort`, and resolves both handles against its endpoint nodes.
 - Confirm every runtime member is a handle-free Portal carrying the target Glyph and semantic View address.
 - Confirm adding a direct `.node` member requires no edit to `root.node`.
 - Confirm child directories without `root.node` are ignored.
