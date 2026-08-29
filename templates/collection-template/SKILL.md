@@ -11,7 +11,7 @@ Treat this file and the adjacent `root.node` as one versioned package.
 
 1. Copy `root.node` into the target collection directory.
 2. Retarget declaration identity, scope, root labels, repository-home portal, and graph-local IDs. For a new collection, bring the host graph up to the current Declaration relationship model instead of copying legacy Port-as-View structure forward.
-3. Preserve `intent.kind: collection`, the Declaration's implicit root interface, and the `data.collection` contract. Occupy required Declaration relationships: default, summary, icon, glyph, and landing surface. Additional exposed Ports remain optional.
+3. Preserve `intent.kind: collection`, the Declaration's implicit root interface, and the `data.collection` contract. Occupy required Declaration relationships: default, summary, icon, glyph, and landing surface. Every declared surface must name an existing graph card with `portNodeId` and `viewNodeId`; do not point a surface at an empty adapter View. Additional exposed surfaces remain optional.
 4. Put member graphs in the collection directory:
    - include direct `.node` files except the collection's own `root.node`;
    - include `root.node` from each direct child directory;
@@ -69,6 +69,7 @@ Discover members only inside the repository containing the collection graph. Pub
 ## Validation
 
 - Confirm the Declaration supplies the implicit root interface and all required presentation/frame relationships are occupied.
+- Confirm every declared surface resolves its `portNodeId` and `viewNodeId` to the intended visible card in the graph.
 - Confirm every authored edge uses `sourceHandle` and `targetHandle`, contains no edge-record `sourcePort` or `targetPort`, and resolves both handles against its endpoint nodes.
 - Confirm every runtime member is a handle-free Portal carrying the target Glyph and semantic View address.
 - Confirm adding a direct `.node` member requires no edit to `root.node`.

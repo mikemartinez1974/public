@@ -45,6 +45,9 @@ root.data = {
 };
 
 const declaration = modern.nodes.find((node) => node.id === modern.ids.declaration);
+const collectionSurface = declaration.data.declaration.surfaces.find((surface) => surface.id === 'collection');
+collectionSurface.portNodeId = 'collection-template-root-port';
+collectionSurface.viewNodeId = 'collection-template-root-port';
 declaration.data.collection = {
   collectionRef: 'github://owner/repository/path/to/collection/root.node',
   membership: {
