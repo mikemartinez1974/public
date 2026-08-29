@@ -6,13 +6,13 @@
     "graphId": "task-collection-declaration",
     "version": "1.0.0",
     "kind": "collection",
-    "created": "2026-08-04T23:14:27.760Z",
-    "modified": "2026-08-29T20:18:25.000Z",
+    "created": "2026-08-29T23:39:07.878Z",
+    "modified": "2026-08-29T23:53:51.492Z",
     "author": "",
     "tags": [
       "collection"
     ],
-    "preferredViewer": "https://twilite.zone"
+    "preferredViewer": "https://dev.twilite.zone"
   },
   "nodes": [
     {
@@ -410,7 +410,7 @@
         },
         "settings": {
           "defaultNodeColor": "#1976d2",
-          "defaultEdgeColor": "#666666",
+          "defaultEdgeColor": "",
           "snapToGrid": false,
           "gridSize": 20,
           "edgeRouting": "auto",
@@ -446,6 +446,7 @@
       "id": "task-collection-detail-view",
       "type": "view",
       "label": "Task Collection Detail",
+      "root": false,
       "position": {
         "x": -1360,
         "y": -500
@@ -499,6 +500,7 @@
       "id": "task-collection-summary-view",
       "type": "view",
       "label": "Task Collection Summary",
+      "root": false,
       "position": {
         "x": -1360,
         "y": -160
@@ -552,6 +554,7 @@
       "id": "task-collection-icon-view",
       "type": "view",
       "label": "Task Collection Icon",
+      "root": false,
       "position": {
         "x": -1360,
         "y": 120
@@ -605,6 +608,7 @@
       "id": "task-collection-glyph",
       "type": "glyph",
       "label": "Task Collection Glyph",
+      "root": false,
       "position": {
         "x": -760,
         "y": -760
@@ -995,37 +999,10 @@
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
           "angle": 180
         }
       ],
@@ -1034,9 +1011,18 @@
       "data": {
         "surfaceId": "agent-readiness",
         "presentation": {
-          "detail": { "mode": "own", "viewNodeId": "task-collection-agent-readiness" },
-          "summary": { "mode": "own", "viewNodeId": "task-collection-agent-readiness" },
-          "icon": { "mode": "own", "viewNodeId": "task-collection-agent-readiness" }
+          "detail": {
+            "mode": "own",
+            "viewNodeId": "task-collection-agent-readiness"
+          },
+          "summary": {
+            "mode": "own",
+            "viewNodeId": "task-collection-agent-readiness"
+          },
+          "icon": {
+            "mode": "own",
+            "viewNodeId": "task-collection-agent-readiness"
+          }
         },
         "_classBinding": {
           "key": "task",
@@ -1045,37 +1031,127 @@
           "views": [
             {
               "key": "task",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "task",
               "intent": "node",
               "payload": "node.web.detail",
               "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "external",
-              "version": ">=0.1.0"
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
             },
             {
               "key": "task",
               "intent": "node",
               "payload": "node.web.summary",
               "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "external",
-              "version": ">=0.1.0"
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
             },
             {
               "key": "task",
               "intent": "node",
               "payload": "node.web.icon",
               "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "external",
-              "version": ">=0.1.0"
-            },
-            {
-              "key": "task",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "external",
-              "version": ">=0.1.0"
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
             }
-          ]
+          ],
+          "defaults": {
+            "label": "Task",
+            "size": {
+              "width": 380,
+              "height": 260
+            },
+            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+            "showLabel": false,
+            "data": {
+              "title": "",
+              "body": "Describe the concrete work to execute.",
+              "priority": "high",
+              "status": "todo",
+              "owner": "",
+              "estimateHours": "",
+              "targetDate": "",
+              "startedAt": "",
+              "completedAt": "",
+              "externalRef": "",
+              "acceptanceCriteria": [
+                "Describe what done looks like"
+              ],
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Checklist"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "task",
+            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Task",
+              "size": {
+                "width": 380,
+                "height": 260
+              },
+              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "body": "Describe the concrete work to execute.",
+                "priority": "high",
+                "status": "todo",
+                "owner": "",
+                "estimateHours": "",
+                "targetDate": "",
+                "startedAt": "",
+                "completedAt": "",
+                "externalRef": "",
+                "acceptanceCriteria": [
+                  "Describe what done looks like"
+                ],
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Checklist"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          }
         },
         "_bridge": {
           "sourceNodeId": "task-collection-bridge-task",
@@ -1121,37 +1197,10 @@
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
           "angle": 180
         }
       ],
@@ -1160,9 +1209,18 @@
       "data": {
         "surfaceId": "analytics-verification",
         "presentation": {
-          "detail": { "mode": "own", "viewNodeId": "task-collection-repo-analytics-switches" },
-          "summary": { "mode": "own", "viewNodeId": "task-collection-repo-analytics-switches" },
-          "icon": { "mode": "own", "viewNodeId": "task-collection-repo-analytics-switches" }
+          "detail": {
+            "mode": "own",
+            "viewNodeId": "task-collection-repo-analytics-switches"
+          },
+          "summary": {
+            "mode": "own",
+            "viewNodeId": "task-collection-repo-analytics-switches"
+          },
+          "icon": {
+            "mode": "own",
+            "viewNodeId": "task-collection-repo-analytics-switches"
+          }
         },
         "_classBinding": {
           "key": "task",
@@ -1171,37 +1229,127 @@
           "views": [
             {
               "key": "task",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "task",
               "intent": "node",
               "payload": "node.web.detail",
               "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "external",
-              "version": ">=0.1.0"
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
             },
             {
               "key": "task",
               "intent": "node",
               "payload": "node.web.summary",
               "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "external",
-              "version": ">=0.1.0"
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
             },
             {
               "key": "task",
               "intent": "node",
               "payload": "node.web.icon",
               "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "external",
-              "version": ">=0.1.0"
-            },
-            {
-              "key": "task",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "external",
-              "version": ">=0.1.0"
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
             }
-          ]
+          ],
+          "defaults": {
+            "label": "Task",
+            "size": {
+              "width": 380,
+              "height": 260
+            },
+            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+            "showLabel": false,
+            "data": {
+              "title": "",
+              "body": "Describe the concrete work to execute.",
+              "priority": "high",
+              "status": "todo",
+              "owner": "",
+              "estimateHours": "",
+              "targetDate": "",
+              "startedAt": "",
+              "completedAt": "",
+              "externalRef": "",
+              "acceptanceCriteria": [
+                "Describe what done looks like"
+              ],
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Checklist"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "task",
+            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Task",
+              "size": {
+                "width": 380,
+                "height": 260
+              },
+              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "body": "Describe the concrete work to execute.",
+                "priority": "high",
+                "status": "todo",
+                "owner": "",
+                "estimateHours": "",
+                "targetDate": "",
+                "startedAt": "",
+                "completedAt": "",
+                "externalRef": "",
+                "acceptanceCriteria": [
+                  "Describe what done looks like"
+                ],
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Checklist"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          }
         },
         "_bridge": {
           "sourceNodeId": "task-collection-bridge-task",
@@ -1240,8 +1388,8 @@
       "label": "Task Archive",
       "root": false,
       "position": {
-        "x": 1000,
-        "y": 1180
+        "x": 1113.857512655149,
+        "y": 1188.4338898263074
       },
       "width": 450,
       "height": 320,
@@ -1308,7 +1456,14 @@
         "sourcePayload": "node.web.summary",
         "surfaceId": "root",
         "sourceRef": "github://mikemartinez1974/public/tasks/archive/root.node",
-        "visibilityRole": "browser"
+        "visibilityRole": "browser",
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1788047626592,
+          "reason": "node-drag"
+        }
       }
     },
     {
@@ -1325,37 +1480,10 @@
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
           "angle": 180
         }
       ],
@@ -1372,7 +1500,131 @@
         },
         "_classBinding": {
           "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "defaults": {
+            "label": "Task",
+            "size": {
+              "width": 380,
+              "height": 260
+            },
+            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+            "showLabel": false,
+            "data": {
+              "title": "",
+              "body": "Describe the concrete work to execute.",
+              "priority": "high",
+              "status": "todo",
+              "owner": "",
+              "estimateHours": "",
+              "targetDate": "",
+              "startedAt": "",
+              "completedAt": "",
+              "externalRef": "",
+              "acceptanceCriteria": [
+                "Describe what done looks like"
+              ],
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Checklist"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "task",
+            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Task",
+              "size": {
+                "width": 380,
+                "height": 260
+              },
+              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "body": "Describe the concrete work to execute.",
+                "priority": "high",
+                "status": "todo",
+                "owner": "",
+                "estimateHours": "",
+                "targetDate": "",
+                "startedAt": "",
+                "completedAt": "",
+                "externalRef": "",
+                "acceptanceCriteria": [
+                  "Describe what done looks like"
+                ],
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Checklist"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          },
+          "views": [
+            {
+              "key": "task",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "task",
+              "intent": "node",
+              "payload": "node.web.detail",
+              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "task",
+              "intent": "node",
+              "payload": "node.web.summary",
+              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "task",
+              "intent": "node",
+              "payload": "node.web.icon",
+              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            }
+          ]
         },
         "authority": "bridge",
         "bridge": {
@@ -1458,6 +1710,7 @@
       "id": "task-collection-question-driven-explanation-template-prototype-portal",
       "type": "portal",
       "label": "Prototype the Question-Driven Explanation Template",
+      "root": false,
       "position": {
         "x": 1080,
         "y": 1540
@@ -1519,7 +1772,7 @@
           "mode": "navigate",
           "portId": "card",
           "surfaceId": "card",
-          "handleId": "root",
+          "handleId": "card",
           "label": "Open Prototype the Question-Driven Explanation Template"
         },
         "identity": {
@@ -1540,6 +1793,7 @@
       "id": "task-collection-create-chat-provenance-node-portal",
       "type": "portal",
       "label": "Create the Chat Provenance Node",
+      "root": false,
       "position": {
         "x": 1080,
         "y": 1900
@@ -1601,7 +1855,7 @@
           "mode": "navigate",
           "portId": "card",
           "surfaceId": "card",
-          "handleId": "root",
+          "handleId": "card",
           "label": "Open Create the Chat Provenance Node"
         },
         "identity": {
@@ -1622,6 +1876,7 @@
       "id": "task-collection-customer-acquisition",
       "type": "portal",
       "label": "Customer Acquisition and Launch Content",
+      "root": false,
       "position": {
         "x": 0,
         "y": 1200
@@ -1697,6 +1952,7 @@
       "id": "task-collection-script-presentation",
       "type": "portal",
       "label": "Script Node Presentation",
+      "root": false,
       "position": {
         "x": 540,
         "y": 1200
@@ -1774,45 +2030,18 @@
       "label": "Define Twilite MCP integration",
       "root": false,
       "position": {
-        "x": 1080,
-        "y": 1200
+        "x": 508.603964267681,
+        "y": 1670.1893578166314
       },
       "width": 460,
       "height": 300,
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
           "angle": 180
         }
       ],
@@ -1821,9 +2050,18 @@
       "data": {
         "surfaceId": "mcp-integration",
         "presentation": {
-          "detail": { "mode": "own", "viewNodeId": "task-collection-mcp-integration" },
-          "summary": { "mode": "own", "viewNodeId": "task-collection-mcp-integration" },
-          "icon": { "mode": "own", "viewNodeId": "task-collection-mcp-integration" }
+          "detail": {
+            "mode": "own",
+            "viewNodeId": "task-collection-mcp-integration"
+          },
+          "summary": {
+            "mode": "own",
+            "viewNodeId": "task-collection-mcp-integration"
+          },
+          "icon": {
+            "mode": "own",
+            "viewNodeId": "task-collection-mcp-integration"
+          }
         },
         "_classBinding": {
           "key": "task",
@@ -1832,37 +2070,127 @@
           "views": [
             {
               "key": "task",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "task",
               "intent": "node",
               "payload": "node.web.detail",
               "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "external",
-              "version": ">=0.1.0"
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
             },
             {
               "key": "task",
               "intent": "node",
               "payload": "node.web.summary",
               "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "external",
-              "version": ">=0.1.0"
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
             },
             {
               "key": "task",
               "intent": "node",
               "payload": "node.web.icon",
               "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "external",
-              "version": ">=0.1.0"
-            },
-            {
-              "key": "task",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "external",
-              "version": ">=0.1.0"
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
             }
-          ]
+          ],
+          "defaults": {
+            "label": "Task",
+            "size": {
+              "width": 380,
+              "height": 260
+            },
+            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+            "showLabel": false,
+            "data": {
+              "title": "",
+              "body": "Describe the concrete work to execute.",
+              "priority": "high",
+              "status": "todo",
+              "owner": "",
+              "estimateHours": "",
+              "targetDate": "",
+              "startedAt": "",
+              "completedAt": "",
+              "externalRef": "",
+              "acceptanceCriteria": [
+                "Describe what done looks like"
+              ],
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Checklist"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "task",
+            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Task",
+              "size": {
+                "width": 380,
+                "height": 260
+              },
+              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "body": "Describe the concrete work to execute.",
+                "priority": "high",
+                "status": "todo",
+                "owner": "",
+                "estimateHours": "",
+                "targetDate": "",
+                "startedAt": "",
+                "completedAt": "",
+                "externalRef": "",
+                "acceptanceCriteria": [
+                  "Describe what done looks like"
+                ],
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Checklist"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          }
         },
         "_bridge": {
           "sourceNodeId": "task-collection-bridge-task",
@@ -1898,16 +2226,24 @@
           "Decide whether Twilite initially acts as an MCP server, client, or both.",
           "Define the graph-resource, tool, authorization, and repository-boundary contract.",
           "Identify one smoke test that can prove the integration without committing to the entire ecosystem."
-        ]
+        ],
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1788047623648,
+          "reason": "node-drag"
+        }
       }
     },
     {
       "id": "task-collection-interaction-roadmap",
       "type": "portal",
       "label": "Interaction and Semantic Zoom Roadmap",
+      "root": false,
       "position": {
-        "x": 1080,
-        "y": 1200
+        "x": -161.89027692374975,
+        "y": 1689.1656099258232
       },
       "width": 500,
       "height": 340,
@@ -1966,20 +2302,28 @@
           "mode": "navigate",
           "portId": "summary",
           "surfaceId": "summary",
-          "handleId": "root",
+          "handleId": "summary",
           "label": "Open Interaction and Semantic Zoom Roadmap"
         },
         "identity": {
           "graphId": "task-collection-declaration"
         },
         "security": "prompt",
-        "visibilityRole": "browser"
+        "visibilityRole": "browser",
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1788047615292,
+          "reason": "node-drag"
+        }
       }
     },
     {
       "id": "task-collection-edge-endpoint-reassignment",
       "type": "portal",
       "label": "Implement Edge Endpoint Reassignment",
+      "root": false,
       "position": {
         "x": 1620,
         "y": 1200
@@ -2014,7 +2358,7 @@
           "mode": "navigate",
           "portId": "card",
           "surfaceId": "card",
-          "handleId": "root",
+          "handleId": "card",
           "label": "Open Implement Edge Endpoint Reassignment"
         },
         "identity": {
@@ -2034,6 +2378,7 @@
       "sourceHandle": "default-view",
       "targetHandle": "root",
       "label": "default view",
+      "style": {},
       "data": {
         "semanticRole": "default-view"
       }
@@ -2046,6 +2391,7 @@
       "sourceHandle": "summary-view",
       "targetHandle": "root",
       "label": "summary view",
+      "style": {},
       "data": {
         "semanticRole": "shared-summary"
       }
@@ -2058,6 +2404,7 @@
       "sourceHandle": "icon-view",
       "targetHandle": "root",
       "label": "icon view",
+      "style": {},
       "data": {
         "semanticRole": "shared-icon"
       }
@@ -2070,6 +2417,7 @@
       "sourceHandle": "glyph",
       "targetHandle": "root",
       "label": "glyph",
+      "style": {},
       "data": {
         "semanticRole": "shared-glyph"
       }
@@ -2082,6 +2430,7 @@
       "sourceHandle": "landing-surface",
       "targetHandle": "root",
       "label": "landing surface",
+      "style": {},
       "data": {
         "semanticRole": "landing-surface"
       }
@@ -2094,6 +2443,7 @@
       "sourceHandle": "port",
       "targetHandle": "root",
       "label": "exposes root port",
+      "style": {},
       "data": {
         "semanticRole": "exposes-port"
       }
@@ -2106,6 +2456,7 @@
       "sourceHandle": "port",
       "targetHandle": "root",
       "label": "exposes agent readiness",
+      "style": {},
       "data": {
         "semanticRole": "exposes-port"
       }
@@ -2118,6 +2469,7 @@
       "sourceHandle": "port",
       "targetHandle": "root",
       "label": "exposes analytics verification",
+      "style": {},
       "data": {
         "semanticRole": "exposes-port"
       }
@@ -2130,6 +2482,7 @@
       "sourceHandle": "port",
       "targetHandle": "root",
       "label": "exposes MCP integration",
+      "style": {},
       "data": {
         "semanticRole": "exposes-port"
       }
@@ -2350,7 +2703,7 @@
     "theme": null,
     "backgroundImage": null,
     "defaultNodeColor": "#1976d2",
-    "defaultEdgeColor": "#666666",
+    "defaultEdgeColor": "",
     "snapToGrid": false,
     "gridSize": 20,
     "edgeRouting": "auto",
@@ -2381,7 +2734,7 @@
       "repoVisibility": "private",
       "seedOnCommit": false,
       "enableGithubPages": false,
-      "installationId": "117641611"
+      "installationId": "120403738"
     },
     "autoSave": false
   },
@@ -2398,8 +2751,5 @@
       "source": "console.clear();\nconst nodes = await api.getNodes();\nconsole.log(\"Mike\");\nreturn { count: nodes.length };",
       "tags": ""
     }
-  ],
-  "nodeCount": 19,
-  "edgeCount": 16,
-  "timestamp": "2026-08-16T12:00:00.000Z"
+  ]
 }
