@@ -81,7 +81,7 @@ set('goal', {
   data: {
     body: 'Establish a minimal, graph-native proof that two declarations with the same nodeId and distinct graphIds can participate explicitly, expand into one canvas, and collapse without changing semantic identity or source ownership.',
     priority: 'critical',
-    status: 'in-progress',
+    status: 'done',
     owner: 'Michael',
     successMetrics: [
       'A paired host/participant fixture expresses the contract without directory discovery',
@@ -126,7 +126,7 @@ const taskSpecs = [
   {
     suffix: 'task-visual',
     label: '5 · Verify expansion and collapse in Graph Lab',
-    status: 'in-progress',
+    status: 'done',
     body: 'Open the paired fixture in Twilite and verify replacement-style expansion: the reference disappears, the participant landing Content node occupies its position with a Collapse control, participant structure remains source-owned, and collapse restores the original reference and authored edges.',
     acceptanceCriteria: ['Expansion replaces the visible reference without deleting its hidden authored anchor', 'The landing Content node exposes Collapse and participant nodes retain provenance', 'Collapse restores the original reference, position, visibility, and edge presentation', 'The idea graph receives implementation evidence and any resolved decisions']
   }
@@ -160,9 +160,9 @@ set('question', {
   label: 'How is participation explicitly discovered?',
   data: {
     body: 'Choose the smallest authored relationship that makes another same-node declaration discoverable without treating shared nodeId or directory proximity as sufficient authority.',
-    status: 'open',
+    status: 'resolved',
     owner: 'Michael',
-    resolutionPath: 'Resolve against the paired fixture before generalizing discovery.',
+    resolutionPath: 'An explicitly authored graph reference with target.mode expand establishes participation; shared nodeId validates compatibility but does not independently authorize discovery.',
     prominence: 'high'
   }
 });
@@ -183,21 +183,23 @@ const summary = set('summary', {
   data: {
     goal: 'Prove reversible same-node expansion across two graphs',
     title: 'Prove reversible same-node expansion across two graphs',
-    status: 'in-progress',
+    status: 'done',
     priority: 'critical',
     owner: 'Michael',
-    taskProgress: { completed: 4, total: 5 },
-    questionProgress: { answered: 0, total: 1 },
+    taskProgress: { completed: 5, total: 5 },
+    questionProgress: { answered: 1, total: 1 },
     taskTitles: taskSpecs.map((task) => task.label),
     questionTitles: ['How is participation explicitly discovered?'],
     taskListText: taskSpecs.map((task, index) => `${index + 1}. ${task.label}`).join('\n'),
     questionListText: '1. How is participation explicitly discovered?',
-    body: `Goal: Prove reversible same-node expansion across two graphs\nStatus: in-progress\n\nTasks in scope:\n${taskSpecs.map((task, index) => `${index + 1}. ${task.label}`).join('\n')}\n\nOpen questions:\n1. How is participation explicitly discovered?`,
+    body: `Goal: Prove reversible same-node expansion across two graphs\nStatus: done\n\nTasks completed:\n${taskSpecs.map((task, index) => `${index + 1}. ${task.label}`).join('\n')}\n\nResolved questions:\n1. How is participation explicitly discovered?`,
     summarySource: 'node-updater',
     updatedAt: '2026-08-29T00:00:00.000Z',
-    nextAction: 'Deploy the runtime and open the paired host fixture in Twilite to verify reference replacement, landing-node Collapse, provenance, and exact restoration.',
+    nextAction: 'Completed. Preserve the paired fixtures as the regression case for replacement-style same-node expansion.',
     blockedReason: '',
-    health: 'on-track',
+    health: 'complete',
+    completedAt: '2026-08-29T00:00:00.000Z',
+    outcome: 'Delivered explicit Expand and Collapse controls, Content-node fixtures, same-node compatibility checks, replacement-style projection over a preserved hidden reference, and exact restoration of the authored reference and edges.',
     externalRef: 'github://mikemartinez1974/public/ideas/multi-declaration-expansion/root.node'
   }
 });
