@@ -200,7 +200,7 @@ set('icon-view', {
 set('glyph', { label: 'Connected Paths Glyph', data: { glyph: { kind: 'character', value: '⇄' } } });
 set('landing-surface', {
   label: 'MCP and Copy/Paste Landing Surface',
-  data: { content: { kind: 'markdown', value: '# MCP Without Losing Copy/Paste\n\nWho needs a connected agent, what should it be allowed to do, and how can MCP shorten the loop without replacing Twilite’s portable reviewed workflow?' } }
+  data: { content: { kind: 'markdown', value: '# MCP Without Losing Copy/Paste\n\nWho needs a connected agent, what should it be allowed to do, and how can MCP shorten the loop without replacing Twilite’s portable reviewed workflow?\n\nUse **Explore idea** to enter the working graph.' } }
 });
 
 graph.timestamp = '2026-08-29T00:00:00.000Z';

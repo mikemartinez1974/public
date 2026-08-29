@@ -5,16 +5,27 @@ description: Create, derive, or maintain Twilite idea graphs from the canonical 
 
 # Idea Template
 
-Use `root.node` as the executable template. Preserve its declaration, landing surface, semantic Views, Glyph, custom node bridges, class bindings, and semantic edge-class authority before replacing example content. Treat starter content and starter relationships as demonstrations, not facts about the derived idea.
+Use `root.node` as the executable template. Preserve its declaration, landing surface, landing-to-anchor navigation, semantic Views, Glyph, custom node bridges, class bindings, and semantic edge-class authority before replacing example content. Treat starter content and starter relationships as demonstrations, not facts about the derived idea.
 
 ## Derive An Idea Graph
 
 1. Copy `root.node` structurally.
-2. Retarget graph identity, declaration identity, semantic View identities, landing-surface identity, Glyph identity, GitHub settings, every content-node identity, and every bridge identity.
+2. Retarget graph identity, declaration identity, semantic View identities, landing-surface identity, landing navigation edge and destination, Glyph identity, GitHub settings, every content-node identity, and every bridge identity.
 3. Preserve the local bridges and `_classBinding` / `_bridge` data on typed nodes. `dependencies.nodeTypes` does not grant runtime class authority.
 4. Replace the starter content with the real idea. Re-evaluate every starter relationship; keep, retarget, or remove it so every remaining edge is truthful.
 5. Duplicate repeatable working nodes as needed; do not create multiple competing anchor nodes without an explicit reason.
 6. Validate JSON, surfaces, bridge refs, class bindings, edge endpoints, handles, and edge-class refs.
+
+## Landing Navigation Contract
+
+The landing surface is an entry point, not a terminal card.
+
+- Give the landing Content node a visible named output port for onward navigation.
+- Connect that port to the graph's primary `idea` anchor with an ordinary labeled `reference` edge.
+- Use a concise action label such as `Explore idea`; this becomes the focused-node navigation affordance.
+- Retarget both the edge destination and its IDs when deriving a graph.
+- If a derived graph deliberately uses another first destination, point the landing exit there, but never leave the landing surface without an onward edge into the authored content.
+- Keep declaration-to-landing wiring separate. That edge establishes graph entry; the landing-to-anchor edge establishes the reader's next move.
 
 ## Node Roles
 
@@ -62,6 +73,7 @@ When promoting work, leave the idea graph as the durable reasoning record. Creat
 - Parse every touched `.node` file as JSON.
 - Verify the declaration supplies its implicit root interface and occupies `default-view`, `summary-view`, `icon-view`, `glyph`, and `landing-surface`. An additional authored `port` is optional unless the idea exposes a distinct named surface.
 - Verify declaration-to-landing-surface geometry defines the node frame; the default View selects content and navigation focus but does not determine geometry.
+- Verify the landing Content node has a named navigation output and at least one valid labeled edge from that output into the graph's authored content. For the canonical template, `explore` must target the primary `idea` node.
 - Verify every typed node has matching `definitionKey`, `_classBinding.key`, and class refs.
 - Verify each custom node class is an inspectable graph artifact, not a loose manifest with adjacent views. It must contain one real `declaration`, one explanatory `markdown` contract node, and visible primitive `port` nodes for `editor.web`, `node.web.detail`, `node.web.summary`, and `node.web.icon`.
 - Verify the class declaration owns every exposed surface through `declaration.surfaces`, exposes `root` through the detail port, names `root` as its default, retains named detail, summary, icon, and editor surfaces, and connects directly to the contract note and each surface port with meaningful `contract` or `surface` edges.
