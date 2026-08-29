@@ -1,0 +1,98 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Multi-Declaration Expansion Smoke Participant",
+    "description": "Minimal same-node participant projected into the expansion smoke host.",
+    "graphId": "multi-declaration-expansion-smoke-participant",
+    "version": "0.1.0",
+    "kind": "graph-lab",
+    "created": "2026-08-29T00:00:00.000Z",
+    "modified": "2026-08-29T00:00:00.000Z",
+    "tags": ["graph-lab", "expansion", "multi-graph", "same-node", "participant"]
+  },
+  "nodes": [
+    {
+      "id": "expansion-smoke-participant-declaration",
+      "type": "declaration",
+      "label": "Twilite · Document Declaration",
+      "position": { "x": 0, "y": 0 },
+      "width": 380,
+      "height": 280,
+      "handles": [{ "id": "landing-surface", "portId": "landing-surface", "label": "landing surface", "direction": "output", "dataType": "any", "angle": 0 }],
+      "ports": [{ "id": "landing-surface", "key": "landing-surface", "label": "landing surface", "direction": "output", "dataType": "any", "angle": 0 }],
+      "data": {
+        "identity": {
+          "graphId": "document",
+          "nodeId": "twilite",
+          "name": "Twilite Document Declaration",
+          "version": "0.1.0",
+          "description": "A document graph contributing structure to the same semantic Twilite node."
+        },
+        "intent": { "kind": "graph", "scope": "shared" },
+        "declaration": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "interfaceContract": { "version": 1, "implicitRootPort": true },
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            { "id": "root", "kind": "content", "label": "Document Landing Surface", "viewNodeId": "expansion-smoke-participant-landing" }
+          ]
+        },
+        "settings": { "autoSave": false, "layout": { "mode": "manual", "direction": "RIGHT" } }
+      }
+    },
+    {
+      "id": "expansion-smoke-participant-landing",
+      "type": "markdown",
+      "label": "Participant Landing Surface",
+      "position": { "x": 480, "y": 0 },
+      "width": 440,
+      "height": 300,
+      "handles": [{ "id": "root", "portId": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 180 }],
+      "ports": [{ "id": "root", "key": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 180 }],
+      "data": {
+        "identity": { "graphId": "document" },
+        "markdown": "# Document participant\n\nThis is the declared landing surface. Expansion should focus this projected node while preserving canonical provenance."
+      }
+    },
+    {
+      "id": "expansion-smoke-participant-detail",
+      "type": "markdown",
+      "label": "Participant-Owned Detail",
+      "position": { "x": 960, "y": 0 },
+      "width": 420,
+      "height": 260,
+      "handles": [{ "id": "root", "portId": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 180 }],
+      "ports": [{ "id": "root", "key": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 180 }],
+      "data": {
+        "identity": { "graphId": "document" },
+        "markdown": "## Participant-owned structure\n\nThis node makes projection and collapse visible. It remains authored in `participant.node`, never copied into host authority."
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "expansion-smoke-participant-landing-edge",
+      "type": "reference",
+      "source": "expansion-smoke-participant-declaration",
+      "target": "expansion-smoke-participant-landing",
+      "label": "landing surface",
+      "data": { "role": "landing-surface", "semanticRole": "landing-surface" },
+      "sourceHandle": "landing-surface",
+      "targetHandle": "root"
+    },
+    {
+      "id": "expansion-smoke-participant-detail-edge",
+      "type": "reference",
+      "source": "expansion-smoke-participant-landing",
+      "target": "expansion-smoke-participant-detail",
+      "label": "contains",
+      "data": { "relation": "participant-owned-detail" },
+      "sourceHandle": "root",
+      "targetHandle": "root"
+    }
+  ],
+  "nodeCount": 3,
+  "edgeCount": 2,
+  "timestamp": "2026-08-29T00:00:00.000Z"
+}

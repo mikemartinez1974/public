@@ -1,0 +1,113 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Multi-Declaration Expansion Smoke Host",
+    "description": "Minimal host graph for reversible same-node participant expansion.",
+    "graphId": "multi-declaration-expansion-smoke-host",
+    "version": "0.1.0",
+    "kind": "graph-lab",
+    "created": "2026-08-29T00:00:00.000Z",
+    "modified": "2026-08-29T00:00:00.000Z",
+    "tags": ["graph-lab", "expansion", "multi-graph", "same-node"]
+  },
+  "nodes": [
+    {
+      "id": "expansion-smoke-host-declaration",
+      "type": "declaration",
+      "label": "Twilite · Host Declaration",
+      "position": { "x": -440, "y": -100 },
+      "width": 380,
+      "height": 280,
+      "handles": [
+        { "id": "default-view", "portId": "default-view", "label": "default view", "direction": "output", "dataType": "any", "angle": 180 },
+        { "id": "participant", "portId": "participant", "label": "participant", "direction": "output", "dataType": "graph", "angle": 0 }
+      ],
+      "ports": [
+        { "id": "default-view", "key": "default-view", "label": "default view", "direction": "output", "dataType": "any", "angle": 180 },
+        { "id": "participant", "key": "participant", "label": "participant", "direction": "output", "dataType": "graph", "angle": 0 }
+      ],
+      "data": {
+        "identity": {
+          "graphId": "expansion-smoke-host",
+          "nodeId": "twilite",
+          "name": "Twilite Host Declaration",
+          "version": "0.1.0",
+          "description": "The host declaration for one semantic Twilite node."
+        },
+        "intent": { "kind": "graph", "scope": "shared" },
+        "declaration": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "interfaceContract": { "version": 1, "implicitRootPort": true },
+          "defaultSurfaceId": "host",
+          "surfaces": [
+            { "id": "host", "kind": "content", "label": "Host Surface", "viewNodeId": "expansion-smoke-host-content" }
+          ]
+        },
+        "settings": { "autoSave": false, "layout": { "mode": "manual", "direction": "RIGHT" } }
+      }
+    },
+    {
+      "id": "expansion-smoke-host-content",
+      "type": "markdown",
+      "label": "Host Graph",
+      "position": { "x": 20, "y": -100 },
+      "width": 440,
+      "height": 300,
+      "handles": [{ "id": "root", "portId": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 180 }],
+      "ports": [{ "id": "root", "key": "root", "label": "root", "direction": "bidirectional", "dataType": "any", "angle": 180 }],
+      "data": {
+        "identity": { "graphId": "expansion-smoke-host" },
+        "markdown": "# Host graph\n\nThis canvas owns the host declaration for semantic node `twilite`. Expand the participant reference; do not navigate away. Collapse must restore exactly this authored graph."
+      }
+    },
+    {
+      "id": "expansion-smoke-participant-reference",
+      "type": "graph-reference",
+      "label": "Expand Document Participant",
+      "position": { "x": 560, "y": -80 },
+      "width": 400,
+      "height": 280,
+      "handles": [{ "id": "root", "portId": "root", "label": "root", "direction": "bidirectional", "dataType": "graph", "angle": 180 }],
+      "ports": [{ "id": "root", "key": "root", "label": "root", "direction": "bidirectional", "dataType": "graph", "angle": 180 }],
+      "data": {
+        "identity": { "graphId": "expansion-smoke-host" },
+        "memo": "Explicitly expand the same-node participant into this canvas. Ordinary navigation remains a separate action.",
+        "sourceRef": "github://mikemartinez1974/public/graphs/multi-declaration-expansion-smoke/participant.node",
+        "target": {
+          "ref": "github://mikemartinez1974/public/graphs/multi-declaration-expansion-smoke/participant.node",
+          "mode": "expand",
+          "kind": "graph",
+          "entryPort": "root",
+          "label": "Expand Document Participant"
+        },
+        "security": "prompt"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "expansion-smoke-host-default-view",
+      "type": "default-view",
+      "source": "expansion-smoke-host-declaration",
+      "target": "expansion-smoke-host-content",
+      "label": "default view",
+      "data": { "role": "default-view" },
+      "sourceHandle": "default-view",
+      "targetHandle": "root"
+    },
+    {
+      "id": "expansion-smoke-host-participant",
+      "type": "reference",
+      "source": "expansion-smoke-host-declaration",
+      "target": "expansion-smoke-participant-reference",
+      "label": "participating graph",
+      "data": { "relation": "same-node-participant", "explicit": true },
+      "sourceHandle": "participant",
+      "targetHandle": "root"
+    }
+  ],
+  "nodeCount": 3,
+  "edgeCount": 2,
+  "timestamp": "2026-08-29T00:00:00.000Z"
+}
