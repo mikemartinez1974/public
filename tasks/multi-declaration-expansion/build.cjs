@@ -127,8 +127,8 @@ const taskSpecs = [
     suffix: 'task-visual',
     label: '5 · Verify expansion and collapse in Graph Lab',
     status: 'in-progress',
-    body: 'Open the paired fixture in Twilite and verify expansion placement, landing focus, semantic identity, provenance, navigation separation, deduplication, visible mismatch behavior, and reversible collapse.',
-    acceptanceCriteria: ['Expansion adds only the participant projection', 'Collapse restores the original host graph', 'The idea graph receives implementation evidence and any resolved decisions']
+    body: 'Open the paired fixture in Twilite and verify replacement-style expansion: the reference disappears, the participant landing Content node occupies its position with a Collapse control, participant structure remains source-owned, and collapse restores the original reference and authored edges.',
+    acceptanceCriteria: ['Expansion replaces the visible reference without deleting its hidden authored anchor', 'The landing Content node exposes Collapse and participant nodes retain provenance', 'Collapse restores the original reference, position, visibility, and edge presentation', 'The idea graph receives implementation evidence and any resolved decisions']
   }
 ];
 
@@ -168,13 +168,13 @@ set('question', {
 });
 
 set('decision', {
-  label: 'Expansion remains distinct from navigation',
+  label: 'Expansion replaces the reference presentation',
   data: {
-    rationale: 'Opening another graph and projecting a participating graph into the current canvas are different user intentions and must remain independently authorable.',
+    rationale: 'Leaving a portal beside its expanded participant duplicates the same doorway and weakens the spatial meaning of expansion. A hidden authored anchor preserves identity and reversibility without remaining visible.',
     status: 'decided',
-    decidedAt: '2026-08-17',
+    decidedAt: '2026-08-29',
     owner: 'Michael',
-    body: 'Use an explicit expand target for same-node projection. Keep ordinary portal navigation available and unchanged.'
+    body: 'Use an explicit expand target for same-node projection. While expanded, hide the authored reference and its connected edges, place the participant landing node at the reference position, and expose Collapse on that landing node. Collapse removes only the projection and restores the reference exactly. Ordinary navigation remains separate.'
   }
 });
 
@@ -195,7 +195,7 @@ const summary = set('summary', {
     body: `Goal: Prove reversible same-node expansion across two graphs\nStatus: in-progress\n\nTasks in scope:\n${taskSpecs.map((task, index) => `${index + 1}. ${task.label}`).join('\n')}\n\nOpen questions:\n1. How is participation explicitly discovered?`,
     summarySource: 'node-updater',
     updatedAt: '2026-08-29T00:00:00.000Z',
-    nextAction: 'Open the paired host fixture in Twilite and verify expansion placement, landing focus, deduplication, mismatch behavior, and reversible collapse.',
+    nextAction: 'Deploy the runtime and open the paired host fixture in Twilite to verify reference replacement, landing-node Collapse, provenance, and exact restoration.',
     blockedReason: '',
     health: 'on-track',
     externalRef: 'github://mikemartinez1974/public/ideas/multi-declaration-expansion/root.node'
