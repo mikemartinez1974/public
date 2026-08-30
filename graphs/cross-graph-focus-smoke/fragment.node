@@ -135,7 +135,7 @@
           "version": "1.0.0"
         },
         "intent": {
-        "kind": "graph",
+          "kind": "graph",
           "scope": "public"
         },
         "declaration": {
@@ -188,12 +188,12 @@
             }
           ]
         },
-      "settings": {
-        "autoSave": false,
-        "expansion": {
-          "allowGraphEntry": true
-        },
-        "layout": {
+        "settings": {
+          "autoSave": false,
+          "expansion": {
+            "allowGraphEntry": true
+          },
+          "layout": {
             "mode": "manual",
             "direction": "RIGHT"
           }
@@ -399,7 +399,7 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Fragment landing\n\nThe expansion animation should arrive here by following the portal-created edge. Then focus **Destination** to follow this fragment's authored edge."
+          "value": "# Focus fragment\n\nFollow the visible path to **Focus destination**. The **Received Handoff** field is the declared text input used by the typed delivery smoke test."
         },
         "identity": {
           "graphId": "cross-graph-focus-smoke-fragment"
@@ -480,6 +480,49 @@
         "sourceNodeId": "focus-fragment-summary",
         "sourcePayload": "node.web.summary",
         "payload": "node.web.summary",
+        "identity": {
+          "graphId": "cross-graph-focus-smoke-fragment"
+        }
+      }
+    },
+    {
+      "id": "focus-fragment-handoff-receiver",
+      "type": "field",
+      "label": "Received Handoff",
+      "position": {
+        "x": 1120,
+        "y": 260
+      },
+      "width": 380,
+      "height": 240,
+      "ports": [
+        {
+          "id": "set",
+          "key": "set",
+          "label": "Typed text input",
+          "direction": "input",
+          "dataType": "text",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "set",
+          "key": "set",
+          "portId": "set",
+          "label": "Typed text input",
+          "direction": "input",
+          "dataType": "text",
+          "angle": 180
+        }
+      ],
+      "data": {
+        "title": "Received Handoff",
+        "key": "receivedHandoff",
+        "fieldType": "string",
+        "value": "Waiting for an ephemeral text handoff…",
+        "required": true,
+        "memo": "Receives only validated text through the declared set input.",
         "identity": {
           "graphId": "cross-graph-focus-smoke-fragment"
         }
@@ -573,6 +616,21 @@
       "sourceHandle": "root",
       "targetHandle": "root",
       "label": "follow this edge",
+      "style": {
+        "curved": true
+      },
+      "data": {
+        "semanticRole": "navigation"
+      }
+    },
+    {
+      "id": "focus-fragment-to-handoff-receiver",
+      "type": "reference",
+      "source": "focus-fragment-destination",
+      "target": "focus-fragment-handoff-receiver",
+      "sourceHandle": "root",
+      "targetHandle": "set",
+      "label": "inspect received value",
       "style": {
         "curved": true
       },

@@ -409,7 +409,7 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Start here\n\nSelect **Fragment Portal**, then use **Expand**. The camera should follow the expansion edge into the fragment landing card."
+          "value": "# Start here\n\n1. Select **Fragment Portal** and use **Expand**.\n2. Confirm the fragment contains **Received Handoff**.\n3. Select **Send Typed Handoff**, enable **Allow Mutations** if needed, and press **Run**.\n4. The receiver should display `Hello from the host graph`; the Script result should contain a `delivered` envelope."
         },
         "identity": {
           "graphId": "cross-graph-focus-smoke-host"
@@ -498,6 +498,49 @@
         "sourceNodeId": "focus-host-summary",
         "sourcePayload": "node.web.summary",
         "payload": "node.web.summary",
+        "identity": {
+          "graphId": "cross-graph-focus-smoke-host"
+        }
+      }
+    },
+    {
+      "id": "focus-host-handoff-producer",
+      "type": "script",
+      "label": "Send Typed Handoff",
+      "position": {
+        "x": -220,
+        "y": 520
+      },
+      "width": 460,
+      "height": 340,
+      "ports": [
+        {
+          "id": "result",
+          "key": "result",
+          "label": "Typed text",
+          "direction": "output",
+          "dataType": "text",
+          "angle": 0
+        }
+      ],
+      "handles": [
+        {
+          "id": "result",
+          "key": "result",
+          "portId": "result",
+          "label": "Typed text",
+          "direction": "output",
+          "dataType": "text",
+          "angle": 0
+        }
+      ],
+      "data": {
+        "scriptName": "Send canonical typed handoff",
+        "source": "return await api.sendHandoff({\n  edgeId: 'focus-host-handoff-edge',\n  payload: {\n    schema: 'twilite://schema/text@1',\n    contentType: 'text/plain',\n    value: 'Hello from the host graph'\n  }\n});",
+        "allowMutations": true,
+        "dryRun": false,
+        "autoRun": false,
+        "memo": "V1 smoke producer: an explicit ephemeral send through the authored inter-graph edge.",
         "identity": {
           "graphId": "cross-graph-focus-smoke-host"
         }
@@ -596,6 +639,42 @@
       },
       "data": {
         "semanticRole": "navigation"
+      }
+    },
+    {
+      "id": "focus-host-handoff-edge",
+      "type": "reference",
+      "source": "focus-host-handoff-producer",
+      "target": "focus-host-fragment-portal",
+      "sourceHandle": "result",
+      "targetHandle": "root",
+      "label": "send typed text",
+      "style": {
+        "curved": true,
+        "stroke": "#22c55e",
+        "strokeWidth": 3
+      },
+      "data": {
+        "semanticRole": "inter-graph-handoff",
+        "interGraph": {
+          "version": 1,
+          "source": {
+            "graphRef": "github://mikemartinez1974/public/graphs/cross-graph-focus-smoke/host.node",
+            "graphId": "cross-graph-focus-smoke-host",
+            "nodeId": "focus-host-handoff-producer",
+            "portId": "result"
+          },
+          "target": {
+            "graphRef": "github://mikemartinez1974/public/graphs/cross-graph-focus-smoke/fragment.node",
+            "graphId": "cross-graph-focus-smoke-fragment",
+            "nodeId": "focus-fragment-handoff-receiver",
+            "portId": "set"
+          }
+        },
+        "_interGraphProjection": {
+          "sourceNodeId": "focus-host-fragment-portal",
+          "endpoint": "target"
+        }
       }
     }
   ],

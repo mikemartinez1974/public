@@ -1206,7 +1206,7 @@
       "data": {
         "title": "Define the typed handoff envelope",
         "description": "Specify payload schema and value, source and destination addresses, correlation id, provenance, lifetime, and delivery mode for Script-node output.",
-        "status": "in-progress",
+        "status": "done",
         "priority": "high",
         "owner": "Michael",
         "_classBinding": {
@@ -1215,7 +1215,9 @@
         },
         "identity": {
           "graphId": "data-handoff-declaration"
-        }
+        },
+        "completedAt": "2026-08-30T22:30:00.000Z",
+        "outcome": "Defined a versioned typed handoff envelope with payload schema/value, durable source and destination graph/node/port addresses, correlation, provenance, lifetime, delivery mode, and explicit proposed, delivered, or rejected outcomes. V1 deliberately supports ephemeral send only."
       }
     },
     {
@@ -1250,7 +1252,7 @@
       "data": {
         "title": "Deliver script output through declared ports",
         "description": "Route a typed envelope through the inter-graph connection, let the receiving graph validate and handle it, and reject unauthorized or incompatible delivery with accurate diagnostics.",
-        "status": "todo",
+        "status": "done",
         "priority": "high",
         "owner": "Michael",
         "_classBinding": {
@@ -1259,7 +1261,9 @@
         },
         "identity": {
           "graphId": "data-handoff-declaration"
-        }
+        },
+        "completedAt": "2026-08-30T22:30:00.000Z",
+        "outcome": "Script nodes can call api.sendHandoff through an authored inter-graph edge. The runtime requires mutation authority, resolves the expanded canonical destination, validates source/output and destination/input ports plus payload schema, emits nodeInput only after validation, and returns inspectable rejected envelopes for unsupported, incompatible, ambiguous, or collapsed routes."
       }
     },
     {
@@ -1294,7 +1298,7 @@
       "data": {
         "title": "Build an end-to-end two-graph smoke test",
         "description": "Prove an inter-graph edge resolves, navigation animates focus to the destination, and an authorized Script node can deliver a typed value to its declared input.",
-        "status": "todo",
+        "status": "in-progress",
         "priority": "high",
         "owner": "Michael",
         "_classBinding": {
@@ -1303,7 +1307,9 @@
         },
         "identity": {
           "graphId": "data-handoff-declaration"
-        }
+        },
+        "startedAt": "2026-08-30T22:30:00.000Z",
+        "outcome": "The canonical host/fragment pair now contains a Send Typed Handoff Script producer, a declared text inter-graph edge, and a Received Handoff Field input. Automated contract tests and graph validation pass; live browser verification remains."
       }
     },
     {
@@ -1374,7 +1380,7 @@
       "showLabel": true,
       "data": {
         "question": "Should the first handoff live only in browser memory, in session storage, or in a dedicated navigation context store?",
-        "status": "open",
+        "status": "answered",
         "owner": "Michael",
         "prominence": "high",
         "_classBinding": {
@@ -1383,7 +1389,9 @@
         },
         "identity": {
           "graphId": "data-handoff-declaration"
-        }
+        },
+        "answer": "The v1 envelope is ephemeral and lives only for the delivery operation in the current expanded workspace. Session and durable lifetimes are reserved and rejected until separately implemented.",
+        "resolutionPath": "github://mikemartinez1974/public/ideas/typed-inter-graph-handoff-envelope/root.node"
       }
     },
     {
@@ -1410,7 +1418,7 @@
       "showLabel": true,
       "data": {
         "question": "Should received context first appear as graph-level runtime state, a dedicated primitive node, or a read-only runtime API?",
-        "status": "open",
+        "status": "answered",
         "owner": "Michael",
         "prominence": "high",
         "_classBinding": {
@@ -1419,7 +1427,9 @@
         },
         "identity": {
           "graphId": "data-handoff-declaration"
-        }
+        },
+        "answer": "V1 delivers through the existing runtime nodeInput event to the addressed declared input port. Ordinary receiver primitives handle the value; no scripting-only receiver node or silent graph-level store is introduced.",
+        "resolutionPath": "github://mikemartinez1974/public/graphs/cross-graph-focus-smoke/fragment.node"
       }
     },
     {
@@ -1630,14 +1640,14 @@
         "priority": "high",
         "owner": "Michael",
         "health": "on-track",
-        "nextAction": "Define the smallest typed handoff envelope for Script-node output, including payload, addressed endpoints, provenance, correlation, lifetime, and delivery mode.",
+        "nextAction": "Run the canonical two-graph handoff smoke in Twilite: expand the fragment, run the authorized producer, confirm the receiver value and delivered envelope, then verify the collapsed and schema-mismatch rejection paths.",
         "blockedReason": "",
         "taskProgress": {
-          "completed": 4,
+          "completed": 6,
           "total": 8
         },
         "questionProgress": {
-          "answered": 0,
+          "answered": 2,
           "total": 2
         },
         "taskTitles": [
@@ -1655,7 +1665,7 @@
           "How does a graph observe received data?"
         ],
         "summarySource": "node-updater",
-        "updatedAt": "2026-08-30T17:17:45.000Z",
+        "updatedAt": "2026-08-30T22:30:00.000Z",
         "nodeViewPayload": "node.web",
         "definitionKey": "task",
         "_classBinding": {
@@ -1758,7 +1768,7 @@
         "memo": "",
         "link": "",
         "title": "Connect, focus, and move data across graphs",
-        "body": "Goal: Connect, focus, and move data across graphs\nStatus: in-progress\n\nCompleted: 4 of 8\n\nActive work:\n1. Define the typed handoff envelope",
+        "body": "Goal: Connect, focus, and move data across graphs\nStatus: in-progress\n\nCompleted: 6 of 8\n\nActive work:\n1. Build an end-to-end two-graph smoke test",
         "estimateHours": "",
         "startedAt": "",
         "completedAt": "",
