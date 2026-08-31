@@ -18,6 +18,11 @@ const edge = (id, source, target, label, sourceHandle = 'root', targetHandle = '
 const content = (id, label, x, y, value, graphId, root = false, width = 360, height = 210) => ({
   ...node(id, 'content', label, x, y, width, height, { content: { kind: 'markdown', value }, identity: { graphId } }), root
 });
+const setPorts = (target, ports) => {
+  target.ports = ports;
+  target.handles = ports.map(p => ({ ...p, portId: p.id }));
+  return target;
+};
 const view = (id, payload, x, y, html, graphId, width = 320, height = 180) => node(id, 'view', payload, x, y, width, height, {
   html, view: { payload }, identity: { graphId }, visibilityRole: 'editor'
 }, [port('root', 'input', 'any', 180)]);
@@ -89,31 +94,51 @@ function graph(metadata, nodes, edges) {
 
 const hostIdentity = 'twilite-front-door';
 const hostDecl = declarationSet({ graphId: 'twilite-front-door-smoke-host', semanticId: hostIdentity, title: 'Twilite Front Door Smoke', ref: hostRef, landingId: 'front-door-welcome', summary: 'A quiet lobby that teaches Twilite by being navigated.' });
-const welcome = content('front-door-welcome', 'Welcome to Twilite', 0, 100, '# Welcome to Twilite\n\nTurn information, work, and ideas into things you can navigate.\n\nChoose a route. Each edge is part of the experience.', 'twilite-front-door-smoke-host', true, 430, 240);
+const welcome = setPorts(content('front-door-welcome', 'Welcome to Twilite', 85, 80, '# Welcome to Twilite\n\nTurn information, work, and ideas into things you can navigate.\n\nChoose a route. Each edge is part of the experience.', 'twilite-front-door-smoke-host', true, 430, 240), [
+  port('root', 'bidirectional', 'any', 180),
+  port('get-started', 'output', 'navigation', 70),
+  port('see-it', 'output', 'navigation', 90),
+  port('explore', 'output', 'navigation', 110)
+]);
 const portal = (id, label, x, targetRef, landingId, mode, memo) => node(id, 'portal', label, x, 430, 330, 210, {
   sourceRef: targetRef, sourceNodeId: landingId, sourcePayload: 'node.web.landing',
   target: { ref: targetRef, mode, kind: 'graph', entryPort: 'root', label: mode === 'expand' ? `Expand ${label}` : `Open ${label}` },
   memo, security: 'prompt', authority: 'navigate', intent: 'external', identity: { graphId: 'twilite-front-door-smoke-host' }
 }, [port('root', 'bidirectional', 'graph', 180)]);
-const getStartedPortal = portal('front-door-get-started', 'Get Started', -400, startedRef, 'get-started-landing', 'expand', 'A short path from first visit to a useful shared workspace.');
-const seeItPortal = portal('front-door-see-it', 'See What It Does', 0, demoRef, 'see-it-landing', 'expand', 'A small ordinary subject that demonstrates focus, traversal, expansion, and semantic zoom.');
-const explorePortal = portal('front-door-explore', 'Explore', 400, 'github://twilite-zone/public/root.node', 'public-root-view', 'navigate', 'Enter the existing public Twilite world without crowding the lobby.');
+const getStartedPortal = portal('front-door-get-started', 'Get Started', -600, startedRef, 'get-started-landing', 'expand', 'A short path from first visit to a useful shared workspace.');
+const seeItPortal = portal('front-door-see-it', 'See What It Does', 100, demoRef, 'see-it-landing', 'expand', 'A small ordinary subject that demonstrates focus, traversal, expansion, and semantic zoom.');
+const explorePortal = portal('front-door-explore', 'Explore', 800, 'github://twilite-zone/public/root.node', 'public-root-view', 'navigate', 'Enter the existing public Twilite world without crowding the lobby.');
+setPorts(getStartedPortal, [port('root', 'bidirectional', 'graph', 180), port('get-started-entry', 'input', 'navigation', 270)]);
+setPorts(seeItPortal, [port('root', 'bidirectional', 'graph', 180), port('see-it-entry', 'input', 'navigation', 270)]);
+setPorts(explorePortal, [port('root', 'bidirectional', 'graph', 180), port('explore-entry', 'input', 'navigation', 270)]);
 explorePortal.data.sourcePayload = 'node.web.summary';
 explorePortal.data.target.entryPort = 'public-root-view';
 const host = graph({ title: 'Twilite Front Door Smoke', description: 'Reviewable Graph Lab prototype for the future Twilite public root.', graphId: 'twilite-front-door-smoke-host', version: '1.0.0', kind: 'smoke-test', tags: ['graph-lab','onboarding','front-door','smoke-test'] },
   [...hostDecl.nodes, welcome, getStartedPortal, seeItPortal, explorePortal],
   [...hostDecl.edges,
-    edge('front-door-edge-get-started', 'front-door-welcome', 'front-door-get-started', 'get started'),
-    edge('front-door-edge-see-it', 'front-door-welcome', 'front-door-see-it', 'see it'),
-    edge('front-door-edge-explore', 'front-door-welcome', 'front-door-explore', 'explore')]
+    edge('front-door-edge-get-started', 'front-door-welcome', 'front-door-get-started', 'get started', 'get-started', 'get-started-entry'),
+    edge('front-door-edge-see-it', 'front-door-welcome', 'front-door-see-it', 'see it', 'see-it', 'see-it-entry'),
+    edge('front-door-edge-explore', 'front-door-welcome', 'front-door-explore', 'explore', 'explore', 'explore-entry')]
 );
 
 function fragment({ graphId, title, ref, landingId, landingLabel, landingCopy, steps }) {
   const decl = declarationSet({ graphId, semanticId: hostIdentity, title, ref, landingId, summary: landingCopy.replace(/^# .+\n\n/, ''), kind: 'graph', artifactKind: 'fragment', allowEntry: true });
-  const cards = steps.map((s, i) => content(s.id, s.label, i * 390, 390, s.copy, graphId, false, 330, 210));
-  const landing = content(landingId, landingLabel, 0, 100, landingCopy, graphId, true, 430, 230);
-  const nav = [edge(`${graphId}-start`, landingId, cards[0].id, 'begin')];
-  for (let i = 0; i < cards.length - 1; i++) nav.push(edge(`${graphId}-step-${i+1}`, cards[i].id, cards[i+1].id, steps[i].edge || 'continue'));
+  const cards = steps.map((s, i) => content(s.id, s.label, 560 + i * 560, 390, s.copy, graphId, false, 330, 210));
+  const landing = content(landingId, landingLabel, 0, 380, landingCopy, graphId, true, 400, 230);
+  const relationships = [{ label: 'begin', source: landing, target: cards[0], edgeId: `${graphId}-start` }];
+  for (let i = 0; i < cards.length - 1; i++) relationships.push({
+    label: steps[i].edge || 'continue', source: cards[i], target: cards[i + 1], edgeId: `${graphId}-step-${i + 1}`
+  });
+  const endpointPorts = new Map([[landing.id, [port('root', 'bidirectional', 'any', 180)]], ...cards.map(card => [card.id, [port('root', 'bidirectional', 'any', 180)]])]);
+  const nav = relationships.map((relationship, index) => {
+    const slug = relationship.label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const sourceHandle = `${slug}-out-${index + 1}`;
+    const targetHandle = `${slug}-in-${index + 1}`;
+    endpointPorts.get(relationship.source.id).push(port(sourceHandle, 'output', 'navigation', 0));
+    endpointPorts.get(relationship.target.id).push(port(targetHandle, 'input', 'navigation', 180));
+    return edge(relationship.edgeId, relationship.source.id, relationship.target.id, relationship.label, sourceHandle, targetHandle);
+  });
+  for (const item of [landing, ...cards]) setPorts(item, endpointPorts.get(item.id));
   return graph({ title, description: landingCopy.replace(/[#\n]/g, ' ').trim(), graphId, version: '1.0.0', kind: 'graph-fragment', tags: ['graph-lab','front-door','fragment'] }, [...decl.nodes, landing, ...cards], [...decl.edges, ...nav]);
 }
 
