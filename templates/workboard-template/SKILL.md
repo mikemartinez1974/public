@@ -16,6 +16,8 @@ Use [root.node](root.node) as the executable template. Preserve its declaration,
 - Let source task graphs own status, progress, priority, blockers, next actions, and durable summaries.
 - Let the workboard own lane, rank, pinning, review time, and source-health state under local `data.board`.
 - Install at most one Workboard capability in a graph. The single board owns graph-local placement for every task it can resolve.
+- Treat the Workboard Reconciler as `template-only`, not as a standalone Script or selectively placeable Elements entry. Its bounded capability set includes the sole Workboard controller, five lane anchors, their empty states, and the graph-local task carriers it reconciles.
+- Use the Script node's `placementMode`, `capabilityRef`, `placementReason`, `requirements`, `effects`, `grants`, and `multiplicity` fields to keep that boundary inspectable without reading source.
 
 ## Derive A Workboard
 
