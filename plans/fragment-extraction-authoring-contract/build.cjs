@@ -7,7 +7,13 @@ const oldPrefix = 'plan-template';
 const prefix = 'fragment-extraction-authoring';
 const graphId = `${prefix}-declaration`;
 
-const graph = JSON.parse(fs.readFileSync(templatePath, 'utf8').replaceAll(oldPrefix, prefix));
+const templateText = fs.readFileSync(templatePath, 'utf8')
+  .replaceAll(oldPrefix, prefix)
+  .replaceAll(
+    `github://mikemartinez1974/public/templates/${prefix}/classes/`,
+    'github://mikemartinez1974/public/templates/plan-template/classes/'
+  );
+const graph = JSON.parse(templateText);
 const clone = (value) => JSON.parse(JSON.stringify(value));
 const byId = (id) => graph.nodes.find((node) => node.id === id);
 const configure = (node, { id, title, description, status = 'planned', notes = '', position }) => {
