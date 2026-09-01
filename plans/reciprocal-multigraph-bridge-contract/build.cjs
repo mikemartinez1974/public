@@ -92,10 +92,10 @@ function configureInterfaceNode(suffix, id, label, position, data) {
 }
 
 const detailView = configureInterfaceNode('detail-view', `${prefix}-detail-view`, 'Reciprocal Bridge Plan Detail', { x: -1180, y: -500 }, {
-  content: { kind: 'markdown', value: '# Reciprocal Multi-Graph Bridge Contract\n\nA node spans graphs only when both declarations share the same `nodeId` and carry reciprocal bridges. Each declaration retains its own `graphId`.' },
+  content: { kind: 'svg', value: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 400'><rect width='640' height='400' rx='20' fill='#f8fafc'/><rect width='640' height='72' rx='20' fill='#102a43'/><rect y='52' width='640' height='20' fill='#102a43'/><text x='32' y='45' fill='#fff' font-family='system-ui' font-size='24' font-weight='700'>RECIPROCAL BRIDGE CONTRACT</text><circle cx='174' cy='190' r='68' fill='#e0f2fe' stroke='#0284c7' stroke-width='8'/><circle cx='466' cy='190' r='68' fill='#fef3c7' stroke='#d97706' stroke-width='8'/><text x='174' y='179' text-anchor='middle' fill='#0c4a6e' font-family='system-ui' font-size='17' font-weight='700'>GRAPH A</text><text x='174' y='205' text-anchor='middle' fill='#0c4a6e' font-family='monospace' font-size='14'>nodeId: N</text><text x='466' y='179' text-anchor='middle' fill='#78350f' font-family='system-ui' font-size='17' font-weight='700'>GRAPH B</text><text x='466' y='205' text-anchor='middle' fill='#78350f' font-family='monospace' font-size='14'>nodeId: N</text><path d='M250 166h140l-18-18m18 18-18 18M390 216H250l18-18m-18 18 18 18' fill='none' stroke='#334155' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/><rect x='82' y='302' width='476' height='62' rx='10' fill='#e2e8f0'/><text x='320' y='328' text-anchor='middle' fill='#0f172a' font-family='system-ui' font-size='16' font-weight='700'>SAME NODE ID + BRIDGES IN BOTH DIRECTIONS</text><text x='320' y='350' text-anchor='middle' fill='#475569' font-family='system-ui' font-size='14'>Each declaration keeps its own graphId</text></svg>" },
 });
 const summaryView = configureInterfaceNode('summary-view', `${prefix}-summary-view`, 'Reciprocal Bridge Plan Summary', { x: -1180, y: -160 }, {
-  content: { kind: 'markdown', value: '## Reciprocal Bridge Plan\n\nFour phases cover durable identity, authoring enforcement, verified expansion, and diagnostic legacy loading.' },
+  content: { kind: 'svg', value: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 400'><rect width='640' height='400' rx='20' fill='#102a43'/><text x='32' y='48' fill='#fff' font-family='system-ui' font-size='23' font-weight='700'>RECIPROCAL BRIDGE PLAN</text><path d='M78 112H562' stroke='#486581' stroke-width='4'/><g font-family='system-ui'><circle cx='96' cy='112' r='22' fill='#2cb67d'/><text x='96' y='119' text-anchor='middle' fill='#fff' font-size='18' font-weight='700'>1</text><text x='136' y='105' fill='#fff' font-size='17' font-weight='700'>IDENTITY</text><text x='136' y='129' fill='#bcccdc' font-size='14'>Define durable reciprocal references</text><circle cx='96' cy='190' r='22' fill='#38bdf8'/><text x='96' y='197' text-anchor='middle' fill='#082f49' font-size='18' font-weight='700'>2</text><text x='136' y='183' fill='#fff' font-size='17' font-weight='700'>ENFORCEMENT</text><text x='136' y='207' fill='#bcccdc' font-size='14'>Reject mismatched or incomplete bridges</text><circle cx='96' cy='268' r='22' fill='#f4b942'/><text x='96' y='275' text-anchor='middle' fill='#422006' font-size='18' font-weight='700'>3</text><text x='136' y='261' fill='#fff' font-size='17' font-weight='700'>EXPANSION</text><text x='136' y='285' fill='#bcccdc' font-size='14'>Gate expansion on verified reciprocity</text><circle cx='96' cy='346' r='22' fill='#f87171'/><text x='96' y='353' text-anchor='middle' fill='#450a0a' font-size='18' font-weight='700'>4</text><text x='136' y='339' fill='#fff' font-size='17' font-weight='700'>LEGACY</text><text x='136' y='363' fill='#bcccdc' font-size='14'>Load old structures diagnostically</text></g></svg>" },
 });
 const iconView = configureInterfaceNode('icon-view', `${prefix}-icon-view`, 'Reciprocal Bridge Plan Icon', { x: -1180, y: 180 }, {
   content: { kind: 'svg', value: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220'><rect width='320' height='220' rx='24' fill='#102a43'/><circle cx='104' cy='102' r='42' fill='#d9e2ec' stroke='#2cb67d' stroke-width='8'/><circle cx='216' cy='102' r='42' fill='#d9e2ec' stroke='#f4b942' stroke-width='8'/><path d='M142 83h36l-10-10m10 10-10 10M178 121h-36l10-10m-10 10 10 10' fill='none' stroke='#fff' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/><text x='160' y='184' text-anchor='middle' fill='#fff' font-family='system-ui' font-size='18' font-weight='700'>RECIPROCAL</text></svg>" },
@@ -111,12 +111,12 @@ const port = configureInterfaceNode('summary-port', `${prefix}-port`, 'Reciproca
   direction: 'output',
   dataType: 'plan',
   sourceNodeId: 'reciprocal-bridge-plan',
-  sourcePayload: 'node.web',
+  sourcePayload: 'node.web.summary',
   renderedNodeType: 'plan',
-  view: { intent: 'node', payload: 'node.web', nodeType: 'plan' },
+  view: { intent: 'node', payload: 'node.web.summary', nodeType: 'plan' },
   presentation: {
-    detail: { mode: 'own', viewNodeId: 'reciprocal-bridge-plan' },
-    summary: { mode: 'own', viewNodeId: 'reciprocal-bridge-plan' },
+    detail: { mode: 'own', viewNodeId: `${prefix}-detail-view` },
+    summary: { mode: 'own', viewNodeId: `${prefix}-summary-view` },
     icon: { mode: 'own', viewNodeId: `${prefix}-icon-view` },
     glyph: { mode: 'own', viewNodeId: `${prefix}-glyph` },
   },
