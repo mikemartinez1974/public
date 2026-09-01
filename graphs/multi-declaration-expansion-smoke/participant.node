@@ -18,8 +18,14 @@
       "position": { "x": 0, "y": 0 },
       "width": 380,
       "height": 280,
-      "handles": [{ "id": "landing-surface", "portId": "landing-surface", "label": "landing surface", "direction": "output", "dataType": "any", "angle": 0 }],
-      "ports": [{ "id": "landing-surface", "key": "landing-surface", "label": "landing surface", "direction": "output", "dataType": "any", "angle": 0 }],
+      "handles": [
+        { "id": "landing-surface", "portId": "landing-surface", "label": "landing surface", "direction": "output", "dataType": "any", "angle": 0 },
+        { "id": "host-participant", "portId": "host-participant", "label": "host participant", "direction": "output", "dataType": "graph", "angle": 180 }
+      ],
+      "ports": [
+        { "id": "landing-surface", "key": "landing-surface", "label": "landing surface", "direction": "output", "dataType": "any", "angle": 0 },
+        { "id": "host-participant", "key": "host-participant", "label": "host participant", "direction": "output", "dataType": "graph", "angle": 180 }
+      ],
       "data": {
         "identity": {
           "graphId": "document",
@@ -38,7 +44,8 @@
             { "id": "root", "kind": "content", "label": "Document Landing Surface", "viewNodeId": "expansion-smoke-participant-landing" }
           ]
         },
-        "settings": { "autoSave": false, "layout": { "mode": "manual", "direction": "RIGHT" } }
+        "settings": { "autoSave": false, "layout": { "mode": "manual", "direction": "RIGHT" } },
+        "document": { "url": "github://mikemartinez1974/public/graphs/multi-declaration-expansion-smoke/participant.node" }
       }
     },
     {
@@ -76,6 +83,29 @@
         },
         "interfaceContract": { "version": 1, "receivesViewContent": true }
       }
+    },
+    {
+      "id": "expansion-smoke-host-reference",
+      "type": "graph-reference",
+      "label": "Expand Host Participant",
+      "position": { "x": -500, "y": 360 },
+      "width": 400,
+      "height": 280,
+      "handles": [{ "id": "root", "portId": "root", "label": "root", "direction": "bidirectional", "dataType": "graph", "angle": 0 }],
+      "ports": [{ "id": "root", "key": "root", "label": "root", "direction": "bidirectional", "dataType": "graph", "angle": 0 }],
+      "data": {
+        "identity": { "graphId": "document" },
+        "memo": "Reciprocal continuation of the same Twilite node into the host graph.",
+        "sourceRef": "github://mikemartinez1974/public/graphs/multi-declaration-expansion-smoke/host.node",
+        "target": {
+          "ref": "github://mikemartinez1974/public/graphs/multi-declaration-expansion-smoke/host.node",
+          "mode": "expand",
+          "kind": "graph",
+          "entryPort": "root",
+          "label": "Expand Host Participant"
+        },
+        "security": "prompt"
+      }
     }
   ],
   "edges": [
@@ -98,9 +128,19 @@
       "data": { "relation": "participant-owned-detail" },
       "sourceHandle": "root",
       "targetHandle": "root"
+    },
+    {
+      "id": "expansion-smoke-participant-host",
+      "type": "reference",
+      "source": "expansion-smoke-participant-declaration",
+      "target": "expansion-smoke-host-reference",
+      "label": "participating graph",
+      "data": { "relation": "same-node-participant", "explicit": true, "reciprocal": true },
+      "sourceHandle": "host-participant",
+      "targetHandle": "root"
     }
   ],
-  "nodeCount": 3,
-  "edgeCount": 2,
+  "nodeCount": 4,
+  "edgeCount": 3,
   "timestamp": "2026-08-29T00:00:00.000Z"
 }
