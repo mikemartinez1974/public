@@ -39,7 +39,7 @@ const classes = [
   {
     key: 'plan-action', label: 'Action', color: '#0e7490', accent: '#22d3ee', icon: 'Play',
     meaning: 'Something that should happen within the plan.',
-    ports: [port('parent', 'input', 270, ['plan.contains'], false), port('outcome', 'output', 350, ['plan.produces']), port('decision', 'output', 10, ['plan.gates', 'plan.branches-to']), port('support', 'output', 90, ['plan.requires', 'plan.constrained-by', 'plan.threatened-by']), rootPort],
+    ports: [port('parent', 'input', 270, ['plan.contains'], false), port('gate', 'input', 180, ['plan.gates']), port('outcome', 'output', 350, ['plan.produces']), port('decision', 'output', 10, ['plan.gates', 'plan.branches-to']), port('support', 'output', 90, ['plan.requires', 'plan.constrained-by', 'plan.threatened-by']), rootPort],
   },
   {
     key: 'plan-milestone', label: 'Milestone', color: '#15803d', accent: '#4ade80', icon: 'CheckCircle',
@@ -49,7 +49,7 @@ const classes = [
   {
     key: 'plan-decision', label: 'Decision', color: '#b45309', accent: '#fbbf24', icon: 'GitFork',
     meaning: 'A branch whose outcome changes the path.',
-    ports: [port('input', 'input', 180, ['plan.produces', 'plan.gates']), port('outcomes', 'output', 90, ['plan.gates', 'plan.branches-to']), rootPort],
+    ports: [port('input', 'input', 180, ['plan.produces', 'plan.gates']), port('outcomes', 'output', 0, ['plan.gates', 'plan.branches-to']), rootPort],
   },
   {
     key: 'plan-constraint', label: 'Constraint', color: '#475569', accent: '#94a3b8', icon: 'Fence',
@@ -302,7 +302,7 @@ function buildRoot() {
   const positions = {
     plan: { x: 0, y: 0 }, 'plan-goal': { x: 520, y: 0 }, 'plan-phase': { x: 0, y: 360 }, 'plan-action': { x: 0, y: 720 },
     'plan-milestone': { x: 520, y: 720 }, 'plan-decision': { x: 1040, y: 720 }, 'plan-constraint': { x: -520, y: 1080 },
-    'plan-risk': { x: 0, y: 1080 }, 'plan-contingency': { x: 520, y: 1080 },
+    'plan-risk': { x: 0, y: 1080 }, 'plan-contingency': { x: 1560, y: 720 },
   };
   for (const def of classes) nodes.push(semanticNode(def, `plan-template-${def.key}`, positions[def.key]));
 

@@ -101,6 +101,7 @@ Angles use the existing convention: `0` right, `90` bottom, `180` left, and
 | Phase | `actions` | output | 80 | `contains` |
 | Phase | `support` | output | 100 | `constrained by`, `threatened by` |
 | Action | `parent` | input | 270 | `contains` |
+| Action | `gate` | input | 180 | `gates` |
 | Action | `outcome` | output | 350 | `produces` |
 | Action | `decision` | output | 10 | `gates`, `branches to` |
 | Action | `support` | output | 90 | `requires`, `constrained by`, `threatened by` |
@@ -131,6 +132,7 @@ not overlap left-side semantic inputs or top-side containment inputs.
 | Phase `contains` Action | `phase.actions` | `action.parent` |
 | Action `produces` Milestone | `action.outcome` | `milestone.input` |
 | Milestone `gates` Decision | `milestone.next` | `decision.input` |
+| Decision `gates` Action | `decision.outcomes` | `action.gate` |
 | Decision `branches to` Contingency | `decision.outcomes` | `contingency.trigger` |
 | Plan `constrained by` Constraint | `plan.constraints` | `constraint.subject` |
 | Phase `constrained by` Constraint | `phase.support` | `constraint.subject` |
