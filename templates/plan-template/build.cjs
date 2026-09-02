@@ -24,7 +24,7 @@ const classes = [
   {
     key: 'plan', label: 'Plan', color: '#334155', accent: '#38bdf8', icon: 'Route',
     meaning: 'The coordinated path from current state to desired outcome.',
-    ports: [port('goal', 'output', 0, ['plan.achieves'], false), port('phases', 'output', 80, ['plan.contains']), port('constraints', 'output', 100, ['plan.constrained-by']), rootPort],
+    ports: [port('goal', 'output', 0, ['plan.achieves'], false), port('phases', 'output', 65, ['plan.contains']), port('constraints', 'output', 115, ['plan.constrained-by']), rootPort],
   },
   {
     key: 'plan-goal', label: 'Goal', color: '#047857', accent: '#34d399', icon: 'Flag',
@@ -34,12 +34,12 @@ const classes = [
   {
     key: 'plan-phase', label: 'Phase', color: '#1d4ed8', accent: '#60a5fa', icon: 'Layers',
     meaning: 'A meaningful stage of execution.',
-    ports: [port('parent', 'input', 270, ['plan.contains'], false), port('previous', 'input', 180, ['plan.precedes'], false), port('next', 'output', 0, ['plan.precedes'], false), port('actions', 'output', 80, ['plan.contains']), port('support', 'output', 100, ['plan.constrained-by', 'plan.threatened-by']), rootPort],
+    ports: [port('parent', 'input', 270, ['plan.contains'], false), port('previous', 'input', 180, ['plan.precedes'], false), port('next', 'output', 0, ['plan.precedes'], false), port('actions', 'output', 65, ['plan.contains']), port('support', 'output', 115, ['plan.constrained-by', 'plan.threatened-by']), rootPort],
   },
   {
     key: 'plan-action', label: 'Action', color: '#0e7490', accent: '#22d3ee', icon: 'Play',
     meaning: 'Something that should happen within the plan.',
-    ports: [port('parent', 'input', 270, ['plan.contains'], false), port('gate', 'input', 180, ['plan.gates']), port('outcome', 'output', 350, ['plan.produces']), port('decision', 'output', 10, ['plan.gates', 'plan.branches-to']), port('support', 'output', 90, ['plan.requires', 'plan.constrained-by', 'plan.threatened-by']), rootPort],
+    ports: [port('parent', 'input', 270, ['plan.contains'], false), port('gate', 'input', 180, ['plan.gates']), port('outcome', 'output', 340, ['plan.produces']), port('decision', 'output', 20, ['plan.gates', 'plan.branches-to']), port('support', 'output', 90, ['plan.requires', 'plan.constrained-by', 'plan.threatened-by']), rootPort],
   },
   {
     key: 'plan-milestone', label: 'Milestone', color: '#15803d', accent: '#4ade80', icon: 'CheckCircle',
@@ -99,9 +99,9 @@ function buildClass(def) {
   const graphId = `${def.key}-class`;
   const declarationId = `${def.key}-declaration`;
   const interfacePorts = [
-    port('default-view', 'output', 165, ['default-view'], false),
-    port('summary-view', 'output', 180, ['reference'], false),
-    port('icon-view', 'output', 195, ['reference'], false),
+    port('default-view', 'output', 45, ['default-view'], false),
+    port('summary-view', 'output', 135, ['reference'], false),
+    port('icon-view', 'output', 180, ['reference'], false),
     port('glyph', 'output', 270, ['reference'], false),
     port('port', 'output', 90, ['reference']),
     port('landing-surface', 'output', 0, ['reference'], false),
@@ -264,13 +264,13 @@ function templateSvg(kind) {
 
 function buildRoot() {
   const declarationPorts = [
-    port('default-view', 'output', 165, ['default-view'], false),
-    port('summary-view', 'output', 180, ['reference'], false),
-    port('icon-view', 'output', 195, ['reference'], false),
+    port('default-view', 'output', 45, ['default-view'], false),
+    port('summary-view', 'output', 135, ['reference'], false),
+    port('icon-view', 'output', 180, ['reference'], false),
     port('glyph', 'output', 270, ['reference'], false),
     port('port', 'output', 90, ['reference']),
     port('landing-surface', 'output', 0, ['reference'], false),
-    port('class-authority', 'output', 225, ['reference']),
+    port('class-authority', 'output', 315, ['reference']),
   ];
   const identity = { graphId: GRAPH_ID, nodeId: 'plan-graph' };
   const nodes = [

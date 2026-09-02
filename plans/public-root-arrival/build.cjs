@@ -5,6 +5,7 @@ const outputPath = path.join(__dirname, 'root.node');
 const templateDir = path.resolve(__dirname, '../../templates/plan-template');
 const classDir = path.join(templateDir, 'classes', 'nodes');
 const graph = JSON.parse(fs.readFileSync(outputPath, 'utf8'));
+const templateGraph = JSON.parse(fs.readFileSync(path.join(templateDir, 'root.node'), 'utf8'));
 
 const graphId = 'public-root-arrival-declaration';
 const classTypes = [
@@ -69,15 +70,8 @@ declaration.data.dependencies = {
   skills: ['plan-template'],
 };
 
-const declarationPorts = Array.isArray(declaration.ports) ? declaration.ports : [];
-if (!declarationPorts.some((item) => item.id === 'class-authority')) {
-  declarationPorts.push({
-    id: 'class-authority', key: 'class-authority', label: 'class authority',
-    direction: 'output', dataType: 'any', angle: 225,
-    allowedEdgeTypes: ['reference'],
-    metadata: { semantic: false, roles: ['class-authority'], repeatable: true },
-  });
-}
+const templateDeclaration = templateGraph.nodes.find((node) => node.type === 'declaration');
+const declarationPorts = clone(templateDeclaration.ports);
 declaration.ports = declarationPorts;
 declaration.handles = handlesFor(declarationPorts);
 

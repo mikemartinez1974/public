@@ -92,18 +92,18 @@ Angles use the existing convention: `0` right, `90` bottom, `180` left, and
 | Node class | Port | Direction | Angle | Accepted relationship |
 | --- | --- | --- | ---: | --- |
 | Plan | `goal` | output | 0 | `achieves` |
-| Plan | `phases` | output | 80 | `contains` |
-| Plan | `constraints` | output | 100 | `constrained by` |
+| Plan | `phases` | output | 65 | `contains` |
+| Plan | `constraints` | output | 115 | `constrained by` |
 | Goal | `plan` | input | 180 | `achieves` |
 | Phase | `parent` | input | 270 | `contains` |
 | Phase | `previous` | input | 180 | `precedes` |
 | Phase | `next` | output | 0 | `precedes` |
-| Phase | `actions` | output | 80 | `contains` |
-| Phase | `support` | output | 100 | `constrained by`, `threatened by` |
+| Phase | `actions` | output | 65 | `contains` |
+| Phase | `support` | output | 115 | `constrained by`, `threatened by` |
 | Action | `parent` | input | 270 | `contains` |
 | Action | `gate` | input | 180 | `gates` |
-| Action | `outcome` | output | 350 | `produces` |
-| Action | `decision` | output | 10 | `gates`, `branches to` |
+| Action | `outcome` | output | 340 | `produces` |
+| Action | `decision` | output | 20 | `gates`, `branches to` |
 | Action | `support` | output | 90 | `requires`, `constrained by`, `threatened by` |
 | Milestone | `input` | input | 270 | `produces` |
 | Milestone | `next` | output | 0 | `gates` |
@@ -118,9 +118,10 @@ The port name describes its semantic participation, not merely its visual side.
 Angles provide a default layout hint and may be changed only as part of a
 coherent template-wide layout change.
 
-Every port on one node class must have a unique angle. Adjacent ports must be
-separated by at least 15 degrees. The implicit `root` port uses `225` so it does
-not overlap left-side semantic inputs or top-side containment inputs.
+Every port on one node class must have a unique angle. Materialized handle
+centers on the same node edge must retain enough pixel distance for both the
+handles and their labels. The implicit `root` port uses `225` so it does not
+overlap left-side semantic inputs or top-side containment inputs.
 
 ## Canonical Semantic Mappings
 
