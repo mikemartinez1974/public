@@ -38,6 +38,7 @@ const positions = {
   'public-root-arrival-disclosure': { x: 960, y: 360 },
   'public-root-arrival-validate': { x: 1440, y: 360 },
   'public-root-arrival-inventory-action': { x: 0, y: 720 },
+  'public-root-arrival-public-inventory': { x: 0, y: 1080 },
   'public-root-arrival-learn-action': { x: 480, y: 720 },
   'public-root-arrival-explore-action': { x: 480, y: 1080 },
   'public-root-arrival-reveal-action': { x: 960, y: 720 },
@@ -75,6 +76,60 @@ const declarationPorts = clone(templateDeclaration.ports);
 declaration.ports = declarationPorts;
 declaration.handles = handlesFor(declarationPorts);
 
+const inventoryPort = {
+  id: 'parent',
+  key: 'parent',
+  label: 'parent',
+  direction: 'input',
+  dataType: 'any',
+  angle: 270,
+  allowedEdgeTypes: ['plan.produces'],
+  metadata: { semantic: true, roles: ['plan.produces'], repeatable: false },
+};
+const inventoryNode = {
+  id: 'public-root-arrival-public-inventory',
+  type: 'content',
+  label: 'Public root inventory',
+  position: positions['public-root-arrival-public-inventory'],
+  width: 420,
+  height: 300,
+  ports: [inventoryPort],
+  handles: handlesFor([inventoryPort]),
+  data: {
+    content: {
+      kind: 'markdown',
+      value: '# Public root inventory\n\n| Candidate | Role | Phase 1 status |\n| --- | --- | --- |\n| Public root entry | Arrival surface | Verify identity and address |\n| Tutorial | Learn More destination | Verify current graph |\n| Twilite product/about | Product orientation | Decide first-neighborhood inclusion |\n| Commons | Public graph resources | Verify address and authority |\n| Boulevard | Public material | Verify address and content policy |\n| Other public nodes | Candidate destinations | Discover and classify |\n\nRecord each durable address, semantic role, authority, and whether it belongs in the first Explore reveal.',
+    },
+    inventoryFor: 'public-root-arrival-inventory-action',
+    status: 'in-progress',
+  },
+};
+const inventoryIndex = graph.nodes.findIndex((node) => node.id === inventoryNode.id);
+if (inventoryIndex >= 0) graph.nodes[inventoryIndex] = inventoryNode;
+else graph.nodes.push(inventoryNode);
+
+for (const activeNodeId of ['public-root-arrival-inventory', 'public-root-arrival-inventory-action']) {
+  const activeNode = graph.nodes.find((node) => node.id === activeNodeId);
+  if (activeNode?.data) activeNode.data.status = 'in-progress';
+}
+
+const inventoryEdge = {
+  id: 'public-root-arrival-edge-inventory-artifact',
+  type: 'plan.produces',
+  label: 'produces',
+  source: 'public-root-arrival-inventory-action',
+  sourcePort: 'outcome',
+  sourceHandle: 'outcome',
+  target: inventoryNode.id,
+  targetPort: 'parent',
+  targetHandle: 'parent',
+  style: { stroke: '#15803d', strokeWidth: 3, dash: [], curved: true },
+  data: { semanticRole: 'plan.produces', ...layer('semantic') },
+};
+const inventoryEdgeIndex = graph.edges.findIndex((edge) => edge.id === inventoryEdge.id);
+if (inventoryEdgeIndex >= 0) graph.edges[inventoryEdgeIndex] = inventoryEdge;
+else graph.edges.push(inventoryEdge);
+
 const roleConfig = {
   'plan.achieves': { sourcePort: 'goal', targetPort: 'plan', color: '#059669', width: 3 },
   'plan.precedes': { sourcePort: 'next', targetPort: 'previous', color: '#1d4ed8', width: 2 },
@@ -107,6 +162,8 @@ for (const edge of graph.edges) {
       config = { ...config, sourcePort: 'constraints' };
     } else if (role === 'plan.produces' && targetNode?.type === 'plan-decision') {
       config = { ...config, targetPort: 'input' };
+    } else if (role === 'plan.produces' && targetNode?.id === inventoryNode.id) {
+      config = { ...config, targetPort: 'parent' };
     }
     if (!config) throw new Error(`No endpoint contract for ${role} on edge ${edge.id}.`);
     edge.type = role;
