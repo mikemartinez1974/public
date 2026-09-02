@@ -42,4 +42,23 @@ Plans coordinate work; tasks decompose work. An Action may point to or instantia
 
 ## Authoring guidance
 
-Use one Plan and one primary Goal as anchors. Duplicate Phase, Action, Milestone, Decision, Constraint, Risk, and Contingency as needed. Keep the main path legible. Use branches only when outcomes truly alter what happens next.
+Treat `root.node`, the nine class graphs, and `EDGE_AND_PORT_CONTRACT.md` as one
+versioned package.
+
+Use one Plan and one primary Goal as anchors. Duplicate Phase, Action,
+Milestone, Decision, Constraint, Risk, and Contingency as needed. Keep the main
+path legible. Use branches only when outcomes truly alter what happens next.
+
+Create nodes and establish layout lanes before creating edges. Sequence reads
+left to right, containment reads top to bottom, and supporting Constraints,
+Risks, and Contingencies remain below the primary execution path.
+
+Every new semantic edge must use the named source and target ports defined in
+`EDGE_AND_PORT_CONTRACT.md`. Do not use `root -> root` when the class publishes
+the canonical endpoint pair. Preserve edge IDs and relationship meaning when
+migrating an older graph.
+
+Contract and expansion edges remain graph truth, but they are infrastructure.
+Keep them hidden or visually recessive in the default semantic presentation.
+Review the semantic-only graph for crossings and ambiguous direction before
+publishing a derived plan.
