@@ -8,7 +8,7 @@ const CLASS_BASE = 'github://mikemartinez1974/public/templates/plan-template/cla
 const outputPath = path.join(__dirname, 'root.node');
 const classDir = path.join(__dirname, 'classes', 'nodes');
 
-const rootPort = { id: 'root', key: 'root', label: 'root', direction: 'bidirectional', dataType: 'any', angle: 180 };
+const rootPort = { id: 'root', key: 'root', label: 'root', direction: 'bidirectional', dataType: 'any', angle: 225 };
 const port = (id, direction, angle, roles, repeatable = true) => ({
   id,
   key: id,
@@ -24,7 +24,7 @@ const classes = [
   {
     key: 'plan', label: 'Plan', color: '#334155', accent: '#38bdf8', icon: 'Route',
     meaning: 'The coordinated path from current state to desired outcome.',
-    ports: [port('goal', 'output', 0, ['plan.achieves'], false), port('phases', 'output', 90, ['plan.contains']), port('constraints', 'output', 90, ['plan.constrained-by']), rootPort],
+    ports: [port('goal', 'output', 0, ['plan.achieves'], false), port('phases', 'output', 80, ['plan.contains']), port('constraints', 'output', 100, ['plan.constrained-by']), rootPort],
   },
   {
     key: 'plan-goal', label: 'Goal', color: '#047857', accent: '#34d399', icon: 'Flag',
@@ -34,12 +34,12 @@ const classes = [
   {
     key: 'plan-phase', label: 'Phase', color: '#1d4ed8', accent: '#60a5fa', icon: 'Layers',
     meaning: 'A meaningful stage of execution.',
-    ports: [port('parent', 'input', 270, ['plan.contains'], false), port('previous', 'input', 180, ['plan.precedes'], false), port('next', 'output', 0, ['plan.precedes'], false), port('actions', 'output', 90, ['plan.contains']), port('support', 'output', 90, ['plan.constrained-by', 'plan.threatened-by']), rootPort],
+    ports: [port('parent', 'input', 270, ['plan.contains'], false), port('previous', 'input', 180, ['plan.precedes'], false), port('next', 'output', 0, ['plan.precedes'], false), port('actions', 'output', 80, ['plan.contains']), port('support', 'output', 100, ['plan.constrained-by', 'plan.threatened-by']), rootPort],
   },
   {
     key: 'plan-action', label: 'Action', color: '#0e7490', accent: '#22d3ee', icon: 'Play',
     meaning: 'Something that should happen within the plan.',
-    ports: [port('parent', 'input', 270, ['plan.contains'], false), port('outcome', 'output', 0, ['plan.produces']), port('decision', 'output', 0, ['plan.gates', 'plan.branches-to']), port('support', 'output', 90, ['plan.requires', 'plan.constrained-by', 'plan.threatened-by']), rootPort],
+    ports: [port('parent', 'input', 270, ['plan.contains'], false), port('outcome', 'output', 350, ['plan.produces']), port('decision', 'output', 10, ['plan.gates', 'plan.branches-to']), port('support', 'output', 90, ['plan.requires', 'plan.constrained-by', 'plan.threatened-by']), rootPort],
   },
   {
     key: 'plan-milestone', label: 'Milestone', color: '#15803d', accent: '#4ade80', icon: 'CheckCircle',
@@ -270,7 +270,7 @@ function buildRoot() {
     port('glyph', 'output', 270, ['reference'], false),
     port('port', 'output', 90, ['reference']),
     port('landing-surface', 'output', 0, ['reference'], false),
-    port('class-authority', 'output', 180, ['reference']),
+    port('class-authority', 'output', 225, ['reference']),
   ];
   const identity = { graphId: GRAPH_ID, nodeId: 'plan-graph' };
   const nodes = [
