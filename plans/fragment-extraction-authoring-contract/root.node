@@ -706,8 +706,8 @@
       "data": {
         "title": "Turn semantic nodes into explicit fragments",
         "description": "Define one authoring operation that supports inline creation, standalone creation, later attachment, and identity-preserving fragment extraction.",
-        "status": "planned",
-        "notes": "Fragmentation changes storage and contribution boundaries, not semantic identity.",
+        "status": "validation-pending",
+        "notes": "Implementation is complete in Twilite; live GitHub lifecycle and browser closure smoke validation remains.",
         "definitionKey": "plan",
         "_classBinding": {
           "key": "plan",
@@ -722,6 +722,20 @@
             "kind": "icon",
             "name": "Route"
           }
+        },
+        "implementation": {
+          "status": "validation-pending",
+          "runtimeRepo": "github://mikemartinez1974/twilite",
+          "evidence": [
+            "components/GraphEditor/utils/fragmentExtraction.js",
+            "components/GraphEditor/utils/reciprocalBridgeClosure.js",
+            "components/GraphEditor/GraphEditorContent.js",
+            "components/GraphEditor/GraphCrud.js",
+            "app/api/github/commit-batch/route.js",
+            "public/agent-guidance/fragment-authoring.md"
+          ],
+          "automatedVerification": "14 focused tests pass; production build passes.",
+          "remainingVerification": "Run one disposable GitHub extract/attach/detach transaction and one browser three-graph closure smoke test."
         }
       }
     },
@@ -763,7 +777,7 @@
       "data": {
         "title": "An explicit, atomic, identity-preserving fragment workflow",
         "description": "UI and agents perform the same validated transaction without copying plan logic, changing nodeId, or persisting a one-way bridge.",
-        "status": "target",
+        "status": "validation-pending",
         "notes": "",
         "definitionKey": "plan-goal",
         "_classBinding": {
@@ -820,7 +834,7 @@
       "data": {
         "title": "No partial reciprocal transaction",
         "description": "Neither graph may be committed unless identity, both bridge contributions, and migrated edges validate together.",
-        "status": "required",
+        "status": "satisfied",
         "notes": "",
         "definitionKey": "plan-constraint",
         "_classBinding": {
@@ -877,7 +891,7 @@
       "data": {
         "title": "Extraction creates a second editable plan",
         "description": "Duplicated status or plan logic would turn node expansion into distributed declarations.",
-        "status": "active",
+        "status": "mitigated",
         "notes": "",
         "definitionKey": "plan-risk",
         "_classBinding": {
@@ -933,8 +947,8 @@
       "showLabel": false,
       "data": {
         "title": "Rollback to the original inline graph",
-        "description": "If either graph or any migrated edge fails validation, discard the fragment write and leave the original graph unchanged.",
-        "status": "prepared",
+        "description": "Atomic tree commits now prevent partial writes; failed validation or branch update leaves the original graph unchanged.",
+        "status": "superseded-by-atomic-commit",
         "notes": "",
         "definitionKey": "plan-contingency",
         "_classBinding": {
@@ -991,7 +1005,7 @@
       "data": {
         "title": "1. Define identity and contribution ownership",
         "description": "Specify nodeId preservation, graphId provenance, and one authoritative owner for every mutable field.",
-        "status": "planned",
+        "status": "complete",
         "notes": "",
         "definitionKey": "plan-phase",
         "_classBinding": {
@@ -1048,7 +1062,7 @@
       "data": {
         "title": "2. Design the extraction transaction",
         "description": "Define selection, file creation, content migration, participant retention, reciprocal bridge creation, validation, commit, and rollback.",
-        "status": "planned",
+        "status": "complete",
         "notes": "",
         "definitionKey": "plan-phase",
         "_classBinding": {
@@ -1105,7 +1119,7 @@
       "data": {
         "title": "3. Implement UI and agent authoring operations",
         "description": "Expose equivalent commands for inline creation, standalone creation, attachment, extraction, inspection, and detachment.",
-        "status": "planned",
+        "status": "complete",
         "notes": "",
         "definitionKey": "plan-phase",
         "_classBinding": {
@@ -1162,7 +1176,7 @@
       "data": {
         "title": "4. Integrate complete bridge-closure loading",
         "description": "Resolve every reciprocal same-node contribution before treating the semantic node as complete while allowing selective rendering.",
-        "status": "planned",
+        "status": "complete",
         "notes": "",
         "definitionKey": "plan-phase",
         "_classBinding": {
@@ -1219,8 +1233,8 @@
       "data": {
         "title": "Write the identity and authority contract",
         "description": "Assign nodeId at first authoring, preserve it across transformations, and prevent duplicated plan authority.",
-        "status": "planned",
-        "notes": "Phase 1",
+        "status": "complete",
+        "notes": "Phase 1; implemented in Twilite runtime.",
         "definitionKey": "plan-action",
         "_classBinding": {
           "key": "plan-action",
@@ -1276,8 +1290,8 @@
       "data": {
         "title": "Define deterministic extraction selection",
         "description": "Classify moved nodes, internal edges, retained host edges, public ports, and ambiguous supporting content.",
-        "status": "planned",
-        "notes": "Phase 2",
+        "status": "complete",
+        "notes": "Phase 2; implemented in Twilite runtime.",
         "definitionKey": "plan-action",
         "_classBinding": {
           "key": "plan-action",
@@ -1333,8 +1347,8 @@
       "data": {
         "title": "Implement two-graph atomic persistence",
         "description": "Write both reciprocal bridge contributions only after both graphs validate; rollback leaves the inline graph unchanged.",
-        "status": "planned",
-        "notes": "Phase 2",
+        "status": "complete",
+        "notes": "Phase 2; implemented in Twilite runtime.",
         "definitionKey": "plan-action",
         "_classBinding": {
           "key": "plan-action",
@@ -1390,8 +1404,8 @@
       "data": {
         "title": "Add fragment lifecycle UI",
         "description": "Provide Extract as Fragment, Attach to Graph, Open Fragment, Show Contributions, and Detach Fragment with a transaction preview.",
-        "status": "planned",
-        "notes": "Phase 3",
+        "status": "complete",
+        "notes": "Phase 3; implemented in Twilite runtime.",
         "definitionKey": "plan-action",
         "_classBinding": {
           "key": "plan-action",
@@ -1447,8 +1461,8 @@
       "data": {
         "title": "Publish equivalent agent guidance",
         "description": "Map natural language to the same operations and prohibit copies, nodeId changes, and one-sided bridges.",
-        "status": "planned",
-        "notes": "Phase 3",
+        "status": "complete",
+        "notes": "Phase 3; implemented in Twilite runtime.",
         "definitionKey": "plan-action",
         "_classBinding": {
           "key": "plan-action",
@@ -1504,8 +1518,8 @@
       "data": {
         "title": "Load the complete reciprocal closure",
         "description": "Expose loading, complete, incomplete, and invalid states for the assembled semantic node.",
-        "status": "planned",
-        "notes": "Phase 4",
+        "status": "complete",
+        "notes": "Phase 4; implemented in Twilite runtime.",
         "definitionKey": "plan-action",
         "_classBinding": {
           "key": "plan-action",
@@ -1561,7 +1575,7 @@
       "data": {
         "title": "Extraction is safe to author",
         "description": "The UI and agent perform the same atomic transaction with preserved identity and valid reciprocal bridges.",
-        "status": "acceptance",
+        "status": "pending-smoke",
         "notes": "",
         "definitionKey": "plan-milestone",
         "_classBinding": {
@@ -1618,7 +1632,7 @@
       "data": {
         "title": "Fragments load as one complete semantic node",
         "description": "All reciprocal contributions resolve before the node is presented as complete; rendering remains selective.",
-        "status": "acceptance",
+        "status": "pending-smoke",
         "notes": "",
         "definitionKey": "plan-milestone",
         "_classBinding": {

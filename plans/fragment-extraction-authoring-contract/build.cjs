@@ -78,12 +78,12 @@ landing.data.content = { kind: 'markdown', value: '# Fragment Extraction Authori
 const plan = configure(byId(`${prefix}-plan`), {
   id: `${prefix}-plan`, title: 'Turn semantic nodes into explicit fragments',
   description: 'Define one authoring operation that supports inline creation, standalone creation, later attachment, and identity-preserving fragment extraction.',
-  status: 'planned', notes: 'Fragmentation changes storage and contribution boundaries, not semantic identity.', position: { x: 0, y: 0 },
+  status: 'validation-pending', notes: 'Implementation is complete in Twilite; live GitHub lifecycle and browser closure smoke validation remains.', position: { x: 0, y: 0 },
 });
 const goal = configure(byId(`${prefix}-plan-goal`), {
   id: `${prefix}-goal`, title: 'An explicit, atomic, identity-preserving fragment workflow',
   description: 'UI and agents perform the same validated transaction without copying plan logic, changing nodeId, or persisting a one-way bridge.',
-  status: 'target', position: { x: 0, y: -360 },
+  status: 'validation-pending', position: { x: 0, y: -360 },
 });
 
 const basePhase = byId(`${prefix}-plan-phase`);
@@ -94,7 +94,7 @@ const phaseSpecs = [
   ['closure', '4. Integrate complete bridge-closure loading', 'Resolve every reciprocal same-node contribution before treating the semantic node as complete while allowing selective rendering.'],
 ];
 const phases = phaseSpecs.map(([key, title, description], index) => configure(clone(basePhase), {
-  id: `${prefix}-phase-${key}`, title, description, position: { x: -780 + index * 520, y: 360 },
+  id: `${prefix}-phase-${key}`, title, description, status: 'complete', position: { x: -780 + index * 520, y: 360 },
 }));
 
 const baseAction = byId(`${prefix}-plan-action`);
@@ -107,13 +107,13 @@ const actionSpecs = [
   ['loader', 'Load the complete reciprocal closure', 'Expose loading, complete, incomplete, and invalid states for the assembled semantic node.', 3],
 ];
 const actions = actionSpecs.map(([key, title, description, phase], index) => configure(clone(baseAction), {
-  id: `${prefix}-action-${key}`, title, description, position: { x: -900 + index * 360, y: 720 + (index % 2) * 270 }, notes: `Phase ${phase + 1}`,
+  id: `${prefix}-action-${key}`, title, description, status: 'complete', position: { x: -900 + index * 360, y: 720 + (index % 2) * 270 }, notes: `Phase ${phase + 1}; implemented in Twilite runtime.`,
 }));
 
 const baseMilestone = byId(`${prefix}-plan-milestone`);
 const milestones = [
-  configure(clone(baseMilestone), { id: `${prefix}-milestone-authoring`, title: 'Extraction is safe to author', description: 'The UI and agent perform the same atomic transaction with preserved identity and valid reciprocal bridges.', status: 'acceptance', position: { x: -420, y: 1280 } }),
-  configure(clone(baseMilestone), { id: `${prefix}-milestone-loading`, title: 'Fragments load as one complete semantic node', description: 'All reciprocal contributions resolve before the node is presented as complete; rendering remains selective.', status: 'acceptance', position: { x: 420, y: 1280 } }),
+  configure(clone(baseMilestone), { id: `${prefix}-milestone-authoring`, title: 'Extraction is safe to author', description: 'The UI and agent perform the same atomic transaction with preserved identity and valid reciprocal bridges.', status: 'pending-smoke', position: { x: -420, y: 1280 } }),
+  configure(clone(baseMilestone), { id: `${prefix}-milestone-loading`, title: 'Fragments load as one complete semantic node', description: 'All reciprocal contributions resolve before the node is presented as complete; rendering remains selective.', status: 'pending-smoke', position: { x: 420, y: 1280 } }),
 ];
 
 const baseDecision = byId(`${prefix}-plan-decision`);
@@ -123,14 +123,29 @@ const decisions = [
 ];
 
 const constraint = configure(byId(`${prefix}-plan-constraint`), {
-  id: `${prefix}-constraint-atomic`, title: 'No partial reciprocal transaction', description: 'Neither graph may be committed unless identity, both bridge contributions, and migrated edges validate together.', status: 'required', position: { x: -820, y: 1600 },
+  id: `${prefix}-constraint-atomic`, title: 'No partial reciprocal transaction', description: 'Neither graph may be committed unless identity, both bridge contributions, and migrated edges validate together.', status: 'satisfied', position: { x: -820, y: 1600 },
 });
 const risk = configure(byId(`${prefix}-plan-risk`), {
-  id: `${prefix}-risk-duplicate-authority`, title: 'Extraction creates a second editable plan', description: 'Duplicated status or plan logic would turn node expansion into distributed declarations.', status: 'active', position: { x: 820, y: 1600 },
+  id: `${prefix}-risk-duplicate-authority`, title: 'Extraction creates a second editable plan', description: 'Duplicated status or plan logic would turn node expansion into distributed declarations.', status: 'mitigated', position: { x: 820, y: 1600 },
 });
 const contingency = configure(byId(`${prefix}-plan-contingency`), {
-  id: `${prefix}-contingency-rollback`, title: 'Rollback to the original inline graph', description: 'If either graph or any migrated edge fails validation, discard the fragment write and leave the original graph unchanged.', status: 'prepared', position: { x: 820, y: 1910 },
+  id: `${prefix}-contingency-rollback`, title: 'Rollback to the original inline graph', description: 'Atomic tree commits now prevent partial writes; failed validation or branch update leaves the original graph unchanged.', status: 'superseded-by-atomic-commit', position: { x: 820, y: 1910 },
 });
+
+plan.data.implementation = {
+  status: 'validation-pending',
+  runtimeRepo: 'github://mikemartinez1974/twilite',
+  evidence: [
+    'components/GraphEditor/utils/fragmentExtraction.js',
+    'components/GraphEditor/utils/reciprocalBridgeClosure.js',
+    'components/GraphEditor/GraphEditorContent.js',
+    'components/GraphEditor/GraphCrud.js',
+    'app/api/github/commit-batch/route.js',
+    'public/agent-guidance/fragment-authoring.md',
+  ],
+  automatedVerification: '14 focused tests pass; production build passes.',
+  remainingVerification: 'Run one disposable GitHub extract/attach/detach transaction and one browser three-graph closure smoke test.',
+};
 
 graph.nodes = graph.nodes.filter((node) => ![basePhase.id, baseAction.id, baseMilestone.id, baseDecision.id, `${prefix}-instructions`].includes(node.id));
 graph.nodes.push(...phases, ...actions, ...milestones, ...decisions);
