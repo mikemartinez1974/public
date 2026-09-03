@@ -1402,7 +1402,7 @@
         "identity": {
           "graphId": "direct-edge-routing-declaration"
         },
-        "markdown": "# Route authoring contract\n\n- A route pin changes presentation, never logical connectivity.\n- A route pin belongs to exactly one edge.\n- Pin Route persists the current route; Unpin Route returns it to automatic routing.\n- Shared or branching topology requires an explicit router node.\n- Invalid manual geometry preserves the logical edge and offers Reset Route."
+        "markdown": "# Route authoring contract\n\n- A route pin changes presentation, never logical connectivity.\n- A route pin belongs to exactly one edge.\n- Pin Route persists the current route; Unpin Route and Reset Route return it to automatic routing.\n- Add Route Pin inserts a layout control at the selected edge location; deleting a pin resequences the remaining controls.\n- Manual route pins produce orthogonal segments. Curve control handles are a separate future control type.\n- Shared or branching topology requires an explicit router node.\n- Promotion must wait for a router contract covering ports, traversal, relationship continuity, deletion, and serialization.\n- Invalid manual geometry preserves the logical edge and offers Reset Route."
       }
     },
     {
@@ -2124,7 +2124,7 @@
       "data": {
         "title": "2. Add direct route editing",
         "description": "Expose route pins and segment manipulation when an edge is selected.",
-        "status": "in-progress",
+        "status": "done",
         "notes": "",
         "definitionKey": "plan-phase",
         "_classBinding": {
@@ -2366,7 +2366,7 @@
       "data": {
         "title": "3. Preserve routing behavior",
         "description": "Keep straight, curved, and orthogonal routes valid as nodes and pins move.",
-        "status": "draft",
+        "status": "done",
         "notes": "",
         "definitionKey": "plan-phase",
         "_classBinding": {
@@ -2608,7 +2608,7 @@
       "data": {
         "title": "4. Add semantic plumbing promotion",
         "description": "Allow an intentional route location to become a real router or junction node.",
-        "status": "draft",
+        "status": "in-progress",
         "notes": "",
         "definitionKey": "plan-phase",
         "_classBinding": {
@@ -3607,8 +3607,8 @@
       ],
       "data": {
         "title": "Support insert, move, delete, and reset",
-        "description": "Drag a segment to author a route, double-click to insert a pin, delete to simplify, and reset to recalculate.",
-        "status": "in-progress",
+        "description": "Use the edge menu to insert a pin at the pointer, drag pins to shape the route, delete individual pins to simplify it, and reset to automatic routing.",
+        "status": "done",
         "notes": "",
         "definitionKey": "plan-action",
         "_classBinding": {
@@ -3630,7 +3630,7 @@
     {
       "id": "direct-edge-routing-action-geometry",
       "type": "plan-action",
-      "label": "Constrain route geometry by edge style",
+      "label": "Constrain manual route geometry",
       "position": {
         "x": 960,
         "y": 720
@@ -3856,9 +3856,9 @@
         }
       ],
       "data": {
-        "title": "Constrain route geometry by edge style",
-        "description": "Use control pins for curves, segment-aware pin pairs for orthogonal edges, and manual routing when a straight edge gains a pin.",
-        "status": "draft",
+        "title": "Constrain manual route geometry",
+        "description": "Manual route pins define stable orthogonal legs. Curve control handles remain a distinct future control instead of overloading route-pin semantics.",
+        "status": "done",
         "notes": "",
         "definitionKey": "plan-action",
         "_classBinding": {
@@ -4130,7 +4130,7 @@
     {
       "id": "direct-edge-routing-action-promote",
       "type": "plan-action",
-      "label": "Promote a route pin to a router node",
+      "label": "Define and promote to a semantic router",
       "position": {
         "x": 1440,
         "y": 720
@@ -4356,8 +4356,8 @@
         }
       ],
       "data": {
-        "title": "Promote a route pin to a router node",
-        "description": "Replace layout-only routing with explicit graph topology only when the author requests a semantic junction.",
+        "title": "Define and promote to a semantic router",
+        "description": "First define router ports, traversal, relationship continuity, deletion, and serialization; then replace a route pin with that explicit topology only when requested.",
         "status": "draft",
         "notes": "",
         "definitionKey": "plan-action",
@@ -4608,7 +4608,7 @@
       "data": {
         "title": "Document the authoring distinction",
         "description": "Teach agents and UI that route pins alter presentation while router nodes alter graph logic.",
-        "status": "draft",
+        "status": "done",
         "notes": "",
         "definitionKey": "plan-action",
         "_classBinding": {

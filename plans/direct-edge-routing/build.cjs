@@ -68,10 +68,10 @@ const contentNodes = [
   makeNode('plan-action', `${prefix}-action-schema`, 'Persist route pins and manual mode', { x: 0, y: 720 }, 'Add a durable route-pin schema, edge ownership, ordering, validation, load, save, copy, and deletion behavior.'),
   makeNode('plan-action', `${prefix}-action-pin`, 'Make Pin Route and Unpin Route real', { x: 0, y: 1080 }, 'Pin materializes the current automatic route; unpin removes layout pins and restores automatic routing.'),
   makeNode('plan-action', `${prefix}-action-overlay`, 'Render selected-edge route controls', { x: 480, y: 720 }, 'Show compact draggable pins only for selected edges or explicit route-edit mode.'),
-  makeNode('plan-action', `${prefix}-action-gestures`, 'Support insert, move, delete, and reset', { x: 480, y: 1080 }, 'Drag a segment to author a route, double-click to insert a pin, delete to simplify, and reset to recalculate.'),
-  makeNode('plan-action', `${prefix}-action-geometry`, 'Constrain route geometry by edge style', { x: 960, y: 720 }, 'Use control pins for curves, segment-aware pin pairs for orthogonal edges, and manual routing when a straight edge gains a pin.'),
+  makeNode('plan-action', `${prefix}-action-gestures`, 'Support insert, move, delete, and reset', { x: 480, y: 1080 }, 'Use the edge menu to insert a pin at the pointer, drag pins to shape the route, delete individual pins to simplify it, and reset to automatic routing.'),
+  makeNode('plan-action', `${prefix}-action-geometry`, 'Constrain manual route geometry', { x: 960, y: 720 }, 'Manual route pins define stable orthogonal legs. Curve control handles remain a distinct future control instead of overloading route-pin semantics.'),
   makeNode('plan-action', `${prefix}-action-endpoints`, 'Keep endpoints attached during edits', { x: 960, y: 1080 }, 'Recalculate endpoint segments while preserving authored interior pins when connected nodes or handles move.'),
-  makeNode('plan-action', `${prefix}-action-promote`, 'Promote a route pin to a router node', { x: 1440, y: 720 }, 'Replace layout-only routing with explicit graph topology only when the author requests a semantic junction.'),
+  makeNode('plan-action', `${prefix}-action-promote`, 'Define and promote to a semantic router', { x: 1440, y: 720 }, 'First define router ports, traversal, relationship continuity, deletion, and serialization; then replace a route pin with that explicit topology only when requested.'),
   makeNode('plan-action', `${prefix}-action-guidance`, 'Document the authoring distinction', { x: 1440, y: 1080 }, 'Teach agents and UI that route pins alter presentation while router nodes alter graph logic.'),
 
   makeNode('plan-decision', `${prefix}-decision`, 'Route pins are not logical nodes', { x: 1920, y: 360 }, 'Keep source and target on one logical edge; only explicit router promotion may change topology.', { decision: 'Route pins use node-like layout entities referenced by an edge, but do not become edge endpoints.' }),
@@ -86,15 +86,19 @@ const statuses = {
   [`${prefix}-plan`]: 'in-progress',
   [`${prefix}-goal`]: 'in-progress',
   [`${prefix}-phase-contract`]: 'done',
-  [`${prefix}-phase-editing`]: 'in-progress',
+  [`${prefix}-phase-editing`]: 'done',
+  [`${prefix}-phase-routing`]: 'done',
+  [`${prefix}-phase-plumbing`]: 'in-progress',
   [`${prefix}-action-schema`]: 'done',
   [`${prefix}-action-pin`]: 'done',
   [`${prefix}-action-overlay`]: 'done',
-  [`${prefix}-action-gestures`]: 'in-progress',
+  [`${prefix}-action-gestures`]: 'done',
+  [`${prefix}-action-geometry`]: 'done',
   [`${prefix}-action-endpoints`]: 'done',
   [`${prefix}-decision`]: 'done',
   [`${prefix}-constraint-identity`]: 'done',
-  [`${prefix}-constraint-ownership`]: 'done'
+  [`${prefix}-constraint-ownership`]: 'done',
+  [`${prefix}-action-guidance`]: 'done'
 };
 contentNodes.forEach((node) => {
   if (statuses[node.id]) node.data.status = statuses[node.id];
@@ -208,7 +212,7 @@ landing.data.identity = { ...landing.data.identity, graphId, nodeId: 'direct-edg
 
 const instructions = graph.nodes.find((node) => node.id === `${prefix}-instructions`);
 instructions.label = 'Route Authoring Contract';
-instructions.data.markdown = '# Route authoring contract\n\n- A route pin changes presentation, never logical connectivity.\n- A route pin belongs to exactly one edge.\n- Pin Route persists the current route; Unpin Route returns it to automatic routing.\n- Shared or branching topology requires an explicit router node.\n- Invalid manual geometry preserves the logical edge and offers Reset Route.';
+instructions.data.markdown = '# Route authoring contract\n\n- A route pin changes presentation, never logical connectivity.\n- A route pin belongs to exactly one edge.\n- Pin Route persists the current route; Unpin Route and Reset Route return it to automatic routing.\n- Add Route Pin inserts a layout control at the selected edge location; deleting a pin resequences the remaining controls.\n- Manual route pins produce orthogonal segments. Curve control handles are a separate future control type.\n- Shared or branching topology requires an explicit router node.\n- Promotion must wait for a router contract covering ports, traversal, relationship continuity, deletion, and serialization.\n- Invalid manual geometry preserves the logical edge and offers Reset Route.';
 
 for (const node of graph.nodes) {
   if (node.data?.identity?.graphId) node.data.identity.graphId = graphId;
