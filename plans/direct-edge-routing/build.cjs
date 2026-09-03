@@ -9,6 +9,7 @@ const clone = (value) => JSON.parse(JSON.stringify(value));
 const prefix = 'direct-edge-routing';
 const graphId = `${prefix}-declaration`;
 const graphRef = 'github://mikemartinez1974/public/plans/direct-edge-routing/root.node';
+const templateClassPrefix = 'github://mikemartinez1974/public/templates/plan-template/classes/';
 const now = '2026-09-03T12:00:00.000Z';
 const replaceTemplateText = (value) => {
   if (Array.isArray(value)) return value.map(replaceTemplateText);
@@ -16,6 +17,7 @@ const replaceTemplateText = (value) => {
     return Object.fromEntries(Object.entries(value).map(([key, entry]) => [key, replaceTemplateText(entry)]));
   }
   if (typeof value !== 'string') return value;
+  if (value.startsWith(templateClassPrefix)) return value;
   return value
     .replaceAll('plan-template', prefix)
     .replaceAll('Plan Template', 'Direct Edge Routing Plan')
