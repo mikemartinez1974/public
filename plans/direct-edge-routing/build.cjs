@@ -82,6 +82,23 @@ const contentNodes = [
   makeNode('plan-contingency', `${prefix}-contingency`, 'Fall back to automatic rerouting', { x: 1920, y: 1440 }, 'When a manual route is invalid, preserve the logical edge, report diagnostics, and offer Reset Route.'),
   makeNode('plan-milestone', `${prefix}-milestone`, 'Direct edge authoring is complete', { x: 1920, y: 720 }, 'Users can shape and pin routes on canvas, persist them, and deliberately promote a pin into semantic plumbing.')
 ];
+const statuses = {
+  [`${prefix}-plan`]: 'in-progress',
+  [`${prefix}-goal`]: 'in-progress',
+  [`${prefix}-phase-contract`]: 'done',
+  [`${prefix}-phase-editing`]: 'in-progress',
+  [`${prefix}-action-schema`]: 'done',
+  [`${prefix}-action-pin`]: 'done',
+  [`${prefix}-action-overlay`]: 'done',
+  [`${prefix}-action-gestures`]: 'in-progress',
+  [`${prefix}-action-endpoints`]: 'done',
+  [`${prefix}-decision`]: 'done',
+  [`${prefix}-constraint-identity`]: 'done',
+  [`${prefix}-constraint-ownership`]: 'done'
+};
+contentNodes.forEach((node) => {
+  if (statuses[node.id]) node.data.status = statuses[node.id];
+});
 graph.nodes.push(...contentNodes);
 
 const edgeStyle = {
