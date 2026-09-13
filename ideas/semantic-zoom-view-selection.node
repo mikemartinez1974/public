@@ -45,10 +45,10 @@
         "identity": {
           "graphId": "semantic-zoom-view-selection",
           "name": "Semantic Zoom as View Selection",
-          "version": "1.1.0",
+          "version": "1.2.0",
           "description": "Define semantic view selection and continuous camera-scope rollover between a workspace and a focused graph.",
           "createdAt": "2026-08-03T20:30:00.000Z",
-          "updatedAt": "2026-09-12T18:00:00.000Z"
+          "updatedAt": "2026-09-13T19:42:43.857Z"
         },
         "intent": {
           "kind": "idea",
@@ -340,11 +340,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Declarations May Author Percentage View Bands",
-        "statement": "A declaration may optionally map minimum viewport-occupancy percentages to exact View node IDs, followed by an explicit graph threshold. The existing named bands remain the compatibility default.",
+        "title": "Views Own Their Semantic Zoom Ranges",
+        "statement": "Each authored View may own its viewport-occupancy threshold. Twilite collects the Views that are actually present, orders them by threshold, and selects only from that collection before unfolding the graph.",
         "status": "proposed",
         "confidence": "plausible",
-        "notes": "This is an attempted extension of the semantic-zoom model. Percentages select authored representations; they do not create representations or change node identity. Ports, portals, handles, and bridge apertures remain stable boundary interfaces.",
+        "notes": "This is an attempted extension of the semantic-zoom model. A View may tune its range but does not need to: its exposed Glyph, Icon, Summary, or Detail role supplies a conventional default. Missing roles are skipped rather than synthesized. Ports, portals, handles, and bridge apertures remain stable boundary interfaces.",
         "definitionKey": "idea",
         "_classBinding": {
           "key": "idea",
@@ -895,9 +895,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Optional Exact-View Breakpoint Map",
-        "description": "Read declaration.data.declaration.semanticZoom.views as an ordered set of minPercent breakpoints. Select the reached entry with the greatest minimum. A viewNodeId selects that exact authored View; mode graph unfolds the graph. If the contract is absent, retain the global Glyph/Icon/Summary/Detail bands.",
-        "differentiator": "The runtime still measures graph screen occupancy relative to the viewport. The declaration controls only which authored representation occupies each range.",
+        "title": "Derive Bands From Authored Views",
+        "description": "Collect the graph’s authored Glyph and exposed View nodes. Derive each default minPercent from its exposed semantic role, allow data.semanticZoom.minPercent to override that View’s entry point, sort the resulting collection, and choose the greatest reached threshold. The highest View may use expandAtPercent to choose when the full graph unfolds.",
+        "differentiator": "The declaration does not enumerate representations. The available View collection is the authority, so absent roles disappear from the sequence and one View shared across several declaration roles remains one representation.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
           "key": "idea-proposed-approach",
@@ -2004,11 +2004,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Malformed Bands Could Produce Missing Representations",
-        "description": "An authored breakpoint can reference a missing View, omit the zero-percent entry, or fail to provide a graph transition.",
+        "title": "Ambiguous View Ranges Could Reorder Meaning",
+        "description": "Two Views can claim the same threshold, or an authored threshold can put a semantically fuller View below a compact one.",
         "likelihood": "medium",
         "impact": "high",
-        "mitigation": "Resolve exact IDs without inventing substitute views, expose missing references in edit mode, choose the lowest authored entry below its first breakpoint, and preserve legacy bands when no percentage contract exists.",
+        "mitigation": "Use stable graph order to break equal thresholds, show authored ranges in edit mode, keep role-derived defaults when no override exists, and never synthesize a missing representation.",
         "definitionKey": "idea-risk",
         "_classBinding": {
           "key": "idea-risk",
@@ -2190,10 +2190,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Implement and Exercise Percentage Bands",
-        "action": "Add the optional declaration resolver, store the selected exact View ID on workspace presentation state, render that View through the existing graph View renderer, preserve the legacy resolver, and test custom compact and graph thresholds.",
-        "expectedEvidence": "One fixture uses a Glyph below 12%, an arbitrary compact View from 12% through 79%, and the graph at 80%. A graph without semanticZoom.views behaves exactly as before.",
-        "status": "in-progress",
+        "title": "Implement and Exercise View-Owned Bands",
+        "action": "Collect present graph Views, apply optional View-owned minPercent and expandAtPercent values, store the selected exact View ID in workspace presentation state, render it through the existing graph View renderer, and test omitted semantic roles and shared defaults.",
+        "expectedEvidence": "Verified: a graph with only Icon and Detail skips absent roles; a View can move its own breakpoint; the highest View can move the graph-unfold threshold; no declaration map is required.",
+        "status": "completed",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",
@@ -3335,7 +3335,7 @@
         }
       ],
       "data": {
-        "markdown": "## Optional declaration contract\n\n```json\n{\n  \"semanticZoom\": {\n    \"basis\": \"viewport\",\n    \"views\": [\n      { \"minPercent\": 0, \"viewNodeId\": \"tiny-view\" },\n      { \"minPercent\": 12, \"viewNodeId\": \"compact-view\" },\n      { \"minPercent\": 35, \"viewNodeId\": \"reading-view\" },\n      { \"minPercent\": 80, \"mode\": \"graph\" }\n    ]\n  }\n}\n```\n\nSelection uses the greatest reached `minPercent`. `viewNodeId` is exact. `mode: graph` crosses into full graph rendering. Named semantic bands remain the default when this contract is absent.",
+        "markdown": "## Optional View-owned contract\n\n```json\n{\n  \"id\": \"reading-view\",\n  \"type\": \"view\",\n  \"data\": {\n    \"view\": { \"payload\": \"node.web.detail\" },\n    \"semanticZoom\": {\n      \"minPercent\": 35,\n      \"expandAtPercent\": 80\n    }\n  }\n}\n```\n\n`minPercent` changes when that exact View enters the sequence. `expandAtPercent` is meaningful on the highest-threshold View and changes when it yields to the full graph. Both are optional. Without them, exposed Glyph, Icon, Summary, and Detail roles use their conventional thresholds. Twilite sorts only the representations present in the graph, so missing roles are skipped rather than invented.",
         "identity": {
           "graphId": "semantic-zoom-view-selection"
         }
