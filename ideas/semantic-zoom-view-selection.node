@@ -4,17 +4,18 @@
     "title": "Semantic Zoom as View Selection",
     "description": "Explore semantic zoom as authored view selection followed by a continuous rollover between workspace and graph camera scopes.",
     "graphId": "semantic-zoom-view-selection",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "kind": "idea",
     "created": "2026-08-03T20:30:00.000Z",
-    "modified": "2026-09-12T18:20:00.000Z",
+    "modified": "2026-09-13T17:20:59.812Z",
     "author": "Michael Martinez",
     "tags": [
       "idea",
       "semantic-zoom",
       "views",
       "glyph",
-      "icon"
+      "icon",
+      "percentage-bands"
     ],
     "preferredViewer": "https://twilite.zone"
   },
@@ -339,11 +340,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Semantic Zoom Rolls Between Coordinate Spaces",
-        "statement": "A graph first changes among its authored semantic views as its screen footprint grows. When the focused graph fills the available viewport, the same zoom gesture crosses a continuous seam and begins operating its graph-local camera.",
+        "title": "Declarations May Author Percentage View Bands",
+        "statement": "A declaration may optionally map minimum viewport-occupancy percentages to exact View node IDs, followed by an explicit graph threshold. The existing named bands remain the compatibility default.",
         "status": "proposed",
         "confidence": "plausible",
-        "notes": "This treats a graph as a node while it is viewed from the workspace and as a coordinate space when entered. The transition preserves one visual transform; it does not simulate depth.",
+        "notes": "This is an attempted extension of the semantic-zoom model. Percentages select authored representations; they do not create representations or change node identity. Ports, portals, handles, and bridge apertures remain stable boundary interfaces.",
         "definitionKey": "idea",
         "_classBinding": {
           "key": "idea",
@@ -525,9 +526,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "One Camera Conflates Workspace and Graph Navigation",
-        "statement": "The current workspace shares one live pan and zoom across graph placement, semantic presentation, and the focused graph contents. It can change views, but it cannot naturally continue the same gesture into the graph.",
-        "impact": "A graph can jump from full rendering to a compact surface, appear at an invalid semantic level, or lose spatial continuity because no explicit boundary transfers control between coordinate spaces.",
+        "title": "Fixed Semantic Bands Are Too Rigid",
+        "statement": "Viewport occupancy already drives semantic zoom, but every graph is forced through the same Glyph, Icon, Summary, Detail, and expanded thresholds.",
+        "impact": "Graphs cannot choose the number, timing, or exact authored representations appropriate to their content. A title-card graph and a dense working graph therefore collapse according to the same global schedule.",
         "urgency": "high",
         "definitionKey": "idea-problem",
         "_classBinding": {
@@ -894,9 +895,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Two Cameras With One Continuous Seam",
-        "description": "Keep a workspace camera and a graph-local camera per open graph instance. Screen occupancy selects exact authored semantic surfaces while in workspace scope. Only the focused graph may roll into graph scope. At the entry threshold, compose the two transforms so the graph frame becomes the viewport without moving under the pointer; at the graph landing baseline, reverse that mapping back to the preserved workspace camera.",
-        "differentiator": "Camera ownership and semantic representation are separate. Hysteresis controls scope transfer, authored surfaces control representation, and focus controls which graph is eligible.",
+        "title": "Optional Exact-View Breakpoint Map",
+        "description": "Read declaration.data.declaration.semanticZoom.views as an ordered set of minPercent breakpoints. Select the reached entry with the greatest minimum. A viewNodeId selects that exact authored View; mode graph unfolds the graph. If the contract is absent, retain the global Glyph/Icon/Summary/Detail bands.",
+        "differentiator": "The runtime still measures graph screen occupancy relative to the viewport. The declaration controls only which authored representation occupies each range.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
           "key": "idea-proposed-approach",
@@ -2003,11 +2004,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "The Seam Jumps or Oscillates",
-        "description": "A scope transfer can move content under the pointer, reset a local graph unexpectedly, or bounce between workspace and graph scopes near the threshold.",
+        "title": "Malformed Bands Could Produce Missing Representations",
+        "description": "An authored breakpoint can reference a missing View, omit the zero-percent entry, or fail to provide a graph transition.",
         "likelihood": "medium",
         "impact": "high",
-        "mitigation": "Use separate enter and exit thresholds, preserve the pointer or focused-center anchor during transform composition, retain both cameras, and test repeated crossings, focus changes, resize, save, and reload.",
+        "mitigation": "Resolve exact IDs without inventing substitute views, expose missing references in edit mode, choose the lowest authored entry below its first breakpoint, and preserve legacy bands when no percentage contract exists.",
         "definitionKey": "idea-risk",
         "_classBinding": {
           "key": "idea-risk",
@@ -2189,10 +2190,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Implement the Rollover as a Bounded Slice",
-        "action": "First separate workspaceCamera from graphCameraByInstanceId without changing rendering. Then add a pure rollover state machine for workspace, seam, and graph scopes; route wheel/pan to the owning camera; compose transforms around the pointer or focused center; restore the other camera on reverse rollover; and apply exact authored-surface resolution before the seam.",
-        "expectedEvidence": "A smoke workspace can zoom from Glyph through Icon, Summary, and Detail into the full focused graph, continue zooming inside it, and reverse all the way out without a jump. Neighbor graphs remain fixed in workspace coordinates. Switching focus preserves each graph-local camera. Workspace save/reload restores arrangement and workspace camera without overwriting authored graph landing viewports.",
-        "status": "todo",
+        "title": "Implement and Exercise Percentage Bands",
+        "action": "Add the optional declaration resolver, store the selected exact View ID on workspace presentation state, render that View through the existing graph View renderer, preserve the legacy resolver, and test custom compact and graph thresholds.",
+        "expectedEvidence": "One fixture uses a Glyph below 12%, an arbitrary compact View from 12% through 79%, and the graph at 80%. A graph without semanticZoom.views behaves exactly as before.",
+        "status": "in-progress",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",
@@ -3306,6 +3307,39 @@
           "angle": 180
         }
       ]
+    },
+    {
+      "id": "semantic-zoom-view-selection-percentage-contract",
+      "type": "markdown",
+      "label": "Percentage View Contract",
+      "position": {
+        "x": 740,
+        "y": 700
+      },
+      "width": 520,
+      "height": 390,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "key": "left",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "data": {
+        "markdown": "## Optional declaration contract\n\n```json\n{\n  \"semanticZoom\": {\n    \"basis\": \"viewport\",\n    \"views\": [\n      { \"minPercent\": 0, \"viewNodeId\": \"tiny-view\" },\n      { \"minPercent\": 12, \"viewNodeId\": \"compact-view\" },\n      { \"minPercent\": 35, \"viewNodeId\": \"reading-view\" },\n      { \"minPercent\": 80, \"mode\": \"graph\" }\n    ]\n  }\n}\n```\n\nSelection uses the greatest reached `minPercent`. `viewNodeId` is exact. `mode: graph` crosses into full graph rendering. Named semantic bands remain the default when this contract is absent.",
+        "identity": {
+          "graphId": "semantic-zoom-view-selection"
+        }
+      }
     }
   ],
   "edges": [
@@ -3714,6 +3748,24 @@
       },
       "data": {
         "relation": "related-idea"
+      }
+    },
+    {
+      "id": "semantic-zoom-view-selection-percentage-contract-edge",
+      "type": "reference",
+      "source": "semantic-zoom-view-selection-idea-proposed-approach",
+      "target": "semantic-zoom-view-selection-percentage-contract",
+      "sourcePort": "bottom",
+      "targetPort": "left",
+      "label": "defines",
+      "style": {
+        "route": "orthogonal",
+        "orthogonal": true,
+        "color": "#14b8a6",
+        "width": 3
+      },
+      "data": {
+        "relation": "contract"
       }
     }
   ],
