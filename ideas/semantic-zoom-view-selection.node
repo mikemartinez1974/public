@@ -4,10 +4,10 @@
     "title": "Semantic Zoom as View Selection",
     "description": "Explore semantic zoom as authored view selection followed by a continuous rollover between workspace and graph camera scopes.",
     "graphId": "semantic-zoom-view-selection",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "kind": "idea",
     "created": "2026-08-03T20:30:00.000Z",
-    "modified": "2026-09-12T18:00:00.000Z",
+    "modified": "2026-09-12T18:20:00.000Z",
     "author": "Michael Martinez",
     "tags": [
       "idea",
@@ -126,7 +126,16 @@
             "squashAllowed": false
           }
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-root-port",
@@ -175,7 +184,16 @@
         "semanticLevel": "summary",
         "visibilityRole": "browser",
         "description": "Screen occupancy selects authored views until the focused graph becomes the viewport and graph-local zoom takes over."
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-instructions",
@@ -232,7 +250,44 @@
         },
         "markdown": "## Semantic zoom and camera-scope rollover\n\nRead the proposal from **Problem → Idea → Proposed Approach**, then review the risk and implementation slice.\n\n### The observable sequence\n\n1. **Workspace scope:** pan and zoom arrange graph-nodes in the workspace.\n2. **Semantic approach:** each graph resolves the exact authored Glyph, Icon, Summary, or Detail surface appropriate to its rendered screen size.\n3. **The seam:** when the focused graph reaches the viewport threshold, its frame becomes the viewport without a visual jump.\n4. **Graph scope:** further zoom and pan operate inside that graph from its authored landing viewport.\n5. **Reverse rollover:** zooming back to the landing baseline returns control to the preserved workspace camera.\n\nOnly the focused graph can cross the seam. Use hysteresis around the entry and exit thresholds so small wheel movements do not bounce between scopes.\n\n### Ownership\n\n- The workspace document owns the workspace camera and graph-instance arrangement.\n- The graph owns its authored landing viewport.\n- The workspace session may remember a local camera per graph instance; it does not silently rewrite the authored landing viewport.\n- A missing semantic surface does not authorize an invented representation. Keep the nearest fuller valid authored representation visible.\n\n### Acceptance\n\nZooming in and out repeatedly must preserve the pointer/focus anchor, workspace arrangement, graph-local camera, active graph, and address. Saving and reopening the workspace must restore workspace scope independently of each graph's authored landing viewport.",
         "title": "Reading This Idea"
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-idea",
@@ -305,7 +360,44 @@
         "identity": {
           "graphId": "semantic-zoom-view-selection"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-bridge-idea",
@@ -372,7 +464,16 @@
           "resourceKind": "node-class",
           "scope": "focused-graph"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-idea-problem",
@@ -444,7 +545,44 @@
         "identity": {
           "graphId": "semantic-zoom-view-selection"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-bridge-idea-problem",
@@ -511,7 +649,16 @@
           "resourceKind": "node-class",
           "scope": "focused-graph"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-idea-audience",
@@ -582,7 +729,44 @@
         "identity": {
           "graphId": "semantic-zoom-view-selection"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-bridge-idea-audience",
@@ -649,7 +833,16 @@
           "resourceKind": "node-class",
           "scope": "focused-graph"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-idea-proposed-approach",
@@ -720,7 +913,44 @@
         "identity": {
           "graphId": "semantic-zoom-view-selection"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-bridge-idea-proposed-approach",
@@ -787,7 +1017,16 @@
           "resourceKind": "node-class",
           "scope": "focused-graph"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-idea-question",
@@ -860,7 +1099,44 @@
           "graphId": "semantic-zoom-view-selection"
         },
         "resolutionPath": "Exercise exact view inventories and thresholds in the semantic zoom smoke suite; tune numeric thresholds from observation without changing the ownership rule."
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-bridge-idea-question",
@@ -927,7 +1203,16 @@
           "resourceKind": "node-class",
           "scope": "focused-graph"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-idea-assumption",
@@ -999,7 +1284,44 @@
         "identity": {
           "graphId": "semantic-zoom-view-selection"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-bridge-idea-assumption",
@@ -1066,7 +1388,16 @@
           "resourceKind": "node-class",
           "scope": "focused-graph"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-idea-research",
@@ -1138,7 +1469,44 @@
         "identity": {
           "graphId": "semantic-zoom-view-selection"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-bridge-idea-research",
@@ -1205,7 +1573,16 @@
           "resourceKind": "node-class",
           "scope": "focused-graph"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-idea-evidence",
@@ -1277,7 +1654,44 @@
         "identity": {
           "graphId": "semantic-zoom-view-selection"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-bridge-idea-evidence",
@@ -1344,7 +1758,16 @@
           "resourceKind": "node-class",
           "scope": "focused-graph"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-idea-alternative",
@@ -1415,7 +1838,44 @@
         "identity": {
           "graphId": "semantic-zoom-view-selection"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-bridge-idea-alternative",
@@ -1482,7 +1942,16 @@
           "resourceKind": "node-class",
           "scope": "focused-graph"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-idea-risk",
@@ -1555,7 +2024,44 @@
         "identity": {
           "graphId": "semantic-zoom-view-selection"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-bridge-idea-risk",
@@ -1622,7 +2128,16 @@
           "resourceKind": "node-class",
           "scope": "focused-graph"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-idea-next-step",
@@ -1694,7 +2209,44 @@
         "identity": {
           "graphId": "semantic-zoom-view-selection"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-bridge-idea-next-step",
@@ -1761,7 +2313,16 @@
           "resourceKind": "node-class",
           "scope": "focused-graph"
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "idea-edge-class-advances",
@@ -1817,7 +2378,16 @@
           "scope": "focused-graph",
           "grants": []
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "idea-edge-class-affects",
@@ -1873,7 +2443,16 @@
           "scope": "focused-graph",
           "grants": []
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "idea-edge-class-assumes",
@@ -1929,7 +2508,16 @@
           "scope": "focused-graph",
           "grants": []
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "idea-edge-class-contradicts",
@@ -1985,7 +2573,16 @@
           "scope": "focused-graph",
           "grants": []
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "idea-edge-class-informs",
@@ -2041,7 +2638,16 @@
           "scope": "focused-graph",
           "grants": []
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "idea-edge-class-motivates",
@@ -2097,7 +2703,16 @@
           "scope": "focused-graph",
           "grants": []
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "idea-edge-class-questions",
@@ -2153,7 +2768,16 @@
           "scope": "focused-graph",
           "grants": []
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "idea-edge-class-supports",
@@ -2209,7 +2833,16 @@
           "scope": "focused-graph",
           "grants": []
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "idea-edge-class-tests",
@@ -2265,7 +2898,16 @@
           "scope": "focused-graph",
           "grants": []
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "idea-edge-class-threatens",
@@ -2321,7 +2963,16 @@
           "scope": "focused-graph",
           "grants": []
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-ideas-collection",
@@ -2397,7 +3048,44 @@
         "surfaceId": "root",
         "sourceRef": "github://mikemartinez1974/public/ideas/root.node",
         "visibilityRole": "browser"
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-task-portal",
@@ -2470,7 +3158,44 @@
         "surfaceId": "semantic-zoom-implementation-task-summary",
         "sourceRef": "github://twilite-zone/public/tasks/semantic-zoom/semantic-zoom-implementation.task.node",
         "visibilityRole": "browser"
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     },
     {
       "id": "semantic-zoom-view-selection-type-instance-portal",
@@ -2543,7 +3268,44 @@
         "surfaceId": "root",
         "sourceRef": "github://mikemartinez1974/public/ideas/type-and-instance-presentation.node",
         "visibilityRole": "browser"
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ]
     }
   ],
   "edges": [
