@@ -45,10 +45,10 @@
         "identity": {
           "graphId": "semantic-zoom-view-selection",
           "name": "Semantic Zoom as View Selection",
-          "version": "1.2.0",
+          "version": "1.3.0",
           "description": "Define semantic view selection and continuous camera-scope rollover between a workspace and a focused graph.",
           "createdAt": "2026-08-03T20:30:00.000Z",
-          "updatedAt": "2026-09-13T19:42:43.857Z"
+          "updatedAt": "2026-09-13T20:08:41.959Z"
         },
         "intent": {
           "kind": "idea",
@@ -344,7 +344,7 @@
         "statement": "Each authored View may own its viewport-occupancy threshold. Twilite collects the Views that are actually present, orders them by threshold, and selects only from that collection before unfolding the graph.",
         "status": "proposed",
         "confidence": "plausible",
-        "notes": "This is an attempted extension of the semantic-zoom model. A View may tune its range but does not need to: its exposed Glyph, Icon, Summary, or Detail role supplies a conventional default. Missing roles are skipped rather than synthesized. Ports, portals, handles, and bridge apertures remain stable boundary interfaces.",
+        "notes": "This is an attempted extension of the semantic-zoom model. A View may tune its range but does not need to: its exposed Icon, Summary, or Detail role supplies a conventional default. Before any authored View becomes eligible, Twilite renders a generated graph minimap, then an authored or generic glyph at the smallest band. Ports, portals, handles, and bridge apertures remain stable boundary interfaces.",
         "definitionKey": "idea",
         "_classBinding": {
           "key": "idea",
@@ -896,8 +896,8 @@
       "showLabel": false,
       "data": {
         "title": "Derive Bands From Authored Views",
-        "description": "Collect the graph’s authored Glyph and exposed View nodes. Derive each default minPercent from its exposed semantic role, allow data.semanticZoom.minPercent to override that View’s entry point, sort the resulting collection, and choose the greatest reached threshold. The highest View may use expandAtPercent to choose when the full graph unfolds.",
-        "differentiator": "The declaration does not enumerate representations. The available View collection is the authority, so absent roles disappear from the sequence and one View shared across several declaration roles remains one representation.",
+        "description": "Collect the graph’s exposed View nodes. Derive each default minPercent from its semantic role, allow data.semanticZoom.minPercent to override that View’s entry point, sort the collection, and choose the greatest reached threshold. If no View is eligible, render the graph’s passive minimap; below the compact threshold render its authored or generic glyph. The highest View may use expandAtPercent to choose when the full graph unfolds.",
+        "differentiator": "The declaration does not enumerate representations. The available View collection is the authority. The generated minimap guarantees visible topology when no authored View fits, while the glyph guarantees a smallest representation.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
           "key": "idea-proposed-approach",
@@ -1082,7 +1082,7 @@
         "title": "What Chooses a Representation Before the Seam?",
         "question": "How should Twilite choose Glyph, Icon, Summary, Detail, or full graph while the graph is still a node in workspace scope?",
         "status": "answered",
-        "answer": "Use the graph frame’s rendered screen footprint relative to the available workspace viewport. Resolve only an exposed authored surface for that band. If it is absent, retain the nearest fuller valid authored representation rather than fabricating or falling through to a smaller one.",
+        "answer": "Use the graph frame’s rendered screen footprint relative to the available workspace viewport. Select only an eligible exposed authored View. Before the first authored threshold, fall back to a passive minimap of that graph and then its glyph at the smallest band. Full graph rendering begins at the upper seam.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -2005,10 +2005,10 @@
       "showLabel": false,
       "data": {
         "title": "Ambiguous View Ranges Could Reorder Meaning",
-        "description": "Two Views can claim the same threshold, or an authored threshold can put a semantically fuller View below a compact one.",
+        "description": "Two Views can claim the same threshold, an authored threshold can reorder semantic meaning, or a generated minimap can accidentally include editor-only plumbing.",
         "likelihood": "medium",
         "impact": "high",
-        "mitigation": "Use stable graph order to break equal thresholds, show authored ranges in edit mode, keep role-derived defaults when no override exists, and never synthesize a missing representation.",
+        "mitigation": "Use stable graph order to break equal thresholds, show authored ranges in edit mode, keep role-derived defaults when no override exists, filter minimap nodes through the ordinary browse/edit visibility rule, and keep boundary interfaces stable.",
         "definitionKey": "idea-risk",
         "_classBinding": {
           "key": "idea-risk",
@@ -2191,8 +2191,8 @@
       "showLabel": false,
       "data": {
         "title": "Implement and Exercise View-Owned Bands",
-        "action": "Collect present graph Views, apply optional View-owned minPercent and expandAtPercent values, store the selected exact View ID in workspace presentation state, render it through the existing graph View renderer, and test omitted semantic roles and shared defaults.",
-        "expectedEvidence": "Verified: a graph with only Icon and Detail skips absent roles; a View can move its own breakpoint; the highest View can move the graph-unfold threshold; no declaration map is required.",
+        "action": "Collect present graph Views, apply optional View-owned thresholds, render the exact eligible View, and use the graph-local passive minimap followed by its glyph when no View is eligible.",
+        "expectedEvidence": "Verified by focused resolver and workspace tests: authored Views win in their ranges; missing compact Views produce a graph-local minimap; the smallest band produces an authored or generic glyph; the full graph still begins at the upper seam.",
         "status": "completed",
         "definitionKey": "idea-next-step",
         "_classBinding": {
@@ -3335,7 +3335,7 @@
         }
       ],
       "data": {
-        "markdown": "## Optional View-owned contract\n\n```json\n{\n  \"id\": \"reading-view\",\n  \"type\": \"view\",\n  \"data\": {\n    \"view\": { \"payload\": \"node.web.detail\" },\n    \"semanticZoom\": {\n      \"minPercent\": 35,\n      \"expandAtPercent\": 80\n    }\n  }\n}\n```\n\n`minPercent` changes when that exact View enters the sequence. `expandAtPercent` is meaningful on the highest-threshold View and changes when it yields to the full graph. Both are optional. Without them, exposed Glyph, Icon, Summary, and Detail roles use their conventional thresholds. Twilite sorts only the representations present in the graph, so missing roles are skipped rather than invented.",
+        "markdown": "## Optional View-owned contract\n\n```json\n{\n  \"id\": \"reading-view\",\n  \"type\": \"view\",\n  \"data\": {\n    \"view\": { \"payload\": \"node.web.detail\" },\n    \"semanticZoom\": {\n      \"minPercent\": 35,\n      \"expandAtPercent\": 80\n    }\n  }\n}\n```\n\n`minPercent` changes when that exact View enters the sequence. `expandAtPercent` is meaningful on the highest-threshold View and changes when it yields to the full graph. Both are optional. Without them, exposed Glyph, Icon, Summary, and Detail roles use their conventional thresholds. Twilite sorts only the representations present in the graph, so missing roles are skipped rather than invented.\n\n### Generated fallback sequence\n\nWhen no authored View has reached its `minPercent`, Twilite renders a passive minimap from that graph’s visible nodes. Below 10%, it renders the graph glyph instead. These generated fallbacks require no declaration entry and never expose editor-only bridge plumbing in browse mode.",
         "identity": {
           "graphId": "semantic-zoom-view-selection"
         }
