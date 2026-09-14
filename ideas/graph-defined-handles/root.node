@@ -2,12 +2,12 @@
   "fileVersion": "1.0",
   "metadata": {
     "title": "Graph-Defined Handles",
-    "description": "Idea graph defining reusable Handle graphs, Declaration handle references, authored orientation, and derived collector handles.",
+    "description": "Idea graph defining graph-backed Handle presentation, Declaration defaults, Port overrides, and derived collector handles.",
     "graphId": "graph-defined-handles",
     "version": "0.1.0",
     "kind": "idea",
     "created": "2026-09-14T23:30:00.000Z",
-    "modified": "2026-09-14T23:30:00.000Z",
+    "modified": "2026-09-14T19:08:03.632Z",
     "author": "",
     "tags": [
       "idea",
@@ -421,7 +421,7 @@
         "identity": {
           "graphId": "graph-defined-handles"
         },
-        "markdown": "# Proposed Handle Definition Graph\n\nA Handle definition is a normal graph artifact whose semantic identity is **Handle**. It is small because its job is narrow.\n\n```text\nHandle Declaration\n  ├─ default-view ──> Handle View\n  │                    └─ content ──> SVG or Image\n  ├─ glyph ──────────> optional smallest fallback\n  └─ landing-surface -> Handle Contract\n\nHandle Contract\n  • canonical viewBox / intrinsic aspect ratio\n  • anchor or hotspot in normalized coordinates\n  • canonical zero-angle direction\n  • optional visual states: idle, hover, active, connected, invalid\n\nDeclaration Handle Reference\n  • definitionRef -> Handle graph\n  • sourceNodeId / surfaceId -> exposed Handle view\n  • portId -> semantic endpoint owned by the Declaration or Port\n  • angle / rotation -> orientation for this use\n  • size -> rendered extent and hit area for this use\n\nDerived Collector Handle\n  • resolves the same Handle definition\n  • owns a projected ID, side, direction, owner, and point\n  • is not persisted as a replacement for the underlying authored endpoints\n```\n\n## Boundary rule\n\nThe Handle definition owns **representation**. The Declaration/Port reference owns **relationship and capability**. The node or graph instance supplies **placement**. The underlying Port or edge retains **identity**.\n\n## Initial recommendation\n\nUse canonical art facing right at zero degrees. Store the normalized hotspot with the definition. Apply rotation and size at the reference/use site. This permits one definition to serve left, right, top, and bottom handles without duplicating graphs."
+        "markdown": "# Proposed Handle Definition and Resolution Model\n\nA Handle definition is a normal graph artifact with one narrow exposed **handle surface**. Its similarity to Glyph ends at the fact that both may be connected structurally to a Declaration. Handle has its own resolution rule because Ports may override it.\n\n```text\nHandle Definition Graph\n\nHandle Declaration\n  ├─ default-view / summary / icon / glyph   ordinary graph participation\n  ├─ landing-surface                         ordinary graph entry\n  └─ handle-surface ──> Handle View ──> SVG or Image\n\nHandle surface contract\n  • canonical viewBox / intrinsic aspect ratio\n  • normalized anchor or hotspot\n  • canonical zero-angle direction\n  • visual states: idle, hover, active, connected, invalid\n\nNode Definition Graph\n\nNode Declaration\n  └─ default-handle ──> Handle Definition.handle-surface\n\nPort A\n  └─ handle (unconnected) ──> inherits Declaration default\n\nPort B\n  └─ handle ────────────────> Alternate Handle Definition.handle-surface\n                                      overrides Declaration default\n\nPort C\n  └─ handle (unconnected) ──> inherits Declaration default\n```\n\n## Resolution rule\n\nFor a visible endpoint:\n\n1. Resolve the endpoint's Port node.\n2. If its structural `handle` port is connected, use that Handle definition.\n3. Otherwise resolve the owning node Declaration's `default-handle` relationship.\n4. If neither exists, use the system fallback Handle.\n5. Apply use-site size and rotation after resolving the Handle definition.\n\n`Port.handle ?? Declaration.default-handle ?? system-handle`\n\n## Ownership boundary\n\n- **Handle definition graph:** image/SVG, intrinsic geometry, hotspot, canonical orientation, and visual states.\n- **Declaration default-handle reference:** normal presentation for the node's endpoints.\n- **Port handle reference:** presentation override for that one semantic endpoint.\n- **Port:** identity, direction, capability, data type, allowed edge classes, and behavior.\n- **Node/graph instance:** placement and current interaction state.\n- **Collector:** a derived handle context with projected identity, side, direction, owner, and point.\n\nA Handle never replaces a Port and never supplies relationship semantics. It renders the place through which those semantics are manipulated."
       },
       "handles": [
         {
@@ -512,11 +512,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "A Handle Is a Graph-Defined Visual Primitive",
-        "statement": "A Declaration may reference a reusable Handle definition graph, analogous to its Glyph reference; that graph supplies the image or SVG and canonical orientation used to render authored and derived attachment points.",
+        "title": "Declarations Supply Default Handles; Ports May Override Them",
+        "statement": "A node Declaration may reference one graph-backed Handle definition as its default handle presentation. Every Port node exposes a structural handle port that may reference another Handle definition, overriding the Declaration default for that endpoint.",
         "status": "framed",
         "confidence": "plausible",
-        "notes": "The Handle graph owns appearance. The connected Declaration or Port owns semantic capability, direction, data type, allowed edges, and placement. A collector is a derived handle using the same presentation contract.",
+        "notes": "Handle resolution is Port override, then Declaration default, then system fallback. Handle definitions own representation only. Ports continue to own endpoint identity, capability, direction, data type, allowed edges, and behavior. Collectors are derived handles resolved through the same presentation rule.",
         "definitionKey": "idea",
         "_classBinding": {
           "key": "idea",
@@ -1676,9 +1676,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Reference a Handle Definition Graph from the Declaration",
-        "description": "Add a repeatable Declaration handle relationship. Its target is a Handle definition graph whose exposed root supplies SVG or image content, a canonical anchor, and base orientation. Each Declaration use binds that visual definition to a semantic Port and supplies placement and rotation. Derived collectors project the same Handle contract without becoming persisted semantic endpoints.",
-        "differentiator": "This keeps identity, representation, relationship, and routing separate while making every visible attachment affordance inspectable and reusable.",
+        "title": "Resolve Port Override Before Declaration Default",
+        "description": "Add a default-handle relationship to the Declaration. Add a structural handle port to every Port node. Either relationship targets an exposed Handle surface from a Handle definition graph. When rendering an endpoint, resolve the Port handle reference first; otherwise inherit the node Declaration default. Only use the system handle when neither graph-authored reference exists. A derived collector supplies a projected Port-like context and uses the same resolver.",
+        "differentiator": "This makes the common appearance cheap to author once while preserving deliberate endpoint-specific handles without copying presentation data or confusing Handle with Glyph.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
           "key": "idea-proposed-approach",
@@ -2061,10 +2061,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Which Properties Belong to Definition Versus Use?",
-        "question": "Should rotation live entirely on each Declaration handle reference, or may a Handle definition declare a canonical orientation plus an instance rotation? How should scale, hotspot, hit area, and selected state divide across those layers?",
+        "title": "How Much of a Handle Use May Override?",
+        "question": "After the Handle graph is selected by a Port override or Declaration default, which use-site properties may vary without creating another Handle definition?",
         "status": "open",
-        "answer": "Working recommendation: the definition owns canonical art, viewBox, anchor/hotspot, and zero-angle orientation; each use owns rotation, size, semantic Port binding, and interaction state.",
+        "answer": "Working recommendation: the definition owns art, viewBox, hotspot, canonical zero-angle direction, and visual states. The Declaration or Port reference may supply rotation and size. Port semantics never come from the Handle definition.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -2449,8 +2449,8 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "One Visual Contract Can Serve Authored and Derived Handles",
-        "statement": "A small graph-backed SVG or image can be resolved cheaply enough to render on node boundaries, graph boundaries, and lane collectors without inventing separate primitives.",
+        "title": "Default Plus Override Covers the Authoring Cases",
+        "statement": "Most nodes can share one Declaration-level Handle definition, while exceptional endpoints can express their difference through a Port-level handle relationship without duplicating or weakening the Port.",
         "importance": "critical",
         "status": "untested",
         "definitionKey": "idea-assumption",
@@ -4001,11 +4001,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "A Visual Definition Could Absorb Port Semantics",
-        "description": "If direction, edge compatibility, capability behavior, or target identity migrate into the Handle graph, Handle and Port collapse into one overloaded primitive.",
+        "title": "Inheritance Could Hide Which Handle Is Active",
+        "description": "A Port without an explicit Handle reference inherits from its Declaration, so authors may not immediately know whether the visible handle is local, inherited, or the system fallback.",
         "likelihood": "medium",
-        "impact": "high",
-        "mitigation": "Keep the Handle graph presentation-only. The referencing Declaration or Port remains authoritative for semantics and behavior.",
+        "impact": "medium",
+        "mitigation": "Expose resolved provenance in edit mode: Port override, Declaration default, or system fallback. Keep direction and compatibility visibly separate from presentation provenance.",
         "definitionKey": "idea-risk",
         "_classBinding": {
           "key": "idea-risk",
@@ -4392,9 +4392,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Build One Handle Definition and Three Uses",
-        "action": "Create a minimal Handle definition graph, connect it to three Declaration handle references at different rotations, and use the same definition for one derived workspace collector.",
-        "expectedEvidence": "All four render from one definition; authored handles preserve their Port semantics; rotation changes per use; the collector remains derived; semantic zoom and selection retain stable attachment identity.",
+        "title": "Build One Default and One Port Override",
+        "action": "Create two Handle definition graphs. Connect the first to a test node Declaration as default-handle. Connect the second through the handle port of one Port node, leaving two sibling Ports to inherit the default. Render a derived collector through the same resolver.",
+        "expectedEvidence": "Two Ports render the Declaration default; one renders its Port override; all retain their own endpoint semantics; rotation remains use-specific; edit mode identifies the winning reference; the collector resolves without becoming authored endpoint data.",
         "status": "todo",
         "definitionKey": "idea-next-step",
         "_classBinding": {
@@ -5527,7 +5527,7 @@
         "semanticLevel": "detail",
         "content": {
           "kind": "markdown",
-          "value": "# Graph-Defined Handles\n\nHandle appearance is a reusable graph. Declarations and Ports bind that appearance to semantic endpoints; collectors project the same contract at workspace scale."
+          "value": "# Graph-Defined Handles\n\nA Declaration supplies the default Handle definition for its node. A Port may connect its handle port to another definition and override that default for one endpoint."
         },
         "interfaceContract": {
           "version": 1,
@@ -5617,7 +5617,7 @@
         "semanticLevel": "summary",
         "content": {
           "kind": "markdown",
-          "value": "## Graph-Defined Handles\n\nA Declaration references reusable Handle art; each use supplies Port binding, size, placement, and rotation."
+          "value": "## Graph-Defined Handles\n\nResolve endpoint presentation as Port override, Declaration default, then system fallback."
         },
         "interfaceContract": {
           "version": 1,
@@ -5843,7 +5843,7 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Graph-Defined Handles\n\nDefine how a reusable Handle graph supplies SVG or image presentation to Declaration handles, Port-bound affordances, and derived workspace collectors.\n\nUse **Explore idea** to inspect the definition graph and its ownership boundaries."
+          "value": "# Graph-Defined Handles\n\nDefine reusable Handle graphs, a Declaration-level default, and Port-level overrides without moving endpoint semantics into presentation.\n\nUse **Explore idea** to inspect the resolution rule and definition graph."
         },
         "interfaceContract": {
           "version": 1,
