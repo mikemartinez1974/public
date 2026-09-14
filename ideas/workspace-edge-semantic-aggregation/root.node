@@ -1,0 +1,324 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Workspace Edge Semantic Aggregation",
+    "description": "Idea graph for unifying graph edges and workspace-scale edge bundles through semantic zoom.",
+    "graphId": "workspace-edge-semantic-aggregation",
+    "version": "0.1.0",
+    "kind": "graph",
+    "created": "2026-09-14T17:41:00Z",
+    "modified": "2026-09-14T17:41:00Z",
+    "author": "",
+    "tags": [
+      "idea",
+      "edges",
+      "workspace",
+      "semantic-zoom",
+      "multigraph",
+      "lanes"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "workspace-edge-declaration",
+      "type": "declaration",
+      "label": "Workspace Edge Semantic Aggregation",
+      "position": {
+        "x": -900,
+        "y": -520
+      },
+      "width": 420,
+      "height": 300,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workspace-edge-semantic-aggregation",
+          "name": "Workspace Edge Semantic Aggregation",
+          "version": "0.1.0",
+          "description": "Idea graph for unifying node-level and workspace-level edges through semantic zoom and derived edge bundles."
+        },
+        "intent": {
+          "kind": "graph",
+          "scope": "shared"
+        },
+        "dependencies": {
+          "nodeTypes": [
+            "declaration",
+            "port",
+            "markdown"
+          ],
+          "schemaVersions": {
+            "nodes": ">=1.0.0",
+            "ports": ">=1.0.0"
+          }
+        },
+        "authority": {
+          "mutation": {
+            "allowCreate": true,
+            "allowUpdate": true,
+            "allowDelete": true,
+            "appendOnly": false
+          },
+          "actors": {
+            "humans": true,
+            "agents": true,
+            "tools": true
+          },
+          "styleAuthority": "descriptive",
+          "history": {
+            "rewriteAllowed": false,
+            "squashAllowed": false
+          }
+        },
+        "settings": {
+          "theme": null,
+          "backgroundImage": null,
+          "defaultNodeColor": "#1976d2",
+          "defaultEdgeColor": "",
+          "snapToGrid": false,
+          "gridSize": 20,
+          "edgeRouting": "auto",
+          "layout": {
+            "mode": "manual",
+            "defaultLayout": "layered",
+            "direction": "RIGHT",
+            "edgeLaneGapPx": 12
+          }
+        },
+        "declaration": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "artifactKind": "graph",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "view",
+              "label": "Workspace Edge Model",
+              "viewNodeId": "workspace-edge-entry"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "workspace-edge-entry",
+      "type": "port",
+      "label": "Workspace Edge Model",
+      "position": {
+        "x": -260,
+        "y": -500
+      },
+      "width": 520,
+      "height": 300,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "data": {
+        "identity": {
+          "graphId": "workspace-edge-semantic-aggregation"
+        },
+        "target": {
+          "graphId": "workspace-edge-semantic-aggregation",
+          "mode": "navigate"
+        },
+        "markdown": "# Workspace Edge Semantic Aggregation\n\nKeep edges atomic in the data model while allowing their visible representation to aggregate as semantic scale changes. A workspace edge is not a second edge type; it is a derived projection of underlying graph edges."
+      }
+    },
+    {
+      "id": "workspace-edge-core-idea",
+      "type": "markdown",
+      "label": "Core Idea",
+      "position": {
+        "x": 420,
+        "y": -520
+      },
+      "width": 560,
+      "height": 360,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workspace-edge-semantic-aggregation"
+        },
+        "markdown": "## Core idea\n\n**Edges remain atomic. Their visible endpoints and routing can aggregate at larger semantic scales.**\n\nAt node scale, render the real node-to-node relationships. At graph scale, resolve each endpoint to its visible containing graph. Edges whose visible endpoint pair is the same should travel together as one derived bundle while preserving their lanes and individual identities."
+      }
+    },
+    {
+      "id": "workspace-edge-three-levels",
+      "type": "markdown",
+      "label": "Edge, Lane, Bundle",
+      "position": {
+        "x": 1080,
+        "y": -520
+      },
+      "width": 560,
+      "height": 420,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workspace-edge-semantic-aggregation"
+        },
+        "markdown": "## Three levels\n\n### Edge\nOne actual semantic relationship. Persisted. Owns source, target, type, data, and style.\n\n### Lane\nA routing/presentation channel used to keep compatible or related edges organized while they travel together.\n\n### Bundle\nA **derived semantic-zoom representation** of multiple edges whose currently visible endpoint containers are the same pair.\n\nThe bundle should normally not be persisted as a second relationship. It is a projection of the edges underneath it."
+      }
+    },
+    {
+      "id": "workspace-edge-resolution-rule",
+      "type": "markdown",
+      "label": "Resolution Rule",
+      "position": {
+        "x": 420,
+        "y": 20
+      },
+      "width": 560,
+      "height": 430,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workspace-edge-semantic-aggregation"
+        },
+        "markdown": "## Resolution rule\n\nFor every edge at the current semantic scale:\n\n1. Keep the authored `source` and `target` unchanged.\n2. Resolve each endpoint to the object currently representing it visually.\n3. At node scale, that object is the node itself.\n4. At workspace scale, a node may resolve to its containing graph membrane.\n5. Group edges that resolve to the same visible endpoint pair.\n6. Route the group through a shared bundle/trunk while retaining edge lanes.\n\n**The renderer changes the visible representative of the endpoint. The edge does not change identity.**"
+      }
+    },
+    {
+      "id": "workspace-edge-example",
+      "type": "markdown",
+      "label": "Example",
+      "position": {
+        "x": 1080,
+        "y": 20
+      },
+      "width": 600,
+      "height": 470,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workspace-edge-semantic-aggregation"
+        },
+        "markdown": "## Example\n\nClose view:\n\n```text\nGraph A                    Graph B\n  a1 ──reference────────────> b3\n  a2 ──depends-on────────────> b7\n  a4 ──supports──────────────> b9\n```\n\nWorkspace view:\n\n```text\n[ GRAPH A ] ═══════════════ [ GRAPH B ]\n                 3 edges\n```\n\nIntermediate view may expose lanes:\n\n```text\n             ┌ reference × 1\nGRAPH A ═════╪ depends-on × 1 ═════ GRAPH B\n             └ supports × 1\n```\n\nZooming back in fans the bundle into the actual endpoints again."
+      }
+    },
+    {
+      "id": "workspace-edge-implications",
+      "type": "markdown",
+      "label": "Implications",
+      "position": {
+        "x": 420,
+        "y": 560
+      },
+      "width": 560,
+      "height": 470,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workspace-edge-semantic-aggregation"
+        },
+        "markdown": "## Implications\n\n- There should be **one edge model**, not separate graph-edge and workspace-edge ontologies.\n- Workspace routing behaves like roads: local streets converge into a highway and fan back out near the destination.\n- Graph membranes become legitimate visible representatives of contained nodes at workspace scale.\n- Edge counts, types, directionality, activity, or status can be summarized on the bundle without destroying atomic relationships.\n- Focus or zoom can reveal lanes, then individual edges.\n- The same rule can eventually work above graph scale if graphs themselves resolve into larger territories."
+      }
+    },
+    {
+      "id": "workspace-edge-open-questions",
+      "type": "markdown",
+      "label": "Open Questions",
+      "position": {
+        "x": 1080,
+        "y": 600
+      },
+      "width": 600,
+      "height": 520,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workspace-edge-semantic-aggregation"
+        },
+        "markdown": "## Open questions for implementation\n\n1. Is bundle identity purely computed from `(visibleSource, visibleTarget, direction)` or does edge type also partition bundles?\n2. How should opposite-direction edges share geometry without hiding direction?\n3. Which lane attributes remain visible as zoom decreases: type, count, animation, status, authority?\n4. When one endpoint graph is unloaded or collapsed, what representative should the edge resolve to?\n5. Should clicking a bundle focus the graph pair, expand the lane summary, or choose among underlying edges?\n6. Can manual workspace routing pin bundle geometry without mutating the atomic edge routes inside each graph?\n7. How should inter-graph edges cross graph membranes: at authored ports, derived gateway points, or lane-owned boundary anchors?\n\n### Working principle\n\nDo not add a workspace edge type unless a use case appears that cannot be expressed as a projection of ordinary edges."
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-entry-core",
+      "type": "reference",
+      "source": "workspace-edge-entry",
+      "target": "workspace-edge-core-idea",
+      "label": "frames",
+      "style": {}
+    },
+    {
+      "id": "edge-core-levels",
+      "type": "reference",
+      "source": "workspace-edge-core-idea",
+      "target": "workspace-edge-three-levels",
+      "label": "defines",
+      "style": {}
+    },
+    {
+      "id": "edge-core-rule",
+      "type": "reference",
+      "source": "workspace-edge-core-idea",
+      "target": "workspace-edge-resolution-rule",
+      "label": "resolves through",
+      "style": {}
+    },
+    {
+      "id": "edge-rule-example",
+      "type": "reference",
+      "source": "workspace-edge-resolution-rule",
+      "target": "workspace-edge-example",
+      "label": "illustrated by",
+      "style": {}
+    },
+    {
+      "id": "edge-rule-implications",
+      "type": "reference",
+      "source": "workspace-edge-resolution-rule",
+      "target": "workspace-edge-implications",
+      "label": "implies",
+      "style": {}
+    },
+    {
+      "id": "edge-implications-questions",
+      "type": "reference",
+      "source": "workspace-edge-implications",
+      "target": "workspace-edge-open-questions",
+      "label": "raises",
+      "style": {}
+    },
+    {
+      "id": "edge-levels-example",
+      "type": "reference",
+      "source": "workspace-edge-three-levels",
+      "target": "workspace-edge-example",
+      "label": "renders as",
+      "style": {}
+    }
+  ],
+  "timestamp": "2026-09-14T17:41:00Z",
+  "nodeCount": 8,
+  "edgeCount": 7
+}
