@@ -32,15 +32,27 @@ for (const node of result.nodes || []) {
 result.metadata = { ...result.metadata,
   title: 'Source-Hugging Edge Lanes',
   description: 'Explore View-owned edge lanes whose routes leave ordinary handles, hug their source nodes, and merge into stable corridors.',
-  graphId: 'source-node-edge-lanes-declaration', version: '0.1.0', created: now, modified: now,
-  tags: ['idea', 'edges', 'routing', 'lanes', 'ports', 'handles', 'workspace'] };
+  graphId: 'source-node-edge-lanes-declaration', version: '0.2.0', created: now, modified: now,
+  tags: ['idea', 'edges', 'routing', 'lanes', 'intersections', 'ports', 'handles', 'workspace'] };
 Object.assign(byId('declaration'), { label: 'Source-Hugging Edge Lanes Declaration' });
 Object.assign(byId('detail-view'), { label: 'Source-Hugging Edge Lanes Detail View' });
 setData('detail-view', { content: { kind: 'markdown', value: `# Source-Hugging Edge Lanes
 
 **Candidate route:** handle → normal exit → source shoulder → lane merge → corridor → target approach.
 
-Ports and handles behave normally. The graph View derives routing geometry. The authored edge remains one typed relationship with one identity.` } });
+Ports and handles behave normally. The containing graph View or workspace View owns the routing surface and derives the route around its visible obstacles. The authored edge remains one typed relationship with one identity at either scale.
+
+## Intersection vocabulary
+
+- **Crossing:** unrelated routes overlap in projection. Draw a stable hop or bridge; do not create a junction.
+- **Junction:** routes intentionally merge into or split from a shared corridor. Draw explicit merge/split geometry.
+- **Endpoint:** a relationship terminates at its authored handle, Port, or bridge aperture.
+
+Several edges may occupy one corridor as parallel strands while retaining type, direction, selection, and identity. Bundling is deferred until it can expand back into those member edges without ambiguity.
+
+## First implementation boundary
+
+Use deterministic parallel lanes, non-semantic crossing hops, ordinary typed-edge rendering, and route pins as presentation constraints. Do not introduce lane nodes, manufacture relationships at crossings, or collapse member edges into bundles.` } });
 Object.assign(byId('summary-view'), { label: 'Source-Hugging Edge Lanes Summary View' });
 setData('summary-view', { content: { kind: 'markdown', value: '## Edge lanes without new graph primitives\n\nAn edge leaves its ordinary handle, stays close to its source node until it reaches a stable lane, then follows that View-owned corridor.' } });
 Object.assign(byId('icon-view'), { label: 'Source-Hugging Edge Lanes Icon View' });
@@ -67,17 +79,17 @@ setData('idea-audience', {
 });
 setData('idea-proposed-approach', {
   title: 'Derive a Five-Phase Route',
-  description: 'Keep the endpoint at the authored handle. Exit along the handle normal for clearance, turn into a source-hugging shoulder, merge into a deterministic lane, follow the corridor, then use an ordinary target approach. The owning View derives all routing segments.',
-  differentiator: 'It organizes presentation without changing Port semantics, edge identity, direction, type, class, or graph topology.'
+  description: 'Keep the endpoint at the authored handle. Exit along the handle normal for clearance, turn into a source-hugging shoulder, merge into a deterministic lane, follow the corridor, then use an ordinary target approach. Apply the same algorithm inside graph Views and workspace Views; only their coordinate systems and obstacle sets differ.',
+  differentiator: 'It organizes presentation across both scales without changing Port semantics, edge identity, direction, type, class, or graph topology.'
 });
 setData('idea-question', {
-  title: 'What Exactly Does Hugging Mean?',
-  question: 'Should the shoulder follow the nearest source side at a fixed clearance, follow rounded corners when necessary, or use a short orthogonal shelf chosen from the handle direction?',
-  status: 'open', answer: 'Candidate: begin with a side-parallel orthogonal shoulder at a View-defined clearance. Add corner following only when the assigned lane requires another side.'
+  title: 'How Do Intersections Preserve Meaning?',
+  question: 'How can crossings, intentional junctions, and endpoints remain visually distinct without creating false graph relationships?',
+  status: 'answered', answer: 'A crossing receives a stable non-semantic hop, a junction receives explicit merge or split geometry, and an endpoint retains the existing typed handle or aperture treatment. Crossing order affects presentation only.'
 });
 setData('idea-assumption', {
   title: 'Lane Assignment Can Remain Derived',
-  assumption: 'Stable ordering can be computed from source side, handle position, destination direction, edge identity, and edge class without persisting lane nodes or splitting edges.',
+  assumption: 'Stable ordering and crossing priority can be computed from source side, handle position, destination direction, edge identity, and edge class without persisting lane nodes, splitting edges, or changing semantics.',
   status: 'testing', validation: 'Move and resize nodes repeatedly; unchanged topology should return the same non-conflicting lane order.'
 });
 setData('idea-research', {
@@ -87,24 +99,24 @@ setData('idea-research', {
 });
 setData('idea-evidence', {
   title: 'Boundary Apertures Already Demonstrate Stable Separation',
-  claim: 'Workspace bridge apertures already separate several routes deterministically at a boundary while preserving each edge as an ordinary typed relationship.',
+  claim: 'Workspace bridge apertures already separate several routes deterministically at a boundary while preserving each edge as an ordinary typed relationship. The same separation principle can produce parallel strands in graph-space and workspace corridors.',
   source: 'Current workspace bridge routing and smoke tests.', strength: 'moderate'
 });
 setData('idea-alternative', {
-  title: 'Route Directly From Handle to Lane',
-  description: 'Use the shortest segment from every handle to its assigned corridor without a source shoulder.',
-  tradeoff: 'Simpler geometry, but crowded fans begin immediately and weaken the visual claim that the edge belongs to its source.'
+  title: 'Bundle Shared Corridors Immediately',
+  description: 'Collapse edges traveling together into one aggregate trunk as soon as they enter a shared lane.',
+  tradeoff: 'Reduces visual weight, but immediately raises unresolved questions about type, direction, labels, selection, and expansion. Begin with parallel strands and treat bundling as a later semantic-zoom representation.'
 });
 setData('idea-risk', {
-  title: 'Shoulders Become Decorative Spaghetti',
-  description: 'Fixed offsets can collide with adjacent Ports, labels, node chrome, corners, or other shoulders and can make short edges longer than necessary.',
+  title: 'Routing Geometry Invents Semantics',
+  description: 'A crossing can look like a relationship, a shared corridor can look like one edge, and fixed shoulders can collide with Ports, labels, chrome, corners, or one another.',
   likelihood: 'medium', impact: 'high',
-  mitigation: 'Allocate shoulders by source side, preserve a corner exclusion zone, collapse the lane phase for short routes, and expose diagnostics before persisting overrides.'
+  mitigation: 'Use distinct crossing and junction grammar, retain parallel typed strands, allocate shoulders by source side, preserve corner exclusion zones, collapse unnecessary phases for short routes, and keep derived geometry out of graph semantics.'
 });
 setData('idea-next-step', {
-  title: 'Build a Routing-Only Smoke Matrix',
-  action: 'Render one source with several handles and typed edges toward targets in each quadrant. Compare graph-space and workspace projections through move, resize, semantic zoom, selection, and one route-pin override.',
-  expectedEvidence: 'Handles stay fixed; edges hug the source without overlap; lane ordering is stable; typed styling is unchanged; short routes remain sensible; route pins override only the constrained segment.',
+  title: 'Build a Two-Scale Routing Smoke Matrix',
+  action: 'Render equivalent typed-edge arrangements inside one graph and between graph-shaped workspace nodes. Include crossings without relationships, intentional lane merges and splits, parallel shared corridors, targets in every quadrant, and one route-pin override.',
+  expectedEvidence: 'Both scales use the same route grammar and typed-edge renderer; handles stay fixed; edges hug their sources; crossings never imply junctions; parallel strands retain identity; ordering is deterministic; short routes remain sensible; route pins constrain presentation only.',
   status: 'todo'
 });
 result.timestamp = now;
