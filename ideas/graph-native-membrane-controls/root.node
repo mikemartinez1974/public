@@ -368,7 +368,7 @@
     {
       "id": "graph-native-membrane-controls-instructions",
       "type": "markdown",
-      "label": "Membrane Control Contract Notes",
+      "label": "Membrane Smoke Protocol",
       "root": false,
       "position": {
         "x": -220,
@@ -419,7 +419,7 @@
         "identity": {
           "graphId": "graph-native-membrane-controls"
         },
-        "markdown": "# Membrane control proposal\n\nThe declaration supplies the default membrane behavior. Authored `membrane-control` nodes override it progressively. This is an idea contract, not a claim that the runtime already supports these shapes.\n\n| Controls | Proposed interpretation |\n|---:|---|\n| 0 | Default circle |\n| 1 | Directional stretch / ellipse, if the control carries major-axis semantics |\n| 2 | Axis-defined capsule or two-control procedural shape |\n| 3 | Triangle |\n| 4 | Quadrilateral; square-ish when evenly spaced |\n| N | Polygon, ordered by angle |\n| Advanced | Curved custom membrane using tangents |\n\n## Proposed node fields\n\n`angle` is the radial direction from the owning center. `radius` is a normalized distance, defaulting to 1. `curveBefore?` and `curveAfter?` may later define incoming and outgoing tangents. The owner dimensions and center derive screen coordinates.\n\n`{ \"type\": \"membrane-control\", \"data\": { \"angle\": 45, \"radius\": 1 } }`\n\nFour controls at 45°, 135°, 225°, and 315° can produce a rotated square. Eight evenly spaced controls yield an octagon; changing one radius pulls one corner outward.\n\n## Open design rules\n\nA single control is not a polygon vertex that naturally defines an ellipse. The contract must say whether it denotes a major axis, or require two controls. We also need deterministic ordering, invalid-shape diagnostics, shape-aware clipping, border wrapping, edge attachment, focus behavior, and persistence of dragged controls.\n\nThe value of the model is that membrane geometry becomes inspectable, editable graph structure reusable by users, agents, templates, classes, and later territories."
+        "markdown": "# Membrane contract and smoke protocol\n\nEvery node has a membrane. In an authored node graph, the `declaration` is membrane #1 and supplies its default shape; it remains type `declaration`. Additional controls are ordinary nodes of type `membrane`. Together they author one border, not independent borders layered around a View. This is a proposed contract; the runtime does not yet implement the count ladder.\n\n| Total membrane nodes | Added `membrane` nodes | Candidate shape |\n|---:|---:|---|\n| 1 | 0 | Default circle |\n| 2 | 1 | Directional stretch / ellipse, with explicit axis semantics |\n| 3 | 2 | Axis-defined capsule or procedural shape |\n| 4 | 3 | Triangle |\n| 5 | 4 | Quadrilateral |\n| 9 | 8 | Octagon |\n| More | N | Ordered polygon; optional tangents later allow curves |\n\nAn added `membrane` node may carry `angle`, normalized `radius`, and later `curveBefore?` / `curveAfter?`. Its owning node dimensions derive coordinates. How a membrane node attaches to the declaration, and how one or two controls behave, remain implementation decisions to review.\n\n## Smoke cases\n\n1. Declaration alone: the node has a visible default membrane and no added controls.\n2. Add 1, 2, 3, 4, then 8 `membrane` nodes: the same node border changes according to the candidate ladder; no second frame appears.\n3. Resize width and height independently: controls retain normalized meaning, the border and render widget stay together, and clipped content cannot escape.\n4. Pan and zoom through glyph, icon, summary, detail, minimap fallback, and focused graph: views may change but the membrane remains attached and visible.\n5. Place handles and edges on each shape: attachments use the resolved boundary and normal; edge routes avoid the silhouette.\n6. Compare canvas hit testing, focus indicator, selection, workspace routing, and minimap outline: they agree on the same silhouette.\n7. Save, reload, and remove a control: the authored structure round-trips and the previous valid shape returns when appropriate.\n8. Give an invalid ordering, radius, or self-intersection: report a diagnostic rather than silently reverting to a rectangle.\n\nThe smoke graph should be authored after the ownership and low-count rules are settled. This protocol is reviewable now; it is not yet an executable visual smoke result."
       },
       "handles": [
         {
@@ -511,10 +511,10 @@
       "showLabel": false,
       "data": {
         "title": "Graph-Native Membrane Controls",
-        "statement": "Let declaration defaults and authored membrane-control nodes define the silhouette of a graph-shaped node through inspectable graph structure.",
+        "statement": "Every node has a membrane. In an authored node graph, its declaration is membrane #1; additional nodes of type `membrane` combine to define the node border as inspectable graph structure.",
         "status": "framed",
         "confidence": "plausible",
-        "notes": "Few controls produce parametric shapes; many controls approach explicit polygon or curve authorship. The silhouette should stay editable and persist as node structure.",
+        "notes": "The declaration remains a Declaration node and supplies the default membrane. Extra membrane nodes progressively shape the same border. One geometry must serve resize, clipping, ports, edges, hit testing, minimap, and semantic zoom.",
         "definitionKey": "idea",
         "_classBinding": {
           "key": "idea",
@@ -903,7 +903,7 @@
       "showLabel": false,
       "data": {
         "title": "Opaque Shape Definitions",
-        "statement": "A border or clipping path encoded only in renderer settings cannot be inspected, connected, edited, or reused as ordinary graph structure.",
+        "statement": "A CSS border or workspace frame can visually wrap a node while clipping, ports, edges, hit testing, and resizing still use rectangles. Shape definitions hidden in renderer settings cannot be inspected or edited as graph structure.",
         "impact": "Authors and agents cannot reason about or persist silhouette changes through the same graph model used for other node features.",
         "urgency": "medium",
         "definitionKey": "idea-problem",
@@ -1677,9 +1677,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Declaration Defaults With Progressive Overrides",
-        "description": "The declaration defines a default circular membrane. Boundary-control nodes override it progressively: zero controls use the circle; one defines a directional stretch if its semantics are made explicit; two define an axis or capsule; three a triangle; four a quadrilateral; N a polygon. Angle and radius derive normalized radial coordinates; optional before/after tangents enable curves.",
-        "differentiator": "The same control primitive supports simple procedural shapes and advanced authored silhouettes without hiding geometry in a renderer blob.",
+        "title": "One Membrane, Authored by Declaration and Membrane Nodes",
+        "description": "Every node has a membrane, including nodes with no custom shape. The owning graph Declaration counts as the first authored membrane node and supplies the default circle. Each additional node has type `membrane` and contributes a normalized control to the same border. Total counts 1, 2, 3, 4, 5, and 9 correspond to 0, 1, 2, 3, 4, and 8 added controls. Low-count interpretations remain explicit design decisions; higher counts can define polygons and later curves.",
+        "differentiator": "The border is graph-owned structure, not a separate rectangle around a rendered View; the same resolved membrane geometry drives all canvas operations.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
           "key": "idea-proposed-approach",
@@ -3617,10 +3617,10 @@
       "showLabel": false,
       "data": {
         "title": "Ambiguous Controls and Unstable Shapes",
-        "description": "Low-count controls may surprise authors; angle wrapping, radius limits, tangent ordering, self-intersection, resize, zoom, clipping, and edge attachment need deterministic rules.",
+        "description": "The declaration is simultaneously the graph authority and membrane #1; additional membrane controls need deterministic ownership and ordering. Low-count interpretations, invalid curves, self-intersection, resize, clipping, and edge attachment could otherwise diverge across rendering paths.",
         "likelihood": "medium",
         "impact": "high",
-        "mitigation": "Define a count ladder, normalized coordinate system, stable angular ordering, drag-to-angle/radius persistence, and explicit diagnostics for invalid curves or self-intersections.",
+        "mitigation": "Define one normalized membrane resolver and require every renderer to consume its path, bounds, intersections, and normals. Keep the declaration type unchanged; give additional controls type `membrane`. Diagnose invalid shapes and preserve the last valid silhouette.",
         "definitionKey": "idea-risk",
         "_classBinding": {
           "key": "idea-risk",
@@ -4008,9 +4008,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Prototype the Count Ladder",
-        "action": "Build a minimal graph-native smoke fixture for 0, 1, 2, 3, 4, and 8 controls; test drag persistence, resize, zoom, clipping, border wrapping, and edge attachment against each silhouette.",
-        "expectedEvidence": "The rendered membrane remains predictable and inspectable; controls persist as nodes; focused and unfocused graph views respect the authored shape.",
+        "title": "Smoke the Membrane Count Ladder",
+        "action": "Prepare declaration-only and declaration-plus-1/2/3/4/8 membrane cases. For each, compare border, clipping, hit testing, handle positions, edge attachment and avoidance, minimap, both-axis resize, focus, and zoom across semantic views. Record whether workspace resizing edits authored geometry or only a presentation frame.",
+        "expectedEvidence": "All rendering paths use one silhouette and the border remains attached to the node. The Declaration is counted as membrane #1; extra `membrane` nodes persist as inspectable controls. No path silently falls back to a rectangle.",
         "status": "todo",
         "definitionKey": "idea-next-step",
         "_classBinding": {
@@ -5144,7 +5144,7 @@
         "semanticLevel": "detail",
         "content": {
           "kind": "markdown",
-          "value": "# Graph-Native Membrane Controls\n\nThe declaration defines a default circle. Authored control nodes progressively shape the membrane. Explore the working graph for the count ladder, risks, and test plan."
+          "value": "# Graph-Native Membranes\n\nEvery node has a membrane. Its declaration is membrane #1; additional `membrane` nodes build one border. Explore the count ladder, geometry requirements, risks, and smoke protocol in the working graph."
         },
         "interfaceContract": {
           "version": 1,
@@ -5234,7 +5234,7 @@
         "semanticLevel": "summary",
         "content": {
           "kind": "markdown",
-          "value": "## Membrane Controls\n\nFew controls define procedural shapes; many controls define explicit silhouettes. The geometry is authored as graph nodes."
+          "value": "## Membrane Controls\n\nDeclaration = first membrane; added `membrane` nodes shape the same border. Resize, clipping, handles, edges, hit testing, minimap, and zoom must share one geometry."
         },
         "interfaceContract": {
           "version": 1,
@@ -5701,7 +5701,7 @@
       "type": "reference",
       "source": "graph-native-membrane-controls-idea-next-step",
       "target": "graph-native-membrane-controls-instructions",
-      "label": "guidance",
+      "label": "smoke protocol",
       "style": {
         "curved": false,
         "dash": [
