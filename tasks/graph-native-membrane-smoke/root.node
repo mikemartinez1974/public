@@ -2,7 +2,7 @@
   "fileVersion": "1.0",
   "metadata": {
     "title": "Graph-Native Membrane Smoke",
-    "description": "Declaration owns the glyph and anchors four authored membrane nodes shaping one boundary around the test bench.",
+    "description": "Declaration owns the glyph and four boundary controls; three straight sides and one curve test the authored membrane primitive.",
     "graphId": "graph-native-membrane-smoke",
     "version": "1.0.0",
     "kind": "graph",
@@ -767,7 +767,7 @@
         "identity": {
           "graphId": "graph-native-membrane-smoke"
         },
-        "markdown": "## Shape the membrane\n\nThe Declaration is membrane #1. The four attached `membrane` nodes are boundary controls. In edit mode, drag any control node: its center is a point on the outline, so the shape changes immediately. The second control has an optional `angle` that steers the curve tangent; it does not place the point."
+        "markdown": "## Shape the membrane\n\nThe Declaration owns the glyph and the membrane. Four attached `membrane` controls place boundary points by their centers. Each control owns the segment to the next control around the boundary: `data.segmentToNext` is `line` or `curve`. Drag a control to move its point. On a curved segment, optional `data.angle` steers its tangent; it does not place the point."
       },
       "handles": [
         {
@@ -861,7 +861,7 @@
         "identity": {
           "graphId": "graph-native-membrane-smoke"
         },
-        "markdown": "## Setup\n\nOpen this graph in a workspace at detail zoom. Inspect the asymmetric purple outline. Switch to edit mode and drag one of the four `membrane` nodes; compare its position with the changed boundary. Edit the second control’s `angle` to steer its curve without moving it. Resize the graph on both axes, then pan and zoom through semantic views. Remove controls one at a time to test counts 5 → 4 → 3 → 2 → 1."
+        "markdown": "## Setup\n\nOpen this graph in a workspace at detail zoom. Inspect the purple outline: three straight sides and one curved side. Switch to edit mode and drag a `membrane` node; compare its center with the changed boundary. Change one control’s `segmentToNext` between `line` and `curve`; the side leaving that control should switch without moving either point. Edit the curved control’s `angle` to steer its tangent. Resize on both axes, then pan and zoom through semantic views."
       },
       "handles": [
         {
@@ -955,7 +955,7 @@
         "identity": {
           "graphId": "graph-native-membrane-smoke"
         },
-        "markdown": "## Expected Result\n\nOne curved, asymmetric membrane wraps the bench. Dragging a control changes its boundary point; its bearing is derived from its position. The optional authored `angle` changes tangent direction only. The same shape clips unfocused Views, places declaration ports, and receives workspace edges. Resizing scales control positions with the render widget, and zoom keeps the border on the node."
+        "markdown": "## Expected Result\n\nOne mixed membrane wraps the bench. Three sides connect their boundary points directly; the curved side is smooth and restrained. The control center sets the boundary point, while `segmentToNext` sets its outgoing side. An optional `angle` affects only a curve tangent. The same contour clips unfocused Views, places declaration ports, receives workspace edges, and appears in the minimap. Resizing scales control positions with the render widget."
       },
       "handles": [
         {
@@ -1049,7 +1049,7 @@
         "identity": {
           "graphId": "graph-native-membrane-smoke"
         },
-        "markdown": "## Observations\n\nAutomated smoke checks position-driven control movement, tangent steering, the count ladder, two-axis resize, and interface-port attachment. Interactive browser observations should be recorded here after opening the updated runtime build."
+        "markdown": "## Observations\n\nAutomated checks cover straight and curved segments, position-driven movement, tangent steering, count ladder, two-axis resize, and interface-port attachment. Record interactive observations here after opening the updated runtime build."
       },
       "handles": [
         {
@@ -1092,7 +1092,7 @@
     {
       "id": "graph-native-membrane-smoke-membrane-1",
       "type": "membrane",
-      "label": "Membrane 45°",
+      "label": "Membrane 1 · line",
       "position": {
         "x": -1010,
         "y": -625
@@ -1121,13 +1121,14 @@
         "ownerDeclarationId": "graph-native-membrane-smoke-declaration",
         "identity": {
           "graphId": "graph-native-membrane-smoke"
-        }
+        },
+        "segmentToNext": "line"
       }
     },
     {
       "id": "graph-native-membrane-smoke-membrane-2",
       "type": "membrane",
-      "label": "Membrane 135°",
+      "label": "Membrane 2 · curve",
       "position": {
         "x": 430,
         "y": -695
@@ -1157,13 +1158,14 @@
         "identity": {
           "graphId": "graph-native-membrane-smoke"
         },
-        "angle": 25
+        "angle": 25,
+        "segmentToNext": "curve"
       }
     },
     {
       "id": "graph-native-membrane-smoke-membrane-3",
       "type": "membrane",
-      "label": "Membrane 225°",
+      "label": "Membrane 3 · line",
       "position": {
         "x": 790,
         "y": 385
@@ -1192,13 +1194,14 @@
         "ownerDeclarationId": "graph-native-membrane-smoke-declaration",
         "identity": {
           "graphId": "graph-native-membrane-smoke"
-        }
+        },
+        "segmentToNext": "line"
       }
     },
     {
       "id": "graph-native-membrane-smoke-membrane-4",
       "type": "membrane",
-      "label": "Membrane 315°",
+      "label": "Membrane 4 · line",
       "position": {
         "x": -820,
         "y": 500
@@ -1227,7 +1230,8 @@
         "ownerDeclarationId": "graph-native-membrane-smoke-declaration",
         "identity": {
           "graphId": "graph-native-membrane-smoke"
-        }
+        },
+        "segmentToNext": "line"
       }
     }
   ],
@@ -1312,7 +1316,7 @@
       "target": "graph-native-membrane-smoke-membrane-1",
       "sourceHandle": "membrane",
       "targetHandle": "root",
-      "label": "membrane 45°",
+      "label": "membrane 1 · line",
       "data": {
         "role": "membrane-control"
       }
@@ -1324,7 +1328,7 @@
       "target": "graph-native-membrane-smoke-membrane-2",
       "sourceHandle": "membrane",
       "targetHandle": "root",
-      "label": "membrane 135°",
+      "label": "membrane 2 · curve",
       "data": {
         "role": "membrane-control"
       }
@@ -1336,7 +1340,7 @@
       "target": "graph-native-membrane-smoke-membrane-3",
       "sourceHandle": "membrane",
       "targetHandle": "root",
-      "label": "membrane 225°",
+      "label": "membrane 3 · line",
       "data": {
         "role": "membrane-control"
       }
@@ -1348,7 +1352,7 @@
       "target": "graph-native-membrane-smoke-membrane-4",
       "sourceHandle": "membrane",
       "targetHandle": "root",
-      "label": "membrane 315°",
+      "label": "membrane 4 · line",
       "data": {
         "role": "membrane-control"
       }
