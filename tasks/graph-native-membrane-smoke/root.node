@@ -2,7 +2,7 @@
   "fileVersion": "1.0",
   "metadata": {
     "title": "Graph-Native Membrane Smoke",
-    "description": "Declaration owns the glyph and four boundary controls; three straight sides and one curve test the authored membrane primitive.",
+    "description": "Declaration begin/end and four chained boundary nodes test the rectangle/oval/triangle/polygon ladder and mixed line/curve sides.",
     "graphId": "graph-native-membrane-smoke",
     "version": "1.0.0",
     "kind": "graph",
@@ -165,17 +165,58 @@
           }
         },
         {
-          "id": "membrane",
-          "key": "membrane",
-          "portId": "membrane",
-          "label": "membrane",
+          "id": "boundary-begin",
+          "key": "boundary-begin",
+          "label": "boundary begin",
           "direction": "output",
+          "angle": 135,
           "dataType": "any",
-          "angle": 90,
           "role": "membrane-control",
           "allowedEdgeTypes": [
             "membrane"
-          ]
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "boundary-end",
+          "key": "boundary-end",
+          "label": "boundary end",
+          "direction": "bidirectional",
+          "angle": 225,
+          "dataType": "any",
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "handles": [
@@ -230,14 +271,60 @@
           "role": "landing-surface"
         },
         {
-          "id": "membrane",
-          "key": "membrane",
-          "portId": "membrane",
-          "label": "membrane",
+          "id": "boundary-begin",
+          "key": "boundary-begin",
+          "label": "boundary begin",
           "direction": "output",
+          "angle": 135,
           "dataType": "any",
-          "angle": 90,
-          "role": "membrane-control"
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "boundary-begin"
+        },
+        {
+          "id": "boundary-end",
+          "key": "boundary-end",
+          "label": "boundary end",
+          "direction": "bidirectional",
+          "angle": 225,
+          "dataType": "any",
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "boundary-end"
         }
       ],
       "visible": true,
@@ -336,7 +423,8 @@
         },
         "membrane": {
           "enabled": true,
-          "defaultShape": "circle"
+          "defaultShape": "circle",
+          "segmentToNext": "line"
         },
         "glyph": {
           "kind": "icon",
@@ -347,7 +435,8 @@
       "style": {
         "border": "4px solid #a78bfa",
         "borderRadius": 18
-      }
+      },
+      "outputs": []
     },
     {
       "id": "graph-native-membrane-smoke-detail-view",
@@ -767,7 +856,7 @@
         "identity": {
           "graphId": "graph-native-membrane-smoke"
         },
-        "markdown": "## Shape the membrane\n\nThe Declaration owns the glyph and the membrane. Four attached `membrane` controls place boundary points by their centers. Each control owns the segment to the next control around the boundary: `data.segmentToNext` is `line` or `curve`. Drag a control to move its point. On a curved segment, optional `data.angle` steers its tangent; it does not place the point."
+        "markdown": "## Shape the membrane\n\nThe Declaration owns the glyph and membrane. Its `boundary-begin` handle starts a chain; each `membrane` node receives at `root` and sends from `next`; the last node returns to Declaration `boundary-end`. The visible border follows that chain, not positions sorted by bearing. Drag begin to prepend, end to append, or next to insert after a node. Each node owns its outgoing `line` or `curve`; optional `angle` steers a curve tangent."
       },
       "handles": [
         {
@@ -861,7 +950,7 @@
         "identity": {
           "graphId": "graph-native-membrane-smoke"
         },
-        "markdown": "## Setup\n\nOpen this graph in a workspace at detail zoom. Inspect the purple outline: three straight sides and one curved side. Switch to edit mode and drag a `membrane` node; compare its center with the changed boundary. Change one control’s `segmentToNext` between `line` and `curve`; the side leaving that control should switch without moving either point. Edit the curved control’s `angle` to steer its tangent. Resize on both axes, then pan and zoom through semantic views."
+        "markdown": "## Setup\n\nOpen this graph at detail zoom. Inspect the connected chain Declaration → Boundary 1 → 2 → 3 → 4 → Declaration and the purple outline. It has four authored control points plus the Declaration corner; one side is curved. In edit mode, drag `boundary-begin`, `boundary-end`, or a node `next` handle to insert a new boundary node and verify the old link is split. Move a node, switch its `segmentToNext`, resize, pan, and zoom. Delete controls to test 3+ authored polygon, 2 fitted triangle, 1 fitted oval, and 0 full-graph rectangle."
       },
       "handles": [
         {
@@ -955,7 +1044,7 @@
         "identity": {
           "graphId": "graph-native-membrane-smoke"
         },
-        "markdown": "## Expected Result\n\nOne mixed membrane wraps the bench. Three sides connect their boundary points directly; the curved side is smooth and restrained. The control center sets the boundary point, while `segmentToNext` sets its outgoing side. An optional `angle` affects only a curve tangent. The same contour clips unfocused Views, places declaration ports, receives workspace edges, and appears in the minimap. Resizing scales control positions with the render widget."
+        "markdown": "## Expected Result\n\nThe chain edges determine the visible boundary order. Three or more controls author a polygon through the Declaration corner and may clip graph content. Two controls produce a triangle fitted around the graph; one produces a fitted circle/oval; none leaves a full-graph rectangle. Begin/end/next insertion rewires one link into two, without forks. The same resolved contour drives border, clipping, ports, workspace edges, and minimap. `segmentToNext` selects a line or curve on the leaving side."
       },
       "handles": [
         {
@@ -1049,7 +1138,7 @@
         "identity": {
           "graphId": "graph-native-membrane-smoke"
         },
-        "markdown": "## Observations\n\nAutomated checks cover straight and curved segments, position-driven movement, tangent steering, count ladder, two-axis resize, and interface-port attachment. Record interactive observations here after opening the updated runtime build."
+        "markdown": "## Observations\n\nAutomated checks cover chain traversal and insertion at begin/end/interior, the count ladder, authored clipping, line/curve segments, tangent steering, resize, and port attachment. Record interactive observations after opening the updated runtime build."
       },
       "handles": [
         {
@@ -1106,6 +1195,31 @@
           "direction": "input",
           "dataType": "any",
           "angle": 180
+        },
+        {
+          "id": "next",
+          "key": "next",
+          "label": "boundary next",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "handles": [
@@ -1115,6 +1229,32 @@
           "direction": "input",
           "dataType": "any",
           "angle": 180
+        },
+        {
+          "id": "next",
+          "key": "next",
+          "label": "boundary next",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "next"
         }
       ],
       "data": {
@@ -1123,7 +1263,21 @@
           "graphId": "graph-native-membrane-smoke"
         },
         "segmentToNext": "line"
-      }
+      },
+      "outputs": [
+        {
+          "key": "next",
+          "label": "boundary next",
+          "type": "any"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "boundary in",
+          "type": "any"
+        }
+      ]
     },
     {
       "id": "graph-native-membrane-smoke-membrane-2",
@@ -1142,6 +1296,31 @@
           "direction": "input",
           "dataType": "any",
           "angle": 180
+        },
+        {
+          "id": "next",
+          "key": "next",
+          "label": "boundary next",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "handles": [
@@ -1151,6 +1330,32 @@
           "direction": "input",
           "dataType": "any",
           "angle": 180
+        },
+        {
+          "id": "next",
+          "key": "next",
+          "label": "boundary next",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "next"
         }
       ],
       "data": {
@@ -1160,7 +1365,21 @@
         },
         "angle": 25,
         "segmentToNext": "curve"
-      }
+      },
+      "outputs": [
+        {
+          "key": "next",
+          "label": "boundary next",
+          "type": "any"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "boundary in",
+          "type": "any"
+        }
+      ]
     },
     {
       "id": "graph-native-membrane-smoke-membrane-3",
@@ -1179,6 +1398,31 @@
           "direction": "input",
           "dataType": "any",
           "angle": 180
+        },
+        {
+          "id": "next",
+          "key": "next",
+          "label": "boundary next",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "handles": [
@@ -1188,6 +1432,32 @@
           "direction": "input",
           "dataType": "any",
           "angle": 180
+        },
+        {
+          "id": "next",
+          "key": "next",
+          "label": "boundary next",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "next"
         }
       ],
       "data": {
@@ -1196,7 +1466,21 @@
           "graphId": "graph-native-membrane-smoke"
         },
         "segmentToNext": "line"
-      }
+      },
+      "outputs": [
+        {
+          "key": "next",
+          "label": "boundary next",
+          "type": "any"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "boundary in",
+          "type": "any"
+        }
+      ]
     },
     {
       "id": "graph-native-membrane-smoke-membrane-4",
@@ -1215,6 +1499,31 @@
           "direction": "input",
           "dataType": "any",
           "angle": 180
+        },
+        {
+          "id": "next",
+          "key": "next",
+          "label": "boundary next",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "handles": [
@@ -1224,6 +1533,32 @@
           "direction": "input",
           "dataType": "any",
           "angle": 180
+        },
+        {
+          "id": "next",
+          "key": "next",
+          "label": "boundary next",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "next"
         }
       ],
       "data": {
@@ -1232,7 +1567,21 @@
           "graphId": "graph-native-membrane-smoke"
         },
         "segmentToNext": "line"
-      }
+      },
+      "outputs": [
+        {
+          "key": "next",
+          "label": "boundary next",
+          "type": "any"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "boundary in",
+          "type": "any"
+        }
+      ]
     }
   ],
   "edges": [
@@ -1310,51 +1659,68 @@
       "targetHandle": "root"
     },
     {
-      "id": "graph-native-membrane-smoke-membrane-edge-1",
+      "id": "graph-native-membrane-smoke-boundary-link-1",
       "type": "membrane",
       "source": "graph-native-membrane-smoke-declaration",
       "target": "graph-native-membrane-smoke-membrane-1",
-      "sourceHandle": "membrane",
+      "sourceHandle": "boundary-begin",
       "targetHandle": "root",
-      "label": "membrane 1 · line",
+      "label": "boundary link 1",
       "data": {
-        "role": "membrane-control"
+        "role": "membrane-control",
+        "semanticRole": "membrane-control"
       }
     },
     {
-      "id": "graph-native-membrane-smoke-membrane-edge-2",
+      "id": "graph-native-membrane-smoke-boundary-link-2",
       "type": "membrane",
-      "source": "graph-native-membrane-smoke-declaration",
+      "source": "graph-native-membrane-smoke-membrane-1",
       "target": "graph-native-membrane-smoke-membrane-2",
-      "sourceHandle": "membrane",
+      "sourceHandle": "next",
       "targetHandle": "root",
-      "label": "membrane 2 · curve",
+      "label": "boundary link 2",
       "data": {
-        "role": "membrane-control"
+        "role": "membrane-control",
+        "semanticRole": "membrane-control"
       }
     },
     {
-      "id": "graph-native-membrane-smoke-membrane-edge-3",
+      "id": "graph-native-membrane-smoke-boundary-link-3",
       "type": "membrane",
-      "source": "graph-native-membrane-smoke-declaration",
+      "source": "graph-native-membrane-smoke-membrane-2",
       "target": "graph-native-membrane-smoke-membrane-3",
-      "sourceHandle": "membrane",
+      "sourceHandle": "next",
       "targetHandle": "root",
-      "label": "membrane 3 · line",
+      "label": "boundary link 3",
       "data": {
-        "role": "membrane-control"
+        "role": "membrane-control",
+        "semanticRole": "membrane-control"
       }
     },
     {
-      "id": "graph-native-membrane-smoke-membrane-edge-4",
+      "id": "graph-native-membrane-smoke-boundary-link-4",
       "type": "membrane",
-      "source": "graph-native-membrane-smoke-declaration",
+      "source": "graph-native-membrane-smoke-membrane-3",
       "target": "graph-native-membrane-smoke-membrane-4",
-      "sourceHandle": "membrane",
+      "sourceHandle": "next",
       "targetHandle": "root",
-      "label": "membrane 4 · line",
+      "label": "boundary link 4",
       "data": {
-        "role": "membrane-control"
+        "role": "membrane-control",
+        "semanticRole": "membrane-control"
+      }
+    },
+    {
+      "id": "graph-native-membrane-smoke-boundary-link-5",
+      "type": "membrane",
+      "source": "graph-native-membrane-smoke-membrane-4",
+      "target": "graph-native-membrane-smoke-declaration",
+      "sourceHandle": "next",
+      "targetHandle": "boundary-end",
+      "label": "boundary link 5",
+      "data": {
+        "role": "membrane-control",
+        "semanticRole": "membrane-control"
       }
     }
   ],
