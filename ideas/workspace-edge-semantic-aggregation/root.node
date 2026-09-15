@@ -422,7 +422,7 @@
         "identity": {
           "graphId": "workspace-edge-semantic-aggregation"
         },
-        "markdown": "# Detailed model notes\n\nThe typed idea nodes carry the current reasoning contract. The markdown cards below preserve the original edge/lane/bundle resolution notes and examples for detailed review."
+        "markdown": "# Detailed model notes\n\n## Rendering\n\nA bundle is shared routing geometry, not a replacement semantic edge. Draw every atomic edge as a parallel strand whenever screen spacing supports it. A single aggregate stroke is allowed only through an explicit presentation policy chosen because individual strands would be unreadable.\n\n## Labels\n\nShared-surface and bundle labels use the ordinary edge-label contract. A homogeneous bundle may display its common relationship label once. A heterogeneous bundle displays a count or summary while inspection exposes every constituent label.\n\n## Inspection\n\nEvery edge has a visual projection and stable logical identity. An edge may additionally carry data.relationshipRef pointing to an addressed graph that owns the claim's evidence, references, confidence, revision history, and discussion. Selecting an edge inspects local properties; opening the relationship navigates to that graph. Lightweight edges do not require a relationship graph."
       },
       "handles": [
         {
@@ -513,11 +513,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Shared Semantic Edge Bundle",
-        "statement": "Keep edges atomic while grouping every edge between the same visible graph pair into one movable bundle.",
+        "title": "Inspectable Semantic Edge Bundles",
+        "statement": "Keep relationships individually drawn inside shared routing bundles, reuse the edge-label contract for bundle labels, and let an edge navigate to an optional addressed relationship graph.",
         "status": "testing",
         "confidence": "plausible",
-        "notes": "Semantic zoom changes the visible endpoint representative and routing aggregate; it never changes edge identity.",
+        "notes": "Bundling shares collectors and corridor geometry. It does not replace atomic strokes unless an explicit density policy determines that a single aggregate representation is more legible.",
         "definitionKey": "idea",
         "_classBinding": {
           "key": "idea",
@@ -905,9 +905,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Independent Routes Fragment the Relationship",
-        "statement": "Workspace edges currently choose routes from individual endpoints, so relationships between the same graph nodes split into separate curves, overlap nodes, and lose their visual grouping.",
-        "impact": "Graph authors and readers cannot reliably perceive one inter-graph relationship corridor or manipulate it as a unit.",
+        "title": "Bundles Can Hide Meaning and Edges Lack Inspectable Depth",
+        "statement": "Automatic far-zoom aggregation replaces distinct relationships with one thick stroke, shared-surface labels use separate presentation machinery, and ordinary edges have no direct path to evidence or references.",
+        "impact": "Readers may lose relationship count, type, direction, and provenance precisely when a claim needs scrutiny.",
         "urgency": "high",
         "definitionKey": "idea-problem",
         "_classBinding": {
@@ -1680,9 +1680,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Pair-Keyed Collectors and Shared Trunk",
-        "description": "Resolve visible endpoint containers, group by graph pair, place shared collectors on their membranes, route one corridor between collectors, and preserve each edge as a parallel strand with a short endpoint fan-out.",
-        "differentiator": "One routing grammar works at graph and workspace scales while keeping semantic edges atomic and independently styled.",
+        "title": "Visible Strands, Shared Labels, Addressed Relationships",
+        "description": "Route atomic edges through pair-keyed collectors and a shared corridor while retaining parallel strokes whenever readable. Render shared-surface summaries through the edge-label grammar. Give each logical edge an optional relationshipRef that opens a graph containing evidence, references, confidence, history, and discussion.",
+        "differentiator": "The workspace projection, normal graph edge, bundle label, and relationship inspector all resolve to the same logical edge identities without forcing every edge to become a graph.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
           "key": "idea-proposed-approach",
@@ -2066,10 +2066,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "What Belongs to the Bundle?",
-        "question": "Which properties belong to the shared bundle and collectors, and which remain owned by each atomic edge as direction, type, activity, and semantic scale change?",
+        "title": "When Is Single-Stroke Aggregation Justified?",
+        "question": "What measurable screen-density threshold makes parallel atomic strands less legible than an aggregate representation?",
         "status": "open",
-        "answer": "Current direction: graph-pair identity and collector placement are shared; type, direction, data, style, and identity remain atomic.",
+        "answer": "Default to strands. Permit aggregate mode only as an explicit presentation policy until visual testing establishes a reliable density threshold.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -2455,8 +2455,8 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Visible Graph Pair Is a Stable Key",
-        "statement": "At workspace scale, all atomic edges whose resolved visible endpoints are the same two graph nodes can share one corridor without obscuring essential meaning.",
+        "title": "Bundling Does Not Require Visual Collapse",
+        "statement": "Edges can share collectors, shoulders, routing geometry, and label placement while remaining visibly distinct parallel strands.",
         "importance": "critical",
         "status": "testing",
         "definitionKey": "idea-assumption",
@@ -4011,11 +4011,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Aggregation Can Hide Meaning",
-        "description": "A bundle may imply that distinct types or opposite directions are one semantic relationship, especially at far zoom.",
+        "title": "Density Can Overwhelm the Corridor",
+        "description": "A large bundle may become visually noisy when every atomic relationship remains drawn at a small semantic scale.",
         "likelihood": "medium",
-        "impact": "high",
-        "mitigation": "Retain parallel atomic strands near the graph, preserve direction and style, expose counts/types at far zoom, and never persist the bundle as a replacement edge.",
+        "impact": "medium",
+        "mitigation": "Preserve strands by default, maintain deterministic spacing and styling, and introduce an explicit density-aware aggregate view only after smoke tests establish when it improves legibility.",
         "definitionKey": "idea-risk",
         "_classBinding": {
           "key": "idea-risk",
@@ -4403,9 +4403,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Exercise Movable Collectors in the Smoke Suite",
-        "action": "Refresh the edge-lane smoke suite, move both collectors around each graph membrane, then test mixed types, opposite handle sides, node movement, resizing, focus, and semantic zoom.",
-        "expectedEvidence": "One stable shared corridor remains outside both graph nodes; strands never overlap; saved collector positions reload; atomic endpoints and styles remain intact.",
+        "title": "Exercise Strand Preservation and Relationship Inspection",
+        "action": "Verify that minimap and glyph scale retain parallel workspace strands, shared-surface labels follow edge labels, ordinary and workspace edges can store relationshipRef, and opening the reference loads the addressed relationship graph.",
+        "expectedEvidence": "No implicit thick-line collapse; atomic styles and identities remain visible; the same relationship label appears across projections; edge inspection reaches its evidence graph.",
         "status": "in-progress",
         "definitionKey": "idea-next-step",
         "_classBinding": {
@@ -5895,7 +5895,7 @@
           "graphId": "workspace-edge-semantic-aggregation",
           "nodeId": "workspace-edge-entry"
         },
-        "markdown": "# Workspace Edge Semantic Aggregation\n\nKeep edges atomic in the data model while allowing their visible representation to aggregate as semantic scale changes. A workspace edge is not a second edge type; it is a derived projection of underlying graph edges."
+        "markdown": "# Workspace Edge Semantic Aggregation\n\nKeep relationships atomic and visibly drawn while sharing collectors, shoulders, routing corridors, and label behavior. Edges may open addressed relationship graphs when their meaning or provenance needs deeper examination."
       }
     },
     {
@@ -5975,7 +5975,7 @@
           "graphId": "workspace-edge-semantic-aggregation",
           "nodeId": "workspace-edge-example"
         },
-        "markdown": "## Example\n\nClose view:\n\n```text\nGraph A                    Graph B\n  a1 \u2500\u2500reference\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500> b3\n  a2 \u2500\u2500depends-on\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500> b7\n  a4 \u2500\u2500supports\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500> b9\n```\n\nWorkspace view:\n\n```text\n[ GRAPH A ] \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 [ GRAPH B ]\n                 3 edges\n```\n\nIntermediate view may expose lanes:\n\n```text\n             \u250c reference \u00d7 1\nGRAPH A \u2550\u2550\u2550\u2550\u2550\u256a depends-on \u00d7 1 \u2550\u2550\u2550\u2550\u2550 GRAPH B\n             \u2514 supports \u00d7 1\n```\n\nZooming back in fans the bundle into the actual endpoints again."
+        "markdown": "## Example\n\nClose view:\n\n```text\nGraph A                    Graph B\n  a1 ──reference────────────> b3\n  a2 ──depends-on────────────> b7\n  a4 ──supports──────────────> b9\n```\n\nWorkspace view:\n\n```text\n[ GRAPH A ] ═══════════════ [ GRAPH B ]\n                 3 edges\n```\n\nIntermediate view may expose lanes:\n\n```text\n             ┌ reference × 1\nGRAPH A ═════╪ depends-on × 1 ═════ GRAPH B\n             └ supports × 1\n```\n\nZooming back in fans the bundle into the actual endpoints again."
       }
     },
     {
