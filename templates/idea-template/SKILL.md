@@ -5,12 +5,12 @@ description: Create, derive, or maintain Twilite idea graphs from the canonical 
 
 # Idea Template
 
-Use `root.node` as the executable template. Preserve its declaration, Idea landing surface, named navigation ports, semantic Views, Glyph, custom node bridges, class bindings, and semantic edge-class authority before replacing example content. Treat starter content and starter relationships as demonstrations, not facts about the derived idea.
+Use `root.node` as the executable template. Preserve its declaration, Idea landing surface, reader-facing relationship ports, semantic Views, Glyph, custom node bridges, class bindings, and semantic edge-class authority before replacing example content. Treat starter content and starter relationships as demonstrations, not facts about the derived idea.
 
 ## Derive An Idea Graph
 
 1. Copy `root.node` structurally.
-2. Retarget graph identity, declaration identity, semantic View identities, Idea landing-surface edge and navigation edges, Glyph identity, GitHub settings, every content-node identity, and every bridge identity.
+2. Retarget graph identity, declaration identity, semantic View identities, Idea landing-surface edge and any nonredundant navigation edges, Glyph identity, GitHub settings, every content-node identity, and every bridge identity.
 3. Preserve the local bridges and `_classBinding` / `_bridge` data on typed nodes. `dependencies.nodeTypes` does not grant runtime class authority.
 4. Replace the starter content with the real idea. Re-evaluate every starter relationship; keep, retarget, or remove it so every remaining edge is truthful.
 5. Duplicate repeatable working nodes as needed; do not create multiple competing anchor nodes without an explicit reason.
@@ -18,13 +18,14 @@ Use `root.node` as the executable template. Preserve its declaration, Idea landi
 
 ## Landing Navigation Contract
 
-The primary Idea node is both the landing surface and the reader's navigation hub.
+The primary Idea node is the landing surface and the reader's starting point.
 
-- Connect the declaration's `landing-surface` port directly to the primary `idea` node's `root` port.
-- Give the Idea node named navigation outputs such as `risks`, `questions`, and `approach`. Connect each to its real destination with an ordinary labeled `reference` edge whose role is `navigation`.
-- Navigation edges guide the reader; they do not replace meaning-bearing `idea.*` relationships. Keep those relationship classes and their named handles separate.
-- Retarget navigation edge IDs and destinations when deriving a graph. Remove a navigation edge if its destination is absent in the derived idea.
-- When duplicating a repeatable working node, add navigation from the hub only when it improves the reader's path; one port may have multiple visible destinations.
+- Connect the declaration's `landing-surface` port directly to the primary `idea` node's `root` port. That authored edge alone selects landing; changing its target changes the landing node.
+- Keep meaning-bearing `idea.*` relationships directed. Readers may traverse a focused relationship port in either direction to the opposite endpoint.
+- Give relationship ports reader-facing labels such as `Problem`, `Risks`, `Questions`, and `Evidence`. Preserve stable port IDs and edge-class meaning.
+- Do not add parallel `navigation` edges to every working node. The semantic path from Idea through Problem to Audience, or through Assumption to Question and Research, is the intended route.
+- Add an ordinary labeled `navigation` edge only when a separate authored section has no meaningful relationship path into the idea. Remove it when that section acquires a truthful semantic path.
+- When deriving an idea, remove relationship and navigation edges whose destination or authored claim is absent.
 
 ## Node Roles
 
@@ -72,7 +73,7 @@ When promoting work, leave the idea graph as the durable reasoning record. Creat
 - Parse every touched `.node` file as JSON.
 - Verify the declaration supplies its implicit root interface and occupies `default-view`, `summary-view`, `icon-view`, `glyph`, and `landing-surface`. An additional authored `port` is optional unless the idea exposes a distinct named surface.
 - Verify declaration-to-Idea landing-surface geometry defines the node frame; the default View selects content and navigation focus but does not determine geometry.
-- Verify the primary Idea node is the landing target and has named navigation outputs with valid labeled edges to the authored working nodes. Remove stale destinations from derived graphs.
+- Verify the primary Idea node is the landing target and each visible relationship port has a valid meaning-bearing edge to a working node. Navigation edges are optional and should serve only disconnected sections.
 - Verify every typed node has matching `definitionKey`, `_classBinding.key`, and class refs.
 - Verify each custom node class is an inspectable graph artifact, not a loose manifest with adjacent views. It must contain one real `declaration`, one explanatory `markdown` contract node, and visible primitive `port` nodes for `editor.web`, `node.web.detail`, `node.web.summary`, and `node.web.icon`.
 - Verify the class declaration owns every exposed surface through `declaration.surfaces`, exposes `root` through the detail port, names `root` as its default, retains named detail, summary, icon, and editor surfaces, and connects directly to the contract note and each surface port with meaningful `contract` or `surface` edges.
