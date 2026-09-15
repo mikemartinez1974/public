@@ -84,8 +84,7 @@ function structuralNodes(prefix, graphId, title, description, githubPath) {
     'idea-template-detail-view': `${prefix}-detail-view`,
     'idea-template-summary-view': `${prefix}-summary-view`,
     'idea-template-icon-view': `${prefix}-icon-view`,
-    'idea-template-glyph': `${prefix}-glyph`,
-    'idea-template-landing-surface': `${prefix}-landing-surface`
+    'idea-template-glyph': `${prefix}-glyph`
   };
   return Object.entries(map).map(([sourceId, id]) => {
     let node = replaceDeep(byId(idea, sourceId), 'idea-template', prefix);
@@ -111,7 +110,6 @@ function structuralNodes(prefix, graphId, title, description, githubPath) {
     if (sourceId.endsWith('summary-view')) node.data.content.value = `## ${title}\n\nA loose graph where ideas, questions, constraints, references, and outcomes can acquire structure.`;
     if (sourceId.endsWith('icon-view')) node.data.content = { kind: 'svg', value: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220'><rect width='320' height='220' rx='28' fill='#172554'/><circle cx='95' cy='105' r='28' fill='#fbbf24'/><circle cx='160' cy='70' r='22' fill='#a78bfa'/><circle cx='225' cy='120' r='25' fill='#38bdf8'/><path d='M115 92L140 79M180 80L205 105M120 116L200 120' stroke='#fff' stroke-width='8' stroke-linecap='round'/><text x='160' y='190' text-anchor='middle' fill='#fff' font-family='system-ui' font-size='20' font-weight='800'>BRAINSTORM</text></svg>" };
     if (sourceId.endsWith('glyph')) node.data.glyph = { kind: 'character', value: '✦' };
-    if (sourceId.endsWith('landing-surface')) node.data.content.value = `# ${title}\n\n${description}`;
     return node;
   });
 }
@@ -185,7 +183,7 @@ function build({ prefix, graphId, title, description, githubPath, specimen = fal
     edge(`${prefix}-summary-view-edge`, declaration, `${prefix}-summary-view`, 'summary-view', 'summary view', 'shared-summary'),
     edge(`${prefix}-icon-view-edge`, declaration, `${prefix}-icon-view`, 'icon-view', 'icon view', 'shared-icon'),
     edge(`${prefix}-glyph-edge`, declaration, `${prefix}-glyph`, 'glyph', 'glyph', 'shared-glyph'),
-    edge(`${prefix}-landing-edge`, declaration, `${prefix}-landing-surface`, 'landing-surface', 'landing surface', 'landing-surface'),
+    edge(`${prefix}-landing-edge`, declaration, provider.id, 'landing-surface', 'landing surface', 'landing-surface'),
     edge(`${prefix}-port-edge`, declaration, exposed.id, 'port', 'exposes brainstorm', 'exposes-port'),
     edge(`${prefix}-idea-edge`, provider.id, `${prefix}-idea`, 'ideas', 'idea', 'brainstorm.idea'),
     edge(`${prefix}-question-edge`, provider.id, `${prefix}-question`, 'questions', 'raises', 'raises'),
@@ -194,8 +192,8 @@ function build({ prefix, graphId, title, description, githubPath, specimen = fal
     edge(`${prefix}-outcome-edge`, provider.id, `${prefix}-outcome`, 'outcomes', 'suggests', 'relates-to')
   ];
   if (specimen) {
-    edges.push(edge(`${prefix}-bridge-depends`, `${prefix}-idea`, reference.id, 'right', 'depends on', 'depends-on'));
-    edges.push(edge(`${prefix}-decision-constrains`, `${prefix}-outcome`, `${prefix}-idea`, 'left', 'constrains', 'constrains'));
+    edges.push(edge(`${prefix}-bridge-depends`, `${prefix}-idea`, reference.id, 'root', 'depends on', 'depends-on'));
+    edges.push(edge(`${prefix}-decision-constrains`, `${prefix}-outcome`, `${prefix}-idea`, 'root', 'constrains', 'constrains'));
   }
 
   return {
