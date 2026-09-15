@@ -22,7 +22,7 @@ The primary Idea node is the landing surface and the reader's starting point.
 
 - Connect the declaration's `landing-surface` port directly to the primary `idea` node's `root` port. That authored edge alone selects landing; changing its target changes the landing node.
 - Keep meaning-bearing `idea.*` relationships directed. Readers may traverse a focused relationship port in either direction to the opposite endpoint.
-- Give relationship ports reader-facing labels such as `Problem`, `Risks`, `Questions`, and `Evidence`. Preserve stable port IDs and edge-class meaning.
+- Label relationship handles from the selected node's perspective: `motivates` / `motivated by`, `affects` / `affected by`, and so on. The `idea.affects` class records Audience → Problem (experiencer to cause), so Audience displays `affected by` and Problem displays `affects`. Preserve edge-class meaning.
 - Do not add parallel `navigation` edges to every working node. The semantic path from Idea through Problem to Audience, or through Assumption to Question and Research, is the intended route.
 - Add an ordinary labeled `navigation` edge only when a separate authored section has no meaningful relationship path into the idea. Remove it when that section acquires a truthful semantic path.
 - When deriving an idea, remove relationship and navigation edges whose destination or authored claim is absent.
