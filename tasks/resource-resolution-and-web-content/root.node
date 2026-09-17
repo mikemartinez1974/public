@@ -747,7 +747,8 @@
         "owner": "",
         "targetDate": "",
         "successMetrics": [
-          "github:// and tlz:// graph links navigate once inside Twilite",
+          "github:// graph links navigate once inside Twilite",
+          "tlz:// is recognized as Twilite-hosted resource identity, with unavailable status until hosting exists",
           "HTTP graph content and readable HTML choose representations from response type",
           "Unreadable resources retain address and expose a useful unavailable state"
         ],
@@ -858,7 +859,7 @@
     {
       "id": "resource-resolution-task-question",
       "type": "open-question",
-      "label": "What is the minimal tlz authority mapping?",
+      "label": "Where will tlz:// resources live?",
       "root": false,
       "position": {
         "x": -700,
@@ -935,10 +936,10 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "body": "Which owned hosts and paths can tlz:// resolve in browser and VS Code modes, and how should authentication be supplied?",
-        "status": "open",
+        "body": "tlz:// names files hosted on twilite.zone under Twilite authority, analogous to github:// files hosted through GitHub. Hosting, storage, authentication, and access infrastructure are future work.",
+        "status": "answered",
         "owner": "",
-        "resolutionPath": "Resolve from current storage and host contracts before implementing the tlz adapter.",
+        "resolutionPath": "Authority and host are decided: twilite.zone. Defer the concrete hosting and access design to the future tlz infrastructure task.",
         "prominence": "high",
         "definitionKey": "open-question",
         "_classBinding": {
@@ -1130,10 +1131,10 @@
         "viewRole": "document",
         "taskProgress": {
           "completed": 0,
-          "total": 6
+          "total": 7
         },
         "questionProgress": {
-          "answered": 0,
+          "answered": 1,
           "total": 1
         },
         "summarySource": "node-updater",
@@ -1141,16 +1142,17 @@
         "taskTitles": [
           "Define the resolver result and address identity",
           "Unify internal link navigation",
-          "Implement provider-specific retrieval",
+          "Use GitHub retrieval and reserve a tlz resolver",
           "Select representation from returned content",
           "Add Web Content and unavailable representations",
-          "Validate end-to-end navigation and limits"
+          "Validate end-to-end navigation and limits",
+          "Build Twilite-hosted tlz file retrieval"
         ],
         "questionTitles": [
-          "What is the minimal tlz authority mapping?"
+          "Where will tlz:// resources live?"
         ],
-        "taskListText": "1. Define the resolver result and address identity\n2. Unify internal link navigation\n3. Implement provider-specific retrieval\n4. Select representation from returned content\n5. Add Web Content and unavailable representations\n6. Validate end-to-end navigation and limits",
-        "questionListText": "1. What is the minimal tlz authority mapping?",
+        "taskListText": "1. Define the resolver result and address identity\n2. Unify internal link navigation\n3. Use GitHub retrieval and reserve a tlz resolver\n4. Select representation from returned content\n5. Add Web Content and unavailable representations\n6. Validate end-to-end navigation and limits\n7. Build Twilite-hosted tlz file retrieval",
+        "questionListText": "1. Where will tlz:// resources live?",
         "definitionKey": "task",
         "_classBinding": {
           "key": "task",
@@ -1254,7 +1256,7 @@
           "sourceBridgeNodeId": "resource-resolution-task-bridge-summary",
           "sourceBridgeLabel": "Task Graph Summary"
         },
-        "updatedAt": "2026-09-17T15:39:02.751Z",
+        "updatedAt": "2026-09-17T15:44:47.499Z",
         "identity": {
           "graphId": "resource-resolution-task-declaration"
         },
@@ -1270,7 +1272,7 @@
         "priority": "high",
         "owner": "",
         "targetDate": "",
-        "nextAction": "Define the typed resolver result and audit every link-entry path.",
+        "nextAction": "Define the typed resolver result and unify link navigation; keep hosted tlz retrieval queued for its future infrastructure project.",
         "blockedReason": "",
         "health": "unknown",
         "presentation": {
@@ -1280,7 +1282,7 @@
           }
         },
         "title": "Resolve resources inside Twilite",
-        "body": "Goal: Resolve resources inside Twilite\nStatus: todo\n\nTasks in scope:\n1. Define the resolver result and address identity\n2. Unify internal link navigation\n3. Implement provider-specific retrieval\n4. Select representation from returned content\n\nOpen questions:\n1. What is the minimal tlz authority mapping?",
+        "body": "Goal: Resolve resources inside Twilite\nStatus: todo\n\nTasks in scope:\n1. Define the resolver result and address identity\n2. Unify internal link navigation\n3. Use GitHub retrieval and reserve a tlz resolver\n4. Select representation from returned content\n\nOpen questions:\n1. Where will tlz:// resources live?",
         "estimateHours": "",
         "startedAt": "",
         "completedAt": "",
@@ -4319,7 +4321,7 @@
     {
       "id": "resource-resolution-task-task-03",
       "type": "task",
-      "label": "Implement provider-specific retrieval",
+      "label": "Use GitHub retrieval and reserve a tlz resolver",
       "root": false,
       "position": {
         "x": 380,
@@ -4396,16 +4398,16 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "title": "Implement provider-specific retrieval",
-        "body": "Use the existing authenticated GitHub read route for github://. Define tlz:// as a Twilite-owned authority with a bounded mapping to hosted or local resources; reject arbitrary proxy hosts.",
+        "title": "Use GitHub retrieval and reserve a tlz resolver",
+        "body": "Use the existing authenticated GitHub read route for github://. Define the tlz:// resolver interface as Twilite-owned files on twilite.zone, but return a stable unavailable status until the hosting infrastructure exists. Do not map tlz:// to arbitrary web hosts or local files.",
         "priority": "high",
         "status": "todo",
         "owner": "",
         "estimateHours": "",
         "acceptanceCriteria": [
-          "GitHub graph opens through the same-origin route",
-          "tlz:// resolves to an owned resource without becoming an open proxy",
-          "Access failures retain the original address"
+          "GitHub graphs open through the same-origin route",
+          "tlz:// retains its address and reports unavailable pending Twilite hosting",
+          "Resolver dispatch cannot become an open proxy"
         ],
         "definitionKey": "task",
         "_classBinding": {
@@ -5024,15 +5026,225 @@
       "showLabel": true,
       "data": {
         "title": "Validate end-to-end navigation and limits",
-        "body": "Cover github://, tlz://, HTTP graph, readable HTML, blocked HTML, redirects, and link clicks from each renderer. Inspect live browser behavior separately from structural tests.",
+        "body": "Cover github://, HTTP graph, readable HTML, blocked HTML, redirects, and link clicks from each renderer. Verify the current tlz:// unavailable state, then add live tlz:// load checks when hosted file infrastructure lands. Inspect live browser behavior separately from structural tests.",
         "priority": "medium",
         "status": "todo",
         "owner": "",
         "estimateHours": "",
         "acceptanceCriteria": [
-          "Focused automated tests cover resolver and navigation outcomes",
+          "Focused automated tests cover currently available resolver and navigation outcomes",
           "Interactive smoke check confirms one load per click and preserved history",
+          "Deferred tlz:// hosted-file smoke criterion is recorded without treating it as current implementation",
           "Document remaining live-page limitations"
+        ],
+        "definitionKey": "task",
+        "_classBinding": {
+          "key": "task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "defaults": {
+            "label": "Task",
+            "size": {
+              "width": 380,
+              "height": 260
+            },
+            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+            "showLabel": false,
+            "data": {
+              "title": "",
+              "body": "Describe the concrete work to execute.",
+              "priority": "high",
+              "status": "todo",
+              "owner": "",
+              "estimateHours": "",
+              "targetDate": "",
+              "startedAt": "",
+              "completedAt": "",
+              "externalRef": "",
+              "acceptanceCriteria": [
+                "Describe what done looks like"
+              ],
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Checklist"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "task",
+            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Task",
+              "size": {
+                "width": 380,
+                "height": 260
+              },
+              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "body": "Describe the concrete work to execute.",
+                "priority": "high",
+                "status": "todo",
+                "owner": "",
+                "estimateHours": "",
+                "targetDate": "",
+                "startedAt": "",
+                "completedAt": "",
+                "externalRef": "",
+                "acceptanceCriteria": [
+                  "Describe what done looks like"
+                ],
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Checklist"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "_bridge": {
+          "sourceNodeId": "resource-resolution-task-bridge-task",
+          "sourceBridgeNodeId": "resource-resolution-task-bridge-task",
+          "sourceBridgeLabel": "Task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class",
+          "classKey": "task",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "identity": {
+          "graphId": "resource-resolution-task-declaration"
+        },
+        "targetDate": "",
+        "startedAt": "",
+        "completedAt": "",
+        "externalRef": "",
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Checklist"
+          }
+        }
+      }
+    },
+    {
+      "id": "resource-resolution-task-task-07",
+      "type": "task",
+      "label": "Build Twilite-hosted tlz file retrieval",
+      "root": false,
+      "position": {
+        "x": 380,
+        "y": 1610
+      },
+      "width": 380,
+      "height": 260,
+      "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210,
+          "portId": "root"
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180,
+          "portId": "root"
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90,
+          "portId": "root"
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360,
+          "portId": "root"
+        }
+      ],
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Build Twilite-hosted tlz file retrieval",
+        "body": "Future project: establish file storage, addressing, access control, and retrieval on twilite.zone; connect the reserved tlz:// resolver to that service without changing its public address semantics.",
+        "priority": "medium",
+        "status": "waiting",
+        "owner": "",
+        "estimateHours": "",
+        "acceptanceCriteria": [
+          "A tlz:// address resolves an authorized hosted file from twilite.zone",
+          "Public and private access behavior is explicit",
+          "Unavailable and authentication errors preserve resource identity"
         ],
         "definitionKey": "task",
         "_classBinding": {
@@ -5349,6 +5561,17 @@
       "type": "reference",
       "source": "resource-resolution-task-goal",
       "target": "resource-resolution-task-task-06",
+      "label": "task",
+      "style": {},
+      "data": {},
+      "sourceHandle": "right",
+      "targetHandle": "left"
+    },
+    {
+      "id": "resource-resolution-task-goal-task-07",
+      "type": "reference",
+      "source": "resource-resolution-task-goal",
+      "target": "resource-resolution-task-task-07",
       "label": "task",
       "style": {},
       "data": {},
