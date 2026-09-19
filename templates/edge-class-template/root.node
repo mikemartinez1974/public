@@ -4,10 +4,10 @@
     "title": "Edge Class Template",
     "description": "",
     "graphId": "edge-class-template-declaration",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "kind": "template",
     "created": "2026-09-19T06:05:49.353Z",
-    "modified": "2026-09-19T06:06:30.712Z",
+    "modified": "2026-09-19T21:30:00.000Z",
     "author": "",
     "tags": [
       "template"
@@ -126,7 +126,8 @@
         "identity": {
           "graphId": "edge-class-template-declaration",
           "name": "Edge Class Template",
-          "version": "1.2.0"
+          "version": "1.3.0",
+          "updatedAt": "2026-09-19T21:30:00.000Z"
         },
         "intent": {
           "kind": "template",
@@ -1680,105 +1681,76 @@
       }
     },
     {
-      "id": "label-demo-subscription",
-      "type": "subscription",
-      "label": "Update demo label",
-      "root": false,
-      "position": {
-        "x": -2260.96662672998,
-        "y": 2416.0463019616836
-      },
-      "width": 360,
-      "height": 220,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 180
-        }
-      ],
-      "handles": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 180,
-          "portId": "root"
-        }
-      ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "bridgeNodeId": "",
-        "sourceRef": "github://mikemartinez1974/public/templates/edge-class-template/root.node",
-        "sourceNodeId": "label-changed-event",
-        "eventKey": "property.changed",
-        "handlerNodeId": "sync-demo-label-handler",
-        "enabled": true,
-        "identity": {
-          "graphId": "edge-class-template-declaration"
-        },
-        "_placement": {
-          "version": 1,
-          "state": "manually-shaped",
-          "source": "manual",
-          "updatedAt": 1789781109931,
-          "reason": "node-drag"
-        }
-      }
-    },
-    {
       "id": "sync-demo-label-handler",
       "type": "event-handler",
-      "label": "Sync label to demo view",
+      "label": "Update demo label",
       "root": false,
       "position": {
         "x": -1805.570203364813,
         "y": 2231.724295584384
       },
-      "width": 420,
-      "height": 260,
+      "width": 400,
+      "height": 280,
       "ports": [
         {
-          "id": "root",
-          "label": "root",
+          "id": "trigger",
+          "key": "trigger",
+          "label": "Event",
           "direction": "input",
-          "dataType": "any",
+          "dataType": "event",
           "angle": 180
+        },
+        {
+          "id": "result",
+          "key": "result",
+          "label": "Invocation",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 0
         }
       ],
       "handles": [
         {
-          "id": "root",
-          "label": "root",
+          "id": "trigger",
+          "key": "trigger",
+          "label": "Event",
           "direction": "input",
-          "dataType": "any",
+          "dataType": "event",
           "angle": 180,
-          "portId": "root"
+          "portId": "trigger"
+        },
+        {
+          "id": "result",
+          "key": "result",
+          "label": "Invocation",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 0,
+          "portId": "result"
         }
       ],
       "visible": true,
       "showLabel": true,
       "data": {
-        "scriptName": "Sync edge demo label",
-        "allowMutations": true,
-        "autoRun": false,
-        "autoRunOnLoad": false,
-        "autoRunOnGraphChange": false,
-        "dryRun": false,
-        "source": "const payload=api.invocation?.eventPayload||{};const value=payload.state==='unset'?'unset':payload.value===null?'null':String(payload.value??'');const view=await api.getNode('detail-view');if(!view)throw new Error('Detail demo view is missing');await api.updateView('detail-view',{previewOverrides:{...(view.data?.previewOverrides||{}),edgeLabel:value}});return{updated:true,label:value};",
         "identity": {
           "graphId": "edge-class-template-declaration"
         },
+        "enabled": true,
+        "trigger": {
+          "sourceNodeId": "field-label",
+          "eventKey": "property.changed"
+        },
+        "action": {
+          "methodNodeId": "update-demo-label-method"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Bolt"
+          }
+        },
         "_semanticLevel": "detail",
         "_semanticZoomActive": true,
-        "scriptId": "",
-        "lastResult": null,
-        "lastRunAt": null,
-        "scriptRef": "",
         "_placement": {
           "version": 1,
           "state": "manually-shaped",
@@ -1786,6 +1758,76 @@
           "updatedAt": 1789797971563,
           "reason": "node-drag"
         }
+      }
+    },
+    {
+      "id": "update-demo-label-method",
+      "type": "method",
+      "label": "Write label into detail view",
+      "position": {
+        "x": -1325.0,
+        "y": 2231.0
+      },
+      "width": 420,
+      "height": 260,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "call",
+          "key": "call",
+          "label": "Call",
+          "direction": "input",
+          "dataType": "event",
+          "angle": 180
+        },
+        {
+          "id": "result",
+          "key": "result",
+          "label": "Result",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 0
+        }
+      ],
+      "handles": [
+        {
+          "id": "call",
+          "key": "call",
+          "portId": "call",
+          "label": "Call",
+          "direction": "input",
+          "dataType": "event",
+          "angle": 180
+        },
+        {
+          "id": "result",
+          "key": "result",
+          "portId": "result",
+          "label": "Result",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 0
+        }
+      ],
+      "data": {
+        "identity": {
+          "graphId": "edge-class-template-declaration"
+        },
+        "scriptName": "Write label into detail view",
+        "parameters": [
+          "eventPayload"
+        ],
+        "allowMutations": true,
+        "dryRun": false,
+        "source": "const payload=api.invocation?.eventPayload||{};const value=payload.state==='unset'?'unset':payload.value===null?'null':String(payload.value??'');const view=await api.getNode('detail-view');if(!view)throw new Error('Detail demo view is missing');await api.updateView('detail-view',{previewOverrides:{...(view.data?.previewOverrides||{}),edgeLabel:value}});return{updated:true,label:value};",
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Functions"
+          }
+        },
+        "_semanticLevel": "detail"
       }
     }
   ],
@@ -2055,41 +2097,11 @@
       }
     },
     {
-      "id": "label-event-drives-subscription",
-      "type": "reference",
-      "source": "label-changed-event",
-      "target": "label-demo-subscription",
-      "sourceHandle": "root",
-      "targetHandle": "root",
-      "label": "observed by",
-      "style": {
-        "route": "curved"
-      },
-      "data": {
-        "semanticRole": "subscription"
-      }
-    },
-    {
-      "id": "label-subscription-invokes-handler",
-      "type": "reference",
-      "source": "label-demo-subscription",
-      "target": "sync-demo-label-handler",
-      "sourceHandle": "root",
-      "targetHandle": "root",
-      "label": "invokes",
-      "style": {
-        "route": "curved"
-      },
-      "data": {
-        "semanticRole": "handler"
-      }
-    },
-    {
       "id": "label-handler-updates-detail-view",
       "type": "reference",
-      "source": "sync-demo-label-handler",
+      "source": "update-demo-label-method",
       "target": "detail-view",
-      "sourceHandle": "root",
+      "sourceHandle": "result",
       "targetHandle": "root",
       "label": "updates label",
       "style": {
@@ -2097,6 +2109,36 @@
       },
       "data": {
         "semanticRole": "derived-view"
+      }
+    },
+    {
+      "id": "label-event-invokes-handler",
+      "type": "reference",
+      "source": "label-changed-event",
+      "target": "sync-demo-label-handler",
+      "sourceHandle": "root",
+      "targetHandle": "trigger",
+      "label": "handled by",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "semanticRole": "event-handler"
+      }
+    },
+    {
+      "id": "label-handler-invokes-method",
+      "type": "reference",
+      "source": "sync-demo-label-handler",
+      "target": "update-demo-label-method",
+      "sourceHandle": "result",
+      "targetHandle": "call",
+      "label": "invokes",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "semanticRole": "method-action"
       }
     }
   ],
