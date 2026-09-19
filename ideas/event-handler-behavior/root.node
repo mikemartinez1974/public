@@ -2,12 +2,12 @@
   "fileVersion": "1.0",
   "metadata": {
     "title": "What an Event Handler Node Should Do",
-    "description": "Define the behavioral contract of an Event Handler node: what it listens to, decides, receives, does, guards against, and reports.",
+    "description": "Define the authored Event, optional Condition, and Method Action contract of an Event Handler, with runtime safeguards and diagnostics derived by Twilite.",
     "graphId": "event-handler-behavior",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "kind": "graph",
     "created": "2026-09-19T19:01:48.424Z",
-    "modified": "2026-09-19T19:01:48.424Z",
+    "modified": "2026-09-19T20:30:00.000Z",
     "author": "",
     "tags": [
       "idea",
@@ -263,10 +263,10 @@
         "identity": {
           "graphId": "event-handler-behavior",
           "name": "What an Event Handler Node Should Do",
-          "version": "0.1.0",
-          "description": "A working graph for defining what an Event Handler node should do as an inspectable reaction contract.",
+          "version": "0.2.0",
+          "description": "A working graph defining an Event Handler as one Event, an optional Condition, and one Method Action, with derived runtime diagnostics.",
           "nodeId": "event-handler-behavior",
-          "updatedAt": "2026-09-19T19:01:48.424Z"
+          "updatedAt": "2026-09-19T20:30:00.000Z"
         },
         "intent": {
           "kind": "graph",
@@ -411,7 +411,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Event handler contract (sketch)\n\nAn Event Handler is the reaction half of \"when this happens, do that.\" These are responsibilities, not a schema; any field names are illustrative.\n\n## Listens\n\n- One or more triggers, each a source and an event key, for example a Property's `property.changed`.\n- An enabled switch. A disabled handler stays on the graph and says so.\n\n## Decides\n\n- Optional conditions on the occurrence, checked before any code runs: only when the value changed, only for this state, only for this source.\n- Conditions are visible on the node. A handler with none runs for every matching occurrence.\n\n## Receives\n\n- The occurrence: its payload, its source, which trigger fired, its cause chain, and its identifiers.\n- A documented input, not ad hoc lookups.\n\n## Reacts\n\n- Inline code or a call to a Method.\n- Declares what it may change: nodes, Properties, or whole graphs. Declared effects are what make a dry run and a review meaningful.\n\n## Guards\n\n- Deterministic order among handlers of one event.\n- Loop protection across chained events, a time limit, and failure isolation so one handler cannot block another.\n\n## Reports\n\n- Last run: outcome, time, duration, and error.\n- Available on the node and to the graph, not only as a passing notification.\n\n## Test it\n\n- Fire the handler with a sample occurrence in dry-run mode and see what it would change.\n\nOnly a trigger and a reaction are required. The simple case stays one trigger and one reaction."
+          "value": "# Event handler contract (revised)\n\nAn Event Handler is the reaction binding in **when this happens, do that**. Its durable authored contract stays small and readable.\n\n## Event\n\n- Exactly one trigger: a source node and an event key, for example a Property's `property.changed`.\n- An enabled switch. A disabled handler remains visible and says so.\n- Several events that need the same reaction use several Event Handlers that reference the same Method.\n\n## Condition\n\n- Optional declarative conditions evaluated against the occurrence before the Method runs.\n- With no condition, every matching occurrence invokes the Method.\n- Conditions are visible on the handler card.\n\n## Action\n\n- Exactly one referenced Method.\n- The Method receives the occurrence as documented input: payload, source, event key, occurrence and cause identifiers, and relevant delivery context.\n- Mutation authority and declared effects belong to the Method. The handler may display a derived effect summary.\n\n## Runtime guarantees\n\nTwilite owns deterministic delivery order, loop protection, time limits, failure isolation, and bridge authorization. These are delivery-system guarantees rather than routine fields on every handler.\n\n## Diagnostics\n\nThe handler may show live last-run outcome, time, duration, and error. This is runtime state by default. A graph that needs durable history must explicitly log it.\n\n## Test it\n\nAuthors should be able to invoke the Event Handler with a sample occurrence in dry-run mode and review the Method's proposed effects.\n\nThe minimum useful handler is one Event and one Method Action. Condition is optional; safeguards and diagnostics are supplied by the runtime."
         },
         "interfaceContract": {
           "version": 1,
@@ -448,7 +448,7 @@
     {
       "id": "event-handler-behavior-idea",
       "type": "idea",
-      "label": "An Event Handler Is a Reaction Contract",
+      "label": "An Event Handler Binds an Event to a Method",
       "root": false,
       "position": {
         "x": -220,
@@ -532,11 +532,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "An Event Handler Is a Reaction Contract",
-        "statement": "An Event Handler node should be the complete, inspectable answer to \"when this happens, what does this graph do about it\": it declares what it listens to, decides whether the occurrence concerns it, performs a bounded reaction, and reports what happened, all on the node itself.",
-        "status": "framed",
+        "title": "An Event Handler Binds an Event to a Method",
+        "statement": "An Event Handler should be the complete, inspectable binding between one Event and one Method: it identifies what occurred, optionally decides whether the occurrence concerns it, and invokes a reusable action. Twilite supplies delivery safeguards and live diagnostics.",
+        "status": "revised",
         "confidence": "plausible",
-        "notes": "This idea is about the handler's behavior. Whether a simple Property reaction needs separate Event and Subscription nodes is a different question, explored in First-Class Event Handler Node (github://mikemartinez1974/public/ideas/event-handler-node/root.node).",
+        "notes": "This idea defines the handler behavior contract. The Event remains a first-class occurrence, while the Handler binds that Event to a Method without requiring a separate Subscription node for the common case.",
         "definitionKey": "idea",
         "_classBinding": {
           "key": "idea",
@@ -1677,7 +1677,7 @@
     {
       "id": "event-handler-behavior-idea-proposed-approach",
       "type": "idea-proposed-approach",
-      "label": "Six Responsibilities on One Node",
+      "label": "Event, Condition, and Action",
       "root": false,
       "position": {
         "x": 560,
@@ -1729,9 +1729,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Give the handler six explicit responsibilities",
-        "description": "Listen: one or more declared triggers (source plus event key) and an enabled switch. Decide: optional declarative conditions on the occurrence, checked before any code runs. Receive: a documented input made of the occurrence's payload, source, fired trigger, and cause chain. React: inline code or a Method call, with the nodes and Properties it may change declared so the effect is inspectable and can be dry-run. Guard: deterministic order among handlers of one event, loop protection, a time limit, and failure isolation. Report: last run outcome, time, duration, and error, kept on the node and available to the graph.",
-        "differentiator": "The handler stops being a script that events happen to call and becomes a node whose contract can be read, disabled, tested with a sample occurrence, and reviewed before it is trusted.",
+        "title": "Keep three authored responsibilities and derive the rest",
+        "description": "Event: exactly one source and event key plus an enabled state. Condition: an optional declarative predicate over the occurrence. Action: exactly one referenced Method. Twilite supplies delivery ordering, loop protection, time limits, bridge authorization, and failure isolation. The node displays live diagnostics and a derived summary of the Method effects without duplicating the Method contract.",
+        "differentiator": "The handler stops being a script that events happen to call and becomes a readable Event–Condition–Action binding that can be disabled, tested with a sample occurrence, and reviewed before it is trusted.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
           "key": "idea-proposed-approach",
@@ -2072,7 +2072,7 @@
     {
       "id": "event-handler-behavior-idea-question",
       "type": "idea-question",
-      "label": "Several Triggers on One Handler?",
+      "label": "One Trigger Per Handler",
       "root": false,
       "position": {
         "x": -1180,
@@ -2124,10 +2124,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Should one handler listen to several triggers?",
+        "title": "Use one handler for each trigger",
         "question": "Should one handler subscribe to several sources or event keys, or should each trigger get its own handler that shares a Method?",
-        "status": "open",
-        "answer": "Leaning toward several triggers on one handler, because handlers that share a reaction should not have to be duplicated. Unresolved: how the reaction learns which trigger fired, and how several triggers are shown without clutter.",
+        "status": "resolved",
+        "answer": "Resolved: one Event Handler owns exactly one source and event key. When several events need the same reaction, several handlers reference the same Method. The Method receives the occurrence and can inspect which source and event invoked it.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -2470,7 +2470,7 @@
     {
       "id": "event-handler-behavior-idea-assumption",
       "type": "idea-assumption",
-      "label": "One Reaction Often Serves Several Triggers",
+      "label": "Shared Methods Prevent Handler Duplication",
       "root": false,
       "position": {
         "x": -700,
@@ -2554,10 +2554,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Reactions that share code usually share their reason",
-        "statement": "One reaction commonly serves several triggers, for example the same update after any of several Properties changes, so a handler should be able to listen to more than one.",
+        "title": "Several handlers can share one reaction without duplicating its logic",
+        "statement": "When several Events need the same reaction, separate one-trigger Event Handlers can reference one Method, keeping each trigger visible without duplicating executable logic.",
         "importance": "medium",
-        "status": "untested",
+        "status": "accepted",
         "definitionKey": "idea-assumption",
         "_classBinding": {
           "key": "idea-assumption",
@@ -3667,7 +3667,7 @@
     {
       "id": "event-handler-behavior-idea-alternative",
       "type": "idea-alternative",
-      "label": "Keep the Handler a Script",
+      "label": "Keep Behavior Split Across Script and Subscription",
       "root": false,
       "position": {
         "x": 1160,
@@ -3703,8 +3703,8 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Leave the handler a script and describe it elsewhere",
-        "description": "Keep Event Handler as a script node with an event badge, and put triggers, filters, and effects in Subscription nodes and script metadata.",
+        "title": "Keep the handler a script and describe the trigger elsewhere",
+        "description": "Rejected direction: keep Event Handler as a script node with an event badge while triggers and filters live in Subscription nodes and script metadata. This makes the reaction difficult to understand from the handler itself.",
         "tradeoffs": "No new node contract to build, but the reaction stays unreadable in place and its behavior stays split across the script, the Subscription, and separate metadata.",
         "definitionKey": "idea-alternative",
         "_classBinding": {
@@ -4029,7 +4029,7 @@
     {
       "id": "event-handler-behavior-idea-risk",
       "type": "idea-risk",
-      "label": "Contract Becomes Configuration Sprawl",
+      "label": "Too Much Configuration Buries the Reaction",
       "root": false,
       "position": {
         "x": -220,
@@ -4065,11 +4065,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Six responsibilities could bury the simple case",
-        "description": "A handler with triggers, conditions, effects, limits, and history fields could become a form nobody finishes filling in, making the common one-trigger, one-reaction case harder than it is today.",
+        "title": "Too much handler configuration could bury the reaction",
+        "description": "The revised contract limits durable handler configuration to Event, optional Condition, and Method Action. Runtime safeguards and diagnostics remain visible without becoming required authoring fields.",
         "likelihood": "medium",
         "impact": "medium",
-        "mitigation": "Require only a trigger and a reaction. Every other responsibility is optional with a safe default, and the node shows only what was authored.",
+        "mitigation": "Require one Event and one Method Action. Condition is optional. Keep runtime safeguards, effect summaries, and last-run diagnostics derived or read-only.",
         "definitionKey": "idea-risk",
         "_classBinding": {
           "key": "idea-risk",
@@ -4397,7 +4397,7 @@
     {
       "id": "event-handler-behavior-idea-next-step",
       "type": "idea-next-step",
-      "label": "Sketch the Handler Card",
+      "label": "Sketch the Event–Condition–Action Card",
       "root": false,
       "position": {
         "x": -220,
@@ -4449,9 +4449,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Sketch the handler card and test it on a reader",
-        "action": "Draw the handler node showing trigger, condition, reaction, declared effects, and last run on one card, then show it to an author who has not seen the source and ask what it does and what it may change.",
-        "expectedEvidence": "The reviewer can state what the handler does and what it may change without opening the source.",
+        "title": "Sketch the Event–Condition–Action card and test it on a reader",
+        "action": "Draw the handler node with Event, optional Condition, and Method Action blocks, plus compact derived effects and live last-run diagnostics. Ask a reader to explain what fires and what runs without opening the Method.",
+        "expectedEvidence": "The reviewer can identify the source Event, any filtering Condition, and the invoked Method without opening another panel.",
         "status": "proposed",
         "definitionKey": "idea-next-step",
         "_classBinding": {
@@ -5590,7 +5590,7 @@
         "semanticLevel": "detail",
         "content": {
           "kind": "markdown",
-          "value": "# What an Event Handler Node Should Do\n\nA handler should be a readable reaction contract: what it listens to, whether the occurrence concerns it, what it does, what it may change, and how it reports.\n\nThis idea works out that contract from the handler in the Edge Class Template. Whether simple Property reactions need separate Event and Subscription nodes is examined separately in `github://mikemartinez1974/public/ideas/event-handler-node/root.node`."
+          "value": "# What an Event Handler Node Should Do\n\nAn Event Handler is a readable binding: **one Event**, an optional **Condition**, and one **Method Action**.\n\nExecutable logic, mutation authority, and declared effects belong to the Method. Twilite supplies delivery safeguards and shows live diagnostics; durable run history requires an explicit logging reaction.\n\nSeveral events may share the same reaction by using several Event Handlers that reference one Method."
         },
         "interfaceContract": {
           "version": 1,
@@ -5680,7 +5680,7 @@
         "semanticLevel": "summary",
         "content": {
           "kind": "markdown",
-          "value": "## A reaction contract\n\nListen, decide, receive, react, guard, and report, all readable on the handler node."
+          "value": "## Event → Condition → Action\n\nOne Event, an optional Condition, and one referenced Method. Runtime safeguards and diagnostics are supplied by Twilite."
         },
         "interfaceContract": {
           "version": 1,
@@ -5833,7 +5833,7 @@
     {
       "id": "event-handler-behavior-assumption-effects",
       "type": "idea-assumption",
-      "label": "Declared Effects Can Be Checked",
+      "label": "Method Effects Can Be Checked",
       "root": false,
       "position": {
         "x": -700,
@@ -5917,8 +5917,8 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "A handler's declared effects can be compared with what its code does",
-        "statement": "At least during a dry run, the runtime can compare the nodes and Properties a handler declares it may change with the mutations its code attempts, and flag the difference.",
+        "title": "A Method effect contract can be compared with attempted mutations",
+        "statement": "At least during a dry run, the runtime can compare the referenced Method effect contract with the mutations its execution attempts and flag writes outside the contract.",
         "importance": "high",
         "status": "untested",
         "definitionKey": "idea-assumption",
@@ -6469,7 +6469,7 @@
     {
       "id": "event-handler-behavior-question-effects",
       "type": "idea-question",
-      "label": "How Specific Must Effects Be?",
+      "label": "Effects Belong to the Method",
       "root": false,
       "position": {
         "x": -1180,
@@ -6521,10 +6521,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "How specific should declared effects be?",
-        "question": "Should a handler declare effects on individual Properties, on whole nodes, or on whole graphs, and how are effects made by a Method the handler calls attributed to the handler?",
-        "status": "open",
-        "answer": "Open. Finer declarations are easier to review but harder to write and to enforce. Effects made through a called Method must count as the calling handler's effects.",
+        "title": "Derive handler effects from the referenced Method",
+        "question": "Where should mutation authority and declared effects live when an Event Handler invokes a Method?",
+        "status": "resolved",
+        "answer": "Resolved: mutation authority and effect declarations belong to the Method that performs the work. The Event Handler may display the Method effects as a derived, read-only summary. Effects of nested Method calls remain attributable through the invocation chain.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -6842,7 +6842,7 @@
     {
       "id": "event-handler-behavior-alternative-method-only",
       "type": "idea-alternative",
-      "label": "Make Every Reaction a Method Call",
+      "label": "Bind Every Handler to a Method",
       "root": false,
       "position": {
         "x": 1760,
@@ -6878,9 +6878,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "The handler only binds an event to a Method",
-        "description": "A handler stores a trigger and names a Method; all logic, conditions, and effects live in the Method.",
-        "tradeoffs": "One reusable home for logic and a natural place to declare effects, but every small reaction needs a Method, and event-specific input such as the payload and cause chain must be passed through to it.",
+        "title": "The handler binds an event and optional condition to a Method",
+        "description": "Selected direction: an Event Handler contains one Event, an optional Condition, and a reference to one Method. The Method owns executable logic, mutation authority, and declared effects.",
+        "tradeoffs": "One reusable home for executable logic and mutation authority means even a small reaction references a Method. The occurrence payload and cause chain must be passed through as documented Method input.",
         "definitionKey": "idea-alternative",
         "_classBinding": {
           "key": "idea-alternative",
@@ -6954,7 +6954,7 @@
     {
       "id": "event-handler-behavior-risk-false-assurance",
       "type": "idea-risk",
-      "label": "Declared Effects Give False Assurance",
+      "label": "Derived Effects Must Stay Truthful",
       "root": false,
       "position": {
         "x": 380,
@@ -6990,11 +6990,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "A declaration the code does not honor is worse than none",
-        "description": "If declared effects are not checked, a reviewer may trust a handler because it says it only touches one node while its code touches others.",
+        "title": "A derived effect summary is useful only when the Method contract is enforced",
+        "description": "The handler should not maintain a second effect declaration. It displays effects derived from the referenced Method so the summary cannot silently drift from the action contract.",
         "likelihood": "medium",
         "impact": "high",
-        "mitigation": "Check declared effects against attempted mutations at run time, at least in dry run, or label the declaration advisory until it is enforced.",
+        "mitigation": "Derive the displayed summary from the Method contract. Enforce that contract against attempted mutations during dry run and execution, or label unenforced effects advisory.",
         "definitionKey": "idea-risk",
         "_classBinding": {
           "key": "idea-risk",
@@ -7068,7 +7068,7 @@
     {
       "id": "event-handler-behavior-next-step-effects",
       "type": "idea-next-step",
-      "label": "Check Effects Against a Dry Run",
+      "label": "Derive Effects From the Method Contract",
       "root": false,
       "position": {
         "x": -220,
@@ -7120,9 +7120,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Compare declared effects with a dry run",
-        "action": "Prototype a comparison of a handler's declared writes with the mutations its code attempts when run in dry-run mode against a sample event.",
-        "expectedEvidence": "A handler that writes outside its declared effects is flagged, and one that stays inside them passes.",
+        "title": "Show a read-only effect summary derived from the Method",
+        "action": "Define a Method effect contract, render its read-only summary on the Event Handler, and compare attempted mutations with the Method contract during a sample dry run.",
+        "expectedEvidence": "Changing the Method contract immediately changes the handler summary, and attempted writes outside that contract are flagged.",
         "status": "proposed",
         "definitionKey": "idea-next-step",
         "_classBinding": {
@@ -7214,7 +7214,7 @@
     {
       "id": "event-handler-behavior-next-step-triggers",
       "type": "idea-next-step",
-      "label": "Try One Handler With Two Triggers",
+      "label": "Test Two Handlers Sharing One Method",
       "root": false,
       "position": {
         "x": -220,
@@ -7266,9 +7266,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Compare one handler with two triggers against two handlers",
-        "action": "Author one reaction that serves two Property changes twice: once as one handler with two triggers, and once as two handlers sharing a Method. Ask reviewers which they find clearer.",
-        "expectedEvidence": "Reviewers identify what fires the reaction and what it changes faster in one of the two forms.",
+        "title": "Test two one-trigger handlers that reference the same Method",
+        "action": "Author two Property-changed Event Handlers that reference the same Method, then ask reviewers to identify each trigger and the shared action.",
+        "expectedEvidence": "Reviewers can distinguish the triggers while recognizing that both handlers reuse one Method.",
         "status": "proposed",
         "definitionKey": "idea-next-step",
         "_classBinding": {
