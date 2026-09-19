@@ -1,0 +1,332 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Event Handler Node Smoke",
+    "description": "Direct Property.changed binding to a user-friendly Event Handler node and visible View update.",
+    "graphId": "event-handler-smoke",
+    "version": "0.1.0",
+    "kind": "smoke-test",
+    "tags": [
+      "smoke",
+      "event-handler",
+      "property",
+      "scripting"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "event-handler-smoke-declaration",
+      "type": "declaration",
+      "label": "Event Handler Smoke",
+      "position": {
+        "x": -900,
+        "y": -650
+      },
+      "width": 400,
+      "height": 260,
+      "data": {
+        "identity": {
+          "graphId": "event-handler-smoke",
+          "name": "Event Handler Node Smoke",
+          "version": "0.1.0"
+        },
+        "intent": {
+          "kind": "smoke-test",
+          "scope": "public"
+        },
+        "dependencies": {
+          "nodeTypes": [
+            "declaration",
+            "view",
+            "bridge",
+            "property",
+            "event-handler"
+          ],
+          "portContracts": [
+            "core"
+          ],
+          "skills": []
+        },
+        "declaration": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "artifactKind": "graph",
+          "defaultSurfaceId": "default-view",
+          "surfaces": [
+            {
+              "id": "default-view",
+              "kind": "view",
+              "label": "Event Handler Smoke",
+              "viewNodeId": "event-handler-smoke-guide"
+            }
+          ]
+        },
+        "document": {
+          "url": "github://mikemartinez1974/public/tasks/event-handler-node-smoke/root.node"
+        }
+      }
+    },
+    {
+      "id": "event-handler-smoke-guide",
+      "type": "view",
+      "label": "Event Handler Smoke Guide",
+      "position": {
+        "x": -340,
+        "y": -650
+      },
+      "width": 650,
+      "height": 300,
+      "data": {
+        "identity": {
+          "graphId": "event-handler-smoke"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Event Handler node smoke test\n\n1. Enter edit mode and edit **Demo label**.\n2. Change its value and Apply.\n3. Verify **Update rendered label** reports a successful run.\n4. Verify **Rendered result** changes immediately.\n\nThe graph intentionally contains no Event declaration or Subscription node. The handler is directly bound to the Property’s intrinsic `property.changed` event."
+        }
+      }
+    },
+    {
+      "id": "event-handler-smoke-property-class",
+      "type": "bridge",
+      "label": "Property Class",
+      "position": {
+        "x": -900,
+        "y": -200
+      },
+      "width": 300,
+      "height": 150,
+      "data": {
+        "identity": {
+          "graphId": "event-handler-smoke"
+        },
+        "authority": "bridge",
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/property-template/property.node-class.node",
+          "role": "import",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "read",
+            "create",
+            "update"
+          ]
+        },
+        "_bridge": {
+          "classKey": "property"
+        }
+      }
+    },
+    {
+      "id": "event-handler-smoke-label",
+      "type": "property",
+      "label": "Demo label",
+      "position": {
+        "x": -480,
+        "y": 80
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "definitionKey": "property",
+        "_classBinding": {
+          "key": "property",
+          "sourceRef": "github://mikemartinez1974/public/templates/property-template/property.node-class.node",
+          "nodeDef": {
+            "key": "property",
+            "overrides": {
+              "dataMode": "replace"
+            },
+            "ref": "github://mikemartinez1974/public/templates/property-template/property.node-class.node",
+            "source": "github",
+            "version": ">=0.1.0"
+          }
+        },
+        "identity": {
+          "graphId": "event-handler-smoke"
+        },
+        "valueKind": "stored",
+        "valueType": "text",
+        "access": {
+          "read": true,
+          "write": true
+        },
+        "name": "demo label",
+        "value": "Hello from an Event Handler",
+        "defaultValue": "Hello"
+      }
+    },
+    {
+      "id": "event-handler-smoke-handler",
+      "type": "event-handler",
+      "label": "Update rendered label",
+      "position": {
+        "x": 20,
+        "y": 70
+      },
+      "width": 400,
+      "height": 280,
+      "visible": true,
+      "ports": [
+        {
+          "id": "trigger",
+          "key": "trigger",
+          "label": "Trigger",
+          "direction": "input",
+          "dataType": "event",
+          "angle": 180
+        },
+        {
+          "id": "result",
+          "key": "result",
+          "label": "Result",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 0
+        }
+      ],
+      "data": {
+        "identity": {
+          "graphId": "event-handler-smoke"
+        },
+        "enabled": true,
+        "trigger": {
+          "sourceNodeId": "event-handler-smoke-label",
+          "eventKey": "property.changed"
+        },
+        "scriptName": "Update rendered label",
+        "actionLabel": "Write the new value into Rendered result",
+        "allowMutations": true,
+        "dryRun": false,
+        "autoRun": false,
+        "autoRunOnLoad": false,
+        "autoRunOnGraphChange": false,
+        "source": "const payload=api.invocation?.eventPayload||{};const value=payload.state==='unset'?'(unset)':payload.value===null?'null':String(payload.value??'');await api.updateView('event-handler-smoke-output',{content:{kind:'markdown',value:'# Rendered result\\n\\n## '+value+'\\n\\nUpdated by **Update rendered label** at '+new Date().toLocaleTimeString()+'.'}});return{updated:true,value};",
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Bolt"
+          }
+        },
+        "_semanticLevel": "detail"
+      }
+    },
+    {
+      "id": "event-handler-smoke-output",
+      "type": "view",
+      "label": "Rendered result",
+      "position": {
+        "x": 560,
+        "y": 70
+      },
+      "width": 520,
+      "height": 300,
+      "visible": true,
+      "data": {
+        "identity": {
+          "graphId": "event-handler-smoke"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "semanticLevel": "detail",
+        "content": {
+          "kind": "markdown",
+          "value": "# Rendered result\n\n## Hello from an Event Handler\n\nEdit **Demo label** to run the handler."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "event-handler-smoke-default-view",
+      "type": "default-view",
+      "source": "event-handler-smoke-declaration",
+      "target": "event-handler-smoke-guide",
+      "sourceHandle": "default-view",
+      "targetHandle": "root",
+      "label": "default view",
+      "data": {
+        "semanticRole": "default-view"
+      }
+    },
+    {
+      "id": "event-handler-smoke-property-class-edge",
+      "type": "reference",
+      "source": "event-handler-smoke-property-class",
+      "target": "event-handler-smoke-label",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "class authority",
+      "data": {
+        "semanticRole": "class-authority"
+      }
+    },
+    {
+      "id": "event-handler-smoke-trigger-edge",
+      "type": "reference",
+      "source": "event-handler-smoke-label",
+      "target": "event-handler-smoke-handler",
+      "sourceHandle": "root",
+      "targetHandle": "trigger",
+      "label": "when changed",
+      "data": {
+        "semanticRole": "event-trigger",
+        "plumbing": true
+      },
+      "style": {
+        "curved": true,
+        "stroke": "#38bdf8",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "id": "event-handler-smoke-update-edge",
+      "type": "reference",
+      "source": "event-handler-smoke-handler",
+      "target": "event-handler-smoke-output",
+      "sourceHandle": "result",
+      "targetHandle": "root",
+      "label": "updates",
+      "data": {
+        "semanticRole": "handler-effect",
+        "plumbing": true
+      },
+      "style": {
+        "curved": true,
+        "stroke": "#fbbf24",
+        "strokeWidth": 2
+      }
+    }
+  ],
+  "clusters": [],
+  "settings": {
+    "theme": null,
+    "edgeRouting": "curved",
+    "github": {
+      "repo": "mikemartinez1974/public",
+      "path": "tasks/event-handler-node-smoke/root.node",
+      "branch": "main",
+      "repoVisibility": "public"
+    },
+    "autoSave": false
+  },
+  "scripts": []
+}
