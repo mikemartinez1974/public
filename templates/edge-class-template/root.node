@@ -1732,7 +1732,7 @@
     },
     {
       "id": "sync-demo-label-handler",
-      "type": "script",
+      "type": "event-handler",
       "label": "Sync label to demo view",
       "root": false,
       "position": {
@@ -1769,7 +1769,7 @@
         "autoRunOnLoad": false,
         "autoRunOnGraphChange": false,
         "dryRun": false,
-        "source": "const payload=api.invocation?.eventPayload||{};const value=payload.state==='unset'?'unset':payload.value===null?'null':String(payload.value??'');const view=await api.getNode('detail-view');if(!view)throw new Error('Detail demo view is missing');await api.updateNode('detail-view',{data:{...(view.data||{}),previewOverrides:{...(view.data?.previewOverrides||{}),edgeLabel:value}}});return{updated:true,label:value};",
+        "source": "const payload=api.invocation?.eventPayload||{};const value=payload.state==='unset'?'unset':payload.value===null?'null':String(payload.value??'');const view=await api.getNode('detail-view');if(!view)throw new Error('Detail demo view is missing');await api.updateView('detail-view',{previewOverrides:{...(view.data?.previewOverrides||{}),edgeLabel:value}});return{updated:true,label:value};",
         "identity": {
           "graphId": "edge-class-template-declaration"
         }
