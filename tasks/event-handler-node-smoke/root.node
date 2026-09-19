@@ -1,14 +1,15 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Event Handler Node Smoke",
-    "description": "Direct Property.changed binding to a user-friendly Event Handler node and visible View update.",
+    "title": "Event Handler and Method Smoke",
+    "description": "Property.changed binds through a structured Event Handler to a reusable Method that updates a View.",
     "graphId": "event-handler-smoke",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "kind": "smoke-test",
     "tags": [
       "smoke",
       "event-handler",
+      "method",
       "property",
       "scripting"
     ],
@@ -28,8 +29,8 @@
       "data": {
         "identity": {
           "graphId": "event-handler-smoke",
-          "name": "Event Handler Node Smoke",
-          "version": "0.1.0"
+          "name": "Event Handler and Method Smoke",
+          "version": "0.2.0"
         },
         "intent": {
           "kind": "smoke-test",
@@ -41,7 +42,8 @@
             "view",
             "bridge",
             "property",
-            "event-handler"
+            "event-handler",
+            "method"
           ],
           "portContracts": [
             "core"
@@ -83,7 +85,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Event Handler node smoke test\n\n1. Enter edit mode and edit **Demo label**.\n2. Change its value and Apply.\n3. Verify **Update rendered label** reports a successful run.\n4. Verify **Rendered result** changes immediately.\n\nThe graph intentionally contains no Event declaration or Subscription node. The handler is directly bound to the Property’s intrinsic `property.changed` event."
+          "value": "# Event Handler and Method smoke test\n\n1. Enter edit mode and edit **Demo label**.\n2. Change its value and Apply.\n3. Verify **Update rendered label** reports a successful delivery.\n4. Verify **Write label into rendered result** reports a successful call.\n5. Verify **Rendered result** changes immediately.\n\nThe Event Handler contains no code. It binds `Demo label · property.changed` to the Method that owns the reaction."
         }
       }
     },
@@ -207,17 +209,67 @@
           "eventKey": "property.changed"
         },
         "scriptName": "Update rendered label",
-        "actionLabel": "Write the new value into Rendered result",
-        "allowMutations": true,
+        "allowMutations": false,
         "dryRun": false,
         "autoRun": false,
         "autoRunOnLoad": false,
         "autoRunOnGraphChange": false,
-        "source": "const payload=api.invocation?.eventPayload||{};const value=payload.state==='unset'?'(unset)':payload.value===null?'null':String(payload.value??'');await api.updateView('event-handler-smoke-output',{content:{kind:'markdown',value:'# Rendered result\\n\\n## '+value+'\\n\\nUpdated by **Update rendered label** at '+new Date().toLocaleTimeString()+'.'}});return{updated:true,value};",
         "presentation": {
           "glyph": {
             "kind": "icon",
             "name": "Bolt"
+          }
+        },
+        "_semanticLevel": "detail",
+        "action": {
+          "methodNodeId": "event-handler-smoke-method"
+        }
+      }
+    },
+    {
+      "id": "event-handler-smoke-method",
+      "type": "method",
+      "label": "Write label into rendered result",
+      "position": {
+        "x": 500,
+        "y": 70
+      },
+      "width": 400,
+      "height": 240,
+      "visible": true,
+      "ports": [
+        {
+          "id": "call",
+          "key": "call",
+          "label": "Call",
+          "direction": "input",
+          "dataType": "event",
+          "angle": 180
+        },
+        {
+          "id": "result",
+          "key": "result",
+          "label": "Result",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 0
+        }
+      ],
+      "data": {
+        "identity": {
+          "graphId": "event-handler-smoke"
+        },
+        "scriptName": "Write label into rendered result",
+        "parameters": [
+          "eventPayload"
+        ],
+        "allowMutations": true,
+        "dryRun": false,
+        "source": "const payload=api.invocation?.eventPayload||{};const value=payload.state==='unset'?'(unset)':payload.value===null?'null':String(payload.value??'');await api.updateView('event-handler-smoke-output',{content:{kind:'markdown',value:'# Rendered result\\n\\n## '+value+'\\n\\nUpdated by **Update rendered label** at '+new Date().toLocaleTimeString()+'.'}});return{updated:true,value};",
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Functions"
           }
         },
         "_semanticLevel": "detail"
@@ -228,7 +280,7 @@
       "type": "view",
       "label": "Rendered result",
       "position": {
-        "x": 560,
+        "x": 1010,
         "y": 70
       },
       "width": 520,
@@ -298,20 +350,38 @@
       }
     },
     {
-      "id": "event-handler-smoke-update-edge",
+      "id": "event-handler-smoke-action-edge",
       "type": "reference",
       "source": "event-handler-smoke-handler",
-      "target": "event-handler-smoke-output",
+      "target": "event-handler-smoke-method",
       "sourceHandle": "result",
-      "targetHandle": "root",
-      "label": "updates",
+      "targetHandle": "call",
+      "label": "calls",
       "data": {
-        "semanticRole": "handler-effect",
+        "semanticRole": "handler-action",
         "plumbing": true
       },
       "style": {
         "curved": true,
         "stroke": "#fbbf24",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "id": "event-handler-smoke-update-edge",
+      "type": "reference",
+      "source": "event-handler-smoke-method",
+      "target": "event-handler-smoke-output",
+      "sourceHandle": "result",
+      "targetHandle": "root",
+      "label": "updates",
+      "data": {
+        "semanticRole": "method-effect",
+        "plumbing": true
+      },
+      "style": {
+        "curved": true,
+        "stroke": "#a78bfa",
         "strokeWidth": 2
       }
     }
