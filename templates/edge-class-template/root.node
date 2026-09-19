@@ -370,6 +370,9 @@
           "source": "manual",
           "updatedAt": 1789705270244,
           "reason": "node-drag"
+        },
+        "previewOverrides": {
+          "edgeLabel": "Example relationship"
         }
       }
     },
@@ -1179,7 +1182,7 @@
         "autoRunOnLoad": false,
         "autoRunOnGraphChange": false,
         "dryRun": false,
-        "source": "const payload=api.invocation?.eventPayload||{};const value=payload.state==='unset'?'unset':payload.value===null?'null':String(payload.value??'');const escapeXml=input=>String(input).replace(/[&<>\"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&apos;'}[ch]));const view=await api.getNode('detail-view');if(!view)throw new Error('Detail demo view is missing');const svg=String(view.data?.content?.value||'');const marker=/(<text[^>]*id=['\"]edge-demo-label['\"][^>]*>)[\\s\\S]*?(<\\/text>)/;if(!marker.test(svg))throw new Error('Demo label marker is missing');const next=svg.replace(marker,(_,open,close)=>open+escapeXml(value)+close);await api.updateNode('detail-view',{data:{...(view.data||{}),content:{...(view.data?.content||{}),value:next}}});return{updated:true,label:value};",
+        "source": "const payload=api.invocation?.eventPayload||{};const value=payload.state==='unset'?'unset':payload.value===null?'null':String(payload.value??'');const view=await api.getNode('detail-view');if(!view)throw new Error('Detail demo view is missing');await api.updateNode('detail-view',{data:{...(view.data||{}),previewOverrides:{...(view.data?.previewOverrides||{}),edgeLabel:value}}});return{updated:true,label:value};",
         "identity": {
           "graphId": "edge-class-template-declaration"
         }
