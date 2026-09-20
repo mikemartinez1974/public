@@ -7,7 +7,7 @@
     "version": "0.1.0",
     "kind": "task",
     "created": "2026-09-20T03:22:58.773Z",
-    "modified": "2026-09-20T03:22:58.773Z",
+    "modified": "2026-09-20T03:55:06.635Z",
     "author": "",
     "tags": [
       "task",
@@ -742,10 +742,10 @@
       "showLabel": false,
       "data": {
         "goal": "A Method can only do what it declares",
-        "status": "todo",
+        "status": "in-progress",
         "viewRole": "document",
         "taskProgress": {
-          "completed": 0,
+          "completed": 3,
           "total": 4
         },
         "questionProgress": {
@@ -3225,7 +3225,7 @@
       "data": {
         "body": "Today allowMutations only matters in dry runs, so a live updateNode or createNode is applied whether or not the Method has the flag. Give the Method a short declared list of effects and enforce it at the host request handler, starting with node updates. This is the first slice of \"Declare effects and check authority\" in github://mikemartinez1974/public/tasks/methods-invocation-contract/root.node.",
         "priority": "high",
-        "status": "open",
+        "status": "in-progress",
         "owner": "Michael",
         "targetDate": "",
         "successMetrics": [
@@ -3610,9 +3610,9 @@
       "showLabel": true,
       "data": {
         "title": "Define the effects declaration on the Method",
-        "body": "Choose the storage and shape: coarse kinds (update node, create node, delete node, edges, emit event, hand off) each with optional target node ids. Derive allowMutations from it and map legacy allowMutations:true with no declaration to an explicit \"any node\" declaration.",
+        "body": "Choose the storage and shape: coarse kinds (update node, create node, delete node, edges, emit event, hand off) each with optional target node ids. Derive allowMutations from it and map legacy allowMutations:true with no declaration to an explicit \"any node\" declaration. Implemented in components/GraphEditor/utils/methodEffects.js (data.effects list; readMethodEffects, deriveAllowMutations, describeMethodEffects) with tests/methodEffects.test.js; the Handler invoke path now passes the derived flag. An effects editor now lives in the Method editor (components/MethodEffectsEditor.js): tick effects, choose any node or specific nodes; ticking an update or delete effect starts at \"only these nodes\" with none chosen so nothing widens by accident. Its Run Script is held to the same declared effects as a Handler call.",
         "priority": "high",
-        "status": "todo",
+        "status": "done",
         "owner": "",
         "estimateHours": "",
         "acceptanceCriteria": [
@@ -3727,8 +3727,8 @@
           "graphId": "method-effects-gate"
         },
         "targetDate": "",
-        "startedAt": "",
-        "completedAt": "",
+        "startedAt": "2026-09-20T03:34:13.937Z",
+        "completedAt": "2026-09-20T03:34:13.937Z",
         "externalRef": "",
         "presentation": {
           "glyph": {
@@ -3819,9 +3819,9 @@
       "showLabel": true,
       "data": {
         "title": "Refuse undeclared updateNode and updateView calls",
-        "body": "In the host request handler, check the calling Method's declared effects before applying updateNode and updateView. Refuse with an error that names the target and the Method. Apply the same check in dry runs so a dry run predicts the live result.",
+        "body": "In the host request handler, check the calling Method's declared effects before applying updateNode and updateView. Refuse with an error that names the target and the Method. Apply the same check in dry runs so a dry run predicts the live result. Implemented as refuseUndeclaredHostCall (utils/methodEffects.js), called in handleScriptRequest before the dry-run shortcuts; the runner supplies effects from the host-started run so a script cannot change them. Only updateNode and updateView are gated.",
         "priority": "high",
-        "status": "todo",
+        "status": "done",
         "owner": "",
         "estimateHours": "",
         "acceptanceCriteria": [
@@ -3936,8 +3936,8 @@
           "graphId": "method-effects-gate"
         },
         "targetDate": "",
-        "startedAt": "",
-        "completedAt": "",
+        "startedAt": "2026-09-20T03:38:46.872Z",
+        "completedAt": "2026-09-20T03:38:46.872Z",
         "externalRef": "",
         "presentation": {
           "glyph": {
@@ -4028,9 +4028,9 @@
       "showLabel": true,
       "data": {
         "title": "Show declared effects on the Method and the Handler",
-        "body": "Show the declared effects on the Method card and give the Event Handler a read-only summary derived from its Methods, with a visible warning for \"any node\". Replace the \"Read-only execution\" wording, which currently describes the flag and not the runtime.",
+        "body": "Show the declared effects on the Method card and give the Event Handler a read-only summary derived from its Methods, with a visible warning for \"any node\". Replace the \"Read-only execution\" wording, which currently describes the flag and not the runtime. Implemented in MethodNode, EventHandlerNode and the Handler editor via describeMethodEffects and summarizeHandlerEffects; checked in the running app with a legacy, a narrowly declared and a read-only Method.",
         "priority": "high",
-        "status": "todo",
+        "status": "done",
         "owner": "",
         "estimateHours": "",
         "acceptanceCriteria": [
@@ -4144,8 +4144,8 @@
           "graphId": "method-effects-gate"
         },
         "targetDate": "",
-        "startedAt": "",
-        "completedAt": "",
+        "startedAt": "2026-09-20T03:44:10.546Z",
+        "completedAt": "2026-09-20T03:44:10.546Z",
         "externalRef": "",
         "presentation": {
           "glyph": {
@@ -4236,7 +4236,7 @@
       "showLabel": true,
       "data": {
         "title": "Cover accept, refuse, legacy and dry-run cases",
-        "body": "Add tests for a declared target, an undeclared target, a Method with no declaration, a legacy allowMutations Method, and dry-run parity.",
+        "body": "Add tests for a declared target, an undeclared target, a Method with no declaration, a legacy allowMutations Method, and dry-run parity. Already covered by unit tests: accept, refuse, legacy, read-only and editing. Checked by hand in the running app: a Method narrowed to a different node is refused with a named message; a Method that declares its target runs cleanly. Still missing: an automated test of the host call path.",
         "priority": "high",
         "status": "todo",
         "owner": "",
