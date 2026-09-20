@@ -7,7 +7,7 @@
     "version": "0.1.0",
     "kind": "graph",
     "created": "2026-09-20T16:11:32.529Z",
-    "modified": "2026-09-20T16:11:32.529Z",
+    "modified": "2026-09-20T17:17:40.867Z",
     "author": "",
     "tags": [
       "idea",
@@ -532,10 +532,10 @@
       "showLabel": false,
       "data": {
         "title": "A Page Is a Graph of Pieces",
-        "statement": "A full page view should be organized as a graph of page pieces, not written as one large document. Each piece is a small node with a role (masthead, hero, section, callout, route list, media, aside, footer), stable identity, and its own content. The page template arranges the pieces and keeps the page's document view current from them, so an author edits one piece, an agent can add or reorder pieces, and the same piece can serve more than one page.",
+        "statement": "The Page Template exists to create regions on the page background, so the content of a graph can be sorted visually into logical places. Each region is a page piece with a role (masthead, hero, section, callout, route list, media, aside, footer), its own class, its own content, and its own view. The template builds the page's document from the pieces' views and returns them stacked in one view node, which the consumer page renders. An author edits one region, an agent can add or reorder regions, and a region can serve more than one page.",
         "status": "framed",
         "confidence": "unproven",
-        "notes": "Started from scratch. The Public Arrival Template (github://mikemartinez1974/public/templates/public-arrival-template/root.node) already has page-like classes (arrival, arrival-route, arrival-section, arrival-utility) and is treated here as evidence of which pieces a page needs, not as the design. The front door idea (github://mikemartinez1974/public/ideas/twilite-front-door/root.node) is the first page this should be able to build.",
+        "notes": "Started from scratch. The Public Arrival Template (github://mikemartinez1974/public/templates/public-arrival-template/root.node) is one input among many: the Page Parts Inventory below reads twenty graphs and is the evidence for which pieces a page needs. The front door idea (github://mikemartinez1974/public/ideas/twilite-front-door/root.node) is the first page this should be able to build.",
         "definitionKey": "idea",
         "_classBinding": {
           "key": "idea",
@@ -968,7 +968,7 @@
       "showLabel": false,
       "data": {
         "title": "Full pages are one big document",
-        "statement": "A graph's full page view is authored today as a single document: one content node, or one view, holding the whole page. The parts of a page (its masthead, its sections, the list of places to go next) have no identity of their own. They cannot be edited, reordered, reused or reviewed one at a time, and an agent has to rewrite the whole document to change one part. The Public Arrival Template shows the pieces a page needs but only for one kind of page, an arrival page.",
+        "statement": "A graph's full page view is authored today as a single document: one content node, or one view, holding the whole page. The parts of a page (its masthead, its sections, the list of places to go next) have no identity of their own. They cannot be edited, reordered, reused or reviewed one at a time, and an agent has to rewrite the whole document to change one part. The Public Arrival Template shows the pieces a page needs but only for one kind of page, an arrival page. Graphs that do want regions build them by hand: the gallery makes regions out of markdown headings and connected portals, and the workboard makes lanes out of markdown headings with ordinally labeled edges, each with its own conventions.",
         "impact": "Every new page starts from a blank document, pages that should look related drift apart, and the pieces that matter most, like where a visitor can go next, are buried in prose.",
         "urgency": "medium",
         "definitionKey": "idea-problem",
@@ -1729,7 +1729,7 @@
       "showLabel": false,
       "data": {
         "title": "A page template with named piece roles",
-        "description": "Create a page template whose Declaration exposes the page as its full-page view, with the summary and icon views derived from the same pieces. Pieces are nodes that each play one role in the page. The page keeps its pieces in a stated order, and one Handler and Method re-assemble the page's document view whenever a piece or the set of pieces changes, following the pattern already used for the Edge Class template. Pieces that lead somewhere (routes, utilities) are portals, so navigation stays graph-native. Begin with a short catalog of roles and grow it only when a real page needs another.",
+        "description": "Create a page template with a class for each piece role. Each piece exposes its own view, and a region is a piece that gives graph content a titled place on the page background. The template builds the page's document by stacking the pieces' views and returns the stack in one view node for the consumer page to render, so the consumer sees one view and the author works with many pieces. Order is graph order where order applies, and a sequence edge type is a candidate for the rest. Pieces that lead somewhere (routes, utilities) are portals, so navigation stays graph-native. One Handler and Method keep the stacked view current, following the pattern already used for the Edge Class template. Begin with the roles the inventory found and grow the catalog only when a real page needs another.",
         "differentiator": "It makes the page an organized graph without inventing a page engine: pieces are ordinary nodes, ordering and refresh reuse what already works, and the result is still a normal document view any client can show.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
@@ -2126,7 +2126,7 @@
         "title": "How are pieces ordered?",
         "question": "Is a page's order the order of the nodes in the graph, a chain of precedes edges, or an explicit ordered list held by the page?",
         "status": "open",
-        "answer": "Open. Stroke paint order already uses graph order and the Elements panel can reorder it. Edge lanes are provisional in the model, so a new persistent ordering schema should wait. Try graph order first and see whether reordering by hand is bearable.",
+        "answer": "Graph order is the rule where order applies. Ordering by edge is already in use: the workboard sequences its items with ordinal edge labels (\"now · 1\", \"then · 3\"), and the arrival classes use edge classes (arrival.contains, arrival.offers-route). A sequence edge type is a candidate, not yet a decision. Edge lanes are provisional in the model, so a new persistent schema should wait until the prototype shows graph order is not enough.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -2556,7 +2556,7 @@
         "title": "A small set of piece roles covers most pages",
         "statement": "Masthead, hero, section, callout, route list, media, aside and footer are enough to describe the pages we actually build, and a page needing something else is the signal to add one role, not a reason to leave the template.",
         "importance": "high",
-        "status": "untested",
+        "status": "testing",
         "definitionKey": "idea-assumption",
         "_classBinding": {
           "key": "idea-assumption",
@@ -4449,9 +4449,9 @@
       "showLabel": false,
       "data": {
         "title": "Inventory the pieces our pages already have",
-        "action": "Read the Public Arrival, Wikipedia Article and Question-Driven Explanation templates and a few landing and documentation pages, and list every distinct part each one has, with its fields and what it links to. Group them into candidate roles.",
+        "action": "Read the Public Arrival, Wikipedia Article and Question-Driven Explanation templates and a few landing and documentation pages, and list every distinct part each one has, with its fields and what it links to. Group them into candidate roles. Done: the results are in the Page Parts Inventory note and the inventory research node.",
         "expectedEvidence": "A short list of roles that accounts for the parts of those pages, with a count of parts that fit none of them.",
-        "status": "todo",
+        "status": "done",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",
@@ -6370,7 +6370,7 @@
     {
       "id": "page-template-question-roles",
       "type": "idea-question",
-      "label": "One Class or a Class per Role?",
+      "label": "One Class per Role",
       "root": false,
       "position": {
         "x": -700,
@@ -6422,10 +6422,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "One page-piece class with a role, or a class per role?",
+        "title": "One class per role",
         "question": "Should there be one page-piece class with a role field, or a separate class for each role (masthead, section, callout)?",
-        "status": "open",
-        "answer": "Open. A class per role gives each piece its own editor and defaults and lets a Handler listen to one role, but multiplies classes. One class with a role field is smaller but pushes structure into a field. The Arrival template chose separate classes.",
+        "status": "answered",
+        "answer": "A class per role. Each role gets its own editor and defaults, and a Handler can listen to one role. The inventory shows this is already how the arrival, question-driven explanation, topic, plan and idea templates are built.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -6571,7 +6571,7 @@
         "title": "Is the page view stored or derived at render?",
         "question": "Should the assembled page be stored as the graph's document view and refreshed by events, or derived from the pieces every time it is shown?",
         "status": "open",
-        "answer": "Open. Stored keeps the file correct for any client but goes stale if the Handler is off. Derived is always current but only the app can show it. The Edge Class template chose stored; this page should make the same choice deliberately, not by copying.",
+        "answer": "The template builds the document from the pieces' views and returns them stacked in one view node for the consumer page. Whether that view node is stored and refreshed by events, or derived when shown, is still open. Stored keeps the file correct for any client but goes stale if the Handler is off. Derived is always current but only the app can show it.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -6944,6 +6944,457 @@
             "reference"
           ],
           "portId": "guidance",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ]
+    },
+    {
+      "id": "page-template-research-inventory",
+      "type": "idea-research",
+      "label": "Inventory of Page Parts",
+      "root": false,
+      "position": {
+        "x": 260,
+        "y": 1160
+      },
+      "width": 400,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "informs",
+          "key": "informs",
+          "label": "informs",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "Inventory of page parts",
+        "findings": "Twenty graphs were read: nine templates (Public Arrival, Wikipedia Article, Question-Driven Explanation, Collection, Workboard, Topic, Plan, Brainstorm, Idea) and eleven pages. Nine of the eleven pages have real parts; two (Twilite and Products) are stubs with only a title and a type definition. Every one of the nine has a masthead, and seven of the nine have places to go, as routes or as connected portals. Regions that hold graph content appear twice by hand: the gallery (three headings with twelve connected portals) and the workboard (five lanes). Three different mechanisms express order or containment: graph order, edge classes (arrival.contains, arrival.offers-route), and ordinal edge labels on the workboard. Media appears only as icons. Some parts fit no role: Legend, manifest and type definition are infrastructure, the domain classes (question, topic, plan, idea and so on) are content that a page would sort into regions rather than page roles, and the Wikipedia article source is an article-shaped piece with its own structure. The full table is in the Page Parts Inventory note.",
+        "sourceUrl": "github://mikemartinez1974/public/ideas/page-template/root.node",
+        "sourceType": "other",
+        "definitionKey": "idea-research",
+        "_classBinding": {
+          "key": "idea-research",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
+          "defaults": {
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ],
+            "data": {
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Search"
+                }
+              }
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "idea-research",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
+          "targetKind": "node-class"
+        },
+        "identity": {
+          "graphId": "page-template"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Search"
+          }
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "informs",
+          "key": "informs",
+          "label": "informs",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "informs",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ]
+    },
+    {
+      "id": "page-template-evidence-inventory",
+      "type": "idea-evidence",
+      "label": "Eight Roles Recur Across the Pages",
+      "root": false,
+      "position": {
+        "x": 740,
+        "y": 700
+      },
+      "width": 400,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "supports",
+          "key": "supports",
+          "label": "supports",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "Eight roles recur across the pages",
+        "observation": "Across the nine pages with real parts, the recurring parts sort into masthead (9 of 9), route list (7 of 9), section (5), region holding graph content (2, the gallery and the workboard), callout in the form of a challenge, checkpoint or contact note (2), footer or way back (2), and secondary or utility list and summary (1 page each, both also present in templates). Only the parts that are infrastructure, domain content, or an article did not fit a role, and none of the pages needed a part outside that list.",
+        "kind": "observation",
+        "strength": "moderate",
+        "definitionKey": "idea-evidence",
+        "_classBinding": {
+          "key": "idea-evidence",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "defaults": {
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ],
+            "data": {
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "FactCheck"
+                }
+              }
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "idea-evidence",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "targetKind": "node-class"
+        },
+        "identity": {
+          "graphId": "page-template"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "FactCheck"
+          }
+        },
+        "citationSourceId": "github://mikemartinez1974/public/ideas/page-template/root.node"
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "supports",
+          "key": "supports",
+          "label": "supports",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "supports",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ]
+    },
+    {
+      "id": "page-template-question-membership",
+      "type": "idea-question",
+      "label": "How Does Content Belong to a Region?",
+      "root": false,
+      "position": {
+        "x": 740,
+        "y": 1160
+      },
+      "width": 400,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "questions",
+          "key": "questions",
+          "label": "questions",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "informed-by",
+          "key": "informed-by",
+          "label": "informed by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "How does graph content belong to a region?",
+        "question": "When a region gives graph content a place on the page background, is membership expressed by an edge from the region to the content, by the content's position inside the region, or by both?",
+        "status": "open",
+        "answer": "Open. The gallery and the workboard both use edges from the heading to the content, with labeled relationships (exhibits, features, opens) or ordinal ones (now · 1). Position alone never decides membership in either. Edges are graph-native and survive layout changes, so they are the lean.",
+        "definitionKey": "idea-question",
+        "_classBinding": {
+          "key": "idea-question",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "defaults": {
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ],
+            "data": {
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "HelpOutline"
+                }
+              }
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "idea-question",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "targetKind": "node-class"
+        },
+        "identity": {
+          "graphId": "page-template"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "HelpOutline"
+          }
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "questions",
+          "key": "questions",
+          "label": "questions",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "questions",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "informed-by",
+          "key": "informed-by",
+          "label": "informed by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "informed-by",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ]
+    },
+    {
+      "id": "page-template-inventory",
+      "type": "content",
+      "label": "Page Parts Inventory",
+      "root": false,
+      "position": {
+        "x": -2060,
+        "y": 1160
+      },
+      "width": 760,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "guided-by",
+          "key": "guided-by",
+          "label": "guided by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "page-template"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Page Parts Inventory\n\nTwenty graphs read for the parts a page is made of. Templates first, then pages.\n\n## Templates\n\n| Graph | Parts |\n|---|---|\n| Public Arrival | arrival (eyebrow, title, body); three arrival-routes (destination, prominence, kind); an arrival-section (Utilities); two arrival-utilities (Docs, GitHub); a landing note |\n| Wikipedia Article | one article source (title, lead, sections, attribution); six content notes; two portals |\n| Question-Driven Explanation | topic, question, answer, source, example, caveat, summary |\n| Collection | a window controller script, a landing note, a membership note, one portal |\n| Workboard | a workboard node; five lanes (Inbox, Now, Next, Waiting, Recently Completed) with empty-state notes; one portal |\n| Topic | topic, concept, claim, mechanism, perspective, source, synthesis |\n| Plan | plan, goal, phase, action, milestone, decision, constraint, risk, contingency |\n| Brainstorm | idea, question, decision, constraint, reference note |\n| Idea | idea, problem, audience, approach, question, assumption, research, evidence, alternative, risk, next step |\n\n## Pages\n\n| Graph | Parts |\n|---|---|\n| Twilite Zone (public root) | arrival masthead; two routes; an Explore section with three utilities; an explanatory note |\n| Getting Started | arrival masthead and four routes |\n| Gallery | a masthead note and three regions (Living Collections, Featured Graphs, Build Something) holding twelve connected portals |\n| Tutorial | a lesson hero; five concepts; an example with a call to action; a challenge; a checkpoint; nine portals including a way back to the public root |\n| Twilite LLC | a masthead note; Mission, What We Are Building, Operating Principles and Current Stage sections; four portals |\n| The Boulevard | a title and a landing note, with summary and icon views |\n| Documentation | a root note and twelve sections (Onboarding, Contracts Index, Validation, Data vs UI Boundary, Graph Primitives and others) |\n| Public Atelier (Michael's root) | a title; three sections (Civic Face, Signals, Invitation); a document summary; a contact note; twenty-two portals |\n| Michael's Workboard | five lanes with fourteen portals, sequenced by ordinal edge labels |\n| Twilite, Products | stubs: a title and a type definition, no page parts |\n\n## Roles that recur\n\n| Role | Where it appears | Example classes today |\n|---|---|---|\n| Masthead | 9 of 9 pages with parts | arrival, title, tutorial-title, a level-one heading |\n| Route list | 7 of 9 | arrival-route, portals with a prominence |\n| Section | 5 | arrival-section, section, tutorial-concept, a level-two heading |\n| Region holding content | 2 | the gallery's and workboard's headings with connected items |\n| Secondary or utility list | 1 page, plus the Arrival template | arrival-utility |\n| Summary | 1 page, plus the explanation and topic templates | document-summary, qa-summary, topic-synthesis |\n| Callout | 2 | tutorial-challenge, tutorial-checkpoint, a contact note |\n| Footer or way back | 2 | a \"Back to Public Root\" portal |\n| Media | 0 | none beyond icons |\n\n## How order and membership are expressed today\n\n- **Graph order** for plain nodes and stroke paint order.\n- **Edge classes** in the arrival classes: `arrival.contains` and `arrival.offers-route`.\n- **Ordinal edge labels** on the workboard: `now · 1`, `then · 3`.\n- **Labeled relationships** in the gallery: `exhibits`, `features`, `opens`.\n\n## What did not fit\n\n- Infrastructure: Legend, manifest, type definition.\n- Domain content (question, topic, plan, idea and similar classes). These are what a page sorts into regions, not page roles.\n- The Wikipedia article source, which is an article-shaped piece with its own structure."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "guided-by",
+          "key": "guided-by",
+          "label": "guided by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "guided-by",
           "metadata": {
             "relationship": true,
             "role": "relationship"
@@ -7601,6 +8052,139 @@
       "data": {},
       "sourceHandle": "guidance",
       "targetHandle": "guided-by"
+    },
+    {
+      "id": "page-template-research-inventory-informs-order",
+      "type": "reference",
+      "source": "page-template-research-inventory",
+      "target": "page-template-idea-question",
+      "label": "informs",
+      "style": {
+        "curved": false,
+        "stroke": "#4f46e5",
+        "strokeWidth": 3,
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.informs",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
+        "semanticRole": "idea.informs",
+        "edgeClassMeaning": "source provides context that informs the target"
+      },
+      "sourceHandle": "informs",
+      "targetHandle": "informed-by"
+    },
+    {
+      "id": "page-template-research-inventory-informs-stored",
+      "type": "reference",
+      "source": "page-template-research-inventory",
+      "target": "page-template-question-stored",
+      "label": "informs",
+      "style": {
+        "curved": false,
+        "stroke": "#4f46e5",
+        "strokeWidth": 3,
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.informs",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
+        "semanticRole": "idea.informs",
+        "edgeClassMeaning": "source provides context that informs the target"
+      },
+      "sourceHandle": "informs",
+      "targetHandle": "informed-by"
+    },
+    {
+      "id": "page-template-research-inventory-informs-membership",
+      "type": "reference",
+      "source": "page-template-research-inventory",
+      "target": "page-template-question-membership",
+      "label": "informs",
+      "style": {
+        "curved": false,
+        "stroke": "#4f46e5",
+        "strokeWidth": 3,
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.informs",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
+        "semanticRole": "idea.informs",
+        "edgeClassMeaning": "source provides context that informs the target"
+      },
+      "sourceHandle": "informs",
+      "targetHandle": "informed-by"
+    },
+    {
+      "id": "page-template-question-membership-questions",
+      "type": "reference",
+      "source": "page-template-question-membership",
+      "target": "page-template-assumption-pieces",
+      "label": "questions",
+      "style": {
+        "curved": false,
+        "stroke": "#ca8a04",
+        "strokeWidth": 3,
+        "dash": [
+          8,
+          5
+        ],
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.questions",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
+        "semanticRole": "idea.questions",
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+      },
+      "sourceHandle": "questions",
+      "targetHandle": "questioned-by"
+    },
+    {
+      "id": "page-template-evidence-inventory-supports-roles",
+      "type": "reference",
+      "source": "page-template-evidence-inventory",
+      "target": "page-template-idea-assumption",
+      "label": "supports",
+      "style": {
+        "curved": false,
+        "stroke": "#059669",
+        "strokeWidth": 3,
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.supports",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
+        "semanticRole": "idea.supports",
+        "edgeClassMeaning": "source evidence increases confidence in the target"
+      },
+      "sourceHandle": "supports",
+      "targetHandle": "supported-by"
+    },
+    {
+      "id": "page-template-instructions-inventory-edge",
+      "type": "reference",
+      "source": "page-template-idea-next-step",
+      "target": "page-template-inventory",
+      "label": "guidance",
+      "style": {
+        "curved": false,
+        "dash": [
+          6,
+          6
+        ],
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {},
+      "sourceHandle": "guidance",
+      "targetHandle": "guided-by"
     }
   ],
   "clusters": [],
@@ -7645,6 +8229,6 @@
   },
   "scripts": [],
   "timestamp": "2026-09-20T16:11:32.529Z",
-  "nodeCount": 45,
-  "edgeCount": 35
+  "nodeCount": 49,
+  "edgeCount": 41
 }
