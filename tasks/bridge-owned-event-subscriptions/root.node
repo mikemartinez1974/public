@@ -7,7 +7,7 @@
     "version": "0.1.0",
     "kind": "task",
     "created": "2026-09-20T00:44:27.189180Z",
-    "modified": "2026-09-20T00:44:27.189180Z",
+    "modified": "2026-09-20T00:51:28.588899Z",
     "author": "",
     "tags": [
       "task",
@@ -945,7 +945,7 @@
           "total": 8
         },
         "questionProgress": {
-          "answered": 0,
+          "answered": 3,
           "total": 3
         },
         "summarySource": "node-updater",
@@ -1070,7 +1070,7 @@
           "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-summary",
           "sourceBridgeLabel": "Task Graph Summary"
         },
-        "updatedAt": "2026-09-20T00:44:27.189180Z",
+        "updatedAt": "2026-09-20T00:51:28.588899Z",
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -1086,7 +1086,7 @@
         "priority": "high",
         "owner": "Michael",
         "targetDate": "",
-        "nextAction": "Review the ownership decisions, task sequence, and three open contract questions before implementation.",
+        "nextAction": "Implement the resolved emitter contract, deterministic Bridge subscriptions, Handler-to-many-Methods relationships, migration compatibility, and diagnostics.",
         "blockedReason": "",
         "health": "on-track",
         "presentation": {
@@ -1096,7 +1096,7 @@
           }
         },
         "title": "Make event handling graph-native without Event or Subscription nodes",
-        "body": "Goal: Make event handling graph-native without Event or Subscription nodes\nStatus: todo\n\nTasks in scope:\n1. Define emitter-owned Event contracts\n2. Define Bridge-owned subscription data\n3. Build Bridge event exposure and subscription UI\n4. Update the Event Handler editor\n5. Make the Action Method edge authoritative\n6. Deliver local and bridged events through the new model\n7. Migrate away from Event and Subscription nodes\n8. Create end-to-end event and Bridge smoke coverage\n\nOpen questions:\n1. What is the stable identity of a Bridge subscription?\n2. How should multiple Handlers subscribe to one exposed Event?\n3. What happens when exposure, a Bridge, a Handler, or a Method disappears?",
+        "body": "Goal: Make event handling graph-native without Event or Subscription nodes\nStatus: todo\n\nTasks in scope:\n1. Define emitter-owned Event contracts\n2. Define Bridge-owned subscription data\n3. Build Bridge event exposure and subscription UI\n4. Update the Event Handler editor\n5. Make the Action Method edge authoritative\n6. Deliver local and bridged events through the new model\n7. Migrate away from Event and Subscription nodes\n8. Create end-to-end event and Bridge smoke coverage\n\nResolved questions:\n1. What is the stable identity of a Bridge subscription?\n2. How should multiple Handlers subscribe to one exposed Event?\n3. What happens when exposure, a Bridge, a Handler, or a Method disappears?",
         "estimateHours": "",
         "startedAt": "",
         "completedAt": "",
@@ -5855,10 +5855,10 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "body": "Decide whether subscription identity is an authored id, a deterministic tuple, or both. It must support editing, diagnostics, deduplication, and migration.",
-        "status": "open",
+        "body": "Use a deterministic id derived from source export Bridge id, target import Bridge id, and stable Event identity. The event identity includes its declaring source and event key, so the same reciprocal Bridge pair cannot create duplicate subscriptions for the same Event.",
+        "status": "answered",
         "owner": "",
-        "resolutionPath": "Resolve before finalizing the Bridge data schema.",
+        "resolutionPath": "Use a deterministic id derived from source export Bridge id, target import Bridge id, and stable Event identity. The event identity includes its declaring source and event key, so the same reciprocal Bridge pair cannot create duplicate subscriptions for the same Event.",
         "prominence": "high",
         "definitionKey": "open-question",
         "_classBinding": {
@@ -6045,10 +6045,10 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "body": "Decide whether one subscription entry targets one Handler, whether an event entry contains several Handler ids, and how graph order controls delivery.",
-        "status": "open",
+        "body": "One Event Handler listens to exactly one Event. It does not store a list of method ids; every outgoing Action Method relationship from the Handler identifies a Method to invoke. All connected Methods run in stable graph edge order.",
+        "status": "answered",
         "owner": "",
-        "resolutionPath": "Resolve before runtime delivery implementation.",
+        "resolutionPath": "One Event Handler listens to exactly one Event. It does not store a list of method ids; every outgoing Action Method relationship from the Handler identifies a Method to invoke. All connected Methods run in stable graph edge order.",
         "prominence": "high",
         "definitionKey": "open-question",
         "_classBinding": {
@@ -6235,10 +6235,10 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "body": "Define inactive, orphaned, and cleanup behavior without silently deleting authored intent.",
-        "status": "open",
+        "body": "Preserve authored intent and emit a visible diagnostic when an exposed Event, reciprocal Bridge, Handler, or connected Method can no longer be resolved. Do not silently delete or retarget the subscription.",
+        "status": "answered",
         "owner": "",
-        "resolutionPath": "Resolve before migration and editor reconciliation.",
+        "resolutionPath": "Preserve authored intent and emit a visible diagnostic when an exposed Event, reciprocal Bridge, Handler, or connected Method can no longer be resolved. Do not silently delete or retarget the subscription.",
         "prominence": "high",
         "definitionKey": "open-question",
         "_classBinding": {
@@ -6671,5 +6671,5 @@
   ],
   "nodeCount": 32,
   "edgeCount": 23,
-  "timestamp": "2026-09-20T00:44:27.189180Z"
+  "timestamp": "2026-09-20T00:51:28.588899Z"
 }
