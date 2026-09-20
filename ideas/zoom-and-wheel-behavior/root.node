@@ -6,8 +6,8 @@
     "graphId": "zoom-and-wheel-behavior",
     "version": "0.1.0",
     "kind": "graph",
-    "created": "2026-09-20T21:15:33.056Z",
-    "modified": "2026-09-20T21:15:33.056Z",
+    "created": "2026-09-20T21:37:51.291Z",
+    "modified": "2026-09-20T21:37:51.291Z",
     "author": "",
     "tags": [
       "idea",
@@ -267,7 +267,7 @@
           "version": "0.1.0",
           "description": "A gesture contract for zoom and the mouse wheel in Twilite: browser zoom drives the camera, and the wheel acts on the surface under the pointer the way it does on the web, panning the camera when that surface has nothing to scroll.",
           "nodeId": "zoom-and-wheel-behavior",
-          "updatedAt": "2026-09-20T21:15:33.056Z"
+          "updatedAt": "2026-09-20T21:37:51.291Z"
         },
         "intent": {
           "kind": "graph",
@@ -7280,6 +7280,120 @@
       ]
     },
     {
+      "id": "zoom-and-wheel-behavior-evidence-bench",
+      "type": "idea-evidence",
+      "label": "The Test Bench Run: 4 of 8",
+      "root": false,
+      "position": {
+        "x": 2180,
+        "y": 260
+      },
+      "width": 400,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "supports",
+          "key": "supports",
+          "label": "supports",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "The first test bench run: 4 of 8 cases match the contract",
+        "observation": "The bench (github://mikemartinez1974/public/qa/wheel-test-bench/root.node) was run in the app with its check script. Over a scrollable surface the surface keeps the wheel, including a nested scroller at both ends (cases 1 to 4 match). Cases 5 to 8 do not. Over a content node at the end of its scroll, or with nothing to scroll, the wheel goes nowhere: the node listener stops the event before the canvas handler sees it, so the camera cannot be moved with the wheel from there. On empty canvas the plain wheel zooms, and it zooms about the middle of the screen, not the pointer. Ctrl and wheel is treated as a plain wheel, zooming about the screen centre with the point under the pointer moving by hundreds of pixels. This also shows that the arbiter is only reached by wheel events that are not over a node.",
+        "kind": "experiment",
+        "strength": "strong",
+        "definitionKey": "idea-evidence",
+        "_classBinding": {
+          "key": "idea-evidence",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "defaults": {
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ],
+            "data": {
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "FactCheck"
+                }
+              }
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "idea-evidence",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "targetKind": "node-class"
+        },
+        "identity": {
+          "graphId": "zoom-and-wheel-behavior"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "FactCheck"
+          }
+        },
+        "citationSourceId": "github://mikemartinez1974/public/qa/wheel-test-bench/root.node"
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "supports",
+          "key": "supports",
+          "label": "supports",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "supports",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ]
+    },
+    {
       "id": "zoom-and-wheel-behavior-next-step-bench",
       "type": "idea-next-step",
       "label": "Build a Wheel Test Bench",
@@ -7337,7 +7451,7 @@
         "title": "Build a test bench graph for wheel and zoom",
         "action": "Make a small smoke-test graph with nested scrollable surfaces (a page view in a workspace, a long document, a frame) and empty canvas, so every case in the contract can be tried by hand and by script.",
         "expectedEvidence": "A graph that reproduces today's failures, and a repeatable way to check each row of the contract.",
-        "status": "todo",
+        "status": "done",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",
@@ -7862,6 +7976,52 @@
           }
         }
       ]
+    },
+    {
+      "id": "zoom-and-wheel-behavior-task-wheel-test-bench",
+      "type": "portal",
+      "label": "Wheel and Zoom Test Bench (Test bench)",
+      "position": {
+        "x": -670,
+        "y": 1600
+      },
+      "width": 340,
+      "height": 220,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "memo": "Test bench that carries out this next step.",
+        "authority": "navigate",
+        "intent": "external",
+        "src": "github://mikemartinez1974/public/qa/wheel-test-bench/root.node",
+        "ref": "github://mikemartinez1974/public/qa/wheel-test-bench/root.node",
+        "endpoint": "github://mikemartinez1974/public/qa/wheel-test-bench/root.node",
+        "sourceRef": "github://mikemartinez1974/public/qa/wheel-test-bench/root.node",
+        "sourceNodeId": "wheel-test-bench-summary-view",
+        "sourcePayload": "node.web.summary",
+        "surfaceId": "root",
+        "target": {
+          "ref": "github://mikemartinez1974/public/qa/wheel-test-bench/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "root",
+          "label": "Open task graph"
+        },
+        "visibilityRole": "browser",
+        "presentationBaseLevel": "summary",
+        "identity": {
+          "graphId": "zoom-and-wheel-behavior"
+        }
+      }
     }
   ],
   "edges": [
@@ -8478,6 +8638,28 @@
       "targetHandle": "supported-by"
     },
     {
+      "id": "zoom-and-wheel-behavior-evidence-bench-supports",
+      "type": "reference",
+      "source": "zoom-and-wheel-behavior-evidence-bench",
+      "target": "zoom-and-wheel-behavior-assumption-pan",
+      "label": "supports",
+      "style": {
+        "curved": false,
+        "stroke": "#059669",
+        "strokeWidth": 3,
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.supports",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
+        "semanticRole": "idea.supports",
+        "edgeClassMeaning": "source evidence increases confidence in the target"
+      },
+      "sourceHandle": "supports",
+      "targetHandle": "supported-by"
+    },
+    {
       "id": "zoom-and-wheel-behavior-alternative-questions",
       "type": "reference",
       "source": "zoom-and-wheel-behavior-idea-alternative",
@@ -8657,6 +8839,27 @@
       "data": {},
       "sourceHandle": "guidance",
       "targetHandle": "guided-by"
+    },
+    {
+      "id": "zoom-and-wheel-behavior-tracked-wheel-test-bench",
+      "type": "reference",
+      "source": "zoom-and-wheel-behavior-next-step-bench",
+      "target": "zoom-and-wheel-behavior-task-wheel-test-bench",
+      "label": "tested by",
+      "style": {
+        "curved": false,
+        "dash": [
+          6,
+          6
+        ],
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "relation": "task-projection"
+      },
+      "sourceHandle": "root",
+      "targetHandle": "root"
     }
   ],
   "clusters": [],
@@ -8700,7 +8903,7 @@
     "autoSave": false
   },
   "scripts": [],
-  "timestamp": "2026-09-20T21:15:33.056Z",
-  "nodeCount": 51,
-  "edgeCount": 41
+  "timestamp": "2026-09-20T21:37:51.291Z",
+  "nodeCount": 53,
+  "edgeCount": 43
 }
