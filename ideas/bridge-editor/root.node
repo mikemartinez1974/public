@@ -7,7 +7,7 @@
     "version": "0.1.0",
     "kind": "graph",
     "created": "2026-09-20T06:59:53.107Z",
-    "modified": "2026-09-20T06:59:53.107Z",
+    "modified": "2026-09-20T08:01:58.083Z",
     "author": "",
     "tags": [
       "idea",
@@ -967,7 +967,7 @@
       "showLabel": false,
       "data": {
         "title": "Bridge behavior is scattered",
-        "statement": "The Bridge's own editor (a hosted Bridge Editor) shows a label, a note and a Bridge Status block with the resolved target and effective exposure. Grants, exposure families and the Events UI live in the Properties panel instead. A user editing a Bridge has to know to leave its editor, right-click for Properties, and find the Events section. The Events section was nested under Behavior, after a long Setup block, until it was given its own section.",
+        "statement": "The Bridge's own editor (a hosted Bridge Editor) already carries a label, a note, Target Ref for an import Bridge, and the export policy fields and Export Surface for an export Bridge, plus a Bridge Status block. Role, Kind, Grants, the exposure candidate pickers and the Events UI lived in the Properties panel instead, and the Properties panel also repeated the export policy, so some settings could be edited in two places. A user editing a Bridge had to know to leave its editor, right-click for Properties, and find them. The Events section was nested under Behavior, after a long Setup block, until it was given its own section.",
         "impact": "The part of a Bridge that matters most, what crosses it and who answers, is the hardest to find. New event behavior would keep landing in whichever panel is nearest, adding a third home.",
         "urgency": "high",
         "definitionKey": "idea-problem",
@@ -2969,7 +2969,7 @@
       "showLabel": false,
       "data": {
         "title": "Where Bridge UI lives today",
-        "findings": "The Bridge node's editor is a hosted \"bridge-editor\" with Label and Bridge Note fields and a Bridge Status block. The Properties panel holds the target and role setup, grants, exposure families, and now the Events section, all for a selected Bridge. Events are one component that reads a Bridge node plus the graph and writes through planners for exposure and subscriptions, so it does not depend on where it is shown. Bridges expose and consume events one node at a time; class scopes do not cross them yet.",
+        "findings": "The Bridge node's editor is a hosted \"bridge-editor\": a structured form with role-specific fields (shown or hidden by the Bridge's role) and a Bridge Status block. The Properties panel held Setup (role, kind), Grants, the exposure candidate pickers, and Events. A Bridge records its role, kind, target and grants in three places (on the node, under bridge and under target), so every write must update all of them. Events are one component that reads a Bridge node plus the graph and writes through planners for exposure and subscriptions, so it does not depend on where it is shown. Bridges expose and consume events one node at a time; class scopes do not cross them yet.",
         "sourceUrl": "github://TwiliteLLC/twilite/components/GraphEditor/components/BridgeEventsPanel.js",
         "sourceType": "prototype",
         "definitionKey": "idea-research",
@@ -4450,7 +4450,7 @@
         "title": "Show Events in the hosted Bridge Editor",
         "action": "Render the Events component inside the hosted Bridge Editor and remove it from the Properties panel, leaving a link to the editor. Change nothing about how it reads or writes.",
         "expectedEvidence": "Opening a Bridge with its pencil shows its Events, ticking an export event or choosing an import Handler writes the same data as before, and the Properties panel has no Events section.",
-        "status": "todo",
+        "status": "in-progress",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",
@@ -6244,7 +6244,7 @@
         "title": "Give export and import Bridges their own sections",
         "action": "Split the Bridge Editor into role-shaped sections and prune what the Properties panel repeats: Target, What it exposes or consumes, Events, effective exposure, Status.",
         "expectedEvidence": "An export Bridge and an import Bridge each show only what applies to their role, with Status naming what is missing, and no field is editable in two places.",
-        "status": "todo",
+        "status": "in-progress",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",
