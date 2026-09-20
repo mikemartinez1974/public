@@ -412,7 +412,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Gesture contract (sketch)\n\nThe rules, as input by target. Names and details are illustrative until the questions are answered.\n\n## Zoom gestures\n\n| Input | What happens |\n|---|---|\n| Ctrl or Cmd + wheel | Camera zoom, anchored on the pointer. Page zoom is prevented. |\n| Trackpad pinch (a wheel with ctrl set) | Same as Ctrl + wheel. |\n| Keyboard zoom keys (Ctrl and plus, minus, zero) | Camera zoom in, out, and reset, when the browser lets the page cancel them. |\n| Browser-menu zoom | Cannot be cancelled. Detect it and decide (open question). |\n\n## The plain wheel\n\n| Pointer is over | What happens |\n|---|---|\n| A surface that can scroll in that direction | That surface scrolls. |\n| A surface at the end of its scroll, or one with nothing to scroll | The camera pans (scroll chaining). |\n| Empty canvas | The camera pans. |\n| Embedded content the page cannot read | The frame keeps the wheel (open question). |\n| Shift + wheel | Horizontal scroll, then horizontal pan. |\n\n## Latching\n\nA gesture belongs to the surface it started on until it pauses. A flick that reaches the end of a page does not jump to the camera partway through.\n\n## Not in scope\n\nTouch panning and pinch on touch screens, the zoom controls themselves, and the semantic levels that depend on zoom. They share the contract but are separate tasks."
+          "value": "# Gesture contract (sketch)\n\nThe rules, as input by target, after Michael's decisions: zoom is about the middle of the screen, and the plain wheel zooms the camera when nothing under the pointer can scroll.\n\n## Zoom gestures\n\n| Input | What happens |\n|---|---|\n| Ctrl or Cmd + wheel | Camera zoom about the screen centre, wherever the pointer is. Page zoom is prevented. |\n| Trackpad pinch (a wheel with ctrl set) | Same as Ctrl + wheel. |\n| Ctrl or Cmd + plus | Camera zoom in one step (a factor of 1.2). |\n| Ctrl or Cmd + minus | Camera zoom out one step. |\n| Ctrl or Cmd + zero | Camera zoom back to 1. |\n| Browser-menu zoom | Cannot be intercepted. Left alone. |\n\n## The plain wheel\n\n| Pointer is over | What happens |\n|---|---|\n| A surface that can scroll in that direction | That surface scrolls. |\n| A surface whose inner region is at its end, with an outer region that can scroll | The outer region scrolls (scroll chaining). |\n| A surface at the end of its scroll, or one with nothing to scroll | The camera zooms. |\n| Empty canvas | The camera zooms. |\n| A page view drawn behind the workspace | It scrolls when it can, then the camera zooms. |\n| Embedded content the page cannot read | The frame keeps the wheel (open question). |\n| Shift + wheel | Horizontal scroll, then horizontal pan. Not built. |\n\n## Latching\n\nA gesture should belong to the surface it started on until it pauses, so a flick that reaches the end of a page does not jump to the camera partway through. Not built yet.\n\n## Not in scope\n\nTouch panning and pinch on touch screens, the zoom controls themselves, and the semantic levels that depend on zoom."
         },
         "interfaceContract": {
           "version": 1,
@@ -534,10 +534,10 @@
       "showLabel": false,
       "data": {
         "title": "The Camera Behaves Like the Browser",
-        "statement": "Zooming the browser should zoom the Twilite camera, and the mouse wheel should act on the surface under the pointer the way it would on any web page: scroll it if it can scroll, and when it cannot, move the camera. A person should never see a scrollbar that does nothing, and should never have to learn a second set of zoom and scroll rules for Twilite.",
+        "statement": "Zooming the browser should zoom the Twilite camera, and the mouse wheel should act on the surface under the pointer the way it would on any web page: scroll it if it can scroll, and when nothing there can, the wheel belongs to the camera, which zooms about the middle of the screen. A person should never see a scrollbar that does nothing, and should never have to learn a second set of zoom and scroll rules for Twilite.",
         "status": "framed",
         "confidence": "unproven",
-        "notes": "Raised from a real failure: in the running app, a page view hosted in a workspace graph shows a scrollbar, but the wheel does not scroll it. The code that decides who owns a wheel event already exists (components/NodeGraph/interactionArbiter.js in the twilite repo), so this idea is about changing the rules it applies, and about the two zoom systems (browser zoom and camera zoom) that do not talk to each other today.",
+        "notes": "Raised from a real failure: a page view hosted in a workspace graph showed a scrollbar that the wheel could not scroll. Michael decided two things along the way: zooming about the centre of the screen is the most humane choice, so zoom stays centred and is not moved under the pointer; and the plain wheel over the workspace zooming the camera is fine, which makes Ctrl+wheel nothing special. The code that decides who owns a wheel event already exists (components/NodeGraph/interactionArbiter.js in the twilite repo).",
         "definitionKey": "idea",
         "_classBinding": {
           "key": "idea",
@@ -970,7 +970,7 @@
       "showLabel": false,
       "data": {
         "title": "The wheel and browser zoom do not behave like the web",
-        "statement": "Today the plain wheel zooms the camera, anchored on the middle of the screen rather than under the pointer. Ctrl+wheel and pinch are not treated as zoom gestures, so they fall through to the browser and scale the whole page, chrome included, out from under the camera. Content that shows a scrollbar can fail to scroll because some layer cancels the wheel event first. Twilite therefore has two unrelated zoom systems and a wheel with different rules from every other web page.",
+        "statement": "The wheel and the browser zoom controls did not agree with the camera. Ctrl+wheel, a trackpad pinch and the keyboard zoom keys scaled the whole browser page out from under the camera, and over content nodes Ctrl+wheel was swallowed by the node. Content that showed a scrollbar could fail to scroll, because a layer cancelled the wheel or drew the view where it could not be pointed at. A card with nothing to scroll swallowed the wheel, so the camera could not be zoomed from there. Twilite therefore had two unrelated zoom systems and a wheel with different rules from other web pages.",
         "impact": "People cannot read long content inside a graph, zoom the way they expect, or trust what a scrollbar promises. Accessibility zoom fights the camera, and every new surface (a page view, a document, an embedded frame) has to solve wheel handling again.",
         "urgency": "high",
         "definitionKey": "idea-problem",
@@ -1731,7 +1731,7 @@
       "showLabel": false,
       "data": {
         "title": "One gesture contract, applied by the arbiter that already exists",
-        "description": "Write the rules down as a table of input by target, and let the existing interaction arbiter apply it. Zoom gestures (Ctrl or Cmd with the wheel, trackpad pinch, and the keyboard zoom keys) are captured and drive the camera zoom, anchored on the pointer, with browser page zoom prevented. A plain wheel goes to the surface under the pointer: the nearest ancestor that can scroll in that direction scrolls, and when none can, at its limit or because there is none, the wheel pans the camera, as scroll chaining does on the web. A gesture that starts on a surface stays with it until it pauses, so content does not hand off to the camera in the middle of a flick.",
+        "description": "Write the rules down as a table of input by target, and let the existing interaction arbiter apply it. Zoom gestures (Ctrl or Cmd with the wheel, trackpad pinch, and Ctrl or Cmd with plus, minus and zero) always drive the camera zoom, about the middle of the screen like the plain wheel, and never the browser page zoom. A plain wheel goes to the surface under the pointer: the nearest ancestor that can scroll in that direction scrolls, and when none can, because it is at its end or has nothing to scroll, the wheel zooms the camera, as it does over empty workspace. A gesture that starts on a surface should stay with it until it pauses, so content does not hand off to the camera in the middle of a flick.",
         "differentiator": "It does not add a mode or a new control. It makes Twilite follow the rules people already know from the web, and it puts the whole behavior in one testable table instead of scattered wheel listeners.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
@@ -5591,7 +5591,7 @@
         "semanticLevel": "detail",
         "content": {
           "kind": "markdown",
-          "value": "# The Camera Behaves Like the Browser\n\nZoom in the browser zooms the camera, and the wheel acts on the surface under the pointer the way it does on the web: it scrolls that surface if it can, and pans the camera when it cannot.\n\n**Today:** the wheel zooms about the middle of the screen, Ctrl+wheel and pinch fall through to page zoom, and a scrollbar can fail to scroll.\n\n**The approach:** one gesture contract, applied by the arbiter that already exists, with scroll chaining and a latched gesture.\n\nRead the sketch for the contract, and the assumptions and questions for what is still unknown."
+          "value": "# The Camera Behaves Like the Browser\n\nZoom in the browser zooms the camera, and the wheel acts on the surface under the pointer the way it does on the web: it scrolls that surface if it can, and when nothing there can scroll, the camera takes the wheel and zooms about the middle of the screen.\n\n**Built:** Ctrl+wheel, pinch and the Ctrl plus, minus and zero keys drive the camera. A page view at workspace level scrolls. A card with nothing to scroll no longer swallows the wheel. A test bench checks each case.\n\n**Still open:** latching a gesture to its surface, the contract as one table in the arbiter, menu zoom, and frames the page cannot read."
         },
         "interfaceContract": {
           "version": 1,
@@ -5681,7 +5681,7 @@
         "semanticLevel": "summary",
         "content": {
           "kind": "markdown",
-          "value": "## The camera behaves like the browser\n\nBrowser zoom drives the camera. The wheel scrolls the surface under the pointer, and pans the camera when there is nothing to scroll."
+          "value": "## The camera behaves like the browser\n\nBrowser zoom gestures drive the camera. The wheel scrolls the surface under the pointer, and zooms the camera when nothing there can scroll."
         },
         "interfaceContract": {
           "version": 1,
@@ -6130,10 +6130,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "A plain wheel that pans the camera is welcome",
-        "statement": "People prefer that the plain wheel pans the canvas (and scrolls content) over the current behavior where it zooms, at least once zoom moves to Ctrl+wheel and pinch.",
+        "title": "A plain wheel that zooms the camera, and scrolls content, is welcome",
+        "statement": "People are content that the plain wheel zooms the camera over the workspace and scrolls content under the pointer, and that it hands over to the camera when the content has nothing more to scroll. Michael judged zooming about the centre of the screen the most humane choice, and Ctrl+wheel needs no special meaning because the plain wheel already zooms.",
         "importance": "high",
-        "status": "untested",
+        "status": "supported",
         "definitionKey": "idea-assumption",
         "_classBinding": {
           "key": "idea-assumption",
@@ -6506,8 +6506,8 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Wheel zoom is anchored on the middle of the screen, not the pointer",
-        "observation": "In components/NodeGraph/PanZoomLayer.js the wheel handler computes its zoom anchor from the middle of the layer (getZoomCenter) and passes it to setZoom and to the workspace zoom gesture, so zooming with the wheel moves the picture around the center of the screen whatever the pointer is over.",
+        "title": "Wheel zoom is anchored on the screen centre, and that is the choice",
+        "observation": "In components/NodeGraph/PanZoomLayer.js the wheel handler computes its zoom anchor from the middle of the layer (getZoomCenter). The first reading of this was that it was a gap, because the point under the pointer moves. Michael decided that zooming about the centre is the most humane choice, so it stays, and the zoom keys use the same anchor: zooming in with Ctrl and plus, out with Ctrl and minus, then Ctrl and 0 returns the camera to exactly where it began.",
         "kind": "behavior",
         "strength": "strong",
         "definitionKey": "idea-evidence",
@@ -6752,8 +6752,8 @@
       "data": {
         "title": "What does the plain wheel do over empty canvas?",
         "question": "Over the bare canvas, with nothing to scroll, should the plain wheel pan the camera (the web rule) or keep zooming (today, and what many canvas tools do)?",
-        "status": "open",
-        "answer": "Open. The stated goal is the web rule, so pan. A preference for the classic behavior may be worth keeping for people who like it, but the default and the documented behavior should be the web rule.",
+        "status": "answered",
+        "answer": "Answered by Michael: it zooms, about the middle of the screen. That is the most humane choice, and it is what the workspace already did. Ctrl+wheel therefore adds nothing new, except that it is now always camera zoom, never browser page zoom. Panning with the wheel is not part of the contract.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -7595,7 +7595,7 @@
       "showLabel": false,
       "data": {
         "title": "Write the gesture contract as data with tests",
-        "action": "Put the input by target table into the interaction arbiter as data (wheel, Ctrl+wheel, pinch, keyboard zoom, shift+wheel; scroll region, canvas, embedded content, frame) and cover it with unit tests, replacing the separate wheel listeners in FixedNode and PersistentIframe with calls to it.",
+        "action": "Put the input by target table into the interaction arbiter as data (wheel, Ctrl+wheel, keyboard zoom, shift+wheel; scroll region, canvas, embedded content, frame) and cover it with unit tests, replacing the separate wheel listeners in FixedNode and PersistentIframe with calls to it. The rules exist in code now, spread across PanZoomLayer, FixedNode and the arbiter.",
         "expectedEvidence": "One table decides every wheel event, the tests pass, and the separate listeners are gone.",
         "status": "todo",
         "definitionKey": "idea-next-step",
@@ -7740,10 +7740,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Turn zoom gestures into camera zoom under the pointer",
-        "action": "Capture Ctrl or Cmd with the wheel, trackpad pinch and the keyboard zoom keys, anchor the camera zoom on the pointer, prevent page zoom for those gestures, and observe menu zoom through devicePixelRatio.",
-        "expectedEvidence": "Zoom gestures move the camera around the pointer in the running app, and what menu zoom does is written down.",
-        "status": "todo",
+        "title": "Turn zoom gestures into camera zoom",
+        "action": "Capture Ctrl or Cmd with the wheel and a trackpad pinch wherever the pointer is, and Ctrl or Cmd with plus, minus and zero, and make them drive the camera zoom about the screen centre with browser page zoom prevented. Zoom chosen from the browser menu cannot be intercepted and is left alone.",
+        "expectedEvidence": "Zoom gestures move the camera in the running app, over content nodes as well as empty workspace, and menu zoom is documented as out of reach.",
+        "status": "done",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",
@@ -7887,9 +7887,9 @@
       "showLabel": false,
       "data": {
         "title": "Give the wheel to the surface, then to the camera",
-        "action": "Implement the plain wheel as scroll chaining with a latched gesture: the nearest surface that can move scrolls, and the camera pans when none can, without a handoff in the middle of a flick.",
-        "expectedEvidence": "On the test bench, a long page inside a workspace scrolls with the wheel and hands off to the camera at its end only after the gesture pauses.",
-        "status": "todo",
+        "action": "A plain wheel scrolls the nearest surface that can move the way the wheel goes, including the outer page when an inner box is at its end, and otherwise zooms the camera. Then latch the gesture to the surface it started on until it pauses, so momentum does not carry it across to the camera.",
+        "expectedEvidence": "On the test bench, a long page scrolls with the wheel and the camera takes the wheel at its end. Latching is checked with real trackpad momentum.",
+        "status": "in-progress",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",
@@ -8022,6 +8022,120 @@
           "graphId": "zoom-and-wheel-behavior"
         }
       }
+    },
+    {
+      "id": "zoom-and-wheel-behavior-evidence-gestures",
+      "type": "idea-evidence",
+      "label": "Zoom Gestures Drive the Camera",
+      "root": false,
+      "position": {
+        "x": 2660,
+        "y": 260
+      },
+      "width": 400,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "supports",
+          "key": "supports",
+          "label": "supports",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "Zoom gestures and idle wheels now go to the camera, checked with real input",
+        "observation": "With real (trusted) wheel and key input in the running app on the test bench: Ctrl+wheel over a content node zoomed the camera (1 to 1.24) and scrolled nothing; Ctrl and plus, Ctrl and minus and Ctrl and 0 took the zoom to 1.488, 1.24 and exactly 1 with the pan restored; the plain wheel over a card with nothing to scroll, and over a document at its end, zoomed the camera (1 to 0.76); over a document mid-scroll it scrolled (0 to 120) and the zoom held; over a nested scroller whose inner box was at its end it scrolled the outer page (0 to 120) with the zoom held. The earlier run had those cases dead or handed to browser page zoom.",
+        "kind": "experiment",
+        "strength": "strong",
+        "definitionKey": "idea-evidence",
+        "_classBinding": {
+          "key": "idea-evidence",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "defaults": {
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ],
+            "data": {
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "FactCheck"
+                }
+              }
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "idea-evidence",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "targetKind": "node-class"
+        },
+        "identity": {
+          "graphId": "zoom-and-wheel-behavior"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "FactCheck"
+          }
+        },
+        "citationSourceId": "github://mikemartinez1974/public/qa/wheel-test-bench/root.node"
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "supports",
+          "key": "supports",
+          "label": "supports",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "supports",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ]
     }
   ],
   "edges": [
@@ -8860,6 +8974,28 @@
       },
       "sourceHandle": "root",
       "targetHandle": "root"
+    },
+    {
+      "id": "zoom-and-wheel-behavior-evidence-gestures-supports",
+      "type": "reference",
+      "source": "zoom-and-wheel-behavior-evidence-gestures",
+      "target": "zoom-and-wheel-behavior-assumption-capture",
+      "label": "supports",
+      "style": {
+        "curved": false,
+        "stroke": "#059669",
+        "strokeWidth": 3,
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.supports",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
+        "semanticRole": "idea.supports",
+        "edgeClassMeaning": "source evidence increases confidence in the target"
+      },
+      "sourceHandle": "supports",
+      "targetHandle": "supported-by"
     }
   ],
   "clusters": [],
@@ -8903,7 +9039,7 @@
     "autoSave": false
   },
   "scripts": [],
-  "timestamp": "2026-09-20T21:37:51.291Z",
-  "nodeCount": 53,
-  "edgeCount": 43
+  "timestamp": "2026-09-20T22:07:42.830Z",
+  "nodeCount": 54,
+  "edgeCount": 44
 }
