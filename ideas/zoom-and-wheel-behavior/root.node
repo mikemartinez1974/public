@@ -6,8 +6,8 @@
     "graphId": "zoom-and-wheel-behavior",
     "version": "0.1.0",
     "kind": "graph",
-    "created": "2026-09-20T20:54:39.657Z",
-    "modified": "2026-09-20T20:54:39.657Z",
+    "created": "2026-09-20T21:15:33.056Z",
+    "modified": "2026-09-20T21:15:33.056Z",
     "author": "",
     "tags": [
       "idea",
@@ -267,7 +267,7 @@
           "version": "0.1.0",
           "description": "A gesture contract for zoom and the mouse wheel in Twilite: browser zoom drives the camera, and the wheel acts on the surface under the pointer the way it does on the web, panning the camera when that surface has nothing to scroll.",
           "nodeId": "zoom-and-wheel-behavior",
-          "updatedAt": "2026-09-20T20:54:39.657Z"
+          "updatedAt": "2026-09-20T21:15:33.056Z"
         },
         "intent": {
           "kind": "graph",
@@ -3337,7 +3337,7 @@
       "showLabel": false,
       "data": {
         "title": "A visible scrollbar that does not scroll",
-        "observation": "On the deployed dev site, a page view hosted in a workspace graph (the Page Template) shows a vertical scrollbar, and the wheel over it does not scroll the page. This was reported from a real screen. The cause has not been found: candidates are a wheel listener that cancels the event before the browser can scroll, or a layer over the view that ignores pointer events.",
+        "observation": "On the deployed dev site, a page view hosted in a workspace graph (the Page Template) shows a vertical scrollbar, and the wheel over it does not scroll the page. This was reported from a real screen, and it only happens when the camera is zoomed out to the workspace: zoomed into the graph, scrolling web content works. Cause found: at workspace level the page view of a graph is drawn as an inert background (inert and pointer-events none in WorkspaceLayer.js), so the wheel can never reach it and goes to the canvas, which zooms, even though the view draws a scrollbar. A first fix now gives the wheel to that view when it can scroll the way the wheel goes, and checked in the running app the page scrolls to its end and only then does the wheel zoom.",
         "kind": "observation",
         "strength": "moderate",
         "definitionKey": "idea-evidence",
@@ -4453,7 +4453,7 @@
         "title": "Find the layer that stops the page view from scrolling",
         "action": "Reproduce the non-scrolling page view in the workspace and find which listener cancels the wheel event or which layer takes it. Record what it was.",
         "expectedEvidence": "The specific listener or layer, with the file, and a one-line description of the rule that caused it.",
-        "status": "todo",
+        "status": "done",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",
@@ -8700,7 +8700,7 @@
     "autoSave": false
   },
   "scripts": [],
-  "timestamp": "2026-09-20T20:54:39.657Z",
+  "timestamp": "2026-09-20T21:15:33.056Z",
   "nodeCount": 51,
   "edgeCount": 41
 }
