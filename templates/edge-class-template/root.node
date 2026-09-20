@@ -670,7 +670,19 @@
           "source": "manual",
           "updatedAt": 1789697746389,
           "reason": "node-drag"
-        }
+        },
+        "events": [
+          {
+            "eventKey": "property.changed",
+            "label": "Label changed",
+            "payloadContract": {
+              "type": "object"
+            },
+            "aliases": [
+              "label-changed-event"
+            ]
+          }
+        ]
       }
     },
     {
@@ -1530,7 +1542,7 @@
       "root": false,
       "position": {
         "x": -2893.1167225701242,
-        "y": 420
+        "y": 420.0
       },
       "width": 320,
       "height": 140,
@@ -1629,58 +1641,6 @@
       }
     },
     {
-      "id": "label-changed-event",
-      "type": "event-declaration",
-      "label": "Label changed",
-      "root": false,
-      "position": {
-        "x": -2252.380487152448,
-        "y": 2162.862485023743
-      },
-      "width": 340,
-      "height": 210,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 180
-        }
-      ],
-      "handles": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 180,
-          "portId": "root"
-        }
-      ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "eventKey": "property.changed",
-        "sourceNodeId": "field-label",
-        "payloadContract": {
-          "type": "object"
-        },
-        "identity": {
-          "nodeId": "label-changed-event",
-          "graphId": "edge-class-template-declaration"
-        },
-        "description": "Emitted after the label Property commits a different effective value.",
-        "_placement": {
-          "version": 1,
-          "state": "manually-shaped",
-          "source": "manual",
-          "updatedAt": 1789781105623,
-          "reason": "node-drag"
-        }
-      }
-    },
-    {
       "id": "sync-demo-label-handler",
       "type": "event-handler",
       "label": "Update demo label",
@@ -1739,9 +1699,6 @@
         "trigger": {
           "sourceNodeId": "field-label",
           "eventKey": "property.changed"
-        },
-        "action": {
-          "methodNodeId": "update-demo-label-method"
         },
         "presentation": {
           "glyph": {
@@ -2082,21 +2039,6 @@
       "data": {}
     },
     {
-      "id": "label-property-emits-changed",
-      "type": "reference",
-      "source": "field-label",
-      "target": "label-changed-event",
-      "sourceHandle": "root",
-      "targetHandle": "root",
-      "label": "emits on change",
-      "style": {
-        "route": "curved"
-      },
-      "data": {
-        "semanticRole": "event-source"
-      }
-    },
-    {
       "id": "label-handler-updates-detail-view",
       "type": "reference",
       "source": "update-demo-label-method",
@@ -2112,27 +2054,12 @@
       }
     },
     {
-      "id": "label-event-invokes-handler",
-      "type": "reference",
-      "source": "label-changed-event",
-      "target": "sync-demo-label-handler",
-      "sourceHandle": "root",
-      "targetHandle": "trigger",
-      "label": "handled by",
-      "style": {
-        "route": "curved"
-      },
-      "data": {
-        "semanticRole": "event-handler"
-      }
-    },
-    {
       "id": "label-handler-invokes-method",
       "type": "reference",
       "source": "sync-demo-label-handler",
       "target": "update-demo-label-method",
-      "sourceHandle": "result",
-      "targetHandle": "call",
+      "sourceHandle": "action-method",
+      "targetHandle": "invoke",
       "label": "invokes",
       "style": {
         "route": "curved"
