@@ -37,6 +37,9 @@ A Topic graph may compose with other templates instead of absorbing their vocabu
 
 - Preserve the modern declaration, Detail, Summary, Icon, Glyph, and Landing Surface.
 - Preserve bridge authority for every custom node type used by the graph.
+- Give each Declaration surface edge its semantic role (`default-view`, `shared-summary`, `shared-icon`, `shared-glyph`, `landing-surface`). The validator identifies the Declaration's relationships by it.
+- Give each class Bridge its `_bridge.classKey` and connect it to the nodes it authorizes with a `class-authority` edge.
+- Instantiate typed nodes from the current node classes so their ports and fields match the classes, and connect them through the classes' semantic ports (`concepts`, `claims`, `mechanism`, `perspective`, `source`, `current-synthesis`).
 - Keep graph identity consistent across graph-owned nodes.
 - Use declared ports/handles for edges.
 - Keep sources as provenance; a source does not become a claim merely because it says something.
