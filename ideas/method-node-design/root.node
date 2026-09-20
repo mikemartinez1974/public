@@ -6,8 +6,8 @@
     "graphId": "method-node-design",
     "version": "0.1.0",
     "kind": "graph",
-    "created": "2026-09-20T02:15:25.090Z",
-    "modified": "2026-09-20T02:15:25.090Z",
+    "created": "2026-09-20T03:20:05.821Z",
+    "modified": "2026-09-20T03:20:05.821Z",
     "author": "",
     "tags": [
       "idea",
@@ -265,7 +265,7 @@
           "version": "0.1.0",
           "description": "A working graph for designing a Method node as a small, reviewable contract for Event Handlers to call.",
           "nodeId": "method-node-design",
-          "updatedAt": "2026-09-20T02:15:25.090Z"
+          "updatedAt": "2026-09-20T03:20:05.821Z"
         },
         "intent": {
           "kind": "graph",
@@ -410,7 +410,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Method contract (sketch)\n\nA Method is the reusable half of \"when this happens, do that.\" The Event Handler chooses the Event and connects the Methods; the Method owns the logic, what it needs, and what it may change. Field names are illustrative.\n\n## Inputs\n\n- Named inputs read from the occurrence payload, for example `value` and `previousValue`.\n- Required by default. A missing required input fails the invocation before any code runs, naming the Method and the input.\n\n## Effects\n\n- A short list of kinds: update node, create node, delete node, edges, emit event, hand off.\n- Optional targets per kind. No target means any node in scope, and the Handler's summary says so.\n- The host refuses calls outside the list, live or dry. `allowMutations` is derived, not authored.\n\n## Context\n\n`api.invocation` is frozen and documented:\n\n- occurrence: event key, payload, occurrence and root occurrence ids\n- caller: Handler id, Method index and count, delivery id\n- mode: dry or live, and the fragment scope\n\n## Outcome\n\n- Status, result or error, duration, and the effects attempted.\n- A dry run returns the proposed effects instead of applying them.\n- The Method card shows its own last outcome and which Handler and Event caused it.\n\n## With the Event Handler\n\n- The Handler shows a read-only summary of its Methods' declared effects, derived from the Methods.\n- Methods run in edge order. One failing does not stop the rest, and each outcome is recorded separately.\n\n## Not in scope\n\nAsynchronous or long-running work, progress, cancellation, and persisted invocation history."
+          "value": "# Method contract (sketch)\n\nA Method is the reusable half of \"when this happens, do that.\" The Event Handler chooses the Event and connects the Methods; the Method owns the logic, what it needs, and what it may change. Field names are illustrative.\n\n## Method declares\n\n- **Inputs.** Named inputs read from the occurrence payload, for example `value` and `previousValue`. Required by default. A missing required input fails the Invocation before any code runs, naming the Method and the input.\n- **Effects.** A short list of kinds: update node, create node, delete node, edges, emit event, hand off, with optional targets. No target means any node in scope, and the Handler's summary says so. `allowMutations` is derived from it, not authored.\n\n## Invocation (runtime, not persisted)\n\n```text\nInvocation {\n  id\n  methodId\n  caller        Handler id, Method index and count\n  arguments\n  context       fragment scope\n  mode          dry or live\n  cause         occurrenceId, rootOccurrenceId, deliveryId\n}\n\nOutcome {\n  invocationId\n  status\n  result | error\n  attemptedEffects\n  duration\n}\n```\n\n`api.invocation` is the frozen Invocation as the source sees it. A dry run returns the proposed effects instead of applying them. The Method card shows its last Outcome and which Handler and Event caused it.\n\n## Authority\n\n```text\nMethod declares what it may do\n   and the caller has authority to do it\n   and the runtime permits it here\n=> the call runs\n```\n\nThe host is where this is enforced today, and where a Personal Server would add effects such as reading files or sending mail.\n\n## The Event Handler\n\n- Shows a read-only summary of its Methods' declared effects, derived from the Methods.\n- Runs its Methods in edge order. Continue-after-failure is the Handler's default failure policy, not part of what a Method is. Stop, retry, roll back, branch or a failure handler are later Handler policies.\n\n## Not in scope yet\n\nAsynchronous or long-running work, progress, cancellation, retries, and persisted Invocation nodes or history. Invocation has an identity so these can be added without retrofitting causality."
         },
         "interfaceContract": {
           "version": 1,
@@ -532,10 +532,10 @@
       "showLabel": false,
       "data": {
         "title": "A Method Is a Reviewable Contract",
-        "statement": "A Method node should be a small, reviewable contract: the inputs it reads from an invocation, the effects it is allowed to have, a documented invocation context, and a recorded outcome. That is enough for an Event Handler to call it safely, for a reviewer to see what it will do without reading its source, and for a dry run to show what would change.",
+        "statement": "A Method should be a small, reviewable contract: the inputs it reads, the effects it is allowed to have, and the outcome it reports. Each call is an Invocation, an explicit runtime entity with its own identity that is not persisted in the graph, so its outcome and effects can be correlated with the Event occurrence that caused it. That is enough for an Event Handler to call a Method safely, for a reviewer to see what it will do without reading its source, and for a dry run to show what would change.",
         "status": "framed",
         "confidence": "unproven",
-        "notes": "Deliberately narrow: it covers a Method that an Event Handler invokes once per occurrence and that finishes, not asynchronous or long-running work. It builds on What an Event Handler Node Should Do (github://mikemartinez1974/public/ideas/event-handler-behavior/root.node), where the Handler owns the Event and the Method owns logic, mutation authority, and declared effects. The wider Methods topic is github://mikemartinez1974/public/topics/twilite-scripting-system/methods/root.node.",
+        "notes": "Deliberately narrow: it covers a Method that an Event Handler invokes once per occurrence and that finishes, not asynchronous or long-running work. Invocation stays lightweight and ephemeral for now, but it has an identity from the start so lifecycle, progress, cancellation, persistence and retries can be added later without retrofitting causality. What happens after a Method fails is the Handler's composition policy, not part of what a Method is. It builds on What an Event Handler Node Should Do (github://mikemartinez1974/public/ideas/event-handler-behavior/root.node); the wider Methods topic is github://mikemartinez1974/public/topics/twilite-scripting-system/methods/root.node.",
         "definitionKey": "idea",
         "_classBinding": {
           "key": "idea",
@@ -1676,7 +1676,7 @@
     {
       "id": "method-node-design-idea-proposed-approach",
       "type": "idea-proposed-approach",
-      "label": "Inputs, Effects, Context, Outcome",
+      "label": "Inputs, Effects, Invocation, Outcome",
       "root": false,
       "position": {
         "x": 560,
@@ -1728,9 +1728,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Give the Method four small, honest parts",
-        "description": "Inputs: a short list of named inputs read from the occurrence payload by name; a missing required input fails the invocation before any code runs and names the input. Effects: a short list of coarse kinds the Method may perform (update node, create node, delete node, edges, emit event, hand off), each with optional target nodes; the host refuses calls outside the list, and allowMutations becomes derived from it. Context: api.invocation is documented as the stable, frozen context, made of the occurrence (event key, payload, ids), the caller (Handler id, Method index and count), and the mode (dry or live). Outcome: every invocation records status, result or error, duration, and the effects it attempted; a dry run returns the proposed effects instead of applying them. The Method card shows its own last outcome, and the Handler shows a read-only summary of its Methods' declared effects.",
-        "differentiator": "Small enough to write by hand, and enforced at the one place every mutation already passes through, so a declaration is a limit and not only a description. It is not an execution engine: what runs the source stays as it is.",
+        "title": "Give the Method a contract and each call an identity",
+        "description": "Inputs: a short list of named inputs read from the occurrence payload by name; a missing required input fails the Invocation before any code runs and names the input. Effects: a short list of coarse kinds the Method may perform (update node, create node, delete node, edges, emit event, hand off), each with optional target nodes; the host refuses calls outside the list, and allowMutations becomes derived from it. Invocation: every call is an explicit runtime entity with an id, the Method, the caller (Handler and position), the arguments, the mode (dry or live), and its cause (occurrence, root occurrence and delivery), exposed to the source as the frozen api.invocation. It is not persisted as a node. Outcome: each Invocation reports status, result or error, duration and attempted effects, keyed by the invocation id; a dry run returns the proposed effects instead of applying them. Authority: a call runs only where what the Method declares, what the caller may do, and what the runtime permits all agree. The Method card shows its last outcome, and the Handler shows a read-only summary of its Methods' declared effects.",
+        "differentiator": "Small enough to write by hand, enforced at the one place every mutation already passes through, so a declaration is a limit and not only a description. Identity now and lifecycle later: the effects of one Invocation can be followed to the Event they emit, which answers why something happened.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
           "key": "idea-proposed-approach",
@@ -3666,7 +3666,7 @@
     {
       "id": "method-node-design-idea-alternative",
       "type": "idea-alternative",
-      "label": "Model Full Invocations",
+      "label": "Persist Invocations With a Lifecycle",
       "root": false,
       "position": {
         "x": 1160,
@@ -3702,9 +3702,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Make every call a first-class Invocation with a lifecycle",
-        "description": "Give each call an identity and a lifecycle (requested, authorized, running, succeeded, failed, cancelled) with progress, cancellation, and persisted results, as sketched in the discussion on the Methods topic.",
-        "tradeoffs": "The right shape for asynchronous or long-running behavior and for tracing across graphs, but a runtime and storage design of its own. A Handler-invoked Method that finishes does not need it yet. Keep the outcome record shaped so it can grow into one.",
+        "title": "Persist Invocation nodes and a full lifecycle now",
+        "description": "Store each call as a graph node with a lifecycle (requested, authorized, running, succeeded, failed, cancelled), progress, cancellation and history, as sketched in the discussion on the Methods topic.",
+        "tradeoffs": "The right shape for long-running Personal Server Methods and for tracing across graphs, but it is a storage and runtime design of its own. Handler-invoked Methods that finish do not need it yet. What they do need is the identity, which is why it is kept: Invocation is explicit now, and persistence and lifecycle are what is deferred.",
         "definitionKey": "idea-alternative",
         "_classBinding": {
           "key": "idea-alternative",
@@ -4399,8 +4399,8 @@
       "label": "Gate One Effect Family",
       "root": false,
       "position": {
-        "x": -1180,
-        "y": 260
+        "x": -1780,
+        "y": 1560
       },
       "width": 400,
       "height": 300,
@@ -5589,7 +5589,7 @@
         "semanticLevel": "detail",
         "content": {
           "kind": "markdown",
-          "value": "# A Solid Method Node\n\nA Method should be a small, reviewable contract: what it reads, what it may change, the context it runs in, and what happened. That is enough for an Event Handler to call it safely and for a dry run to show what would change.\n\nThis builds on the Event Handler behavior idea, `github://mikemartinez1974/public/ideas/event-handler-behavior/root.node`."
+          "value": "# A Solid Method Node\n\nA Method should be a small, reviewable contract: what it reads, what it may change, and what it reports. Each call is an explicit, ephemeral Invocation with an identity, so its Outcome and effects can be traced to the Event that caused it. What happens after a failure is the Handler's policy.\n\nThis builds on the Event Handler behavior idea, `github://mikemartinez1974/public/ideas/event-handler-behavior/root.node`."
         },
         "interfaceContract": {
           "version": 1,
@@ -5679,7 +5679,7 @@
         "semanticLevel": "summary",
         "content": {
           "kind": "markdown",
-          "value": "## A reviewable contract\n\nInputs, effects, a documented context, and a recorded outcome, so a Handler can call a Method safely."
+          "value": "## A reviewable contract\n\nInputs, effects and an Outcome, with an ephemeral Invocation that has an identity."
         },
         "interfaceContract": {
           "version": 1,
@@ -5832,7 +5832,7 @@
     {
       "id": "method-node-design-assumption-context",
       "type": "idea-assumption",
-      "label": "One Documented Context Is Enough",
+      "label": "Invocation Can Stay Ephemeral",
       "root": false,
       "position": {
         "x": -700,
@@ -5916,8 +5916,8 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "A documented invocation context is enough for Handler-invoked Methods",
-        "statement": "For a Method that a Handler calls once per occurrence and that finishes, a frozen, documented context is all it needs. It does not need a first-class Invocation node, a lifecycle, progress, or cancellation.",
+        "title": "A lightweight, ephemeral Invocation with an identity is enough for now",
+        "statement": "For a Method that a Handler calls once per occurrence and that finishes, an Invocation needs an id, a caller, arguments, context and mode, and an Outcome keyed to it. It does not need a persisted Invocation node, a lifecycle, progress, cancellation or history yet, and adding them later will not require changing what identifies it.",
         "importance": "high",
         "status": "untested",
         "definitionKey": "idea-assumption",
@@ -6042,13 +6042,339 @@
       ]
     },
     {
+      "id": "method-node-design-assumption-policy",
+      "type": "idea-assumption",
+      "label": "Failure Policy Belongs to the Handler",
+      "root": false,
+      "position": {
+        "x": -1180,
+        "y": 1120
+      },
+      "width": 400,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "assumed-by",
+          "key": "assumed-by",
+          "label": "assumed by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "questioned-by",
+          "key": "questioned-by",
+          "label": "questioned by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "supported-by",
+          "key": "supported-by",
+          "label": "supported by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "tested-by",
+          "key": "tested-by",
+          "label": "tested by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 90,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "What happens after a Method fails is Handler composition policy",
+        "statement": "A Method only knows it was invoked and what happened. Whether the next Method runs after a failure (continue, stop, retry, roll back, branch, call a failure handler) belongs to whatever composes the Methods, so the Method contract stays the same as policies grow. Continue-on-failure is a fine Handler default for now.",
+        "importance": "medium",
+        "status": "untested",
+        "definitionKey": "idea-assumption",
+        "_classBinding": {
+          "key": "idea-assumption",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
+          "defaults": {
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ],
+            "data": {
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "PsychologyAlt"
+                }
+              }
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "idea-assumption",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
+          "targetKind": "node-class"
+        },
+        "identity": {
+          "graphId": "method-node-design"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "PsychologyAlt"
+          }
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "assumed-by",
+          "key": "assumed-by",
+          "label": "assumed by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "assumed-by",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "questioned-by",
+          "key": "questioned-by",
+          "label": "questioned by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "questioned-by",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "supported-by",
+          "key": "supported-by",
+          "label": "supported by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "supported-by",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "tested-by",
+          "key": "tested-by",
+          "label": "tested by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 90,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "tested-by",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ]
+    },
+    {
+      "id": "method-node-design-evidence-identity",
+      "type": "idea-evidence",
+      "label": "The Call Already Has Everything but an Id",
+      "root": false,
+      "position": {
+        "x": -220,
+        "y": 1120
+      },
+      "width": 400,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "supports",
+          "key": "supports",
+          "label": "supports",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "api.invocation already describes an Invocation, without an identity",
+        "observation": "The frozen api.invocation object the runner hands the source already carries the occurrence and root occurrence ids, the delivery id, the Handler, the Method and its position, the fragment, and the dry and mutation flags. It has no id of its own, so an Outcome or an attempted effect cannot be attached to one call. Occurrence emission already records its cause and root occurrence, so a Method that emits an event continues the chain, but only through the occurrence ids.",
+        "kind": "code-inspection",
+        "strength": "strong",
+        "definitionKey": "idea-evidence",
+        "_classBinding": {
+          "key": "idea-evidence",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "defaults": {
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ],
+            "data": {
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "FactCheck"
+                }
+              }
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "idea-evidence",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "targetKind": "node-class"
+        },
+        "identity": {
+          "graphId": "method-node-design"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "FactCheck"
+          }
+        },
+        "citationSourceId": "github://TwiliteLLC/twilite/components/GraphEditor/Scripting/ScriptRunner.js"
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "supports",
+          "key": "supports",
+          "label": "supports",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "supports",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ]
+    },
+    {
       "id": "method-node-design-next-step-reuse",
       "type": "idea-next-step",
       "label": "Reuse One Method Twice",
       "root": false,
       "position": {
         "x": -220,
-        "y": 700
+        "y": 1560
       },
       "width": 400,
       "height": 300,
@@ -6097,8 +6423,8 @@
       "showLabel": false,
       "data": {
         "title": "Call one Method from two Handlers with different payloads",
-        "action": "Connect one Method to two Event Handlers whose events carry differently shaped payloads. Read inputs by name from the documented context, and omit a required input on one of them.",
-        "expectedEvidence": "Both Handlers run the Method cleanly, and the missing input fails that invocation with a message naming the Method and the input, with no Invocation node or lifecycle needed.",
+        "action": "Connect one Method to two Event Handlers whose events carry differently shaped payloads. Declare its inputs and read them by name from the invocation, and omit a required input on one of them.",
+        "expectedEvidence": "Both Handlers run the Method cleanly, and the missing input fails that Invocation with a message naming the Method and the input, with no persisted Invocation node or lifecycle needed.",
         "status": "todo",
         "definitionKey": "idea-next-step",
         "_classBinding": {
@@ -6186,6 +6512,482 @@
           }
         }
       ]
+    },
+    {
+      "id": "method-node-design-next-step-identity",
+      "type": "idea-next-step",
+      "label": "Give Every Call an Identity",
+      "root": false,
+      "position": {
+        "x": -700,
+        "y": 1560
+      },
+      "width": 400,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "tests",
+          "key": "tests",
+          "label": "tests",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "guidance",
+          "key": "guidance",
+          "label": "Guidance",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "Introduce an ephemeral Invocation with an Outcome",
+        "action": "Create an Invocation id for every Method call and put it in api.invocation with the caller, arguments, mode and cause (occurrence, root occurrence, delivery). Return an Outcome keyed by that id with status, result or error, duration and attempted effects. Persist nothing in the graph.",
+        "expectedEvidence": "From one property change, a single diagnostic can list occurrence, delivery, Handler, Invocation and Outcome by id, including the event that the Method emitted in turn, without adding a lifecycle, progress, cancellation or history.",
+        "status": "todo",
+        "definitionKey": "idea-next-step",
+        "_classBinding": {
+          "key": "idea-next-step",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
+          "defaults": {
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ],
+            "data": {
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "ArrowForward"
+                }
+              }
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "idea-next-step",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
+          "targetKind": "node-class"
+        },
+        "identity": {
+          "graphId": "method-node-design"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "ArrowForward"
+          }
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "tests",
+          "key": "tests",
+          "label": "tests",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "tests",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "guidance",
+          "key": "guidance",
+          "label": "Guidance",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "guidance",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ]
+    },
+    {
+      "id": "method-node-design-next-step-policy",
+      "type": "idea-next-step",
+      "label": "Move Failure Policy to the Handler",
+      "root": false,
+      "position": {
+        "x": -1180,
+        "y": 1560
+      },
+      "width": 400,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "tests",
+          "key": "tests",
+          "label": "tests",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "guidance",
+          "key": "guidance",
+          "label": "Guidance",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "Make continue-after-failure an explicit Handler policy",
+        "action": "Name the current behavior, where one failing Method does not stop the rest, as the Handler's default failure policy, and record each Method's outcome separately against its own Invocation. The Method contract does not change.",
+        "expectedEvidence": "The Handler reports per-Method outcomes and its policy without any Method knowing about its siblings, and adding a second policy such as stop-on-failure changes only the Handler.",
+        "status": "todo",
+        "definitionKey": "idea-next-step",
+        "_classBinding": {
+          "key": "idea-next-step",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
+          "defaults": {
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ],
+            "data": {
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "ArrowForward"
+                }
+              }
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "idea-next-step",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
+          "targetKind": "node-class"
+        },
+        "identity": {
+          "graphId": "method-node-design"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "ArrowForward"
+          }
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "tests",
+          "key": "tests",
+          "label": "tests",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "tests",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "guidance",
+          "key": "guidance",
+          "label": "Guidance",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "guidance",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ]
+    },
+    {
+      "id": "method-node-design-task-method-effects-gate",
+      "type": "portal",
+      "label": "Gate One Effect Family (Tasks)",
+      "position": {
+        "x": -1750,
+        "y": 2000
+      },
+      "width": 340,
+      "height": 220,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "memo": "Task graph that carries out this next step.",
+        "authority": "navigate",
+        "intent": "external",
+        "src": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
+        "ref": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
+        "endpoint": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
+        "sourceRef": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
+        "sourceNodeId": "method-effects-gate-summary-view",
+        "sourcePayload": "node.web.summary",
+        "surfaceId": "root",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "root",
+          "label": "Open task graph"
+        },
+        "visibilityRole": "browser",
+        "presentationBaseLevel": "summary",
+        "identity": {
+          "graphId": "method-node-design"
+        }
+      }
+    },
+    {
+      "id": "method-node-design-task-handler-method-failure-policy",
+      "type": "portal",
+      "label": "Move Failure Policy to the Handler (Tasks)",
+      "position": {
+        "x": -1150,
+        "y": 2000
+      },
+      "width": 340,
+      "height": 220,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "memo": "Task graph that carries out this next step.",
+        "authority": "navigate",
+        "intent": "external",
+        "src": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
+        "ref": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
+        "endpoint": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
+        "sourceRef": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
+        "sourceNodeId": "handler-method-failure-policy-summary-view",
+        "sourcePayload": "node.web.summary",
+        "surfaceId": "root",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "root",
+          "label": "Open task graph"
+        },
+        "visibilityRole": "browser",
+        "presentationBaseLevel": "summary",
+        "identity": {
+          "graphId": "method-node-design"
+        }
+      }
+    },
+    {
+      "id": "method-node-design-task-method-invocation-identity",
+      "type": "portal",
+      "label": "Give Every Call an Identity (Tasks)",
+      "position": {
+        "x": -670,
+        "y": 2000
+      },
+      "width": 340,
+      "height": 220,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "memo": "Task graph that carries out this next step.",
+        "authority": "navigate",
+        "intent": "external",
+        "src": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
+        "ref": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
+        "endpoint": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
+        "sourceRef": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
+        "sourceNodeId": "method-invocation-identity-summary-view",
+        "sourcePayload": "node.web.summary",
+        "surfaceId": "root",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "root",
+          "label": "Open task graph"
+        },
+        "visibilityRole": "browser",
+        "presentationBaseLevel": "summary",
+        "identity": {
+          "graphId": "method-node-design"
+        }
+      }
+    },
+    {
+      "id": "method-node-design-task-method-reuse-two-handlers",
+      "type": "portal",
+      "label": "Reuse One Method Twice (Tasks)",
+      "position": {
+        "x": -190,
+        "y": 2000
+      },
+      "width": 340,
+      "height": 220,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "memo": "Task graph that carries out this next step.",
+        "authority": "navigate",
+        "intent": "external",
+        "src": "github://mikemartinez1974/public/tasks/method-reuse-two-handlers/root.node",
+        "ref": "github://mikemartinez1974/public/tasks/method-reuse-two-handlers/root.node",
+        "endpoint": "github://mikemartinez1974/public/tasks/method-reuse-two-handlers/root.node",
+        "sourceRef": "github://mikemartinez1974/public/tasks/method-reuse-two-handlers/root.node",
+        "sourceNodeId": "method-reuse-two-handlers-summary-view",
+        "sourcePayload": "node.web.summary",
+        "surfaceId": "root",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/method-reuse-two-handlers/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "root",
+          "label": "Open task graph"
+        },
+        "visibilityRole": "browser",
+        "presentationBaseLevel": "summary",
+        "identity": {
+          "graphId": "method-node-design"
+        }
+      }
     }
   ],
   "edges": [
@@ -6671,6 +7473,182 @@
       "data": {},
       "sourceHandle": "guidance",
       "targetHandle": "guided-by"
+    },
+    {
+      "id": "method-node-design-idea-assumes-policy",
+      "type": "reference",
+      "source": "method-node-design-idea",
+      "target": "method-node-design-assumption-policy",
+      "label": "assumes",
+      "style": {
+        "curved": false,
+        "stroke": "#d97706",
+        "strokeWidth": 3,
+        "dash": [
+          8,
+          5
+        ],
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.assumes",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
+        "semanticRole": "idea.assumes",
+        "edgeClassMeaning": "source depends on the target assumption being true"
+      },
+      "sourceHandle": "assumes",
+      "targetHandle": "assumed-by"
+    },
+    {
+      "id": "method-node-design-evidence-identity-supports",
+      "type": "reference",
+      "source": "method-node-design-evidence-identity",
+      "target": "method-node-design-assumption-context",
+      "label": "supports",
+      "style": {
+        "curved": false,
+        "stroke": "#059669",
+        "strokeWidth": 3,
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.supports",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
+        "semanticRole": "idea.supports",
+        "edgeClassMeaning": "source evidence increases confidence in the target"
+      },
+      "sourceHandle": "supports",
+      "targetHandle": "supported-by"
+    },
+    {
+      "id": "method-node-design-next-step-identity-tests",
+      "type": "reference",
+      "source": "method-node-design-next-step-identity",
+      "target": "method-node-design-assumption-context",
+      "label": "tests",
+      "style": {
+        "curved": false,
+        "stroke": "#16a34a",
+        "strokeWidth": 3,
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.tests",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
+        "semanticRole": "idea.tests",
+        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+      },
+      "sourceHandle": "tests",
+      "targetHandle": "tested-by"
+    },
+    {
+      "id": "method-node-design-next-step-policy-tests",
+      "type": "reference",
+      "source": "method-node-design-next-step-policy",
+      "target": "method-node-design-assumption-policy",
+      "label": "tests",
+      "style": {
+        "curved": false,
+        "stroke": "#16a34a",
+        "strokeWidth": 3,
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.tests",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
+        "semanticRole": "idea.tests",
+        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+      },
+      "sourceHandle": "tests",
+      "targetHandle": "tested-by"
+    },
+    {
+      "id": "method-node-design-tracked-method-effects-gate",
+      "type": "reference",
+      "source": "method-node-design-idea-next-step",
+      "target": "method-node-design-task-method-effects-gate",
+      "label": "tracked by",
+      "style": {
+        "curved": false,
+        "dash": [
+          6,
+          6
+        ],
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "relation": "task-projection"
+      },
+      "sourceHandle": "root",
+      "targetHandle": "root"
+    },
+    {
+      "id": "method-node-design-tracked-handler-method-failure-policy",
+      "type": "reference",
+      "source": "method-node-design-next-step-policy",
+      "target": "method-node-design-task-handler-method-failure-policy",
+      "label": "tracked by",
+      "style": {
+        "curved": false,
+        "dash": [
+          6,
+          6
+        ],
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "relation": "task-projection"
+      },
+      "sourceHandle": "root",
+      "targetHandle": "root"
+    },
+    {
+      "id": "method-node-design-tracked-method-invocation-identity",
+      "type": "reference",
+      "source": "method-node-design-next-step-identity",
+      "target": "method-node-design-task-method-invocation-identity",
+      "label": "tracked by",
+      "style": {
+        "curved": false,
+        "dash": [
+          6,
+          6
+        ],
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "relation": "task-projection"
+      },
+      "sourceHandle": "root",
+      "targetHandle": "root"
+    },
+    {
+      "id": "method-node-design-tracked-method-reuse-two-handlers",
+      "type": "reference",
+      "source": "method-node-design-next-step-reuse",
+      "target": "method-node-design-task-method-reuse-two-handlers",
+      "label": "tracked by",
+      "style": {
+        "curved": false,
+        "dash": [
+          6,
+          6
+        ],
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "relation": "task-projection"
+      },
+      "sourceHandle": "root",
+      "targetHandle": "root"
     }
   ],
   "clusters": [],
@@ -6714,7 +7692,7 @@
     "autoSave": false
   },
   "scripts": [],
-  "timestamp": "2026-09-20T02:15:25.090Z",
-  "nodeCount": 40,
-  "edgeCount": 28
+  "timestamp": "2026-09-20T03:20:05.821Z",
+  "nodeCount": 48,
+  "edgeCount": 36
 }
