@@ -412,7 +412,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Gesture contract (sketch)\n\nThe rules, as input by target, after Michael's decisions: zoom is about the middle of the screen, and the plain wheel zooms the camera when nothing under the pointer can scroll.\n\n## Zoom gestures\n\n| Input | What happens |\n|---|---|\n| Ctrl or Cmd + wheel | Camera zoom about the screen centre, wherever the pointer is. Page zoom is prevented. |\n| Trackpad pinch (a wheel with ctrl set) | Same as Ctrl + wheel. |\n| Ctrl or Cmd + plus | Camera zoom in one step (a factor of 1.2). |\n| Ctrl or Cmd + minus | Camera zoom out one step. |\n| Ctrl or Cmd + zero | Camera zoom back to 1. |\n| Browser-menu zoom | Cannot be intercepted. Left alone. |\n\n## The plain wheel\n\n| Pointer is over | What happens |\n|---|---|\n| A surface that can scroll in that direction | That surface scrolls. |\n| A surface whose inner region is at its end, with an outer region that can scroll | The outer region scrolls (scroll chaining). |\n| A surface at the end of its scroll, or one with nothing to scroll | The camera zooms. |\n| Empty canvas | The camera zooms. |\n| A page view drawn behind the workspace | It scrolls when it can, then the camera zooms. |\n| Embedded content the page cannot read | The frame keeps the wheel (open question). |\n| Shift + wheel | Horizontal scroll, then horizontal pan. Not built. |\n\n## Latching\n\nA gesture should belong to the surface it started on until it pauses, so a flick that reaches the end of a page does not jump to the camera partway through. Not built yet.\n\n## Not in scope\n\nTouch panning and pinch on touch screens, the zoom controls themselves, and the semantic levels that depend on zoom."
+          "value": "# Gesture contract (sketch)\n\nThe rules, as input by target, after Michael's decisions: zoom is about the middle of the screen, and the plain wheel zooms the camera when nothing under the pointer can scroll.\n\nThe rules live in one place: components/NodeGraph/wheelContract.js, an ordered list where the first matching rule decides, with the scenarios tested as data.\n\n## Zoom gestures\n\n| Input | What happens |\n|---|---|\n| Ctrl or Cmd + wheel | Camera zoom about the screen centre, wherever the pointer is. Page zoom is prevented. |\n| Trackpad pinch (a wheel with ctrl set) | Same as Ctrl + wheel. |\n| Ctrl or Cmd + plus | Camera zoom in one step (a factor of 1.2). |\n| Ctrl or Cmd + minus | Camera zoom out one step. |\n| Ctrl or Cmd + zero | Camera zoom back to 1. |\n| Browser-menu zoom | Cannot be intercepted. Left alone. |\n\n## The plain wheel\n\n| Pointer is over | What happens |\n|---|---|\n| A surface that can scroll in that direction | That surface scrolls. |\n| A surface whose inner region is at its end, with an outer region that can scroll | The outer region scrolls (scroll chaining). |\n| A surface at the end of its scroll, or one with nothing to scroll | The camera zooms. |\n| Empty canvas | The camera zooms. |\n| A page view drawn behind the workspace | It scrolls when it can, then the camera zooms. |\n| Embedded content the page cannot read | The frame keeps the wheel (open question). |\n| Shift + wheel | Horizontal scroll, then horizontal pan. Not built. |\n\n## Latching\n\nA gesture should belong to the surface it started on until it pauses, so a flick that reaches the end of a page does not jump to the camera partway through. Not built yet.\n\n## Not in scope\n\nTouch panning and pinch on touch screens, the zoom controls themselves, and the semantic levels that depend on zoom."
         },
         "interfaceContract": {
           "version": 1,
@@ -5591,7 +5591,7 @@
         "semanticLevel": "detail",
         "content": {
           "kind": "markdown",
-          "value": "# The Camera Behaves Like the Browser\n\nZoom in the browser zooms the camera, and the wheel acts on the surface under the pointer the way it does on the web: it scrolls that surface if it can, and when nothing there can scroll, the camera takes the wheel and zooms about the middle of the screen.\n\n**Built:** Ctrl+wheel, pinch and the Ctrl plus, minus and zero keys drive the camera. A page view at workspace level scrolls. A card with nothing to scroll no longer swallows the wheel. A test bench checks each case.\n\n**Still open:** latching a gesture to its surface, the contract as one table in the arbiter, menu zoom, and frames the page cannot read."
+          "value": "# The Camera Behaves Like the Browser\n\nZoom in the browser zooms the camera, and the wheel acts on the surface under the pointer the way it does on the web: it scrolls that surface if it can, and when nothing there can scroll, the camera takes the wheel and zooms about the middle of the screen.\n\n**Built:** Ctrl+wheel, pinch and the Ctrl plus, minus and zero keys drive the camera. A page view at workspace level scrolls. A card with nothing to scroll no longer swallows the wheel. A test bench checks each case.\n\n**The contract is now one ordered list** in wheelContract.js, asked by the canvas, the frames and the nodes, and tested as data.\n\n**Still open:** latching a gesture to its surface, menu zoom, and frames the page cannot read."
         },
         "interfaceContract": {
           "version": 1,
@@ -7595,9 +7595,9 @@
       "showLabel": false,
       "data": {
         "title": "Write the gesture contract as data with tests",
-        "action": "Put the input by target table into the interaction arbiter as data (wheel, Ctrl+wheel, keyboard zoom, shift+wheel; scroll region, canvas, embedded content, frame) and cover it with unit tests, replacing the separate wheel listeners in FixedNode and PersistentIframe with calls to it. The rules exist in code now, spread across PanZoomLayer, FixedNode and the arbiter.",
-        "expectedEvidence": "One table decides every wheel event, the tests pass, and the separate listeners are gone.",
-        "status": "todo",
+        "action": "The rules are one ordered list in components/NodeGraph/wheelContract.js (zoom gesture, surface scrolls, embedded content, page view scrolls, camera), decided by one function, and the canvas handler, the frame handler and the nodes all ask it. The listener that FixedNode kept on its own is gone.",
+        "expectedEvidence": "One table decides every wheel event, its scenarios are unit tests that mirror the bench cases, the tests pass, and no separate wheel listener keeps rules of its own. After the change the bench script still matched 11 of 11 and real wheel input gave the same numbers as before.",
+        "status": "done",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",
@@ -9039,7 +9039,7 @@
     "autoSave": false
   },
   "scripts": [],
-  "timestamp": "2026-09-20T22:07:42.830Z",
+  "timestamp": "2026-09-20T23:24:21.947Z",
   "nodeCount": 54,
   "edgeCount": 44
 }
