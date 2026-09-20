@@ -1,28 +1,27 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "A Solid Method Node",
-    "description": "Design a small, reviewable Method node that works well when an Event Handler invokes it: inputs, effects, invocation context, and outcome.",
-    "graphId": "method-node-design",
+    "title": "The Bridge Editor",
+    "description": "Put everything a Bridge does, including the events it exposes and consumes and the reactions to them, in the Bridge's own editor.",
+    "graphId": "bridge-editor",
     "version": "0.1.0",
     "kind": "graph",
-    "created": "2026-09-20T03:20:05.821Z",
-    "modified": "2026-09-20T07:02:13.807Z",
+    "created": "2026-09-20T06:59:53.107Z",
+    "modified": "2026-09-20T06:59:53.107Z",
     "author": "",
     "tags": [
       "idea",
-      "method",
-      "events",
-      "scripting",
-      "contract"
+      "bridges",
+      "editor",
+      "events"
     ],
     "preferredViewer": "https://dev.twilite.zone"
   },
   "nodes": [
     {
-      "id": "method-node-design-declaration",
+      "id": "bridge-editor-declaration",
       "type": "declaration",
-      "label": "A Solid Method Node",
+      "label": "The Bridge Editor",
       "root": false,
       "position": {
         "x": -900,
@@ -260,12 +259,12 @@
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "method-node-design",
-          "name": "A Solid Method Node",
+          "graphId": "bridge-editor",
+          "name": "The Bridge Editor",
           "version": "0.1.0",
-          "description": "A working graph for designing a Method node as a small, reviewable contract for Event Handlers to call.",
-          "nodeId": "method-node-design",
-          "updatedAt": "2026-09-20T03:20:05.821Z"
+          "description": "Put everything a Bridge does, including the events it exposes and consumes and the reactions to them, in the Bridge's own editor.",
+          "nodeId": "bridge-editor",
+          "updatedAt": "2026-09-20T06:59:53.107Z"
         },
         "intent": {
           "kind": "graph",
@@ -362,14 +361,14 @@
           "autoSave": false
         },
         "document": {
-          "url": "github://mikemartinez1974/public/ideas/method-node-design/root.node"
+          "url": "github://mikemartinez1974/public/ideas/bridge-editor/root.node"
         }
       }
     },
     {
-      "id": "method-node-design-instructions",
+      "id": "bridge-editor-instructions",
       "type": "content",
-      "label": "Method Contract Sketch",
+      "label": "Bridge Editor Sketch",
       "root": false,
       "position": {
         "x": -2060,
@@ -406,11 +405,11 @@
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "content": {
           "kind": "markdown",
-          "value": "# Method contract (sketch)\n\nA Method is the reusable half of \"when this happens, do that.\" The Event Handler chooses the Event and connects the Methods; the Method owns the logic, what it needs, and what it may change. Field names are illustrative.\n\n## Method declares\n\n- **Inputs.** Named inputs read from the occurrence payload, for example `value` and `previousValue`. Required by default. A missing required input fails the Invocation before any code runs, naming the Method and the input.\n- **Effects.** A short list of kinds: update node, create node, delete node, edges, emit event, hand off, with optional targets. No target means any node in scope, and the Handler's summary says so. `allowMutations` is derived from it, not authored.\n\n## Invocation (runtime, not persisted)\n\n```text\nInvocation {\n  id\n  methodId\n  caller        Handler id, Method index and count\n  arguments\n  context       fragment scope\n  mode          dry or live\n  cause         occurrenceId, rootOccurrenceId, deliveryId\n}\n\nOutcome {\n  invocationId\n  status\n  result | error\n  attemptedEffects\n  duration\n}\n```\n\n`api.invocation` is the frozen Invocation as the source sees it. A dry run returns the proposed effects instead of applying them. The Method card shows its last Outcome and which Handler and Event caused it.\n\n## Authority\n\n```text\nMethod declares what it may do\n   and the caller has authority to do it\n   and the runtime permits it here\n=> the call runs\n```\n\nThe host is where this is enforced today, and where a Personal Server would add effects such as reading files or sending mail.\n\n## The Event Handler\n\n- Shows a read-only summary of its Methods' declared effects, derived from the Methods.\n- Runs its Methods in edge order. Continue-after-failure is the Handler's default failure policy, not part of what a Method is. Stop, retry, roll back, branch or a failure handler are later Handler policies.\n\n## Not in scope yet\n\nAsynchronous or long-running work, progress, cancellation, retries, and persisted Invocation nodes or history. Invocation has an identity so these can be added without retrofitting causality."
+          "value": "# Bridge Editor (sketch)\n\nThe editor a Bridge node opens with its pencil. Sections are illustrative.\n\n## Export Bridge\n\n- **Target:** the graph this Bridge exports to, and its role.\n- **What it exposes:** views, resources and declarations, as today.\n- **Events:** a checkbox for each event this graph declares, and one row per class with its members underneath. Exposure keys for events that no longer exist are kept, with a Forget action.\n- **Effective exposure:** what a neighbor can actually see.\n- **Status:** what is missing and why.\n\n## Import Bridge\n\n- **Target:** the neighbor this Bridge consumes.\n- **What the neighbor exposes:** read live from the neighbor.\n- **Events:** for each exposed event (or class), the Handler that answers it, chosen from Handlers in this graph, with the subscription stored on this Bridge.\n- **Unresolved subscriptions:** kept as authored, with the reason and an explicit Remove.\n- **Status:** what is missing and why.\n\n## The Properties panel\n\nGeneric node concerns only, plus a link that opens the Bridge Editor.\n\n## One data path\n\nExposure and subscriptions are written only through the existing planners, so the Bridge Editor and the Handler editor cannot disagree."
         },
         "interfaceContract": {
           "version": 1,
@@ -445,9 +444,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea",
+      "id": "bridge-editor-idea",
       "type": "idea",
-      "label": "A Method Is a Reviewable Contract",
+      "label": "A Bridge Is Edited on the Bridge",
       "root": false,
       "position": {
         "x": -220,
@@ -531,11 +530,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "A Method Is a Reviewable Contract",
-        "statement": "A Method should be a small, reviewable contract: the inputs it reads, the effects it is allowed to have, and the outcome it reports. Each call is an Invocation, an explicit runtime entity with its own identity that is not persisted in the graph, so its outcome and effects can be correlated with the Event occurrence that caused it. That is enough for an Event Handler to call a Method safely, for a reviewer to see what it will do without reading its source, and for a dry run to show what would change.",
+        "title": "A Bridge Is Edited on the Bridge",
+        "statement": "Everything a Bridge does should be editable from the Bridge's own editor, the one its pencil opens: its target and role, what it exposes, what it consumes, and how the graph reacts to the Events that cross it. The Properties panel goes back to generic node concerns. Export and import Bridges get sections shaped to their role, with diagnostics that say what is missing and why.",
         "status": "framed",
         "confidence": "unproven",
-        "notes": "Deliberately narrow: it covers a Method that an Event Handler invokes once per occurrence and that finishes, not asynchronous or long-running work. Invocation stays lightweight and ephemeral for now, but it has an identity from the start so lifecycle, progress, cancellation, persistence and retries can be added later without retrofitting causality. What happens after a Method fails is the Handler's composition policy, not part of what a Method is. It builds on What an Event Handler Node Should Do (github://mikemartinez1974/public/ideas/event-handler-behavior/root.node); the wider Methods topic is github://mikemartinez1974/public/topics/twilite-scripting-system/methods/root.node.",
+        "notes": "Events and their reactions are the newest thing a Bridge does. They follow github://mikemartinez1974/public/tasks/bridge-owned-event-subscriptions/root.node, where Import Bridges own subscriptions and Export Bridges own exposure.",
         "definitionKey": "idea",
         "_classBinding": {
           "key": "idea",
@@ -570,7 +569,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "presentation": {
           "glyph": {
@@ -658,7 +657,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea",
+      "id": "bridge-editor-bridge-idea",
       "type": "bridge",
       "label": "Idea",
       "root": false,
@@ -841,7 +840,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "intent": "external",
         "memo": "Create and resolve Idea nodes in this graph.",
@@ -912,9 +911,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-problem",
+      "id": "bridge-editor-idea-problem",
       "type": "idea-problem",
-      "label": "A Method Is a Script With a Nametag",
+      "label": "Bridge Behavior Is Scattered",
       "root": false,
       "position": {
         "x": -940,
@@ -967,9 +966,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "A Method Is a Script With a Nametag",
-        "statement": "A Method node today is a name, some source, a parameters list of labels, and an allowMutations flag. The runner gives its source a frozen api.invocation object and takes the return value as the result. Nothing states what the Method needs, what it may change, or what happened when it ran. The flag that looks like a safety setting is not one: outside dry runs the host applies calls such as updateNode and createNode whether or not allowMutations is set. Only dry runs consult it, and only sendHandoff refuses without it.",
-        "impact": "The Handler editor can only say \"Read-only execution\" or \"May update graph state\" from that flag, which promises more than the runtime enforces. A reviewer cannot tell what a Method touches, one Method cannot be reused safely from Handlers with differently shaped events, and a dry run has nothing to be checked against.",
+        "title": "Bridge behavior is scattered",
+        "statement": "The Bridge's own editor (a hosted Bridge Editor) shows a label, a note and a Bridge Status block with the resolved target and effective exposure. Grants, exposure families and the Events UI live in the Properties panel instead. A user editing a Bridge has to know to leave its editor, right-click for Properties, and find the Events section. The Events section was nested under Behavior, after a long Setup block, until it was given its own section.",
+        "impact": "The part of a Bridge that matters most, what crosses it and who answers, is the hardest to find. New event behavior would keep landing in whichever panel is nearest, adding a third home.",
         "urgency": "high",
         "definitionKey": "idea-problem",
         "_classBinding": {
@@ -1005,7 +1004,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "presentation": {
           "glyph": {
@@ -1059,7 +1058,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-problem",
+      "id": "bridge-editor-bridge-idea-problem",
       "type": "bridge",
       "label": "Problem",
       "root": false,
@@ -1240,7 +1239,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "intent": "external",
         "memo": "Create and resolve Problem nodes in this graph.",
@@ -1311,9 +1310,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-audience",
+      "id": "bridge-editor-idea-audience",
       "type": "idea-audience",
-      "label": "Authors Who Reuse Methods, and Reviewers",
+      "label": "Authors Wiring Graphs Together",
       "root": false,
       "position": {
         "x": -1540,
@@ -1350,9 +1349,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "People who write a Method once and the people who must trust it",
-        "description": "Authors who connect one Method to several Event Handlers, and reviewers who decide whether a Method is safe to run or import.",
-        "needs": "See what a Method reads, what it may change, and what happened the last time it ran, from the Method itself.",
+        "title": "People and agents wiring graphs together",
+        "description": "Authors connecting one graph to another through a Bridge, and agents that describe or repair those connections.",
+        "needs": "Open a Bridge and see, in one place, what it exposes, what it consumes, what answers each Event, and what is broken.",
         "definitionKey": "idea-audience",
         "_classBinding": {
           "key": "idea-audience",
@@ -1387,7 +1386,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "presentation": {
           "glyph": {
@@ -1424,7 +1423,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-audience",
+      "id": "bridge-editor-bridge-idea-audience",
       "type": "bridge",
       "label": "Audience",
       "root": false,
@@ -1603,7 +1602,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "intent": "external",
         "memo": "Create and resolve Audience nodes in this graph.",
@@ -1674,9 +1673,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-proposed-approach",
+      "id": "bridge-editor-idea-proposed-approach",
       "type": "idea-proposed-approach",
-      "label": "Inputs, Effects, Invocation, Outcome",
+      "label": "One Bridge Editor With Role-Shaped Sections",
       "root": false,
       "position": {
         "x": 560,
@@ -1728,9 +1727,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Give the Method a contract and each call an identity",
-        "description": "Inputs: a short list of named inputs read from the occurrence payload by name; a missing required input fails the Invocation before any code runs and names the input. Effects: a short list of coarse kinds the Method may perform (update node, create node, delete node, edges, emit event, hand off), each with optional target nodes; the host refuses calls outside the list, and allowMutations becomes derived from it. Invocation: every call is an explicit runtime entity with an id, the Method, the caller (Handler and position), the arguments, the mode (dry or live), and its cause (occurrence, root occurrence and delivery), exposed to the source as the frozen api.invocation. It is not persisted as a node. Outcome: each Invocation reports status, result or error, duration and attempted effects, keyed by the invocation id; a dry run returns the proposed effects instead of applying them. Authority: a call runs only where what the Method declares, what the caller may do, and what the runtime permits all agree. The Method card shows its last outcome, and the Handler shows a read-only summary of its Methods' declared effects.",
-        "differentiator": "Small enough to write by hand, enforced at the one place every mutation already passes through, so a declaration is a limit and not only a description. Identity now and lifecycle later: the effects of one Invocation can be followed to the Event they emit, which answers why something happened.",
+        "title": "One Bridge Editor with role-shaped sections",
+        "description": "Extend the hosted Bridge Editor. An Export Bridge shows Target, What it exposes (views, resources, declarations, and Events with a checkbox per event and per class), the effective exposure, and Status. An Import Bridge shows Target, What the neighbor exposes, Events with a Handler picker per event and per class, unresolved subscriptions with an explicit Remove, and Status. The Events section reads the neighbor live and writes only through the existing planners, so the Handler editor and the Bridge editor show one set of data. The Properties panel keeps a link to the Bridge Editor and nothing more.",
+        "differentiator": "One home, one data path. The Bridge editor becomes the place the event model is authored, instead of a panel that happens to be open.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
           "key": "idea-proposed-approach",
@@ -1765,7 +1764,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "presentation": {
           "glyph": {
@@ -1819,7 +1818,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-proposed-approach",
+      "id": "bridge-editor-bridge-idea-proposed-approach",
       "type": "bridge",
       "label": "Proposed Approach",
       "root": false,
@@ -1998,7 +1997,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "intent": "external",
         "memo": "Create and resolve Proposed Approach nodes in this graph.",
@@ -2069,9 +2068,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-question",
+      "id": "bridge-editor-idea-question",
       "type": "idea-question",
-      "label": "Where Do Inputs Come From?",
+      "label": "Where Is the Handler Chosen?",
       "root": false,
       "position": {
         "x": -1180,
@@ -2123,10 +2122,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Should inputs be bound by name or by edge?",
-        "question": "Should a Method read its inputs from the occurrence payload by name, or should the Action Method edge map payload fields to the Method's inputs?",
+        "title": "Where is the Handler chosen?",
+        "question": "Should the Bridge Editor pick the Handler for each imported Event, or should that stay a choice made in the Handler's own editor?",
         "status": "open",
-        "answer": "Start by name: it needs nothing new on the graph. Add an optional mapping on the Action Method edge only if reusing one Method from differently shaped events proves clumsy.",
+        "answer": "Both, over the same data. The Import Bridge owns the subscription, so the Bridge Editor shows and edits it. The Handler editor still lets an author start from the Handler and choose an Event. Either edit writes the same subscription through the same planner.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -2161,7 +2160,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "presentation": {
           "glyph": {
@@ -2215,7 +2214,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-question",
+      "id": "bridge-editor-bridge-idea-question",
       "type": "bridge",
       "label": "Question",
       "root": false,
@@ -2396,7 +2395,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "intent": "external",
         "memo": "Create and resolve Question nodes in this graph.",
@@ -2467,9 +2466,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-assumption",
+      "id": "bridge-editor-idea-assumption",
       "type": "idea-assumption",
-      "label": "The Host Gate Can Enforce Effects",
+      "label": "The Hosted Editor Can Take a Custom Section",
       "root": false,
       "position": {
         "x": -700,
@@ -2553,9 +2552,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Declared effects can be enforced where mutations already pass",
-        "statement": "Every mutating host call goes through one request handler that already names the mutating methods and counts them per run, so it can check each call's kind and target against the Method's declared effects and refuse the rest.",
-        "importance": "critical",
+        "title": "The hosted Bridge Editor can carry the Events section as is",
+        "statement": "The existing Events component can be rendered inside the hosted Bridge Editor without change to how it reads and writes, because it works on a Bridge node, the graph's nodes and edges, and an update function.",
+        "importance": "high",
         "status": "untested",
         "definitionKey": "idea-assumption",
         "_classBinding": {
@@ -2591,7 +2590,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "presentation": {
           "glyph": {
@@ -2679,7 +2678,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-assumption",
+      "id": "bridge-editor-bridge-idea-assumption",
       "type": "bridge",
       "label": "Assumption",
       "root": false,
@@ -2860,7 +2859,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "intent": "external",
         "memo": "Create and resolve Assumption nodes in this graph.",
@@ -2931,9 +2930,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-research",
+      "id": "bridge-editor-idea-research",
       "type": "idea-research",
-      "label": "How Methods Run Today",
+      "label": "Where Bridge UI Lives Today",
       "root": false,
       "position": {
         "x": -1780,
@@ -2969,10 +2968,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "How a Method receives input, runs, and reports",
-        "findings": "A Method's source runs as the body of an async function in a sandboxed iframe and receives one api object. The return value is the result and a thrown error is the failure. api.invocation is a frozen copy of the host's run metadata: occurrence and event key and payload, Handler and Method ids, Method index and count, fragment, and the allowMutations and dry flags. Runs share one serial queue, each is limited to 200 calls and 100 mutations, and a run that exceeds 15 seconds fails and resets the runner. parameters is only a list of labels shown on the card: the Edge Class Template's Method declares eventPayload and reads it from api.invocation. The card's status comes from a window event and shows the last run of that Method, without saying which Handler or event caused it.",
-        "sourceUrl": "github://TwiliteLLC/twilite/components/GraphEditor/Scripting/ScriptRunner.js",
-        "sourceType": "other",
+        "title": "Where Bridge UI lives today",
+        "findings": "The Bridge node's editor is a hosted \"bridge-editor\" with Label and Bridge Note fields and a Bridge Status block. The Properties panel holds the target and role setup, grants, exposure families, and now the Events section, all for a selected Bridge. Events are one component that reads a Bridge node plus the graph and writes through planners for exposure and subscriptions, so it does not depend on where it is shown. Bridges expose and consume events one node at a time; class scopes do not cross them yet.",
+        "sourceUrl": "github://TwiliteLLC/twilite/components/GraphEditor/components/BridgeEventsPanel.js",
+        "sourceType": "prototype",
         "definitionKey": "idea-research",
         "_classBinding": {
           "key": "idea-research",
@@ -3007,7 +3006,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "presentation": {
           "glyph": {
@@ -3044,7 +3043,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-research",
+      "id": "bridge-editor-bridge-idea-research",
       "type": "bridge",
       "label": "Research",
       "root": false,
@@ -3225,7 +3224,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "intent": "external",
         "memo": "Create and resolve Research nodes in this graph.",
@@ -3296,12 +3295,12 @@
       ]
     },
     {
-      "id": "method-node-design-idea-evidence",
+      "id": "bridge-editor-idea-evidence",
       "type": "idea-evidence",
-      "label": "The Flag Does Not Gate Live Runs",
+      "label": "The Events UI Was Hard to Reach",
       "root": false,
       "position": {
-        "x": -220,
+        "x": 260,
         "y": 260
       },
       "width": 400,
@@ -3334,10 +3333,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "allowMutations only matters in dry runs",
-        "observation": "In the host request handler, allowMutations is read at 13 sites. Twelve are the pattern \"if (isDry && !allowMutations) return simulated\", so they only apply to dry runs; the thirteenth refuses sendHandoff without it. A live updateNode or createNode is applied whether or not the Method has allowMutations set. The same handler is the single place every mutating call passes through: it lists them (createNode, createNodes, applyDeltas, composePort, sendHandoff, updateNode, updateView, deleteNode, deleteNodes, createEdge, deleteEdge) and counts them per run. The Handler editor nevertheless labels a Method without the flag \"Read-only execution\".",
+        "title": "The Events UI was hard to reach",
+        "observation": "Reaching the export Bridge's Events took a right-click, Properties, then Behavior, then scrolling past Setup to a collapsed Events accordion. The node's own editor, opened by its pencil, has no Events at all. In a scripted run the section was visible in the Properties panel only after expanding Behavior.",
         "kind": "observation",
-        "strength": "strong",
+        "strength": "moderate",
         "definitionKey": "idea-evidence",
         "_classBinding": {
           "key": "idea-evidence",
@@ -3372,7 +3371,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "presentation": {
           "glyph": {
@@ -3380,7 +3379,7 @@
             "name": "FactCheck"
           }
         },
-        "citationSourceId": "github://TwiliteLLC/twilite/components/GraphEditor/hooks/usePluginRuntime.js"
+        "citationSourceId": "github://TwiliteLLC/twilite/components/GraphEditor/components/PropertiesPanel.js"
       },
       "handles": [
         {
@@ -3410,7 +3409,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-evidence",
+      "id": "bridge-editor-bridge-idea-evidence",
       "type": "bridge",
       "label": "Evidence",
       "root": false,
@@ -3593,7 +3592,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "intent": "external",
         "memo": "Create and resolve Evidence nodes in this graph.",
@@ -3664,9 +3663,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-alternative",
+      "id": "bridge-editor-idea-alternative",
       "type": "idea-alternative",
-      "label": "Persist Invocations With a Lifecycle",
+      "label": "Keep the Properties Panel as the Home",
       "root": false,
       "position": {
         "x": 1160,
@@ -3702,9 +3701,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Persist Invocation nodes and a full lifecycle now",
-        "description": "Store each call as a graph node with a lifecycle (requested, authorized, running, succeeded, failed, cancelled), progress, cancellation and history, as sketched in the discussion on the Methods topic.",
-        "tradeoffs": "The right shape for long-running Personal Server Methods and for tracing across graphs, but it is a storage and runtime design of its own. Handler-invoked Methods that finish do not need it yet. What they do need is the identity, which is why it is kept: Invocation is explicit now, and persistence and lifecycle are what is deferred.",
+        "title": "Keep the Properties panel as the Bridge home",
+        "description": "Leave Bridge behavior in the Properties panel, with its own section, and make the panel easier to reach for a Bridge, for example by opening it when a Bridge is selected.",
+        "tradeoffs": "Cheapest, and already partly done. But the node's pencil would still open an editor that lacks the point of a Bridge, and there would be two places to explain.",
         "definitionKey": "idea-alternative",
         "_classBinding": {
           "key": "idea-alternative",
@@ -3739,7 +3738,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "presentation": {
           "glyph": {
@@ -3776,7 +3775,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-alternative",
+      "id": "bridge-editor-bridge-idea-alternative",
       "type": "bridge",
       "label": "Alternative",
       "root": false,
@@ -3955,7 +3954,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "intent": "external",
         "memo": "Create and resolve Alternative nodes in this graph.",
@@ -4026,9 +4025,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-risk",
+      "id": "bridge-editor-idea-risk",
       "type": "idea-risk",
-      "label": "Effects Too Coarse to Mean Much",
+      "label": "A Second Home Appears",
       "root": false,
       "position": {
         "x": -220,
@@ -4064,11 +4063,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "A broad declaration reassures without limiting",
-        "description": "A Method that declares \"update node\" with no target can still write to any node in scope, so a reviewer may read the declaration as safer than it is.",
+        "title": "A second home appears",
+        "description": "If the Events section stays in the Properties panel while a new one appears in the Bridge Editor, authors and agents get two places that look authoritative and drift apart.",
         "likelihood": "medium",
         "impact": "high",
-        "mitigation": "Let effects name target nodes, and show \"any node\" as a warning in the Handler's summary. Enforce at the host gate so a declaration is a limit and never only a description.",
+        "mitigation": "Render the same component in one place only. Leave the Properties panel with a link to the Bridge Editor, and pin the wiring with a test that both entry points use the same planners.",
         "definitionKey": "idea-risk",
         "_classBinding": {
           "key": "idea-risk",
@@ -4103,7 +4102,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "presentation": {
           "glyph": {
@@ -4140,7 +4139,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-risk",
+      "id": "bridge-editor-bridge-idea-risk",
       "type": "bridge",
       "label": "Risk",
       "root": false,
@@ -4323,7 +4322,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "intent": "external",
         "memo": "Create and resolve Risk nodes in this graph.",
@@ -4394,13 +4393,13 @@
       ]
     },
     {
-      "id": "method-node-design-idea-next-step",
+      "id": "bridge-editor-idea-next-step",
       "type": "idea-next-step",
-      "label": "Gate One Effect Family",
+      "label": "Move Events Into the Bridge Editor",
       "root": false,
       "position": {
-        "x": -1780,
-        "y": 1560
+        "x": -1180,
+        "y": 1160
       },
       "width": 400,
       "height": 300,
@@ -4448,10 +4447,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Enforce declared effects for node updates",
-        "action": "In the host request handler, refuse updateNode and updateView calls whose target is not in the Method's declared effects, in live and dry runs. Leave every other call family unchanged.",
-        "expectedEvidence": "A Method that writes outside its declared targets is refused with a message naming the target, one that writes inside them succeeds, and nothing else about running Methods changes.",
-        "status": "done",
+        "title": "Show Events in the hosted Bridge Editor",
+        "action": "Render the Events component inside the hosted Bridge Editor and remove it from the Properties panel, leaving a link to the editor. Change nothing about how it reads or writes.",
+        "expectedEvidence": "Opening a Bridge with its pencil shows its Events, ticking an export event or choosing an import Handler writes the same data as before, and the Properties panel has no Events section.",
+        "status": "todo",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",
@@ -4486,7 +4485,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "presentation": {
           "glyph": {
@@ -4540,7 +4539,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-next-step",
+      "id": "bridge-editor-bridge-idea-next-step",
       "type": "bridge",
       "label": "Next Step",
       "root": false,
@@ -4721,7 +4720,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "intent": "external",
         "memo": "Create and resolve Next Step nodes in this graph.",
@@ -4816,7 +4815,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "bridge-editor",
           "portId": "edge-class-advances",
           "name": "Advances"
         },
@@ -4888,7 +4887,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "bridge-editor",
           "portId": "edge-class-affects",
           "name": "Affects"
         },
@@ -4960,7 +4959,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "bridge-editor",
           "portId": "edge-class-assumes",
           "name": "Assumes"
         },
@@ -5032,7 +5031,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "bridge-editor",
           "portId": "edge-class-contradicts",
           "name": "Contradicts"
         },
@@ -5104,7 +5103,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "bridge-editor",
           "portId": "edge-class-informs",
           "name": "Informs"
         },
@@ -5176,7 +5175,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "bridge-editor",
           "portId": "edge-class-motivates",
           "name": "Motivates"
         },
@@ -5248,7 +5247,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "bridge-editor",
           "portId": "edge-class-questions",
           "name": "Questions"
         },
@@ -5320,7 +5319,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "bridge-editor",
           "portId": "edge-class-supports",
           "name": "Supports"
         },
@@ -5392,7 +5391,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "bridge-editor",
           "portId": "edge-class-tests",
           "name": "Tests"
         },
@@ -5464,7 +5463,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "bridge-editor",
           "portId": "edge-class-threatens",
           "name": "Threatens"
         },
@@ -5512,9 +5511,9 @@
       ]
     },
     {
-      "id": "method-node-design-detail-view",
+      "id": "bridge-editor-detail-view",
       "type": "view",
-      "label": "A Solid Method Node Detail",
+      "label": "The Bridge Editor Detail",
       "root": false,
       "position": {
         "x": -1500,
@@ -5589,7 +5588,7 @@
         "semanticLevel": "detail",
         "content": {
           "kind": "markdown",
-          "value": "# A Solid Method Node\n\nA Method should be a small, reviewable contract: what it reads, what it may change, and what it reports. Each call is an explicit, ephemeral Invocation with an identity, so its Outcome and effects can be traced to the Event that caused it. What happens after a failure is the Handler's policy.\n\nThis builds on the Event Handler behavior idea, `github://mikemartinez1974/public/ideas/event-handler-behavior/root.node`."
+          "value": "# The Bridge Editor\n\nA Bridge is edited on the Bridge. Its editor should hold its target, what it exposes and consumes, the Events that cross it, and the Handlers that answer them, with a Status that says what is broken.\n\nThe stroke control idea depends on class events crossing Bridges: `github://mikemartinez1974/public/ideas/stroke-control/root.node`."
         },
         "interfaceContract": {
           "version": 1,
@@ -5597,14 +5596,14 @@
           "surfaceDelegation": true
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         }
       }
     },
     {
-      "id": "method-node-design-summary-view",
+      "id": "bridge-editor-summary-view",
       "type": "view",
-      "label": "A Solid Method Node Summary",
+      "label": "The Bridge Editor Summary",
       "root": false,
       "position": {
         "x": -1500,
@@ -5679,7 +5678,7 @@
         "semanticLevel": "summary",
         "content": {
           "kind": "markdown",
-          "value": "## A reviewable contract\n\nInputs, effects and an Outcome, with an ephemeral Invocation that has an identity."
+          "value": "## Edit a Bridge on the Bridge\n\nOne editor, shaped by role, that holds what crosses the Bridge and who answers it."
         },
         "interfaceContract": {
           "version": 1,
@@ -5687,14 +5686,14 @@
           "surfaceDelegation": true
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         }
       }
     },
     {
-      "id": "method-node-design-icon-view",
+      "id": "bridge-editor-icon-view",
       "type": "view",
-      "label": "A Solid Method Node Icon",
+      "label": "The Bridge Editor Icon",
       "root": false,
       "position": {
         "x": -1500,
@@ -5769,7 +5768,7 @@
         "semanticLevel": "icon",
         "content": {
           "kind": "svg",
-          "value": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220'><rect width='320' height='220' rx='28' fill='#312e81'/><text x='160' y='122' text-anchor='middle' fill='#e0e7ff' font-family='Georgia,serif' font-size='96' font-style='italic'>f</text><g fill='#a5b4fc'><rect x='52' y='146' width='60' height='10' rx='5'/><rect x='130' y='146' width='60' height='10' rx='5'/><rect x='208' y='146' width='60' height='10' rx='5'/></g><text x='160' y='196' text-anchor='middle' fill='#c7d2fe' font-family='system-ui' font-size='14' font-weight='800'>METHOD CONTRACT</text></svg>"
+          "value": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220'><rect width='320' height='220' rx='28' fill='#134e4a'/><text x='160' y='128' text-anchor='middle' fill='#ccfbf1' font-family='Georgia,serif' font-size='92' font-style='italic'>B</text><text x='160' y='196' text-anchor='middle' fill='#ccfbf1' font-family='system-ui' font-size='14' font-weight='800'>BRIDGE EDITOR</text></svg>"
         },
         "interfaceContract": {
           "version": 1,
@@ -5777,14 +5776,14 @@
           "surfaceDelegation": true
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         }
       }
     },
     {
-      "id": "method-node-design-glyph",
+      "id": "bridge-editor-glyph",
       "type": "glyph",
-      "label": "A Solid Method Node Glyph",
+      "label": "The Bridge Editor Glyph",
       "root": false,
       "position": {
         "x": -900,
@@ -5818,21 +5817,233 @@
       "data": {
         "glyph": {
           "kind": "icon",
-          "name": "Code"
+          "name": "Hub"
         },
         "interfaceContract": {
           "version": 1,
           "receivesGlyphDefinition": true
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         }
       }
     },
     {
-      "id": "method-node-design-assumption-context",
+      "id": "bridge-editor-assumption-two-homes",
       "type": "idea-assumption",
-      "label": "Invocation Can Stay Ephemeral",
+      "label": "Two Entry Points Will Not Diverge",
+      "root": false,
+      "position": {
+        "x": -220,
+        "y": 260
+      },
+      "width": 400,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "assumed-by",
+          "key": "assumed-by",
+          "label": "assumed by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "questioned-by",
+          "key": "questioned-by",
+          "label": "questioned by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "supported-by",
+          "key": "supported-by",
+          "label": "supported by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "tested-by",
+          "key": "tested-by",
+          "label": "tested by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 90,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "Two entry points will not diverge",
+        "statement": "If the Properties panel only links to the Bridge Editor, and the Handler editor reads the same Bridge data through the same planners, there is one source of truth however the author arrives.",
+        "importance": "critical",
+        "status": "untested",
+        "definitionKey": "idea-assumption",
+        "_classBinding": {
+          "key": "idea-assumption",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
+          "defaults": {
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ],
+            "data": {
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "PsychologyAlt"
+                }
+              }
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "idea-assumption",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
+          "targetKind": "node-class"
+        },
+        "identity": {
+          "graphId": "bridge-editor"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "PsychologyAlt"
+          }
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "assumed-by",
+          "key": "assumed-by",
+          "label": "assumed by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "assumed-by",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "questioned-by",
+          "key": "questioned-by",
+          "label": "questioned by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "questioned-by",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "supported-by",
+          "key": "supported-by",
+          "label": "supported by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "supported-by",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "tested-by",
+          "key": "tested-by",
+          "label": "tested by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 90,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "tested-by",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ]
+    },
+    {
+      "id": "bridge-editor-question-class",
+      "type": "idea-question",
+      "label": "How Do Class Scopes Read?",
       "root": false,
       "position": {
         "x": -700,
@@ -5849,41 +6060,9 @@
           "angle": 210
         },
         {
-          "id": "assumed-by",
-          "key": "assumed-by",
-          "label": "assumed by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 270,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "questioned-by",
-          "key": "questioned-by",
-          "label": "questioned by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 180,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "supported-by",
-          "key": "supported-by",
-          "label": "supported by",
+          "id": "questions",
+          "key": "questions",
+          "label": "questions",
           "direction": "bidirectional",
           "dataType": "any",
           "angle": 0,
@@ -5897,385 +6076,9 @@
           }
         },
         {
-          "id": "tested-by",
-          "key": "tested-by",
-          "label": "tested by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 90,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        }
-      ],
-      "visible": true,
-      "showLabel": false,
-      "data": {
-        "title": "A lightweight, ephemeral Invocation with an identity is enough for now",
-        "statement": "For a Method that a Handler calls once per occurrence and that finishes, an Invocation needs an id, a caller, arguments, context and mode, and an Outcome keyed to it. It does not need a persisted Invocation node, a lifecycle, progress, cancellation or history yet, and adding them later will not require changing what identifies it.",
-        "importance": "high",
-        "status": "untested",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
-        "identity": {
-          "graphId": "method-node-design"
-        },
-        "presentation": {
-          "glyph": {
-            "kind": "icon",
-            "name": "PsychologyAlt"
-          }
-        }
-      },
-      "handles": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "assumed-by",
-          "key": "assumed-by",
-          "label": "assumed by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 270,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "assumed-by",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "questioned-by",
-          "key": "questioned-by",
-          "label": "questioned by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 180,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "questioned-by",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "supported-by",
-          "key": "supported-by",
-          "label": "supported by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 0,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "supported-by",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "tested-by",
-          "key": "tested-by",
-          "label": "tested by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 90,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "tested-by",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        }
-      ]
-    },
-    {
-      "id": "method-node-design-assumption-policy",
-      "type": "idea-assumption",
-      "label": "Failure Policy Belongs to the Handler",
-      "root": false,
-      "position": {
-        "x": -1180,
-        "y": 1120
-      },
-      "width": 400,
-      "height": 300,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "assumed-by",
-          "key": "assumed-by",
-          "label": "assumed by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 270,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "questioned-by",
-          "key": "questioned-by",
-          "label": "questioned by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 180,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "supported-by",
-          "key": "supported-by",
-          "label": "supported by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 0,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "tested-by",
-          "key": "tested-by",
-          "label": "tested by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 90,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        }
-      ],
-      "visible": true,
-      "showLabel": false,
-      "data": {
-        "title": "What happens after a Method fails is Handler composition policy",
-        "statement": "A Method only knows it was invoked and what happened. Whether the next Method runs after a failure (continue, stop, retry, roll back, branch, call a failure handler) belongs to whatever composes the Methods, so the Method contract stays the same as policies grow. Continue-on-failure is a fine Handler default for now.",
-        "importance": "medium",
-        "status": "untested",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
-        "identity": {
-          "graphId": "method-node-design"
-        },
-        "presentation": {
-          "glyph": {
-            "kind": "icon",
-            "name": "PsychologyAlt"
-          }
-        }
-      },
-      "handles": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "assumed-by",
-          "key": "assumed-by",
-          "label": "assumed by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 270,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "assumed-by",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "questioned-by",
-          "key": "questioned-by",
-          "label": "questioned by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 180,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "questioned-by",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "supported-by",
-          "key": "supported-by",
-          "label": "supported by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 0,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "supported-by",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "tested-by",
-          "key": "tested-by",
-          "label": "tested by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 90,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "tested-by",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        }
-      ]
-    },
-    {
-      "id": "method-node-design-evidence-identity",
-      "type": "idea-evidence",
-      "label": "The Call Already Has Everything but an Id",
-      "root": false,
-      "position": {
-        "x": -220,
-        "y": 1120
-      },
-      "width": 400,
-      "height": 300,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "supports",
-          "key": "supports",
-          "label": "supports",
+          "id": "informed-by",
+          "key": "informed-by",
+          "label": "informed by",
           "direction": "bidirectional",
           "dataType": "any",
           "angle": 180,
@@ -6292,14 +6095,14 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "api.invocation already describes an Invocation, without an identity",
-        "observation": "The frozen api.invocation object the runner hands the source already carries the occurrence and root occurrence ids, the delivery id, the Handler, the Method and its position, the fragment, and the dry and mutation flags. It has no id of its own, so an Outcome or an attempted effect cannot be attached to one call. Occurrence emission already records its cause and root occurrence, so a Method that emits an event continues the chain, but only through the occurrence ids.",
-        "kind": "observation",
-        "strength": "strong",
-        "definitionKey": "idea-evidence",
+        "title": "How do class scopes read in the Bridge Editor?",
+        "question": "When a Bridge can expose or consume the events of a whole class, how does the editor show a class next to individual nodes without doubling every row?",
+        "status": "open",
+        "answer": "Group by class: a row for the class with its member count, and the members underneath. Choosing the class row covers members added later. This depends on class events crossing Bridges, which is the second next step of the Stroke Control idea (github://mikemartinez1974/public/ideas/stroke-control/root.node).",
+        "definitionKey": "idea-question",
         "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "key": "idea-question",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
           "defaults": {
             "ports": [
               {
@@ -6315,30 +6118,29 @@
               "presentation": {
                 "glyph": {
                   "kind": "icon",
-                  "name": "FactCheck"
+                  "name": "HelpOutline"
                 }
               }
             }
           }
         },
         "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "classKey": "idea-question",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
           "entryPort": "root",
           "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "presentation": {
           "glyph": {
             "kind": "icon",
-            "name": "FactCheck"
+            "name": "HelpOutline"
           }
-        },
-        "citationSourceId": "github://TwiliteLLC/twilite/components/GraphEditor/Scripting/ScriptRunner.js"
+        }
       },
       "handles": [
         {
@@ -6349,9 +6151,26 @@
           "angle": 210
         },
         {
-          "id": "supports",
-          "key": "supports",
-          "label": "supports",
+          "id": "questions",
+          "key": "questions",
+          "label": "questions",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "questions",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "informed-by",
+          "key": "informed-by",
+          "label": "informed by",
           "direction": "bidirectional",
           "dataType": "any",
           "angle": 180,
@@ -6359,7 +6178,7 @@
           "allowedEdgeTypes": [
             "reference"
           ],
-          "portId": "supports",
+          "portId": "informed-by",
           "metadata": {
             "relationship": true,
             "role": "relationship"
@@ -6368,159 +6187,13 @@
       ]
     },
     {
-      "id": "method-node-design-next-step-reuse",
+      "id": "bridge-editor-next-step-sections",
       "type": "idea-next-step",
-      "label": "Reuse One Method Twice",
-      "root": false,
-      "position": {
-        "x": -220,
-        "y": 1560
-      },
-      "width": 400,
-      "height": 300,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "tests",
-          "key": "tests",
-          "label": "tests",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 270,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "guidance",
-          "key": "guidance",
-          "label": "Guidance",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 0,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        }
-      ],
-      "visible": true,
-      "showLabel": false,
-      "data": {
-        "title": "Call one Method from two Handlers with different payloads",
-        "action": "Connect one Method to two Event Handlers whose events carry differently shaped payloads. Declare its inputs and read them by name from the invocation, and omit a required input on one of them.",
-        "expectedEvidence": "Both Handlers run the Method cleanly, and the missing input fails that Invocation with a message naming the Method and the input, with no persisted Invocation node or lifecycle needed.",
-        "status": "todo",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
-        "identity": {
-          "graphId": "method-node-design"
-        },
-        "presentation": {
-          "glyph": {
-            "kind": "icon",
-            "name": "ArrowForward"
-          }
-        }
-      },
-      "handles": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "tests",
-          "key": "tests",
-          "label": "tests",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 270,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "tests",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "guidance",
-          "key": "guidance",
-          "label": "Guidance",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 0,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "guidance",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        }
-      ]
-    },
-    {
-      "id": "method-node-design-next-step-identity",
-      "type": "idea-next-step",
-      "label": "Give Every Call an Identity",
+      "label": "Shape the Editor by Role",
       "root": false,
       "position": {
         "x": -700,
-        "y": 1560
+        "y": 1160
       },
       "width": 400,
       "height": 300,
@@ -6568,9 +6241,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Introduce an ephemeral Invocation with an Outcome",
-        "action": "Create an Invocation id for every Method call and put it in api.invocation with the caller, arguments, mode and cause (occurrence, root occurrence, delivery). Return an Outcome keyed by that id with status, result or error, duration and attempted effects. Persist nothing in the graph.",
-        "expectedEvidence": "From one property change, a single diagnostic can list occurrence, delivery, Handler, Invocation and Outcome by id, including the event that the Method emitted in turn, without adding a lifecycle, progress, cancellation or history.",
+        "title": "Give export and import Bridges their own sections",
+        "action": "Split the Bridge Editor into role-shaped sections and prune what the Properties panel repeats: Target, What it exposes or consumes, Events, effective exposure, Status.",
+        "expectedEvidence": "An export Bridge and an import Bridge each show only what applies to their role, with Status naming what is missing, and no field is editable in two places.",
         "status": "todo",
         "definitionKey": "idea-next-step",
         "_classBinding": {
@@ -6606,7 +6279,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "presentation": {
           "glyph": {
@@ -6660,13 +6333,13 @@
       ]
     },
     {
-      "id": "method-node-design-next-step-policy",
+      "id": "bridge-editor-next-step-smoke",
       "type": "idea-next-step",
-      "label": "Move Failure Policy to the Handler",
+      "label": "Click Through Export and Import",
       "root": false,
       "position": {
-        "x": -1180,
-        "y": 1560
+        "x": -220,
+        "y": 1160
       },
       "width": 400,
       "height": 300,
@@ -6714,9 +6387,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Make continue-after-failure an explicit Handler policy",
-        "action": "Name the current behavior, where one failing Method does not stop the rest, as the Handler's default failure policy, and record each Method's outcome separately against its own Invocation. The Method contract does not change.",
-        "expectedEvidence": "The Handler reports per-Method outcomes and its policy without any Method knowing about its siblings, and adding a second policy such as stop-on-failure changes only the Handler.",
+        "title": "Smoke test export and import with two real graphs",
+        "action": "Build two small graphs that reference each other, one exporting an event and one importing it, and drive the Bridge Editor by hand and by script through exposure, subscription, and a broken neighbor.",
+        "expectedEvidence": "Exposing an event makes it appear on the importing side, choosing a Handler makes it run when the event fires, and a removed export shows a repairable warning without deleting the subscription.",
         "status": "todo",
         "definitionKey": "idea-next-step",
         "_classBinding": {
@@ -6752,7 +6425,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         },
         "presentation": {
           "glyph": {
@@ -6806,58 +6479,12 @@
       ]
     },
     {
-      "id": "method-node-design-task-method-effects-gate",
+      "id": "bridge-editor-task-bridge-editor-events",
       "type": "portal",
-      "label": "Gate One Effect Family (Tasks)",
-      "position": {
-        "x": -1750,
-        "y": 2000
-      },
-      "width": 340,
-      "height": 220,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 180
-        }
-      ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "memo": "Task graph that carries out this next step.",
-        "authority": "navigate",
-        "intent": "external",
-        "src": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
-        "ref": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
-        "endpoint": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
-        "sourceRef": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
-        "sourceNodeId": "method-effects-gate-summary-view",
-        "sourcePayload": "node.web.summary",
-        "surfaceId": "root",
-        "target": {
-          "ref": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
-          "mode": "navigate",
-          "portId": "root",
-          "surfaceId": "root",
-          "label": "Open task graph"
-        },
-        "visibilityRole": "browser",
-        "presentationBaseLevel": "summary",
-        "identity": {
-          "graphId": "method-node-design"
-        }
-      }
-    },
-    {
-      "id": "method-node-design-task-handler-method-failure-policy",
-      "type": "portal",
-      "label": "Move Failure Policy to the Handler (Tasks)",
+      "label": "Show Events in the Bridge Editor (Tasks)",
       "position": {
         "x": -1150,
-        "y": 2000
+        "y": 1600
       },
       "width": 340,
       "height": 220,
@@ -6876,15 +6503,15 @@
         "memo": "Task graph that carries out this next step.",
         "authority": "navigate",
         "intent": "external",
-        "src": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
-        "ref": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
-        "endpoint": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
-        "sourceRef": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
-        "sourceNodeId": "handler-method-failure-policy-summary-view",
+        "src": "github://mikemartinez1974/public/tasks/bridge-editor-events/root.node",
+        "ref": "github://mikemartinez1974/public/tasks/bridge-editor-events/root.node",
+        "endpoint": "github://mikemartinez1974/public/tasks/bridge-editor-events/root.node",
+        "sourceRef": "github://mikemartinez1974/public/tasks/bridge-editor-events/root.node",
+        "sourceNodeId": "bridge-editor-events-summary-view",
         "sourcePayload": "node.web.summary",
         "surfaceId": "root",
         "target": {
-          "ref": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
+          "ref": "github://mikemartinez1974/public/tasks/bridge-editor-events/root.node",
           "mode": "navigate",
           "portId": "root",
           "surfaceId": "root",
@@ -6893,17 +6520,17 @@
         "visibilityRole": "browser",
         "presentationBaseLevel": "summary",
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         }
       }
     },
     {
-      "id": "method-node-design-task-method-invocation-identity",
+      "id": "bridge-editor-task-bridge-editor-sections",
       "type": "portal",
-      "label": "Give Every Call an Identity (Tasks)",
+      "label": "Give Bridges role-shaped sections (Tasks)",
       "position": {
         "x": -670,
-        "y": 2000
+        "y": 1600
       },
       "width": 340,
       "height": 220,
@@ -6922,15 +6549,15 @@
         "memo": "Task graph that carries out this next step.",
         "authority": "navigate",
         "intent": "external",
-        "src": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
-        "ref": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
-        "endpoint": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
-        "sourceRef": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
-        "sourceNodeId": "method-invocation-identity-summary-view",
+        "src": "github://mikemartinez1974/public/tasks/bridge-editor-sections/root.node",
+        "ref": "github://mikemartinez1974/public/tasks/bridge-editor-sections/root.node",
+        "endpoint": "github://mikemartinez1974/public/tasks/bridge-editor-sections/root.node",
+        "sourceRef": "github://mikemartinez1974/public/tasks/bridge-editor-sections/root.node",
+        "sourceNodeId": "bridge-editor-sections-summary-view",
         "sourcePayload": "node.web.summary",
         "surfaceId": "root",
         "target": {
-          "ref": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
+          "ref": "github://mikemartinez1974/public/tasks/bridge-editor-sections/root.node",
           "mode": "navigate",
           "portId": "root",
           "surfaceId": "root",
@@ -6939,17 +6566,17 @@
         "visibilityRole": "browser",
         "presentationBaseLevel": "summary",
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         }
       }
     },
     {
-      "id": "method-node-design-task-method-reuse-two-handlers",
+      "id": "bridge-editor-task-bridge-events-smoke",
       "type": "portal",
-      "label": "Reuse One Method Twice (Tasks)",
+      "label": "Smoke test export and import (Tasks)",
       "position": {
         "x": -190,
-        "y": 2000
+        "y": 1600
       },
       "width": 340,
       "height": 220,
@@ -6968,15 +6595,15 @@
         "memo": "Task graph that carries out this next step.",
         "authority": "navigate",
         "intent": "external",
-        "src": "github://mikemartinez1974/public/tasks/method-reuse-two-handlers/root.node",
-        "ref": "github://mikemartinez1974/public/tasks/method-reuse-two-handlers/root.node",
-        "endpoint": "github://mikemartinez1974/public/tasks/method-reuse-two-handlers/root.node",
-        "sourceRef": "github://mikemartinez1974/public/tasks/method-reuse-two-handlers/root.node",
-        "sourceNodeId": "method-reuse-two-handlers-summary-view",
+        "src": "github://mikemartinez1974/public/tasks/bridge-events-smoke/root.node",
+        "ref": "github://mikemartinez1974/public/tasks/bridge-events-smoke/root.node",
+        "endpoint": "github://mikemartinez1974/public/tasks/bridge-events-smoke/root.node",
+        "sourceRef": "github://mikemartinez1974/public/tasks/bridge-events-smoke/root.node",
+        "sourceNodeId": "bridge-events-smoke-summary-view",
         "sourcePayload": "node.web.summary",
         "surfaceId": "root",
         "target": {
-          "ref": "github://mikemartinez1974/public/tasks/method-reuse-two-handlers/root.node",
+          "ref": "github://mikemartinez1974/public/tasks/bridge-events-smoke/root.node",
           "mode": "navigate",
           "portId": "root",
           "surfaceId": "root",
@@ -6985,16 +6612,16 @@
         "visibilityRole": "browser",
         "presentationBaseLevel": "summary",
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "bridge-editor"
         }
       }
     }
   ],
   "edges": [
     {
-      "id": "method-node-design-declaration-edge-class-authority-advances",
+      "id": "bridge-editor-declaration-edge-class-authority-advances",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "bridge-editor-declaration",
       "target": "idea-edge-class-advances",
       "label": "edge authority",
       "style": {},
@@ -7003,9 +6630,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-affects",
+      "id": "bridge-editor-declaration-edge-class-authority-affects",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "bridge-editor-declaration",
       "target": "idea-edge-class-affects",
       "label": "edge authority",
       "style": {},
@@ -7014,9 +6641,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-assumes",
+      "id": "bridge-editor-declaration-edge-class-authority-assumes",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "bridge-editor-declaration",
       "target": "idea-edge-class-assumes",
       "label": "edge authority",
       "style": {},
@@ -7025,9 +6652,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-contradicts",
+      "id": "bridge-editor-declaration-edge-class-authority-contradicts",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "bridge-editor-declaration",
       "target": "idea-edge-class-contradicts",
       "label": "edge authority",
       "style": {},
@@ -7036,9 +6663,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-informs",
+      "id": "bridge-editor-declaration-edge-class-authority-informs",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "bridge-editor-declaration",
       "target": "idea-edge-class-informs",
       "label": "edge authority",
       "style": {},
@@ -7047,9 +6674,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-motivates",
+      "id": "bridge-editor-declaration-edge-class-authority-motivates",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "bridge-editor-declaration",
       "target": "idea-edge-class-motivates",
       "label": "edge authority",
       "style": {},
@@ -7058,9 +6685,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-questions",
+      "id": "bridge-editor-declaration-edge-class-authority-questions",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "bridge-editor-declaration",
       "target": "idea-edge-class-questions",
       "label": "edge authority",
       "style": {},
@@ -7069,9 +6696,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-supports",
+      "id": "bridge-editor-declaration-edge-class-authority-supports",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "bridge-editor-declaration",
       "target": "idea-edge-class-supports",
       "label": "edge authority",
       "style": {},
@@ -7080,9 +6707,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-tests",
+      "id": "bridge-editor-declaration-edge-class-authority-tests",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "bridge-editor-declaration",
       "target": "idea-edge-class-tests",
       "label": "edge authority",
       "style": {},
@@ -7091,9 +6718,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-threatens",
+      "id": "bridge-editor-declaration-edge-class-authority-threatens",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "bridge-editor-declaration",
       "target": "idea-edge-class-threatens",
       "label": "edge authority",
       "style": {},
@@ -7102,10 +6729,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-default-view",
+      "id": "bridge-editor-default-view",
       "type": "default-view",
-      "source": "method-node-design-declaration",
-      "target": "method-node-design-detail-view",
+      "source": "bridge-editor-declaration",
+      "target": "bridge-editor-detail-view",
       "label": "default view",
       "style": {},
       "data": {
@@ -7116,10 +6743,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-summary-view-edge",
+      "id": "bridge-editor-summary-view-edge",
       "type": "reference",
-      "source": "method-node-design-declaration",
-      "target": "method-node-design-summary-view",
+      "source": "bridge-editor-declaration",
+      "target": "bridge-editor-summary-view",
       "label": "summary view",
       "style": {},
       "data": {
@@ -7130,10 +6757,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-icon-view-edge",
+      "id": "bridge-editor-icon-view-edge",
       "type": "reference",
-      "source": "method-node-design-declaration",
-      "target": "method-node-design-icon-view",
+      "source": "bridge-editor-declaration",
+      "target": "bridge-editor-icon-view",
       "label": "icon view",
       "style": {},
       "data": {
@@ -7144,10 +6771,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-glyph-edge",
+      "id": "bridge-editor-glyph-edge",
       "type": "reference",
-      "source": "method-node-design-declaration",
-      "target": "method-node-design-glyph",
+      "source": "bridge-editor-declaration",
+      "target": "bridge-editor-glyph",
       "label": "glyph",
       "style": {},
       "data": {
@@ -7158,10 +6785,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-landing-edge",
+      "id": "bridge-editor-landing-edge",
       "type": "reference",
-      "source": "method-node-design-declaration",
-      "target": "method-node-design-idea",
+      "source": "bridge-editor-declaration",
+      "target": "bridge-editor-idea",
       "label": "landing surface",
       "style": {},
       "data": {
@@ -7172,10 +6799,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-problem-motivates",
+      "id": "bridge-editor-problem-motivates",
       "type": "reference",
-      "source": "method-node-design-idea-problem",
-      "target": "method-node-design-idea",
+      "source": "bridge-editor-idea-problem",
+      "target": "bridge-editor-idea",
       "label": "motivates",
       "style": {
         "curved": false,
@@ -7194,10 +6821,10 @@
       "targetHandle": "motivated-by"
     },
     {
-      "id": "method-node-design-audience-affects",
+      "id": "bridge-editor-audience-affects",
       "type": "reference",
-      "source": "method-node-design-idea-audience",
-      "target": "method-node-design-idea-problem",
+      "source": "bridge-editor-idea-audience",
+      "target": "bridge-editor-idea-problem",
       "label": "affects",
       "style": {
         "curved": false,
@@ -7216,10 +6843,10 @@
       "targetHandle": "affects"
     },
     {
-      "id": "method-node-design-approach-advances",
+      "id": "bridge-editor-approach-advances",
       "type": "reference",
-      "source": "method-node-design-idea-proposed-approach",
-      "target": "method-node-design-idea",
+      "source": "bridge-editor-idea-proposed-approach",
+      "target": "bridge-editor-idea",
       "label": "advances",
       "style": {
         "curved": false,
@@ -7238,10 +6865,10 @@
       "targetHandle": "advanced-by"
     },
     {
-      "id": "method-node-design-idea-assumes-gate",
+      "id": "bridge-editor-idea-assumes-hosted",
       "type": "reference",
-      "source": "method-node-design-idea",
-      "target": "method-node-design-idea-assumption",
+      "source": "bridge-editor-idea",
+      "target": "bridge-editor-idea-assumption",
       "label": "assumes",
       "style": {
         "curved": false,
@@ -7264,10 +6891,10 @@
       "targetHandle": "assumed-by"
     },
     {
-      "id": "method-node-design-idea-assumes-context",
+      "id": "bridge-editor-idea-assumes-homes",
       "type": "reference",
-      "source": "method-node-design-idea",
-      "target": "method-node-design-assumption-context",
+      "source": "bridge-editor-idea",
+      "target": "bridge-editor-assumption-two-homes",
       "label": "assumes",
       "style": {
         "curved": false,
@@ -7290,10 +6917,10 @@
       "targetHandle": "assumed-by"
     },
     {
-      "id": "method-node-design-question-inputs-questions",
+      "id": "bridge-editor-question-handler-questions",
       "type": "reference",
-      "source": "method-node-design-idea-question",
-      "target": "method-node-design-assumption-context",
+      "source": "bridge-editor-idea-question",
+      "target": "bridge-editor-assumption-two-homes",
       "label": "questions",
       "style": {
         "curved": false,
@@ -7316,10 +6943,36 @@
       "targetHandle": "questioned-by"
     },
     {
-      "id": "method-node-design-research-today-informs",
+      "id": "bridge-editor-question-class-questions",
       "type": "reference",
-      "source": "method-node-design-idea-research",
-      "target": "method-node-design-idea-question",
+      "source": "bridge-editor-question-class",
+      "target": "bridge-editor-idea-assumption",
+      "label": "questions",
+      "style": {
+        "curved": false,
+        "stroke": "#ca8a04",
+        "strokeWidth": 3,
+        "dash": [
+          8,
+          5
+        ],
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.questions",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
+        "semanticRole": "idea.questions",
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+      },
+      "sourceHandle": "questions",
+      "targetHandle": "questioned-by"
+    },
+    {
+      "id": "bridge-editor-research-informs-handler",
+      "type": "reference",
+      "source": "bridge-editor-idea-research",
+      "target": "bridge-editor-idea-question",
       "label": "informs",
       "style": {
         "curved": false,
@@ -7338,10 +6991,32 @@
       "targetHandle": "informed-by"
     },
     {
-      "id": "method-node-design-evidence-flag-supports",
+      "id": "bridge-editor-research-informs-class",
       "type": "reference",
-      "source": "method-node-design-idea-evidence",
-      "target": "method-node-design-idea-assumption",
+      "source": "bridge-editor-idea-research",
+      "target": "bridge-editor-question-class",
+      "label": "informs",
+      "style": {
+        "curved": false,
+        "stroke": "#4f46e5",
+        "strokeWidth": 3,
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.informs",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
+        "semanticRole": "idea.informs",
+        "edgeClassMeaning": "source provides context that informs the target"
+      },
+      "sourceHandle": "informs",
+      "targetHandle": "informed-by"
+    },
+    {
+      "id": "bridge-editor-evidence-supports-homes",
+      "type": "reference",
+      "source": "bridge-editor-idea-evidence",
+      "target": "bridge-editor-assumption-two-homes",
       "label": "supports",
       "style": {
         "curved": false,
@@ -7360,10 +7035,10 @@
       "targetHandle": "supported-by"
     },
     {
-      "id": "method-node-design-alternative-invocations-questions",
+      "id": "bridge-editor-alternative-questions",
       "type": "reference",
-      "source": "method-node-design-idea-alternative",
-      "target": "method-node-design-idea-proposed-approach",
+      "source": "bridge-editor-idea-alternative",
+      "target": "bridge-editor-idea-proposed-approach",
       "label": "questions",
       "style": {
         "curved": false,
@@ -7386,10 +7061,10 @@
       "targetHandle": "questioned-by"
     },
     {
-      "id": "method-node-design-risk-coarse-threatens",
+      "id": "bridge-editor-risk-threatens",
       "type": "reference",
-      "source": "method-node-design-idea-risk",
-      "target": "method-node-design-idea",
+      "source": "bridge-editor-idea-risk",
+      "target": "bridge-editor-idea",
       "label": "threatens",
       "style": {
         "curved": false,
@@ -7412,10 +7087,10 @@
       "targetHandle": "threatened-by"
     },
     {
-      "id": "method-node-design-next-step-gate-tests",
+      "id": "bridge-editor-next-step-move-tests",
       "type": "reference",
-      "source": "method-node-design-idea-next-step",
-      "target": "method-node-design-idea-assumption",
+      "source": "bridge-editor-idea-next-step",
+      "target": "bridge-editor-idea-assumption",
       "label": "tests",
       "style": {
         "curved": false,
@@ -7434,10 +7109,10 @@
       "targetHandle": "tested-by"
     },
     {
-      "id": "method-node-design-next-step-reuse-tests",
+      "id": "bridge-editor-next-step-sections-tests",
       "type": "reference",
-      "source": "method-node-design-next-step-reuse",
-      "target": "method-node-design-assumption-context",
+      "source": "bridge-editor-next-step-sections",
+      "target": "bridge-editor-assumption-two-homes",
       "label": "tests",
       "style": {
         "curved": false,
@@ -7456,10 +7131,32 @@
       "targetHandle": "tested-by"
     },
     {
-      "id": "method-node-design-instructions-edge",
+      "id": "bridge-editor-next-step-smoke-tests",
       "type": "reference",
-      "source": "method-node-design-idea-next-step",
-      "target": "method-node-design-instructions",
+      "source": "bridge-editor-next-step-smoke",
+      "target": "bridge-editor-assumption-two-homes",
+      "label": "tests",
+      "style": {
+        "curved": false,
+        "stroke": "#16a34a",
+        "strokeWidth": 3,
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.tests",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
+        "semanticRole": "idea.tests",
+        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+      },
+      "sourceHandle": "tests",
+      "targetHandle": "tested-by"
+    },
+    {
+      "id": "bridge-editor-instructions-edge",
+      "type": "reference",
+      "source": "bridge-editor-idea-next-step",
+      "target": "bridge-editor-instructions",
       "label": "guidance",
       "style": {
         "curved": false,
@@ -7475,102 +7172,10 @@
       "targetHandle": "guided-by"
     },
     {
-      "id": "method-node-design-idea-assumes-policy",
+      "id": "bridge-editor-tracked-bridge-editor-events",
       "type": "reference",
-      "source": "method-node-design-idea",
-      "target": "method-node-design-assumption-policy",
-      "label": "assumes",
-      "style": {
-        "curved": false,
-        "stroke": "#d97706",
-        "strokeWidth": 3,
-        "dash": [
-          8,
-          5
-        ],
-        "route": "orthogonal",
-        "orthogonal": true
-      },
-      "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
-      },
-      "sourceHandle": "assumes",
-      "targetHandle": "assumed-by"
-    },
-    {
-      "id": "method-node-design-evidence-identity-supports",
-      "type": "reference",
-      "source": "method-node-design-evidence-identity",
-      "target": "method-node-design-assumption-context",
-      "label": "supports",
-      "style": {
-        "curved": false,
-        "stroke": "#059669",
-        "strokeWidth": 3,
-        "route": "orthogonal",
-        "orthogonal": true
-      },
-      "data": {
-        "edgeClassKey": "idea.supports",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
-        "semanticRole": "idea.supports",
-        "edgeClassMeaning": "source evidence increases confidence in the target"
-      },
-      "sourceHandle": "supports",
-      "targetHandle": "supported-by"
-    },
-    {
-      "id": "method-node-design-next-step-identity-tests",
-      "type": "reference",
-      "source": "method-node-design-next-step-identity",
-      "target": "method-node-design-assumption-context",
-      "label": "tests",
-      "style": {
-        "curved": false,
-        "stroke": "#16a34a",
-        "strokeWidth": 3,
-        "route": "orthogonal",
-        "orthogonal": true
-      },
-      "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
-      },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
-    },
-    {
-      "id": "method-node-design-next-step-policy-tests",
-      "type": "reference",
-      "source": "method-node-design-next-step-policy",
-      "target": "method-node-design-assumption-policy",
-      "label": "tests",
-      "style": {
-        "curved": false,
-        "stroke": "#16a34a",
-        "strokeWidth": 3,
-        "route": "orthogonal",
-        "orthogonal": true
-      },
-      "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
-      },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
-    },
-    {
-      "id": "method-node-design-tracked-method-effects-gate",
-      "type": "reference",
-      "source": "method-node-design-idea-next-step",
-      "target": "method-node-design-task-method-effects-gate",
+      "source": "bridge-editor-idea-next-step",
+      "target": "bridge-editor-task-bridge-editor-events",
       "label": "tracked by",
       "style": {
         "curved": false,
@@ -7588,10 +7193,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-tracked-handler-method-failure-policy",
+      "id": "bridge-editor-tracked-bridge-editor-sections",
       "type": "reference",
-      "source": "method-node-design-next-step-policy",
-      "target": "method-node-design-task-handler-method-failure-policy",
+      "source": "bridge-editor-next-step-sections",
+      "target": "bridge-editor-task-bridge-editor-sections",
       "label": "tracked by",
       "style": {
         "curved": false,
@@ -7609,31 +7214,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-tracked-method-invocation-identity",
+      "id": "bridge-editor-tracked-bridge-events-smoke",
       "type": "reference",
-      "source": "method-node-design-next-step-identity",
-      "target": "method-node-design-task-method-invocation-identity",
-      "label": "tracked by",
-      "style": {
-        "curved": false,
-        "dash": [
-          6,
-          6
-        ],
-        "route": "orthogonal",
-        "orthogonal": true
-      },
-      "data": {
-        "relation": "task-projection"
-      },
-      "sourceHandle": "root",
-      "targetHandle": "root"
-    },
-    {
-      "id": "method-node-design-tracked-method-reuse-two-handlers",
-      "type": "reference",
-      "source": "method-node-design-next-step-reuse",
-      "target": "method-node-design-task-method-reuse-two-handlers",
+      "source": "bridge-editor-next-step-smoke",
+      "target": "bridge-editor-task-bridge-events-smoke",
       "label": "tracked by",
       "style": {
         "curved": false,
@@ -7681,7 +7265,7 @@
     },
     "github": {
       "repo": "mikemartinez1974/public",
-      "path": "ideas/method-node-design/root.node",
+      "path": "ideas/bridge-editor/root.node",
       "branch": "main",
       "autoCreateRepo": true,
       "repoVisibility": "private",
@@ -7692,7 +7276,7 @@
     "autoSave": false
   },
   "scripts": [],
-  "timestamp": "2026-09-20T03:20:05.821Z",
-  "nodeCount": 48,
-  "edgeCount": 36
+  "timestamp": "2026-09-20T06:59:53.107Z",
+  "nodeCount": 45,
+  "edgeCount": 34
 }

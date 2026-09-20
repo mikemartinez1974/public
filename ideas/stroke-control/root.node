@@ -1,28 +1,29 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "A Solid Method Node",
-    "description": "Design a small, reviewable Method node that works well when an Event Handler invokes it: inputs, effects, invocation context, and outcome.",
-    "graphId": "method-node-design",
+    "title": "The Stroke Control",
+    "description": "Make the stroke widget a small graph of its own, with real Properties, a self-updating preview and a Bridge, so an edge class is edited through composed controls.",
+    "graphId": "stroke-control",
     "version": "0.1.0",
     "kind": "graph",
-    "created": "2026-09-20T03:20:05.821Z",
-    "modified": "2026-09-20T07:02:13.807Z",
+    "created": "2026-09-20T06:59:53.080Z",
+    "modified": "2026-09-20T06:59:53.080Z",
     "author": "",
     "tags": [
       "idea",
-      "method",
-      "events",
-      "scripting",
-      "contract"
+      "edge-class",
+      "control",
+      "properties",
+      "bridges",
+      "events"
     ],
     "preferredViewer": "https://dev.twilite.zone"
   },
   "nodes": [
     {
-      "id": "method-node-design-declaration",
+      "id": "stroke-control-declaration",
       "type": "declaration",
-      "label": "A Solid Method Node",
+      "label": "The Stroke Control",
       "root": false,
       "position": {
         "x": -900,
@@ -260,12 +261,12 @@
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "method-node-design",
-          "name": "A Solid Method Node",
+          "graphId": "stroke-control",
+          "name": "The Stroke Control",
           "version": "0.1.0",
-          "description": "A working graph for designing a Method node as a small, reviewable contract for Event Handlers to call.",
-          "nodeId": "method-node-design",
-          "updatedAt": "2026-09-20T03:20:05.821Z"
+          "description": "Make the stroke widget a small graph of its own, with real Properties, a self-updating preview and a Bridge, so an edge class is edited through composed controls.",
+          "nodeId": "stroke-control",
+          "updatedAt": "2026-09-20T06:59:53.080Z"
         },
         "intent": {
           "kind": "graph",
@@ -362,14 +363,14 @@
           "autoSave": false
         },
         "document": {
-          "url": "github://mikemartinez1974/public/ideas/method-node-design/root.node"
+          "url": "github://mikemartinez1974/public/ideas/stroke-control/root.node"
         }
       }
     },
     {
-      "id": "method-node-design-instructions",
+      "id": "stroke-control-instructions",
       "type": "content",
-      "label": "Method Contract Sketch",
+      "label": "Stroke Control Sketch",
       "root": false,
       "position": {
         "x": -2060,
@@ -406,11 +407,11 @@
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "content": {
           "kind": "markdown",
-          "value": "# Method contract (sketch)\n\nA Method is the reusable half of \"when this happens, do that.\" The Event Handler chooses the Event and connects the Methods; the Method owns the logic, what it needs, and what it may change. Field names are illustrative.\n\n## Method declares\n\n- **Inputs.** Named inputs read from the occurrence payload, for example `value` and `previousValue`. Required by default. A missing required input fails the Invocation before any code runs, naming the Method and the input.\n- **Effects.** A short list of kinds: update node, create node, delete node, edges, emit event, hand off, with optional targets. No target means any node in scope, and the Handler's summary says so. `allowMutations` is derived from it, not authored.\n\n## Invocation (runtime, not persisted)\n\n```text\nInvocation {\n  id\n  methodId\n  caller        Handler id, Method index and count\n  arguments\n  context       fragment scope\n  mode          dry or live\n  cause         occurrenceId, rootOccurrenceId, deliveryId\n}\n\nOutcome {\n  invocationId\n  status\n  result | error\n  attemptedEffects\n  duration\n}\n```\n\n`api.invocation` is the frozen Invocation as the source sees it. A dry run returns the proposed effects instead of applying them. The Method card shows its last Outcome and which Handler and Event caused it.\n\n## Authority\n\n```text\nMethod declares what it may do\n   and the caller has authority to do it\n   and the runtime permits it here\n=> the call runs\n```\n\nThe host is where this is enforced today, and where a Personal Server would add effects such as reading files or sending mail.\n\n## The Event Handler\n\n- Shows a read-only summary of its Methods' declared effects, derived from the Methods.\n- Runs its Methods in edge order. Continue-after-failure is the Handler's default failure policy, not part of what a Method is. Stop, retry, roll back, branch or a failure handler are later Handler policies.\n\n## Not in scope yet\n\nAsynchronous or long-running work, progress, cancellation, retries, and persisted Invocation nodes or history. Invocation has an identity so these can be added without retrofitting causality."
+          "value": "# Stroke Control (sketch)\n\nA graph template, `templates/stroke-control`. Names are illustrative.\n\n## It declares\n\n- Five Properties: `color` (text, `#6d28d9`), `width` (number, `8`), `opacity` (number, `1`), `dash` (text, `solid`), `enabled` (boolean, `true`). Each announces `property.changed`.\n- A default view that shows the swatch and the values, and a summary and icon that show the swatch.\n\n## It keeps itself current\n\n- One Handler for any Property changed, calling one Method that re-renders the swatch and writes it into the exposed views.\n- The Method declares exactly those views as its effects, like the Edge Class template's Method.\n\n## It is consumed through a Bridge\n\n- An export Bridge exposes the five Properties' events.\n- The Edge Class template imports the control. Each stroke is one instance, and its refresh Handler listens to the class through the Bridge.\n\n## Not in scope\n\nArrows, gradients, animation and glow. The control is one paint layer, and the Edge Class template still owns route, arrows and the stack order."
         },
         "interfaceContract": {
           "version": 1,
@@ -445,9 +446,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea",
+      "id": "stroke-control-idea",
       "type": "idea",
-      "label": "A Method Is a Reviewable Contract",
+      "label": "A Stroke Is a Control Graph",
       "root": false,
       "position": {
         "x": -220,
@@ -531,11 +532,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "A Method Is a Reviewable Contract",
-        "statement": "A Method should be a small, reviewable contract: the inputs it reads, the effects it is allowed to have, and the outcome it reports. Each call is an Invocation, an explicit runtime entity with its own identity that is not persisted in the graph, so its outcome and effects can be correlated with the Event occurrence that caused it. That is enough for an Event Handler to call a Method safely, for a reviewer to see what it will do without reading its source, and for a dry run to show what would change.",
+        "title": "A Stroke Is a Control Graph",
+        "statement": "The stroke widget should be a small graph of its own, not a bag of values on one node. Color, width, opacity, dash and enabled become real Properties that each announce property.changed. A swatch view keeps itself current through the same Handler and Method pattern the Edge Class template already uses. An export Bridge exposes the control's events, and the Edge Class template consumes each stroke through a Bridge. Editing an edge class then means editing composed controls, live.",
         "status": "framed",
         "confidence": "unproven",
-        "notes": "Deliberately narrow: it covers a Method that an Event Handler invokes once per occurrence and that finishes, not asynchronous or long-running work. Invocation stays lightweight and ephemeral for now, but it has an identity from the start so lifecycle, progress, cancellation, persistence and retries can be added later without retrofitting causality. What happens after a Method fails is the Handler's composition policy, not part of what a Method is. It builds on What an Event Handler Node Should Do (github://mikemartinez1974/public/ideas/event-handler-behavior/root.node); the wider Methods topic is github://mikemartinez1974/public/topics/twilite-scripting-system/methods/root.node.",
+        "notes": "Builds on the Edge Class template (github://mikemartinez1974/public/templates/edge-class-template/root.node), where Property and stroke changes already refresh the exposed views through class-scoped Handlers, and on the Bridge Editor idea (github://mikemartinez1974/public/ideas/bridge-editor/root.node), which is where a control's events would be exposed.",
         "definitionKey": "idea",
         "_classBinding": {
           "key": "idea",
@@ -570,7 +571,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "presentation": {
           "glyph": {
@@ -658,7 +659,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea",
+      "id": "stroke-control-bridge-idea",
       "type": "bridge",
       "label": "Idea",
       "root": false,
@@ -841,7 +842,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "intent": "external",
         "memo": "Create and resolve Idea nodes in this graph.",
@@ -912,9 +913,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-problem",
+      "id": "stroke-control-idea-problem",
       "type": "idea-problem",
-      "label": "A Method Is a Script With a Nametag",
+      "label": "A Stroke Is Values on One Node",
       "root": false,
       "position": {
         "x": -940,
@@ -967,9 +968,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "A Method Is a Script With a Nametag",
-        "statement": "A Method node today is a name, some source, a parameters list of labels, and an allowMutations flag. The runner gives its source a frozen api.invocation object and takes the return value as the result. Nothing states what the Method needs, what it may change, or what happened when it ran. The flag that looks like a safety setting is not one: outside dry runs the host applies calls such as updateNode and createNode whether or not allowMutations is set. Only dry runs consult it, and only sendHandoff refuses without it.",
-        "impact": "The Handler editor can only say \"Read-only execution\" or \"May update graph state\" from that flag, which promises more than the runtime enforces. A reviewer cannot tell what a Method touches, one Method cannot be reused safely from Handlers with differently shaped events, and a dry run has nothing to be checked against.",
+        "title": "A Stroke Is Values on One Node",
+        "statement": "Today a stroke is a field node bound to the edge-class-stroke class, with color, width, opacity, dash and enabled as raw data keys. It announces one coarse node.changed event that lists which keys changed, so nothing can react to one setting on its own. No setting has its own type, access or default, and the editor is a generic form. The control also cannot be reused: it is welded to the Edge Class template that happens to contain it.",
+        "impact": "The edge class settings editor, the thing the template previews, is the weakest editor in the graph. Every new control (a color, a paint stack, an arrow) would repeat the same shortcut.",
         "urgency": "high",
         "definitionKey": "idea-problem",
         "_classBinding": {
@@ -1005,7 +1006,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "presentation": {
           "glyph": {
@@ -1059,7 +1060,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-problem",
+      "id": "stroke-control-bridge-idea-problem",
       "type": "bridge",
       "label": "Problem",
       "root": false,
@@ -1240,7 +1241,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "intent": "external",
         "memo": "Create and resolve Problem nodes in this graph.",
@@ -1311,9 +1312,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-audience",
+      "id": "stroke-control-idea-audience",
       "type": "idea-audience",
-      "label": "Authors Who Reuse Methods, and Reviewers",
+      "label": "People Who Build Edge Classes and Controls",
       "root": false,
       "position": {
         "x": -1540,
@@ -1350,9 +1351,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "People who write a Method once and the people who must trust it",
-        "description": "Authors who connect one Method to several Event Handlers, and reviewers who decide whether a Method is safe to run or import.",
-        "needs": "See what a Method reads, what it may change, and what happened the last time it ran, from the Method itself.",
+        "title": "People who build edge classes and other composed controls",
+        "description": "Authors and agents editing an edge class's paint, route and arrows, and anyone who wants to build a template out of smaller controls.",
+        "needs": "Change one setting and see exactly that change wherever it matters, without opening a generic form.",
         "definitionKey": "idea-audience",
         "_classBinding": {
           "key": "idea-audience",
@@ -1387,7 +1388,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "presentation": {
           "glyph": {
@@ -1424,7 +1425,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-audience",
+      "id": "stroke-control-bridge-idea-audience",
       "type": "bridge",
       "label": "Audience",
       "root": false,
@@ -1603,7 +1604,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "intent": "external",
         "memo": "Create and resolve Audience nodes in this graph.",
@@ -1674,9 +1675,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-proposed-approach",
+      "id": "stroke-control-idea-proposed-approach",
       "type": "idea-proposed-approach",
-      "label": "Inputs, Effects, Invocation, Outcome",
+      "label": "A Stroke Control Graph, Consumed Through a Bridge",
       "root": false,
       "position": {
         "x": 560,
@@ -1728,9 +1729,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Give the Method a contract and each call an identity",
-        "description": "Inputs: a short list of named inputs read from the occurrence payload by name; a missing required input fails the Invocation before any code runs and names the input. Effects: a short list of coarse kinds the Method may perform (update node, create node, delete node, edges, emit event, hand off), each with optional target nodes; the host refuses calls outside the list, and allowMutations becomes derived from it. Invocation: every call is an explicit runtime entity with an id, the Method, the caller (Handler and position), the arguments, the mode (dry or live), and its cause (occurrence, root occurrence and delivery), exposed to the source as the frozen api.invocation. It is not persisted as a node. Outcome: each Invocation reports status, result or error, duration and attempted effects, keyed by the invocation id; a dry run returns the proposed effects instead of applying them. Authority: a call runs only where what the Method declares, what the caller may do, and what the runtime permits all agree. The Method card shows its last outcome, and the Handler shows a read-only summary of its Methods' declared effects.",
-        "differentiator": "Small enough to write by hand, enforced at the one place every mutation already passes through, so a declaration is a limit and not only a description. Identity now and lifecycle later: the effects of one Invocation can be followed to the Event they emit, which answers why something happened.",
+        "title": "A Stroke Control graph, consumed through a Bridge",
+        "description": "Create a Stroke Control graph template: a Declaration exposing five Properties (color, width, opacity, dash, enabled), a swatch view drawn from them, and one class-scoped Handler calling one Method that re-renders the swatch, the same pattern as the Edge Class template. An export Bridge exposes the Properties' events. The Edge Class template imports the control through a Bridge and reacts to its events, so each stroke is an instance of the control instead of a field node. This needs Bridges to carry class-scoped events, so a Handler can listen to any stroke control without being wired to each one.",
+        "differentiator": "It reuses machinery that already exists and has been checked in the app (Property events, class-scoped Handlers, Methods that write stored views) and gives Bridges a real job, instead of adding a stroke-specific editor.",
         "definitionKey": "idea-proposed-approach",
         "_classBinding": {
           "key": "idea-proposed-approach",
@@ -1765,7 +1766,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "presentation": {
           "glyph": {
@@ -1819,7 +1820,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-proposed-approach",
+      "id": "stroke-control-bridge-idea-proposed-approach",
       "type": "bridge",
       "label": "Proposed Approach",
       "root": false,
@@ -1998,7 +1999,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "intent": "external",
         "memo": "Create and resolve Proposed Approach nodes in this graph.",
@@ -2069,9 +2070,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-question",
+      "id": "stroke-control-idea-question",
       "type": "idea-question",
-      "label": "Where Do Inputs Come From?",
+      "label": "How Many Strokes per Control Graph?",
       "root": false,
       "position": {
         "x": -1180,
@@ -2123,10 +2124,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Should inputs be bound by name or by edge?",
-        "question": "Should a Method read its inputs from the occurrence payload by name, or should the Action Method edge map payload fields to the Method's inputs?",
+        "title": "One stroke per control graph, or the whole paint stack?",
+        "question": "Is a stroke one instance of the control graph, with the edge class holding a list of instances, or does one control graph hold the whole paint stack?",
         "status": "open",
-        "answer": "Start by name: it needs nothing new on the graph. Add an optional mapping on the Action Method edge only if reusing one Method from differently shaped events proves clumsy.",
+        "answer": "Lean towards one instance per stroke. It matches how strokes are added and removed today and keeps the control small. The edge class's paint stack is then its own control, built from Stroke Controls.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -2161,7 +2162,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "presentation": {
           "glyph": {
@@ -2215,7 +2216,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-question",
+      "id": "stroke-control-bridge-idea-question",
       "type": "bridge",
       "label": "Question",
       "root": false,
@@ -2396,7 +2397,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "intent": "external",
         "memo": "Create and resolve Question nodes in this graph.",
@@ -2467,9 +2468,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-assumption",
+      "id": "stroke-control-idea-assumption",
       "type": "idea-assumption",
-      "label": "The Host Gate Can Enforce Effects",
+      "label": "Bridged Events Keep the Edge Class Live",
       "root": false,
       "position": {
         "x": -700,
@@ -2553,8 +2554,8 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Declared effects can be enforced where mutations already pass",
-        "statement": "Every mutating host call goes through one request handler that already names the mutating methods and counts them per run, so it can check each call's kind and target against the Method's declared effects and refuse the rest.",
+        "title": "Bridged Property events are enough to keep the edge class live",
+        "statement": "If a Bridge can expose a control's Property events, and an importing graph can listen to them by class, the Edge Class template stays live with no more plumbing than it has now.",
         "importance": "critical",
         "status": "untested",
         "definitionKey": "idea-assumption",
@@ -2591,7 +2592,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "presentation": {
           "glyph": {
@@ -2679,7 +2680,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-assumption",
+      "id": "stroke-control-bridge-idea-assumption",
       "type": "bridge",
       "label": "Assumption",
       "root": false,
@@ -2860,7 +2861,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "intent": "external",
         "memo": "Create and resolve Assumption nodes in this graph.",
@@ -2931,9 +2932,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-research",
+      "id": "stroke-control-idea-research",
       "type": "idea-research",
-      "label": "How Methods Run Today",
+      "label": "What Exists Today",
       "root": false,
       "position": {
         "x": -1780,
@@ -2969,10 +2970,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "How a Method receives input, runs, and reports",
-        "findings": "A Method's source runs as the body of an async function in a sandboxed iframe and receives one api object. The return value is the result and a thrown error is the failure. api.invocation is a frozen copy of the host's run metadata: occurrence and event key and payload, Handler and Method ids, Method index and count, fragment, and the allowMutations and dry flags. Runs share one serial queue, each is limited to 200 calls and 100 mutations, and a run that exceeds 15 seconds fails and resets the runner. parameters is only a list of labels shown on the card: the Edge Class Template's Method declares eventPayload and reads it from api.invocation. The card's status comes from a window event and shows the last run of that Method, without saying which Handler or event caused it.",
-        "sourceUrl": "github://TwiliteLLC/twilite/components/GraphEditor/Scripting/ScriptRunner.js",
-        "sourceType": "other",
+        "title": "What exists today",
+        "findings": "A stroke is a field node bound to the edge-class-stroke class and announces node.changed with the keys that changed. A Handler can listen to one node or to every node of a class, and a class can declare events that its instances inherit. The Edge Class template refreshes its three exposed views from Property and stroke changes through three Handlers and one Method that writes stored SVG. Bridges expose and consume events one node at a time only, and their Events UI has only just been given its own section in the Properties panel.",
+        "sourceUrl": "github://mikemartinez1974/public/templates/edge-class-template/root.node",
+        "sourceType": "prototype",
         "definitionKey": "idea-research",
         "_classBinding": {
           "key": "idea-research",
@@ -3007,7 +3008,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "presentation": {
           "glyph": {
@@ -3044,7 +3045,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-research",
+      "id": "stroke-control-bridge-idea-research",
       "type": "bridge",
       "label": "Research",
       "root": false,
@@ -3225,7 +3226,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "intent": "external",
         "memo": "Create and resolve Research nodes in this graph.",
@@ -3296,12 +3297,12 @@
       ]
     },
     {
-      "id": "method-node-design-idea-evidence",
+      "id": "stroke-control-idea-evidence",
       "type": "idea-evidence",
-      "label": "The Flag Does Not Gate Live Runs",
+      "label": "The Pattern Already Holds for the Edge Class",
       "root": false,
       "position": {
-        "x": -220,
+        "x": 260,
         "y": 260
       },
       "width": 400,
@@ -3334,9 +3335,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "allowMutations only matters in dry runs",
-        "observation": "In the host request handler, allowMutations is read at 13 sites. Twelve are the pattern \"if (isDry && !allowMutations) return simulated\", so they only apply to dry runs; the thirteenth refuses sendHandoff without it. A live updateNode or createNode is applied whether or not the Method has allowMutations set. The same handler is the single place every mutating call passes through: it lists them (createNode, createNodes, applyDeltas, composePort, sendHandoff, updateNode, updateView, deleteNode, deleteNodes, createEdge, deleteEdge) and counts them per run. The Handler editor nevertheless labels a Method without the flag \"Read-only execution\".",
-        "kind": "observation",
+        "title": "The pattern already holds for the Edge Class template",
+        "observation": "In the running app, editing any of the seven Edge Class properties, or a stroke's color, width or dash, updated the icon, summary and detail views through one Method. Adding a stroke's paint edge took the view from two strokes to three, and recoloring a stroke added later was covered by the class Handler with no new wiring. The Method's output matched the app's own renderer exactly across 13 variations.",
+        "kind": "prototype",
         "strength": "strong",
         "definitionKey": "idea-evidence",
         "_classBinding": {
@@ -3372,7 +3373,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "presentation": {
           "glyph": {
@@ -3380,7 +3381,7 @@
             "name": "FactCheck"
           }
         },
-        "citationSourceId": "github://TwiliteLLC/twilite/components/GraphEditor/hooks/usePluginRuntime.js"
+        "citationSourceId": "github://mikemartinez1974/public/templates/edge-class-template/root.node"
       },
       "handles": [
         {
@@ -3410,7 +3411,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-evidence",
+      "id": "stroke-control-bridge-idea-evidence",
       "type": "bridge",
       "label": "Evidence",
       "root": false,
@@ -3593,7 +3594,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "intent": "external",
         "memo": "Create and resolve Evidence nodes in this graph.",
@@ -3664,9 +3665,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-alternative",
+      "id": "stroke-control-idea-alternative",
       "type": "idea-alternative",
-      "label": "Persist Invocations With a Lifecycle",
+      "label": "Keep One Node, React Per Key",
       "root": false,
       "position": {
         "x": 1160,
@@ -3702,9 +3703,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Persist Invocation nodes and a full lifecycle now",
-        "description": "Store each call as a graph node with a lifecycle (requested, authorized, running, succeeded, failed, cancelled), progress, cancellation and history, as sketched in the discussion on the Methods topic.",
-        "tradeoffs": "The right shape for long-running Personal Server Methods and for tracing across graphs, but it is a storage and runtime design of its own. Handler-invoked Methods that finish do not need it yet. What they do need is the identity, which is why it is kept: Invocation is explicit now, and persistence and lifecycle are what is deferred.",
+        "title": "Keep the stroke as one node and react per key",
+        "description": "Leave the stroke as a field node and let Handlers read the changed keys from node.changed, with a nicer generic editor.",
+        "tradeoffs": "Cheapest by far and already works. But it stays a bag of values: no typed settings, no preview of its own, no reuse outside this template, and nothing for Bridges to carry.",
         "definitionKey": "idea-alternative",
         "_classBinding": {
           "key": "idea-alternative",
@@ -3739,7 +3740,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "presentation": {
           "glyph": {
@@ -3776,7 +3777,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-alternative",
+      "id": "stroke-control-bridge-idea-alternative",
       "type": "bridge",
       "label": "Alternative",
       "root": false,
@@ -3955,7 +3956,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "intent": "external",
         "memo": "Create and resolve Alternative nodes in this graph.",
@@ -4026,9 +4027,9 @@
       ]
     },
     {
-      "id": "method-node-design-idea-risk",
+      "id": "stroke-control-idea-risk",
       "type": "idea-risk",
-      "label": "Effects Too Coarse to Mean Much",
+      "label": "Too Much Machinery for a Small Control",
       "root": false,
       "position": {
         "x": -220,
@@ -4064,11 +4065,11 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "A broad declaration reassures without limiting",
-        "description": "A Method that declares \"update node\" with no target can still write to any node in scope, so a reviewer may read the declaration as safer than it is.",
+        "title": "Too much machinery for a small control",
+        "description": "A graph, a Bridge, a Handler and a Method per stroke is heavy for five values. Several strokes multiply the Bridges, and if class-scoped events cannot cross Bridges cleanly the consumer becomes fragile.",
         "likelihood": "medium",
         "impact": "high",
-        "mitigation": "Let effects name target nodes, and show \"any node\" as a warning in the Handler's summary. Enforce at the host gate so a declaration is a limit and never only a description.",
+        "mitigation": "Prove one instance end to end before generalizing, and decide the class-scoped Bridge behavior first because everything else depends on it. If it stays heavy, the alternative remains available.",
         "definitionKey": "idea-risk",
         "_classBinding": {
           "key": "idea-risk",
@@ -4103,7 +4104,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "presentation": {
           "glyph": {
@@ -4140,7 +4141,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-risk",
+      "id": "stroke-control-bridge-idea-risk",
       "type": "bridge",
       "label": "Risk",
       "root": false,
@@ -4323,7 +4324,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "intent": "external",
         "memo": "Create and resolve Risk nodes in this graph.",
@@ -4394,13 +4395,13 @@
       ]
     },
     {
-      "id": "method-node-design-idea-next-step",
+      "id": "stroke-control-idea-next-step",
       "type": "idea-next-step",
-      "label": "Gate One Effect Family",
+      "label": "Prototype the Stroke Control Graph",
       "root": false,
       "position": {
-        "x": -1780,
-        "y": 1560
+        "x": -1180,
+        "y": 1160
       },
       "width": 400,
       "height": 300,
@@ -4448,10 +4449,10 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Enforce declared effects for node updates",
-        "action": "In the host request handler, refuse updateNode and updateView calls whose target is not in the Method's declared effects, in live and dry runs. Leave every other call family unchanged.",
-        "expectedEvidence": "A Method that writes outside its declared targets is refused with a message naming the target, one that writes inside them succeeds, and nothing else about running Methods changes.",
-        "status": "done",
+        "title": "Build the Stroke Control graph template",
+        "action": "Create templates/stroke-control with five Properties, a swatch view, and one class-scoped Handler calling one Method that re-renders the swatch. Do not connect it to the Edge Class template yet.",
+        "expectedEvidence": "Editing any of the five Properties updates the swatch through the Handler and Method, checked in the app, and the Method matches an independent render of the same values.",
+        "status": "todo",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",
@@ -4486,7 +4487,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "presentation": {
           "glyph": {
@@ -4540,7 +4541,7 @@
       ]
     },
     {
-      "id": "method-node-design-bridge-idea-next-step",
+      "id": "stroke-control-bridge-idea-next-step",
       "type": "bridge",
       "label": "Next Step",
       "root": false,
@@ -4721,7 +4722,7 @@
           "create"
         ],
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "intent": "external",
         "memo": "Create and resolve Next Step nodes in this graph.",
@@ -4816,7 +4817,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "stroke-control",
           "portId": "edge-class-advances",
           "name": "Advances"
         },
@@ -4888,7 +4889,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "stroke-control",
           "portId": "edge-class-affects",
           "name": "Affects"
         },
@@ -4960,7 +4961,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "stroke-control",
           "portId": "edge-class-assumes",
           "name": "Assumes"
         },
@@ -5032,7 +5033,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "stroke-control",
           "portId": "edge-class-contradicts",
           "name": "Contradicts"
         },
@@ -5104,7 +5105,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "stroke-control",
           "portId": "edge-class-informs",
           "name": "Informs"
         },
@@ -5176,7 +5177,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "stroke-control",
           "portId": "edge-class-motivates",
           "name": "Motivates"
         },
@@ -5248,7 +5249,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "stroke-control",
           "portId": "edge-class-questions",
           "name": "Questions"
         },
@@ -5320,7 +5321,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "stroke-control",
           "portId": "edge-class-supports",
           "name": "Supports"
         },
@@ -5392,7 +5393,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "stroke-control",
           "portId": "edge-class-tests",
           "name": "Tests"
         },
@@ -5464,7 +5465,7 @@
       "data": {
         "visibilityRole": "editor",
         "identity": {
-          "graphId": "method-node-design",
+          "graphId": "stroke-control",
           "portId": "edge-class-threatens",
           "name": "Threatens"
         },
@@ -5512,9 +5513,9 @@
       ]
     },
     {
-      "id": "method-node-design-detail-view",
+      "id": "stroke-control-detail-view",
       "type": "view",
-      "label": "A Solid Method Node Detail",
+      "label": "The Stroke Control Detail",
       "root": false,
       "position": {
         "x": -1500,
@@ -5589,7 +5590,7 @@
         "semanticLevel": "detail",
         "content": {
           "kind": "markdown",
-          "value": "# A Solid Method Node\n\nA Method should be a small, reviewable contract: what it reads, what it may change, and what it reports. Each call is an explicit, ephemeral Invocation with an identity, so its Outcome and effects can be traced to the Event that caused it. What happens after a failure is the Handler's policy.\n\nThis builds on the Event Handler behavior idea, `github://mikemartinez1974/public/ideas/event-handler-behavior/root.node`."
+          "value": "# The Stroke Control\n\nMake the stroke widget a small graph of its own: real Properties, a preview that keeps itself current, and a Bridge that exposes its events, so the Edge Class template is edited through composed controls.\n\nThis builds on the Edge Class template and on the Bridge Editor idea, `github://mikemartinez1974/public/ideas/bridge-editor/root.node`."
         },
         "interfaceContract": {
           "version": 1,
@@ -5597,14 +5598,14 @@
           "surfaceDelegation": true
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         }
       }
     },
     {
-      "id": "method-node-design-summary-view",
+      "id": "stroke-control-summary-view",
       "type": "view",
-      "label": "A Solid Method Node Summary",
+      "label": "The Stroke Control Summary",
       "root": false,
       "position": {
         "x": -1500,
@@ -5679,7 +5680,7 @@
         "semanticLevel": "summary",
         "content": {
           "kind": "markdown",
-          "value": "## A reviewable contract\n\nInputs, effects and an Outcome, with an ephemeral Invocation that has an identity."
+          "value": "## A stroke as a control graph\n\nFive real Properties, a swatch that keeps itself current, and a Bridge that exposes its events."
         },
         "interfaceContract": {
           "version": 1,
@@ -5687,14 +5688,14 @@
           "surfaceDelegation": true
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         }
       }
     },
     {
-      "id": "method-node-design-icon-view",
+      "id": "stroke-control-icon-view",
       "type": "view",
-      "label": "A Solid Method Node Icon",
+      "label": "The Stroke Control Icon",
       "root": false,
       "position": {
         "x": -1500,
@@ -5769,7 +5770,7 @@
         "semanticLevel": "icon",
         "content": {
           "kind": "svg",
-          "value": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220'><rect width='320' height='220' rx='28' fill='#312e81'/><text x='160' y='122' text-anchor='middle' fill='#e0e7ff' font-family='Georgia,serif' font-size='96' font-style='italic'>f</text><g fill='#a5b4fc'><rect x='52' y='146' width='60' height='10' rx='5'/><rect x='130' y='146' width='60' height='10' rx='5'/><rect x='208' y='146' width='60' height='10' rx='5'/></g><text x='160' y='196' text-anchor='middle' fill='#c7d2fe' font-family='system-ui' font-size='14' font-weight='800'>METHOD CONTRACT</text></svg>"
+          "value": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220'><rect width='320' height='220' rx='28' fill='#312e81'/><text x='160' y='128' text-anchor='middle' fill='#e0e7ff' font-family='Georgia,serif' font-size='92' font-style='italic'>S</text><text x='160' y='196' text-anchor='middle' fill='#e0e7ff' font-family='system-ui' font-size='14' font-weight='800'>STROKE CONTROL</text></svg>"
         },
         "interfaceContract": {
           "version": 1,
@@ -5777,14 +5778,14 @@
           "surfaceDelegation": true
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         }
       }
     },
     {
-      "id": "method-node-design-glyph",
+      "id": "stroke-control-glyph",
       "type": "glyph",
-      "label": "A Solid Method Node Glyph",
+      "label": "The Stroke Control Glyph",
       "root": false,
       "position": {
         "x": -900,
@@ -5818,25 +5819,25 @@
       "data": {
         "glyph": {
           "kind": "icon",
-          "name": "Code"
+          "name": "Gesture"
         },
         "interfaceContract": {
           "version": 1,
           "receivesGlyphDefinition": true
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         }
       }
     },
     {
-      "id": "method-node-design-assumption-context",
+      "id": "stroke-control-assumption-preview",
       "type": "idea-assumption",
-      "label": "Invocation Can Stay Ephemeral",
+      "label": "A Control Can Keep Its Own Preview Current",
       "root": false,
       "position": {
-        "x": -700,
-        "y": 700
+        "x": -220,
+        "y": 260
       },
       "width": 400,
       "height": 300,
@@ -5916,8 +5917,8 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "A lightweight, ephemeral Invocation with an identity is enough for now",
-        "statement": "For a Method that a Handler calls once per occurrence and that finishes, an Invocation needs an id, a caller, arguments, context and mode, and an Outcome keyed to it. It does not need a persisted Invocation node, a lifecycle, progress, cancellation or history yet, and adding them later will not require changing what identifies it.",
+        "title": "A control can keep its own preview current",
+        "statement": "A control graph can render its own summary view from its Properties through one class-scoped Handler and one Method, as the Edge Class template does for its three exposed views.",
         "importance": "high",
         "status": "untested",
         "definitionKey": "idea-assumption",
@@ -5954,7 +5955,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "presentation": {
           "glyph": {
@@ -6042,485 +6043,13 @@
       ]
     },
     {
-      "id": "method-node-design-assumption-policy",
-      "type": "idea-assumption",
-      "label": "Failure Policy Belongs to the Handler",
-      "root": false,
-      "position": {
-        "x": -1180,
-        "y": 1120
-      },
-      "width": 400,
-      "height": 300,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "assumed-by",
-          "key": "assumed-by",
-          "label": "assumed by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 270,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "questioned-by",
-          "key": "questioned-by",
-          "label": "questioned by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 180,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "supported-by",
-          "key": "supported-by",
-          "label": "supported by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 0,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "tested-by",
-          "key": "tested-by",
-          "label": "tested by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 90,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        }
-      ],
-      "visible": true,
-      "showLabel": false,
-      "data": {
-        "title": "What happens after a Method fails is Handler composition policy",
-        "statement": "A Method only knows it was invoked and what happened. Whether the next Method runs after a failure (continue, stop, retry, roll back, branch, call a failure handler) belongs to whatever composes the Methods, so the Method contract stays the same as policies grow. Continue-on-failure is a fine Handler default for now.",
-        "importance": "medium",
-        "status": "untested",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
-        "identity": {
-          "graphId": "method-node-design"
-        },
-        "presentation": {
-          "glyph": {
-            "kind": "icon",
-            "name": "PsychologyAlt"
-          }
-        }
-      },
-      "handles": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "assumed-by",
-          "key": "assumed-by",
-          "label": "assumed by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 270,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "assumed-by",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "questioned-by",
-          "key": "questioned-by",
-          "label": "questioned by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 180,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "questioned-by",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "supported-by",
-          "key": "supported-by",
-          "label": "supported by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 0,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "supported-by",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "tested-by",
-          "key": "tested-by",
-          "label": "tested by",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 90,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "tested-by",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        }
-      ]
-    },
-    {
-      "id": "method-node-design-evidence-identity",
-      "type": "idea-evidence",
-      "label": "The Call Already Has Everything but an Id",
-      "root": false,
-      "position": {
-        "x": -220,
-        "y": 1120
-      },
-      "width": 400,
-      "height": 300,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "supports",
-          "key": "supports",
-          "label": "supports",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 180,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        }
-      ],
-      "visible": true,
-      "showLabel": false,
-      "data": {
-        "title": "api.invocation already describes an Invocation, without an identity",
-        "observation": "The frozen api.invocation object the runner hands the source already carries the occurrence and root occurrence ids, the delivery id, the Handler, the Method and its position, the fragment, and the dry and mutation flags. It has no id of its own, so an Outcome or an attempted effect cannot be attached to one call. Occurrence emission already records its cause and root occurrence, so a Method that emits an event continues the chain, but only through the occurrence ids.",
-        "kind": "observation",
-        "strength": "strong",
-        "definitionKey": "idea-evidence",
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "FactCheck"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
-        "identity": {
-          "graphId": "method-node-design"
-        },
-        "presentation": {
-          "glyph": {
-            "kind": "icon",
-            "name": "FactCheck"
-          }
-        },
-        "citationSourceId": "github://TwiliteLLC/twilite/components/GraphEditor/Scripting/ScriptRunner.js"
-      },
-      "handles": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "supports",
-          "key": "supports",
-          "label": "supports",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 180,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "supports",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        }
-      ]
-    },
-    {
-      "id": "method-node-design-next-step-reuse",
-      "type": "idea-next-step",
-      "label": "Reuse One Method Twice",
-      "root": false,
-      "position": {
-        "x": -220,
-        "y": 1560
-      },
-      "width": 400,
-      "height": 300,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "tests",
-          "key": "tests",
-          "label": "tests",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 270,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "guidance",
-          "key": "guidance",
-          "label": "Guidance",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 0,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        }
-      ],
-      "visible": true,
-      "showLabel": false,
-      "data": {
-        "title": "Call one Method from two Handlers with different payloads",
-        "action": "Connect one Method to two Event Handlers whose events carry differently shaped payloads. Declare its inputs and read them by name from the invocation, and omit a required input on one of them.",
-        "expectedEvidence": "Both Handlers run the Method cleanly, and the missing input fails that Invocation with a message naming the Method and the input, with no persisted Invocation node or lifecycle needed.",
-        "status": "todo",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
-        "identity": {
-          "graphId": "method-node-design"
-        },
-        "presentation": {
-          "glyph": {
-            "kind": "icon",
-            "name": "ArrowForward"
-          }
-        }
-      },
-      "handles": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "tests",
-          "key": "tests",
-          "label": "tests",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 270,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "tests",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "guidance",
-          "key": "guidance",
-          "label": "Guidance",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 0,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "guidance",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        }
-      ]
-    },
-    {
-      "id": "method-node-design-next-step-identity",
-      "type": "idea-next-step",
-      "label": "Give Every Call an Identity",
+      "id": "stroke-control-question-listen",
+      "type": "idea-question",
+      "label": "How Does the Consumer Listen to Any Stroke?",
       "root": false,
       "position": {
         "x": -700,
-        "y": 1560
+        "y": 700
       },
       "width": 400,
       "height": 300,
@@ -6533,12 +6062,12 @@
           "angle": 210
         },
         {
-          "id": "tests",
-          "key": "tests",
-          "label": "tests",
+          "id": "questions",
+          "key": "questions",
+          "label": "questions",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 270,
+          "angle": 0,
           "role": "relationship",
           "allowedEdgeTypes": [
             "reference"
@@ -6549,12 +6078,12 @@
           }
         },
         {
-          "id": "guidance",
-          "key": "guidance",
-          "label": "Guidance",
+          "id": "informed-by",
+          "key": "informed-by",
+          "label": "informed by",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 0,
+          "angle": 180,
           "role": "relationship",
           "allowedEdgeTypes": [
             "reference"
@@ -6568,14 +6097,14 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Introduce an ephemeral Invocation with an Outcome",
-        "action": "Create an Invocation id for every Method call and put it in api.invocation with the caller, arguments, mode and cause (occurrence, root occurrence, delivery). Return an Outcome keyed by that id with status, result or error, duration and attempted effects. Persist nothing in the graph.",
-        "expectedEvidence": "From one property change, a single diagnostic can list occurrence, delivery, Handler, Invocation and Outcome by id, including the event that the Method emitted in turn, without adding a lifecycle, progress, cancellation or history.",
-        "status": "todo",
-        "definitionKey": "idea-next-step",
+        "title": "How does the consumer listen to any stroke?",
+        "question": "When strokes are separate graphs reached through Bridges, how does the Edge Class template react to a change in any of them without a Handler per stroke?",
+        "status": "open",
+        "answer": "Class-scoped listening has to cross Bridges: the export side exposes a class's events and an import Handler listens to the class. Bridges expose events node by node today, so this is a real gap and the second next step.",
+        "definitionKey": "idea-question",
         "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
+          "key": "idea-question",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
           "defaults": {
             "ports": [
               {
@@ -6591,27 +6120,27 @@
               "presentation": {
                 "glyph": {
                   "kind": "icon",
-                  "name": "ArrowForward"
+                  "name": "HelpOutline"
                 }
               }
             }
           }
         },
         "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
+          "classKey": "idea-question",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
           "entryPort": "root",
           "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "presentation": {
           "glyph": {
             "kind": "icon",
-            "name": "ArrowForward"
+            "name": "HelpOutline"
           }
         }
       },
@@ -6624,26 +6153,9 @@
           "angle": 210
         },
         {
-          "id": "tests",
-          "key": "tests",
-          "label": "tests",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 270,
-          "role": "relationship",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "portId": "tests",
-          "metadata": {
-            "relationship": true,
-            "role": "relationship"
-          }
-        },
-        {
-          "id": "guidance",
-          "key": "guidance",
-          "label": "Guidance",
+          "id": "questions",
+          "key": "questions",
+          "label": "questions",
           "direction": "bidirectional",
           "dataType": "any",
           "angle": 0,
@@ -6651,7 +6163,24 @@
           "allowedEdgeTypes": [
             "reference"
           ],
-          "portId": "guidance",
+          "portId": "questions",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "informed-by",
+          "key": "informed-by",
+          "label": "informed by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "informed-by",
           "metadata": {
             "relationship": true,
             "role": "relationship"
@@ -6660,13 +6189,13 @@
       ]
     },
     {
-      "id": "method-node-design-next-step-policy",
+      "id": "stroke-control-next-step-bridge",
       "type": "idea-next-step",
-      "label": "Move Failure Policy to the Handler",
+      "label": "Carry Class Events Across Bridges",
       "root": false,
       "position": {
-        "x": -1180,
-        "y": 1560
+        "x": -700,
+        "y": 1160
       },
       "width": 400,
       "height": 300,
@@ -6714,9 +6243,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Make continue-after-failure an explicit Handler policy",
-        "action": "Name the current behavior, where one failing Method does not stop the rest, as the Handler's default failure policy, and record each Method's outcome separately against its own Invocation. The Method contract does not change.",
-        "expectedEvidence": "The Handler reports per-Method outcomes and its policy without any Method knowing about its siblings, and adding a second policy such as stop-on-failure changes only the Handler.",
+        "title": "Expose and consume events by class across a Bridge",
+        "action": "Let an export Bridge expose all events of a class, and let an import Handler listen to a class through the Bridge, in the model, the delivery path and the Bridge editor.",
+        "expectedEvidence": "A second graph with two instances of a class, and a class Handler on the import side, receives a change from either instance, and adding a third instance needs no new wiring.",
         "status": "todo",
         "definitionKey": "idea-next-step",
         "_classBinding": {
@@ -6752,7 +6281,7 @@
           "targetKind": "node-class"
         },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         },
         "presentation": {
           "glyph": {
@@ -6806,58 +6335,158 @@
       ]
     },
     {
-      "id": "method-node-design-task-method-effects-gate",
-      "type": "portal",
-      "label": "Gate One Effect Family (Tasks)",
+      "id": "stroke-control-next-step-consume",
+      "type": "idea-next-step",
+      "label": "Consume the Control From the Edge Class",
+      "root": false,
       "position": {
-        "x": -1750,
-        "y": 2000
+        "x": -220,
+        "y": 1160
       },
-      "width": 340,
-      "height": 220,
+      "width": 400,
+      "height": 300,
       "ports": [
         {
           "id": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 180
+          "angle": 210
+        },
+        {
+          "id": "tests",
+          "key": "tests",
+          "label": "tests",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "guidance",
+          "key": "guidance",
+          "label": "Guidance",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
         }
       ],
       "visible": true,
-      "showLabel": true,
+      "showLabel": false,
       "data": {
-        "memo": "Task graph that carries out this next step.",
-        "authority": "navigate",
-        "intent": "external",
-        "src": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
-        "ref": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
-        "endpoint": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
-        "sourceRef": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
-        "sourceNodeId": "method-effects-gate-summary-view",
-        "sourcePayload": "node.web.summary",
-        "surfaceId": "root",
-        "target": {
-          "ref": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
-          "mode": "navigate",
-          "portId": "root",
-          "surfaceId": "root",
-          "label": "Open task graph"
+        "title": "Make the Edge Class template consume Stroke Controls",
+        "action": "Replace the stroke field nodes in the Edge Class template with Stroke Control instances imported through a Bridge, with its refresh Handler listening to their bridged events.",
+        "expectedEvidence": "Editing a stroke control updates the edge class's icon, summary and detail views, adding and removing a stroke control works, and the views still match the app renderer.",
+        "status": "todo",
+        "definitionKey": "idea-next-step",
+        "_classBinding": {
+          "key": "idea-next-step",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
+          "defaults": {
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ],
+            "data": {
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "ArrowForward"
+                }
+              }
+            }
+          }
         },
-        "visibilityRole": "browser",
-        "presentationBaseLevel": "summary",
+        "_bridge": {
+          "classKey": "idea-next-step",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
+          "targetKind": "node-class"
+        },
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "ArrowForward"
+          }
         }
-      }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "tests",
+          "key": "tests",
+          "label": "tests",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "tests",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "guidance",
+          "key": "guidance",
+          "label": "Guidance",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "guidance",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ]
     },
     {
-      "id": "method-node-design-task-handler-method-failure-policy",
+      "id": "stroke-control-task-stroke-control-template",
       "type": "portal",
-      "label": "Move Failure Policy to the Handler (Tasks)",
+      "label": "Build the Stroke Control graph template (Tasks)",
       "position": {
         "x": -1150,
-        "y": 2000
+        "y": 1600
       },
       "width": 340,
       "height": 220,
@@ -6876,15 +6505,15 @@
         "memo": "Task graph that carries out this next step.",
         "authority": "navigate",
         "intent": "external",
-        "src": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
-        "ref": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
-        "endpoint": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
-        "sourceRef": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
-        "sourceNodeId": "handler-method-failure-policy-summary-view",
+        "src": "github://mikemartinez1974/public/tasks/stroke-control-template/root.node",
+        "ref": "github://mikemartinez1974/public/tasks/stroke-control-template/root.node",
+        "endpoint": "github://mikemartinez1974/public/tasks/stroke-control-template/root.node",
+        "sourceRef": "github://mikemartinez1974/public/tasks/stroke-control-template/root.node",
+        "sourceNodeId": "stroke-control-template-summary-view",
         "sourcePayload": "node.web.summary",
         "surfaceId": "root",
         "target": {
-          "ref": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
+          "ref": "github://mikemartinez1974/public/tasks/stroke-control-template/root.node",
           "mode": "navigate",
           "portId": "root",
           "surfaceId": "root",
@@ -6893,17 +6522,17 @@
         "visibilityRole": "browser",
         "presentationBaseLevel": "summary",
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         }
       }
     },
     {
-      "id": "method-node-design-task-method-invocation-identity",
+      "id": "stroke-control-task-bridge-class-scoped-events",
       "type": "portal",
-      "label": "Give Every Call an Identity (Tasks)",
+      "label": "Carry class events across Bridges (Tasks)",
       "position": {
         "x": -670,
-        "y": 2000
+        "y": 1600
       },
       "width": 340,
       "height": 220,
@@ -6922,15 +6551,15 @@
         "memo": "Task graph that carries out this next step.",
         "authority": "navigate",
         "intent": "external",
-        "src": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
-        "ref": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
-        "endpoint": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
-        "sourceRef": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
-        "sourceNodeId": "method-invocation-identity-summary-view",
+        "src": "github://mikemartinez1974/public/tasks/bridge-class-scoped-events/root.node",
+        "ref": "github://mikemartinez1974/public/tasks/bridge-class-scoped-events/root.node",
+        "endpoint": "github://mikemartinez1974/public/tasks/bridge-class-scoped-events/root.node",
+        "sourceRef": "github://mikemartinez1974/public/tasks/bridge-class-scoped-events/root.node",
+        "sourceNodeId": "bridge-class-scoped-events-summary-view",
         "sourcePayload": "node.web.summary",
         "surfaceId": "root",
         "target": {
-          "ref": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
+          "ref": "github://mikemartinez1974/public/tasks/bridge-class-scoped-events/root.node",
           "mode": "navigate",
           "portId": "root",
           "surfaceId": "root",
@@ -6939,17 +6568,17 @@
         "visibilityRole": "browser",
         "presentationBaseLevel": "summary",
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         }
       }
     },
     {
-      "id": "method-node-design-task-method-reuse-two-handlers",
+      "id": "stroke-control-task-edge-class-consumes-stroke-control",
       "type": "portal",
-      "label": "Reuse One Method Twice (Tasks)",
+      "label": "Consume the control from the Edge Class (Tasks)",
       "position": {
         "x": -190,
-        "y": 2000
+        "y": 1600
       },
       "width": 340,
       "height": 220,
@@ -6968,15 +6597,15 @@
         "memo": "Task graph that carries out this next step.",
         "authority": "navigate",
         "intent": "external",
-        "src": "github://mikemartinez1974/public/tasks/method-reuse-two-handlers/root.node",
-        "ref": "github://mikemartinez1974/public/tasks/method-reuse-two-handlers/root.node",
-        "endpoint": "github://mikemartinez1974/public/tasks/method-reuse-two-handlers/root.node",
-        "sourceRef": "github://mikemartinez1974/public/tasks/method-reuse-two-handlers/root.node",
-        "sourceNodeId": "method-reuse-two-handlers-summary-view",
+        "src": "github://mikemartinez1974/public/tasks/edge-class-consumes-stroke-control/root.node",
+        "ref": "github://mikemartinez1974/public/tasks/edge-class-consumes-stroke-control/root.node",
+        "endpoint": "github://mikemartinez1974/public/tasks/edge-class-consumes-stroke-control/root.node",
+        "sourceRef": "github://mikemartinez1974/public/tasks/edge-class-consumes-stroke-control/root.node",
+        "sourceNodeId": "edge-class-consumes-stroke-control-summary-view",
         "sourcePayload": "node.web.summary",
         "surfaceId": "root",
         "target": {
-          "ref": "github://mikemartinez1974/public/tasks/method-reuse-two-handlers/root.node",
+          "ref": "github://mikemartinez1974/public/tasks/edge-class-consumes-stroke-control/root.node",
           "mode": "navigate",
           "portId": "root",
           "surfaceId": "root",
@@ -6985,16 +6614,16 @@
         "visibilityRole": "browser",
         "presentationBaseLevel": "summary",
         "identity": {
-          "graphId": "method-node-design"
+          "graphId": "stroke-control"
         }
       }
     }
   ],
   "edges": [
     {
-      "id": "method-node-design-declaration-edge-class-authority-advances",
+      "id": "stroke-control-declaration-edge-class-authority-advances",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "stroke-control-declaration",
       "target": "idea-edge-class-advances",
       "label": "edge authority",
       "style": {},
@@ -7003,9 +6632,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-affects",
+      "id": "stroke-control-declaration-edge-class-authority-affects",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "stroke-control-declaration",
       "target": "idea-edge-class-affects",
       "label": "edge authority",
       "style": {},
@@ -7014,9 +6643,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-assumes",
+      "id": "stroke-control-declaration-edge-class-authority-assumes",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "stroke-control-declaration",
       "target": "idea-edge-class-assumes",
       "label": "edge authority",
       "style": {},
@@ -7025,9 +6654,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-contradicts",
+      "id": "stroke-control-declaration-edge-class-authority-contradicts",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "stroke-control-declaration",
       "target": "idea-edge-class-contradicts",
       "label": "edge authority",
       "style": {},
@@ -7036,9 +6665,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-informs",
+      "id": "stroke-control-declaration-edge-class-authority-informs",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "stroke-control-declaration",
       "target": "idea-edge-class-informs",
       "label": "edge authority",
       "style": {},
@@ -7047,9 +6676,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-motivates",
+      "id": "stroke-control-declaration-edge-class-authority-motivates",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "stroke-control-declaration",
       "target": "idea-edge-class-motivates",
       "label": "edge authority",
       "style": {},
@@ -7058,9 +6687,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-questions",
+      "id": "stroke-control-declaration-edge-class-authority-questions",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "stroke-control-declaration",
       "target": "idea-edge-class-questions",
       "label": "edge authority",
       "style": {},
@@ -7069,9 +6698,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-supports",
+      "id": "stroke-control-declaration-edge-class-authority-supports",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "stroke-control-declaration",
       "target": "idea-edge-class-supports",
       "label": "edge authority",
       "style": {},
@@ -7080,9 +6709,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-tests",
+      "id": "stroke-control-declaration-edge-class-authority-tests",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "stroke-control-declaration",
       "target": "idea-edge-class-tests",
       "label": "edge authority",
       "style": {},
@@ -7091,9 +6720,9 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-declaration-edge-class-authority-threatens",
+      "id": "stroke-control-declaration-edge-class-authority-threatens",
       "type": "reference",
-      "source": "method-node-design-declaration",
+      "source": "stroke-control-declaration",
       "target": "idea-edge-class-threatens",
       "label": "edge authority",
       "style": {},
@@ -7102,10 +6731,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-default-view",
+      "id": "stroke-control-default-view",
       "type": "default-view",
-      "source": "method-node-design-declaration",
-      "target": "method-node-design-detail-view",
+      "source": "stroke-control-declaration",
+      "target": "stroke-control-detail-view",
       "label": "default view",
       "style": {},
       "data": {
@@ -7116,10 +6745,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-summary-view-edge",
+      "id": "stroke-control-summary-view-edge",
       "type": "reference",
-      "source": "method-node-design-declaration",
-      "target": "method-node-design-summary-view",
+      "source": "stroke-control-declaration",
+      "target": "stroke-control-summary-view",
       "label": "summary view",
       "style": {},
       "data": {
@@ -7130,10 +6759,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-icon-view-edge",
+      "id": "stroke-control-icon-view-edge",
       "type": "reference",
-      "source": "method-node-design-declaration",
-      "target": "method-node-design-icon-view",
+      "source": "stroke-control-declaration",
+      "target": "stroke-control-icon-view",
       "label": "icon view",
       "style": {},
       "data": {
@@ -7144,10 +6773,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-glyph-edge",
+      "id": "stroke-control-glyph-edge",
       "type": "reference",
-      "source": "method-node-design-declaration",
-      "target": "method-node-design-glyph",
+      "source": "stroke-control-declaration",
+      "target": "stroke-control-glyph",
       "label": "glyph",
       "style": {},
       "data": {
@@ -7158,10 +6787,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-landing-edge",
+      "id": "stroke-control-landing-edge",
       "type": "reference",
-      "source": "method-node-design-declaration",
-      "target": "method-node-design-idea",
+      "source": "stroke-control-declaration",
+      "target": "stroke-control-idea",
       "label": "landing surface",
       "style": {},
       "data": {
@@ -7172,10 +6801,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-problem-motivates",
+      "id": "stroke-control-problem-motivates",
       "type": "reference",
-      "source": "method-node-design-idea-problem",
-      "target": "method-node-design-idea",
+      "source": "stroke-control-idea-problem",
+      "target": "stroke-control-idea",
       "label": "motivates",
       "style": {
         "curved": false,
@@ -7194,10 +6823,10 @@
       "targetHandle": "motivated-by"
     },
     {
-      "id": "method-node-design-audience-affects",
+      "id": "stroke-control-audience-affects",
       "type": "reference",
-      "source": "method-node-design-idea-audience",
-      "target": "method-node-design-idea-problem",
+      "source": "stroke-control-idea-audience",
+      "target": "stroke-control-idea-problem",
       "label": "affects",
       "style": {
         "curved": false,
@@ -7216,10 +6845,10 @@
       "targetHandle": "affects"
     },
     {
-      "id": "method-node-design-approach-advances",
+      "id": "stroke-control-approach-advances",
       "type": "reference",
-      "source": "method-node-design-idea-proposed-approach",
-      "target": "method-node-design-idea",
+      "source": "stroke-control-idea-proposed-approach",
+      "target": "stroke-control-idea",
       "label": "advances",
       "style": {
         "curved": false,
@@ -7238,10 +6867,10 @@
       "targetHandle": "advanced-by"
     },
     {
-      "id": "method-node-design-idea-assumes-gate",
+      "id": "stroke-control-idea-assumes-bridged",
       "type": "reference",
-      "source": "method-node-design-idea",
-      "target": "method-node-design-idea-assumption",
+      "source": "stroke-control-idea",
+      "target": "stroke-control-idea-assumption",
       "label": "assumes",
       "style": {
         "curved": false,
@@ -7264,10 +6893,10 @@
       "targetHandle": "assumed-by"
     },
     {
-      "id": "method-node-design-idea-assumes-context",
+      "id": "stroke-control-idea-assumes-preview",
       "type": "reference",
-      "source": "method-node-design-idea",
-      "target": "method-node-design-assumption-context",
+      "source": "stroke-control-idea",
+      "target": "stroke-control-assumption-preview",
       "label": "assumes",
       "style": {
         "curved": false,
@@ -7290,10 +6919,10 @@
       "targetHandle": "assumed-by"
     },
     {
-      "id": "method-node-design-question-inputs-questions",
+      "id": "stroke-control-question-count-questions",
       "type": "reference",
-      "source": "method-node-design-idea-question",
-      "target": "method-node-design-assumption-context",
+      "source": "stroke-control-idea-question",
+      "target": "stroke-control-idea-assumption",
       "label": "questions",
       "style": {
         "curved": false,
@@ -7316,10 +6945,36 @@
       "targetHandle": "questioned-by"
     },
     {
-      "id": "method-node-design-research-today-informs",
+      "id": "stroke-control-question-listen-questions",
       "type": "reference",
-      "source": "method-node-design-idea-research",
-      "target": "method-node-design-idea-question",
+      "source": "stroke-control-question-listen",
+      "target": "stroke-control-idea-assumption",
+      "label": "questions",
+      "style": {
+        "curved": false,
+        "stroke": "#ca8a04",
+        "strokeWidth": 3,
+        "dash": [
+          8,
+          5
+        ],
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.questions",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
+        "semanticRole": "idea.questions",
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+      },
+      "sourceHandle": "questions",
+      "targetHandle": "questioned-by"
+    },
+    {
+      "id": "stroke-control-research-informs-count",
+      "type": "reference",
+      "source": "stroke-control-idea-research",
+      "target": "stroke-control-idea-question",
       "label": "informs",
       "style": {
         "curved": false,
@@ -7338,10 +6993,32 @@
       "targetHandle": "informed-by"
     },
     {
-      "id": "method-node-design-evidence-flag-supports",
+      "id": "stroke-control-research-informs-listen",
       "type": "reference",
-      "source": "method-node-design-idea-evidence",
-      "target": "method-node-design-idea-assumption",
+      "source": "stroke-control-idea-research",
+      "target": "stroke-control-question-listen",
+      "label": "informs",
+      "style": {
+        "curved": false,
+        "stroke": "#4f46e5",
+        "strokeWidth": 3,
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.informs",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
+        "semanticRole": "idea.informs",
+        "edgeClassMeaning": "source provides context that informs the target"
+      },
+      "sourceHandle": "informs",
+      "targetHandle": "informed-by"
+    },
+    {
+      "id": "stroke-control-evidence-supports-preview",
+      "type": "reference",
+      "source": "stroke-control-idea-evidence",
+      "target": "stroke-control-assumption-preview",
       "label": "supports",
       "style": {
         "curved": false,
@@ -7360,10 +7037,10 @@
       "targetHandle": "supported-by"
     },
     {
-      "id": "method-node-design-alternative-invocations-questions",
+      "id": "stroke-control-alternative-questions",
       "type": "reference",
-      "source": "method-node-design-idea-alternative",
-      "target": "method-node-design-idea-proposed-approach",
+      "source": "stroke-control-idea-alternative",
+      "target": "stroke-control-idea-proposed-approach",
       "label": "questions",
       "style": {
         "curved": false,
@@ -7386,10 +7063,10 @@
       "targetHandle": "questioned-by"
     },
     {
-      "id": "method-node-design-risk-coarse-threatens",
+      "id": "stroke-control-risk-threatens",
       "type": "reference",
-      "source": "method-node-design-idea-risk",
-      "target": "method-node-design-idea",
+      "source": "stroke-control-idea-risk",
+      "target": "stroke-control-idea",
       "label": "threatens",
       "style": {
         "curved": false,
@@ -7412,10 +7089,10 @@
       "targetHandle": "threatened-by"
     },
     {
-      "id": "method-node-design-next-step-gate-tests",
+      "id": "stroke-control-next-step-control-tests",
       "type": "reference",
-      "source": "method-node-design-idea-next-step",
-      "target": "method-node-design-idea-assumption",
+      "source": "stroke-control-idea-next-step",
+      "target": "stroke-control-assumption-preview",
       "label": "tests",
       "style": {
         "curved": false,
@@ -7434,10 +7111,10 @@
       "targetHandle": "tested-by"
     },
     {
-      "id": "method-node-design-next-step-reuse-tests",
+      "id": "stroke-control-next-step-bridge-tests",
       "type": "reference",
-      "source": "method-node-design-next-step-reuse",
-      "target": "method-node-design-assumption-context",
+      "source": "stroke-control-next-step-bridge",
+      "target": "stroke-control-idea-assumption",
       "label": "tests",
       "style": {
         "curved": false,
@@ -7456,10 +7133,32 @@
       "targetHandle": "tested-by"
     },
     {
-      "id": "method-node-design-instructions-edge",
+      "id": "stroke-control-next-step-consume-tests",
       "type": "reference",
-      "source": "method-node-design-idea-next-step",
-      "target": "method-node-design-instructions",
+      "source": "stroke-control-next-step-consume",
+      "target": "stroke-control-idea-assumption",
+      "label": "tests",
+      "style": {
+        "curved": false,
+        "stroke": "#16a34a",
+        "strokeWidth": 3,
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.tests",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
+        "semanticRole": "idea.tests",
+        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+      },
+      "sourceHandle": "tests",
+      "targetHandle": "tested-by"
+    },
+    {
+      "id": "stroke-control-instructions-edge",
+      "type": "reference",
+      "source": "stroke-control-idea-next-step",
+      "target": "stroke-control-instructions",
       "label": "guidance",
       "style": {
         "curved": false,
@@ -7475,102 +7174,10 @@
       "targetHandle": "guided-by"
     },
     {
-      "id": "method-node-design-idea-assumes-policy",
+      "id": "stroke-control-tracked-stroke-control-template",
       "type": "reference",
-      "source": "method-node-design-idea",
-      "target": "method-node-design-assumption-policy",
-      "label": "assumes",
-      "style": {
-        "curved": false,
-        "stroke": "#d97706",
-        "strokeWidth": 3,
-        "dash": [
-          8,
-          5
-        ],
-        "route": "orthogonal",
-        "orthogonal": true
-      },
-      "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
-      },
-      "sourceHandle": "assumes",
-      "targetHandle": "assumed-by"
-    },
-    {
-      "id": "method-node-design-evidence-identity-supports",
-      "type": "reference",
-      "source": "method-node-design-evidence-identity",
-      "target": "method-node-design-assumption-context",
-      "label": "supports",
-      "style": {
-        "curved": false,
-        "stroke": "#059669",
-        "strokeWidth": 3,
-        "route": "orthogonal",
-        "orthogonal": true
-      },
-      "data": {
-        "edgeClassKey": "idea.supports",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
-        "semanticRole": "idea.supports",
-        "edgeClassMeaning": "source evidence increases confidence in the target"
-      },
-      "sourceHandle": "supports",
-      "targetHandle": "supported-by"
-    },
-    {
-      "id": "method-node-design-next-step-identity-tests",
-      "type": "reference",
-      "source": "method-node-design-next-step-identity",
-      "target": "method-node-design-assumption-context",
-      "label": "tests",
-      "style": {
-        "curved": false,
-        "stroke": "#16a34a",
-        "strokeWidth": 3,
-        "route": "orthogonal",
-        "orthogonal": true
-      },
-      "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
-      },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
-    },
-    {
-      "id": "method-node-design-next-step-policy-tests",
-      "type": "reference",
-      "source": "method-node-design-next-step-policy",
-      "target": "method-node-design-assumption-policy",
-      "label": "tests",
-      "style": {
-        "curved": false,
-        "stroke": "#16a34a",
-        "strokeWidth": 3,
-        "route": "orthogonal",
-        "orthogonal": true
-      },
-      "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
-      },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
-    },
-    {
-      "id": "method-node-design-tracked-method-effects-gate",
-      "type": "reference",
-      "source": "method-node-design-idea-next-step",
-      "target": "method-node-design-task-method-effects-gate",
+      "source": "stroke-control-idea-next-step",
+      "target": "stroke-control-task-stroke-control-template",
       "label": "tracked by",
       "style": {
         "curved": false,
@@ -7588,10 +7195,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-tracked-handler-method-failure-policy",
+      "id": "stroke-control-tracked-bridge-class-scoped-events",
       "type": "reference",
-      "source": "method-node-design-next-step-policy",
-      "target": "method-node-design-task-handler-method-failure-policy",
+      "source": "stroke-control-next-step-bridge",
+      "target": "stroke-control-task-bridge-class-scoped-events",
       "label": "tracked by",
       "style": {
         "curved": false,
@@ -7609,31 +7216,10 @@
       "targetHandle": "root"
     },
     {
-      "id": "method-node-design-tracked-method-invocation-identity",
+      "id": "stroke-control-tracked-edge-class-consumes-stroke-control",
       "type": "reference",
-      "source": "method-node-design-next-step-identity",
-      "target": "method-node-design-task-method-invocation-identity",
-      "label": "tracked by",
-      "style": {
-        "curved": false,
-        "dash": [
-          6,
-          6
-        ],
-        "route": "orthogonal",
-        "orthogonal": true
-      },
-      "data": {
-        "relation": "task-projection"
-      },
-      "sourceHandle": "root",
-      "targetHandle": "root"
-    },
-    {
-      "id": "method-node-design-tracked-method-reuse-two-handlers",
-      "type": "reference",
-      "source": "method-node-design-next-step-reuse",
-      "target": "method-node-design-task-method-reuse-two-handlers",
+      "source": "stroke-control-next-step-consume",
+      "target": "stroke-control-task-edge-class-consumes-stroke-control",
       "label": "tracked by",
       "style": {
         "curved": false,
@@ -7681,7 +7267,7 @@
     },
     "github": {
       "repo": "mikemartinez1974/public",
-      "path": "ideas/method-node-design/root.node",
+      "path": "ideas/stroke-control/root.node",
       "branch": "main",
       "autoCreateRepo": true,
       "repoVisibility": "private",
@@ -7692,7 +7278,7 @@
     "autoSave": false
   },
   "scripts": [],
-  "timestamp": "2026-09-20T03:20:05.821Z",
-  "nodeCount": 48,
-  "edgeCount": 36
+  "timestamp": "2026-09-20T06:59:53.080Z",
+  "nodeCount": 45,
+  "edgeCount": 34
 }
