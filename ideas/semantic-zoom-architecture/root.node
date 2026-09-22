@@ -7,7 +7,7 @@
     "version": "0.1.0",
     "kind": "graph",
     "created": "2026-09-22T01:02:31.056Z",
-    "modified": "2026-09-22T01:02:31.056Z",
+    "modified": "2026-09-22T01:28:13.176Z",
     "author": "",
     "tags": [
       "idea",
@@ -2125,8 +2125,8 @@
       "data": {
         "title": "If a graph compacts at a smaller zoom, does a reader lose their place when they zoom back in?",
         "question": "The classical semantic-zoom model keeps position fixed for a reason: people build a spatial memory of a canvas. Does that hold for Twilite's graphs, or does structure (what connects to what) matter more than exact placement here?",
-        "status": "open",
-        "answer": "Open. Worth trying on one real graph by hand before committing either way (see the prototype next step) rather than deciding from precedent alone.",
+        "status": "answered",
+        "answer": "Answered by Michael: when a node needs special arrangement to display itself, that means you are looking at the wrong view of the graph, not that the graph needs rearranging. Positions never move; a different authored view is shown instead. Spatial memory is preserved because nothing repositions.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -2554,9 +2554,9 @@
       "showLabel": false,
       "data": {
         "title": "A repack operation can be defined without breaking what content scaling already does",
-        "statement": "Content scaling (nodeContentScale.js) already keeps a node's content proportional to its frame. A separate repack step, that changes node.position to close gaps at low occupancy, would need to leave that alone and only ever be a view-time transform, never a write to the authored graph, or every zoom would dirty the document.",
+        "statement": "Content scaling (nodeContentScale.js) already keeps a node's content proportional to its frame. A separate repack step, that changes node.position to close gaps at low occupancy, would need to leave that alone and only ever be a view-time transform, never a write to the authored graph, or every zoom would dirty the document. — Refuted by Michael: there is no reflow at all. A node needing special arrangement to display is a sign the wrong view is showing, not a case for repacking positions.",
         "importance": "critical",
-        "status": "untested",
+        "status": "refuted",
         "definitionKey": "idea-assumption",
         "_classBinding": {
           "key": "idea-assumption",
@@ -6129,9 +6129,9 @@
       "showLabel": false,
       "data": {
         "title": "If positions compact as the view gets smaller, people still recognize the graph when they zoom back in",
-        "statement": "Zoomable-interface research (Pad++, space-scale diagrams) generally treats position as fixed and only swaps appearance or level of detail; genuine reflow-on-zoom is uncommon for canvas tools precisely because spatial constancy is usually the point of a canvas. It is not yet known whether Twilite's graphs, which are read for their structure more than their exact placement, are an exception.",
+        "statement": "Zoomable-interface research (Pad++, space-scale diagrams) generally treats position as fixed and only swaps appearance or level of detail; genuine reflow-on-zoom is uncommon for canvas tools precisely because spatial constancy is usually the point of a canvas. It is not yet known whether Twilite's graphs, which are read for their structure more than their exact placement, are an exception. — Moot: reflow was rejected outright (see the idea), so this never needs to be tested.",
         "importance": "high",
-        "status": "untested",
+        "status": "moot",
         "definitionKey": "idea-assumption",
         "_classBinding": {
           "key": "idea-assumption",
@@ -6652,8 +6652,8 @@
       "data": {
         "title": "Continuous, or at the same fixed thresholds the level bands already use?",
         "question": "Should positions compact smoothly as zoom changes, or only snap at the same band boundaries (glyph/icon/summary/detail) the workspace system already has, so there is no new threshold vocabulary to learn?",
-        "status": "open",
-        "answer": "Open. Reusing the existing band boundaries is the cheaper answer and fits the \"one table\" approach; a continuous repack is a bigger, separate feature.",
+        "status": "answered",
+        "answer": "Answered: there is no repack to trigger, since positions never move. What needs a trigger is switching between authored views, and that already exists — each view claims a resolution on the 0-3 scale, and the highest one at or below the current resolution is shown (viewResolution.js). No new trigger concept is needed.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -6799,7 +6799,7 @@
         "title": "Is \"expanded\" supposed to mean untouched, or does it need its own bottom band?",
         "question": "Right now focusing a graph always shows it at full, raw detail regardless of how zoomed out the camera is. Is that intentional (focus means \"see everything, unmanaged\"), or should a very sparse focused graph get some form of compaction or fit-to-content too?",
         "status": "open",
-        "answer": "Open. This is close to a product decision, not just an implementation one: it changes what \"focus\" promises.",
+        "answer": "Leaning yes, per Michael: a focused graph should be able to unfocus at a low enough resolution, the same way an unfocused graph collapses today, rather than staying expanded forever. Likely shape: it is a graph-level zoom, not a per-node one — zooming out far enough on a focused graph returns it to its own summary or icon view. The exact trigger, and how the transition should feel, are still being worked out (see the reworked prototype next step).",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -6944,8 +6944,8 @@
       "data": {
         "title": "Can occupancy percent, 0-3 resolution, and _semanticLevel become one number?",
         "question": "The wheel contract worked because there was one kind of event to arbitrate. Here there are four different things being measured (screen occupancy, a graph's own resolution claims, a node's authored level, camera zoom). Do they really reduce to one number, or does unifying the vocabulary mean translation functions between three numbers, not one table?",
-        "status": "open",
-        "answer": "Open. occupancyResolution() in viewResolution.js is already exactly this kind of translation between two of the four; the next step is checking whether the other two fit the same shape.",
+        "status": "answered",
+        "answer": "Answered by Michael: one continuous scale from 0 to 3, the resolution scale viewResolution.js already defines, used for both focused and unfocused graphs alike. Resolution 3 (full, unfocused detail) will eventually sit behind a paywall, so the model needs to carry an entitlement cap alongside the occupancy-derived resolution, not only a display threshold. What exactly the cap covers is still open (see the new question).",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -7182,7 +7182,7 @@
     {
       "id": "semantic-zoom-architecture-next-step-prototype",
       "type": "idea-next-step",
-      "label": "Prototype a Repack by Hand",
+      "label": "Prototype \"Unfocus\" on One Graph by Hand",
       "root": false,
       "position": {
         "x": -220,
@@ -7234,9 +7234,9 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "title": "Try compacting one real graph's layout at a couple of zoom levels",
-        "action": "By hand, not in code: take this Node Class Template (or another sparse graph) and lay out a tighter version at a \"zoomed out\" size, then compare it against the original at a \"zoomed in\" size, to see whether the structure still reads and whether returning to the original placement feels jarring.",
-        "expectedEvidence": "A concrete answer to the spatial-memory question, from an actual example, before committing to building reflow.",
+        "title": "Sketch what a focused graph unfocusing would look like, on one real graph",
+        "action": "Positions never move, so there is nothing to prototype about repacking. Instead, work out by hand, on one real graph, what \"a focused graph unfocuses when zoomed out far enough\" means: at what resolution it happens, which authored view it falls back to, and whether the transition feels like zooming or like something being taken away.",
+        "expectedEvidence": "A concrete answer to the still-open focus-collapse question, from an actual example, instead of from precedent alone.",
         "status": "todo",
         "definitionKey": "idea-next-step",
         "_classBinding": {
@@ -7470,6 +7470,151 @@
           }
         }
       ]
+    },
+    {
+      "id": "semantic-zoom-architecture-question-paywall",
+      "type": "idea-question",
+      "label": "What Exactly Does the Paywall Cap?",
+      "position": {
+        "x": 740,
+        "y": 700
+      },
+      "width": 400,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "questions",
+          "key": "questions",
+          "label": "questions",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "informed-by",
+          "key": "informed-by",
+          "label": "informed by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "questions",
+          "key": "questions",
+          "label": "questions",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "questions",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        },
+        {
+          "id": "informed-by",
+          "key": "informed-by",
+          "label": "informed by",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "informed-by",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "What does capping resolution at a lower ceiling for a free account actually look like?",
+        "question": "Resolution 3 will eventually be paywalled, per Michael. Does that mean a free account can never reach full, unfocused detail on any graph past some resolution short of 3, or only that specific high-resolution views are gated? What does hitting the ceiling look like: nothing past it, a locked or blurred view, or a fixed upgrade prompt?",
+        "status": "answered",
+        "answer": "Answered by Michael: a hard stop, no tease. The camera simply stops before reaching the paywalled range for a free account; there is no blurred preview or upgrade prompt at the ceiling.",
+        "definitionKey": "idea-question",
+        "_classBinding": {
+          "key": "idea-question",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "defaults": {
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ],
+            "data": {
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "HelpOutline"
+                }
+              }
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "idea-question",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
+          "targetKind": "node-class"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "HelpOutline"
+          }
+        },
+        "identity": {
+          "graphId": "semantic-zoom-architecture"
+        }
+      }
     }
   ],
   "edges": [
@@ -8191,6 +8336,32 @@
       "data": {},
       "sourceHandle": "guidance",
       "targetHandle": "guided-by"
+    },
+    {
+      "id": "semantic-zoom-architecture-question-paywall-questions",
+      "type": "reference",
+      "source": "semantic-zoom-architecture-question-paywall",
+      "target": "semantic-zoom-architecture-idea-assumption",
+      "sourceHandle": "questions",
+      "targetHandle": "questioned-by",
+      "label": "questions",
+      "style": {
+        "curved": false,
+        "stroke": "#ca8a04",
+        "strokeWidth": 3,
+        "dash": [
+          8,
+          5
+        ],
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.questions",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
+        "semanticRole": "idea.questions",
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+      }
     }
   ],
   "clusters": [],
