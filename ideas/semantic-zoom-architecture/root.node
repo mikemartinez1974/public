@@ -7,7 +7,7 @@
     "version": "0.1.0",
     "kind": "graph",
     "created": "2026-09-22T01:02:31.056Z",
-    "modified": "2026-09-22T01:28:13.176Z",
+    "modified": "2026-09-22T01:59:25.491Z",
     "author": "",
     "tags": [
       "idea",
@@ -410,7 +410,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Four mechanisms, side by side\n\nWhat exists today, read from the four files directly.\n\n| Mechanism | File | Reads | Does | Never does |\n|---|---|---|---|---|\n| Content scale | nodeContentScale.js | camera zoom | scales a node's rendered content to match its frame | move a position |\n| Per-node level | (data._semanticLevel) | an authored or assigned string | picks which of a node's own views to show | affect any other node |\n| Workspace bands | graphViewPresentation.js, graphWorkspace.js | screen occupancy percent | swaps a whole unfocused graph to glyph/icon/summary/detail/expanded | apply to a focused graph |\n| View sequence | viewSequence.js | a 0-3 resolution number | picks a named view by fallback order or by threshold | reflow anything |\n\n## Where they already touch\n\n`occupancyResolution()` in viewResolution.js converts an occupancy percent into the 0-3 resolution scale, so two of the four already share a translation. The other two (content scale's raw zoom, and the per-node level string) do not participate in that conversion at all.\n\n## What a unified model would need to answer\n\n1. One number (or one small, named set of numbers) every mechanism reads, replacing occupancy percent, 0-3 resolution, and the level string.\n\n2. Whether any level of that model is allowed to repack node.position, and if so, only ever as a view-time transform, never a write to the saved graph.\n\n3. Where the band boundaries live once there is one table: probably one place, the way WHEEL_CONTRACT is one ordered list wheel.js and every wheel handler reads.\n\n## Not in scope\n\nRedesigning content scaling itself, or the semantic ring / browse-mode node loading system, which is a fifth, separate mechanism not covered here."
+          "value": "# Four mechanisms, side by side\n\nWhat exists today, read from the four files directly.\n\n| Mechanism | File | Reads | Does | Never does |\n|---|---|---|---|---|\n| Content scale | nodeContentScale.js | camera zoom | scales a node's rendered content to match its frame | move a position |\n| Per-node level | (data._semanticLevel) | an authored or assigned string | picks which of a node's own views to show | affect any other node |\n| Workspace bands | graphViewPresentation.js, graphWorkspace.js | screen occupancy percent | swaps a whole unfocused graph to glyph/icon/summary/detail/expanded | apply to a focused graph |\n| View sequence | viewSequence.js | a 0-3 resolution number | picks a named view by fallback order or by threshold | reflow anything |\n\n## Where they already touch\n\n`occupancyResolution()` in viewResolution.js converts an occupancy percent into the 0-3 resolution scale, so two of the four already share a translation. The other two (content scale's raw zoom, and the per-node level string) do not participate in that conversion at all.\n\n## Decided\n\n- **No reflow, ever.** Positions never move. If a node needs special arrangement to display, that means the wrong view is showing, not that the graph needs rearranging (Michael).\n\n- **One continuous scale, 0 to 3** — the resolution scale viewResolution.js already defines — used for both focused and unfocused graphs alike.\n\n- **The scale is the band.** No separate camera-zoom constant is needed at either end: 0 (glyph) is the floor, the smallest legitimate authored representation, and 3 (expanded) is the ceiling, gated for free accounts. Below 0 there is nothing designed, only dot (TypeGlyph's fallbackDot, which fires only when no glyph was found — it marks a failure of the fallback chain, not a smaller level to reach for).\n\n- **Resolution 3 is the paywalled end.** Free accounts hit a hard stop before reaching it: the camera simply stops, no blurred preview, no upgrade prompt at the ceiling.\n\n- **A focused graph should be able to unfocus**, walking the same fallback chain the view sequence already uses (summary, then icon, then glyph) instead of staying forced to 'expanded' regardless of zoom. This is a graph-level zoom, not a per-node one. The exact trigger and feel are still being worked out.\n\n## Still open\n\n1. The exact resolution (or occupancy) at which a focused graph unfocuses, and how the transition feels.\n\n2. What a free account's ceiling actually is, below resolution 3 — only that hitting it is a hard stop.\n\n3. Whether occupancy percent and the level string genuinely collapse into this one scale, or only translate to it (see 'Four Files, Four Units').\n\n## Not in scope\n\nRedesigning content scaling itself, or the semantic ring / browse-mode node loading system, which is a fifth, separate mechanism not covered here."
         },
         "interfaceContract": {
           "version": 1,
@@ -6799,7 +6799,7 @@
         "title": "Is \"expanded\" supposed to mean untouched, or does it need its own bottom band?",
         "question": "Right now focusing a graph always shows it at full, raw detail regardless of how zoomed out the camera is. Is that intentional (focus means \"see everything, unmanaged\"), or should a very sparse focused graph get some form of compaction or fit-to-content too?",
         "status": "open",
-        "answer": "Leaning yes, per Michael: a focused graph should be able to unfocus at a low enough resolution, the same way an unfocused graph collapses today, rather than staying expanded forever. Likely shape: it is a graph-level zoom, not a per-node one — zooming out far enough on a focused graph returns it to its own summary or icon view. The exact trigger, and how the transition should feel, are still being worked out (see the reworked prototype next step).",
+        "answer": "Leaning yes, per Michael: a focused graph should be able to unfocus at a low enough resolution, the same way an unfocused graph collapses today, rather than staying expanded forever. Likely shape: it is a graph-level zoom, not a per-node one — zooming out far enough on a focused graph returns it to its own summary or icon view. The exact trigger, and how the transition should feel, are still being worked out (see the reworked prototype next step). Refined: dot is not a level to design toward — TypeGlyph.js already renders a plain dot only when no glyph was found for a type (fallbackDot, !hasDefinedGlyph), so dot already means 'the fallback chain came up empty,' not 'the smallest legitimate representation.' Glyph already is the smallest legitimate representation. So unfocusing should reach for the graph's own authored fallback chain (summary, then icon, then glyph — the same chain the view sequence already walks) rather than degrade toward anything dot-like. The raw, sparse canvas in the screenshot that started this is the graph-level equivalent of seeing a bare dot: not that nothing was authored, but that what was authored (this template has summary and icon views) was never reached, because focus never consults the chain.",
         "definitionKey": "idea-question",
         "_classBinding": {
           "key": "idea-question",
@@ -7235,9 +7235,9 @@
       "showLabel": false,
       "data": {
         "title": "Sketch what a focused graph unfocusing would look like, on one real graph",
-        "action": "Positions never move, so there is nothing to prototype about repacking. Instead, work out by hand, on one real graph, what \"a focused graph unfocuses when zoomed out far enough\" means: at what resolution it happens, which authored view it falls back to, and whether the transition feels like zooming or like something being taken away.",
-        "expectedEvidence": "A concrete answer to the still-open focus-collapse question, from an actual example, instead of from precedent alone.",
-        "status": "todo",
+        "action": "Positions never move, so there is nothing to prototype about repacking. Instead, work out by hand, on one real graph, what \"a focused graph unfocuses when zoomed out far enough\" means: at what resolution it happens, which authored view it falls back to, and whether the transition feels like zooming or like something being taken away. Tried: dropped the focus override in graphWorkspace.js so a focused instance computes its level the same way an unfocused one does, and tested it live with two graphs sharing a workspace, one of them a large real template (Node Class Template), sweeping zoom.",
+        "expectedEvidence": "Found two real problems, not a working prototype yet. (1) Full-bounding-box occupancy is the wrong signal for the graph you are navigating from inside: a normal graph at a normal working zoom does not reliably reach the occupancy an outside viewer would need to see it as 'expanded', so it started falling back far too early — the trigger for a focused graph likely needs to be the camera's own zoom, not the graph's full-extent occupancy. (2) Even where the level computation was right, nothing rendered: WorkspaceLayer.js's fallback view for a collapsed instance is built assuming an outer workspace camera looking at a bystander graph from outside, and that assumption breaks for the graph you are actually inside — at zoom 0.05 the graph's raw nodes correctly disappeared, and the space where it was left is completely blank in the frame, no summary, no icon, no glyph. Screenshot on file. Real fix needs both files.",
+        "status": "in-progress",
         "definitionKey": "idea-next-step",
         "_classBinding": {
           "key": "idea-next-step",
@@ -7611,6 +7611,119 @@
             "name": "HelpOutline"
           }
         },
+        "identity": {
+          "graphId": "semantic-zoom-architecture"
+        }
+      }
+    },
+    {
+      "id": "semantic-zoom-architecture-evidence-dot-is-fallback",
+      "type": "idea-evidence",
+      "label": "The Fallback Dot Already Marks a Missing Glyph",
+      "position": {
+        "x": 2180,
+        "y": 260
+      },
+      "width": 400,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "supports",
+          "key": "supports",
+          "label": "supports",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "supports",
+          "key": "supports",
+          "label": "supports",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "role": "relationship",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "portId": "supports",
+          "metadata": {
+            "relationship": true,
+            "role": "relationship"
+          }
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "TypeGlyph's fallbackDot fires only when no glyph was found",
+        "observation": "components/GraphEditor/components/TypeGlyph.js: the fallbackDot prop renders a plain colored dot only when !hasDefinedGlyph(safeType, glyph). Per Michael: a glyph already is the dot — seeing a literal dot in the running app means the fallback chain came up empty, not that a smaller representation was reached on purpose.",
+        "kind": "behavior",
+        "strength": "strong",
+        "definitionKey": "idea-evidence",
+        "_classBinding": {
+          "key": "idea-evidence",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "defaults": {
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 180
+              }
+            ],
+            "data": {
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "FactCheck"
+                }
+              }
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "idea-evidence",
+          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+          "targetKind": "node-class"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "FactCheck"
+          }
+        },
+        "citationSourceId": "",
         "identity": {
           "graphId": "semantic-zoom-architecture"
         }
@@ -8361,6 +8474,32 @@
         "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
         "semanticRole": "idea.questions",
         "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+      }
+    },
+    {
+      "id": "semantic-zoom-architecture-evidence-dot-supports",
+      "type": "reference",
+      "source": "semantic-zoom-architecture-evidence-dot-is-fallback",
+      "target": "semantic-zoom-architecture-idea-assumption",
+      "sourceHandle": "supports",
+      "targetHandle": "supported-by",
+      "label": "supports",
+      "style": {
+        "curved": false,
+        "stroke": "#0f766e",
+        "strokeWidth": 3,
+        "dash": [
+          8,
+          5
+        ],
+        "route": "orthogonal",
+        "orthogonal": true
+      },
+      "data": {
+        "edgeClassKey": "idea.supports",
+        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
+        "semanticRole": "idea.supports",
+        "edgeClassMeaning": "source evidence increases confidence in the target"
       }
     }
   ],
