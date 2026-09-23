@@ -5334,6 +5334,200 @@
           "graphId": "twilite-graph-building-best-practices"
         }
       }
+    },
+    {
+      "id": "twilite-graph-building-best-practices-concept-icon-standard",
+      "type": "topic-concept",
+      "label": "Icon views are a required, portable standard",
+      "root": false,
+      "position": {
+        "x": 3000,
+        "y": 320
+      },
+      "width": 480,
+      "height": 380,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "mechanism",
+          "label": "Mechanism",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 345
+        },
+        {
+          "id": "claims",
+          "label": "Claims",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 15
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "Icon views are a required, portable standard",
+        "definition": "Every node class that will be shown in any UI surface authors an icon view (node.web.icon) — the smallest authored representation, above glyph, meant to be recognized without reading. Unlike summary and detail, icon is required, not optional: it is load-bearing for real UI (the Elements list, a future node palette, history, bookmarks), not just a rung on the workspace's collapse ladder.",
+        "documentation": "Icon has one canonical size and aspect ratio — LEVEL_BOX_SIZE.icon, 180x130, the same constant a collapsed workspace card falls back to when nothing was authored. That size is the icon's own truth, not renegotiated per consumer. It lives on the node's class by default, not each instance — EntitiesPanel.js already assumes this, pulling the icon from a node's class definition and filling instance-specific detail with applyTemplate(). SVG is preferred over HTML because it degrades gracefully across sizes no consumer has been named for yet; HTML is allowed where SVG doesn't fit. Content must mean something with no interactivity — no hover, no click — since it can render in a static list.",
+        "examples": "The Elements list (EntitiesPanel.js) renders a node's class icon at 48x48. A future node palette (\"No Man's Sky builder style\", per Michael) would show many icons in a grid at once. History and bookmarks panels were named as likely future consumers, alongside \"anywhere we want to talk about that node\" — the standard is written for that open set, not just the surfaces named so far.",
+        "notes": "The Megan Kelly test: a good icon is the thing you'd want if you resized a card down until only the picture was left — recognizable at a glance, not a compressed detail view.",
+        "definitionKey": "topic-concept",
+        "_classBinding": {
+          "key": "topic-concept",
+          "sourceRef": "github://mikemartinez1974/public/templates/topic-template/classes/nodes/topic-concept.node-class.node",
+          "nodeDef": {
+            "key": "topic-concept",
+            "ref": "github://mikemartinez1974/public/templates/topic-template/classes/nodes/topic-concept.node-class.node",
+            "source": "local",
+            "version": ">=0.5.0"
+          },
+          "views": [
+            {
+              "key": "topic-concept",
+              "intent": "node",
+              "payload": "node.web.detail",
+              "ref": "github://mikemartinez1974/public/templates/topic-template/classes/nodes/topic-concept.node-class.node",
+              "source": "local",
+              "version": ">=0.2.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "topic-concept",
+              "intent": "node",
+              "payload": "node.web.summary",
+              "ref": "github://mikemartinez1974/public/templates/topic-template/classes/nodes/topic-concept.node-class.node",
+              "source": "local",
+              "version": ">=0.2.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "topic-concept",
+              "intent": "node",
+              "payload": "node.web.icon",
+              "ref": "github://mikemartinez1974/public/templates/topic-template/classes/nodes/topic-concept.node-class.node",
+              "source": "local",
+              "version": ">=0.2.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "topic-concept",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://mikemartinez1974/public/templates/topic-template/classes/nodes/topic-concept.node-class.node",
+              "source": "local",
+              "version": ">=0.2.0",
+              "defaultPorts": []
+            }
+          ]
+        },
+        "identity": {
+          "graphId": "twilite-graph-building-best-practices"
+        }
+      }
+    },
+    {
+      "id": "twilite-graph-building-best-practices-claim-icon-standard",
+      "type": "topic-claim",
+      "label": "Consumers fit the icon; the icon never redesigns itself per consumer",
+      "root": false,
+      "position": {
+        "x": 3600,
+        "y": 840
+      },
+      "width": 480,
+      "height": 380,
+      "ports": [
+        {
+          "id": "root",
+          "label": "Concept",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        },
+        {
+          "id": "perspective",
+          "label": "Perspective",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 0
+        },
+        {
+          "id": "source",
+          "label": "Source",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 90
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "title": "Consumers fit the icon; the icon never redesigns itself per consumer",
+        "claim": "A UI surface showing an icon view letterboxes/contains its 180x130 content within whatever slot it has — preserving aspect ratio, scaling down and centering as needed — and never stretches or crops it to force a foreign shape. If a consumer's slot is a different aspect ratio (a 48x48 square, a 24px tab), the consumer adapts to the icon, not the other way around.",
+        "rationale": "Icon standards are written for the open set of future consumers (\"anywhere we want to talk about that node\"), not any one named UI. An icon that has to be redesigned per consumer isn't a standard, it's a new authoring burden every time a new surface wants one. One canonical size, adapted by every consumer, is the same resolver principle already governing rank selection (representation declares requirements, host declares capabilities), applied one level finer — to placement within a chosen rank's own box, not just to which rank gets chosen.",
+        "evidence": "EntitiesPanel.js's Elements list previously force-stretched icon markup to fill its 48x48 slot (\"& > *\": { width: \"100%\", height: \"100%\" }), which would visibly distort a 180x130 icon. Fixed the same night this was decided: the slot now centers and contains the icon (maxWidth/maxHeight, objectFit: contain) instead of stretching it.",
+        "caveats": "A consumer sized far smaller than 180x130 (a hypothetical 16px favicon-scale use) may still need icon content authored with a legible minimum level of detail, not just infinitely scalable vector shapes — containing solves aspect ratio, not legibility at extreme scale down.",
+        "documentation": "See the Icon views are a required, portable standard concept.",
+        "confidence": "medium",
+        "definitionKey": "topic-claim",
+        "_classBinding": {
+          "key": "topic-claim",
+          "sourceRef": "github://mikemartinez1974/public/templates/topic-template/classes/nodes/topic-claim.node-class.node",
+          "nodeDef": {
+            "key": "topic-claim",
+            "ref": "github://mikemartinez1974/public/templates/topic-template/classes/nodes/topic-claim.node-class.node",
+            "source": "local",
+            "version": ">=0.5.0"
+          },
+          "views": [
+            {
+              "key": "topic-claim",
+              "intent": "node",
+              "payload": "node.web.detail",
+              "ref": "github://mikemartinez1974/public/templates/topic-template/classes/nodes/topic-claim.node-class.node",
+              "source": "local",
+              "version": ">=0.2.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "topic-claim",
+              "intent": "node",
+              "payload": "node.web.summary",
+              "ref": "github://mikemartinez1974/public/templates/topic-template/classes/nodes/topic-claim.node-class.node",
+              "source": "local",
+              "version": ">=0.2.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "topic-claim",
+              "intent": "node",
+              "payload": "node.web.icon",
+              "ref": "github://mikemartinez1974/public/templates/topic-template/classes/nodes/topic-claim.node-class.node",
+              "source": "local",
+              "version": ">=0.2.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "topic-claim",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://mikemartinez1974/public/templates/topic-template/classes/nodes/topic-claim.node-class.node",
+              "source": "local",
+              "version": ">=0.2.0",
+              "defaultPorts": []
+            }
+          ]
+        },
+        "identity": {
+          "graphId": "twilite-graph-building-best-practices"
+        }
+      }
     }
   ],
   "edges": [
@@ -6222,6 +6416,54 @@
       "type": "reference",
       "source": "twilite-graph-building-best-practices-claim-bridge",
       "target": "twilite-graph-building-best-practices-claim-layout",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "class authority",
+      "style": {},
+      "data": {
+        "semanticRole": "class-authority"
+      }
+    },
+    {
+      "id": "twilite-graph-building-best-practices-topic-concept-icon-standard",
+      "type": "reference",
+      "source": "twilite-graph-building-best-practices-topic",
+      "target": "twilite-graph-building-best-practices-concept-icon-standard",
+      "sourceHandle": "concepts",
+      "targetHandle": "root",
+      "label": "contains",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "twilite-graph-building-best-practices-concept-icon-standard-class-authority",
+      "type": "reference",
+      "source": "twilite-graph-building-best-practices-concept-bridge",
+      "target": "twilite-graph-building-best-practices-concept-icon-standard",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "class authority",
+      "style": {},
+      "data": {
+        "semanticRole": "class-authority"
+      }
+    },
+    {
+      "id": "twilite-graph-building-best-practices-concept-icon-standard-claim-icon-standard",
+      "type": "reference",
+      "source": "twilite-graph-building-best-practices-concept-icon-standard",
+      "target": "twilite-graph-building-best-practices-claim-icon-standard",
+      "sourceHandle": "claims",
+      "targetHandle": "root",
+      "label": "has claim",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "twilite-graph-building-best-practices-claim-icon-standard-class-authority",
+      "type": "reference",
+      "source": "twilite-graph-building-best-practices-claim-bridge",
+      "target": "twilite-graph-building-best-practices-claim-icon-standard",
       "sourceHandle": "root",
       "targetHandle": "root",
       "label": "class authority",
