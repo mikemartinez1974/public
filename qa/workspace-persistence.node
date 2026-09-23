@@ -1,0 +1,3030 @@
+{
+  "type": "nodegraph-data",
+  "version": "1.0.0",
+  "metadata": {
+    "title": "Does Twilite Remember My Workspace?",
+    "description": "How Twilite persists the multi-graph workspace (open graphs, positions, camera) across page reloads.",
+    "graphId": "b902497d-bb23-42ab-8356-53529320aad3",
+    "version": "0.1.0",
+    "kind": "graph",
+    "created": "2026-09-23T02:37:35.000Z",
+    "modified": "2026-09-23T02:37:35.000Z",
+    "author": "",
+    "tags": [
+      "graph",
+      "qa"
+    ],
+    "preferredViewer": "https://twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "workspace-persistence-declaration",
+      "type": "declaration",
+      "label": "Twilite Workspace Persistence Declaration",
+      "position": {
+        "x": -900,
+        "y": -1400
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view",
+          "allowedEdgeTypes": [
+            "default-view"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-view",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-summary",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-icon",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-glyph",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "glyph",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "landing-surface",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "portId": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "portId": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "portId": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "portId": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "portId": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port"
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "portId": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3",
+          "nodeId": "workspace-persistence",
+          "name": "Twilite Workspace Persistence",
+          "version": "0.1.0",
+          "description": "How Twilite persists the multi-graph workspace across page reloads.",
+          "updatedAt": "2026-09-23T02:37:35.000Z"
+        },
+        "intent": {
+          "kind": "graph",
+          "scope": "public-qa"
+        },
+        "declaration": {
+          "kind": "template",
+          "targetMode": "artifact",
+          "artifactKind": "template",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Does Twilite Remember My Workspace?",
+              "presentation": {
+                "detail": {
+                  "mode": "shared",
+                  "viewNodeId": "workspace-persistence-detail-view"
+                },
+                "summary": {
+                  "mode": "shared",
+                  "viewNodeId": "workspace-persistence-summary-view"
+                },
+                "icon": {
+                  "mode": "shared",
+                  "viewNodeId": "workspace-persistence-icon-view"
+                }
+              },
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ],
+          "sharedPresentation": {
+            "detailViewNodeId": "workspace-persistence-detail-view",
+            "summaryViewNodeId": "workspace-persistence-summary-view",
+            "iconViewNodeId": "workspace-persistence-icon-view",
+            "glyphNodeId": "workspace-persistence-glyph"
+          }
+        },
+        "dependencies": {
+          "nodeTypes": [
+            "declaration",
+            "content",
+            "view",
+            "glyph",
+            "port",
+            "bridge",
+            "qa-topic",
+            "qa-question",
+            "qa-answer",
+            "qa-source",
+            "qa-example",
+            "qa-caveat",
+            "qa-summary"
+          ],
+          "portContracts": [
+            "core"
+          ],
+          "schemaVersions": {
+            "nodes": ">=1.0.0",
+            "ports": ">=1.0.0"
+          }
+        },
+        "authority": {
+          "mutation": {
+            "allowCreate": true,
+            "allowUpdate": true,
+            "allowDelete": true,
+            "appendOnly": false
+          },
+          "actors": {
+            "humans": true,
+            "agents": true,
+            "tools": true
+          },
+          "styleAuthority": "descriptive"
+        },
+        "settings": {
+          "layout": {
+            "mode": "manual"
+          },
+          "autoSave": false
+        },
+        "document": {
+          "url": "github://mikemartinez1974/public/qa/workspace-persistence.node"
+        },
+        "kit": {
+          "coreNodeClasses": [
+            {
+              "key": "qa-topic",
+              "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node"
+            },
+            {
+              "key": "qa-question",
+              "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node"
+            },
+            {
+              "key": "qa-answer",
+              "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node"
+            },
+            {
+              "key": "qa-source",
+              "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node"
+            },
+            {
+              "key": "qa-example",
+              "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node"
+            },
+            {
+              "key": "qa-caveat",
+              "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node"
+            },
+            {
+              "key": "qa-summary",
+              "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-detail-view",
+      "type": "view",
+      "label": "Question-Driven Explanation Template Detail",
+      "position": {
+        "x": -1500,
+        "y": -1480
+      },
+      "width": 420,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "semanticLevel": "detail",
+        "content": {
+          "kind": "markdown",
+          "value": "# Does Twilite Remember My Workspace?\n\nYes. Which graphs are open, where they sit, and the camera all survive a page reload, scoped to the browser tab you're using."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-summary-view",
+      "type": "view",
+      "label": "Question-Driven Explanation Template Summary",
+      "position": {
+        "x": -1500,
+        "y": -1140
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "semanticLevel": "summary",
+        "content": {
+          "kind": "markdown",
+          "value": "## Workspace Persistence\n\nWhat's open and where it sits survives a refresh, scoped to the tab."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-icon-view",
+      "type": "view",
+      "label": "Question-Driven Explanation Template Icon",
+      "position": {
+        "x": -1500,
+        "y": -840
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "portId": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "semanticLevel": "icon",
+        "content": {
+          "kind": "markdown",
+          "value": "💾"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-glyph",
+      "type": "glyph",
+      "label": "Question-Driven Explanation Template Glyph",
+      "position": {
+        "x": -900,
+        "y": -1800
+      },
+      "width": 220,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": {
+          "kind": "character",
+          "value": "💾"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
+        },
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ]
+    },
+    {
+      "id": "workspace-persistence-landing-surface",
+      "type": "content",
+      "label": "Question-Driven Explanation Template Landing Surface",
+      "position": {
+        "x": -280,
+        "y": -1440
+      },
+      "width": 520,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Does Twilite Remember My Workspace?\n\nYes. Which graphs are open, where they sit, and the camera all survive a page reload, scoped to the browser tab you're using."
+        },
+        "renderShape": {
+          "kind": "markdown"
+        },
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ]
+    },
+    {
+      "id": "workspace-persistence-notes",
+      "type": "content",
+      "label": "Reviewed Live",
+      "position": {
+        "x": -900,
+        "y": -760
+      },
+      "width": 520,
+      "height": 360,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Reviewed Live\n\nWalked through this mechanism directly during a debugging session that surfaced and fixed several restore, focus, and camera-fit bugs on 2026-09-22."
+        },
+        "renderShape": {
+          "kind": "markdown"
+        },
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        }
+      },
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ]
+    },
+    {
+      "id": "workspace-persistence-qa-topic-bridge",
+      "type": "bridge",
+      "label": "Topic Authority",
+      "position": {
+        "x": -120,
+        "y": -680
+      },
+      "width": 360,
+      "height": 120,
+      "ports": [],
+      "handles": [],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "authority": "bridge",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "grants": [
+          "create"
+        ],
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
+          "role": "import",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "target": {
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
+          "mode": "bridge",
+          "kind": "node-class",
+          "resourceKind": "node-class",
+          "key": "qa-topic",
+          "label": "Topic",
+          "grants": [
+            "create"
+          ]
+        },
+        "_bridge": {
+          "classKey": "qa-topic",
+          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class"
+        },
+        "_classBinding": {
+          "key": "qa-topic",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
+          "nodeDef": {
+            "key": "qa-topic",
+            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Topic",
+              "size": {
+                "width": 420,
+                "height": 320
+              },
+              "color": "linear-gradient(135deg,#0f172a,#164e63)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "description": "",
+                "scope": "",
+                "notes": ""
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 210
+                },
+                {
+                  "id": "top",
+                  "label": "top",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 270
+                },
+                {
+                  "id": "right",
+                  "label": "right",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 0
+                },
+                {
+                  "id": "bottom",
+                  "label": "bottom",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 90
+                },
+                {
+                  "id": "left",
+                  "label": "left",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-qa-question-bridge",
+      "type": "bridge",
+      "label": "Question Authority",
+      "position": {
+        "x": 380,
+        "y": -680
+      },
+      "width": 360,
+      "height": 120,
+      "ports": [],
+      "handles": [],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "authority": "bridge",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "grants": [
+          "create"
+        ],
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
+          "role": "import",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "target": {
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
+          "mode": "bridge",
+          "kind": "node-class",
+          "resourceKind": "node-class",
+          "key": "qa-question",
+          "label": "Question",
+          "grants": [
+            "create"
+          ]
+        },
+        "_bridge": {
+          "classKey": "qa-question",
+          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class"
+        },
+        "_classBinding": {
+          "key": "qa-question",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
+          "nodeDef": {
+            "key": "qa-question",
+            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Question",
+              "size": {
+                "width": 420,
+                "height": 320
+              },
+              "color": "linear-gradient(135deg,#164e63,#4338ca)",
+              "showLabel": false,
+              "data": {
+                "question": "",
+                "lens": "custom",
+                "purpose": "",
+                "status": "open",
+                "order": 0,
+                "notes": ""
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 210
+                },
+                {
+                  "id": "top",
+                  "label": "top",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 270
+                },
+                {
+                  "id": "right",
+                  "label": "right",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 0
+                },
+                {
+                  "id": "bottom",
+                  "label": "bottom",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 90
+                },
+                {
+                  "id": "left",
+                  "label": "left",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-qa-answer-bridge",
+      "type": "bridge",
+      "label": "Answer Authority",
+      "position": {
+        "x": 880,
+        "y": -680
+      },
+      "width": 360,
+      "height": 120,
+      "ports": [],
+      "handles": [],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "authority": "bridge",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "grants": [
+          "create"
+        ],
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
+          "role": "import",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "target": {
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
+          "mode": "bridge",
+          "kind": "node-class",
+          "resourceKind": "node-class",
+          "key": "qa-answer",
+          "label": "Answer",
+          "grants": [
+            "create"
+          ]
+        },
+        "_bridge": {
+          "classKey": "qa-answer",
+          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class"
+        },
+        "_classBinding": {
+          "key": "qa-answer",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
+          "nodeDef": {
+            "key": "qa-answer",
+            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Answer",
+              "size": {
+                "width": 420,
+                "height": 320
+              },
+              "color": "linear-gradient(135deg,#065f46,#0f766e)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "answer": "",
+                "confidence": "unrated",
+                "summary": "",
+                "notes": ""
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 210
+                },
+                {
+                  "id": "top",
+                  "label": "top",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 270
+                },
+                {
+                  "id": "right",
+                  "label": "right",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 0
+                },
+                {
+                  "id": "bottom",
+                  "label": "bottom",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 90
+                },
+                {
+                  "id": "left",
+                  "label": "left",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-qa-source-bridge",
+      "type": "bridge",
+      "label": "Source Authority",
+      "position": {
+        "x": 880,
+        "y": -240
+      },
+      "width": 360,
+      "height": 120,
+      "ports": [],
+      "handles": [],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "authority": "bridge",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "grants": [
+          "create"
+        ],
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
+          "role": "import",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "target": {
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
+          "mode": "bridge",
+          "kind": "node-class",
+          "resourceKind": "node-class",
+          "key": "qa-source",
+          "label": "Source",
+          "grants": [
+            "create"
+          ]
+        },
+        "_bridge": {
+          "classKey": "qa-source",
+          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class"
+        },
+        "_classBinding": {
+          "key": "qa-source",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
+          "nodeDef": {
+            "key": "qa-source",
+            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Source",
+              "size": {
+                "width": 420,
+                "height": 320
+              },
+              "color": "linear-gradient(135deg,#334155,#1d4ed8)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "citation": "",
+                "url": "",
+                "sourceType": "reference",
+                "reliability": "unknown",
+                "notes": ""
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 210
+                },
+                {
+                  "id": "top",
+                  "label": "top",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 270
+                },
+                {
+                  "id": "right",
+                  "label": "right",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 0
+                },
+                {
+                  "id": "bottom",
+                  "label": "bottom",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 90
+                },
+                {
+                  "id": "left",
+                  "label": "left",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-qa-example-bridge",
+      "type": "bridge",
+      "label": "Example Authority",
+      "position": {
+        "x": 1380,
+        "y": -240
+      },
+      "width": 360,
+      "height": 120,
+      "ports": [],
+      "handles": [],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "authority": "bridge",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "grants": [
+          "create"
+        ],
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
+          "role": "import",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "target": {
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
+          "mode": "bridge",
+          "kind": "node-class",
+          "resourceKind": "node-class",
+          "key": "qa-example",
+          "label": "Example",
+          "grants": [
+            "create"
+          ]
+        },
+        "_bridge": {
+          "classKey": "qa-example",
+          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class"
+        },
+        "_classBinding": {
+          "key": "qa-example",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
+          "nodeDef": {
+            "key": "qa-example",
+            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Example",
+              "size": {
+                "width": 420,
+                "height": 320
+              },
+              "color": "linear-gradient(135deg,#7c2d12,#c2410c)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "example": "",
+                "relevance": "",
+                "notes": ""
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 210
+                },
+                {
+                  "id": "top",
+                  "label": "top",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 270
+                },
+                {
+                  "id": "right",
+                  "label": "right",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 0
+                },
+                {
+                  "id": "bottom",
+                  "label": "bottom",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 90
+                },
+                {
+                  "id": "left",
+                  "label": "left",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-qa-caveat-bridge",
+      "type": "bridge",
+      "label": "Caveat Authority",
+      "position": {
+        "x": 1880,
+        "y": -240
+      },
+      "width": 360,
+      "height": 120,
+      "ports": [],
+      "handles": [],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "authority": "bridge",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "grants": [
+          "create"
+        ],
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
+          "role": "import",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "target": {
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
+          "mode": "bridge",
+          "kind": "node-class",
+          "resourceKind": "node-class",
+          "key": "qa-caveat",
+          "label": "Caveat",
+          "grants": [
+            "create"
+          ]
+        },
+        "_bridge": {
+          "classKey": "qa-caveat",
+          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class"
+        },
+        "_classBinding": {
+          "key": "qa-caveat",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
+          "nodeDef": {
+            "key": "qa-caveat",
+            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Caveat",
+              "size": {
+                "width": 420,
+                "height": 320
+              },
+              "color": "linear-gradient(135deg,#7f1d1d,#be123c)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "caveat": "",
+                "severity": "note",
+                "mitigation": "",
+                "notes": ""
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 210
+                },
+                {
+                  "id": "top",
+                  "label": "top",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 270
+                },
+                {
+                  "id": "right",
+                  "label": "right",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 0
+                },
+                {
+                  "id": "bottom",
+                  "label": "bottom",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 90
+                },
+                {
+                  "id": "left",
+                  "label": "left",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-qa-summary-bridge",
+      "type": "bridge",
+      "label": "Summary Authority",
+      "position": {
+        "x": 1380,
+        "y": 200
+      },
+      "width": 360,
+      "height": 120,
+      "ports": [],
+      "handles": [],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "authority": "bridge",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "grants": [
+          "create"
+        ],
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
+          "role": "import",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "target": {
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
+          "mode": "bridge",
+          "kind": "node-class",
+          "resourceKind": "node-class",
+          "key": "qa-summary",
+          "label": "Summary",
+          "grants": [
+            "create"
+          ]
+        },
+        "_bridge": {
+          "classKey": "qa-summary",
+          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class"
+        },
+        "_classBinding": {
+          "key": "qa-summary",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
+          "nodeDef": {
+            "key": "qa-summary",
+            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Summary",
+              "size": {
+                "width": 420,
+                "height": 320
+              },
+              "color": "linear-gradient(135deg,#312e81,#6d28d9)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "synthesis": "",
+                "keyPoints": "",
+                "openQuestions": "",
+                "notes": ""
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 210
+                },
+                {
+                  "id": "top",
+                  "label": "top",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 270
+                },
+                {
+                  "id": "right",
+                  "label": "right",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 0
+                },
+                {
+                  "id": "bottom",
+                  "label": "bottom",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 90
+                },
+                {
+                  "id": "left",
+                  "label": "left",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-qa-topic",
+      "type": "qa-topic",
+      "label": "Twilite Workspace Persistence",
+      "position": {
+        "x": -120,
+        "y": -420
+      },
+      "width": 420,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "key": "top",
+          "portId": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "key": "right",
+          "portId": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "key": "bottom",
+          "portId": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "key": "left",
+          "portId": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Twilite Workspace Persistence",
+        "description": "The multi-graph workspace — which graphs are open, where they sit, and what the camera is looking at — is saved to the browser's local storage and restored automatically on reload.",
+        "scope": "The paid, multi-graph workspace: open instances, their positions/sizes, and camera state. Not graph content, which is always refetched fresh, and not focus, which is always re-derived rather than restored.",
+        "notes": "Reviewed live on 2026-09-22 after several restore-related bugs surfaced during testing.",
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        },
+        "definitionKey": "qa-topic",
+        "_classBinding": {
+          "key": "qa-topic",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
+          "nodeDef": {
+            "key": "qa-topic",
+            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Topic",
+              "size": {
+                "width": 420,
+                "height": 320
+              },
+              "color": "linear-gradient(135deg,#0f172a,#164e63)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "description": "",
+                "scope": "",
+                "notes": ""
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 210
+                },
+                {
+                  "id": "top",
+                  "label": "top",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 270
+                },
+                {
+                  "id": "right",
+                  "label": "right",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 0
+                },
+                {
+                  "id": "bottom",
+                  "label": "bottom",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 90
+                },
+                {
+                  "id": "left",
+                  "label": "left",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "qa-topic",
+          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-qa-question",
+      "type": "qa-question",
+      "label": "Does Twilite remember what I had open when I refresh the page?",
+      "position": {
+        "x": 380,
+        "y": -420
+      },
+      "width": 420,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "key": "top",
+          "portId": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "key": "right",
+          "portId": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "key": "bottom",
+          "portId": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "key": "left",
+          "portId": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "question": "Does Twilite remember what I had open when I refresh the page?",
+        "lens": "how",
+        "purpose": "Explain the auto-save/restore mechanism so it's clear what persists across a reload and why.",
+        "status": "answered",
+        "order": 1,
+        "notes": "Prompted by closing a graph, refreshing, and confirming it stayed closed.",
+        "title": "Question",
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        },
+        "definitionKey": "qa-question",
+        "_classBinding": {
+          "key": "qa-question",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
+          "nodeDef": {
+            "key": "qa-question",
+            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Question",
+              "size": {
+                "width": 420,
+                "height": 320
+              },
+              "color": "linear-gradient(135deg,#164e63,#4338ca)",
+              "showLabel": false,
+              "data": {
+                "question": "",
+                "lens": "custom",
+                "purpose": "",
+                "status": "open",
+                "order": 0,
+                "notes": ""
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 210
+                },
+                {
+                  "id": "top",
+                  "label": "top",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 270
+                },
+                {
+                  "id": "right",
+                  "label": "right",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 0
+                },
+                {
+                  "id": "bottom",
+                  "label": "bottom",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 90
+                },
+                {
+                  "id": "left",
+                  "label": "left",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "qa-question",
+          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-qa-answer",
+      "type": "qa-answer",
+      "label": "Yes — Scoped to the Tab, Debounced, and Position-Only",
+      "position": {
+        "x": 880,
+        "y": -420
+      },
+      "width": 420,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "key": "top",
+          "portId": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "key": "right",
+          "portId": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "key": "bottom",
+          "portId": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "key": "left",
+          "portId": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Yes — Scoped to the Tab, Debounced, and Position-Only",
+        "answer": "The workspace is saved to localStorage under a key established once per browser tab (reused for every later navigation in that tab, not re-scoped per page). It saves each open instance's graphRef, offset, and frame, the active instance, camera position, and shared edges — never the graph content itself, which is always refetched fresh on restore.\n\nSaving is debounced 300ms after any change (opening, closing, moving, panning, zooming — essentially anything that calls the workspace's internal changed() signal).\n\nOn restore, the graph matching the current URL becomes the anchor. Everything else in the saved list comes back as a loading shell that refetches its own content. Focus is never restored from storage — it's always re-derived fresh, landing on the anchor. The saved camera is only trusted if it actually shows the anchor; otherwise the view is reframed to fit the anchor properly, and any instance that ends up nowhere near the resulting view gets relocated next to the anchor instead of left stranded off-screen.",
+        "confidence": "high",
+        "summary": "The workspace persists to localStorage, scoped to the browser tab, saving positions and references (never content), restored ~300ms after any change.",
+        "notes": "Answer reflects the mechanism as fixed during a live debugging session, not the original implementation.",
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        },
+        "definitionKey": "qa-answer",
+        "_classBinding": {
+          "key": "qa-answer",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
+          "nodeDef": {
+            "key": "qa-answer",
+            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Answer",
+              "size": {
+                "width": 420,
+                "height": 320
+              },
+              "color": "linear-gradient(135deg,#065f46,#0f766e)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "answer": "",
+                "confidence": "unrated",
+                "summary": "",
+                "notes": ""
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 210
+                },
+                {
+                  "id": "top",
+                  "label": "top",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 270
+                },
+                {
+                  "id": "right",
+                  "label": "right",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 0
+                },
+                {
+                  "id": "bottom",
+                  "label": "bottom",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 90
+                },
+                {
+                  "id": "left",
+                  "label": "left",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "qa-answer",
+          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-qa-source",
+      "type": "qa-source",
+      "label": "useGraphWorkspace.js",
+      "position": {
+        "x": 880,
+        "y": 20
+      },
+      "width": 420,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "key": "top",
+          "portId": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "key": "right",
+          "portId": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "key": "bottom",
+          "portId": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "key": "left",
+          "portId": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "useGraphWorkspace.js (Twilite source)",
+        "citation": "The workspace hook's adopt(), close(), clear(), and open() functions; the 300ms-debounced auto-save effect; and serializeWorkspace()/parseWorkspace() in graphWorkspace.js.",
+        "url": "",
+        "sourceType": "primary",
+        "reliability": "high",
+        "notes": "Verified by reading the implementation directly, not by inference from behavior alone.",
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        },
+        "definitionKey": "qa-source",
+        "_classBinding": {
+          "key": "qa-source",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
+          "nodeDef": {
+            "key": "qa-source",
+            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Source",
+              "size": {
+                "width": 420,
+                "height": 320
+              },
+              "color": "linear-gradient(135deg,#334155,#1d4ed8)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "citation": "",
+                "url": "",
+                "sourceType": "reference",
+                "reliability": "unknown",
+                "notes": ""
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 210
+                },
+                {
+                  "id": "top",
+                  "label": "top",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 270
+                },
+                {
+                  "id": "right",
+                  "label": "right",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 0
+                },
+                {
+                  "id": "bottom",
+                  "label": "bottom",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 90
+                },
+                {
+                  "id": "left",
+                  "label": "left",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "qa-source",
+          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-qa-example",
+      "type": "qa-example",
+      "label": "Closing a Graph and Refreshing",
+      "position": {
+        "x": 1380,
+        "y": 20
+      },
+      "width": 420,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "key": "top",
+          "portId": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "key": "right",
+          "portId": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "key": "bottom",
+          "portId": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "key": "left",
+          "portId": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Closing a Graph and Refreshing",
+        "example": "Close a graph card in the workspace, then refresh the page: the closed graph does not come back. It was removed from the saved instance list the moment it closed, not just from the current view.",
+        "relevance": "The exact scenario that confirmed persistence is real: closing genuinely updates what gets saved, not just what happens to be on screen.",
+        "notes": "",
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        },
+        "definitionKey": "qa-example",
+        "_classBinding": {
+          "key": "qa-example",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
+          "nodeDef": {
+            "key": "qa-example",
+            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Example",
+              "size": {
+                "width": 420,
+                "height": 320
+              },
+              "color": "linear-gradient(135deg,#7c2d12,#c2410c)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "example": "",
+                "relevance": "",
+                "notes": ""
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 210
+                },
+                {
+                  "id": "top",
+                  "label": "top",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 270
+                },
+                {
+                  "id": "right",
+                  "label": "right",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 0
+                },
+                {
+                  "id": "bottom",
+                  "label": "bottom",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 90
+                },
+                {
+                  "id": "left",
+                  "label": "left",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "qa-example",
+          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-qa-caveat",
+      "type": "qa-caveat",
+      "label": "The Save Key Follows the Tab, Not the Page",
+      "position": {
+        "x": 1880,
+        "y": 20
+      },
+      "width": 420,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "key": "top",
+          "portId": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "key": "right",
+          "portId": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "key": "bottom",
+          "portId": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "key": "left",
+          "portId": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "The Save Key Follows the Tab, Not the Page",
+        "caveat": "The storage key is set once per tab, the first time a graph loads, and every later navigation in that same tab reuses it — even navigating to an unrelated graph. Refreshing after navigating away still restores the original workspace, not a fresh one scoped to whatever you navigated to.",
+        "severity": "important",
+        "mitigation": "Open a new tab to get workspace persistence scoped to a different starting graph.",
+        "notes": "",
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        },
+        "definitionKey": "qa-caveat",
+        "_classBinding": {
+          "key": "qa-caveat",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
+          "nodeDef": {
+            "key": "qa-caveat",
+            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Caveat",
+              "size": {
+                "width": 420,
+                "height": 320
+              },
+              "color": "linear-gradient(135deg,#7f1d1d,#be123c)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "caveat": "",
+                "severity": "note",
+                "mitigation": "",
+                "notes": ""
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 210
+                },
+                {
+                  "id": "top",
+                  "label": "top",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 270
+                },
+                {
+                  "id": "right",
+                  "label": "right",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 0
+                },
+                {
+                  "id": "bottom",
+                  "label": "bottom",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 90
+                },
+                {
+                  "id": "left",
+                  "label": "left",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "qa-caveat",
+          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class"
+        }
+      }
+    },
+    {
+      "id": "workspace-persistence-qa-summary",
+      "type": "qa-summary",
+      "label": "Persistent, Tab-Scoped, Position-Only",
+      "position": {
+        "x": 1380,
+        "y": 460
+      },
+      "width": 420,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "key": "top",
+          "portId": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "right",
+          "key": "right",
+          "portId": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 0
+        },
+        {
+          "id": "bottom",
+          "key": "bottom",
+          "portId": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "left",
+          "key": "left",
+          "portId": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Persistent, Tab-Scoped, Position-Only",
+        "synthesis": "The workspace survives a reload by saving instance positions, camera state, and graph references (never content) to localStorage, keyed to the browser tab rather than the current page — restored ~300ms after every change, with focus and camera re-derived fresh instead of blindly replayed.",
+        "keyPoints": "• Scoped to the tab, not the URL\n• Only positions/references saved, never graph content\n• 300ms debounced auto-save on any change\n• Focus is never restored from storage — the graph matching the current URL becomes focused fresh\n• Camera falls back to fitting the focused graph if the saved one doesn't actually show it",
+        "openQuestions": "Should navigating to an unrelated graph in the same tab start a fresh workspace instead of reusing the old one?",
+        "notes": "",
+        "identity": {
+          "graphId": "b902497d-bb23-42ab-8356-53529320aad3"
+        },
+        "definitionKey": "qa-summary",
+        "_classBinding": {
+          "key": "qa-summary",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
+          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
+          "nodeDef": {
+            "key": "qa-summary",
+            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Summary",
+              "size": {
+                "width": 420,
+                "height": 320
+              },
+              "color": "linear-gradient(135deg,#312e81,#6d28d9)",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "synthesis": "",
+                "keyPoints": "",
+                "openQuestions": "",
+                "notes": ""
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 210
+                },
+                {
+                  "id": "top",
+                  "label": "top",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 270
+                },
+                {
+                  "id": "right",
+                  "label": "right",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 0
+                },
+                {
+                  "id": "bottom",
+                  "label": "bottom",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 90
+                },
+                {
+                  "id": "left",
+                  "label": "left",
+                  "direction": "bidirectional",
+                  "dataType": "value",
+                  "angle": 180
+                }
+              ]
+            }
+          }
+        },
+        "_bridge": {
+          "classKey": "qa-summary",
+          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
+          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
+          "entryPort": "root",
+          "kind": "node-class",
+          "targetKind": "node-class"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "workspace-persistence-default-view-edge",
+      "type": "default-view",
+      "source": "workspace-persistence-declaration",
+      "target": "workspace-persistence-detail-view",
+      "sourceHandle": "default-view",
+      "targetHandle": "root",
+      "label": "default view",
+      "data": {
+        "semanticRole": "default-view"
+      }
+    },
+    {
+      "id": "workspace-persistence-summary-view-edge",
+      "type": "reference",
+      "source": "workspace-persistence-declaration",
+      "target": "workspace-persistence-summary-view",
+      "sourceHandle": "summary-view",
+      "targetHandle": "root",
+      "label": "summary view",
+      "data": {
+        "semanticRole": "shared-summary"
+      }
+    },
+    {
+      "id": "workspace-persistence-icon-view-edge",
+      "type": "reference",
+      "source": "workspace-persistence-declaration",
+      "target": "workspace-persistence-icon-view",
+      "sourceHandle": "icon-view",
+      "targetHandle": "root",
+      "label": "icon view",
+      "data": {
+        "semanticRole": "shared-icon"
+      }
+    },
+    {
+      "id": "workspace-persistence-glyph-edge",
+      "type": "reference",
+      "source": "workspace-persistence-declaration",
+      "target": "workspace-persistence-glyph",
+      "sourceHandle": "glyph",
+      "targetHandle": "root",
+      "label": "glyph",
+      "data": {
+        "semanticRole": "shared-glyph"
+      }
+    },
+    {
+      "id": "workspace-persistence-landing-surface-edge",
+      "type": "reference",
+      "source": "workspace-persistence-declaration",
+      "target": "workspace-persistence-landing-surface",
+      "sourceHandle": "landing-surface",
+      "targetHandle": "root",
+      "label": "landing surface",
+      "data": {
+        "semanticRole": "landing-surface"
+      }
+    },
+    {
+      "id": "workspace-persistence-topic-question",
+      "type": "reference",
+      "source": "workspace-persistence-qa-topic",
+      "target": "workspace-persistence-qa-question",
+      "sourceHandle": "right",
+      "targetHandle": "left",
+      "label": "raises",
+      "data": {
+        "semanticRole": "raises"
+      }
+    },
+    {
+      "id": "workspace-persistence-question-answer",
+      "type": "reference",
+      "source": "workspace-persistence-qa-question",
+      "target": "workspace-persistence-qa-answer",
+      "sourceHandle": "right",
+      "targetHandle": "left",
+      "label": "answers",
+      "data": {
+        "semanticRole": "answers"
+      }
+    },
+    {
+      "id": "workspace-persistence-answer-source",
+      "type": "reference",
+      "source": "workspace-persistence-qa-answer",
+      "target": "workspace-persistence-qa-source",
+      "sourceHandle": "bottom",
+      "targetHandle": "top",
+      "label": "supported by",
+      "data": {
+        "semanticRole": "supported-by"
+      }
+    },
+    {
+      "id": "workspace-persistence-answer-example",
+      "type": "reference",
+      "source": "workspace-persistence-qa-answer",
+      "target": "workspace-persistence-qa-example",
+      "sourceHandle": "right",
+      "targetHandle": "left",
+      "label": "illustrated by",
+      "data": {
+        "semanticRole": "illustrated-by"
+      }
+    },
+    {
+      "id": "workspace-persistence-answer-caveat",
+      "type": "reference",
+      "source": "workspace-persistence-qa-answer",
+      "target": "workspace-persistence-qa-caveat",
+      "sourceHandle": "right",
+      "targetHandle": "left",
+      "label": "qualified by",
+      "data": {
+        "semanticRole": "qualified-by"
+      }
+    },
+    {
+      "id": "workspace-persistence-answer-summary",
+      "type": "reference",
+      "source": "workspace-persistence-qa-answer",
+      "target": "workspace-persistence-qa-summary",
+      "sourceHandle": "bottom",
+      "targetHandle": "top",
+      "label": "synthesized as",
+      "data": {
+        "semanticRole": "synthesized-as"
+      }
+    }
+  ],
+  "nodeCount": 21,
+  "edgeCount": 11
+}
