@@ -1,0 +1,476 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Declaration (Primitive)",
+    "description": "The primitive graph specification for Declaration: what it means, its invariants, its data contract, the relationships it exposes, its behavior, how it's represented, and what's explicitly not part of it.",
+    "graphId": "ac97492b-7402-428b-9bce-5c5e91c7f981",
+    "version": "0.1.0",
+    "kind": "graph",
+    "created": "2026-09-23T16:27:32.000Z",
+    "modified": "2026-09-23T16:27:32.000Z",
+    "author": "",
+    "tags": [
+      "primitive",
+      "declaration"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "ac97492b-7402-428b-9bce-5c5e91c7f981",
+      "type": "declaration",
+      "label": "Declaration (Primitive)",
+      "root": false,
+      "position": {
+        "x": -260,
+        "y": -900
+      },
+      "width": 420,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "ac97492b-7402-428b-9bce-5c5e91c7f981",
+          "name": "Declaration",
+          "version": "0.1.0",
+          "description": "The primitive graph specification for Declaration itself — the base vocabulary entry, not a template or an example.",
+          "nodeId": "declaration-primitive",
+          "updatedAt": "2026-09-23T16:27:32.000Z"
+        },
+        "intent": {
+          "kind": "primitive",
+          "scope": "graph-model"
+        },
+        "declaration": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "artifactKind": "primitive-spec",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Declaration"
+            }
+          ]
+        },
+        "dependencies": {
+          "nodeTypes": [
+            "declaration",
+            "content"
+          ]
+        },
+        "authority": {
+          "mutation": {
+            "allowCreate": true,
+            "allowUpdate": true,
+            "allowDelete": true
+          },
+          "actors": {
+            "humans": true,
+            "agents": true,
+            "tools": true
+          }
+        },
+        "settings": {
+          "layout": {
+            "mode": "manual"
+          },
+          "autoSave": false,
+          "github": {
+            "path": "primitives/declaration/root.node"
+          }
+        },
+        "document": {
+          "url": "github://mikemartinez1974/public/primitives/declaration/root.node"
+        }
+      }
+    },
+    {
+      "id": "decl-meaning",
+      "type": "content",
+      "label": "Meaning",
+      "root": false,
+      "position": {
+        "x": -1400,
+        "y": -400
+      },
+      "width": 480,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "ac97492b-7402-428b-9bce-5c5e91c7f981"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Meaning\n\n**What is this thing?**\n\nDeclaration is the artifact-level contract that gives a graph durable identity, intent, authority, dependencies, and exposed surfaces. It is a graph's semantic anchor and its implicit root — the entry point every consumer reaches first, without inventing a separate root node merely for plumbing.\n\nA graph without a Declaration is a fragment: content that hasn't yet been given an identity of its own."
+        }
+      }
+    },
+    {
+      "id": "decl-invariants",
+      "type": "content",
+      "label": "Invariants",
+      "root": false,
+      "position": {
+        "x": -860,
+        "y": -400
+      },
+      "width": 480,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "ac97492b-7402-428b-9bce-5c5e91c7f981"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Invariants\n\n**What makes this thing a Declaration, specifically?**\n\n- Exactly one authoritative Declaration per graph (a fragment may have none; it never has two).\n- Owns `data.identity` — `graphId`, `name`, `version`, `description` — for the graph as a whole.\n- Owns `data.intent` — `kind` and `scope` — stating what kind of artifact this graph is.\n- Is reachable as the graph's implicit root port even when no other node explicitly claims that role.\n- Every other node that belongs to this graph shares its `graphId`."
+        }
+      }
+    },
+    {
+      "id": "decl-contract",
+      "type": "content",
+      "label": "Contract",
+      "root": false,
+      "position": {
+        "x": -320,
+        "y": -400
+      },
+      "width": 480,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "ac97492b-7402-428b-9bce-5c5e91c7f981"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Contract\n\n**What data belongs to it?**\n\n```text\nidentity      { graphId, name, version, description }\nintent        { kind, scope }\ndeclaration   { kind, targetMode, defaultSurfaceId, surfaces[] }\ndependencies  { nodeTypes[], portContracts[], schemaVersions }\nauthority     { mutation{allowCreate,allowUpdate,allowDelete}, actors{humans,agents,tools} }\nsettings      { layout, autoSave, github{path} }\ndocument      { url }\n```\n\nRequired at minimum: `identity.graphId`, `identity.name`, `identity.version`, `identity.description`, `intent.kind`, `intent.scope`, `declaration.kind`."
+        }
+      }
+    },
+    {
+      "id": "decl-ports",
+      "type": "content",
+      "label": "Ports and Relationships",
+      "root": false,
+      "position": {
+        "x": 220,
+        "y": -400
+      },
+      "width": 480,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "ac97492b-7402-428b-9bce-5c5e91c7f981"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Ports and Relationships\n\n**What semantic relationships does it expose?**\n\n- `default-view` — the graph's primary detail-level representation.\n- `summary-view`, `icon-view`, `glyph` — shared collapsed representations, each optional.\n- `landing-surface` — what a portal lands on when entering this graph.\n- `port` (repeatable) — an exposed, named entry point other than the defaults above.\n\nEach relationship **assigns** another node to a named role. The role lives on the Declaration's edge to that node, not as a property intrinsic to the node itself — the same node could be assigned a different role, or none, without changing anything about the node."
+        }
+      }
+    },
+    {
+      "id": "decl-behavior",
+      "type": "content",
+      "label": "Behavior",
+      "root": false,
+      "position": {
+        "x": 760,
+        "y": -400
+      },
+      "width": 480,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "ac97492b-7402-428b-9bce-5c5e91c7f981"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Behavior\n\n**What does it participate in?**\n\nDeclaration does not itself run in the property/event/method runtime — that's node-level behavior elsewhere in the graph. What Declaration does is gate what's *allowed* to exist: `dependencies.nodeTypes` names which node types this graph may contain, and `authority.mutation` states whether creation, update, and deletion are permitted at all, for this graph, by humans, agents, and tools respectively."
+        }
+      }
+    },
+    {
+      "id": "decl-representations",
+      "type": "content",
+      "label": "Representations",
+      "root": false,
+      "position": {
+        "x": 1300,
+        "y": -400
+      },
+      "width": 480,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "ac97492b-7402-428b-9bce-5c5e91c7f981"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Representations\n\n**How is it represented?**\n\nA Declaration typically renders as a compact identity card at detail level — name, description, version — not the graph's full content. Collapsed, it shows the graph's own declared glyph if one exists, or a generic declaration mark otherwise. Declaration never renders the content assigned to its own default-view/summary-view/icon-view relationships as if it were that content — it renders itself, and *points at* those relationships."
+        }
+      }
+    },
+    {
+      "id": "decl-boundary",
+      "type": "content",
+      "label": "Explicitly Not Part of This Primitive",
+      "root": false,
+      "position": {
+        "x": -1400,
+        "y": 260
+      },
+      "width": 480,
+      "height": 340,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "ac97492b-7402-428b-9bce-5c5e91c7f981"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Explicitly Not Part of This Primitive\n\n- Declaration does not render content. Rendering the graph's actual material is View and Content's job; Declaration only names which node fills each presentation role.\n- Declaration does not own node positions or layout. Where nodes sit on the canvas is unrelated to identity.\n- Declaration does not define *how* an exposed view looks — only *which* node is assigned to that role.\n- Declaration does not grant runtime capability beyond what `authority` explicitly states. Absence of a grant means the action is not permitted, not that it's merely undocumented.\n- Declaration is not a template. It describes one graph's own identity, not a reusable composition pattern for building other graphs (see Templates)."
+        }
+      }
+    },
+    {
+      "id": "decl-examples",
+      "type": "content",
+      "label": "Examples",
+      "root": false,
+      "position": {
+        "x": -860,
+        "y": 260
+      },
+      "width": 480,
+      "height": 340,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "ac97492b-7402-428b-9bce-5c5e91c7f981"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Examples\n\n**Examples live outside the primitive, referenced, not embedded.**\n\nNo example graphs are linked yet — this primitive was authored before any instance graph was built specifically to demonstrate it. Add a portal here to a real graph's Declaration once one exists specifically as a worked example, rather than folding a demo into this spec.\n\nEvery primitive graph this session built tonight (`qa/workspace-persistence.node`, `ideas/n8n-style-automation-template/root.node`, `topics/twilite-automation-readiness/root.node`) already has a real Declaration node and could each serve as a citable example — not yet linked here as a deliberate choice, since this primitive spec should name examples on purpose, not by convenience."
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "decl-declares-decl-meaning",
+      "type": "reference",
+      "source": "ac97492b-7402-428b-9bce-5c5e91c7f981",
+      "target": "decl-meaning",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "meaning",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "decl-declares-decl-invariants",
+      "type": "reference",
+      "source": "ac97492b-7402-428b-9bce-5c5e91c7f981",
+      "target": "decl-invariants",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "invariants",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "decl-declares-decl-contract",
+      "type": "reference",
+      "source": "ac97492b-7402-428b-9bce-5c5e91c7f981",
+      "target": "decl-contract",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "contract",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "decl-declares-decl-ports",
+      "type": "reference",
+      "source": "ac97492b-7402-428b-9bce-5c5e91c7f981",
+      "target": "decl-ports",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "ports and relationships",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "decl-declares-decl-behavior",
+      "type": "reference",
+      "source": "ac97492b-7402-428b-9bce-5c5e91c7f981",
+      "target": "decl-behavior",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "behavior",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "decl-declares-decl-representations",
+      "type": "reference",
+      "source": "ac97492b-7402-428b-9bce-5c5e91c7f981",
+      "target": "decl-representations",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "representations",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "decl-declares-decl-boundary",
+      "type": "reference",
+      "source": "ac97492b-7402-428b-9bce-5c5e91c7f981",
+      "target": "decl-boundary",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "boundary",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "decl-declares-decl-examples",
+      "type": "reference",
+      "source": "ac97492b-7402-428b-9bce-5c5e91c7f981",
+      "target": "decl-examples",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "examples",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    }
+  ],
+  "clusters": [],
+  "settings": {
+    "github": {
+      "path": "primitives/declaration/root.node"
+    }
+  }
+}
