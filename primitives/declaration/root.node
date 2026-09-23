@@ -64,12 +64,6 @@
             }
           ]
         },
-        "dependencies": {
-          "nodeTypes": [
-            "declaration",
-            "content"
-          ]
-        },
         "authority": {
           "mutation": {
             "allowCreate": true,
@@ -188,7 +182,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Contract\n\n**What data belongs to it?**\n\n```text\nidentity      { graphId, name, version, description }\nintent        { kind, scope }\ndeclaration   { kind, targetMode, defaultSurfaceId, surfaces[] }\ndependencies  { nodeTypes[], portContracts[], schemaVersions }\nauthority     { mutation{allowCreate,allowUpdate,allowDelete}, actors{humans,agents,tools} }\nsettings      { layout, autoSave, github{path} }\ndocument      { url }\n```\n\nRequired at minimum: `identity.graphId`, `identity.name`, `identity.version`, `identity.description`, `intent.kind`, `intent.scope`, `declaration.kind`."
+          "value": "# Contract\n\n**What data belongs to it?**\n\n```text\nidentity      { graphId, name, version, description }\nintent        { kind, scope }\ndeclaration   { kind, targetMode, defaultSurfaceId, surfaces[] }\nauthority     { mutation{allowCreate,allowUpdate,allowDelete}, actors{humans,agents,tools} }\nsettings      { layout, autoSave, github{path} }\ndocument      { url }\n```\n\nRequired at minimum: `identity.graphId`, `identity.name`, `identity.version`, `identity.description`, `intent.kind`, `intent.scope`, `declaration.kind`.\n\n**Not part of the contract: `dependencies.nodeTypes`.** It looks like it belongs here — many existing graphs carry it — but it's a hand-maintained duplicate of what the graph's own bridges already assert, and it can drift out of sync with them (confirmed: it's the source of the `CLASS_AUTHORITY_MISSING_ENTRY` warnings seen on several task-planning graphs, where real bridges grant the type correctly but the separately-listed manifest entry trips a stale check). What actually establishes that a custom node type is safe to use in a graph is a Bridge granting it — see the Bridge primitive. A declared list that only gets checked when someone remembers to write it is weaker than checking the graph's own bridges directly, and shouldn't be treated as authoritative over them."
         }
       }
     },
@@ -316,7 +310,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Explicitly Not Part of This Primitive\n\n- Declaration does not render content. Rendering the graph's actual material is View and Content's job; Declaration only names which node fills each presentation role.\n- Declaration does not own node positions or layout. Where nodes sit on the canvas is unrelated to identity.\n- Declaration does not define *how* an exposed view looks — only *which* node is assigned to that role.\n- Declaration does not grant runtime capability beyond what `authority` explicitly states. Absence of a grant means the action is not permitted, not that it's merely undocumented.\n- Declaration is not a template. It describes one graph's own identity, not a reusable composition pattern for building other graphs (see Templates)."
+          "value": "# Explicitly Not Part of This Primitive\n\n- Declaration does not render content. Rendering the graph's actual material is View and Content's job; Declaration only names which node fills each presentation role.\n- Declaration does not own node positions or layout. Where nodes sit on the canvas is unrelated to identity.\n- Declaration does not define *how* an exposed view looks — only *which* node is assigned to that role.\n- Declaration does not grant runtime capability beyond what `authority` explicitly states. Absence of a grant means the action is not permitted, not that it's merely undocumented.\n- Declaration is not a template. It describes one graph's own identity, not a reusable composition pattern for building other graphs (see Templates).\n- Declaration does not independently vouch for which custom node types are safe to use in the graph. That authority comes from Bridges, one per type, each pointing at a real class definition. A declared list of expected types, kept separately, is not a substitute — see the Contract section."
         }
       }
     },

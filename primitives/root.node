@@ -132,7 +132,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Twilite Primitive Library\n\nPrimitive graphs describe the language. Example graphs speak the language. Templates arrange the language for a purpose.\n\nEach primitive here is its own graph: Meaning, Invariants, Contract, Ports and Relationships, Behavior, Representations, an explicit boundary of what's *not* part of it, and Examples as references out — never demo content folded into the definition itself.\n\n**In progress.** Declaration is the first, establishing the pattern. `topics/twilite-graph-primitives` already has good working content for View, Content, Port, Glyph, Bridge, and Portal, written before this per-primitive shape was decided — migrating those in is the next increment, not a rewrite from scratch. Property, Method, Event, Event Handler, Edge, Node Class, and Edge Class remain unwritten."
+          "value": "# Twilite Primitive Library\n\nPrimitive graphs describe the language. Example graphs speak the language. Templates arrange the language for a purpose.\n\nEach primitive here is its own graph: Meaning, Invariants, Contract, Ports and Relationships, Behavior, Representations, an explicit boundary of what's *not* part of it, and Examples as references out — never demo content folded into the definition itself.\n\n**In progress.** Declaration and Bridge are written. `topics/twilite-graph-primitives` already has good working content for View, Content, Port, Glyph, and Portal, written before this per-primitive shape was decided — migrating those in is the next increment, not a rewrite from scratch. Property, Method, Event, Event Handler, Edge, Node Class, and Edge Class remain unwritten."
         }
       }
     },
@@ -161,6 +161,13 @@
           "direction": "output",
           "dataType": "value",
           "angle": 0
+        },
+        {
+          "id": "right2",
+          "label": "right2",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 15
         }
       ],
       "visible": true,
@@ -228,6 +235,56 @@
         },
         "visibilityRole": "browser"
       }
+    },
+    {
+      "id": "primitives-collection-bridge",
+      "type": "portal",
+      "label": "Bridge",
+      "root": false,
+      "position": {
+        "x": 420,
+        "y": 60
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "memo": "Open the Bridge primitive.",
+        "authority": "navigate",
+        "intent": "external",
+        "src": "github://mikemartinez1974/public/primitives/bridge/root.node",
+        "ref": "github://mikemartinez1974/public/primitives/bridge/root.node",
+        "endpoint": "github://mikemartinez1974/public/primitives/bridge/root.node",
+        "sourceRef": "github://mikemartinez1974/public/primitives/bridge/root.node",
+        "sourceNodeId": "bridge-meaning",
+        "sourcePayload": "node.web.detail",
+        "surfaceId": "root",
+        "target": {
+          "ref": "github://mikemartinez1974/public/primitives/bridge/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "root",
+          "label": "Open Bridge"
+        },
+        "visibilityRole": "browser"
+      }
     }
   ],
   "edges": [
@@ -260,6 +317,21 @@
       "source": "primitives-root-port",
       "target": "primitives-collection-declaration",
       "sourcePort": "right",
+      "targetPort": "left",
+      "label": "opens primitive",
+      "style": {
+        "curved": true
+      },
+      "data": {
+        "semanticRole": "collection-member"
+      }
+    },
+    {
+      "id": "primitives-root-port-bridge",
+      "type": "reference",
+      "source": "primitives-root-port",
+      "target": "primitives-collection-bridge",
+      "sourcePort": "right2",
       "targetPort": "left",
       "label": "opens primitive",
       "style": {

@@ -1,0 +1,470 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Bridge (Primitive)",
+    "description": "The primitive graph specification for Bridge: what it means, its invariants, its data contract, the relationships it exposes, its behavior, how it’s represented, and what’s explicitly not part of it.",
+    "graphId": "fe331a1c-0790-447b-ad05-83ddc1898214",
+    "version": "0.1.0",
+    "kind": "graph",
+    "created": "2026-09-23T18:44:01.161Z",
+    "modified": "2026-09-23T18:44:01.161Z",
+    "author": "",
+    "tags": [
+      "primitive",
+      "bridge"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "fe331a1c-0790-447b-ad05-83ddc1898214",
+      "type": "declaration",
+      "label": "Bridge (Primitive)",
+      "root": false,
+      "position": {
+        "x": -260,
+        "y": -900
+      },
+      "width": 420,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "fe331a1c-0790-447b-ad05-83ddc1898214",
+          "name": "Bridge",
+          "version": "0.1.0",
+          "description": "The primitive graph specification for Bridge itself — the base vocabulary entry, not a template or an example.",
+          "nodeId": "bridge-primitive",
+          "updatedAt": "2026-09-23T18:44:01.161Z"
+        },
+        "intent": {
+          "kind": "primitive",
+          "scope": "graph-model"
+        },
+        "declaration": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "artifactKind": "primitive-spec",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Bridge"
+            }
+          ]
+        },
+        "authority": {
+          "mutation": {
+            "allowCreate": true,
+            "allowUpdate": true,
+            "allowDelete": true
+          },
+          "actors": {
+            "humans": true,
+            "agents": true,
+            "tools": true
+          }
+        },
+        "settings": {
+          "layout": {
+            "mode": "manual"
+          },
+          "autoSave": false,
+          "github": {
+            "path": "primitives/bridge/root.node"
+          }
+        },
+        "document": {
+          "url": "github://mikemartinez1974/public/primitives/bridge/root.node"
+        }
+      }
+    },
+    {
+      "id": "bridge-meaning",
+      "type": "content",
+      "label": "Meaning",
+      "root": false,
+      "position": {
+        "x": -1400,
+        "y": -400
+      },
+      "width": 480,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "fe331a1c-0790-447b-ad05-83ddc1898214"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Meaning\n\n**What is this thing?**\n\nA Bridge is an explicit, addressable cross-graph authority or participation boundary. It names a specific external resource — a single node class, a bundle of them, or an entire graph — and states specific permissions the current graph has been granted over it, or is offering to whoever imports it.\n\nBridge exists so that cross-graph coupling is never implicit. A custom node type used anywhere in a graph must trace back to a Bridge that grants it. If it can't, that's not a documentation gap — it's the graph actually lacking the authority it's exercising."
+        }
+      }
+    },
+    {
+      "id": "bridge-invariants",
+      "type": "content",
+      "label": "Invariants",
+      "root": false,
+      "position": {
+        "x": -860,
+        "y": -400
+      },
+      "width": 480,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "fe331a1c-0790-447b-ad05-83ddc1898214"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Invariants\n\n**What makes this thing a Bridge, specifically?**\n\n- Has a `role`: `import` (this graph consumes the resource) or `export` (this graph offers the resource to whoever pulls it in). A single Bridge node is one or the other, never both — import and export are separate declarations even when they share a `ref`.\n- Has a `resourceKind`: `node-class` (one custom node type), `library` (a bundle, not yet expanded by anything downstream — see Behavior), or `graph` (a whole template graph, treated as one distributed-declaration node).\n- Has a `ref` — the concrete address of what it bridges to.\n- For `resourceKind: node-class`, the granted type key (`target.key` / `_bridge.classKey`) must actually be set. A Bridge with a `ref` but no key grants nothing the validator can see, even though the UI may show it as configured — confirmed live on `templates/page-template/root.node`, where four import bridges had this exact gap until it was fixed 2026-09-23.\n- `grants` name what's permitted over the target (`read`, `create`, `update`, `execute`, `mutate`) — not every grant is meaningful for every `resourceKind`."
+        }
+      }
+    },
+    {
+      "id": "bridge-contract",
+      "type": "content",
+      "label": "Contract",
+      "root": false,
+      "position": {
+        "x": -320,
+        "y": -400
+      },
+      "width": 480,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "fe331a1c-0790-447b-ad05-83ddc1898214"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Contract\n\n**What data belongs to it?**\n\n```text\nbridge   { ref, role, resourceKind, scope, grants[] }\ntarget   { mode:'bridge', ref, kind, resourceKind, role, scope, grants[], key }\n_bridge  { sourceRef, entryPort, kind, targetKind, classKey, classRef }\n_classBinding { key, sourceRef }\n```\n\nThese four carry overlapping copies of the same facts — `data.bridge`, `data.target`, and top-level `data` fields all get written together, for legacy-compat reasons going back to earlier shapes. `components/GraphEditor/utils/bridgeSettings.js`'s `readBridgeSettings()`/`withBridge()` is the one place that knows how to read and write all three consistently — nothing else should hand-assemble a bridge patch.\n\nRequired at minimum: `role`, `resourceKind`, `ref`. For `resourceKind: node-class`, also the resolved `key`."
+        }
+      }
+    },
+    {
+      "id": "bridge-ports",
+      "type": "content",
+      "label": "Ports and Relationships",
+      "root": false,
+      "position": {
+        "x": 220,
+        "y": -400
+      },
+      "width": 480,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "fe331a1c-0790-447b-ad05-83ddc1898214"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Ports and Relationships\n\n**What semantic relationships does it expose?**\n\nAlmost none, deliberately. A Bridge usually carries just a single `root` port and sits unconnected to the rest of the graph by edges — it is an authority declaration standing on its own, not a participant in the Declaration's default-view/summary-view/glyph relationship grammar.\n\nThis is different from Declaration, Port, and View, which exist specifically to be assigned roles by other nodes. A Bridge assigns nothing and is assigned nothing; it just states a fact about cross-graph authority."
+        }
+      }
+    },
+    {
+      "id": "bridge-behavior",
+      "type": "content",
+      "label": "Behavior",
+      "root": false,
+      "position": {
+        "x": 760,
+        "y": -560
+      },
+      "width": 480,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "fe331a1c-0790-447b-ad05-83ddc1898214"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Behavior\n\n**What does it participate in?**\n\n- An **import** Bridge with `resourceKind: node-class` grants this graph permission to create instances of that type. `getBridgeNodeClassKey()` in the validator reads it directly off the graph's own node list — no fetch, no recursion.\n- An import Bridge with `resourceKind: graph`, when dragged onto a canvas, resolves the target's declaration surfaces into one bound node (`deriveGraphBackedNodeArtifact()` in `graphNodeContract.js`) — the target's ports/views become that node's ports/views.\n- As of 2026-09-23, a `resourceKind: graph` Bridge additionally walks the target graph's own `role: export` node-class Bridges and **materializes each as a real, local import Bridge** in the importing graph (`GraphCrud.js`'s `bridgeReference()`, fed by `reExportedBridges` on the derived artifact). This is what makes \"consume a whole template's classes with one Bridge\" actually work: the template declares what it exports once, and every graph that bridges it in gets those grants automatically, idempotently.\n- An **export** Bridge means one of two genuinely different things depending on context, and this primitive is deliberately explicit about not conflating them:\n  - Paired with a `resourceKind: graph` import elsewhere, it's the class-authority re-export above — a template saying \"this is what I make available to whoever imports me.\"\n  - Independently, an export-role Bridge is also read by `workspaceBridge.js` to draw a connector line between two graphs that are **both already open as live instances in the same workspace** — a purely visual, render-time pairing that has nothing to do with class authority and does not persist or transit beyond that live session."
+        }
+      }
+    },
+    {
+      "id": "bridge-representations",
+      "type": "content",
+      "label": "Representations",
+      "root": false,
+      "position": {
+        "x": 1300,
+        "y": -400
+      },
+      "width": 480,
+      "height": 320,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "fe331a1c-0790-447b-ad05-83ddc1898214"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Representations\n\n**How is it represented?**\n\nA Bridge typically renders as a small authority card naming its role, resourceKind, and target ref — never the target's own content. It points at what it grants; it doesn't inline it. A collapsed Bridge shows just enough to answer \"what does this graph have authority over, and in which direction,\" without requiring a fetch of the target to render at all."
+        }
+      }
+    },
+    {
+      "id": "bridge-boundary",
+      "type": "content",
+      "label": "Explicitly Not Part of This Primitive",
+      "root": false,
+      "position": {
+        "x": -1400,
+        "y": 260
+      },
+      "width": 480,
+      "height": 360,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "fe331a1c-0790-447b-ad05-83ddc1898214"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Explicitly Not Part of This Primitive\n\n- Bridge does not fetch or cache the target's content itself. Resolving a ref into actual nodes is the resolver's job (`GraphCrud.js`'s `bridgeReference()`), triggered by an action on the Bridge, not performed by the Bridge node as data.\n- Bridge does not draw the workspace connector line by itself, and that line is not a form of persistence — it only exists while both graphs happen to be open together (see Behavior).\n- A Declaration's `dependencies.nodeTypes` entry is not a Bridge and grants nothing on its own — see the Declaration primitive's Contract section for why that field was removed as load-bearing.\n- Bridge is not Portal. Portal is a consumer-side navigation/expansion opening into another graph's interface; Bridge is an authority or participation grant. The two can point at the same `ref` for entirely different reasons and neither implies the other.\n- `resourceKind: library` is a real, declared option in `BRIDGE_KINDS`, but nothing downstream currently expands what a library bundle grants — it resolves at drag-time same as `node-class`, but is invisible to the validator's authority check exactly like an unkeyed `node-class` bridge would be. Treat it as reserved, not yet functional."
+        }
+      }
+    },
+    {
+      "id": "bridge-examples",
+      "type": "content",
+      "label": "Examples",
+      "root": false,
+      "position": {
+        "x": -860,
+        "y": 260
+      },
+      "width": 480,
+      "height": 360,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "fe331a1c-0790-447b-ad05-83ddc1898214"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Examples\n\n**Examples live outside the primitive, referenced, not embedded.**\n\n- `templates/page-template/root.node` — four import Bridges (Masthead, Route, Settings, Section), each now correctly keyed, plus a matching export Bridge per class. Bridge this whole template in with a single `resourceKind: graph` Bridge and all four classes arrive as materialized local Bridges — the concrete, validated demonstration of the re-export mechanism in Behavior.\n- `events/apollo-11.node`'s `event-class-bridge-event` node — a plain, single-class import Bridge with every field populated, worth reading as the minimal correct shape."
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "bridge-declares-bridge-meaning",
+      "type": "reference",
+      "source": "fe331a1c-0790-447b-ad05-83ddc1898214",
+      "target": "bridge-meaning",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "meaning",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "bridge-declares-bridge-invariants",
+      "type": "reference",
+      "source": "fe331a1c-0790-447b-ad05-83ddc1898214",
+      "target": "bridge-invariants",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "invariants",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "bridge-declares-bridge-contract",
+      "type": "reference",
+      "source": "fe331a1c-0790-447b-ad05-83ddc1898214",
+      "target": "bridge-contract",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "contract",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "bridge-declares-bridge-ports",
+      "type": "reference",
+      "source": "fe331a1c-0790-447b-ad05-83ddc1898214",
+      "target": "bridge-ports",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "ports and relationships",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "bridge-declares-bridge-behavior",
+      "type": "reference",
+      "source": "fe331a1c-0790-447b-ad05-83ddc1898214",
+      "target": "bridge-behavior",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "behavior",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "bridge-declares-bridge-representations",
+      "type": "reference",
+      "source": "fe331a1c-0790-447b-ad05-83ddc1898214",
+      "target": "bridge-representations",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "representations",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "bridge-declares-bridge-boundary",
+      "type": "reference",
+      "source": "fe331a1c-0790-447b-ad05-83ddc1898214",
+      "target": "bridge-boundary",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "boundary",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "bridge-declares-bridge-examples",
+      "type": "reference",
+      "source": "fe331a1c-0790-447b-ad05-83ddc1898214",
+      "target": "bridge-examples",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "examples",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    }
+  ],
+  "clusters": [],
+  "settings": {
+    "github": {
+      "path": "primitives/bridge/root.node"
+    }
+  }
+}
