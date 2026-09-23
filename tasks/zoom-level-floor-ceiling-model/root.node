@@ -732,7 +732,7 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "body": "Author or derive a natural width/height per view (detail, summary, icon), the same way LEVEL_BOX_SIZE already fixes a pixel size for collapsed levels — extend that idea to every level instead of leaving detail/summary driven by raw graph content bounds.",
+        "body": "Build one size-probe that measures each rank's intrinsic size from whatever is actually there — a view's own rendered layout for authored content, or (recursively) a referenced graph's own natural size at that same rank for a delegated/portal view or the un-authored raw-nodes fallback — instead of a per-level fixed box or the graph's full content extent. Nobody declares a size; rendering order (which rank) is what's authored, size is measured from it.",
         "priority": "medium",
         "status": "todo",
         "owner": "Michael",
@@ -980,7 +980,7 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "rationale": "Occupancy relative to the full viewport conflates two different jobs: whether content is legible, and whether it fits the room available. Splitting them resolves both the \"detail arrives too early\" and \"icon passes too fast\" complaints without needing a bigger viewport-relative number.",
+        "rationale": "Occupancy relative to the full viewport conflates two different jobs: whether content is legible, and whether it fits the room available. Splitting them resolves both the \"detail arrives too early\" and \"icon passes too fast\" complaints without needing a bigger viewport-relative number. Confirmed two ways in conversation: the existing resizedByHand/membrane.clip behavior (once a frame is resized by hand, what it shows already follows its size) turns out to already be a correct instance of ceiling-from-allotted-space, not a special case for manual resizing; and a graph referenced by a portal (e.g. a news-anchors graph linking to a person's own graph) correctly steps from summary down to icon — showing just the photo — when the card is resized smaller than summary's own floor, with the referenced graph answering its own natural size at each rank rather than the linking graph's author having to size it.",
         "body": "A view’s own natural size sets the legibility floor; the space actually allotted to this instance (not the full window) sets the ceiling. Level selection picks the largest view that clears the floor without exceeding the ceiling.",
         "status": "decided",
         "owner": "Michael",
@@ -1025,9 +1025,9 @@
       "showLabel": true,
       "data": {
         "body": "Is a view’s natural size author-declared (like an authored width/height today), measured from its rendered content the way LEVEL_BOX_SIZE is a fixed guess, or computed per-instance from the actual content? The floor/ceiling model needs one real answer before task 1 can be implemented, not just \"a natural size.\"",
-        "status": "open",
+        "status": "resolved",
         "owner": "Michael",
-        "resolutionPath": "",
+        "resolutionPath": "Resolved through conversation: size is never authored as a number, at any rank. Rendering order (glyph < icon < summary < detail) is what the author actually declares — a claim about relative amount of information, not a pixel count. Natural size is the intrinsic rendered size of whatever is actually at that rank: for authored markdown/HTML, that's its own rendered layout (a one-line summary naturally lays out smaller than a three-paragraph one, with nobody setting a width); for a rank that delegates to a referenced graph (a portal, or the un-authored fallback that shows a graph's own raw nodes), it's that graph's own natural size at the same rank, asked recursively — graphRenderBounds() already computes exactly this for a graph's own layout, it just isn't being asked the same way for authored content yet. One size-probe should handle both: rendered-content layout and referenced-graph bounds are the same question asked of two different kinds of things.",
         "prominence": "high",
         "definitionKey": "open-question",
         "_classBinding": {
