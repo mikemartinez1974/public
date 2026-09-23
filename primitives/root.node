@@ -60,7 +60,6 @@
         },
         "declaration": {
           "kind": "graph",
-          "targetMode": "artifact",
           "artifactKind": "collection",
           "defaultSurfaceId": "root",
           "surfaces": [
@@ -94,10 +93,7 @@
           "layout": {
             "mode": "manual"
           },
-          "autoSave": false,
-          "github": {
-            "path": "primitives/root.node"
-          }
+          "autoSave": false
         },
         "document": {
           "url": "github://mikemartinez1974/public/primitives/root.node"
@@ -132,7 +128,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Twilite Primitive Library\n\nPrimitive graphs describe the language. Example graphs speak the language. Templates arrange the language for a purpose.\n\nEach primitive here is its own graph: Meaning, Invariants, Contract, Ports and Relationships, Behavior, Representations, an explicit boundary of what's *not* part of it, and Examples as references out — never demo content folded into the definition itself.\n\n**In progress.** Declaration and Bridge are written. `topics/twilite-graph-primitives` already has good working content for View, Content, Port, Glyph, and Portal, written before this per-primitive shape was decided — migrating those in is the next increment, not a rewrite from scratch. Property, Method, Event, Event Handler, Edge, Node Class, and Edge Class remain unwritten."
+          "value": "# Twilite Primitive Library\n\nPrimitive graphs describe the language. Example graphs speak the language. Templates arrange the language for a purpose.\n\nEach primitive here is its own graph: Meaning, Invariants, Contract, Ports and Relationships, Behavior, Representations, an explicit boundary of what's *not* part of it, and Examples as references out — never demo content folded into the definition itself.\n\n**In progress.** Declaration, Bridge, and Surface are written. Surface is new, not a migration — it proposes scoping a graph's rendering ladder (an already-real, already-continuous resolution mechanism, see `viewResolution.js`) to more than one named context, so a node can offer a different complete presentation to a map host than it offers the graph canvas, without the two interfering. Not yet implemented; see its Behavior section for exactly what's real today versus proposed. `topics/twilite-graph-primitives` still has good working content for View, Content, Port, Glyph, and Portal, written before this per-primitive shape was decided — migrating those in is the next increment, not a rewrite from scratch. Property, Method, Event, Event Handler, Edge, Node Class, and Edge Class remain unwritten."
         }
       }
     },
@@ -168,6 +164,13 @@
           "direction": "output",
           "dataType": "value",
           "angle": 15
+        },
+        {
+          "id": "right3",
+          "label": "right3",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 345
         }
       ],
       "visible": true,
@@ -285,6 +288,56 @@
         },
         "visibilityRole": "browser"
       }
+    },
+    {
+      "id": "primitives-collection-surface",
+      "type": "portal",
+      "label": "Surface",
+      "root": false,
+      "position": {
+        "x": 420,
+        "y": 380
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "memo": "Open the Surface primitive.",
+        "authority": "navigate",
+        "intent": "external",
+        "src": "github://mikemartinez1974/public/primitives/surface/root.node",
+        "ref": "github://mikemartinez1974/public/primitives/surface/root.node",
+        "endpoint": "github://mikemartinez1974/public/primitives/surface/root.node",
+        "sourceRef": "github://mikemartinez1974/public/primitives/surface/root.node",
+        "sourceNodeId": "surface-meaning",
+        "sourcePayload": "node.web.detail",
+        "surfaceId": "root",
+        "target": {
+          "ref": "github://mikemartinez1974/public/primitives/surface/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "root",
+          "label": "Open Surface"
+        },
+        "visibilityRole": "browser"
+      }
     }
   ],
   "edges": [
@@ -332,6 +385,21 @@
       "source": "primitives-root-port",
       "target": "primitives-collection-bridge",
       "sourcePort": "right2",
+      "targetPort": "left",
+      "label": "opens primitive",
+      "style": {
+        "curved": true
+      },
+      "data": {
+        "semanticRole": "collection-member"
+      }
+    },
+    {
+      "id": "primitives-root-port-surface",
+      "type": "reference",
+      "source": "primitives-root-port",
+      "target": "primitives-collection-surface",
+      "sourcePort": "right3",
       "targetPort": "left",
       "label": "opens primitive",
       "style": {
