@@ -1,0 +1,1420 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Zoom Level: Floor From Content, Ceiling From Allotted Space",
+    "graphId": "zoom-level-floor-ceiling-model-declaration",
+    "version": "0.1.0",
+    "kind": "task-graph",
+    "created": "2026-09-23T03:42:35.000Z",
+    "modified": "2026-09-23T03:42:35.000Z",
+    "author": "",
+    "tags": [
+      "task-graph",
+      "zoom",
+      "workspace"
+    ],
+    "preferredViewer": "https://dev.twilite.zone",
+    "description": "Implementation plan for replacing occupancy-driven semantic zoom level selection with a floor from content size and a ceiling from allotted space."
+  },
+  "nodes": [
+    {
+      "id": "zoom-level-floor-ceiling-model-declaration",
+      "type": "declaration",
+      "label": "Zoom Level: Floor From Content, Ceiling From Allotted Space",
+      "root": false,
+      "position": {
+        "x": 0,
+        "y": -900
+      },
+      "width": 500,
+      "height": 360,
+      "ports": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view",
+          "allowedEdgeTypes": [
+            "default-view"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-view",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-summary",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-icon",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-glyph",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "glyph",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "landing-surface",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "portId": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "portId": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "portId": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "portId": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "shared-glyph"
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "portId": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration",
+          "nodeId": "zoom-level-floor-ceiling-model",
+          "name": "Zoom Level: Floor From Content, Ceiling From Allotted Space",
+          "version": "0.1.0",
+          "description": "Replace occupancy-driven semantic zoom level selection with a floor from each view’s own natural size and a ceiling from the space actually allotted to the instance.",
+          "updatedAt": "2026-09-23T03:42:35.000Z"
+        },
+        "intent": {
+          "kind": "task",
+          "scope": "implementation-plan"
+        },
+        "declaration": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "artifactKind": "task-graph",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Zoom Level: Floor From Content, Ceiling From Allotted Space",
+              "presentation": {
+                "detail": {
+                  "mode": "shared",
+                  "viewNodeId": "zoom-level-floor-ceiling-model-detail-view"
+                },
+                "summary": {
+                  "mode": "shared",
+                  "viewNodeId": "zoom-level-floor-ceiling-model-summary-view"
+                },
+                "icon": {
+                  "mode": "shared",
+                  "viewNodeId": "zoom-level-floor-ceiling-model-icon-view"
+                }
+              },
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ],
+          "sharedPresentation": {
+            "detailViewNodeId": "zoom-level-floor-ceiling-model-detail-view",
+            "summaryViewNodeId": "zoom-level-floor-ceiling-model-summary-view",
+            "iconViewNodeId": "zoom-level-floor-ceiling-model-icon-view",
+            "glyphNodeId": "zoom-level-floor-ceiling-model-glyph"
+          }
+        },
+        "dependencies": {
+          "nodeTypes": [
+            "declaration",
+            "content",
+            "view",
+            "glyph",
+            "port",
+            "bridge",
+            "goal",
+            "task",
+            "decision",
+            "open-question"
+          ],
+          "portContracts": [
+            "core"
+          ],
+          "schemaVersions": {
+            "nodes": ">=1.0.0",
+            "ports": ">=1.0.0"
+          }
+        },
+        "authority": {
+          "mutation": {
+            "allowCreate": true,
+            "allowUpdate": true,
+            "allowDelete": true,
+            "appendOnly": false
+          },
+          "actors": {
+            "humans": true,
+            "agents": true,
+            "tools": true
+          },
+          "styleAuthority": "descriptive"
+        },
+        "settings": {
+          "layout": {
+            "mode": "manual"
+          },
+          "autoSave": false,
+          "github": {
+            "path": "tasks/zoom-level-floor-ceiling-model/root.node"
+          }
+        },
+        "document": {
+          "url": "github://mikemartinez1974/public/tasks/zoom-level-floor-ceiling-model/root.node"
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-detail-view",
+      "type": "content",
+      "label": "Detail",
+      "root": false,
+      "position": {
+        "x": -260,
+        "y": -1360
+      },
+      "width": 620,
+      "height": 260,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Zoom Level: Floor From Content, Ceiling From Allotted Space\n\nReplace occupancy-relative level selection with a floor set by each view’s own natural size and a ceiling set by the space actually allotted to the instance, not the full browser window."
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-summary-view",
+      "type": "content",
+      "label": "Summary",
+      "root": false,
+      "position": {
+        "x": 420,
+        "y": -1360
+      },
+      "width": 420,
+      "height": 200,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "## Floor From Content, Ceiling From Space\n\nDetail arrives too early, icon passes too fast, because level selection is driven by occupancy of the full window instead of each view’s own size and the space it actually has."
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-icon-view",
+      "type": "content",
+      "label": "Icon",
+      "root": false,
+      "position": {
+        "x": 900,
+        "y": -1360
+      },
+      "width": 200,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "🔍"
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-glyph",
+      "type": "glyph",
+      "label": "Glyph",
+      "root": false,
+      "position": {
+        "x": 1150,
+        "y": -1360
+      },
+      "width": 96,
+      "height": 96,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        },
+        "glyph": {
+          "kind": "character",
+          "value": "🔍"
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-landing-surface",
+      "type": "content",
+      "label": "Landing Surface",
+      "root": false,
+      "position": {
+        "x": -260,
+        "y": -1650
+      },
+      "width": 620,
+      "height": 260,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Zoom Level: Floor From Content, Ceiling From Allotted Space\n\nReplace occupancy-relative level selection with a floor set by each view’s own natural size and a ceiling set by the space actually allotted to the instance, not the full browser window."
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-bridge-goal",
+      "type": "bridge",
+      "label": "Goal",
+      "root": false,
+      "position": {
+        "x": -1400,
+        "y": -560
+      },
+      "width": 260,
+      "height": 110,
+      "ports": [
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "input",
+          "dataType": "value",
+          "angle": 0
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "bridge": {
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "target": {
+          "mode": "bridge",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node"
+        },
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-bridge-task",
+      "type": "bridge",
+      "label": "Task",
+      "root": false,
+      "position": {
+        "x": -1120,
+        "y": -560
+      },
+      "width": 260,
+      "height": 110,
+      "ports": [
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "input",
+          "dataType": "value",
+          "angle": 0
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "bridge": {
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "target": {
+          "mode": "bridge",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-bridge-decision",
+      "type": "bridge",
+      "label": "Decision",
+      "root": false,
+      "position": {
+        "x": -840,
+        "y": -560
+      },
+      "width": 260,
+      "height": 110,
+      "ports": [
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "input",
+          "dataType": "value",
+          "angle": 0
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "bridge": {
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "target": {
+          "mode": "bridge",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
+        },
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-bridge-question",
+      "type": "bridge",
+      "label": "Open Question",
+      "root": false,
+      "position": {
+        "x": -560,
+        "y": -560
+      },
+      "width": 260,
+      "height": 110,
+      "ports": [
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "input",
+          "dataType": "value",
+          "angle": 0
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "bridge": {
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "target": {
+          "mode": "bridge",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
+        },
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-goal",
+      "type": "goal",
+      "label": "Level selection follows content size and allotted space, not full-window occupancy",
+      "root": false,
+      "position": {
+        "x": 0,
+        "y": -160
+      },
+      "width": 520,
+      "height": 300,
+      "ports": [
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "input",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 90
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "outcome": "A view is selected because it fits the room this instance actually has, at a size that is actually legible — never because it crosses a fixed percentage of the full browser window.",
+        "priority": "high",
+        "status": "todo",
+        "owner": "Michael",
+        "definitionKey": "goal",
+        "_classBinding": {
+          "key": "goal",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node"
+        },
+        "_bridge": {
+          "sourceBridgeNodeId": "zoom-level-floor-ceiling-model-bridge-goal",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
+          "classKey": "goal",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node"
+        },
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-task-natural-size",
+      "type": "task",
+      "label": "1 — Give every named view its own natural size",
+      "root": false,
+      "position": {
+        "x": -1550,
+        "y": 260
+      },
+      "width": 430,
+      "height": 300,
+      "ports": [
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "input",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 90
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "body": "Author or derive a natural width/height per view (detail, summary, icon), the same way LEVEL_BOX_SIZE already fixes a pixel size for collapsed levels — extend that idea to every level instead of leaving detail/summary driven by raw graph content bounds.",
+        "priority": "medium",
+        "status": "todo",
+        "owner": "Michael",
+        "definitionKey": "task",
+        "_classBinding": {
+          "key": "task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "_bridge": {
+          "sourceBridgeNodeId": "zoom-level-floor-ceiling-model-bridge-task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "classKey": "task",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-task-allotted-space",
+      "type": "task",
+      "label": "2 — Compute the space actually allotted to each instance",
+      "root": false,
+      "position": {
+        "x": -880,
+        "y": 260
+      },
+      "width": 430,
+      "height": 300,
+      "ports": [
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "input",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 90
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "body": "Stop comparing against window.innerWidth/innerHeight for every instance alike. A collapsed workspace card sharing room with several siblings has less space than a focused graph alone on screen — the ceiling needs to reflect that, not the full window.",
+        "priority": "medium",
+        "status": "todo",
+        "owner": "Michael",
+        "definitionKey": "task",
+        "_classBinding": {
+          "key": "task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "_bridge": {
+          "sourceBridgeNodeId": "zoom-level-floor-ceiling-model-bridge-task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "classKey": "task",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-task-selector",
+      "type": "task",
+      "label": "3 — Replace occupancy-driven selection with floor/ceiling",
+      "root": false,
+      "position": {
+        "x": -210,
+        "y": 260
+      },
+      "width": 430,
+      "height": 300,
+      "ports": [
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "input",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 90
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "body": "Retune resolveWorkspacePresentationLevel, occupancyResolution, and resolvePercentageGraphView (or their eventual unification, per semantic-zoom-architecture) to pick the largest view whose natural size × zoom does not exceed the allotted-space ceiling, among views at or above the legibility floor.",
+        "priority": "medium",
+        "status": "todo",
+        "owner": "Michael",
+        "definitionKey": "task",
+        "_classBinding": {
+          "key": "task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "_bridge": {
+          "sourceBridgeNodeId": "zoom-level-floor-ceiling-model-bridge-task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "classKey": "task",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-task-compare",
+      "type": "task",
+      "label": "4 — Verify against small and large content side by side",
+      "root": false,
+      "position": {
+        "x": 460,
+        "y": 260
+      },
+      "width": 430,
+      "height": 300,
+      "ports": [
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "input",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 90
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "body": "The comparison retune-semantic-zoom-thresholds already called for: sweep zoom on a small idea card and a dense graph together, confirm each settles into the right level at a size that actually reads as that level, not just crosses a threshold.",
+        "priority": "medium",
+        "status": "todo",
+        "owner": "Michael",
+        "definitionKey": "task",
+        "_classBinding": {
+          "key": "task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "_bridge": {
+          "sourceBridgeNodeId": "zoom-level-floor-ceiling-model-bridge-task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "classKey": "task",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-task-collapsed-consistency",
+      "type": "task",
+      "label": "5 — Reconcile with collapsed-card sizing and focus-unfocus",
+      "root": false,
+      "position": {
+        "x": 1130,
+        "y": 260
+      },
+      "width": 430,
+      "height": 300,
+      "ports": [
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "input",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 90
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "body": "Make sure LEVEL_BOX_SIZE and the still-open question of whether a focused graph can unfocus (semantic-zoom-architecture) end up reading the same floor/ceiling model instead of a second, separate one.",
+        "priority": "medium",
+        "status": "todo",
+        "owner": "Michael",
+        "definitionKey": "task",
+        "_classBinding": {
+          "key": "task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "_bridge": {
+          "sourceBridgeNodeId": "zoom-level-floor-ceiling-model-bridge-task",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "classKey": "task",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+        },
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-decision",
+      "type": "decision",
+      "label": "Floor from content, ceiling from allotted space",
+      "root": false,
+      "position": {
+        "x": -700,
+        "y": 700
+      },
+      "width": 480,
+      "height": 260,
+      "ports": [
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "input",
+          "dataType": "value",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "rationale": "Occupancy relative to the full viewport conflates two different jobs: whether content is legible, and whether it fits the room available. Splitting them resolves both the \"detail arrives too early\" and \"icon passes too fast\" complaints without needing a bigger viewport-relative number.",
+        "body": "A view’s own natural size sets the legibility floor; the space actually allotted to this instance (not the full window) sets the ceiling. Level selection picks the largest view that clears the floor without exceeding the ceiling.",
+        "status": "decided",
+        "owner": "Michael",
+        "definitionKey": "decision",
+        "_classBinding": {
+          "key": "decision",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
+        },
+        "_bridge": {
+          "sourceBridgeNodeId": "zoom-level-floor-ceiling-model-bridge-decision",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "classKey": "decision",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
+        },
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-question-natural-size-source",
+      "type": "open-question",
+      "label": "What actually sets a view’s natural size?",
+      "root": false,
+      "position": {
+        "x": -100,
+        "y": 700
+      },
+      "width": 480,
+      "height": 260,
+      "ports": [
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "input",
+          "dataType": "value",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "body": "Is a view’s natural size author-declared (like an authored width/height today), measured from its rendered content the way LEVEL_BOX_SIZE is a fixed guess, or computed per-instance from the actual content? The floor/ceiling model needs one real answer before task 1 can be implemented, not just \"a natural size.\"",
+        "status": "open",
+        "owner": "Michael",
+        "resolutionPath": "",
+        "prominence": "high",
+        "definitionKey": "open-question",
+        "_classBinding": {
+          "key": "open-question",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
+        },
+        "_bridge": {
+          "sourceBridgeNodeId": "zoom-level-floor-ceiling-model-bridge-question",
+          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
+          "classKey": "open-question",
+          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
+        },
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        }
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-portal-idea",
+      "type": "portal",
+      "label": "Retune Semantic Zoom Thresholds (originating idea)",
+      "root": false,
+      "position": {
+        "x": 700,
+        "y": 700
+      },
+      "width": 420,
+      "height": 260,
+      "ports": [
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "input",
+          "dataType": "value",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "memo": "Open Retune Semantic Zoom Thresholds (originating idea).",
+        "authority": "navigate",
+        "intent": "external",
+        "sourceRef": "github://mikemartinez1974/public/ideas/retune-semantic-zoom-thresholds/root.node",
+        "sourceNodeId": "retune-semantic-zoom-thresholds-detail-view",
+        "sourcePayload": "node.web.detail",
+        "surfaceId": "root",
+        "target": {
+          "endpoint": "github://mikemartinez1974/public/ideas/retune-semantic-zoom-thresholds/root.node:root",
+          "ref": "github://mikemartinez1974/public/ideas/retune-semantic-zoom-thresholds/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "root",
+          "label": "Open Retune Semantic Zoom Thresholds (originating idea)",
+          "handleId": "root"
+        },
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        },
+        "security": "prompt",
+        "ref": "github://mikemartinez1974/public/ideas/retune-semantic-zoom-thresholds/root.node",
+        "src": "github://mikemartinez1974/public/ideas/retune-semantic-zoom-thresholds/root.node",
+        "endpoint": "github://mikemartinez1974/public/ideas/retune-semantic-zoom-thresholds/root.node:root",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-portal-architecture",
+      "type": "portal",
+      "label": "Semantic Zoom Architecture (prior context)",
+      "root": false,
+      "position": {
+        "x": 1280,
+        "y": 700
+      },
+      "width": 420,
+      "height": 260,
+      "ports": [
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "input",
+          "dataType": "value",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "memo": "Open Semantic Zoom Architecture (prior context).",
+        "authority": "navigate",
+        "intent": "external",
+        "sourceRef": "github://mikemartinez1974/public/ideas/semantic-zoom-architecture/root.node",
+        "sourceNodeId": "semantic-zoom-architecture-detail-view",
+        "sourcePayload": "node.web.detail",
+        "surfaceId": "root",
+        "target": {
+          "endpoint": "github://mikemartinez1974/public/ideas/semantic-zoom-architecture/root.node:root",
+          "ref": "github://mikemartinez1974/public/ideas/semantic-zoom-architecture/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "root",
+          "label": "Open Semantic Zoom Architecture (prior context)",
+          "handleId": "root"
+        },
+        "identity": {
+          "graphId": "zoom-level-floor-ceiling-model-declaration"
+        },
+        "security": "prompt",
+        "ref": "github://mikemartinez1974/public/ideas/semantic-zoom-architecture/root.node",
+        "src": "github://mikemartinez1974/public/ideas/semantic-zoom-architecture/root.node",
+        "endpoint": "github://mikemartinez1974/public/ideas/semantic-zoom-architecture/root.node:root",
+        "visibilityRole": "browser"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "zoom-level-floor-ceiling-model-default-view-edge",
+      "type": "default-view",
+      "source": "zoom-level-floor-ceiling-model-declaration",
+      "target": "zoom-level-floor-ceiling-model-detail-view",
+      "sourceHandle": "default-view",
+      "targetHandle": "root",
+      "label": "default view",
+      "data": {
+        "semanticRole": "default-view"
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-summary-view-edge",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-declaration",
+      "target": "zoom-level-floor-ceiling-model-summary-view",
+      "sourceHandle": "summary-view",
+      "targetHandle": "root",
+      "label": "summary view",
+      "data": {
+        "semanticRole": "shared-summary"
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-icon-view-edge",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-declaration",
+      "target": "zoom-level-floor-ceiling-model-icon-view",
+      "sourceHandle": "icon-view",
+      "targetHandle": "root",
+      "label": "icon view",
+      "data": {
+        "semanticRole": "shared-icon"
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-glyph-edge",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-declaration",
+      "target": "zoom-level-floor-ceiling-model-glyph",
+      "sourceHandle": "glyph",
+      "targetHandle": "root",
+      "label": "glyph",
+      "data": {
+        "semanticRole": "shared-glyph"
+      }
+    },
+    {
+      "id": "zoom-level-floor-ceiling-model-landing-surface-edge",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-declaration",
+      "target": "zoom-level-floor-ceiling-model-landing-surface",
+      "sourceHandle": "landing-surface",
+      "targetHandle": "root",
+      "label": "landing surface",
+      "data": {
+        "semanticRole": "landing-surface"
+      }
+    },
+    {
+      "id": "e-zoom-level-floor-ceiling-model-bridge-goal",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-declaration",
+      "target": "zoom-level-floor-ceiling-model-bridge-goal",
+      "sourcePort": "default-view",
+      "targetPort": "right",
+      "label": "goal authority",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "e-zoom-level-floor-ceiling-model-bridge-task",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-declaration",
+      "target": "zoom-level-floor-ceiling-model-bridge-task",
+      "sourcePort": "default-view",
+      "targetPort": "right",
+      "label": "task authority",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "e-zoom-level-floor-ceiling-model-bridge-decision",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-declaration",
+      "target": "zoom-level-floor-ceiling-model-bridge-decision",
+      "sourcePort": "default-view",
+      "targetPort": "right",
+      "label": "decision authority",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "e-zoom-level-floor-ceiling-model-bridge-question",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-declaration",
+      "target": "zoom-level-floor-ceiling-model-bridge-question",
+      "sourcePort": "default-view",
+      "targetPort": "right",
+      "label": "open-question authority",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "e-zoom-level-floor-ceiling-model-declaration-goal",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-declaration",
+      "target": "zoom-level-floor-ceiling-model-goal",
+      "sourcePort": "default-view",
+      "targetPort": "top",
+      "label": "goal",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "e-zoom-level-floor-ceiling-model-goal-zoom-level-floor-ceiling-model-task-natural-size",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-goal",
+      "target": "zoom-level-floor-ceiling-model-task-natural-size",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "begin here",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "e-zoom-level-floor-ceiling-model-task-natural-size-zoom-level-floor-ceiling-model-task-allotted-space",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-task-natural-size",
+      "target": "zoom-level-floor-ceiling-model-task-allotted-space",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "unblocks",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "e-zoom-level-floor-ceiling-model-task-allotted-space-zoom-level-floor-ceiling-model-task-selector",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-task-allotted-space",
+      "target": "zoom-level-floor-ceiling-model-task-selector",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "unblocks",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "e-zoom-level-floor-ceiling-model-task-selector-zoom-level-floor-ceiling-model-task-compare",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-task-selector",
+      "target": "zoom-level-floor-ceiling-model-task-compare",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "unblocks",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "e-zoom-level-floor-ceiling-model-task-compare-zoom-level-floor-ceiling-model-task-collapsed-consistency",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-task-compare",
+      "target": "zoom-level-floor-ceiling-model-task-collapsed-consistency",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "unblocks",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "e-zoom-level-floor-ceiling-model-task-selector-decision",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-task-selector",
+      "target": "zoom-level-floor-ceiling-model-decision",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "implements",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "e-zoom-level-floor-ceiling-model-task-natural-size-question",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-task-natural-size",
+      "target": "zoom-level-floor-ceiling-model-question-natural-size-source",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "needs answer",
+      "style": {
+        "curved": true,
+        "width": 2
+      },
+      "data": {}
+    },
+    {
+      "id": "e-zoom-level-floor-ceiling-model-goal-portal-idea",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-goal",
+      "target": "zoom-level-floor-ceiling-model-portal-idea",
+      "sourcePort": "bottom",
+      "targetPort": "top",
+      "label": "originates from",
+      "style": {
+        "curved": true,
+        "width": 2,
+        "dash": [
+          6,
+          6
+        ]
+      },
+      "data": {}
+    },
+    {
+      "id": "e-zoom-level-floor-ceiling-model-declaration-portal-architecture",
+      "type": "reference",
+      "source": "zoom-level-floor-ceiling-model-declaration",
+      "target": "zoom-level-floor-ceiling-model-portal-architecture",
+      "sourcePort": "default-view",
+      "targetPort": "top",
+      "label": "builds on",
+      "style": {
+        "curved": true,
+        "width": 2,
+        "dash": [
+          6,
+          6
+        ]
+      },
+      "data": {}
+    }
+  ],
+  "clusters": [],
+  "settings": {
+    "github": {
+      "path": "tasks/zoom-level-floor-ceiling-model/root.node"
+    }
+  }
+}
