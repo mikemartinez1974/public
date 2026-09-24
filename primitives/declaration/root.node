@@ -7,7 +7,7 @@
     "version": "0.1.0",
     "kind": "graph",
     "created": "2026-09-23T16:27:32.000Z",
-    "modified": "2026-09-24T18:29:59.000Z",
+    "modified": "2026-09-24T18:47:27.000Z",
     "author": "",
     "tags": [
       "primitive",
@@ -45,7 +45,7 @@
           "version": "0.1.0",
           "description": "The primitive graph specification for Declaration itself — the base vocabulary entry, not a template or an example.",
           "nodeId": "declaration-primitive",
-          "updatedAt": "2026-09-24T18:29:59.000Z"
+          "updatedAt": "2026-09-24T18:47:27.000Z"
         },
         "intent": {
           "kind": "primitive",
@@ -242,7 +242,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Representations\n\n**How is it represented?**\n\nBy default a Declaration renders as a compact identity card at detail level — name, description, version — not the graph's full content. Collapsed, it shows its glyph: the graph's own if it declares one, or a generic declaration mark otherwise. That built-in card is the fallback, and it is what you get when nothing else is referenced.\n\n**A Declaration can also be rendered by Views.** If the author wants, the Declaration references Views and is drawn by them, resolved richest-fitting like any other node, instead of by the built-in card. Custom Declaration rendering was tried early on and set aside as too troublesome. The model has since changed: presentation is now Surfaces, Views and Glyphs, independent of any one renderer, so the Declaration can use that machinery.\n\n**Open:** whether the Views that render the Declaration are the graph's own Surface chains (see Ports and Relationships) or a separate reference made just for the Declaration node. With the first, the card and the graph's presentation are the same thing. With the second, they can differ."
+          "value": "# Representations\n\n**How is it represented?**\n\n**Like any other node.** A Declaration takes part in view resolution exactly as a class node or a template node does, with no privileged path of its own. It has Surfaces, each Surface is a chain of Views ending in a Glyph (see Ports and Relationships), and a host resolves the richest View that fits the room and context it has — the same resolver, the same rule, for every node.\n\n- **Its default is a View, not a special case.** The compact identity card (name, description, version) is simply the default View a Declaration comes with, the way any class or template comes with a default. When the author wires Views to it, those take over and resolve like any others. Nothing needs to be switched off to do this.\n- **Collapsed, it shows a Glyph** — the end of its chain, the same as every other node — not a separate \"declaration mark\".\n- **One set of chains.** The Surfaces on the Declaration are how the graph presents itself and how the Declaration node presents itself. There isn't a second reference kept for the card.\n\nCustom Declaration rendering was tried early on and set aside as too troublesome. That was when a Declaration needed a renderer of its own. It doesn't now: presentation is Surfaces, Views and Glyphs, independent of any one renderer, and the Declaration goes through them like everything else."
         }
       }
     },
