@@ -2,12 +2,12 @@
   "fileVersion": "1.0",
   "metadata": {
     "title": "Declaration (Primitive)",
-    "description": "The primitive graph specification for Declaration: what it means, its invariants, its data contract, the relationships it exposes, its behavior, how it's represented, and what's explicitly not part of it.",
+    "description": "The primitive graph specification for Declaration: what it means, its invariants, its data contract, the relationships it exposes, how it's represented, and what's explicitly not part of it.",
     "graphId": "ac97492b-7402-428b-9bce-5c5e91c7f981",
     "version": "0.1.0",
     "kind": "graph",
     "created": "2026-09-23T16:27:32.000Z",
-    "modified": "2026-09-23T16:27:32.000Z",
+    "modified": "2026-09-24T18:29:59.000Z",
     "author": "",
     "tags": [
       "primitive",
@@ -45,7 +45,7 @@
           "version": "0.1.0",
           "description": "The primitive graph specification for Declaration itself — the base vocabulary entry, not a template or an example.",
           "nodeId": "declaration-primitive",
-          "updatedAt": "2026-09-23T16:27:32.000Z"
+          "updatedAt": "2026-09-24T18:29:59.000Z"
         },
         "intent": {
           "kind": "primitive",
@@ -178,7 +178,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Contract\n\n**What data belongs to it?**\n\n```text\nidentity      { graphId, name, version, description }\nintent        { kind, scope }\ndeclaration   { kind, defaultSurfaceId, surfaces[] }\nauthority     { mutation{allowCreate,allowUpdate,allowDelete}, actors{humans,agents,tools} }\nsettings      { layout, autoSave }\ndocument      { url }\n```\n\nRequired at minimum: `identity.graphId`, `identity.name`, `identity.version`, `identity.description`, `intent.kind`, `intent.scope`, `declaration.kind`.\n\n**Not part of the contract: `dependencies.nodeTypes`.** It looks like it belongs here — many existing graphs carry it — but it's a hand-maintained duplicate of what the graph's own bridges already assert, and it can drift out of sync with them (confirmed: it's the source of the `CLASS_AUTHORITY_MISSING_ENTRY` warnings seen on several task-planning graphs, where real bridges grant the type correctly but the separately-listed manifest entry trips a stale check). What actually establishes that a custom node type is safe to use in a graph is a Bridge granting it — see the Bridge primitive. A declared list that only gets checked when someone remembers to write it is weaker than checking the graph's own bridges directly, and shouldn't be treated as authoritative over them.\n\n**Also removed, 2026-09-23: `declaration.targetMode`.** It declared whether this graph, when bridged to, presents itself as a single artifact (`'artifact'`) or a browsable bundle (`'library'`) — traced end to end through `deriveBridgeTargetResolutionFromGraph()` in `creationVocabulary.js`, it never actually changed that outcome: the branch that matters checks a literal `exportKind === 'class'`, and `exportKind` is decided first by an explicit request, then by a per-surface declared `exportKind`, and only as a last resort by whether the graph already self-identifies as a node-class another way. `targetMode` never won a tie in the paths that were checked. What actually makes a graph a \"kit\" is a fact already present and checked elsewhere: whether it has any `role:'export'` Bridge nodes at all (see the Bridge primitive's Behavior section). Removed the field, its editor dropdown, and its validation; the live derivation now reads `intent.kind` where it used to read the redundant flag.\n\n**Also removed, 2026-09-23: `settings.github` on the Declaration node itself.** It looked like part of the node's own data — the Contract table above used to list it right next to `layout`/`autoSave` — but the save path never actually puts it there. `Toolbar.js`'s save snapshot computes GitHub settings and hands them to `setManifestSettings()` in `manifestUtils.js`, and that function destructures `github` straight back out (`const { github: _ignoredGithub, ...authoritySettings } = settings`) and deletes it again if it somehow survives, every single save. GitHub repo/path/branch/installationId live only in the *file's* own top-level `settings.github`, one level up from any node's `data` — a different object entirely, needed by the commit flow specifically because it carries `branch` and `installationId`, which a bare ref can't encode. `document.url` (kept — still in the contract table above) already carries everything else a `github://` ref would: `repo` and `path` are both re-derivable from it via `parseGithubRef()`. Two defensive read paths (`interGraphEdge.js`, `reciprocalExpansionBridge.js`) still check `data.settings.github.path` as a fallback; that's checking for a value current code guarantees is never there."
+          "value": "# Contract\n\n**What data belongs to it?**\n\n```text\nidentity      { graphId, name, version, description }\nintent        { kind, scope }\ndeclaration   { kind, defaultSurfaceId, surfaces[] }\nauthority     { mutation{allowCreate,allowUpdate,allowDelete}, actors{humans,agents,tools} }\nsettings      { layout, autoSave }\ndocument      { url }\n```\n\nRequired at minimum: `identity.graphId`, `identity.name`, `identity.version`, `identity.description`, `intent.kind`, `intent.scope`, `declaration.kind`.\n\n**Removed, 2026-09-23: `declaration.targetMode`.** It declared whether this graph, when bridged to, presents itself as a single artifact (`'artifact'`) or a browsable bundle (`'library'`) — traced end to end through `deriveBridgeTargetResolutionFromGraph()` in `creationVocabulary.js`, it never actually changed that outcome: the branch that matters checks a literal `exportKind === 'class'`, and `exportKind` is decided first by an explicit request, then by a per-surface declared `exportKind`, and only as a last resort by whether the graph already self-identifies as a node-class another way. `targetMode` never won a tie in the paths that were checked. What actually makes a graph a \"kit\" is a fact already present and checked elsewhere: whether it has any `role:'export'` Bridge nodes at all (see the Bridge primitive's Behavior section). Removed the field, its editor dropdown, and its validation; the live derivation now reads `intent.kind` where it used to read the redundant flag.\n\n**Also removed, 2026-09-23: `settings.github` on the Declaration node itself.** It looked like part of the node's own data — the Contract table above used to list it right next to `layout`/`autoSave` — but the save path never actually puts it there. `Toolbar.js`'s save snapshot computes GitHub settings and hands them to `setManifestSettings()` in `manifestUtils.js`, and that function destructures `github` straight back out (`const { github: _ignoredGithub, ...authoritySettings } = settings`) and deletes it again if it somehow survives, every single save. GitHub repo/path/branch/installationId live only in the *file's* own top-level `settings.github`, one level up from any node's `data` — a different object entirely, needed by the commit flow specifically because it carries `branch` and `installationId`, which a bare ref can't encode. `document.url` (kept — still in the contract table above) already carries everything else a `github://` ref would: `repo` and `path` are both re-derivable from it via `parseGithubRef()`. Two defensive read paths (`interGraphEdge.js`, `reciprocalExpansionBridge.js`) still check `data.settings.github.path` as a fallback; that's checking for a value current code guarantees is never there."
         }
       }
     },
@@ -192,7 +192,7 @@
         "y": -400
       },
       "width": 480,
-      "height": 620,
+      "height": 800,
       "ports": [
         {
           "id": "root",
@@ -210,14 +210,14 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Ports and Relationships\n\n**What semantic relationships does it expose?**\n\nThe real grammar (`declarationRelationshipHandles.js`) has ten relationships, in four groups — not one flat list.\n\n**The default Surface's rendering ladder** (see the Surface primitive):\n\n- `default-view` — the primary, richest rung: this graph's ordinary detail-level representation.\n- `summary-view`, `icon-view` — collapsed rungs below it, each optional.\n- `view-sequence` — points at the first of a *chain* of Views, so the ladder isn't capped at these three named rungs. Each View in the chain can claim its own continuous resolution threshold (`authoredViewResolution()`, already real, already unbounded — not one of a fixed set of bands), and a host resolves richest-fitting by walking the chain, not by picking one of three names.\n\nThese four relationships are specifically the anchors into the graph's **default** Surface — the one every graph already has, implicitly, today. A graph with a second Surface (a map-hosting ladder, say) doesn't get a second set of Declaration relationships for it; its Views just declare a different `surfaceId` instead. This section describes the default Surface's anchors because it's the only one that's ever real right now.\n\n**Compact identity** — orthogonal to the ladder above, not a rung on it:\n\n- `glyph` — a compact symbolic identity, shared across every level. Satisfied without an edge at all when the Declaration carries its own `data.glyph` directly (see the Declaration's own default in `createDefaultDeclarationNode()`).\n\n**Embedding behavior:**\n\n- `default-handle` — points at a `graphReference` node. When this graph appears as a node inside a *parent* graph, this is what a new edge dragged from its collapsed handle actually targets — a fact about this graph's own embedding, not about how it presents itself.\n\n**Boundary:**\n\n- `boundary-begin` / `boundary-end` — the ends of a hand-authored chain of `membrane`-type control-point nodes, linked by `next` edges (`membraneChain.js`), forming a custom membrane *shape*. An alternative to the auto-computed rectangular extent (`graphExtent()`/`defaultMembraneBounds()`) for a graph that needs a boundary the rectangle can't express.\n\n**Entry points:**\n\n- `port` (repeatable) — an exposed, named entry point other than anything above.\n- `landing-surface` — what a portal lands on when entering this graph. At most one.\n\nEach relationship **assigns** another node to a named role. The role lives on the Declaration's edge to that node, not as a property intrinsic to the node itself — the same node could be assigned a different role, or none, without changing anything about the node."
+          "value": "# Ports and Relationships\n\n**What semantic relationships does it expose?**\n\nA graph offers its presentation through **Surfaces** (see the Surface primitive). The Declaration has **one port for them, and that port accepts any number of Surfaces.** Each Surface is a chain of Views that ends in a Glyph.\n\n**Surfaces:**\n\n- `surface` (repeatable) — one edge per Surface, each pointing at the **first View** of that Surface's chain. The graph canvas is a Surface; a web view, a 3D view or a map view is another. They are all the same kind of thing.\n- **The chain.** View → View → … → **Glyph**. Views run richest to most compact, and each can claim its own continuous resolution threshold (`authoredViewResolution()`, already real and unbounded). A host walks the chain and takes the richest View that fits.\n- **The Glyph ends the chain.** It is the Surface's compact symbolic identity and the floor of its ladder, so **every Surface carries its own glyph** instead of the whole graph sharing one. A web view and a 3D view can each have a mark that suits them.\n- The rungs formerly named `default-view`, `summary-view` and `icon-view` are now just positions in a chain, not separate relationships. `declaration.defaultSurfaceId` says which Surface a host uses when it doesn't ask for one.\n\nThis **replaces** five relationships: `default-view`, `summary-view`, `icon-view`, `view-sequence` and the standalone `glyph`.\n\n**Status: target model, not yet in code.** `declarationRelationshipHandles.js` still defines the older ten-relationship grammar, with `view-sequence` and `glyph` as separate Declaration-level relationships. This graph states where the grammar is going. It needs a smoke test before the code follows: a graph with two Surfaces, each chain ending in its own glyph, checked in the workspace at every zoom level.\n\n**Open — malformed chains.** Nothing yet says what a host does when a chain is authored badly: a Glyph mid-chain, Views after the Glyph, no Glyph at all, or a cycle. The smoke test should establish it. The likely rule is that the first Glyph reached ends the walk, with the Declaration's own `data.glyph` as the fallback when a chain has none. That is a guess, not a decision.\n\n**Open — `surfaceId`.** The Surface primitive has Views tag themselves with `data.surfaceId`. Once membership comes from being in a chain, that tag may be redundant.\n\n**Embedding behavior:**\n\n- `default-handle` — points at a `graphReference` node. When this graph appears as a node inside a *parent* graph, this is what a new edge dragged from its collapsed handle actually targets — a fact about this graph's own embedding, not about how it presents itself.\n\n**Boundary:**\n\n- `boundary-begin` / `boundary-end` — the ends of a hand-authored chain of `membrane`-type control-point nodes, linked by `next` edges (`membraneChain.js`), forming a custom membrane *shape*. An alternative to the auto-computed rectangular extent (`graphExtent()`/`defaultMembraneBounds()`) for a graph that needs a boundary the rectangle can't express.\n\n**Entry points:**\n\n- `port` (repeatable) — an exposed, named entry point.\n- `landing-surface` — the single content node a portal lands on when entering this graph. At most one. Despite the name, it is not a Surface in the sense above.\n\nEach relationship **assigns** another node to a named role. The role lives on the Declaration's edge to that node, not as a property intrinsic to the node itself — the same node could be assigned a different role, or none, without changing anything about the node."
         }
       }
     },
     {
-      "id": "decl-behavior",
+      "id": "decl-representations",
       "type": "content",
-      "label": "Behavior",
+      "label": "Representations",
       "root": false,
       "position": {
         "x": 760,
@@ -242,39 +242,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Behavior\n\n**What does it participate in?**\n\nDeclaration does not itself run in the property/event/method runtime — that's node-level behavior elsewhere in the graph. What Declaration does is gate what's *allowed* to exist: `dependencies.nodeTypes` names which node types this graph may contain, and `authority.mutation` states whether creation, update, and deletion are permitted at all, for this graph, by humans, agents, and tools respectively."
-        }
-      }
-    },
-    {
-      "id": "decl-representations",
-      "type": "content",
-      "label": "Representations",
-      "root": false,
-      "position": {
-        "x": 1300,
-        "y": -400
-      },
-      "width": 480,
-      "height": 320,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        }
-      ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "identity": {
-          "graphId": "ac97492b-7402-428b-9bce-5c5e91c7f981"
-        },
-        "content": {
-          "kind": "markdown",
-          "value": "# Representations\n\n**How is it represented?**\n\nA Declaration typically renders as a compact identity card at detail level — name, description, version — not the graph's full content. Collapsed, it shows the graph's own declared glyph if one exists, or a generic declaration mark otherwise. Declaration never renders the content assigned to its own default-view/summary-view/icon-view relationships as if it were that content — it renders itself, and *points at* those relationships."
+          "value": "# Representations\n\n**How is it represented?**\n\nBy default a Declaration renders as a compact identity card at detail level — name, description, version — not the graph's full content. Collapsed, it shows its glyph: the graph's own if it declares one, or a generic declaration mark otherwise. That built-in card is the fallback, and it is what you get when nothing else is referenced.\n\n**A Declaration can also be rendered by Views.** If the author wants, the Declaration references Views and is drawn by them, resolved richest-fitting like any other node, instead of by the built-in card. Custom Declaration rendering was tried early on and set aside as too troublesome. The model has since changed: presentation is now Surfaces, Views and Glyphs, independent of any one renderer, so the Declaration can use that machinery.\n\n**Open:** whether the Views that render the Declaration are the graph's own Surface chains (see Ports and Relationships) or a separate reference made just for the Declaration node. With the first, the card and the graph's presentation are the same thing. With the second, they can differ."
         }
       }
     },
@@ -306,7 +274,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Explicitly Not Part of This Primitive\n\n- Declaration does not render content. Rendering the graph's actual material is View and Content's job; Declaration only names which node fills each presentation role.\n- Declaration does not own node positions or layout. Where nodes sit on the canvas is unrelated to identity.\n- Declaration does not define *how* an exposed view looks — only *which* node is assigned to that role.\n- Declaration does not grant runtime capability beyond what `authority` explicitly states. Absence of a grant means the action is not permitted, not that it's merely undocumented.\n- Declaration is not a template. It describes one graph's own identity, not a reusable composition pattern for building other graphs (see Templates).\n- Declaration does not independently vouch for which custom node types are safe to use in the graph. That authority comes from Bridges, one per type, each pointing at a real class definition. A declared list of expected types, kept separately, is not a substitute — see the Contract section."
+          "value": "# Explicitly Not Part of This Primitive\n\n- Declaration does not render content. Rendering the graph's actual material is View and Content's job; Declaration only names which node fills each presentation role.\n- Declaration does not own node positions or layout. Where nodes sit on the canvas is unrelated to identity.\n- Declaration does not define *how* an exposed view looks — only *which* node is assigned to that role.\n- Declaration does not grant runtime capability beyond what `authority` explicitly states. Absence of a grant means the action is not permitted, not that it's merely undocumented.\n- Declaration is not a template. It describes one graph's own identity, not a reusable composition pattern for building other graphs (see Templates).\n- Declaration does not vouch for which custom node types are safe to use in the graph. That authority comes from Bridges, one per type, each pointing at a real class definition."
         }
       }
     },
@@ -394,20 +362,6 @@
       "sourcePort": "root",
       "targetPort": "root",
       "label": "ports and relationships",
-      "style": {
-        "curved": true,
-        "width": 2
-      },
-      "data": {}
-    },
-    {
-      "id": "decl-declares-decl-behavior",
-      "type": "reference",
-      "source": "ac97492b-7402-428b-9bce-5c5e91c7f981",
-      "target": "decl-behavior",
-      "sourcePort": "root",
-      "targetPort": "root",
-      "label": "behavior",
       "style": {
         "curved": true,
         "width": 2
