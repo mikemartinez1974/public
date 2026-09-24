@@ -6,8 +6,8 @@
     "graphId": "declaration-template",
     "version": "0.1.0",
     "kind": "template",
-    "created": "2026-09-24T20:50:32.850Z",
-    "modified": "2026-09-24T20:50:32.850Z",
+    "created": "2026-09-24T22:32:16.495Z",
+    "modified": "2026-09-24T22:32:16.495Z",
     "author": "",
     "tags": [
       "template",
@@ -137,7 +137,7 @@
           "name": "Declaration Template",
           "version": "0.1.0",
           "description": "A draft of what a new graph looks like: a page that explains each part of a Declaration and walks you through building one, laid out the way a graph should be.",
-          "updatedAt": "2026-09-24T20:50:32.850Z"
+          "updatedAt": "2026-09-24T22:32:16.495Z"
         },
         "intent": {
           "kind": "template",
@@ -169,7 +169,15 @@
             "implicitRootPort": true
           },
           "defaultSurfaceId": "",
-          "surfaces": []
+          "surfaces": [
+            {
+              "id": "editor",
+              "kind": "port",
+              "label": "Editor",
+              "portNodeId": "dt-editor",
+              "viewNodeId": "dt-editor"
+            }
+          ]
         },
         "settings": {
           "autoSave": false,
@@ -415,6 +423,776 @@
           "kind": "icon",
           "name": "Verified"
         }
+      }
+    },
+    {
+      "id": "dt-editor",
+      "label": "Declaration Editor",
+      "type": "port",
+      "position": {
+        "x": 300,
+        "y": 1340
+      },
+      "width": 560,
+      "height": 440,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          }
+        },
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view",
+          "allowedEdgeTypes": [
+            "default-view"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-view",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-summary",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-icon",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "shared-glyph",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-glyph",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "glyph",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "handle",
+          "key": "handle",
+          "label": "handle",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "handle",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "handle",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "graphReference",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "landing-surface",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          },
+          "portId": "root"
+        },
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "default-view",
+          "allowedEdgeTypes": [
+            "default-view"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-view",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 180,
+          "role": "shared-summary",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-summary",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "summary-view"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "shared-icon",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-icon",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "icon-view"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "shared-glyph",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "shared-glyph",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "glyph",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "glyph"
+        },
+        {
+          "id": "handle",
+          "key": "handle",
+          "label": "handle",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 270,
+          "role": "handle",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "handle",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "graphReference",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "handle"
+        },
+        {
+          "id": "landing-surface",
+          "key": "landing-surface",
+          "label": "landing surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "landing-surface",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "landing-surface",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "landing-surface"
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "default-view",
+          "label": "default view",
+          "type": "any"
+        },
+        {
+          "key": "summary-view",
+          "label": "summary view",
+          "type": "any"
+        },
+        {
+          "key": "icon-view",
+          "label": "icon view",
+          "type": "any"
+        },
+        {
+          "key": "glyph",
+          "label": "glyph",
+          "type": "any"
+        },
+        {
+          "key": "handle",
+          "label": "handle",
+          "type": "any"
+        },
+        {
+          "key": "landing-surface",
+          "label": "landing surface",
+          "type": "any"
+        }
+      ],
+      "data": {
+        "surfaceId": "",
+        "direction": "input",
+        "dataType": "any",
+        "interfaceContract": {
+          "version": 1,
+          "semanticViews": true
+        },
+        "presentation": {
+          "detail": {
+            "mode": "own"
+          },
+          "summary": {
+            "mode": "fallback"
+          },
+          "icon": {
+            "mode": "shared"
+          },
+          "glyph": {
+            "mode": "shared"
+          }
+        },
+        "identity": {
+          "graphId": "declaration-template",
+          "portId": "editor",
+          "name": "Declaration Editor"
+        },
+        "view": {
+          "intent": "editor",
+          "payload": "editor.web"
+        },
+        "editor": {
+          "web": {
+            "host": {
+              "kind": "declaration-editor",
+              "description": "Edit every field a Declaration holds."
+            },
+            "layout": {
+              "chrome": {
+                "eyebrow": "Editor Surface",
+                "title": "Declaration Editor",
+                "badge": "every field",
+                "summary": "Edit everything a Declaration holds: identity, kind, Surfaces, who may change the graph, and where it is saved."
+              },
+              "appearance": {
+                "panelBackground": "linear-gradient(180deg, rgba(255,255,255,0.98), rgba(243,244,255,0.96))",
+                "panelBorder": "rgba(109,40,217,0.14)",
+                "eyebrow": "#7c3aed",
+                "title": "#312e81",
+                "badgeBackground": "rgba(124,58,237,0.1)",
+                "badgeForeground": "#5b21b6",
+                "sectionBackground": "rgba(255,255,255,0.92)",
+                "sectionBorder": "rgba(109,40,217,0.12)",
+                "sectionTitle": "#4338ca",
+                "summary": "#4c1d95",
+                "helper": "#5b21b6"
+              },
+              "sections": [
+                {
+                  "key": "identity",
+                  "title": "Identity",
+                  "summary": "The canonical name, ids, version and description of this graph."
+                },
+                {
+                  "key": "intent",
+                  "title": "Kind of graph",
+                  "summary": "What this graph is and how Twilite should treat it."
+                },
+                {
+                  "key": "surfaces",
+                  "title": "Surfaces",
+                  "summary": "How the graph presents itself, and what it exposes to other graphs."
+                },
+                {
+                  "key": "authority",
+                  "title": "Authority",
+                  "summary": "What may be changed, and by whom. Anything not granted is not allowed."
+                },
+                {
+                  "key": "settings",
+                  "title": "Settings and address",
+                  "summary": "How the graph behaves in the editor and where it lives."
+                },
+                {
+                  "key": "narrative",
+                  "title": "Purpose",
+                  "summary": "Why this graph exists and how it should be read."
+                },
+                {
+                  "key": "analytics",
+                  "title": "Analytics",
+                  "summary": "Optional reporting, off unless you turn it on."
+                }
+              ]
+            },
+            "fields": [
+              {
+                "key": "graphName",
+                "label": "Name",
+                "type": "declaration-name",
+                "path": "data.identity.name",
+                "section": "identity",
+                "placeholder": "Untitled Graph",
+                "helperText": "What people see. Rename it whenever you like."
+              },
+              {
+                "key": "graphId",
+                "label": "Graph ID",
+                "type": "graph-id",
+                "path": "data.identity.graphId",
+                "section": "identity",
+                "placeholder": "graph-id",
+                "helperText": "Other graphs find this one by its id. Set it once and keep it."
+              },
+              {
+                "key": "nodeId",
+                "label": "Node ID",
+                "type": "text",
+                "path": "data.identity.nodeId",
+                "section": "identity",
+                "placeholder": "node-id",
+                "helperText": "Names this graph when it is used as a reusable node. Set it once and keep it."
+              },
+              {
+                "key": "version",
+                "label": "Version",
+                "type": "declaration-version",
+                "path": "data.identity.version",
+                "section": "identity",
+                "placeholder": "0.1.0"
+              },
+              {
+                "key": "description",
+                "label": "Description",
+                "type": "declaration-description",
+                "path": "data.identity.description",
+                "section": "identity",
+                "multiline": true,
+                "rows": 3,
+                "placeholder": "One sentence for someone who has never seen this graph.",
+                "helperText": "Shown on cards and in lists."
+              },
+              {
+                "key": "intentKind",
+                "label": "Kind of graph",
+                "type": "declaration-intent-kind",
+                "path": "data.intent.kind",
+                "section": "intent",
+                "placeholder": "plan, note, contract, task-board, template",
+                "helperText": "What kind of thing this graph is. It belongs here, not in a title node."
+              },
+              {
+                "key": "intentScope",
+                "label": "Scope",
+                "type": "select",
+                "path": "data.intent.scope",
+                "section": "intent",
+                "options": [
+                  {
+                    "label": "Local",
+                    "value": "local"
+                  },
+                  {
+                    "label": "Shared",
+                    "value": "shared"
+                  },
+                  {
+                    "label": "Public",
+                    "value": "public"
+                  },
+                  {
+                    "label": "Mixed",
+                    "value": "mixed"
+                  }
+                ],
+                "helperText": "Local for your own work, shared for something others build on."
+              },
+              {
+                "key": "declarationKind",
+                "label": "Declared type",
+                "type": "text",
+                "path": "data.declaration.kind",
+                "section": "intent",
+                "placeholder": "graph",
+                "helperText": "The declaration kind. It stays extensible."
+              },
+              {
+                "key": "artifactKind",
+                "label": "Artifact kind",
+                "type": "text",
+                "path": "data.declaration.artifactKind",
+                "section": "intent",
+                "placeholder": "graph, template, node-class, primitive-spec",
+                "helperText": "What this graph is as a file."
+              },
+              {
+                "key": "defaultSurfaceId",
+                "label": "Default Surface",
+                "type": "declaration-default-surface",
+                "path": "data.declaration.defaultSurfaceId",
+                "section": "surfaces",
+                "placeholder": "default",
+                "helperText": "The Surface a viewer sees when it does not ask for one. Left empty, the first Surface answers."
+              },
+              {
+                "key": "surfaces",
+                "label": "Exposed entries",
+                "type": "declaration-surfaces",
+                "path": "data.declaration.surfaces",
+                "section": "surfaces",
+                "multiline": true,
+                "rows": 8,
+                "helperText": "Ports and exports this graph offers to others. Presentation Surfaces are drawn on the canvas and listed above."
+              },
+              {
+                "key": "allowCreate",
+                "label": "Allow creating nodes",
+                "type": "boolean",
+                "path": "data.authority.mutation.allowCreate",
+                "section": "authority"
+              },
+              {
+                "key": "allowUpdate",
+                "label": "Allow changing nodes",
+                "type": "boolean",
+                "path": "data.authority.mutation.allowUpdate",
+                "section": "authority"
+              },
+              {
+                "key": "allowDelete",
+                "label": "Allow deleting nodes",
+                "type": "boolean",
+                "path": "data.authority.mutation.allowDelete",
+                "section": "authority"
+              },
+              {
+                "key": "appendOnly",
+                "label": "Append only",
+                "type": "boolean",
+                "path": "data.authority.mutation.appendOnly",
+                "section": "authority",
+                "helperText": "New nodes may be added, but existing ones are never changed or removed."
+              },
+              {
+                "key": "actorHumans",
+                "label": "People may edit",
+                "type": "boolean",
+                "path": "data.authority.actors.humans",
+                "section": "authority"
+              },
+              {
+                "key": "actorAgents",
+                "label": "Agents may edit",
+                "type": "boolean",
+                "path": "data.authority.actors.agents",
+                "section": "authority"
+              },
+              {
+                "key": "actorTools",
+                "label": "Tools may edit",
+                "type": "boolean",
+                "path": "data.authority.actors.tools",
+                "section": "authority"
+              },
+              {
+                "key": "styleAuthority",
+                "label": "Weight of styling",
+                "type": "select",
+                "path": "data.authority.styleAuthority",
+                "section": "authority",
+                "options": [
+                  {
+                    "label": "Descriptive",
+                    "value": "descriptive"
+                  },
+                  {
+                    "label": "Authoritative",
+                    "value": "authoritative"
+                  },
+                  {
+                    "label": "Ignored",
+                    "value": "ignored"
+                  }
+                ],
+                "helperText": "How much weight the styling in this graph carries."
+              },
+              {
+                "key": "rewriteAllowed",
+                "label": "Allow rewriting history",
+                "type": "boolean",
+                "path": "data.authority.history.rewriteAllowed",
+                "section": "authority",
+                "helperText": "Off by default, so earlier versions stay as they were."
+              },
+              {
+                "key": "squashAllowed",
+                "label": "Allow squashing history",
+                "type": "boolean",
+                "path": "data.authority.history.squashAllowed",
+                "section": "authority"
+              },
+              {
+                "key": "autoSave",
+                "label": "Save automatically",
+                "type": "boolean",
+                "path": "data.settings.autoSave",
+                "section": "settings",
+                "helperText": "Off by default, so nothing is saved until you say so."
+              },
+              {
+                "key": "layoutMode",
+                "label": "Layout",
+                "type": "select",
+                "path": "data.settings.layout.mode",
+                "section": "settings",
+                "options": [
+                  {
+                    "label": "Auto (only when positions omitted)",
+                    "value": "autoOnMissingPositions"
+                  },
+                  {
+                    "label": "Manual (never auto-layout on paste)",
+                    "value": "manual"
+                  }
+                ]
+              },
+              {
+                "key": "documentUrl",
+                "label": "Address",
+                "type": "text",
+                "path": "data.document.url",
+                "section": "settings",
+                "placeholder": "github://owner/repo/path/root.node",
+                "helperText": "Where this graph is saved. It is filled in when you save."
+              },
+              {
+                "key": "purpose",
+                "label": "Purpose",
+                "type": "markdown",
+                "path": "data.purpose",
+                "section": "narrative",
+                "multiline": true,
+                "rows": 4,
+                "placeholder": "Say what this graph means and how readers should use it."
+              },
+              {
+                "key": "analytics",
+                "label": "Analytics",
+                "type": "json",
+                "path": "data.analytics",
+                "section": "analytics",
+                "multiline": true,
+                "rows": 6,
+                "helperText": "Optional. Opt this graph in to page-view reporting."
+              }
+            ]
+          }
+        },
+        "semanticLevel": "editor",
+        "visibilityRole": "editor"
       }
     },
     {
@@ -3239,7 +4017,7 @@
       "label": "Any masthead changed",
       "root": false,
       "position": {
-        "x": 400,
+        "x": 940,
         "y": 1340
       },
       "width": 340,
@@ -3307,7 +4085,7 @@
       "label": "Any route changed",
       "root": false,
       "position": {
-        "x": 790,
+        "x": 1330,
         "y": 1340
       },
       "width": 340,
@@ -3375,7 +4153,7 @@
       "label": "Any section changed",
       "root": false,
       "position": {
-        "x": 1180,
+        "x": 1720,
         "y": 1340
       },
       "width": 340,
@@ -3443,7 +4221,7 @@
       "label": "Any settings list changed",
       "root": false,
       "position": {
-        "x": 400,
+        "x": 940,
         "y": 1620
       },
       "width": 340,
@@ -3511,7 +4289,7 @@
       "label": "Graph structure changed",
       "root": false,
       "position": {
-        "x": 790,
+        "x": 1330,
         "y": 1620
       },
       "width": 340,
@@ -3578,10 +4356,10 @@
       "type": "method",
       "label": "Assemble the page",
       "position": {
-        "x": 1180,
+        "x": 1720,
         "y": 1620
       },
-      "width": 420,
+      "width": 380,
       "height": 260,
       "visible": true,
       "showLabel": true,
@@ -3823,6 +4601,22 @@
       "data": {
         "role": "view-sequence",
         "semanticRole": "view-sequence"
+      }
+    },
+    {
+      "id": "dt-editor-edge",
+      "type": "reference",
+      "source": "declaration-template-declaration",
+      "target": "dt-editor",
+      "sourceHandle": "port",
+      "targetHandle": "root",
+      "label": "exposes editor",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "role": "exposes-port",
+        "semanticRole": "exposes-port"
       }
     },
     {
