@@ -7,7 +7,7 @@
     "version": "0.1.0",
     "kind": "graph",
     "created": "2026-09-23T18:44:01.161Z",
-    "modified": "2026-09-23T18:44:01.161Z",
+    "modified": "2026-09-25T01:30:47.311765Z",
     "author": "",
     "tags": [
       "primitive",
@@ -22,7 +22,7 @@
       "label": "Bridge (Primitive)",
       "root": false,
       "position": {
-        "x": -260,
+        "x": -1600,
         "y": -900
       },
       "width": 420,
@@ -45,7 +45,7 @@
           "version": "0.1.0",
           "description": "The primitive graph specification for Bridge itself — the base vocabulary entry, not a template or an example.",
           "nodeId": "bridge-primitive",
-          "updatedAt": "2026-09-23T18:44:01.161Z"
+          "updatedAt": "2026-09-25T01:30:47.311765Z"
         },
         "intent": {
           "kind": "primitive",
@@ -178,7 +178,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Contract\n\n**What data belongs to it?**\n\n```text\nbridge   { ref, role, resourceKind, scope, grants[] }\ntarget   { mode:'bridge', ref, kind, resourceKind, role, scope, grants[], key }\n_bridge  { sourceRef, entryPort, kind, targetKind, classKey, classRef }\n_classBinding { key, sourceRef }\n```\n\nThese four carry overlapping copies of the same facts — `data.bridge`, `data.target`, and top-level `data` fields all get written together, for legacy-compat reasons going back to earlier shapes. `components/GraphEditor/utils/bridgeSettings.js`'s `readBridgeSettings()`/`withBridge()` is the one place that knows how to read and write all three consistently — nothing else should hand-assemble a bridge patch.\n\nRequired at minimum: `role`, `resourceKind`, `ref`. For `resourceKind: node-class`, also the resolved `key`."
+          "value": "# Contract\n\n**What data belongs to it?**\n\n```text\nbridge   { ref, role, resourceKind, scope, grants[] }\ntarget   { mode:'bridge', ref, kind, resourceKind, role, scope, grants[], key }\n_bridge  { sourceRef, entryPort, kind, targetKind, classKey, classRef }\n_classBinding { key, sourceRef }\n```\n\nThese four carry overlapping copies of the same facts — `data.bridge`, `data.target`, and top-level `data` fields all get written together, for legacy-compat reasons going back to earlier shapes. `components/GraphEditor/utils/bridgeSettings.js`'s `readBridgeSettings()`/`withBridge()` is the one place that knows how to read and write all three consistently — nothing else should hand-assemble a bridge patch.\n\nRequired at minimum: `role`, `resourceKind`, `ref`. For `resourceKind: node-class`, also the resolved `key`.\n\n`_bridge` and `_classBinding` describe provenance/binding on imported instances; they are not four interchangeable required fields on every Bridge node. Use readBridgeSettings/withBridge for the normalized Bridge data and bridgeEventSubscriptions for subscriptions. Bridge grants and subscriptions are different contracts."
         }
       }
     },
@@ -210,7 +210,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Ports and Relationships\n\n**What semantic relationships does it expose?**\n\nAlmost none, deliberately. A Bridge usually carries just a single `root` port and sits unconnected to the rest of the graph by edges — it is an authority declaration standing on its own, not a participant in the Declaration's default-view/summary-view/glyph relationship grammar.\n\nThis is different from Declaration, Port, and View, which exist specifically to be assigned roles by other nodes. A Bridge assigns nothing and is assigned nothing; it just states a fact about cross-graph authority."
+          "value": "# Ports and Relationships\n\nA Bridge states cross-graph authority and participation. Its structural root socket and authored class/resource contract are distinct from a Declaration's presentation Surface chains. Import Bridges own cross-graph event subscriptions; export Bridges expose emitter contracts. A visual workspace connector is derived from participating Bridges, not a new authority record.\n\nPort/handle projections may be materialized by the runtime. Do not infer that every Bridge is unconnected or that a connector line itself persists a grant."
         }
       }
     },
@@ -242,7 +242,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Behavior\n\n**What does it participate in?**\n\n- An **import** Bridge with `resourceKind: node-class` grants this graph permission to create instances of that type. `getBridgeNodeClassKey()` in the validator reads it directly off the graph's own node list — no fetch, no recursion.\n- An import Bridge with `resourceKind: graph`, when dragged onto a canvas, resolves the target's declaration surfaces into one bound node (`deriveGraphBackedNodeArtifact()` in `graphNodeContract.js`) — the target's ports/views become that node's ports/views.\n- As of 2026-09-23, a `resourceKind: graph` Bridge additionally walks the target graph's own `role: export` node-class Bridges and **materializes each as a real, local import Bridge** in the importing graph (`GraphCrud.js`'s `bridgeReference()`, fed by `reExportedBridges` on the derived artifact). This is what makes \"consume a whole template's classes with one Bridge\" actually work: the template declares what it exports once, and every graph that bridges it in gets those grants automatically, idempotently.\n- An **export** Bridge means one of two genuinely different things depending on context, and this primitive is deliberately explicit about not conflating them:\n  - Paired with a `resourceKind: graph` import elsewhere, it's the class-authority re-export above — a template saying \"this is what I make available to whoever imports me.\"\n  - Independently, an export-role Bridge is also read by `workspaceBridge.js` to draw a connector line between two graphs that are **both already open as live instances in the same workspace** — a purely visual, render-time pairing that has nothing to do with class authority and does not persist or transit beyond that live session."
+          "value": "# Behavior\n\n**What does it participate in?**\n\n- An **import** Bridge with `resourceKind: node-class` grants this graph permission to create instances of that type. `getBridgeNodeClassKey()` in the validator reads it directly off the graph's own node list — no fetch, no recursion.\n- An import Bridge with `resourceKind: graph`, when dragged onto a canvas, resolves the target's declaration surfaces into one bound node (`deriveGraphBackedNodeArtifact()` in `graphNodeContract.js`) — the target's ports/views become that node's ports/views.\n- As of 2026-09-23, a `resourceKind: graph` Bridge additionally walks the target graph's own `role: export` node-class Bridges and **materializes each as a real, local import Bridge** in the importing graph (`GraphCrud.js`'s `bridgeReference()`, fed by `reExportedBridges` on the derived artifact). This is what makes \"consume a whole template's classes with one Bridge\" actually work: the template declares what it exports once, and every graph that bridges it in gets those grants automatically, idempotently.\n- An **export** Bridge means one of two genuinely different things depending on context, and this primitive is deliberately explicit about not conflating them:\n  - Paired with a `resourceKind: graph` import elsewhere, it's the class-authority re-export above — a template saying \"this is what I make available to whoever imports me.\"\n  - Independently, an export-role Bridge is also read by `workspaceBridge.js` to draw a connector line between two graphs that are **both already open as live instances in the same workspace** — a purely visual, render-time pairing that has nothing to do with class authority and does not persist or transit beyond that live session.\n\n## Implemented event behavior\n\nImport Bridges own subscriptions built by bridgeEventSubscriptions; emitter contracts are read by eventBridge. Event Handler resolution follows the action-method output to ordered Methods. These responsibilities are separate from visual workspace connector geometry.\n\n## Known gaps\n\nResource-kind support depends on the actual consumer. The library-kind reservation above remains a limitation, not a promised expansion path. Runtime delivery and browser connection behavior require their own smoke evidence.\n\n## Open decisions\n\nNo additional decision is required to document these responsibilities. Future class/resource or subscription semantics belong in their own runtime tasks.\n\n## Evidence\n\nSource (twilite repository):\n- `components/GraphEditor/utils/bridgeSettings.js`\n- `components/GraphEditor/utils/bridgeEventSubscriptions.js`\n- `components/GraphEditor/utils/eventBridge.js`\n- `components/GraphEditor/utils/graphNodeContract.js`\n\nFocused tests:\n- `tests/bridgeEventModel.test.js`\n- `tests/bridgeSettings.test.js`"
         }
       }
     },
@@ -306,7 +306,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Explicitly Not Part of This Primitive\n\n- Bridge does not fetch or cache the target's content itself. Resolving a ref into actual nodes is the resolver's job (`GraphCrud.js`'s `bridgeReference()`), triggered by an action on the Bridge, not performed by the Bridge node as data.\n- Bridge does not draw the workspace connector line by itself, and that line is not a form of persistence — it only exists while both graphs happen to be open together (see Behavior).\n- A Declaration's `dependencies.nodeTypes` entry is not a Bridge and grants nothing on its own — see the Declaration primitive's Contract section for why that field was removed as load-bearing.\n- Bridge is not Portal. Portal is a consumer-side navigation/expansion opening into another graph's interface; Bridge is an authority or participation grant. The two can point at the same `ref` for entirely different reasons and neither implies the other.\n- `resourceKind: library` is a real, declared option in `BRIDGE_KINDS`, but nothing downstream currently expands what a library bundle grants — it resolves at drag-time same as `node-class`, but is invisible to the validator's authority check exactly like an unkeyed `node-class` bridge would be. Treat it as reserved, not yet functional."
+          "value": "# Explicitly Not Part of This Primitive\n\n- Bridge does not fetch or cache the target's content itself. Resolving a ref into actual nodes is the resolver's job (`GraphCrud.js`'s `bridgeReference()`), triggered by an action on the Bridge, not performed by the Bridge node as data.\n- Bridge does not draw the workspace connector line by itself, and that line is not a form of persistence — it only exists while both graphs happen to be open together (see Behavior).\n- Legacy node-type dependency lists grant no authority. Import Bridges and class bindings supply the current authority path.\n- Bridge is not Portal. Portal is a consumer-side navigation/expansion opening into another graph's interface; Bridge is an authority or participation grant. The two can point at the same `ref` for entirely different reasons and neither implies the other.\n- `resourceKind: library` is a real, declared option in `BRIDGE_KINDS`, but nothing downstream currently expands what a library bundle grants — it resolves at drag-time same as `node-class`, but is invisible to the validator's authority check exactly like an unkeyed `node-class` bridge would be. Treat it as reserved, not yet functional."
         }
       }
     },
@@ -338,8 +338,68 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Examples\n\n**Examples live outside the primitive, referenced, not embedded.**\n\n- `templates/page-template/root.node` — four import Bridges (Masthead, Route, Settings, Section), each now correctly keyed, plus a matching export Bridge per class. Bridge this whole template in with a single `resourceKind: graph` Bridge and all four classes arrive as materialized local Bridges — the concrete, validated demonstration of the re-export mechanism in Behavior.\n- `events/apollo-11.node`'s `event-class-bridge-event` node — a plain, single-class import Bridge with every field populated, worth reading as the minimal correct shape."
+          "value": "# Examples\n\n**Examples live outside the primitive, referenced, not embedded.**\n\n- `templates/page-template/root.node` — four import Bridges (Masthead, Route, Settings, Section), each now correctly keyed, plus a matching export Bridge per class. Bridge this whole template in with a single `resourceKind: graph` Bridge and all four classes arrive as materialized local Bridges — the concrete, validated demonstration of the re-export mechanism in Behavior.\n- `events/apollo-11.node`'s `event-class-bridge-event` node — a plain, single-class import Bridge with every field populated, worth reading as the minimal correct shape.\n\nThe linked Custom Declaration example exercises class import. The Page Template mentioned above is linked separately as the re-export example."
         }
+      }
+    },
+    {
+      "id": "bridge-example-1",
+      "type": "portal",
+      "label": "Custom Declaration import",
+      "position": {
+        "x": 1900,
+        "y": 260
+      },
+      "width": 400,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "direction": "bidirectional",
+          "dataType": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/templates/declaration-template/example/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/templates/declaration-template/example/root.node",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "bridge-example-2",
+      "type": "portal",
+      "label": "Page Template re-exports",
+      "position": {
+        "x": 1900,
+        "y": 600
+      },
+      "width": 400,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "direction": "bidirectional",
+          "dataType": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/templates/page-template/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/templates/page-template/root.node",
+        "visibilityRole": "browser"
       }
     }
   ],
@@ -455,6 +515,26 @@
         "width": 2
       },
       "data": {}
+    },
+    {
+      "id": "bridge-opens-example-1",
+      "type": "reference",
+      "source": "bridge-examples",
+      "target": "bridge-example-1",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "example"
+    },
+    {
+      "id": "bridge-opens-example-2",
+      "type": "reference",
+      "source": "bridge-examples",
+      "target": "bridge-example-2",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "example"
     }
   ],
   "clusters": [],

@@ -7,7 +7,7 @@
     "version": "0.1.0",
     "kind": "graph",
     "created": "2026-09-23T20:26:08.944Z",
-    "modified": "2026-09-24T19:55:20.000Z",
+    "modified": "2026-09-25T01:30:47.311765Z",
     "author": "",
     "tags": [
       "primitive",
@@ -22,7 +22,7 @@
       "label": "Surface (Primitive)",
       "root": false,
       "position": {
-        "x": -260,
+        "x": -1600,
         "y": -900
       },
       "width": 420,
@@ -45,7 +45,7 @@
           "version": "0.1.0",
           "description": "The primitive graph specification for Surface: a named, independently-resolved presentation track, and the rendering ladder it owns. Proposed 2026-09-23; not yet implemented — see Behavior for what is real today versus what this primitive designs for.",
           "nodeId": "surface-primitive",
-          "updatedAt": "2026-09-24T19:55:20.000Z"
+          "updatedAt": "2026-09-25T01:30:47.311765Z"
         },
         "intent": {
           "kind": "primitive",
@@ -114,7 +114,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Meaning\n\n**What is this thing?**\n\nA Surface is a named, independently-resolved presentation track. It lets one node or graph offer more than one complete way of being shown — each scoped to a different hosting context — instead of a single universal ladder every host is expected to interpret the same way.\n\nThe motivating case: a Godzilla node is perfectly ordinary on the graph canvas — glyph, icon, summary, detail, the conventional ladder. But the same node placed on a map needs a completely different presentation: a map doesn't want a \"detail card,\" it wants something that reads as a map marker at every zoom level a map actually has. Those aren't two points on one continuum. They're two different continuums, because the thing being measured — screen occupancy in a card layout vs. apparent size on a map — is different. A Surface is the name for one of those continuums. A node with map ambitions declares a second Surface; a node without them just has the one every graph already has by default.\n\nA Surface does not render anything itself. It is a **chain of Views**, richest first, each claiming its own point on that Surface's resolution scale, **ending in a Glyph** so that every Surface carries a mark of its own. A host resolves against one Surface's chain."
+          "value": "# Meaning\n\n**What is this thing?**\n\nA Surface is a named, independently-resolved presentation track. It lets one node or graph offer more than one complete way of being shown — each scoped to a different hosting context — instead of a single universal ladder every host is expected to interpret the same way.\n\nThe motivating case: a Godzilla node is perfectly ordinary on the graph canvas — glyph, icon, summary, detail, the conventional ladder. But the same node placed on a map needs a completely different presentation: a map doesn't want a \"detail card,\" it wants something that reads as a map marker at every zoom level a map actually has. Those aren't two points on one continuum. They're two different continuums, because the thing being measured — screen occupancy in a card layout vs. apparent size on a map — is different. A Surface is the name for one of those continuums. A node with map ambitions declares a second Surface; a node without them just has the one every graph already has by default.\n\nA Surface does not render anything itself. It is a **chain of Views**, richest first, each claiming its own point on that Surface's resolution scale, **ending in a Glyph** so that every Surface carries a mark of its own. A host resolves against one Surface's chain.\n\nSurface has semantic identity as a named presentation track. Its encoding as an edge plus a chain does not make it less fundamental than a node-represented concept; the index records meaning and representation separately."
         }
       }
     },
@@ -146,7 +146,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Invariants\n\n**What makes this thing a Surface, specifically?**\n\n- **A Surface is a chain View → View → … → Glyph.** The Declaration's `surface` edge points at the first View; each View points at the next with a `view-sequence` edge; the last points at a Glyph. Every Surface begins with a View and ends in a Glyph. A graph that should show as just a glyph draws an icon View that renders the glyph, then ends its chain with its ordinary Glyph.\n- **The `surface` edge is the Surface's only identity.** It carries `data.surfaceId`. Rename it there; delete the edge to remove the Surface (its Views stay in the graph, in no Surface); if two edges share an id the first wins. Which Views belong to a Surface is decided by the chain, so a View carries no `surfaceId` of its own.\n- A graph that draws no `surface` edges is a **legacy** graph. Its default, summary and icon views and its glyph are read as **one** default Surface, never one Surface per relationship, so nothing written before Surfaces needs rewriting.\n- A Surface's chain is **open-ended**: `authoredViewResolution()` lets a View claim any continuous resolution value, so a chain can have three rungs or thirty.\n- A host resolves a graph by first selecting a Surface, then resolving richest-fitting *within that Surface's own chain* — never mixing rungs from two Surfaces into one decision.\n- **A Surface chooses what renders inside the graph's frame. It never resizes the frame, reflows neighbors or moves the camera.**\n- **An explicit request wins.** A host that names a Surface gets it. Without a request, `declaration.defaultSurfaceId` answers (else the first Surface). A Surface the host cannot render anything of is never chosen: capability filters, and never decides."
+          "value": "# Invariants\n\n**What makes this thing a Surface, specifically?**\n\n- **A Surface is a chain View → View → … → Glyph.** The Declaration's `surface` edge points at the first View; each View points at the next with a `view-sequence` edge; the last points at a Glyph. Every Surface begins with a View and ends in a Glyph. A graph that should show as just a glyph uses a View representation that renders glyph-shaped artwork (no icon category is required), then ends its chain with its ordinary Glyph.\n- **The `surface` edge is the Surface's only identity.** It carries `data.surfaceId`. Rename it there; delete the edge to remove the Surface (its Views stay in the graph, in no Surface); if two edges share an id the first wins. Which Views belong to a Surface is decided by the chain, so a View carries no `surfaceId` of its own.\n- A graph that draws no `surface` edges is a **legacy** graph. Its default, summary and icon views and its glyph are read as **one** default Surface, never one Surface per relationship, so nothing written before Surfaces needs rewriting.\n- A Surface's chain is **open-ended**: `authoredViewResolution()` lets a View claim any continuous resolution value, so a chain can have three rungs or thirty.\n- A host resolves a graph by first selecting a Surface, then resolving richest-fitting *within that Surface's own chain* — never mixing rungs from two Surfaces into one decision.\n- **A Surface chooses what renders inside the graph's frame. It never resizes the frame, reflows neighbors or moves the camera.**\n- **An explicit request wins.** A host that names a Surface gets it. Without a request, `declaration.defaultSurfaceId` answers (else the first Surface). A Surface the host cannot render anything of is never chosen: capability filters, and never decides."
         }
       }
     },
@@ -242,7 +242,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Behavior\n\n**What does it participate in — and what's real today versus not built?**\n\n**Real today:**\n- `collectSurfaceChains()` (`utils/surfaceChains.js`) reads every Surface of a graph, and reads a legacy graph as one default Surface. Malformed chains resolve the same way every time and never throw: a cycle stops at the first repeated node, a branch follows the first outgoing edge, a Glyph ends the walk, a head that is not a View is skipped, a duplicate id keeps the first, a missing default falls to the first Surface. Each is reported as a warning.\n- The resolution ladder (`resolvePercentageGraphView()`) is built from the chosen Surface's own chain, and below every rung the Surface shows its own Glyph. The resolution math (`viewResolution.js`) is unchanged.\n- One resolver decides the glyph (`resolveSurfaceGlyph`): the Glyph that ends the chain, then the Declaration's own glyph.\n- `resolveSurface(graph, surfaceId, { hosts })`: an explicit request wins; the default answers otherwise; a Surface the host cannot render is never chosen.\n- New graphs are created with one Surface, the editor draws and lists Surfaces (drag from the `surface` handle to add one; drag from a View's next-view handle to extend a chain), and the validator checks each chain instead of the older relationships.\n\n**Not built:**\n- The workspace and camera code still ask for the default Surface; nothing passes a Surface or a host yet.\n- A 3D View. Today `3d` is only a standalone node type that draws a fixed demo cube; no View has a `node.3d.*` payload and nothing renders one.\n- A host declaring a context that picks the default Surface."
+          "value": "# Behavior\n\n**What does it participate in — and what's real today versus not built?**\n\n## Implemented behavior\n- `collectSurfaceChains()` (`utils/surfaceChains.js`) reads every Surface of a graph, and reads a legacy graph as one default Surface. Malformed chains resolve the same way every time and never throw: a cycle stops at the first repeated node, a branch follows the first outgoing edge, a Glyph ends the walk, a head that is not a View is skipped, a duplicate id keeps the first, a missing default falls to the first Surface. Each is reported as a warning.\n- The resolution ladder (`resolvePercentageGraphView()`) is built from the chosen Surface's own chain, and below every rung the Surface shows its own Glyph. The resolution math (`viewResolution.js`) is unchanged.\n- One resolver decides the glyph (`resolveSurfaceGlyph`): the Glyph that ends the chain, then the Declaration's own glyph.\n- `resolveSurface(graph, surfaceId, { hosts })`: an explicit request wins; the default answers otherwise; a Surface the host cannot render is never chosen.\n- New graphs are created with one Surface, the editor draws and lists Surfaces (drag from the `surface` handle to add one; drag from a View's next-view handle to extend a chain), and the validator checks each chain instead of the older relationships.\n\n**Not built:**\n- The workspace and camera code still ask for the default Surface; nothing passes a Surface or a host yet.\n- A 3D View. Today `3d` is only a standalone node type that draws a fixed demo cube; no View has a `node.3d.*` payload and nothing renders one.\n- A host declaring a context that picks the default Surface.\n\n## Known gaps and open decisions\n\nThe host/3D and context-default gaps above belong to github://twilite-zone/public/tasks/declaration-surfaces/root.node. This spec does not close them. Structural tests and source inspection are distinct from live-browser verification.\n\n## Evidence\n\nSource (twilite repository):\n- `components/GraphEditor/utils/surfaceChains.js`\n- `components/GraphEditor/utils/graphViewPresentation.js`\n- `components/GraphEditor/utils/workspaceCamera.js`\n\nFocused tests:\n- `tests/surfaceChains.test.js`\n- `tests/graphViewPresentation.test.js`\n- `tests/workspaceCamera.test.js`"
         }
       }
     },
@@ -274,7 +274,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Representations\n\n**How is it represented?**\n\nNever directly. A Surface itself has no visual form — what renders is always whichever View its rendering ladder resolves to, for the host and resolution asking. Two different hosts looking at the same node \"at the same moment\" may be showing Views from two entirely different Surfaces, each independently correct for its own context — a map viewport and the graph canvas are not disagreeing with each other; they were never asking the same question."
+          "value": "# Representations\n\n**How is it represented?**\n\nNever directly. A Surface itself has no visual form — what renders is always whichever View its rendering ladder resolves to, for the host and resolution asking. Two different hosts looking at the same node \"at the same moment\" may be showing Views from two entirely different Surfaces, each independently correct for its own context — a map viewport and the graph canvas are not disagreeing with each other; they were never asking the same question.\n\nSurface selection, resolution and focus do not implicitly resize the workspace frame or reflow neighboring graphs. Manual resizing is explicit. Zoom scales the workspace rather than changing authored dimensions. Internal nodes, edges, handles and pointer targets are clipped to the frame; exposed boundary controls stay accessible. A View representation keeps the workspace title bar; the terminal Glyph does not acquire one.\n\nA View can show glyph-shaped artwork without being an icon View; it remains distinct from the chain’s terminal Glyph."
         }
       }
     },
@@ -338,8 +338,38 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Examples\n\n**Examples live outside the primitive, referenced, not embedded.**\n\nEvery graph the app creates now has one Surface (a detail View, a summary View, an icon View, then a Glyph), and the starter graph in OnboardLLM.md draws one. Neither is linked here yet: this primitive should name an example on purpose. No graph has authored a second, non-default Surface. Add a portal here once one does."
+          "value": "# Examples\n\nThe linked Declaration Template draws a real Surface chain. The example is referenced through a Portal, not copied into this specification. Two-Surface and malformed-chain behavior is also covered by the focused tests in Behavior."
         }
+      }
+    },
+    {
+      "id": "surface-example-1",
+      "type": "portal",
+      "label": "Declaration Template Surface",
+      "position": {
+        "x": 1900,
+        "y": 260
+      },
+      "width": 400,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "direction": "bidirectional",
+          "dataType": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/templates/declaration-template/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/templates/declaration-template/root.node",
+        "visibilityRole": "browser"
       }
     }
   ],
@@ -455,6 +485,16 @@
         "width": 2
       },
       "data": {}
+    },
+    {
+      "id": "surface-opens-example-1",
+      "type": "reference",
+      "source": "surface-examples",
+      "target": "surface-example-1",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "example"
     }
   ],
   "clusters": [],

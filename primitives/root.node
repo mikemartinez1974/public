@@ -7,7 +7,7 @@
     "version": "0.1.0",
     "kind": "graph",
     "created": "2026-09-23T16:28:07.000Z",
-    "modified": "2026-09-23T16:28:07.000Z",
+    "modified": "2026-09-25T01:30:47.311765Z",
     "author": "",
     "tags": [
       "collection",
@@ -22,8 +22,8 @@
       "label": "Twilite Primitive Library",
       "root": false,
       "position": {
-        "x": -260,
-        "y": -700
+        "x": -1600,
+        "y": -900
       },
       "width": 420,
       "height": 300,
@@ -52,7 +52,7 @@
           "version": "0.1.0",
           "description": "The base vocabulary Twilite graphs are composed from — one graph per primitive, each an executable specification, not a template and not a bundle of examples.",
           "nodeId": "primitive-library",
-          "updatedAt": "2026-09-23T16:28:07.000Z"
+          "updatedAt": "2026-09-25T01:30:47.311765Z"
         },
         "intent": {
           "kind": "collection",
@@ -106,11 +106,11 @@
       "label": "Twilite Primitive Library",
       "root": false,
       "position": {
-        "x": -900,
-        "y": -700
+        "x": -1000,
+        "y": -900
       },
-      "width": 520,
-      "height": 300,
+      "width": 800,
+      "height": 540,
       "ports": [
         {
           "id": "root",
@@ -128,7 +128,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Twilite Primitive Library\n\nPrimitive graphs describe the language. Example graphs speak the language. Templates arrange the language for a purpose.\n\nEach primitive here is its own graph: Meaning, Invariants, Contract, Ports and Relationships, Behavior, Representations, an explicit boundary of what's *not* part of it, and Examples as references out — never demo content folded into the definition itself.\n\n**In progress.** Declaration, Bridge, and Surface are written. Surface is new, not a migration — it proposes scoping a graph's rendering ladder (an already-real, already-continuous resolution mechanism, see `viewResolution.js`) to more than one named context, so a node can offer a different complete presentation to a map host than it offers the graph canvas, without the two interfering. Not yet implemented; see its Behavior section for exactly what's real today versus proposed. `topics/twilite-graph-primitives` still has good working content for View, Content, Port, Glyph, and Portal, written before this per-primitive shape was decided — migrating those in is the next increment, not a rewrite from scratch. Property, Method, Event, Event Handler, Edge, Node Class, and Edge Class remain unwritten."
+          "value": "# Twilite Language Library\n\nOne canonical graph per language contract. Meaning and representation are separate: an Edge is a relationship instance, Surface is a named chain, and neither requires a new node type. Edge Class is a definition graph; Event Handler, Method and membrane controls have node encodings.\n\nRead Specification Form first. Every spec separates agreed semantics, implementation evidence, known gaps and unresolved decisions. Structural validation is not proof of browser or runtime completeness. Advanced behavior (Bridge, Event Handler, Method, Script) is documented without making it mandatory starter structure.\n\nNode Class, Template and Collection are composed graphs; Property is class-backed; Workspace is a host composition and Minimap is a presentation. They can receive pattern specifications without being inferred as new primitives from registry membership.\n\nCanonical authority is github://mikemartinez1974/public/primitives/root.node. Other collections should point here through Portals, not create independently editable mirrors.\n\n## Compatibility and utilities\n\nThe registry is not the primitive list. markdown and svg remain readable legacy material nodes; new authoring uses Content. manifest is a compatibility declaration renderer. subscription is a legacy event-model node; new subscriptions belong to import Bridges and Event Handlers. dictionary and legend are class/discovery or inspection infrastructure, not new material primitives. div, embed, canvas and target are host/rendering or navigation facilities. timer, toggle, counter, gate, delay and api are utility nodes; availability is not a reason to classify them as fundamental language concepts.\n\nSource evidence: components/GraphEditor/nodeTypeRegistry.js and utils/nodeVisibilityRoles.js. Classification does not remove any registered type or claim that every utility is obsolete."
         }
       }
     },
@@ -138,8 +138,8 @@
       "label": "Primitives",
       "root": false,
       "position": {
-        "x": -260,
-        "y": -260
+        "x": -1600,
+        "y": -480
       },
       "width": 480,
       "height": 300,
@@ -195,8 +195,8 @@
       "label": "Declaration",
       "root": false,
       "position": {
-        "x": 420,
-        "y": -260
+        "x": -1000,
+        "y": -220
       },
       "width": 360,
       "height": 240,
@@ -245,8 +245,8 @@
       "label": "Bridge",
       "root": false,
       "position": {
-        "x": 420,
-        "y": 60
+        "x": -500,
+        "y": -220
       },
       "width": 360,
       "height": 240,
@@ -295,8 +295,8 @@
       "label": "Surface",
       "root": false,
       "position": {
-        "x": 420,
-        "y": 380
+        "x": 0,
+        "y": -220
       },
       "width": 360,
       "height": 240,
@@ -336,6 +336,539 @@
           "surfaceId": "root",
           "label": "Open Surface"
         },
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "primitives-collection-content",
+      "type": "portal",
+      "label": "Content",
+      "root": false,
+      "position": {
+        "x": 500,
+        "y": -220
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/primitives/content/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/primitives/content/root.node",
+        "memo": "Open the content specification.",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "primitives-collection-edge",
+      "type": "portal",
+      "label": "Edge",
+      "root": false,
+      "position": {
+        "x": -1000,
+        "y": 110
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/primitives/edge/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/primitives/edge/root.node",
+        "memo": "Open the edge specification.",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "primitives-collection-edge-class",
+      "type": "portal",
+      "label": "Edge Class",
+      "root": false,
+      "position": {
+        "x": -500,
+        "y": 110
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/primitives/edge-class/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/primitives/edge-class/root.node",
+        "memo": "Open the edge-class specification.",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "primitives-collection-event-handler",
+      "type": "portal",
+      "label": "Event Handler",
+      "root": false,
+      "position": {
+        "x": 0,
+        "y": 110
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/primitives/event-handler/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/primitives/event-handler/root.node",
+        "memo": "Open the event-handler specification.",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "primitives-collection-field",
+      "type": "portal",
+      "label": "Field",
+      "root": false,
+      "position": {
+        "x": 500,
+        "y": 110
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/primitives/field/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/primitives/field/root.node",
+        "memo": "Open the field specification.",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "primitives-collection-glyph",
+      "type": "portal",
+      "label": "Glyph",
+      "root": false,
+      "position": {
+        "x": -1000,
+        "y": 440
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/primitives/glyph/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/primitives/glyph/root.node",
+        "memo": "Open the glyph specification.",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "primitives-collection-membrane",
+      "type": "portal",
+      "label": "Membrane",
+      "root": false,
+      "position": {
+        "x": -500,
+        "y": 440
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/primitives/membrane/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/primitives/membrane/root.node",
+        "memo": "Open the membrane specification.",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "primitives-collection-method",
+      "type": "portal",
+      "label": "Method",
+      "root": false,
+      "position": {
+        "x": 0,
+        "y": 440
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/primitives/method/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/primitives/method/root.node",
+        "memo": "Open the method specification.",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "primitives-collection-port",
+      "type": "portal",
+      "label": "Port",
+      "root": false,
+      "position": {
+        "x": 500,
+        "y": 440
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/primitives/port/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/primitives/port/root.node",
+        "memo": "Open the port specification.",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "primitives-collection-portal",
+      "type": "portal",
+      "label": "Portal",
+      "root": false,
+      "position": {
+        "x": -1000,
+        "y": 770
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/primitives/portal/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/primitives/portal/root.node",
+        "memo": "Open the portal specification.",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "primitives-collection-script",
+      "type": "portal",
+      "label": "Script",
+      "root": false,
+      "position": {
+        "x": -500,
+        "y": 770
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/primitives/script/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/primitives/script/root.node",
+        "memo": "Open the script specification.",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "primitives-collection-specification",
+      "type": "portal",
+      "label": "Specification",
+      "root": false,
+      "position": {
+        "x": 0,
+        "y": 770
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/primitives/specification/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/primitives/specification/root.node",
+        "memo": "Open the specification specification.",
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "primitives-collection-view",
+      "type": "portal",
+      "label": "View",
+      "root": false,
+      "position": {
+        "x": 500,
+        "y": 770
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "authority": "navigate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/primitives/view/root.node",
+          "mode": "navigate",
+          "portId": "root"
+        },
+        "sourceRef": "github://mikemartinez1974/public/primitives/view/root.node",
+        "memo": "Open the view specification.",
         "visibilityRole": "browser"
       }
     }
@@ -408,6 +941,136 @@
       "data": {
         "semanticRole": "collection-member"
       }
+    },
+    {
+      "id": "primitives-index-content",
+      "type": "reference",
+      "source": "2432f22c-5e03-4b80-a757-7233ff346477",
+      "target": "primitives-collection-content",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "specification"
+    },
+    {
+      "id": "primitives-index-edge",
+      "type": "reference",
+      "source": "2432f22c-5e03-4b80-a757-7233ff346477",
+      "target": "primitives-collection-edge",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "specification"
+    },
+    {
+      "id": "primitives-index-edge-class",
+      "type": "reference",
+      "source": "2432f22c-5e03-4b80-a757-7233ff346477",
+      "target": "primitives-collection-edge-class",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "specification"
+    },
+    {
+      "id": "primitives-index-event-handler",
+      "type": "reference",
+      "source": "2432f22c-5e03-4b80-a757-7233ff346477",
+      "target": "primitives-collection-event-handler",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "specification"
+    },
+    {
+      "id": "primitives-index-field",
+      "type": "reference",
+      "source": "2432f22c-5e03-4b80-a757-7233ff346477",
+      "target": "primitives-collection-field",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "specification"
+    },
+    {
+      "id": "primitives-index-glyph",
+      "type": "reference",
+      "source": "2432f22c-5e03-4b80-a757-7233ff346477",
+      "target": "primitives-collection-glyph",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "specification"
+    },
+    {
+      "id": "primitives-index-membrane",
+      "type": "reference",
+      "source": "2432f22c-5e03-4b80-a757-7233ff346477",
+      "target": "primitives-collection-membrane",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "specification"
+    },
+    {
+      "id": "primitives-index-method",
+      "type": "reference",
+      "source": "2432f22c-5e03-4b80-a757-7233ff346477",
+      "target": "primitives-collection-method",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "specification"
+    },
+    {
+      "id": "primitives-index-port",
+      "type": "reference",
+      "source": "2432f22c-5e03-4b80-a757-7233ff346477",
+      "target": "primitives-collection-port",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "specification"
+    },
+    {
+      "id": "primitives-index-portal",
+      "type": "reference",
+      "source": "2432f22c-5e03-4b80-a757-7233ff346477",
+      "target": "primitives-collection-portal",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "specification"
+    },
+    {
+      "id": "primitives-index-script",
+      "type": "reference",
+      "source": "2432f22c-5e03-4b80-a757-7233ff346477",
+      "target": "primitives-collection-script",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "specification"
+    },
+    {
+      "id": "primitives-index-specification",
+      "type": "reference",
+      "source": "2432f22c-5e03-4b80-a757-7233ff346477",
+      "target": "primitives-collection-specification",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "specification"
+    },
+    {
+      "id": "primitives-index-view",
+      "type": "reference",
+      "source": "2432f22c-5e03-4b80-a757-7233ff346477",
+      "target": "primitives-collection-view",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "data": {},
+      "label": "specification"
     }
   ],
   "clusters": [],
