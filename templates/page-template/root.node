@@ -2,16 +2,15 @@
   "fileVersion": "1.0",
   "metadata": {
     "title": "Page Template",
-    "description": "A page is a graph of pieces. Masthead, route and section pieces, in graph order, are assembled into one page view.",
+    "description": "Draft for the Page Template.  It is intended to provide a working background upon which to place a set of nodes.",
     "graphId": "page-template-declaration",
     "version": "0.4.0",
     "kind": "template",
-    "created": "2026-09-21T02:04:15.657Z",
-    "modified": "2026-09-21T02:04:15.657Z",
+    "created": "2026-09-27T18:54:10.880Z",
+    "modified": "2026-09-27T19:02:42.917Z",
     "author": "",
     "tags": [
-      "template",
-      "page"
+      "template"
     ],
     "preferredViewer": "https://dev.twilite.zone"
   },
@@ -133,7 +132,8 @@
           "graphId": "page-template-declaration",
           "nodeId": "page-template",
           "name": "Page Template",
-          "version": "0.4.0"
+          "version": "0.4.0",
+          "description": "Draft for the Page Template.  It is intended to provide a working background upon which to place a set of nodes."
         },
         "intent": {
           "kind": "template",
@@ -269,7 +269,7 @@
     },
     {
       "id": "page-template-detail",
-      "type": "view",
+      "type": "port",
       "label": "Page",
       "root": false,
       "position": {
@@ -318,7 +318,7 @@
     },
     {
       "id": "page-template-summary",
-      "type": "view",
+      "type": "port",
       "label": "Page Summary",
       "root": false,
       "position": {
@@ -367,7 +367,7 @@
     },
     {
       "id": "page-template-icon",
-      "type": "view",
+      "type": "port",
       "label": "Page Icon",
       "root": false,
       "position": {
@@ -516,10 +516,15 @@
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 180
+          "angle": 270,
+          "position": {
+            "side": "top",
+            "offset": 0.2
+          }
         }
       ],
       "handles": [
@@ -573,7 +578,135 @@
         },
         "_classBinding": {
           "key": "page-masthead",
-          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-masthead.node-class.node"
+          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-masthead.node-class.node",
+          "defaults": {
+            "label": "Page Masthead",
+            "size": {
+              "width": 520,
+              "height": 260
+            },
+            "showLabel": false,
+            "data": {
+              "eyebrow": "",
+              "title": "Page title",
+              "subtitle": "",
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Abc"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 270,
+                "position": {
+                  "side": "top",
+                  "offset": 0.2
+                }
+              }
+            ],
+            "events": [
+              {
+                "eventKey": "node.changed",
+                "label": "Page Masthead changed",
+                "payloadContract": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "page-masthead",
+            "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-masthead.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Page Masthead",
+              "size": {
+                "width": 520,
+                "height": 260
+              },
+              "showLabel": false,
+              "data": {
+                "eyebrow": "",
+                "title": "Page title",
+                "subtitle": "",
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Abc"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 270,
+                  "position": {
+                    "side": "top",
+                    "offset": 0.2
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "eventKey": "node.changed",
+                  "label": "Page Masthead changed",
+                  "payloadContract": {
+                    "type": "object"
+                  }
+                }
+              ]
+            }
+          },
+          "views": [
+            {
+              "key": "page-masthead",
+              "intent": "node",
+              "payload": "node.web.detail",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-masthead.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-masthead",
+              "intent": "node",
+              "payload": "node.web.summary",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-masthead.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-masthead",
+              "intent": "node",
+              "payload": "node.web.icon",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-masthead.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-masthead",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-masthead.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            }
+          ]
         }
       }
     },
@@ -591,10 +724,27 @@
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 180
+          "angle": 270,
+          "position": {
+            "side": "top",
+            "offset": 0.2
+          }
+        },
+        {
+          "id": "destination",
+          "key": "destination",
+          "label": "destination",
+          "direction": "output",
+          "dataType": "graph",
+          "angle": 90,
+          "position": {
+            "side": "bottom",
+            "offset": 0.5
+          }
         }
       ],
       "handles": [
@@ -648,7 +798,163 @@
         },
         "_classBinding": {
           "key": "page-route",
-          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-route.node-class.node"
+          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-route.node-class.node",
+          "defaults": {
+            "label": "Page Route",
+            "size": {
+              "width": 460,
+              "height": 280
+            },
+            "showLabel": false,
+            "data": {
+              "title": "Where to next",
+              "body": "",
+              "destinationRef": "",
+              "destinationLabel": "Open",
+              "prominence": "primary",
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "AltRoute"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 270,
+                "position": {
+                  "side": "top",
+                  "offset": 0.2
+                }
+              },
+              {
+                "id": "destination",
+                "key": "destination",
+                "label": "destination",
+                "direction": "output",
+                "dataType": "graph",
+                "angle": 90,
+                "position": {
+                  "side": "bottom",
+                  "offset": 0.5
+                }
+              }
+            ],
+            "events": [
+              {
+                "eventKey": "node.changed",
+                "label": "Page Route changed",
+                "payloadContract": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "page-route",
+            "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-route.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Page Route",
+              "size": {
+                "width": 460,
+                "height": 280
+              },
+              "showLabel": false,
+              "data": {
+                "title": "Where to next",
+                "body": "",
+                "destinationRef": "",
+                "destinationLabel": "Open",
+                "prominence": "primary",
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "AltRoute"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 270,
+                  "position": {
+                    "side": "top",
+                    "offset": 0.2
+                  }
+                },
+                {
+                  "id": "destination",
+                  "key": "destination",
+                  "label": "destination",
+                  "direction": "output",
+                  "dataType": "graph",
+                  "angle": 90,
+                  "position": {
+                    "side": "bottom",
+                    "offset": 0.5
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "eventKey": "node.changed",
+                  "label": "Page Route changed",
+                  "payloadContract": {
+                    "type": "object"
+                  }
+                }
+              ]
+            }
+          },
+          "views": [
+            {
+              "key": "page-route",
+              "intent": "node",
+              "payload": "node.web.detail",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-route.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-route",
+              "intent": "node",
+              "payload": "node.web.summary",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-route.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-route",
+              "intent": "node",
+              "payload": "node.web.icon",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-route.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-route",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-route.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            }
+          ]
         }
       }
     },
@@ -666,10 +972,15 @@
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 180
+          "angle": 270,
+          "position": {
+            "side": "top",
+            "offset": 0.2
+          }
         }
       ],
       "handles": [
@@ -723,7 +1034,143 @@
         },
         "_classBinding": {
           "key": "page-settings",
-          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-settings.node-class.node"
+          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-settings.node-class.node",
+          "defaults": {
+            "label": "Page Settings",
+            "size": {
+              "width": 520,
+              "height": 320
+            },
+            "showLabel": false,
+            "data": {
+              "title": "Settings",
+              "rows": [
+                {
+                  "label": "Setting",
+                  "value": "Value"
+                }
+              ],
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Settings"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 270,
+                "position": {
+                  "side": "top",
+                  "offset": 0.2
+                }
+              }
+            ],
+            "events": [
+              {
+                "eventKey": "node.changed",
+                "label": "Page Settings changed",
+                "payloadContract": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "page-settings",
+            "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-settings.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Page Settings",
+              "size": {
+                "width": 520,
+                "height": 320
+              },
+              "showLabel": false,
+              "data": {
+                "title": "Settings",
+                "rows": [
+                  {
+                    "label": "Setting",
+                    "value": "Value"
+                  }
+                ],
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Settings"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 270,
+                  "position": {
+                    "side": "top",
+                    "offset": 0.2
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "eventKey": "node.changed",
+                  "label": "Page Settings changed",
+                  "payloadContract": {
+                    "type": "object"
+                  }
+                }
+              ]
+            }
+          },
+          "views": [
+            {
+              "key": "page-settings",
+              "intent": "node",
+              "payload": "node.web.detail",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-settings.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-settings",
+              "intent": "node",
+              "payload": "node.web.summary",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-settings.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-settings",
+              "intent": "node",
+              "payload": "node.web.icon",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-settings.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-settings",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-settings.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            }
+          ]
         }
       }
     },
@@ -741,10 +1188,15 @@
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 180
+          "angle": 270,
+          "position": {
+            "side": "top",
+            "offset": 0.2
+          }
         }
       ],
       "handles": [
@@ -798,7 +1250,133 @@
         },
         "_classBinding": {
           "key": "page-section",
-          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-section.node-class.node"
+          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-section.node-class.node",
+          "defaults": {
+            "label": "Page Section",
+            "size": {
+              "width": 520,
+              "height": 320
+            },
+            "showLabel": false,
+            "data": {
+              "title": "Section title",
+              "body": "What this section says.",
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Article"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 270,
+                "position": {
+                  "side": "top",
+                  "offset": 0.2
+                }
+              }
+            ],
+            "events": [
+              {
+                "eventKey": "node.changed",
+                "label": "Page Section changed",
+                "payloadContract": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "page-section",
+            "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-section.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Page Section",
+              "size": {
+                "width": 520,
+                "height": 320
+              },
+              "showLabel": false,
+              "data": {
+                "title": "Section title",
+                "body": "What this section says.",
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Article"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 270,
+                  "position": {
+                    "side": "top",
+                    "offset": 0.2
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "eventKey": "node.changed",
+                  "label": "Page Section changed",
+                  "payloadContract": {
+                    "type": "object"
+                  }
+                }
+              ]
+            }
+          },
+          "views": [
+            {
+              "key": "page-section",
+              "intent": "node",
+              "payload": "node.web.detail",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-section.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-section",
+              "intent": "node",
+              "payload": "node.web.summary",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-section.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-section",
+              "intent": "node",
+              "payload": "node.web.icon",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-section.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-section",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-section.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            }
+          ]
         }
       }
     },
@@ -2264,14 +2842,13 @@
       "id": "assemble-page-method",
       "type": "method",
       "label": "Assemble the page",
+      "root": false,
       "position": {
         "x": 1300,
         "y": 0
       },
       "width": 420,
       "height": 260,
-      "visible": true,
-      "showLabel": true,
       "ports": [
         {
           "id": "call",
@@ -2310,6 +2887,8 @@
           "portId": "result"
         }
       ],
+      "visible": true,
+      "showLabel": true,
       "data": {
         "scriptName": "Assemble the page",
         "parameters": [],
@@ -2342,10 +2921,15 @@
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 180
+          "angle": 270,
+          "position": {
+            "side": "top",
+            "offset": 0.2
+          }
         }
       ],
       "handles": [
@@ -2405,7 +2989,135 @@
         },
         "_classBinding": {
           "key": "page-masthead",
-          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-masthead.node-class.node"
+          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-masthead.node-class.node",
+          "defaults": {
+            "label": "Page Masthead",
+            "size": {
+              "width": 520,
+              "height": 260
+            },
+            "showLabel": false,
+            "data": {
+              "eyebrow": "",
+              "title": "Page title",
+              "subtitle": "",
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Abc"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 270,
+                "position": {
+                  "side": "top",
+                  "offset": 0.2
+                }
+              }
+            ],
+            "events": [
+              {
+                "eventKey": "node.changed",
+                "label": "Page Masthead changed",
+                "payloadContract": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "page-masthead",
+            "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-masthead.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Page Masthead",
+              "size": {
+                "width": 520,
+                "height": 260
+              },
+              "showLabel": false,
+              "data": {
+                "eyebrow": "",
+                "title": "Page title",
+                "subtitle": "",
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Abc"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 270,
+                  "position": {
+                    "side": "top",
+                    "offset": 0.2
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "eventKey": "node.changed",
+                  "label": "Page Masthead changed",
+                  "payloadContract": {
+                    "type": "object"
+                  }
+                }
+              ]
+            }
+          },
+          "views": [
+            {
+              "key": "page-masthead",
+              "intent": "node",
+              "payload": "node.web.detail",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-masthead.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-masthead",
+              "intent": "node",
+              "payload": "node.web.summary",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-masthead.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-masthead",
+              "intent": "node",
+              "payload": "node.web.icon",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-masthead.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-masthead",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-masthead.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            }
+          ]
         },
         "identity": {
           "graphId": "page-template-declaration"
@@ -2426,10 +3138,27 @@
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 180
+          "angle": 270,
+          "position": {
+            "side": "top",
+            "offset": 0.2
+          }
+        },
+        {
+          "id": "destination",
+          "key": "destination",
+          "label": "destination",
+          "direction": "output",
+          "dataType": "graph",
+          "angle": 90,
+          "position": {
+            "side": "bottom",
+            "offset": 0.5
+          }
         }
       ],
       "handles": [
@@ -2489,7 +3218,163 @@
         },
         "_classBinding": {
           "key": "page-route",
-          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-route.node-class.node"
+          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-route.node-class.node",
+          "defaults": {
+            "label": "Page Route",
+            "size": {
+              "width": 460,
+              "height": 280
+            },
+            "showLabel": false,
+            "data": {
+              "title": "Where to next",
+              "body": "",
+              "destinationRef": "",
+              "destinationLabel": "Open",
+              "prominence": "primary",
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "AltRoute"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 270,
+                "position": {
+                  "side": "top",
+                  "offset": 0.2
+                }
+              },
+              {
+                "id": "destination",
+                "key": "destination",
+                "label": "destination",
+                "direction": "output",
+                "dataType": "graph",
+                "angle": 90,
+                "position": {
+                  "side": "bottom",
+                  "offset": 0.5
+                }
+              }
+            ],
+            "events": [
+              {
+                "eventKey": "node.changed",
+                "label": "Page Route changed",
+                "payloadContract": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "page-route",
+            "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-route.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Page Route",
+              "size": {
+                "width": 460,
+                "height": 280
+              },
+              "showLabel": false,
+              "data": {
+                "title": "Where to next",
+                "body": "",
+                "destinationRef": "",
+                "destinationLabel": "Open",
+                "prominence": "primary",
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "AltRoute"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 270,
+                  "position": {
+                    "side": "top",
+                    "offset": 0.2
+                  }
+                },
+                {
+                  "id": "destination",
+                  "key": "destination",
+                  "label": "destination",
+                  "direction": "output",
+                  "dataType": "graph",
+                  "angle": 90,
+                  "position": {
+                    "side": "bottom",
+                    "offset": 0.5
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "eventKey": "node.changed",
+                  "label": "Page Route changed",
+                  "payloadContract": {
+                    "type": "object"
+                  }
+                }
+              ]
+            }
+          },
+          "views": [
+            {
+              "key": "page-route",
+              "intent": "node",
+              "payload": "node.web.detail",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-route.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-route",
+              "intent": "node",
+              "payload": "node.web.summary",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-route.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-route",
+              "intent": "node",
+              "payload": "node.web.icon",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-route.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-route",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-route.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            }
+          ]
         },
         "identity": {
           "graphId": "page-template-declaration"
@@ -2510,10 +3395,15 @@
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 180
+          "angle": 270,
+          "position": {
+            "side": "top",
+            "offset": 0.2
+          }
         }
       ],
       "handles": [
@@ -2573,7 +3463,143 @@
         },
         "_classBinding": {
           "key": "page-settings",
-          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-settings.node-class.node"
+          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-settings.node-class.node",
+          "defaults": {
+            "label": "Page Settings",
+            "size": {
+              "width": 520,
+              "height": 320
+            },
+            "showLabel": false,
+            "data": {
+              "title": "Settings",
+              "rows": [
+                {
+                  "label": "Setting",
+                  "value": "Value"
+                }
+              ],
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Settings"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 270,
+                "position": {
+                  "side": "top",
+                  "offset": 0.2
+                }
+              }
+            ],
+            "events": [
+              {
+                "eventKey": "node.changed",
+                "label": "Page Settings changed",
+                "payloadContract": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "page-settings",
+            "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-settings.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Page Settings",
+              "size": {
+                "width": 520,
+                "height": 320
+              },
+              "showLabel": false,
+              "data": {
+                "title": "Settings",
+                "rows": [
+                  {
+                    "label": "Setting",
+                    "value": "Value"
+                  }
+                ],
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Settings"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 270,
+                  "position": {
+                    "side": "top",
+                    "offset": 0.2
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "eventKey": "node.changed",
+                  "label": "Page Settings changed",
+                  "payloadContract": {
+                    "type": "object"
+                  }
+                }
+              ]
+            }
+          },
+          "views": [
+            {
+              "key": "page-settings",
+              "intent": "node",
+              "payload": "node.web.detail",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-settings.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-settings",
+              "intent": "node",
+              "payload": "node.web.summary",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-settings.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-settings",
+              "intent": "node",
+              "payload": "node.web.icon",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-settings.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-settings",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-settings.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            }
+          ]
         },
         "identity": {
           "graphId": "page-template-declaration"
@@ -2594,10 +3620,15 @@
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 180
+          "angle": 270,
+          "position": {
+            "side": "top",
+            "offset": 0.2
+          }
         }
       ],
       "handles": [
@@ -2657,7 +3688,133 @@
         },
         "_classBinding": {
           "key": "page-section",
-          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-section.node-class.node"
+          "sourceRef": "github://mikemartinez1974/public/templates/page-template/classes/page-section.node-class.node",
+          "defaults": {
+            "label": "Page Section",
+            "size": {
+              "width": 520,
+              "height": 320
+            },
+            "showLabel": false,
+            "data": {
+              "title": "Section title",
+              "body": "What this section says.",
+              "presentation": {
+                "glyph": {
+                  "kind": "icon",
+                  "name": "Article"
+                }
+              }
+            },
+            "ports": [
+              {
+                "id": "root",
+                "key": "root",
+                "label": "root",
+                "direction": "bidirectional",
+                "dataType": "any",
+                "angle": 270,
+                "position": {
+                  "side": "top",
+                  "offset": 0.2
+                }
+              }
+            ],
+            "events": [
+              {
+                "eventKey": "node.changed",
+                "label": "Page Section changed",
+                "payloadContract": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "nodeDef": {
+            "key": "page-section",
+            "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-section.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Page Section",
+              "size": {
+                "width": 520,
+                "height": 320
+              },
+              "showLabel": false,
+              "data": {
+                "title": "Section title",
+                "body": "What this section says.",
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "Article"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 270,
+                  "position": {
+                    "side": "top",
+                    "offset": 0.2
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "eventKey": "node.changed",
+                  "label": "Page Section changed",
+                  "payloadContract": {
+                    "type": "object"
+                  }
+                }
+              ]
+            }
+          },
+          "views": [
+            {
+              "key": "page-section",
+              "intent": "node",
+              "payload": "node.web.detail",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-section.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-section",
+              "intent": "node",
+              "payload": "node.web.summary",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-section.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-section",
+              "intent": "node",
+              "payload": "node.web.icon",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-section.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            },
+            {
+              "key": "page-section",
+              "intent": "editor",
+              "payload": "editor.web",
+              "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-section.node-class.node",
+              "source": "local",
+              "version": ">=0.1.0",
+              "defaultPorts": []
+            }
+          ]
         },
         "identity": {
           "graphId": "page-template-declaration"
@@ -2867,6 +4024,7 @@
       }
     }
   ],
+  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,
@@ -2906,8 +4064,5 @@
     },
     "autoSave": false
   },
-  "document": {
-    "url": "github://mikemartinez1974/public/templates/page-template/root.node"
-  },
-  "visibilityRole": "editor"
+  "scripts": []
 }
