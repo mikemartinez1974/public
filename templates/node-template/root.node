@@ -1,4 +1,19 @@
 {
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Node Template",
+    "description": "The minimal reference for how any node wires its own presentation: one Surface, leading detail -> summary -> icon -> glyph, and a Content node the detail View delegates to rather than owning its content directly.",
+    "graphId": "node-template-declaration",
+    "version": "0.1.0",
+    "kind": "template",
+    "created": "2026-09-29T15:28:10.228Z",
+    "modified": "2026-09-29T15:36:53.422Z",
+    "author": "",
+    "tags": [
+      "template"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
   "nodes": [
     {
       "id": "node-template-declaration",
@@ -6,8 +21,8 @@
       "label": "Node Template",
       "root": true,
       "position": {
-        "x": 0,
-        "y": 0
+        "x": 1.841970165059813,
+        "y": -241.2980916228339
       },
       "width": 420,
       "height": 260,
@@ -40,11 +55,41 @@
           }
         }
       ],
+      "handles": [
+        {
+          "id": "surface",
+          "key": "surface",
+          "label": "surface",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 120,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surface"
+        }
+      ],
       "visible": true,
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "node-template",
+          "graphId": "node-template-declaration",
           "nodeId": "node-template",
           "name": "Node Template",
           "version": "0.1.0",
@@ -76,7 +121,33 @@
           "url": "github://mikemartinez1974/public/templates/node-template/root.node"
         },
         "settings": {
-          "autoSave": false
+          "autoSave": false,
+          "theme": null,
+          "backgroundImage": null,
+          "defaultNodeColor": "#1976d2",
+          "defaultEdgeColor": "",
+          "snapToGrid": false,
+          "gridSize": 20,
+          "edgeRouting": "auto",
+          "layout": {
+            "mode": "autoOnMissingPositions",
+            "defaultLayout": "layered",
+            "direction": "DOWN",
+            "edgeLaneGapPx": 10,
+            "serpentine": {
+              "maxPerRow": 6
+            },
+            "cycleFallback": {
+              "enabled": true
+            },
+            "elk": {
+              "algorithm": "fixed",
+              "edgeRouting": "ORTHOGONAL",
+              "portConstraints": "FIXED_SIDE",
+              "nodeSpacing": 120,
+              "layeredEdgeSpacing": 80
+            }
+          }
         },
         "dependencies": {
           "nodeTypes": [
@@ -111,38 +182,15 @@
             "rewriteAllowed": false,
             "squashAllowed": false
           }
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1790696057122,
+          "reason": "node-drag"
         }
-      },
-      "handles": [
-        {
-          "id": "surface",
-          "key": "surface",
-          "label": "surface",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 120,
-          "role": "surface",
-          "allowedEdgeTypes": [
-            "surface"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "surface",
-            "required": false,
-            "repeatable": true,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "view",
-                "targetPort": "root"
-              }
-            ]
-          },
-          "portId": "surface"
-        }
-      ]
+      }
     },
     {
       "id": "node-template-detail",
@@ -150,8 +198,8 @@
       "label": "Detail",
       "root": false,
       "position": {
-        "x": 700,
-        "y": -260
+        "x": -21.037783253580585,
+        "y": 161.38351656648285
       },
       "width": 480,
       "height": 320,
@@ -221,29 +269,6 @@
           }
         }
       ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "view": {
-          "intent": "node",
-          "payload": "node.web.detail"
-        },
-        "semanticZoom": {
-          "resolution": 1
-        },
-        "interfaceContract": {
-          "version": 1,
-          "surfaceDelegation": true
-        },
-        "identity": {
-          "graphId": "node-template",
-          "nodeId": "node-template-detail"
-        },
-        "content": {
-          "kind": "html",
-          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a'><h1 style='margin:0 0 12px;font:800 26px/1.2 system-ui'>Node Template</h1><p style='margin:0 0 12px;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>This is the background: the surface this node presents when it is seen from outside itself -- referenced in a workspace, shown collapsed, browsed past.</p><p style='margin:0;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>Its role is the minimal reference for how any node wires its own presentation: one Surface off the Declaration, leading detail, then summary, then icon, ending in a Glyph.</p></div>"
-        }
-      },
       "handles": [
         {
           "id": "root",
@@ -312,7 +337,37 @@
           },
           "portId": "surface-delegate"
         }
-      ]
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "semanticZoom": {
+          "resolution": 1
+        },
+        "interfaceContract": {
+          "version": 1,
+          "surfaceDelegation": true
+        },
+        "identity": {
+          "graphId": "node-template",
+          "nodeId": "node-template-detail"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a'><h1 style='margin:0 0 12px;font:800 26px/1.2 system-ui'>Node Template</h1><p style='margin:0 0 12px;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>This is the background: the surface this node presents when it is seen from outside itself -- referenced in a workspace, shown collapsed, browsed past.</p><p style='margin:0;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>Its role is the minimal reference for how any node wires its own presentation: one Surface off the Declaration, leading detail, then summary, then icon, ending in a Glyph.</p></div>"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1790696162208,
+          "reason": "node-drag"
+        }
+      }
     },
     {
       "id": "node-template-summary",
@@ -320,8 +375,8 @@
       "label": "Summary",
       "root": false,
       "position": {
-        "x": 1280,
-        "y": -260
+        "x": 482.6159100709472,
+        "y": 228.76362951749522
       },
       "width": 320,
       "height": 200,
@@ -380,29 +435,6 @@
           }
         }
       ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "view": {
-          "intent": "node",
-          "payload": "node.web.summary"
-        },
-        "semanticZoom": {
-          "resolution": 0.5
-        },
-        "interfaceContract": {
-          "version": 1,
-          "ownsContent": true
-        },
-        "identity": {
-          "graphId": "node-template",
-          "nodeId": "node-template-summary"
-        },
-        "content": {
-          "kind": "html",
-          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:18px;background:#ffffff;font-family:system-ui;color:#0f172a'><div style='font:700 16px/1.3 system-ui'>Node Template</div><div style='margin-top:8px;font:400 13px/1.5 system-ui;color:#475569'>The minimum shape any node's presentation needs: a Surface, a detail-to-glyph ladder, and content the detail view can delegate to.</div></div>"
-        }
-      },
       "handles": [
         {
           "id": "root",
@@ -460,7 +492,37 @@
           },
           "portId": "sequence-out"
         }
-      ]
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "semanticZoom": {
+          "resolution": 0.5
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true
+        },
+        "identity": {
+          "graphId": "node-template",
+          "nodeId": "node-template-summary"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:18px;background:#ffffff;font-family:system-ui;color:#0f172a'><div style='font:700 16px/1.3 system-ui'>Node Template</div><div style='margin-top:8px;font:400 13px/1.5 system-ui;color:#475569'>The minimum shape any node's presentation needs: a Surface, a detail-to-glyph ladder, and content the detail view can delegate to.</div></div>"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1790696164750,
+          "reason": "node-drag"
+        }
+      }
     },
     {
       "id": "node-template-icon",
@@ -468,8 +530,8 @@
       "label": "Icon",
       "root": false,
       "position": {
-        "x": 1680,
-        "y": -260
+        "x": 831.0436332186092,
+        "y": 257.9369484998857
       },
       "width": 200,
       "height": 140,
@@ -528,29 +590,6 @@
           }
         }
       ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "view": {
-          "intent": "node",
-          "payload": "node.web.icon"
-        },
-        "semanticZoom": {
-          "resolution": 0.2083333333333333
-        },
-        "interfaceContract": {
-          "version": 1,
-          "ownsContent": true
-        },
-        "identity": {
-          "graphId": "node-template",
-          "nodeId": "node-template-icon"
-        },
-        "content": {
-          "kind": "html",
-          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:12px;background:#ede9fe;border-radius:16px;display:flex;align-items:center;justify-content:center;text-align:center;font:700 15px/1.2 system-ui;color:#0f172a'>Node Template</div>"
-        }
-      },
       "handles": [
         {
           "id": "root",
@@ -608,7 +647,37 @@
           },
           "portId": "sequence-out"
         }
-      ]
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "semanticZoom": {
+          "resolution": 0.2083333333333333
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true
+        },
+        "identity": {
+          "graphId": "node-template",
+          "nodeId": "node-template-icon"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:12px;background:#ede9fe;border-radius:16px;display:flex;align-items:center;justify-content:center;text-align:center;font:700 15px/1.2 system-ui;color:#0f172a'>Node Template</div>"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1790696170083,
+          "reason": "node-drag"
+        }
+      }
     },
     {
       "id": "node-template-glyph",
@@ -616,8 +685,8 @@
       "label": "Glyph",
       "root": false,
       "position": {
-        "x": 2020,
-        "y": -240
+        "x": 1069.3586893451022,
+        "y": 282.9639060989715
       },
       "width": 140,
       "height": 100,
@@ -636,22 +705,6 @@
           }
         }
       ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "glyph": {
-          "kind": "icon",
-          "name": "Widgets"
-        },
-        "interfaceContract": {
-          "version": 1,
-          "receivesGlyphDefinition": true
-        },
-        "identity": {
-          "graphId": "node-template",
-          "nodeId": "node-template-glyph"
-        }
-      },
       "handles": [
         {
           "id": "root",
@@ -667,7 +720,30 @@
           },
           "portId": "root"
         }
-      ]
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "Widgets"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
+        },
+        "identity": {
+          "graphId": "node-template",
+          "nodeId": "node-template-glyph"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1790696176643,
+          "reason": "node-drag"
+        }
+      }
     },
     {
       "id": "node-template-content",
@@ -675,8 +751,8 @@
       "label": "Foreground Content",
       "root": false,
       "position": {
-        "x": 700,
-        "y": 200
+        "x": 322.7120658264521,
+        "y": -93.05687329039282
       },
       "width": 480,
       "height": 320,
@@ -694,18 +770,6 @@
           }
         }
       ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "identity": {
-          "graphId": "node-template",
-          "nodeId": "node-template-content"
-        },
-        "content": {
-          "kind": "html",
-          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a'><h1 style='margin:0 0 12px;font:800 26px/1.2 system-ui'>Foreground Content</h1><p style='margin:0 0 12px;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>This node holds the actual material -- the thing worth reading or editing. The Detail view is the background: the passive surface this node shows when seen from the outside, and it renders this node rather than holding its own content.</p><p style='margin:0;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>The split matters because the two change for different reasons. This content changes when what the node has to say changes. The view changes when how it should be framed changes -- neither edit should require the other.</p></div>"
-        }
-      },
       "handles": [
         {
           "id": "root",
@@ -720,7 +784,26 @@
           },
           "portId": "root"
         }
-      ]
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "node-template",
+          "nodeId": "node-template-content"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a'><h1 style='margin:0 0 12px;font:800 26px/1.2 system-ui'>Foreground Content</h1><p style='margin:0 0 12px;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>This node holds the actual material -- the thing worth reading or editing. The Detail view is the background: the passive surface this node shows when seen from the outside, and it renders this node rather than holding its own content.</p><p style='margin:0;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>The split matters because the two change for different reasons. This content changes when what the node has to say changes. The view changes when how it should be framed changes -- neither edit should require the other.</p></div>"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1790696198619,
+          "reason": "node-drag"
+        }
+      }
     }
   ],
   "edges": [
@@ -729,8 +812,10 @@
       "type": "surface",
       "source": "node-template-declaration",
       "target": "node-template-detail",
-      "sourcePort": "surface",
-      "targetPort": "root",
+      "sourceHandle": "surface",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
       "data": {
         "role": "surface",
         "surfaceId": "web"
@@ -741,8 +826,10 @@
       "type": "view-sequence",
       "source": "node-template-detail",
       "target": "node-template-summary",
-      "sourcePort": "sequence-out",
-      "targetPort": "sequence-in",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
       "data": {
         "role": "view-sequence"
       }
@@ -752,8 +839,10 @@
       "type": "view-sequence",
       "source": "node-template-summary",
       "target": "node-template-icon",
-      "sourcePort": "sequence-out",
-      "targetPort": "sequence-in",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
       "data": {
         "role": "view-sequence"
       }
@@ -763,20 +852,54 @@
       "type": "view-sequence",
       "source": "node-template-icon",
       "target": "node-template-glyph",
-      "sourcePort": "sequence-out",
-      "targetPort": "sequence-in",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
       "data": {
         "role": "view-sequence"
       }
     }
   ],
   "clusters": [],
-  "metadata": {
-    "title": "Node Template",
-    "graphId": "node-template",
-    "kind": "graph"
-  },
   "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": {
+      "mode": "autoOnMissingPositions",
+      "defaultLayout": "layered",
+      "direction": "DOWN",
+      "edgeLaneGapPx": 10,
+      "serpentine": {
+        "maxPerRow": 6
+      },
+      "cycleFallback": {
+        "enabled": true
+      },
+      "elk": {
+        "algorithm": "fixed",
+        "edgeRouting": "ORTHOGONAL",
+        "portConstraints": "FIXED_SIDE",
+        "nodeSpacing": 120,
+        "layeredEdgeSpacing": 80
+      }
+    },
+    "github": {
+      "repo": "mikemartinez1974/public",
+      "path": "templates/node-template/root.node",
+      "branch": "main",
+      "autoCreateRepo": true,
+      "repoVisibility": "private",
+      "seedOnCommit": false,
+      "enableGithubPages": false,
+      "installationId": "120403738"
+    },
     "autoSave": false
-  }
+  },
+  "scripts": []
 }
