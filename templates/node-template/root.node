@@ -51,8 +51,8 @@
           "description": "The minimal reference for how any node wires its own presentation: one Surface, leading detail -> summary -> icon -> glyph, and a Content node the detail View delegates to rather than owning its content directly."
         },
         "intent": {
-          "kind": "primitive",
-          "scope": "graph-language"
+          "kind": "template",
+          "scope": "shared"
         },
         "declaration": {
           "kind": "graph",
@@ -60,13 +60,57 @@
             "version": 1,
             "implicitRootPort": false
           },
-          "defaultSurfaceId": "web"
+          "defaultSurfaceId": "web",
+          "targetMode": "artifact",
+          "artifactKind": "template",
+          "surfaces": [
+            {
+              "id": "web",
+              "kind": "view",
+              "payload": "node.web.detail",
+              "viewNodeId": "node-template-detail"
+            }
+          ]
         },
         "document": {
           "url": "github://mikemartinez1974/public/templates/node-template/root.node"
         },
         "settings": {
           "autoSave": false
+        },
+        "dependencies": {
+          "nodeTypes": [
+            "declaration",
+            "view",
+            "glyph",
+            "content"
+          ],
+          "portContracts": [
+            "core"
+          ],
+          "schemaVersions": {
+            "nodes": ">=1.0.0",
+            "ports": ">=1.0.0"
+          },
+          "optional": []
+        },
+        "authority": {
+          "mutation": {
+            "allowCreate": true,
+            "allowUpdate": true,
+            "allowDelete": true,
+            "appendOnly": false
+          },
+          "actors": {
+            "humans": true,
+            "agents": true,
+            "tools": true
+          },
+          "styleAuthority": "descriptive",
+          "history": {
+            "rewriteAllowed": false,
+            "squashAllowed": false
+          }
         }
       },
       "handles": [
@@ -193,7 +237,8 @@
         },
         "identity": {
           "graphId": "node-template",
-          "nodeId": "node-template-detail"
+          "nodeId": "node-template-detail",
+          "description": "The background: the passive surface this node presents when it is seen from outside itself -- referenced in a workspace, shown collapsed, browsed past. It renders the Content node below rather than holding material of its own."
         }
       },
       "handles": [
@@ -352,7 +397,7 @@
         },
         "content": {
           "kind": "html",
-          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:18px;background:#ffffff;font-family:system-ui;color:#0f172a'><div style='font:700 16px/1.3 system-ui'>Node Template</div><div style='margin-top:8px;font:400 13px/1.5 system-ui;color:#475569'>A short summary of what this node is, shown at a middling zoom.</div></div>"
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:18px;background:#ffffff;font-family:system-ui;color:#0f172a'><div style='font:700 16px/1.3 system-ui'>Node Template</div><div style='margin-top:8px;font:400 13px/1.5 system-ui;color:#475569'>The minimum shape any node's presentation needs: a Surface, a detail-to-glyph ladder, and content the detail view can delegate to.</div></div>"
         }
       },
       "handles": [
@@ -624,7 +669,7 @@
     {
       "id": "node-template-content",
       "type": "content",
-      "label": "Content",
+      "label": "Foreground Content",
       "root": false,
       "position": {
         "x": 700,
@@ -655,7 +700,7 @@
         },
         "content": {
           "kind": "html",
-          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a'><h1 style='margin:0 0 12px;font:800 26px/1.2 system-ui'>Node Template</h1><p style='margin:0 0 12px;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>The Detail view above delegates to this Content node instead of holding its own content -- the same content this node presents could be reused elsewhere, or swapped out, without touching the View itself.</p><p style='margin:0;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>Every node's own presentation is this shape at minimum: a Surface off the Declaration, leading detail, then summary, then icon, ending in a Glyph.</p></div>"
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a'><h1 style='margin:0 0 12px;font:800 26px/1.2 system-ui'>Foreground Content</h1><p style='margin:0 0 12px;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>This node holds the actual material -- the thing worth reading or editing. The Detail view is the background: the passive surface this node shows when seen from the outside, and it renders this node rather than holding its own content.</p><p style='margin:0;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>The split matters because the two change for different reasons. This content changes when what the node has to say changes. The view changes when how it should be framed changes -- neither edit should require the other.</p></div>"
         }
       },
       "handles": [
