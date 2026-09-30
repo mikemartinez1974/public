@@ -111,7 +111,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Primitive Port Layouts\n\nA draft plan for setting up live primitives for first use: what ports each one should carry, where those ports should sit, and which handles are the \"obvious next step\" a person can drag to keep building.\n\n## The convention being proposed\n\n- **Inputs default to top or left.** Something flowing into a node reads top-down or left-to-right.\n- **Outputs default to bottom or right.** Something the node produces or hands off reads the same way.\n- **A \"next\" handle** -- the one a person is expected to drag repeatedly to build a sequence -- gets the most natural continuation side (usually bottom or right), so dragging it feels like moving forward, not backward.\n- **A terminal port** (nothing more to attach after it) doesn't need a next-affordance at all.\n- **Legacy or rarely-wired relationships** stay in the standard set rather than being deleted, but a graph can name specific ones it never wants offered via `interfaceContract.excludedRelationships` -- same mechanism node-template already uses.\n\n## Scope\n\nTen primitives actually render ports on canvas today: **Declaration, View, Content, Glyph, Port, Portal, Bridge, Membrane, Method, Event Handler.** The other six primitive docs (Field, Edge, Edge Class, Script, Specification, Surface) describe concepts rather than node types with their own port geometry, so they're left out of this pass -- say if that's wrong.\n\nEach of the ten gets its own node here: current ports (as the code has them today), a proposed layout, and an open question where one exists. Nothing here is applied to the app yet -- this is the plan to react to."
+          "value": "# Primitive Port Layouts\n\nA draft plan for setting up live primitives for first use: what ports each one should carry, where those ports should sit, and which handles are the \"obvious next step\" a person can drag to keep building.\n\n## The convention being proposed\n\n- **Inputs default to top or left.** Something flowing into a node reads top-down or left-to-right.\n- **Outputs default to bottom or right.** Something the node produces or hands off reads the same way.\n- **A \"next\" handle** -- the one a person is expected to drag repeatedly to build a sequence -- gets the most natural continuation side (usually bottom or right), so dragging it feels like moving forward, not backward.\n- **A terminal port** (nothing more to attach after it) doesn't need a next-affordance at all.\n- **Legacy or rarely-wired relationships** stay in the standard set rather than being deleted, but a graph can name specific ones it never wants offered via `interfaceContract.excludedRelationships` -- same mechanism node-template already uses.\n\n## Scope\n\nTen primitives actually render ports on canvas today: **Declaration, View, Content, Glyph, Port, Portal, Bridge, Membrane, Method, Event Handler.** The other six primitive docs (Field, Edge, Edge Class, Script, Specification, Surface) describe concepts rather than node types with their own port geometry, so they're left out of this pass -- say if that's wrong.\n\nEach of the ten gets its own node here: the port layout going in, and an open question where one exists. Nothing here is applied to the app yet -- this is the plan to react to."
         },
         "identity": {
           "graphId": "primitive-port-layouts-declaration",
@@ -154,7 +154,7 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Declaration\n\n## Current\n- `surfaces` -- output, 165° (left). Repeatable. Drags out a View. Primary Surface chain entry.\n- `view-sequence` (legacy, \"first view\") -- output, 150° (left). Drags out a View.\n- `glyph` (legacy) -- output, 270° (top). Drags out a Glyph directly.\n- `default-handle` -- output, 195° (left). Drags out a graph-reference; lets this graph borrow another's icon when referenced by handle only.\n- `boundary-begin` -- output, 300° (upper right). Drags out a Membrane.\n- `boundary-end` -- bidirectional, 135° (lower left). Pairs with boundary-begin.\n- `port` -- output, 225° (upper left). Repeatable. Drags out a Port node (a named entry point besides the root).\n- `landing-surface` -- output, 0° (right). Drags out a Content node.\n\n## Revised proposal (per discussion 2026-09-30)\nDrop `glyph` and `view-sequence` from the Declaration's relationship set entirely -- not deprioritized, removed:\n\n- **`glyph`** is redundant: a Glyph is only ever reached by walking a Surface's View chain to its end. A direct Declaration -> Glyph shortcut offers a second, competing path to the same thing. The Declaration keeps its own `data.glyph` as an inline fallback (used when there's no chain to derive one from) -- that's data, not a port, and it stays.\n- **`view-sequence`** (\"first view\") is redundant now that Surfaces exist: a renderer only ever looks for one surface to resolve, and falls back to `web` -- not to a separate \"first view\" relationship. There's nothing view-sequence does that `surfaces` doesn't already cover.\n\nWhat's left as the real model: **`surfaces` is the one mechanism.** It's repeatable, and every Surface -- `web` today, a future `3d`, anything else -- is just another branch off that same port, each one its own View -> View -> ... -> Glyph chain carrying its own `surfaceId`. Not a family of different relationships, one relationship with many edges.\n\nLayout-wise, this simplifies the first-pass proposal: `surfaces` is now clearly the primary, most-used handle -- nothing competes with it for \"the way to add a view\" anymore, which strengthens the case for giving it the most natural position. `boundary-begin`/`boundary-end` keep their deliberate opposite-corner span. `landing-surface` and `port` stay grouped as \"spawn a satellite node\" outputs. `default-handle` is the only thing left in the legacy/low-traffic group.\n\n## Language note\nWorth saying out loud: `web` isn't just *a* surface, it's *the default* surface -- the one a renderer falls back to when nothing more specific is requested. The docs and this plan haven't been precise about that distinction yet.\n\n## Open question\nDoes dropping `glyph`/`view-sequence` happen at the global `DECLARATION_RELATIONSHIPS` level (every Declaration stops offering them, the way `default-view`/`summary-view`/`icon-view` already did), or only as the recommended shape going forward, with the legacy pair staying available for old graphs that still reference them directly? The earlier removal of default-view/summary-view/icon-view was global and caused zero breakage because every graph that used them had self-authored those ports. Worth checking whether that same safety net holds here before doing it the same way."
+          "value": "# Declaration\n\n## Layout\nOne real relationship: `surfaces` -- output, repeatable. Every Surface (`web` today, a future `3d`, anything else) is a branch off this one port, each its own View -> View -> ... -> Glyph chain carrying its own `surfaceId`. Not a family of relationships, one relationship with many edges.\n\n`glyph` and `view-sequence` are dropped entirely -- not deprioritized, gone:\n- A Glyph is only ever reached by walking a Surface's chain to its end, so a direct Declaration -> Glyph shortcut is a second, competing path to the same thing. The Declaration keeps its own `data.glyph` as an inline fallback (data, not a port) for when there's no chain to derive one from.\n- `view-sequence` (\"first view\") is redundant now that Surfaces exist: a renderer only ever resolves one Surface, and falls back to `web` -- not to a separate \"first view\" relationship.\n\nThe rest of the structural set stays: `boundary-begin`/`boundary-end` keep their deliberate opposite-corner span (routing, not data flow). `landing-surface` and `port` are grouped as \"spawn a satellite node\" outputs. `default-handle` is low-traffic, delegation-only.\n\n## Language note\n`web` isn't just *a* surface, it's *the default* surface -- the one a renderer falls back to when nothing more specific is requested.\n\n## Open question\nDoes dropping `glyph`/`view-sequence` happen at the global `DECLARATION_RELATIONSHIPS` level (every Declaration stops offering them, the way `default-view`/`summary-view`/`icon-view` already did), or only as the recommended shape going forward? The earlier removal was global and caused zero breakage because every graph that used those ports had self-authored them -- worth checking whether that same safety net holds here."
         },
         "interfaceContract": {
           "version": 1,
@@ -180,7 +180,7 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# View\n\n## Current\n- `root` -- input, 270° (top). Receives the Surface or view-sequence edge that names this View.\n- `surface-delegate` -- output, 90° (bottom). Drags out a Content node to delegate to.\n- `sequence-in` -- input (chained Views only). Receives the previous View's handoff.\n- `sequence-out` -- output (chained Views only). Drags out the next View, or terminates a chain at a Glyph.\n\n## Proposed\n- `root` stays top -- already correct, already the input.\n- `sequence-out` is the obvious next handle. Give it the bottom -- continue the chain downward, matching how node-template's own Detail -> Summary -> Icon -> Glyph chain already reads on screen.\n- Move `surface-delegate` to the right, since it's an alternate/optional output, not the primary chain -- freeing the bottom for chain continuation alone.\n- `sequence-in` stays on the left -- receiving from whatever came before.\n\n## Open question\nNone major -- this is the lowest-risk of the ten, mostly a side reassignment rather than a new decision."
+          "value": "# View\n\n## Layout\n- `root` -- top. Where the Declaration connects directly (first View in a chain), or where `sequence-in` receives from the previous View -- same side, same role.\n- `surface-delegate` -- left. A sideways branch out to Content, not a continuation of the chain.\n- `sequence-out` (\"next view\") -- right. The chain reads left to right, so continuing it goes right.\n\nNo port is needed for \"ends in a Glyph\": a Glyph is simply whatever `sequence-out` is dragged to on the last View in the chain. The chain-walk already enforces that a Glyph terminates it -- that's a chain-walk invariant, not a port."
         },
         "interfaceContract": {
           "version": 1,
@@ -206,7 +206,7 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Content\n\n## Current\n- `root` -- input, 270° (top). The only port. Terminal -- nothing drags out of it.\n\n## Proposed\nNo change. Already matches the convention (input = top), and it's correctly terminal: Content is where a chain ends up, not where it continues from."
+          "value": "# Content\n\n## Layout\nOne port: `root` -- input, top. Terminal -- nothing drags out of it. Content is where a chain ends up, not where it continues from."
         },
         "interfaceContract": {
           "version": 1,
@@ -232,7 +232,7 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Glyph\n\n## Current\n- `root` -- input, 270° (top). The only port. Terminal by design -- the Glyph always ends a Surface chain.\n\n## Proposed\nNo change. Same reasoning as Content: it's correctly a dead end."
+          "value": "# Glyph\n\n## Layout\nOne port: `root` -- input, top. Terminal by design -- the Glyph always ends a Surface chain."
         },
         "interfaceContract": {
           "version": 1,
@@ -258,7 +258,7 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Port\n\n## Current\n- interface socket (`root`) -- input.\n- `default-view` / `summary-view` / `icon-view` -- outputs, 165° / 180° / 195°. The older three-relationship trio, predating the Declaration's Surface-chain redesign.\n- `glyph` (legacy) -- output, 90°.\n- `handle` -- output, 270°. Analogous to the Declaration's `default-handle`.\n- `landing-surface` -- output, 0°.\n\n## Proposed\n- `root` stays input, left.\n- Move `default-view`/`summary-view`/`icon-view` to bottom/right as a group -- they're Port's own \"views,\" same role as Declaration's old trio.\n- Move `glyph` and `handle` to the top -- both low-traffic.\n- `landing-surface` stays right.\n\n## Open question\nPort still uses the old default-view/summary-view/icon-view trio directly instead of a single repeatable `surfaces`-style port. Declaration already made that jump. Should Port get the same treatment, or is Port's situation different enough to leave alone?"
+          "value": "# Port\n\n## Layout\n- `root` (interface socket) -- input, left.\n- `default-view` / `summary-view` / `icon-view` -- grouped bottom/right, as a group -- Port's own \"views.\"\n- `glyph` / `handle` -- top -- both low-traffic.\n- `landing-surface` -- right.\n\n## Open question\nPort still uses the old default-view/summary-view/icon-view trio directly instead of a single repeatable `surfaces`-style port. Declaration already made that jump. Should Port get the same treatment, or is its situation different enough to leave alone?"
         },
         "interfaceContract": {
           "version": 1,
@@ -284,7 +284,7 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Portal\n\n## Current\n- `root` -- input, generic left placement (no angle authored; falls back to the synthetic single-root-input pattern). Navigates to or consumes a Port exposed elsewhere.\n\n## Proposed\nNo change. `root` as input on the left already matches the convention, and Portal doesn't birth any local nodes today, so there's no output to place.\n\n## Open question\nNone."
+          "value": "# Portal\n\n## Layout\nOne port: `root` -- input, left. Portal doesn't birth any local nodes, so there's no output to place."
         },
         "interfaceContract": {
           "version": 1,
@@ -310,7 +310,7 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Bridge\n\n## Current\nNo authored ports at all. Falls back to the fully generic five-handle set (`root`, `top`, `bottom`, `left`, `right`) -- every one of them bidirectional, with no in/out distinction whatsoever. This is the primitive furthest from having a real layout.\n\n## Proposed\nReplace the generic fallback with one real, directional port. A Bridge that imports receives from outside (input, left); a Bridge that exports hands something outward (output, right).\n\n## Open question\nShould the side be conditional on `data.bridge.role` (import vs. export flips which side it's on), or should it just get one fixed side regardless of role, the way every other primitive here does? This is the primitive most in need of an actual decision rather than a tweak."
+          "value": "# Bridge\n\n## Layout\nOne real, directional port instead of today's fully generic five-handle fallback. A Bridge that imports receives from outside (input, left); a Bridge that exports hands something outward (output, right).\n\n## Open question\nShould the side be conditional on `data.bridge.role` (import vs. export flips which side it's on), or one fixed side regardless of role, the way every other primitive here does?"
         },
         "interfaceContract": {
           "version": 1,
@@ -336,7 +336,7 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Membrane (Boundary)\n\n## Current\n- `root` -- input. Places a boundary point.\n- `next` -- output. Drags out the next Membrane segment. Already directional, but neither side is pinned today.\n\n## Proposed\n- `root` = left (input).\n- `next` = right (output). Continuing rightward reads as \"insert after,\" matching how a boundary sequence visually extends.\n\n## Open question\nNone major."
+          "value": "# Membrane (Boundary)\n\n## Layout\n- `root` -- left (input).\n- `next` -- right (output). Continuing rightward reads as \"insert after,\" matching how a boundary sequence visually extends."
         },
         "interfaceContract": {
           "version": 1,
@@ -362,7 +362,7 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Method\n\n## Current\nSynthetic fallback `root`/`top`/`bottom`/`left`/`right` (all generic, bidirectional) plus one real port: `invoke` -- input, carries `dataType: 'method'`, only accepts `invokes`-typed edges. An Event Handler drags this to wire itself up.\n\n## Proposed\nDrop the five generic fallback ports entirely and author just `invoke` as Method's real port (input, left) -- the same declutter node-template's Declaration already got. Nothing else about Method is a connection point today; its behavior lives in `data.source`, not in ports.\n\n## Open question\nDoes Method ever need an output -- a return-value port, or a \"next method\" chain for composing behavior -- or is it correctly a dead end today?"
+          "value": "# Method\n\n## Layout\nOne real port: `invoke` -- input, left. Carries `dataType: 'method'`, only accepts `invokes`-typed edges. The generic five-handle fallback goes away entirely -- nothing else about Method is a connection point; its behavior lives in `data.source`.\n\n## Open question\nDoes Method ever need an output -- a return-value port, or a \"next method\" chain for composing behavior -- or is it correctly a dead end?"
         },
         "interfaceContract": {
           "version": 1,
@@ -388,7 +388,7 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Event Handler\n\n## Current\nSynthetic fallback `root`/`top`/`bottom`/`left`/`right` (generic, bidirectional) plus one real port: `action-method` -- output, carries `dataType: 'method'`, only accepts `invokes`-typed edges, drags to a Method. The Event it listens for (`trigger.sourceNodeId` / `trigger.eventKey`) is plain data today, not a port at all.\n\n## Proposed\nDrop the generic fallback. Keep `action-method` as a real output, moved to the right (\"leads to the Method it invokes\"). Consider turning `trigger` into an actual input port (top or left, \"the Event that starts this\") instead of leaving it as data-only fields.\n\n## Open question\nTurning `trigger` into a real port is a bigger structural change than anything else in this plan -- today it's just two data fields, not a connection. Worth doing for visual clarity, or does the data-only approach stay as-is?"
+          "value": "# Event Handler\n\n## Layout\n- `action-method` -- output, right. Carries `dataType: 'method'`, only accepts `invokes`-typed edges, drags to a Method.\n- `trigger` -- proposed as a real input port (top or left) instead of staying data-only (`trigger.sourceNodeId`/`trigger.eventKey`) -- \"the Event that starts this.\"\n\nThe generic five-handle fallback goes away entirely.\n\n## Open question\nTurning `trigger` into a real port is a bigger structural change than anything else in this plan -- today it's just two data fields, not a connection. Worth doing for visual clarity, or does the data-only approach stay?"
         },
         "interfaceContract": {
           "version": 1,
