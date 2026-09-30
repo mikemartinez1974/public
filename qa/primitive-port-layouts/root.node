@@ -1,0 +1,577 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Primitive Port Layouts",
+    "description": "A working plan for input/output side conventions and chain-continuation handles across the ten primitives that render ports on canvas.",
+    "graphId": "primitive-port-layouts-declaration",
+    "version": "0.1.0",
+    "kind": "documentation",
+    "created": "2026-09-30T16:09:44.918Z",
+    "modified": "2026-09-30T16:09:44.918Z",
+    "author": "",
+    "tags": [
+      "documentation",
+      "primitives",
+      "qa"
+    ],
+    "preferredViewer": "https://twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "primitive-port-layouts-declaration",
+      "type": "declaration",
+      "label": "Primitive Port Layouts",
+      "root": true,
+      "position": {
+        "x": -1400,
+        "y": -400
+      },
+      "width": 420,
+      "height": 260,
+      "ports": [
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 165,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "data": {
+        "intent": {
+          "summary": "A working plan for how each primitive should place its inputs and outputs, and which handles chain to an obvious next node."
+        },
+        "declaration": {
+          "defaultSurfaceId": "web",
+          "surfaces": [],
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": false,
+            "excludedRelationships": [
+              "glyph",
+              "icon-view",
+              "summary-view",
+              "view-sequence",
+              "port",
+              "default-handle"
+            ]
+          }
+        },
+        "document": {
+          "url": "github://mikemartinez1974/public/qa/primitive-port-layouts/root.node"
+        },
+        "glyph": {
+          "kind": "icon",
+          "name": "AccountTree"
+        },
+        "identity": {
+          "graphId": "primitive-port-layouts-declaration",
+          "nodeId": "primitive-port-layouts-declaration"
+        }
+      }
+    },
+    {
+      "id": "primitive-port-layouts-overview",
+      "type": "view",
+      "label": "Overview",
+      "position": {
+        "x": -820,
+        "y": -400
+      },
+      "width": 520,
+      "height": 440,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Primitive Port Layouts\n\nA draft plan for setting up live primitives for first use: what ports each one should carry, where those ports should sit, and which handles are the \"obvious next step\" a person can drag to keep building.\n\n## The convention being proposed\n\n- **Inputs default to top or left.** Something flowing into a node reads top-down or left-to-right.\n- **Outputs default to bottom or right.** Something the node produces or hands off reads the same way.\n- **A \"next\" handle** -- the one a person is expected to drag repeatedly to build a sequence -- gets the most natural continuation side (usually bottom or right), so dragging it feels like moving forward, not backward.\n- **A terminal port** (nothing more to attach after it) doesn't need a next-affordance at all.\n- **Legacy or rarely-wired relationships** stay in the standard set rather than being deleted, but a graph can name specific ones it never wants offered via `interfaceContract.excludedRelationships` -- same mechanism node-template already uses.\n\n## Scope\n\nTen primitives actually render ports on canvas today: **Declaration, View, Content, Glyph, Port, Portal, Bridge, Membrane, Method, Event Handler.** The other six primitive docs (Field, Edge, Edge Class, Script, Specification, Surface) describe concepts rather than node types with their own port geometry, so they're left out of this pass -- say if that's wrong.\n\nEach of the ten gets its own node here: current ports (as the code has them today), a proposed layout, and an open question where one exists. Nothing here is applied to the app yet -- this is the plan to react to."
+        },
+        "identity": {
+          "graphId": "primitive-port-layouts-declaration",
+          "nodeId": "primitive-port-layouts-overview"
+        }
+      }
+    },
+    {
+      "id": "primitive-port-layouts-glyph",
+      "type": "glyph",
+      "label": "Glyph",
+      "position": {
+        "x": -820,
+        "y": 80
+      },
+      "width": 220,
+      "height": 140,
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "AccountTree"
+        },
+        "identity": {
+          "graphId": "primitive-port-layouts-declaration",
+          "nodeId": "primitive-port-layouts-glyph"
+        }
+      }
+    },
+    {
+      "id": "primitive-doc-declaration",
+      "type": "content",
+      "label": "Declaration",
+      "root": false,
+      "position": {
+        "x": -80,
+        "y": -400
+      },
+      "width": 500,
+      "height": 820,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Declaration\n\n## Current\n- `surfaces` -- output, 165° (left). Repeatable. Drags out a View. Primary Surface chain entry.\n- `view-sequence` (legacy, \"first view\") -- output, 150° (left). Drags out a View.\n- `glyph` (legacy) -- output, 270° (top). Drags out a Glyph.\n- `default-handle` -- output, 195° (left). Drags out a graph-reference; lets this graph borrow another's icon when referenced by handle only.\n- `boundary-begin` -- output, 300° (upper right). Drags out a Membrane.\n- `boundary-end` -- bidirectional, 135° (lower left). Pairs with boundary-begin.\n- `port` -- output, 225° (upper left). Repeatable. Drags out a Port node (a named entry point besides the root).\n- `landing-surface` -- output, 0° (right). Drags out a Content node.\n\n## Proposed\n- Keep `boundary-begin`/`boundary-end` exactly where they are -- upper-right/lower-left is a deliberate opposite-corner span for routing, not data flow, so the in/out convention doesn't apply to this pair.\n- Move `surfaces` to the bottom. It's the primary \"next\" affordance -- the thing most people drag first -- and bottom reads as flowing down into the presentation chain, same as node-template's own layout already looks on screen.\n- Group `landing-surface` and `port` together on the right -- both spawn a satellite node rather than continuing a chain.\n- Leave `default-handle`, `glyph`, `view-sequence` crowded near the top -- all three are either legacy or delegation-only, low-traffic by design.\n\n## Open question\n`surfaces` was deliberately placed at 165° a few turns ago specifically to sit where the old `default-view` port used to be. Moving it to the bottom now would undo that. Worth confirming which one wins before touching it again."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "primitive-port-layouts-declaration",
+          "nodeId": "primitive-doc-declaration"
+        }
+      }
+    },
+    {
+      "id": "primitive-doc-view",
+      "type": "content",
+      "label": "View",
+      "root": false,
+      "position": {
+        "x": 480,
+        "y": -400
+      },
+      "width": 500,
+      "height": 820,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# View\n\n## Current\n- `root` -- input, 270° (top). Receives the Surface or view-sequence edge that names this View.\n- `surface-delegate` -- output, 90° (bottom). Drags out a Content node to delegate to.\n- `sequence-in` -- input (chained Views only). Receives the previous View's handoff.\n- `sequence-out` -- output (chained Views only). Drags out the next View, or terminates a chain at a Glyph.\n\n## Proposed\n- `root` stays top -- already correct, already the input.\n- `sequence-out` is the obvious next handle. Give it the bottom -- continue the chain downward, matching how node-template's own Detail -> Summary -> Icon -> Glyph chain already reads on screen.\n- Move `surface-delegate` to the right, since it's an alternate/optional output, not the primary chain -- freeing the bottom for chain continuation alone.\n- `sequence-in` stays on the left -- receiving from whatever came before.\n\n## Open question\nNone major -- this is the lowest-risk of the ten, mostly a side reassignment rather than a new decision."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "primitive-port-layouts-declaration",
+          "nodeId": "primitive-doc-view"
+        }
+      }
+    },
+    {
+      "id": "primitive-doc-content",
+      "type": "content",
+      "label": "Content",
+      "root": false,
+      "position": {
+        "x": 1040,
+        "y": -400
+      },
+      "width": 500,
+      "height": 820,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Content\n\n## Current\n- `root` -- input, 270° (top). The only port. Terminal -- nothing drags out of it.\n\n## Proposed\nNo change. Already matches the convention (input = top), and it's correctly terminal: Content is where a chain ends up, not where it continues from."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "primitive-port-layouts-declaration",
+          "nodeId": "primitive-doc-content"
+        }
+      }
+    },
+    {
+      "id": "primitive-doc-glyph",
+      "type": "content",
+      "label": "Glyph",
+      "root": false,
+      "position": {
+        "x": 1600,
+        "y": -400
+      },
+      "width": 500,
+      "height": 820,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Glyph\n\n## Current\n- `root` -- input, 270° (top). The only port. Terminal by design -- the Glyph always ends a Surface chain.\n\n## Proposed\nNo change. Same reasoning as Content: it's correctly a dead end."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "primitive-port-layouts-declaration",
+          "nodeId": "primitive-doc-glyph"
+        }
+      }
+    },
+    {
+      "id": "primitive-doc-port",
+      "type": "content",
+      "label": "Port",
+      "root": false,
+      "position": {
+        "x": 2160,
+        "y": -400
+      },
+      "width": 500,
+      "height": 820,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Port\n\n## Current\n- interface socket (`root`) -- input.\n- `default-view` / `summary-view` / `icon-view` -- outputs, 165° / 180° / 195°. The older three-relationship trio, predating the Declaration's Surface-chain redesign.\n- `glyph` (legacy) -- output, 90°.\n- `handle` -- output, 270°. Analogous to the Declaration's `default-handle`.\n- `landing-surface` -- output, 0°.\n\n## Proposed\n- `root` stays input, left.\n- Move `default-view`/`summary-view`/`icon-view` to bottom/right as a group -- they're Port's own \"views,\" same role as Declaration's old trio.\n- Move `glyph` and `handle` to the top -- both low-traffic.\n- `landing-surface` stays right.\n\n## Open question\nPort still uses the old default-view/summary-view/icon-view trio directly instead of a single repeatable `surfaces`-style port. Declaration already made that jump. Should Port get the same treatment, or is Port's situation different enough to leave alone?"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "primitive-port-layouts-declaration",
+          "nodeId": "primitive-doc-port"
+        }
+      }
+    },
+    {
+      "id": "primitive-doc-portal",
+      "type": "content",
+      "label": "Portal",
+      "root": false,
+      "position": {
+        "x": -80,
+        "y": 500
+      },
+      "width": 500,
+      "height": 820,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Portal\n\n## Current\n- `root` -- input, generic left placement (no angle authored; falls back to the synthetic single-root-input pattern). Navigates to or consumes a Port exposed elsewhere.\n\n## Proposed\nNo change. `root` as input on the left already matches the convention, and Portal doesn't birth any local nodes today, so there's no output to place.\n\n## Open question\nNone."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "primitive-port-layouts-declaration",
+          "nodeId": "primitive-doc-portal"
+        }
+      }
+    },
+    {
+      "id": "primitive-doc-bridge",
+      "type": "content",
+      "label": "Bridge",
+      "root": false,
+      "position": {
+        "x": 480,
+        "y": 500
+      },
+      "width": 500,
+      "height": 820,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Bridge\n\n## Current\nNo authored ports at all. Falls back to the fully generic five-handle set (`root`, `top`, `bottom`, `left`, `right`) -- every one of them bidirectional, with no in/out distinction whatsoever. This is the primitive furthest from having a real layout.\n\n## Proposed\nReplace the generic fallback with one real, directional port. A Bridge that imports receives from outside (input, left); a Bridge that exports hands something outward (output, right).\n\n## Open question\nShould the side be conditional on `data.bridge.role` (import vs. export flips which side it's on), or should it just get one fixed side regardless of role, the way every other primitive here does? This is the primitive most in need of an actual decision rather than a tweak."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "primitive-port-layouts-declaration",
+          "nodeId": "primitive-doc-bridge"
+        }
+      }
+    },
+    {
+      "id": "primitive-doc-membrane",
+      "type": "content",
+      "label": "Membrane (Boundary)",
+      "root": false,
+      "position": {
+        "x": 1040,
+        "y": 500
+      },
+      "width": 500,
+      "height": 820,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Membrane (Boundary)\n\n## Current\n- `root` -- input. Places a boundary point.\n- `next` -- output. Drags out the next Membrane segment. Already directional, but neither side is pinned today.\n\n## Proposed\n- `root` = left (input).\n- `next` = right (output). Continuing rightward reads as \"insert after,\" matching how a boundary sequence visually extends.\n\n## Open question\nNone major."
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "primitive-port-layouts-declaration",
+          "nodeId": "primitive-doc-membrane"
+        }
+      }
+    },
+    {
+      "id": "primitive-doc-method",
+      "type": "content",
+      "label": "Method",
+      "root": false,
+      "position": {
+        "x": 1600,
+        "y": 500
+      },
+      "width": 500,
+      "height": 820,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Method\n\n## Current\nSynthetic fallback `root`/`top`/`bottom`/`left`/`right` (all generic, bidirectional) plus one real port: `invoke` -- input, carries `dataType: 'method'`, only accepts `invokes`-typed edges. An Event Handler drags this to wire itself up.\n\n## Proposed\nDrop the five generic fallback ports entirely and author just `invoke` as Method's real port (input, left) -- the same declutter node-template's Declaration already got. Nothing else about Method is a connection point today; its behavior lives in `data.source`, not in ports.\n\n## Open question\nDoes Method ever need an output -- a return-value port, or a \"next method\" chain for composing behavior -- or is it correctly a dead end today?"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "primitive-port-layouts-declaration",
+          "nodeId": "primitive-doc-method"
+        }
+      }
+    },
+    {
+      "id": "primitive-doc-event-handler",
+      "type": "content",
+      "label": "Event Handler",
+      "root": false,
+      "position": {
+        "x": 2160,
+        "y": 500
+      },
+      "width": 500,
+      "height": 820,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Event Handler\n\n## Current\nSynthetic fallback `root`/`top`/`bottom`/`left`/`right` (generic, bidirectional) plus one real port: `action-method` -- output, carries `dataType: 'method'`, only accepts `invokes`-typed edges, drags to a Method. The Event it listens for (`trigger.sourceNodeId` / `trigger.eventKey`) is plain data today, not a port at all.\n\n## Proposed\nDrop the generic fallback. Keep `action-method` as a real output, moved to the right (\"leads to the Method it invokes\"). Consider turning `trigger` into an actual input port (top or left, \"the Event that starts this\") instead of leaving it as data-only fields.\n\n## Open question\nTurning `trigger` into a real port is a bigger structural change than anything else in this plan -- today it's just two data fields, not a connection. Worth doing for visual clarity, or does the data-only approach stay as-is?"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesViewContent": true
+        },
+        "identity": {
+          "graphId": "primitive-port-layouts-declaration",
+          "nodeId": "primitive-doc-event-handler"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "primitive-port-layouts-declaration-surface",
+      "type": "surface",
+      "source": "primitive-port-layouts-declaration",
+      "target": "primitive-port-layouts-overview",
+      "sourceHandle": "surfaces",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "surface",
+        "surfaceId": "web"
+      }
+    },
+    {
+      "id": "primitive-port-layouts-overview-chain",
+      "type": "view-sequence",
+      "source": "primitive-port-layouts-overview",
+      "target": "primitive-port-layouts-glyph",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
+      "id": "overview-declaration",
+      "type": "reference",
+      "source": "primitive-port-layouts-overview",
+      "target": "primitive-doc-declaration",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "overview-view",
+      "type": "reference",
+      "source": "primitive-port-layouts-overview",
+      "target": "primitive-doc-view",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "overview-content",
+      "type": "reference",
+      "source": "primitive-port-layouts-overview",
+      "target": "primitive-doc-content",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "overview-glyph",
+      "type": "reference",
+      "source": "primitive-port-layouts-overview",
+      "target": "primitive-doc-glyph",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "overview-port",
+      "type": "reference",
+      "source": "primitive-port-layouts-overview",
+      "target": "primitive-doc-port",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "overview-portal",
+      "type": "reference",
+      "source": "primitive-port-layouts-overview",
+      "target": "primitive-doc-portal",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "overview-bridge",
+      "type": "reference",
+      "source": "primitive-port-layouts-overview",
+      "target": "primitive-doc-bridge",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "overview-membrane",
+      "type": "reference",
+      "source": "primitive-port-layouts-overview",
+      "target": "primitive-doc-membrane",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "overview-method",
+      "type": "reference",
+      "source": "primitive-port-layouts-overview",
+      "target": "primitive-doc-method",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "overview-event-handler",
+      "type": "reference",
+      "source": "primitive-port-layouts-overview",
+      "target": "primitive-doc-event-handler",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    }
+  ],
+  "clusters": [],
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": null,
+    "github": null,
+    "autoSave": false
+  },
+  "scripts": []
+}
