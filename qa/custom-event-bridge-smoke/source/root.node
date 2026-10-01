@@ -59,7 +59,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Custom Event + Bridge Smoke — Source\n\nExercises two things that have no coverage until now: a custom Event authored by hand (not an intrinsic one like `property.changed`, and not inherited from a class contract), and the direct Method-trigger path for consuming it.\n\n## Widget\n\nA plain Content node. Its only special feature is `data.events`, authored through the Events section on its editor panel (see EventsEditorSection.js): one custom Event, `widget.ready`.\n\n## Local Trigger Demo\n\nA Method wired directly to Widget's `event:widget.ready` output port, into its own `trigger` port — no Event Handler node needed. Open its editor to see the MethodTriggersEditor.js \"TRIGGERS\" section report the live binding, and FixedNode render the wired `event:widget.ready` → `trigger` edge on canvas.\n\n## Export to Receiver\n\nAn export Bridge pointed at `qa/custom-event-bridge-smoke/receiver`, exposing `widget.ready` — ships pre-checked so the pair works end to end as soon as both graphs are open. Uncheck it in the Bridge's Events section to watch the receiver's Handler go inactive.\n\nAutomated coverage for this same scenario: `tests/customEventBridgeSmoke.test.js` in the twilite repo."
+          "value": "# Custom Event + Bridge Smoke — Source\n\nExercises two things that have no coverage until now: a custom Event authored by hand (not an intrinsic one like `property.changed`, and not inherited from a class contract), and the direct Method-trigger path for consuming it.\n\n## Widget Ready (Event Source)\n\nA Method, not a Content node: declaring an Event and raising one are different jobs, and raising one takes running code, so the node that does both has to be something that runs code. Its Events section (EventsEditorSection.js, now mounted in ScriptHostEditor for Method) declares `widget.ready`; its script calls `await api.events.emit('widget.ready', payload)`. Open its editor and click \"Run Script\" to raise it by hand and watch Local Trigger Demo fire.\n\n## Local Trigger Demo\n\nA Method wired directly to Widget Ready's `event:widget.ready` output port, into its own `trigger` port — no Event Handler node needed. Open its editor to see MethodTriggersEditor.js's \"TRIGGERS\" section report the live binding.\n\n## Export to Receiver\n\nAn export Bridge pointed at `qa/custom-event-bridge-smoke/receiver`, exposing `widget.ready` — ships pre-checked so the pair works end to end as soon as both graphs are open. Uncheck it in the Bridge's Events section to watch the receiver's Handler go inactive.\n\nAutomated coverage for this same scenario: `tests/customEventBridgeSmoke.test.js` in the twilite repo."
         },
         "identity": {
           "graphId": "source-declaration",
@@ -89,20 +89,26 @@
       }
     },
     {
-      "id": "source-widget",
-      "type": "content",
-      "label": "Widget",
+      "id": "source-event-source",
+      "type": "method",
+      "label": "Widget Ready (Event Source)",
       "position": {
         "x": -140,
         "y": -520
       },
-      "width": 360,
-      "height": 220,
+      "width": 380,
+      "height": 260,
       "data": {
-        "content": {
-          "kind": "markdown",
-          "value": "A plain emitter. Declares one custom Event below — not intrinsic, not inherited from a class."
-        },
+        "source": "await api.events.emit('widget.ready', { ready: true });\nreturn { ok: true, note: 'raised widget.ready' };",
+        "scriptName": "Widget Ready (Event Source)",
+        "parameters": [],
+        "allowMutations": false,
+        "dryRun": false,
+        "effects": [
+          {
+            "kind": "emit-event"
+          }
+        ],
         "events": [
           {
             "eventKey": "widget.ready",
@@ -111,7 +117,7 @@
         ],
         "identity": {
           "graphId": "source-declaration",
-          "nodeId": "source-widget"
+          "nodeId": "source-event-source"
         }
       }
     },
@@ -161,7 +167,7 @@
             "events": {
               "mode": "allowlist",
               "allowKeys": [
-                "source-widget:widget.ready"
+                "source-event-source:widget.ready"
               ]
             }
           }
@@ -179,7 +185,7 @@
             "events": {
               "mode": "allowlist",
               "allowKeys": [
-                "source-widget:widget.ready"
+                "source-event-source:widget.ready"
               ]
             }
           }
@@ -220,10 +226,10 @@
       }
     },
     {
-      "id": "source-overview-widget",
+      "id": "source-overview-event-source",
       "type": "reference",
       "source": "source-overview",
-      "target": "source-widget",
+      "target": "source-event-source",
       "sourceHandle": "root",
       "targetHandle": "root",
       "label": "",
@@ -261,7 +267,7 @@
     {
       "id": "source-widget-trigger",
       "type": "listens",
-      "source": "source-widget",
+      "source": "source-event-source",
       "target": "source-local-method",
       "sourceHandle": "event:widget.ready",
       "targetHandle": "trigger",

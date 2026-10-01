@@ -59,7 +59,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Custom Event + Bridge Smoke — Receiver\n\nConsumes the `widget.ready` custom Event declared by `qa/custom-event-bridge-smoke/source`.\n\n## Import from Source\n\nAn import Bridge pointed at the source graph. Open its Events section (BridgeEventsPanel.js) to see `widget.ready` listed as exposed, and the Handler below assigned to it.\n\n## Remote Trigger Demo\n\nAn Event Handler -- not a Method -- because a bridged trigger has no single node in this graph to point an edge at. Its Action Method port is wired to Remote Action.\n\nA direct Method `trigger` edge (like the source graph's Local Trigger Demo) only works for Events declared in the *same* graph; see MethodTriggersEditor.js and the plan doc's \"what's still data, not a port\" note for why.\n\nAutomated coverage for this same scenario: `tests/customEventBridgeSmoke.test.js` in the twilite repo."
+          "value": "# Custom Event + Bridge Smoke — Receiver\n\nConsumes the `widget.ready` custom Event declared (and raised) by `qa/custom-event-bridge-smoke/source`'s Widget Ready (Event Source) Method.\n\n## Import from Source\n\nAn import Bridge pointed at the source graph. Open its Events section (BridgeEventsPanel.js) to see `widget.ready` listed as exposed, and the Handler below assigned to it.\n\n## Remote Trigger Demo\n\nAn Event Handler -- not a Method -- because a bridged trigger has no single node in this graph to point an edge at. Its Action Method port is wired to Remote Action.\n\nA direct Method `trigger` edge (like the source graph's Local Trigger Demo) only works for Events declared in the *same* graph; see MethodTriggersEditor.js and the plan doc's \"what's still data, not a port\" note for why.\n\nAutomated coverage for this same scenario: `tests/customEventBridgeSmoke.test.js` in the twilite repo."
         },
         "identity": {
           "graphId": "receiver-declaration",
@@ -111,12 +111,12 @@
           "grants": [],
           "subscriptions": [
             {
-              "id": "bridge-subscription--source-export-bridge--receiver-import-bridge--source-widget--widget.ready",
+              "id": "bridge-subscription--source-export-bridge--receiver-import-bridge--source-event-source--widget.ready",
               "sourceBridgeNodeId": "source-export-bridge",
               "targetBridgeNodeId": "receiver-import-bridge",
               "sourceRef": "github://mikemartinez1974/public/qa/custom-event-bridge-smoke/source/root.node",
-              "eventNodeId": "source-widget",
-              "sourceNodeId": "source-widget",
+              "eventNodeId": "source-event-source",
+              "sourceNodeId": "source-event-source",
               "eventKey": "widget.ready",
               "handlerNodeId": "receiver-handler",
               "enabled": true
@@ -152,7 +152,7 @@
       "data": {
         "enabled": true,
         "trigger": {
-          "sourceNodeId": "source-widget",
+          "sourceNodeId": "source-event-source",
           "sourceRef": "github://mikemartinez1974/public/qa/custom-event-bridge-smoke/source/root.node",
           "bridgeNodeId": "receiver-import-bridge",
           "eventKey": "widget.ready"
