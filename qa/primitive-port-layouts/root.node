@@ -388,7 +388,7 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Event Handler\n\n## Layout\n- `action-method` -- output, right. Carries `dataType: 'method'`, only accepts `invokes`-typed edges, drags to a Method.\n- `trigger` -- proposed as a real input port (top or left) instead of staying data-only (`trigger.sourceNodeId`/`trigger.eventKey`) -- \"the Event that starts this.\"\n\nThe generic five-handle fallback goes away entirely.\n\n## Open question\nTurning `trigger` into a real port is a bigger structural change than anything else in this plan -- today it's just two data fields, not a connection. Worth doing for visual clarity, or does the data-only approach stay?"
+          "value": "# Event Handler\n\n## Layout\n- `trigger` -- input, left. Connects from an emitter's `event:<key>` output port, carrying `dataType: 'event'`, only accepting `listens`-typed edges.\n- `action-method` -- output, right. Carries `dataType: 'method'`, only accepts `invokes`-typed edges, drags to a Method.\n\nThe generic five-handle fallback goes away entirely.\n\n## Implemented (2026-10-01)\nThere is no separate Event primitive -- events are emitter-owned (`data.events` on the node that emits them, or a class contract, or intrinsic to a type, e.g. every Property emits `property.changed` for free). `eventMigration.js` already converts old standalone Event-declaration nodes into this shape; the editor hasn't created those nodes for a while.\n\nWhat was actually missing was a port for the emitter side. Any node that declares an event now exposes one `event:<key>` output per declaration (`deriveEventOutputPorts`, alongside the existing dynamic-ports mechanism). Dragging from it creates an Event Handler wired in with `trigger` already set -- the edge is the authoring gesture, but `data.trigger.sourceNodeId`/`eventKey` stays the thing `eventBridge.js` actually reads, because a Bridge-routed trigger names an emitter in a different graph, which no local edge could represent anyway.\n\n## Open question\nConnecting an *existing* Event Handler to an *existing* emitter's event port (not the drag-create-a-new-handler case) still only draws the edge -- it doesn't yet write `data.trigger` to match. Worth teaching the general edge-creation path to keep that in sync, or is drag-create-only enough for now?"
         },
         "interfaceContract": {
           "version": 1,
@@ -397,28 +397,6 @@
         "identity": {
           "graphId": "primitive-port-layouts-declaration",
           "nodeId": "primitive-doc-event-handler"
-        }
-      }
-    },
-    {
-      "id": "primitive-doc-event",
-      "type": "content",
-      "label": "Event",
-      "root": false,
-      "position": {
-        "x": -80,
-        "y": 1400
-      },
-      "width": 500,
-      "height": 820,
-      "data": {
-        "content": {
-          "kind": "markdown",
-          "value": "# Event\n\nNot yet a primitive -- `event-declaration` already exists in the registry (label \"Event,\" no authored ports, falls back to the generic five-handle fallback), but nothing treats it as part of the primitive set. Event Handler's `trigger` only references one by two loose data fields (`sourceNodeId`, `eventKey`), not a real connection. Added here because we're already mid-way through this exact kind of cleanup for Event Handler and Bridge.\n\n## Layout\n- `source` -- input, left. The node that emits this Event. Mirrors `data.sourceNodeId`, which is currently just a string field with no corresponding port.\n- `listeners` -- output, right, repeatable. Any number of Event Handlers can subscribe to the same Event, the same way `surfaces` is repeatable on a Declaration. This is what Event Handler's `trigger` should connect *to*, instead of naming the source by id and key in its own data.\n\n## Open question\nThis is the bigger structural change flagged on Event Handler's own doc: turning `trigger` into a real input port that connects to an Event's `listeners` output, instead of staying two data fields. Doing that properly means Event becomes a real primitive first -- this entry is that first step, not yet the wiring change itself."
-        },
-        "identity": {
-          "graphId": "primitive-port-layouts-declaration",
-          "nodeId": "primitive-doc-event"
         }
       }
     }
@@ -573,19 +551,6 @@
       "type": "reference",
       "source": "primitive-port-layouts-overview",
       "target": "primitive-doc-event-handler",
-      "sourceHandle": "root",
-      "targetHandle": "root",
-      "label": "",
-      "style": {},
-      "data": {
-        "role": "reference"
-      }
-    },
-    {
-      "id": "overview-event",
-      "type": "reference",
-      "source": "primitive-port-layouts-overview",
-      "target": "primitive-doc-event",
       "sourceHandle": "root",
       "targetHandle": "root",
       "label": "",
