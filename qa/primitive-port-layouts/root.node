@@ -362,7 +362,7 @@
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Method\n\n## Layout\nOne real port: `invoke` -- input, left. Carries `dataType: 'method'`, only accepts `invokes`-typed edges. The generic five-handle fallback goes away entirely -- nothing else about Method is a connection point; its behavior lives in `data.source`.\n\n## Open question\nDoes Method ever need an output -- a return-value port, or a \"next method\" chain for composing behavior -- or is it correctly a dead end?"
+          "value": "# Method\n\n## Layout\n- `invoke` -- input, left (offset 0.7). Carries `dataType: 'method'`, only accepts `invokes`-typed edges. Called directly -- by an Event Handler's old `action-method`, a Script, a Bridge, anything that wants to run this behavior on demand.\n- `trigger` -- input, left (offset 0.3), repeatable. Carries `dataType: 'event'`, only accepts `listens`-typed edges. Connects straight from an emitter's `event:<key>` output -- the Method fires on its own when that event happens. Repeatable: more than one event can trigger the same Method.\n\nThe two are independent. A Method can have neither (a dead-end behavior nobody's wired up yet), either, or both -- `invoke`-only is a plain callable method, `trigger`-only fires only on an event, both means it's callable *and* auto-fires.\n\n## Implemented (2026-10-01)\nThis absorbed Event Handler's whole job. There's no longer a dedicated node standing between an Event and the behavior it runs -- the Method *is* the handler. Dragging from an emitter's event port now creates a Method (not an Event Handler) already wired into `trigger`. `matchingEventHandlers` in `eventBridge.js` matches Methods the same way: an edge from the emitter's `event:<key>` port into `trigger`, `edge.data.enabled !== false`.\n\nEvent Handler itself isn't deleted -- existing Event Handler nodes, `EventHandlerEditorHost`, and the Bridge-exposure/migration system that still produces them all keep working. It's just no longer offered in Add Node: one fewer primitive for new work, net nine instead of ten.\n\n## What's still data, not a port\nA Method's `trigger` edge only expresses \"this Method, this exact emitter, this event\" -- same scope Event Handler already had via `trigger.sourceNodeId`. Two things Event Handler could do that a bare edge still can't: listen across *every* node of a class (`trigger.sourceClassKey`), and a Bridge-routed trigger naming an emitter in a different graph. Both still require an actual Event Handler node for now."
         },
         "interfaceContract": {
           "version": 1,
@@ -371,32 +371,6 @@
         "identity": {
           "graphId": "primitive-port-layouts-declaration",
           "nodeId": "primitive-doc-method"
-        }
-      }
-    },
-    {
-      "id": "primitive-doc-event-handler",
-      "type": "content",
-      "label": "Event Handler",
-      "root": false,
-      "position": {
-        "x": 2160,
-        "y": 500
-      },
-      "width": 500,
-      "height": 820,
-      "data": {
-        "content": {
-          "kind": "markdown",
-          "value": "# Event Handler\n\n## Layout\n- `trigger` -- input, left. Connects from an emitter's `event:<key>` output port, carrying `dataType: 'event'`, only accepting `listens`-typed edges.\n- `action-method` -- output, right. Carries `dataType: 'method'`, only accepts `invokes`-typed edges, drags to a Method.\n\nThe generic five-handle fallback goes away entirely.\n\n## Implemented (2026-10-01)\nThere is no separate Event primitive -- events are emitter-owned (`data.events` on the node that emits them, or a class contract, or intrinsic to a type, e.g. every Property emits `property.changed` for free). `eventMigration.js` already converts old standalone Event-declaration nodes into this shape; the editor hasn't created those nodes for a while.\n\nWhat was actually missing was a port for the emitter side. Any node that declares an event now exposes one `event:<key>` output per declaration (`deriveEventOutputPorts`, alongside the existing dynamic-ports mechanism). Dragging from it creates an Event Handler wired in with `trigger` already set -- the edge is the authoring gesture, but `data.trigger.sourceNodeId`/`eventKey` stays the thing `eventBridge.js` actually reads, because a Bridge-routed trigger names an emitter in a different graph, which no local edge could represent anyway.\n\n## Open question\nConnecting an *existing* Event Handler to an *existing* emitter's event port (not the drag-create-a-new-handler case) still only draws the edge -- it doesn't yet write `data.trigger` to match. Worth teaching the general edge-creation path to keep that in sync, or is drag-create-only enough for now?"
-        },
-        "interfaceContract": {
-          "version": 1,
-          "receivesViewContent": true
-        },
-        "identity": {
-          "graphId": "primitive-port-layouts-declaration",
-          "nodeId": "primitive-doc-event-handler"
         }
       }
     }
@@ -538,19 +512,6 @@
       "type": "reference",
       "source": "primitive-port-layouts-overview",
       "target": "primitive-doc-method",
-      "sourceHandle": "root",
-      "targetHandle": "root",
-      "label": "",
-      "style": {},
-      "data": {
-        "role": "reference"
-      }
-    },
-    {
-      "id": "overview-event-handler",
-      "type": "reference",
-      "source": "primitive-port-layouts-overview",
-      "target": "primitive-doc-event-handler",
       "sourceHandle": "root",
       "targetHandle": "root",
       "label": "",
