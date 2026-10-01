@@ -399,6 +399,28 @@
           "nodeId": "primitive-doc-event-handler"
         }
       }
+    },
+    {
+      "id": "primitive-doc-event",
+      "type": "content",
+      "label": "Event",
+      "root": false,
+      "position": {
+        "x": -80,
+        "y": 1400
+      },
+      "width": 500,
+      "height": 820,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Event\n\nNot yet a primitive -- `event-declaration` already exists in the registry (label \"Event,\" no authored ports, falls back to the generic five-handle fallback), but nothing treats it as part of the primitive set. Event Handler's `trigger` only references one by two loose data fields (`sourceNodeId`, `eventKey`), not a real connection. Added here because we're already mid-way through this exact kind of cleanup for Event Handler and Bridge.\n\n## Layout\n- `source` -- input, left. The node that emits this Event. Mirrors `data.sourceNodeId`, which is currently just a string field with no corresponding port.\n- `listeners` -- output, right, repeatable. Any number of Event Handlers can subscribe to the same Event, the same way `surfaces` is repeatable on a Declaration. This is what Event Handler's `trigger` should connect *to*, instead of naming the source by id and key in its own data.\n\n## Open question\nThis is the bigger structural change flagged on Event Handler's own doc: turning `trigger` into a real input port that connects to an Event's `listeners` output, instead of staying two data fields. Doing that properly means Event becomes a real primitive first -- this entry is that first step, not yet the wiring change itself."
+        },
+        "identity": {
+          "graphId": "primitive-port-layouts-declaration",
+          "nodeId": "primitive-doc-event"
+        }
+      }
     }
   ],
   "edges": [
@@ -551,6 +573,19 @@
       "type": "reference",
       "source": "primitive-port-layouts-overview",
       "target": "primitive-doc-event-handler",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "overview-event",
+      "type": "reference",
+      "source": "primitive-port-layouts-overview",
+      "target": "primitive-doc-event",
       "sourceHandle": "root",
       "targetHandle": "root",
       "label": "",
