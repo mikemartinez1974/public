@@ -1,0 +1,258 @@
+{
+  "nodes": [
+    {
+      "id": "receiver-declaration",
+      "type": "declaration",
+      "label": "Custom Event + Bridge Smoke — Receiver",
+      "root": true,
+      "position": {
+        "x": -1400,
+        "y": -360
+      },
+      "width": 420,
+      "height": 240,
+      "data": {
+        "intent": {
+          "summary": "Smoke test: subscribes to the custom widget.ready Event exposed by qa/custom-event-bridge-smoke/source, across an import Bridge."
+        },
+        "declaration": {
+          "defaultSurfaceId": "web",
+          "surfaces": []
+        },
+        "document": {
+          "url": "github://mikemartinez1974/public/qa/custom-event-bridge-smoke/receiver/root.node"
+        },
+        "glyph": {
+          "kind": "icon",
+          "name": "Bolt"
+        },
+        "identity": {
+          "graphId": "receiver-declaration",
+          "nodeId": "receiver-declaration"
+        }
+      }
+    },
+    {
+      "id": "receiver-overview",
+      "type": "view",
+      "label": "Overview",
+      "position": {
+        "x": -800,
+        "y": -400
+      },
+      "width": 560,
+      "height": 460,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Custom Event + Bridge Smoke — Receiver\n\nConsumes the `widget.ready` custom Event declared by `qa/custom-event-bridge-smoke/source`.\n\n## Import from Source\n\nAn import Bridge pointed at the source graph. Open its Events section (BridgeEventsPanel.js) to see `widget.ready` listed as exposed, and the Handler below assigned to it.\n\n## Remote Trigger Demo\n\nAn Event Handler -- not a Method -- because a bridged trigger has no single node in this graph to point an edge at. Its Action Method port is wired to Remote Action.\n\nA direct Method `trigger` edge (like the source graph's Local Trigger Demo) only works for Events declared in the *same* graph; see MethodTriggersEditor.js and the plan doc's \"what's still data, not a port\" note for why.\n\nAutomated coverage for this same scenario: `tests/customEventBridgeSmoke.test.js` in the twilite repo."
+        },
+        "identity": {
+          "graphId": "receiver-declaration",
+          "nodeId": "receiver-overview"
+        }
+      }
+    },
+    {
+      "id": "receiver-glyph",
+      "type": "glyph",
+      "label": "Glyph",
+      "position": {
+        "x": -800,
+        "y": 120
+      },
+      "width": 220,
+      "height": 140,
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "Bolt"
+        },
+        "identity": {
+          "graphId": "receiver-declaration",
+          "nodeId": "receiver-glyph"
+        }
+      }
+    },
+    {
+      "id": "receiver-import-bridge",
+      "type": "bridge",
+      "label": "Import from Source",
+      "position": {
+        "x": -140,
+        "y": -480
+      },
+      "width": 360,
+      "height": 200,
+      "data": {
+        "memo": "Smoke-test adjacency: imports the custom widget.ready Event from the source graph.",
+        "intent": "external",
+        "authority": "bridge",
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/qa/custom-event-bridge-smoke/source/root.node",
+          "resourceKind": "graph",
+          "scope": "graph",
+          "role": "import",
+          "consumesBridgeNodeId": "source-export-bridge",
+          "grants": [],
+          "subscriptions": [
+            {
+              "id": "bridge-subscription--source-export-bridge--receiver-import-bridge--source-widget--widget.ready",
+              "sourceBridgeNodeId": "source-export-bridge",
+              "targetBridgeNodeId": "receiver-import-bridge",
+              "sourceRef": "github://mikemartinez1974/public/qa/custom-event-bridge-smoke/source/root.node",
+              "eventNodeId": "source-widget",
+              "sourceNodeId": "source-widget",
+              "eventKey": "widget.ready",
+              "handlerNodeId": "receiver-handler",
+              "enabled": true
+            }
+          ]
+        },
+        "target": {
+          "mode": "bridge",
+          "ref": "github://mikemartinez1974/public/qa/custom-event-bridge-smoke/source/root.node",
+          "kind": "graph",
+          "resourceKind": "graph",
+          "scope": "graph",
+          "label": "Custom Event + Bridge Smoke — Source",
+          "role": "import",
+          "grants": []
+        },
+        "identity": {
+          "graphId": "receiver-declaration",
+          "nodeId": "receiver-import-bridge"
+        }
+      }
+    },
+    {
+      "id": "receiver-handler",
+      "type": "event-handler",
+      "label": "Remote Trigger Demo",
+      "position": {
+        "x": -140,
+        "y": -220
+      },
+      "width": 360,
+      "height": 260,
+      "data": {
+        "enabled": true,
+        "trigger": {
+          "sourceNodeId": "source-widget",
+          "sourceRef": "github://mikemartinez1974/public/qa/custom-event-bridge-smoke/source/root.node",
+          "bridgeNodeId": "receiver-import-bridge",
+          "eventKey": "widget.ready"
+        }
+      }
+    },
+    {
+      "id": "receiver-method",
+      "type": "method",
+      "label": "Remote Action",
+      "position": {
+        "x": 360,
+        "y": -220
+      },
+      "width": 380,
+      "height": 230,
+      "data": {
+        "source": "return { ok: true, note: \"fired by the bridged widget.ready subscription\" };",
+        "scriptName": "Remote Action",
+        "parameters": [],
+        "allowMutations": false,
+        "dryRun": false,
+        "identity": {
+          "graphId": "receiver-declaration",
+          "nodeId": "receiver-method"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "receiver-overview-surface",
+      "type": "surface",
+      "source": "receiver-declaration",
+      "target": "receiver-overview",
+      "sourceHandle": "surfaces",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "surface",
+        "surfaceId": "web"
+      }
+    },
+    {
+      "id": "receiver-overview-chain",
+      "type": "view-sequence",
+      "source": "receiver-overview",
+      "target": "receiver-glyph",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
+      "id": "receiver-overview-import-bridge",
+      "type": "reference",
+      "source": "receiver-overview",
+      "target": "receiver-import-bridge",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "receiver-overview-handler",
+      "type": "reference",
+      "source": "receiver-overview",
+      "target": "receiver-handler",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "receiver-overview-method",
+      "type": "reference",
+      "source": "receiver-overview",
+      "target": "receiver-method",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "receiver-handler-action",
+      "type": "invokes",
+      "source": "receiver-handler",
+      "target": "receiver-method",
+      "sourceHandle": "action-method",
+      "targetHandle": "invoke",
+      "label": "",
+      "style": {},
+      "data": {}
+    }
+  ]
+}

@@ -1,0 +1,267 @@
+{
+  "nodes": [
+    {
+      "id": "source-declaration",
+      "type": "declaration",
+      "label": "Custom Event + Bridge Smoke — Source",
+      "root": true,
+      "position": {
+        "x": -1400,
+        "y": -360
+      },
+      "width": 420,
+      "height": 240,
+      "data": {
+        "intent": {
+          "summary": "Smoke test: a hand-authored custom Event, consumed directly by a Method in this graph and across a Bridge by qa/custom-event-bridge-smoke/receiver."
+        },
+        "declaration": {
+          "defaultSurfaceId": "web",
+          "surfaces": []
+        },
+        "document": {
+          "url": "github://mikemartinez1974/public/qa/custom-event-bridge-smoke/source/root.node"
+        },
+        "glyph": {
+          "kind": "icon",
+          "name": "Bolt"
+        },
+        "identity": {
+          "graphId": "source-declaration",
+          "nodeId": "source-declaration"
+        }
+      }
+    },
+    {
+      "id": "source-overview",
+      "type": "view",
+      "label": "Overview",
+      "position": {
+        "x": -800,
+        "y": -400
+      },
+      "width": 560,
+      "height": 460,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Custom Event + Bridge Smoke — Source\n\nExercises two things that have no coverage until now: a custom Event authored by hand (not an intrinsic one like `property.changed`, and not inherited from a class contract), and the direct Method-trigger path for consuming it.\n\n## Widget\n\nA plain Content node. Its only special feature is `data.events`, authored through the Events section on its editor panel (see EventsEditorSection.js): one custom Event, `widget.ready`.\n\n## Local Trigger Demo\n\nA Method wired directly to Widget's `event:widget.ready` output port, into its own `trigger` port — no Event Handler node needed. Open its editor to see the MethodTriggersEditor.js \"TRIGGERS\" section report the live binding, and FixedNode render the wired `event:widget.ready` → `trigger` edge on canvas.\n\n## Export to Receiver\n\nAn export Bridge pointed at `qa/custom-event-bridge-smoke/receiver`, exposing `widget.ready` — ships pre-checked so the pair works end to end as soon as both graphs are open. Uncheck it in the Bridge's Events section to watch the receiver's Handler go inactive.\n\nAutomated coverage for this same scenario: `tests/customEventBridgeSmoke.test.js` in the twilite repo."
+        },
+        "identity": {
+          "graphId": "source-declaration",
+          "nodeId": "source-overview"
+        }
+      }
+    },
+    {
+      "id": "source-glyph",
+      "type": "glyph",
+      "label": "Glyph",
+      "position": {
+        "x": -800,
+        "y": 120
+      },
+      "width": 220,
+      "height": 140,
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "Bolt"
+        },
+        "identity": {
+          "graphId": "source-declaration",
+          "nodeId": "source-glyph"
+        }
+      }
+    },
+    {
+      "id": "source-widget",
+      "type": "content",
+      "label": "Widget",
+      "position": {
+        "x": -140,
+        "y": -520
+      },
+      "width": 360,
+      "height": 220,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "A plain emitter. Declares one custom Event below — not intrinsic, not inherited from a class."
+        },
+        "events": [
+          {
+            "eventKey": "widget.ready",
+            "label": "Widget Ready"
+          }
+        ],
+        "identity": {
+          "graphId": "source-declaration",
+          "nodeId": "source-widget"
+        }
+      }
+    },
+    {
+      "id": "source-local-method",
+      "type": "method",
+      "label": "Local Trigger Demo",
+      "position": {
+        "x": -140,
+        "y": -220
+      },
+      "width": 380,
+      "height": 230,
+      "data": {
+        "source": "return { ok: true, note: \"fired by the local widget.ready trigger\" };",
+        "scriptName": "Local Trigger Demo",
+        "parameters": [],
+        "allowMutations": false,
+        "dryRun": false,
+        "identity": {
+          "graphId": "source-declaration",
+          "nodeId": "source-local-method"
+        }
+      }
+    },
+    {
+      "id": "source-export-bridge",
+      "type": "bridge",
+      "label": "Export to Receiver",
+      "position": {
+        "x": -140,
+        "y": 80
+      },
+      "width": 360,
+      "height": 200,
+      "data": {
+        "memo": "Smoke-test adjacency: exposes the custom widget.ready Event to the receiver graph.",
+        "intent": "external",
+        "authority": "bridge",
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/qa/custom-event-bridge-smoke/receiver/root.node",
+          "resourceKind": "graph",
+          "scope": "graph",
+          "role": "export",
+          "grants": [],
+          "exposure": {
+            "events": {
+              "mode": "allowlist",
+              "allowKeys": [
+                "source-widget:widget.ready"
+              ]
+            }
+          }
+        },
+        "target": {
+          "mode": "bridge",
+          "ref": "github://mikemartinez1974/public/qa/custom-event-bridge-smoke/receiver/root.node",
+          "kind": "graph",
+          "resourceKind": "graph",
+          "scope": "graph",
+          "label": "Custom Event + Bridge Smoke — Receiver",
+          "role": "export",
+          "grants": [],
+          "exposure": {
+            "events": {
+              "mode": "allowlist",
+              "allowKeys": [
+                "source-widget:widget.ready"
+              ]
+            }
+          }
+        },
+        "identity": {
+          "graphId": "source-declaration",
+          "nodeId": "source-export-bridge"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "source-overview-surface",
+      "type": "surface",
+      "source": "source-declaration",
+      "target": "source-overview",
+      "sourceHandle": "surfaces",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "surface",
+        "surfaceId": "web"
+      }
+    },
+    {
+      "id": "source-overview-chain",
+      "type": "view-sequence",
+      "source": "source-overview",
+      "target": "source-glyph",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
+      "id": "source-overview-widget",
+      "type": "reference",
+      "source": "source-overview",
+      "target": "source-widget",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "source-overview-local-method",
+      "type": "reference",
+      "source": "source-overview",
+      "target": "source-local-method",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "source-overview-export-bridge",
+      "type": "reference",
+      "source": "source-overview",
+      "target": "source-export-bridge",
+      "sourceHandle": "root",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "reference"
+      }
+    },
+    {
+      "id": "source-widget-trigger",
+      "type": "listens",
+      "source": "source-widget",
+      "target": "source-local-method",
+      "sourceHandle": "event:widget.ready",
+      "targetHandle": "trigger",
+      "label": "",
+      "style": {},
+      "data": {}
+    }
+  ]
+}
