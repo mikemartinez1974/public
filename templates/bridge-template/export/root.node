@@ -1,0 +1,270 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Bridge Template (Export)",
+    "description": "The export half of a real Bridge pair -- not an isolated node. Exposes widget.ready, a custom Event raised by the Method below, to templates/bridge-template/import/root.node. See the detail view for how this graph's auto-loading actually behaves.",
+    "graphId": "export-declaration",
+    "version": "0.1.0",
+    "kind": "template",
+    "created": "2026-10-04T20:33:08.325Z",
+    "modified": "2026-10-04T20:33:08.325Z",
+    "author": "",
+    "tags": [
+      "template",
+      "bridge"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "export-template-declaration",
+      "type": "declaration",
+      "label": "Bridge Template (Export)",
+      "root": true,
+      "position": {
+        "x": 0,
+        "y": -600
+      },
+      "width": 420,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "export-template-declaration",
+          "name": "Bridge Template (Export)",
+          "version": "0.1.0",
+          "description": "The export half of a real Bridge pair -- not an isolated node. Exposes widget.ready, a custom Event raised by the Method below, to templates/bridge-template/import/root.node. See the detail view for how this graph's auto-loading actually behaves."
+        },
+        "intent": {
+          "kind": "template",
+          "scope": "local"
+        },
+        "declaration": {
+          "kind": "graph",
+          "defaultSurfaceId": "web",
+          "surfaces": []
+        },
+        "glyph": {
+          "kind": "icon",
+          "name": "Cable"
+        },
+        "name": "Declaration",
+        "purpose": "",
+        "document": {
+          "url": "github://mikemartinez1974/public/templates/bridge-template/export/root.node"
+        }
+      }
+    },
+    {
+      "id": "export-template-view",
+      "type": "view",
+      "label": "View",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "width": 560,
+      "height": 460,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "identity": {
+          "graphId": "export",
+          "nodeId": "export-template-view"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a;overflow:auto'><h1 style='margin:0 0 12px;font:800 24px/1.2 system-ui'>Bridge: the export half</h1><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>This graph exposes <code>widget.ready</code> (declared by the Event Source Method below) to <a href='github://mikemartinez1974/public/templates/bridge-template/import/root.node'>bridge-template/import</a>, by name, via <code>data.bridge.exposure.events.allowlist</code>. The pairing is real: each side's Bridge node carries the other graph's actual ref, the same way qa/custom-event-bridge-smoke's source/receiver pair does -- this template is built from that exact precedent.</p><h2 style='margin:20px 0 8px;font:700 16px/1.3 system-ui'>What loads automatically, and what doesn't</h2><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Opening either side of this pair makes <code>useBackgroundBridgeInstances.js</code> follow the Bridge ref to the other side, transitively, so the Event can actually route -- you never have to open both graphs by hand for the subscription to work. What you <em>see</em> happen depends on entitlement, not on anything you choose per-graph: on <strong>free tier</strong> the other side loads silently into the hook's own background map -- no tile, no layout, invisible, existing purely so event dispatch can still find it. On <strong>premium</strong> (<code>hasWorkspaceAccess()</code>), the exact same discovery instead calls <code>workspace.open()</code> and the other side appears as a real, visible workspace tile -- the paid \"see the topography\" feature, not a different bridging mechanism.</p><h2 style='margin:20px 0 8px;font:700 16px/1.3 system-ui'>Why that open() call passes <code>{ background: true }</code></h2><p style='margin:0;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Earlier this session, auto-loaded bridges were silently stealing focus: whichever one happened to finish resolving last became the active graph, overriding wherever the person had actually navigated to by hand. The fix threaded a <code>background</code> option through <code>workspace.open()</code> -- when true, the new instance still becomes a real, visible tile, it just skips every <code>focusLoadedInstance</code>/<code>setAddress</code> call that would otherwise steal the active selection. This is exactly the call this template's own auto-load goes through, so if that option ever looks like unused-looking dead code during a cleanup pass, it isn't -- removing it reintroduces the focus-stealing bug this pair would otherwise reproduce every time someone opens it on premium.</p></div>"
+        }
+      }
+    },
+    {
+      "id": "export-template-glyph",
+      "type": "glyph",
+      "label": "Glyph",
+      "position": {
+        "x": 640,
+        "y": 0
+      },
+      "width": 160,
+      "height": 120,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "AccountTree"
+        },
+        "identity": {
+          "graphId": "export",
+          "nodeId": "export-template-glyph"
+        }
+      }
+    },
+    {
+      "id": "export-template-event-source",
+      "type": "method",
+      "label": "Widget Ready (Event Source)",
+      "position": {
+        "x": 0,
+        "y": 560
+      },
+      "width": 380,
+      "height": 260,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "source": "await api.events.emit('widget.ready', { ready: true });\nreturn { ok: true, note: 'raised widget.ready' };",
+        "scriptName": "Widget Ready (Event Source)",
+        "parameters": [],
+        "allowMutations": false,
+        "dryRun": false,
+        "effects": [
+          {
+            "kind": "emit-event"
+          }
+        ],
+        "events": [
+          {
+            "eventKey": "widget.ready",
+            "label": "Widget Ready"
+          }
+        ],
+        "identity": {
+          "graphId": "export",
+          "nodeId": "export-template-event-source"
+        }
+      }
+    },
+    {
+      "id": "export-template-bridge",
+      "type": "bridge",
+      "label": "Export to Import",
+      "position": {
+        "x": 0,
+        "y": 900
+      },
+      "width": 360,
+      "height": 200,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "memo": "Exposes widget.ready to templates/bridge-template/import/root.node.",
+        "intent": "external",
+        "authority": "bridge",
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/bridge-template/import/root.node",
+          "resourceKind": "graph",
+          "scope": "graph",
+          "role": "export",
+          "grants": [],
+          "exposure": {
+            "events": {
+              "mode": "allowlist",
+              "allowKeys": [
+                "export-template-event-source:widget.ready"
+              ]
+            }
+          }
+        },
+        "target": {
+          "mode": "bridge",
+          "ref": "github://mikemartinez1974/public/templates/bridge-template/import/root.node",
+          "kind": "graph",
+          "resourceKind": "graph",
+          "scope": "graph",
+          "label": "Bridge Template (Import)",
+          "role": "export",
+          "grants": [],
+          "exposure": {
+            "events": {
+              "mode": "allowlist",
+              "allowKeys": [
+                "export-template-event-source:widget.ready"
+              ]
+            }
+          }
+        },
+        "identity": {
+          "graphId": "export",
+          "nodeId": "export-template-bridge"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "export-template-surfaces",
+      "type": "surface",
+      "source": "export-template-declaration",
+      "sourceHandle": "surfaces",
+      "target": "export-template-view",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "surface",
+        "surfaceId": "web"
+      }
+    },
+    {
+      "id": "export-template-sequence-out",
+      "type": "view-sequence",
+      "source": "export-template-view",
+      "sourceHandle": "sequence-out",
+      "target": "export-template-glyph",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    }
+  ],
+  "clusters": [],
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": {
+      "mode": "autoOnMissingPositions",
+      "defaultLayout": "layered",
+      "direction": "DOWN",
+      "edgeLaneGapPx": 10,
+      "serpentine": {
+        "maxPerRow": 6
+      },
+      "cycleFallback": {
+        "enabled": true
+      },
+      "elk": {
+        "algorithm": "fixed",
+        "edgeRouting": "ORTHOGONAL",
+        "portConstraints": "FIXED_SIDE",
+        "nodeSpacing": 120,
+        "layeredEdgeSpacing": 80
+      }
+    },
+    "github": {
+      "repo": "mikemartinez1974/public",
+      "path": "templates/bridge-template/export/root.node",
+      "branch": "main",
+      "autoCreateRepo": true,
+      "repoVisibility": "private",
+      "seedOnCommit": false,
+      "enableGithubPages": false,
+      "installationId": "120403738"
+    },
+    "autoSave": false
+  },
+  "scripts": []
+}

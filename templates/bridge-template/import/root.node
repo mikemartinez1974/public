@@ -1,0 +1,294 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Bridge Template (Import)",
+    "description": "The import half of the same real Bridge pair. Subscribes to widget.ready from templates/bridge-template/export/root.node and routes it to a local Event Handler, which invokes a local Method -- the same shape as qa/custom-event-bridge-smoke's receiver graph.",
+    "graphId": "import-declaration",
+    "version": "0.1.0",
+    "kind": "template",
+    "created": "2026-10-04T20:33:08.325Z",
+    "modified": "2026-10-04T20:33:08.325Z",
+    "author": "",
+    "tags": [
+      "template",
+      "bridge"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "import-template-declaration",
+      "type": "declaration",
+      "label": "Bridge Template (Import)",
+      "root": true,
+      "position": {
+        "x": 0,
+        "y": -600
+      },
+      "width": 420,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "import-template-declaration",
+          "name": "Bridge Template (Import)",
+          "version": "0.1.0",
+          "description": "The import half of the same real Bridge pair. Subscribes to widget.ready from templates/bridge-template/export/root.node and routes it to a local Event Handler, which invokes a local Method -- the same shape as qa/custom-event-bridge-smoke's receiver graph."
+        },
+        "intent": {
+          "kind": "template",
+          "scope": "local"
+        },
+        "declaration": {
+          "kind": "graph",
+          "defaultSurfaceId": "web",
+          "surfaces": []
+        },
+        "glyph": {
+          "kind": "icon",
+          "name": "Cable"
+        },
+        "name": "Declaration",
+        "purpose": "",
+        "document": {
+          "url": "github://mikemartinez1974/public/templates/bridge-template/import/root.node"
+        }
+      }
+    },
+    {
+      "id": "import-template-view",
+      "type": "view",
+      "label": "View",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "width": 520,
+      "height": 320,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "identity": {
+          "graphId": "import",
+          "nodeId": "import-template-view"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a;overflow:auto'><h1 style='margin:0 0 12px;font:800 24px/1.2 system-ui'>Bridge: the import half</h1><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'><code>data.bridge.subscriptions</code> below names the exact remote event -- <code>export-template-event-source:widget.ready</code> in <a href='github://mikemartinez1974/public/templates/bridge-template/export/root.node'>bridge-template/export</a> -- and the local Event Handler that should fire when it does. The handler then invokes a local Method, same as the export side's own Method raises the event in the first place. See the export side's detail view for how auto-loading and its background-focus fix work; that explanation isn't duplicated here, since it's about the pair, not this half specifically.</p></div>"
+        }
+      }
+    },
+    {
+      "id": "import-template-glyph",
+      "type": "glyph",
+      "label": "Glyph",
+      "position": {
+        "x": 600,
+        "y": 0
+      },
+      "width": 160,
+      "height": 120,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "AccountTree"
+        },
+        "identity": {
+          "graphId": "import",
+          "nodeId": "import-template-glyph"
+        }
+      }
+    },
+    {
+      "id": "import-template-handler",
+      "type": "event-handler",
+      "label": "Remote Trigger Demo",
+      "position": {
+        "x": 0,
+        "y": 420
+      },
+      "width": 360,
+      "height": 260,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "enabled": true,
+        "trigger": {
+          "sourceNodeId": "export-template-event-source",
+          "sourceRef": "github://mikemartinez1974/public/templates/bridge-template/export/root.node",
+          "bridgeNodeId": "import-template-bridge",
+          "eventKey": "widget.ready"
+        },
+        "identity": {
+          "graphId": "import",
+          "nodeId": "import-template-handler"
+        }
+      }
+    },
+    {
+      "id": "import-template-method",
+      "type": "method",
+      "label": "Remote Action",
+      "position": {
+        "x": 480,
+        "y": 420
+      },
+      "width": 380,
+      "height": 230,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "source": "return { ok: true, note: \"fired by the bridged widget.ready subscription\" };",
+        "scriptName": "Remote Action",
+        "parameters": [],
+        "allowMutations": false,
+        "dryRun": false,
+        "identity": {
+          "graphId": "import",
+          "nodeId": "import-template-method"
+        }
+      }
+    },
+    {
+      "id": "import-template-bridge",
+      "type": "bridge",
+      "label": "Import from Export",
+      "position": {
+        "x": 0,
+        "y": 760
+      },
+      "width": 360,
+      "height": 200,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "memo": "Imports widget.ready from templates/bridge-template/export/root.node.",
+        "intent": "external",
+        "authority": "bridge",
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/templates/bridge-template/export/root.node",
+          "resourceKind": "graph",
+          "scope": "graph",
+          "role": "import",
+          "consumesBridgeNodeId": "export-template-bridge",
+          "grants": [],
+          "subscriptions": [
+            {
+              "id": "bridge-subscription--export-template-bridge--import-template-bridge--export-template-event-source--widget.ready",
+              "sourceBridgeNodeId": "export-template-bridge",
+              "targetBridgeNodeId": "import-template-bridge",
+              "sourceRef": "github://mikemartinez1974/public/templates/bridge-template/export/root.node",
+              "eventNodeId": "export-template-event-source",
+              "sourceNodeId": "export-template-event-source",
+              "eventKey": "widget.ready",
+              "handlerNodeId": "import-template-handler",
+              "enabled": true
+            }
+          ]
+        },
+        "target": {
+          "mode": "bridge",
+          "ref": "github://mikemartinez1974/public/templates/bridge-template/export/root.node",
+          "kind": "graph",
+          "resourceKind": "graph",
+          "scope": "graph",
+          "label": "Bridge Template (Export)",
+          "role": "import",
+          "grants": []
+        },
+        "identity": {
+          "graphId": "import",
+          "nodeId": "import-template-bridge"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "import-template-surfaces",
+      "type": "surface",
+      "source": "import-template-declaration",
+      "sourceHandle": "surfaces",
+      "target": "import-template-view",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "surface",
+        "surfaceId": "web"
+      }
+    },
+    {
+      "id": "import-template-sequence-out",
+      "type": "view-sequence",
+      "source": "import-template-view",
+      "sourceHandle": "sequence-out",
+      "target": "import-template-glyph",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
+      "id": "import-template-handler-action",
+      "type": "invokes",
+      "source": "import-template-handler",
+      "sourceHandle": "action-method",
+      "target": "import-template-method",
+      "targetHandle": "invoke",
+      "label": "",
+      "style": {},
+      "data": {}
+    }
+  ],
+  "clusters": [],
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": {
+      "mode": "autoOnMissingPositions",
+      "defaultLayout": "layered",
+      "direction": "DOWN",
+      "edgeLaneGapPx": 10,
+      "serpentine": {
+        "maxPerRow": 6
+      },
+      "cycleFallback": {
+        "enabled": true
+      },
+      "elk": {
+        "algorithm": "fixed",
+        "edgeRouting": "ORTHOGONAL",
+        "portConstraints": "FIXED_SIDE",
+        "nodeSpacing": 120,
+        "layeredEdgeSpacing": 80
+      }
+    },
+    "github": {
+      "repo": "mikemartinez1974/public",
+      "path": "templates/bridge-template/import/root.node",
+      "branch": "main",
+      "autoCreateRepo": true,
+      "repoVisibility": "private",
+      "seedOnCommit": false,
+      "enableGithubPages": false,
+      "installationId": "120403738"
+    },
+    "autoSave": false
+  },
+  "scripts": []
+}
