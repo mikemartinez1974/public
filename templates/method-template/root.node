@@ -1,0 +1,250 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Method Template",
+    "description": "A real trigger binding, not an isolated invoke/trigger port pair: an event-raising Method wired, by a real event:<key> -> trigger edge, to a second Method that fires because of it. The template's own detail view explains how that edge gets authored (MethodTriggersEditor's Add a trigger dropdown) and why trigger always shows a lightning-bolt glyph.",
+    "graphId": "method-template-declaration",
+    "version": "0.1.0",
+    "kind": "template",
+    "created": "2026-10-04T20:25:59.495Z",
+    "modified": "2026-10-04T20:25:59.495Z",
+    "author": "",
+    "tags": [
+      "template",
+      "method"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "method-template-declaration",
+      "type": "declaration",
+      "label": "Method Template",
+      "root": true,
+      "position": {
+        "x": 0,
+        "y": -600
+      },
+      "width": 420,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "method-template-declaration",
+          "name": "Method Template",
+          "version": "0.1.0",
+          "description": "A real trigger binding, not an isolated invoke/trigger port pair: an event-raising Method wired, by a real event:<key> -> trigger edge, to a second Method that fires because of it. The template's own detail view explains how that edge gets authored (MethodTriggersEditor's Add a trigger dropdown) and why trigger always shows a lightning-bolt glyph."
+        },
+        "intent": {
+          "kind": "template",
+          "scope": "local"
+        },
+        "declaration": {
+          "kind": "graph",
+          "defaultSurfaceId": "web",
+          "surfaces": []
+        },
+        "glyph": {
+          "kind": "icon",
+          "name": "Bolt"
+        },
+        "name": "Declaration",
+        "purpose": "",
+        "document": {
+          "url": "github://mikemartinez1974/public/templates/method-template/root.node"
+        }
+      }
+    },
+    {
+      "id": "method-template-view",
+      "type": "view",
+      "label": "View",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "width": 520,
+      "height": 420,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "identity": {
+          "graphId": "method-template",
+          "nodeId": "method-template-view"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a;overflow:auto'><h1 style='margin:0 0 12px;font:800 24px/1.2 system-ui'>Method's trigger binding</h1><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Below, <strong>Widget Ready (Event Source)</strong> raises a custom event -- <code>widget.ready</code> -- declared in its own <code>data.events</code>. That declaration is what gives it a real, selectable <code>event:widget.ready</code> output port; nothing else does. <strong>Local Trigger Demo</strong>'s <code>trigger</code> port is wired to that exact output by a real edge (<code>type: 'listens'</code>), so it actually fires when the event fires -- this is not two floating ports placed near each other.</p><h2 style='margin:20px 0 8px;font:700 16px/1.3 system-ui'>How this edge gets authored</h2><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Not by dragging a wire on the canvas. Open Local Trigger Demo's own properties and its <strong>TRIGGERS</strong> panel (MethodTriggersEditor.js) lists every event already wired in, and an <em>Add a trigger</em> dropdown lists every event any node in the graph has declared and not yet wired. Picking one calls <code>graphAPI.createEdge({ source: event.sourceNodeId, target: node.id, sourceHandle: 'event:' + event.eventKey, targetHandle: 'trigger', type: 'listens' })</code> -- the panel is the only authoring path; the edge below is its result, not a hand-drawn stand-in for it.</p><h2 style='margin:20px 0 8px;font:700 16px/1.3 system-ui'>Why trigger shows a bolt</h2><p style='margin:0;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Every other structural port borrows its icon from whatever it coincidentally creates when dragged into empty space -- View's surface-delegate shows Content's icon, a Declaration's surfaces shows View's. <code>trigger</code> can't do that: its source might be a Method, an Event Handler, or any other node type that happens to declare an event, so there's no single type to borrow from. portDeclarations.js authors an explicit <code>metadata.glyph: { kind: 'icon', name: 'Bolt' }</code> on it instead -- the same BoltIcon the TRIGGERS panel itself uses as its header, so the port and the UI that wires it always agree.</p></div>"
+        }
+      }
+    },
+    {
+      "id": "method-template-glyph",
+      "type": "glyph",
+      "label": "Glyph",
+      "position": {
+        "x": 600,
+        "y": 0
+      },
+      "width": 160,
+      "height": 120,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "AccountTree"
+        },
+        "identity": {
+          "graphId": "method-template",
+          "nodeId": "method-template-glyph"
+        }
+      }
+    },
+    {
+      "id": "method-template-event-source",
+      "type": "method",
+      "label": "Widget Ready (Event Source)",
+      "position": {
+        "x": 0,
+        "y": 560
+      },
+      "width": 380,
+      "height": 260,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "source": "await api.events.emit('widget.ready', { ready: true });\nreturn { ok: true, note: 'raised widget.ready' };",
+        "scriptName": "Widget Ready (Event Source)",
+        "parameters": [],
+        "allowMutations": false,
+        "dryRun": false,
+        "effects": [
+          {
+            "kind": "emit-event"
+          }
+        ],
+        "events": [
+          {
+            "eventKey": "widget.ready",
+            "label": "Widget Ready"
+          }
+        ],
+        "identity": {
+          "graphId": "method-template",
+          "nodeId": "method-template-event-source"
+        }
+      }
+    },
+    {
+      "id": "method-template-triggered-method",
+      "type": "method",
+      "label": "Local Trigger Demo",
+      "position": {
+        "x": 0,
+        "y": 880
+      },
+      "width": 380,
+      "height": 230,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "source": "return { ok: true, note: \"fired by the local widget.ready trigger\" };",
+        "scriptName": "Local Trigger Demo",
+        "parameters": [],
+        "allowMutations": false,
+        "dryRun": false,
+        "identity": {
+          "graphId": "method-template",
+          "nodeId": "method-template-triggered-method"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "method-template-surfaces",
+      "type": "surface",
+      "source": "method-template-declaration",
+      "sourceHandle": "surfaces",
+      "target": "method-template-view",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "surface",
+        "surfaceId": "web"
+      }
+    },
+    {
+      "id": "method-template-sequence-out",
+      "type": "view-sequence",
+      "source": "method-template-view",
+      "sourceHandle": "sequence-out",
+      "target": "method-template-glyph",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
+      "id": "method-template-widget-trigger",
+      "type": "listens",
+      "source": "method-template-event-source",
+      "sourceHandle": "event:widget.ready",
+      "target": "method-template-triggered-method",
+      "targetHandle": "trigger",
+      "label": "",
+      "style": {},
+      "data": {}
+    }
+  ],
+  "clusters": [],
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": {
+      "mode": "autoOnMissingPositions",
+      "defaultLayout": "layered",
+      "direction": "DOWN",
+      "edgeLaneGapPx": 10,
+      "serpentine": {
+        "maxPerRow": 6
+      },
+      "cycleFallback": {
+        "enabled": true
+      },
+      "elk": {
+        "algorithm": "fixed",
+        "edgeRouting": "ORTHOGONAL",
+        "portConstraints": "FIXED_SIDE",
+        "nodeSpacing": 120,
+        "layeredEdgeSpacing": 80
+      }
+    },
+    "github": {
+      "repo": "mikemartinez1974/public",
+      "path": "templates/method-template/root.node",
+      "branch": "main",
+      "autoCreateRepo": true,
+      "repoVisibility": "private",
+      "seedOnCommit": false,
+      "enableGithubPages": false,
+      "installationId": "120403738"
+    },
+    "autoSave": false
+  },
+  "scripts": []
+}
