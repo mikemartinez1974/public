@@ -1,0 +1,225 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Port Template",
+    "description": "The interface socket a Declaration exposes (relationship: port) so another graph can be wired to a specific named entry point instead of just its default surface. root (bottom, Login glyph) is that socket. surfaces (top, repeatable) is the single way in to any number of Views, same mechanism as a Declaration's own surfaces relationship -- its icon is View's own, a coincidental create-node match, not an authored glyph. landing-surface (right) rounds it out, same as a Declaration.",
+    "graphId": "port-template-declaration",
+    "version": "0.1.0",
+    "kind": "template",
+    "created": "2026-10-04T19:38:05.558Z",
+    "modified": "2026-10-04T19:38:05.558Z",
+    "author": "",
+    "tags": [
+      "template",
+      "port"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "port-template-declaration",
+      "type": "declaration",
+      "label": "Port Template",
+      "root": true,
+      "position": {
+        "x": 0,
+        "y": -360
+      },
+      "width": 420,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "port-template-declaration",
+          "name": "Port Template",
+          "version": "0.1.0",
+          "description": "The interface socket a Declaration exposes (relationship: port) so another graph can be wired to a specific named entry point instead of just its default surface. root (bottom, Login glyph) is that socket. surfaces (top, repeatable) is the single way in to any number of Views, same mechanism as a Declaration's own surfaces relationship -- its icon is View's own, a coincidental create-node match, not an authored glyph. landing-surface (right) rounds it out, same as a Declaration."
+        },
+        "intent": {
+          "kind": "template",
+          "scope": "local"
+        },
+        "declaration": {
+          "kind": "graph",
+          "defaultSurfaceId": "web",
+          "surfaces": []
+        },
+        "glyph": {
+          "kind": "icon",
+          "name": "Visibility"
+        },
+        "name": "Declaration",
+        "purpose": "",
+        "document": {
+          "url": "github://mikemartinez1974/public/templates/port-template/root.node"
+        }
+      }
+    },
+    {
+      "id": "port-template-port",
+      "type": "port",
+      "label": "Port",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "width": 260,
+      "height": 180,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "port-template",
+          "nodeId": "port-template-port"
+        }
+      }
+    },
+    {
+      "id": "port-template-view",
+      "type": "view",
+      "label": "View",
+      "position": {
+        "x": 0,
+        "y": 320
+      },
+      "width": 420,
+      "height": 260,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "identity": {
+          "graphId": "port-template",
+          "nodeId": "port-template-view"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:24px;background:#ffffff;font-family:system-ui;color:#0f172a'><h1 style='margin:0 0 12px;font:800 22px/1.2 system-ui'>Port's own surfaces</h1><p style='margin:0;max-width:60ch;font:400 15px/1.6 system-ui;color:#334155'>A Port offers its own surfaces relationship, the same mechanism a Declaration uses -- a graph wired to this Port enters here, not through the Declaration's surface.</p></div>"
+        }
+      }
+    },
+    {
+      "id": "port-template-content",
+      "type": "content",
+      "label": "Content",
+      "position": {
+        "x": 480,
+        "y": 320
+      },
+      "width": 460,
+      "height": 320,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "port-template",
+          "nodeId": "port-template-content"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a;overflow:auto'><h1 style='margin:0 0 12px;font:800 24px/1.2 system-ui'>Why this Port shows the eye icon</h1><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Inside the graph editor, this Port's root handle always shows the same Login glyph every primitive's root carries -- that is set structurally, in portDeclarations.js, regardless of this node's own data.</p><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>But once this graph is opened as an instance inside a <em>workspace</em> (another graph's canvas, with this one shown as a tile), an exposed Port gets a second, separate icon: the little capability-handle button drawn on the tile's own boundary, the one you can drag from to spin up a Portal into this graph. That icon comes from a different file entirely -- workspaceCapabilities.js reads <code>portNode.data.presentation.glyph || portNode.data.glyph</code>, an authored override most Port nodes never set. When it's unset, WorkspaceLayer.js falls back to a hardcoded <code>{ kind: 'icon', name: 'Visibility' }</code> for every exposed Port -- the eye icon, standing in for \"this is a way to see into / connect through this graph.\" Bridge gets Cable, Portal gets MeetingRoom, by the same fallback; Port gets Visibility.</p><p style='margin:0;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Set <code>data.glyph</code> on this Port node yourself and the workspace tile will show that instead -- the fallback only fires when nothing more specific is authored.</p></div>"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "port-template-decl-port",
+      "type": "reference",
+      "source": "port-template-declaration",
+      "sourceHandle": "port",
+      "target": "port-template-port",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "exposes-port"
+      }
+    },
+    {
+      "id": "port-template-surfaces",
+      "type": "surface",
+      "source": "port-template-port",
+      "sourceHandle": "surfaces",
+      "target": "port-template-view",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "surface",
+        "surfaceId": "web"
+      }
+    },
+    {
+      "id": "port-template-surface-delegate",
+      "type": "reference",
+      "source": "port-template-view",
+      "sourceHandle": "surface-delegate",
+      "target": "port-template-content",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view.content"
+      }
+    },
+    {
+      "id": "port-template-landing-surface",
+      "type": "reference",
+      "source": "port-template-port",
+      "sourceHandle": "landing-surface",
+      "target": "port-template-content",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "landing-surface"
+      }
+    }
+  ],
+  "clusters": [],
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": {
+      "mode": "autoOnMissingPositions",
+      "defaultLayout": "layered",
+      "direction": "DOWN",
+      "edgeLaneGapPx": 10,
+      "serpentine": {
+        "maxPerRow": 6
+      },
+      "cycleFallback": {
+        "enabled": true
+      },
+      "elk": {
+        "algorithm": "fixed",
+        "edgeRouting": "ORTHOGONAL",
+        "portConstraints": "FIXED_SIDE",
+        "nodeSpacing": 120,
+        "layeredEdgeSpacing": 80
+      }
+    },
+    "github": {
+      "repo": "mikemartinez1974/public",
+      "path": "templates/port-template/root.node",
+      "branch": "main",
+      "autoCreateRepo": true,
+      "repoVisibility": "private",
+      "seedOnCommit": false,
+      "enableGithubPages": false,
+      "installationId": "120403738"
+    },
+    "autoSave": false
+  },
+  "scripts": []
+}
