@@ -1,0 +1,252 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "title": "Membrane Template",
+    "description": "Three chained Membrane nodes authoring a real custom boundary -- a quadrilateral, not the default rectangle. The chain must close (declaration.boundary-begin -> membrane -> ...-> membrane.next -> declaration.boundary-end) to resolve at all; an open chain falls back to a plain rectangle, same as having no Membrane nodes.",
+    "graphId": "membrane-template-declaration",
+    "version": "0.1.0",
+    "kind": "template",
+    "created": "2026-10-04T20:18:22.272Z",
+    "modified": "2026-10-04T20:18:22.272Z",
+    "author": "",
+    "tags": [
+      "template",
+      "membrane"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "membrane-template-declaration",
+      "type": "declaration",
+      "label": "Membrane Template",
+      "root": true,
+      "position": {
+        "x": 0,
+        "y": -600
+      },
+      "width": 420,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "membrane-template-declaration",
+          "name": "Membrane Template",
+          "version": "0.1.0",
+          "description": "Three chained Membrane nodes authoring a real custom boundary -- a quadrilateral, not the default rectangle. The chain must close (declaration.boundary-begin -> membrane -> ...-> membrane.next -> declaration.boundary-end) to resolve at all; an open chain falls back to a plain rectangle, same as having no Membrane nodes."
+        },
+        "intent": {
+          "kind": "template",
+          "scope": "local"
+        },
+        "declaration": {
+          "kind": "graph",
+          "defaultSurfaceId": "web",
+          "surfaces": []
+        },
+        "glyph": {
+          "kind": "icon",
+          "name": "Shield"
+        },
+        "name": "Declaration",
+        "purpose": "",
+        "document": {
+          "url": "github://mikemartinez1974/public/templates/membrane-template/root.node"
+        }
+      }
+    },
+    {
+      "id": "membrane-template-content",
+      "type": "content",
+      "label": "Content",
+      "position": {
+        "x": 0,
+        "y": 400
+      },
+      "width": 460,
+      "height": 340,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "membrane-template",
+          "nodeId": "membrane-template-content"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a;overflow:auto'><h1 style='margin:0 0 12px;font:800 24px/1.2 system-ui'>Membrane</h1><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Each Membrane node has exactly two ports: <strong>root</strong> ('boundary in', left, input) receives the chain from whatever precedes it -- the Declaration's boundary-begin relationship for the first one, or the previous Membrane's next for every one after. <strong>next</strong> ('boundary next', right, output) hands off to whatever continues the chain -- another Membrane, or, on the last one, back to the Declaration's boundary-end. A chain that doesn't close at boundary-end isn't a custom boundary at all -- it falls back to the default rectangle, the same as a graph with no Membrane nodes.</p><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'><strong>Known limitation, confirmed by reading the code, not assumed:</strong> once a graph contains any real Membrane node, dragging a workspace tile's resize handle stops working, for every such graph, with no exception for a real, closed chain like this one. <code>resizeGraphMembrane</code> (graphWorkspace.js) does write the new size to <code>declaration.data.membrane.bounds</code> on every drag -- but <code>graphRenderBounds</code> and, separately, <code>resolveAuthoredInterfaceFrame</code> (interfaceFrame.js) each compute <code>hasControls = nodes.some(n => n.type === 'membrane')</code> and, whenever that's true, never read <code>declaration.data.membrane.bounds</code> back -- the frame is instead inferred from the distance and direction between the Declaration node and its landing-surface Content node, scaled by the declaration's aspect ratio. The resize write lands; it's just never consulted again. To actually resize a Membrane-bounded graph's tile, move the Declaration and/or its landing-surface node further apart or closer together in the editor -- dragging the workspace corner handle is a no-op from the very next render on.</p></div>"
+        }
+      }
+    },
+    {
+      "id": "membrane-template-membrane-1",
+      "type": "membrane",
+      "label": "Membrane 1",
+      "position": {
+        "x": 650,
+        "y": -550
+      },
+      "width": 160,
+      "height": 100,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "membrane-template",
+          "nodeId": "membrane-template-membrane-1"
+        }
+      }
+    },
+    {
+      "id": "membrane-template-membrane-2",
+      "type": "membrane",
+      "label": "Membrane 2",
+      "position": {
+        "x": 650,
+        "y": 500
+      },
+      "width": 160,
+      "height": 100,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "membrane-template",
+          "nodeId": "membrane-template-membrane-2"
+        }
+      }
+    },
+    {
+      "id": "membrane-template-membrane-3",
+      "type": "membrane",
+      "label": "Membrane 3",
+      "position": {
+        "x": -650,
+        "y": 150
+      },
+      "width": 160,
+      "height": 100,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "membrane-template",
+          "nodeId": "membrane-template-membrane-3"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "membrane-template-landing-surface",
+      "type": "reference",
+      "source": "membrane-template-declaration",
+      "sourceHandle": "landing-surface",
+      "target": "membrane-template-content",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "landing-surface"
+      }
+    },
+    {
+      "id": "membrane-template-boundary-begin",
+      "type": "membrane",
+      "source": "membrane-template-declaration",
+      "sourceHandle": "boundary-begin",
+      "target": "membrane-template-membrane-1",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "membrane-control",
+        "semanticRole": "membrane-control"
+      }
+    },
+    {
+      "id": "membrane-template-chain-1-2",
+      "type": "membrane",
+      "source": "membrane-template-membrane-1",
+      "sourceHandle": "next",
+      "target": "membrane-template-membrane-2",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "membrane-control",
+        "semanticRole": "membrane-control"
+      }
+    },
+    {
+      "id": "membrane-template-chain-2-3",
+      "type": "membrane",
+      "source": "membrane-template-membrane-2",
+      "sourceHandle": "next",
+      "target": "membrane-template-membrane-3",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "membrane-control",
+        "semanticRole": "membrane-control"
+      }
+    },
+    {
+      "id": "membrane-template-boundary-end",
+      "type": "membrane",
+      "source": "membrane-template-membrane-3",
+      "sourceHandle": "next",
+      "target": "membrane-template-declaration",
+      "targetHandle": "boundary-end",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "membrane-control",
+        "semanticRole": "membrane-control"
+      }
+    }
+  ],
+  "clusters": [],
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": {
+      "mode": "autoOnMissingPositions",
+      "defaultLayout": "layered",
+      "direction": "DOWN",
+      "edgeLaneGapPx": 10,
+      "serpentine": {
+        "maxPerRow": 6
+      },
+      "cycleFallback": {
+        "enabled": true
+      },
+      "elk": {
+        "algorithm": "fixed",
+        "edgeRouting": "ORTHOGONAL",
+        "portConstraints": "FIXED_SIDE",
+        "nodeSpacing": 120,
+        "layeredEdgeSpacing": 80
+      }
+    },
+    "github": {
+      "repo": "mikemartinez1974/public",
+      "path": "templates/membrane-template/root.node",
+      "branch": "main",
+      "autoCreateRepo": true,
+      "repoVisibility": "private",
+      "seedOnCommit": false,
+      "enableGithubPages": false,
+      "installationId": "120403738"
+    },
+    "autoSave": false
+  },
+  "scripts": []
+}
