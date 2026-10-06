@@ -4,10 +4,10 @@
     "title": "Node Template",
     "description": "The minimal reference for how any node wires its own presentation: one Surface, leading detail -> summary -> icon -> glyph, and a Content node the detail View delegates to rather than owning its content directly.",
     "graphId": "node-template-declaration",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "kind": "template",
     "created": "2026-09-30T15:50:52.475Z",
-    "modified": "2026-10-05T22:58:19.512Z",
+    "modified": "2026-10-06T00:30:34.048Z",
     "author": "",
     "tags": [
       "template"
@@ -486,7 +486,7 @@
         },
         "interfaceContract": {
           "version": 1,
-          "surfaceDelegation": true
+          "surfaceDelegation": false
         },
         "identity": {
           "graphId": "node-template",
@@ -494,7 +494,7 @@
         },
         "content": {
           "kind": "html",
-          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a'><h1 style='margin:0 0 12px;font:800 26px/1.2 system-ui'>Detail</h1><p style='margin:0 0 12px;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>This is the background a graph is rendered on -- the passive surface this node presents when it's seen from outside itself: referenced in a workspace, shown collapsed, browsed past rather than opened.</p><p style='margin:0;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>Its role here is the minimal reference for how any node wires its own presentation: one Surface off the Declaration, leading detail, then summary, then icon, ending in a Glyph.</p></div>"
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a'><h1 style='margin:0 0 12px;font:800 26px/1.2 system-ui'>Detail</h1><p style='margin:0 0 12px;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>This is where the graph background goes -- the passive surface this node presents when it's seen from outside itself: referenced in a workspace, shown collapsed, browsed past rather than opened.</p><p style='margin:0;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>It owns this content directly now, rather than delegating it to a separate Content node -- one Surface off the Declaration, leading detail, then summary, then icon, ending in a Glyph.</p></div>"
         },
         "_placement": {
           "version": 1,
@@ -882,66 +882,6 @@
       }
     },
     {
-      "id": "node-template-content",
-      "type": "content",
-      "label": "Foreground Content",
-      "root": false,
-      "position": {
-        "x": 481.78712812024617,
-        "y": 70.98928470008258
-      },
-      "width": 480,
-      "height": 320,
-      "ports": [
-        {
-          "id": "root",
-          "key": "root",
-          "label": "root",
-          "direction": "input",
-          "dataType": "any",
-          "angle": 270,
-          "metadata": {
-            "interface": true,
-            "structural": true
-          }
-        }
-      ],
-      "handles": [
-        {
-          "id": "root",
-          "key": "root",
-          "label": "root",
-          "direction": "input",
-          "dataType": "any",
-          "angle": 270,
-          "metadata": {
-            "interface": true,
-            "structural": true
-          },
-          "portId": "root"
-        }
-      ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "identity": {
-          "graphId": "node-template",
-          "nodeId": "node-template-content"
-        },
-        "content": {
-          "kind": "html",
-          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a'><h1 style='margin:0 0 12px;font:800 26px/1.2 system-ui'>Foreground Content</h1><p style='margin:0 0 12px;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>Content nodes hold the interesting material -- the thing worth reading or editing. This one is what the Detail view delegates to rather than holding its own content directly.</p><p style='margin:0;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>The split matters because the two change for different reasons. This content changes when what the node has to say changes. The view changes when how it should be framed changes -- neither edit should require the other.</p></div>"
-        },
-        "_placement": {
-          "version": 1,
-          "state": "manually-shaped",
-          "source": "manual",
-          "updatedAt": 1790783462391,
-          "reason": "node-drag"
-        }
-      }
-    },
-    {
       "id": "node-template-landing-content",
       "type": "content",
       "label": "Landing Content",
@@ -1025,19 +965,6 @@
       "style": {},
       "data": {
         "role": "view-sequence"
-      }
-    },
-    {
-      "id": "node-template-detail-surface-delegate",
-      "type": "reference",
-      "source": "node-template-detail",
-      "sourceHandle": "surface-delegate",
-      "target": "node-template-content",
-      "targetHandle": "root",
-      "label": "",
-      "style": {},
-      "data": {
-        "role": "view.content"
       }
     },
     {
