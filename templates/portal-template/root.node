@@ -4,10 +4,10 @@
     "title": "Portal Template",
     "description": "A real, resolvable jump to another graph -- not a placeholder. This template's Portal targets templates/port-template/root.node's own Port node, so opening it and following the Portal actually lands you somewhere live.",
     "graphId": "portal-template-declaration",
-    "version": "0.1.0",
+    "version": "0.2.1",
     "kind": "template",
     "created": "2026-10-04T19:38:05.558Z",
-    "modified": "2026-10-04T19:38:05.558Z",
+    "modified": "2026-10-06T17:11:10.814Z",
     "author": "",
     "tags": [
       "template",
@@ -33,7 +33,7 @@
         "identity": {
           "graphId": "portal-template-declaration",
           "name": "Portal Template",
-          "version": "0.1.0",
+          "version": "0.2.1",
           "description": "A real, resolvable jump to another graph -- not a placeholder. This template's Portal targets templates/port-template/root.node's own Port node, so opening it and following the Portal actually lands you somewhere live."
         },
         "intent": {
@@ -84,6 +84,292 @@
           "label": "Port Template"
         }
       }
+    },
+    {
+      "id": "portal-template-detail",
+      "type": "view",
+      "label": "Detail",
+      "root": false,
+      "position": {
+        "x": -1300,
+        "y": -180
+      },
+      "width": 480,
+      "height": 300,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          }
+        },
+        {
+          "id": "sequence-out",
+          "key": "sequence-out",
+          "label": "next view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view-sequence",
+          "allowedEdgeTypes": [
+            "view-sequence"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view-sequence",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "sequence-in"
+              }
+            ]
+          }
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "semanticZoom": {
+          "resolution": 1
+        },
+        "interfaceContract": {
+          "version": 1,
+          "surfaceDelegation": false
+        },
+        "identity": {
+          "graphId": "portal-template",
+          "nodeId": "portal-template-detail"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a'><h1 style='margin:0 0 12px;font:800 26px/1.2 system-ui'>Detail</h1><p style='margin:0 0 12px;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>This is the background a graph is rendered on -- the passive surface this node presents when it's seen from outside itself: referenced in a workspace, shown collapsed, browsed past rather than opened.</p><p style='margin:0;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>It owns this content directly, same as every node's Detail view -- one Surface off the Declaration, leading detail, then icon, ending in a Glyph. What this template actually teaches lives on its landing content, reached by opening the graph itself, not by delegating this background to it.</p></div>"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791306057416,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "portal-template-icon",
+      "type": "view",
+      "label": "Icon",
+      "root": false,
+      "position": {
+        "x": -780,
+        "y": -60
+      },
+      "width": 200,
+      "height": 140,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          }
+        },
+        {
+          "id": "sequence-in",
+          "key": "sequence-in",
+          "label": "previous view",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "role": "view-sequence",
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view-sequence",
+            "required": false
+          }
+        },
+        {
+          "id": "sequence-out",
+          "key": "sequence-out",
+          "label": "next view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view-sequence",
+          "allowedEdgeTypes": [
+            "view-sequence"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view-sequence",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "sequence-in"
+              }
+            ]
+          }
+        }
+      ],
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "semanticZoom": {
+          "resolution": 0.2083333333333333
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true
+        },
+        "identity": {
+          "graphId": "portal-template",
+          "nodeId": "portal-template-icon"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:16px;background:linear-gradient(135deg,#4f46e5,#3730a3);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:system-ui;color:#ffffff'><div style='font:800 20px/1.2 system-ui'>Portal Template</div><div style='margin-top:6px;font:500 12px/1.4 system-ui;opacity:0.85;max-width:90%'>A real jump to another graph</div></div>"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791306057416,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "portal-template-glyph",
+      "type": "glyph",
+      "label": "Glyph",
+      "root": false,
+      "position": {
+        "x": -560,
+        "y": -10
+      },
+      "width": 140,
+      "height": 100,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true,
+            "role": "shared-glyph"
+          }
+        }
+      ],
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "MeetingRoom"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
+        },
+        "identity": {
+          "graphId": "portal-template",
+          "nodeId": "portal-template-glyph"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791306057416,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "portal-template-content",
+      "type": "content",
+      "label": "Content",
+      "root": false,
+      "position": {
+        "x": -1300,
+        "y": -560
+      },
+      "width": 460,
+      "height": 280,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "portal-template",
+          "nodeId": "portal-template-content"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a;overflow:auto'><h1 style='margin:0 0 12px;font:800 24px/1.2 system-ui'>Portal</h1><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>A Portal is a real, resolvable pointer to a specific node and port in another graph -- not a placeholder link, but a live jump. This template's own Portal targets templates/port-template/root.node's Port node directly: open this graph and follow the Portal, and you land somewhere real.</p><p style='margin:0;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>A Portal holds no content of its own to show. What you see when you follow it belongs entirely to the graph on the other end -- the Portal is just the address.</p></div>"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791306057416,
+          "reason": "node-drag"
+        }
+      }
     }
   ],
   "edges": [
@@ -98,6 +384,59 @@
       "style": {},
       "data": {
         "role": "default-handle"
+      }
+    },
+    {
+      "id": "portal-template-surface",
+      "type": "surface",
+      "source": "portal-template-declaration",
+      "sourceHandle": "surfaces",
+      "target": "portal-template-detail",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "surface",
+        "surfaceId": "web"
+      }
+    },
+    {
+      "id": "portal-template-detail-icon",
+      "type": "view-sequence",
+      "source": "portal-template-detail",
+      "sourceHandle": "sequence-out",
+      "target": "portal-template-icon",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
+      "id": "portal-template-icon-glyph",
+      "type": "view-sequence",
+      "source": "portal-template-icon",
+      "sourceHandle": "sequence-out",
+      "target": "portal-template-glyph",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
+      "id": "portal-template-declaration-landing-surface",
+      "type": "reference",
+      "source": "portal-template-declaration",
+      "sourceHandle": "landing-surface",
+      "target": "portal-template-content",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "landing-surface"
       }
     }
   ],

@@ -4,10 +4,10 @@
     "title": "Port Template",
     "description": "The interface socket a Declaration exposes (relationship: port) so another graph can be wired to a specific named entry point instead of just its default surface. root (bottom, Login glyph) is that socket. surfaces (top, repeatable) is the single way in to any number of Views, same mechanism as a Declaration's own surfaces relationship -- its icon is View's own, a coincidental create-node match, not an authored glyph. landing-surface (right) rounds it out, same as a Declaration.",
     "graphId": "port-template-declaration",
-    "version": "0.1.0",
+    "version": "0.2.1",
     "kind": "template",
     "created": "2026-10-04T19:38:05.558Z",
-    "modified": "2026-10-04T19:38:05.558Z",
+    "modified": "2026-10-06T17:11:10.802Z",
     "author": "",
     "tags": [
       "template",
@@ -33,7 +33,7 @@
         "identity": {
           "graphId": "port-template-declaration",
           "name": "Port Template",
-          "version": "0.1.0",
+          "version": "0.2.1",
           "description": "The interface socket a Declaration exposes (relationship: port) so another graph can be wired to a specific named entry point instead of just its default surface. root (bottom, Login glyph) is that socket. surfaces (top, repeatable) is the single way in to any number of Views, same mechanism as a Declaration's own surfaces relationship -- its icon is View's own, a coincidental create-node match, not an authored glyph. landing-surface (right) rounds it out, same as a Declaration."
         },
         "intent": {
@@ -124,6 +124,261 @@
           "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a;overflow:auto'><h1 style='margin:0 0 12px;font:800 24px/1.2 system-ui'>Why this Port shows the eye icon</h1><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Inside the graph editor, this Port's root handle always shows the same Login glyph every primitive's root carries -- that is set structurally, in portDeclarations.js, regardless of this node's own data.</p><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>But once this graph is opened as an instance inside a <em>workspace</em> (another graph's canvas, with this one shown as a tile), an exposed Port gets a second, separate icon: the little capability-handle button drawn on the tile's own boundary, the one you can drag from to spin up a Portal into this graph. That icon comes from a different file entirely -- workspaceCapabilities.js reads <code>portNode.data.presentation.glyph || portNode.data.glyph</code>, an authored override most Port nodes never set. When it's unset, WorkspaceLayer.js falls back to a hardcoded <code>{ kind: 'icon', name: 'Visibility' }</code> for every exposed Port -- the eye icon, standing in for \"this is a way to see into / connect through this graph.\" Bridge gets Cable, Portal gets MeetingRoom, by the same fallback; Port gets Visibility.</p><p style='margin:0;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Set <code>data.glyph</code> on this Port node yourself and the workspace tile will show that instead -- the fallback only fires when nothing more specific is authored.</p></div>"
         }
       }
+    },
+    {
+      "id": "port-template-detail",
+      "type": "view",
+      "label": "Detail",
+      "root": false,
+      "position": {
+        "x": -1300,
+        "y": -180
+      },
+      "width": 480,
+      "height": 300,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          }
+        },
+        {
+          "id": "sequence-out",
+          "key": "sequence-out",
+          "label": "next view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view-sequence",
+          "allowedEdgeTypes": [
+            "view-sequence"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view-sequence",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "sequence-in"
+              }
+            ]
+          }
+        },
+        {
+          "id": "surface-delegate",
+          "key": "surface-delegate",
+          "label": "surface delegate",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view.content",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view.content",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "semanticZoom": {
+          "resolution": 1
+        },
+        "interfaceContract": {
+          "version": 1,
+          "surfaceDelegation": false
+        },
+        "identity": {
+          "graphId": "port-template",
+          "nodeId": "port-template-detail"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a'><h1 style='margin:0 0 12px;font:800 26px/1.2 system-ui'>Detail</h1><p style='margin:0 0 12px;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>This is the background a graph is rendered on -- the passive surface this node presents when it's seen from outside itself: referenced in a workspace, shown collapsed, browsed past rather than opened.</p><p style='margin:0;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155'>It owns this content directly, same as every node's Detail view -- one Surface off the Declaration, leading detail, then icon, ending in a Glyph. What this template actually teaches lives on its landing content, reached by opening the graph itself, not by delegating this background to it.</p></div>"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791306057413,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "port-template-icon",
+      "type": "view",
+      "label": "Icon",
+      "root": false,
+      "position": {
+        "x": -780,
+        "y": -60
+      },
+      "width": 200,
+      "height": 140,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true
+          }
+        },
+        {
+          "id": "sequence-in",
+          "key": "sequence-in",
+          "label": "previous view",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "role": "view-sequence",
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view-sequence",
+            "required": false
+          }
+        },
+        {
+          "id": "sequence-out",
+          "key": "sequence-out",
+          "label": "next view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "view-sequence",
+          "allowedEdgeTypes": [
+            "view-sequence"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "view-sequence",
+            "required": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "sequence-in"
+              }
+            ]
+          }
+        }
+      ],
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "semanticZoom": {
+          "resolution": 0.2083333333333333
+        },
+        "interfaceContract": {
+          "version": 1,
+          "ownsContent": true
+        },
+        "identity": {
+          "graphId": "port-template",
+          "nodeId": "port-template-icon"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:16px;background:linear-gradient(135deg,#d97706,#b45309);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:system-ui;color:#ffffff'><div style='font:800 20px/1.2 system-ui'>Port Template</div><div style='margin-top:6px;font:500 12px/1.4 system-ui;opacity:0.85;max-width:90%'>A named entry point, not just the default surface</div></div>"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791306057413,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "port-template-glyph",
+      "type": "glyph",
+      "label": "Glyph",
+      "root": false,
+      "position": {
+        "x": -560,
+        "y": -10
+      },
+      "width": 140,
+      "height": 100,
+      "visible": true,
+      "showLabel": true,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "metadata": {
+            "interface": true,
+            "structural": true,
+            "role": "shared-glyph"
+          }
+        }
+      ],
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "Visibility"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
+        },
+        "identity": {
+          "graphId": "port-template",
+          "nodeId": "port-template-glyph"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791306057413,
+          "reason": "node-drag"
+        }
+      }
     }
   ],
   "edges": [
@@ -171,6 +426,59 @@
       "id": "port-template-landing-surface",
       "type": "reference",
       "source": "port-template-port",
+      "sourceHandle": "landing-surface",
+      "target": "port-template-content",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "landing-surface"
+      }
+    },
+    {
+      "id": "port-template-surface",
+      "type": "surface",
+      "source": "port-template-declaration",
+      "sourceHandle": "surfaces",
+      "target": "port-template-detail",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "surface",
+        "surfaceId": "web"
+      }
+    },
+    {
+      "id": "port-template-detail-icon",
+      "type": "view-sequence",
+      "source": "port-template-detail",
+      "sourceHandle": "sequence-out",
+      "target": "port-template-icon",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
+      "id": "port-template-icon-glyph",
+      "type": "view-sequence",
+      "source": "port-template-icon",
+      "sourceHandle": "sequence-out",
+      "target": "port-template-glyph",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
+      "id": "port-template-declaration-landing-surface",
+      "type": "reference",
+      "source": "port-template-declaration",
       "sourceHandle": "landing-surface",
       "target": "port-template-content",
       "targetHandle": "root",
