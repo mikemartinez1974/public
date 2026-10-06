@@ -4,7 +4,7 @@
     "title": "Property Template",
     "description": "Reusable graph-native Property class with authored icon, detail, and inline editor.",
     "graphId": "property-template",
-    "version": "0.3.1",
+    "version": "0.4.0",
     "kind": "template",
     "tags": [
       "template",
@@ -12,7 +12,7 @@
       "scripting"
     ],
     "preferredViewer": "https://dev.twilite.zone",
-    "modified": "2026-10-06T19:17:09.365Z"
+    "modified": "2026-10-06T19:26:31.660Z"
   },
   "nodes": [
     {
@@ -29,7 +29,7 @@
         "identity": {
           "graphId": "property-template",
           "name": "Property Template",
-          "version": "0.3.1"
+          "version": "0.4.0"
         },
         "intent": {
           "kind": "template",
@@ -51,7 +51,7 @@
           "kind": "graph",
           "targetMode": "artifact",
           "artifactKind": "graph-template",
-          "defaultSurfaceId": "default-view",
+          "defaultSurfaceId": "web",
           "surfaces": [
             {
               "id": "default-view",
@@ -88,87 +88,7 @@
         "document": {
           "url": "github://mikemartinez1974/public/templates/property-template/root.node"
         }
-      },
-      "ports": [
-        {
-          "id": "default-view",
-          "key": "default-view",
-          "label": "default-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "default-view"
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "label": "summary-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-summary"
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "label": "icon-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-icon"
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-glyph"
-        }
-      ],
-      "handles": [
-        {
-          "id": "default-view",
-          "key": "default-view",
-          "label": "default-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "default-view",
-          "portId": "default-view"
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "label": "summary-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-summary",
-          "portId": "summary-view"
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "label": "icon-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-icon",
-          "portId": "icon-view"
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-glyph",
-          "portId": "glyph"
-        }
-      ]
+      }
     },
     {
       "id": "property-template-view",
@@ -377,18 +297,6 @@
   ],
   "edges": [
     {
-      "id": "property-template-default-view",
-      "type": "default-view",
-      "source": "property-template-declaration",
-      "target": "property-template-view",
-      "sourceHandle": "default-view",
-      "targetHandle": "root",
-      "label": "default view",
-      "data": {
-        "semanticRole": "default-view"
-      }
-    },
-    {
       "id": "property-template-example-class",
       "type": "reference",
       "source": "property-template-class-bridge",
@@ -398,30 +306,6 @@
       "label": "class authority",
       "data": {
         "semanticRole": "class-authority"
-      }
-    },
-    {
-      "id": "property-template-summary-view-edge",
-      "type": "reference",
-      "source": "property-template-declaration",
-      "target": "property-template-summary-view",
-      "sourceHandle": "summary-view",
-      "targetHandle": "root",
-      "label": "summary-view",
-      "data": {
-        "semanticRole": "shared-summary"
-      }
-    },
-    {
-      "id": "property-template-icon-view-edge",
-      "type": "reference",
-      "source": "property-template-declaration",
-      "target": "property-template-icon-view",
-      "sourceHandle": "icon-view",
-      "targetHandle": "root",
-      "label": "icon-view",
-      "data": {
-        "semanticRole": "shared-icon"
       }
     },
     {
@@ -437,18 +321,6 @@
       }
     },
     {
-      "id": "property-template-glyph-edge",
-      "type": "reference",
-      "source": "property-template-declaration",
-      "target": "property-template-glyph",
-      "sourceHandle": "glyph",
-      "targetHandle": "root",
-      "label": "glyph",
-      "data": {
-        "semanticRole": "shared-glyph"
-      }
-    },
-    {
       "id": "property-template-example-changed-trigger",
       "type": "listens",
       "source": "property-template-example",
@@ -458,6 +330,59 @@
       "label": "",
       "style": {},
       "data": {}
+    },
+    {
+      "id": "property-template-surface",
+      "type": "surface",
+      "source": "property-template-declaration",
+      "sourceHandle": "surfaces",
+      "target": "property-template-view",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "surface",
+        "surfaceId": "web"
+      }
+    },
+    {
+      "id": "property-template-detail-summary",
+      "type": "view-sequence",
+      "source": "property-template-view",
+      "sourceHandle": "sequence-out",
+      "target": "property-template-summary-view",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
+      "id": "property-template-summary-icon",
+      "type": "view-sequence",
+      "source": "property-template-summary-view",
+      "sourceHandle": "sequence-out",
+      "target": "property-template-icon-view",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
+      "id": "property-template-icon-glyph",
+      "type": "view-sequence",
+      "source": "property-template-icon-view",
+      "sourceHandle": "sequence-out",
+      "target": "property-template-glyph",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
     }
   ],
   "clusters": [],
