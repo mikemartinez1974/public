@@ -1,15 +1,16 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Property Node Class",
-    "description": "Named, inspectable graph state with explicit resolution and inline editing.",
-    "graphId": "twilite-property-class",
+    "title": "Property",
+    "description": "A named graph-native property with declared type, optional values, provenance, and editor surfaces.",
+    "graphId": "twilite-property-declaration",
     "version": "0.2.0",
     "kind": "node-class",
+    "created": "2026-10-07T20:58:31.590Z",
+    "modified": "2026-10-07T20:59:52.133Z",
+    "author": "",
     "tags": [
-      "node-class",
-      "property",
-      "scripting"
+      "node-class"
     ],
     "preferredViewer": "https://dev.twilite.zone"
   },
@@ -18,9 +19,10 @@
       "id": "twilite-property-declaration",
       "type": "declaration",
       "label": "Property Class",
+      "root": false,
       "position": {
-        "x": 0,
-        "y": -420
+        "x": -22.026792685542382,
+        "y": -481.18553523761767
       },
       "width": 420,
       "height": 260,
@@ -61,6 +63,114 @@
             "role": "landing-surface",
             "required": true,
             "repeatable": false
+          }
+        },
+        {
+          "id": "default-handle",
+          "key": "default-handle",
+          "label": "default handle",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "default-handle",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-handle",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "graphReference",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "boundary-begin",
+          "key": "boundary-begin",
+          "label": "boundary begin",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 300,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "boundary-end",
+          "key": "boundary-end",
+          "label": "boundary end",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 135,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 225,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
           }
         }
       ],
@@ -104,13 +214,125 @@
             "repeatable": false
           },
           "portId": "landing-surface"
+        },
+        {
+          "id": "default-handle",
+          "key": "default-handle",
+          "label": "default handle",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "default-handle",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-handle",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "graphReference",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "default-handle"
+        },
+        {
+          "id": "boundary-begin",
+          "key": "boundary-begin",
+          "label": "boundary begin",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 300,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "boundary-begin"
+        },
+        {
+          "id": "boundary-end",
+          "key": "boundary-end",
+          "label": "boundary end",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 135,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "boundary-end"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 225,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "port"
         }
       ],
       "visible": true,
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "twilite-property-class",
+          "graphId": "twilite-property-declaration",
           "nodeId": "twilite-property",
           "name": "Property",
           "version": "0.2.0",
@@ -213,16 +435,56 @@
             }
           }
         },
-        "primaryNodeViewId": "twilite-property-detail-view"
+        "primaryNodeViewId": "twilite-property-detail-view",
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791406769800,
+          "reason": "node-drag"
+        },
+        "settings": {
+          "theme": null,
+          "backgroundImage": null,
+          "defaultNodeColor": "#1976d2",
+          "defaultEdgeColor": "",
+          "snapToGrid": false,
+          "gridSize": 20,
+          "edgeRouting": "auto",
+          "layout": {
+            "mode": "autoOnMissingPositions",
+            "defaultLayout": "layered",
+            "direction": "DOWN",
+            "edgeLaneGapPx": 10,
+            "serpentine": {
+              "maxPerRow": 6
+            },
+            "cycleFallback": {
+              "enabled": true
+            },
+            "elk": {
+              "algorithm": "fixed",
+              "edgeRouting": "ORTHOGONAL",
+              "portConstraints": "FIXED_SIDE",
+              "nodeSpacing": 120,
+              "layeredEdgeSpacing": 80
+            }
+          },
+          "autoSave": false
+        },
+        "document": {
+          "url": "github://mikemartinez1974/public/templates/property-template/property.node-class.node"
+        }
       }
     },
     {
       "id": "twilite-property-icon-view",
       "type": "view",
       "label": "Property Icon",
+      "root": false,
       "position": {
-        "x": 1240,
-        "y": 0
+        "x": 1227.7628929524765,
+        "y": 274.1111978645273
       },
       "width": 260,
       "height": 220,
@@ -345,6 +607,13 @@
         "content": {
           "kind": "svg",
           "value": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 210\" role=\"img\" aria-label=\"Property\"><rect width=\"300\" height=\"210\" rx=\"28\" fill=\"#155e75\"/><rect x=\"15\" y=\"15\" width=\"270\" height=\"180\" rx=\"20\" fill=\"white\" fill-opacity=\".08\" stroke=\"white\" stroke-opacity=\".24\"/><text x=\"27\" y=\"50\" fill=\"#a5f3fc\" font-family=\"system-ui,sans-serif\" font-size=\"13\" font-weight=\"800\" letter-spacing=\"2\">PROPERTY</text><text x=\"27\" y=\"117\" fill=\"white\" font-family=\"system-ui,sans-serif\" font-size=\"26\" font-weight=\"800\">{{data.name || label}}</text><path d=\"M27 148h246\" stroke=\"white\" stroke-opacity=\".42\" stroke-width=\"2\"/></svg>"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791406763115,
+          "reason": "node-drag"
         }
       }
     },
@@ -352,9 +621,10 @@
       "id": "twilite-property-detail-view",
       "type": "view",
       "label": "Property Detail",
+      "root": false,
       "position": {
-        "x": 0,
-        "y": 0
+        "x": 7.342264228514127,
+        "y": 134.60817752275904
       },
       "width": 560,
       "height": 340,
@@ -446,6 +716,13 @@
         "content": {
           "kind": "svg",
           "value": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 520 300\" role=\"img\" aria-label=\"Property detail\"><rect width=\"520\" height=\"300\" rx=\"24\" fill=\"#0f172a\"/><rect x=\"12\" y=\"12\" width=\"496\" height=\"276\" rx=\"18\" fill=\"#16263a\" stroke=\"#38bdf8\" stroke-opacity=\".6\"/><text x=\"30\" y=\"49\" fill=\"#7dd3fc\" font-family=\"system-ui,sans-serif\" font-size=\"12\" font-weight=\"800\" letter-spacing=\"2\">PROPERTY</text><text x=\"30\" y=\"91\" fill=\"white\" font-family=\"system-ui,sans-serif\" font-size=\"29\" font-weight=\"800\">{{data.name || label}}</text><text x=\"30\" y=\"135\" fill=\"#cbd5e1\" font-family=\"system-ui,sans-serif\" font-size=\"14\">Effective value</text><text x=\"30\" y=\"179\" fill=\"white\" font-family=\"ui-monospace,monospace\" font-size=\"22\" font-weight=\"700\">{{property.display}}</text><text x=\"30\" y=\"218\" fill=\"#7dd3fc\" font-family=\"system-ui,sans-serif\" font-size=\"13\">Source: {{property.sourceLabel}}</text><text x=\"30\" y=\"256\" fill=\"#94a3b8\" font-family=\"system-ui,sans-serif\" font-size=\"12\">{{data.valueType || \"text\"}} · {{data.valueKind || \"stored\"}}</text></svg>"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791406758892,
+          "reason": "node-drag"
         }
       }
     },
@@ -453,9 +730,10 @@
       "id": "twilite-property-editor-view",
       "type": "view",
       "label": "Property Editor",
+      "root": false,
       "position": {
-        "x": 620,
-        "y": 460
+        "x": 1177.875046436245,
+        "y": -364.9498924949976
       },
       "width": 520,
       "height": 360,
@@ -513,32 +791,26 @@
             },
             "fields": []
           }
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791406783549,
+          "reason": "node-drag"
         }
       }
     },
     {
       "id": "twilite-property-glyph",
       "type": "glyph",
+      "root": false,
       "position": {
-        "x": 1740,
-        "y": 80
+        "x": 1524.6269159635858,
+        "y": 317.3998767219565
       },
       "width": 200,
       "height": 140,
-      "data": {
-        "glyph": {
-          "kind": "icon",
-          "name": "Tune"
-        },
-        "interfaceContract": {
-          "version": 1,
-          "receivesGlyphDefinition": true
-        },
-        "identity": {
-          "graphId": "twilite-property-class",
-          "nodeId": "twilite-property-glyph"
-        }
-      },
       "ports": [
         {
           "id": "root",
@@ -573,15 +845,39 @@
           },
           "portId": "root"
         }
-      ]
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": {
+          "kind": "icon",
+          "name": "Tune"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
+        },
+        "identity": {
+          "graphId": "twilite-property-class",
+          "nodeId": "twilite-property-glyph"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791406765658,
+          "reason": "node-drag"
+        }
+      }
     },
     {
       "id": "twilite-property-summary-view",
       "type": "view",
       "label": "Property Summary",
+      "root": false,
       "position": {
-        "x": 620,
-        "y": 0
+        "x": 671.3958495995989,
+        "y": 188.4514485318625
       },
       "width": 520,
       "height": 300,
@@ -704,6 +1000,13 @@
         "content": {
           "kind": "svg",
           "value": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 460 240\" role=\"img\" aria-label=\"Property summary\"><rect width=\"460\" height=\"240\" rx=\"24\" fill=\"#164e63\"/><rect x=\"12\" y=\"12\" width=\"436\" height=\"216\" rx=\"18\" fill=\"white\" fill-opacity=\".08\" stroke=\"white\" stroke-opacity=\".26\"/><text x=\"30\" y=\"52\" fill=\"#a5f3fc\" font-family=\"system-ui,sans-serif\" font-size=\"13\" font-weight=\"800\" letter-spacing=\"2\">PROPERTY</text><text x=\"30\" y=\"101\" fill=\"white\" font-family=\"system-ui,sans-serif\" font-size=\"28\" font-weight=\"800\">{{data.name || label}}</text><text x=\"30\" y=\"151\" fill=\"#f8fafc\" font-family=\"ui-monospace,monospace\" font-size=\"22\" font-weight=\"700\">{{property.display}}</text><text x=\"30\" y=\"195\" fill=\"#bae6fd\" font-family=\"system-ui,sans-serif\" font-size=\"14\">{{data.valueType || \"text\"}} · {{data.valueKind || \"stored\"}}</text></svg>"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791406760611,
+          "reason": "node-drag"
         }
       }
     },
@@ -711,9 +1014,10 @@
       "id": "twilite-property-landing-content",
       "type": "content",
       "label": "Property Class Overview",
+      "root": false,
       "position": {
-        "x": 0,
-        "y": -820
+        "x": 487.3238288100717,
+        "y": -347.3009355865571
       },
       "width": 560,
       "height": 300,
@@ -727,6 +1031,13 @@
         "content": {
           "kind": "markdown",
           "value": "# Property\n\nA named graph-native state contract. Each Property declares its name, value type, access policy, and stored or derived value. Its effective value is rendered with provenance, while the editor view supports inline changes."
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791406784966,
+          "reason": "node-drag"
         }
       }
     }
@@ -739,6 +1050,8 @@
       "target": "twilite-property-detail-view",
       "sourceHandle": "surfaces",
       "targetHandle": "root",
+      "label": "",
+      "style": {},
       "data": {
         "role": "surface",
         "surfaceId": "root"
@@ -751,6 +1064,8 @@
       "target": "twilite-property-summary-view",
       "sourceHandle": "sequence-out",
       "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
       "data": {
         "role": "view-sequence"
       }
@@ -762,6 +1077,8 @@
       "target": "twilite-property-icon-view",
       "sourceHandle": "sequence-out",
       "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
       "data": {
         "role": "view-sequence"
       }
@@ -773,6 +1090,8 @@
       "target": "twilite-property-glyph",
       "sourceHandle": "sequence-out",
       "targetHandle": "root",
+      "label": "",
+      "style": {},
       "data": {
         "role": "view-sequence"
       }
@@ -784,6 +1103,8 @@
       "target": "twilite-property-landing-content",
       "sourceHandle": "landing-surface",
       "targetHandle": "root",
+      "label": "",
+      "style": {},
       "data": {
         "role": "landing-surface",
         "semanticRole": "landing-surface"
@@ -792,6 +1113,42 @@
   ],
   "clusters": [],
   "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": {
+      "mode": "autoOnMissingPositions",
+      "defaultLayout": "layered",
+      "direction": "DOWN",
+      "edgeLaneGapPx": 10,
+      "serpentine": {
+        "maxPerRow": 6
+      },
+      "cycleFallback": {
+        "enabled": true
+      },
+      "elk": {
+        "algorithm": "fixed",
+        "edgeRouting": "ORTHOGONAL",
+        "portConstraints": "FIXED_SIDE",
+        "nodeSpacing": 120,
+        "layeredEdgeSpacing": 80
+      }
+    },
+    "github": {
+      "repo": "mikemartinez1974/public",
+      "path": "templates/property-template/property.node-class.node",
+      "branch": "main",
+      "autoCreateRepo": true,
+      "repoVisibility": "private",
+      "seedOnCommit": false,
+      "enableGithubPages": false,
+      "installationId": "120403738"
+    },
     "autoSave": false
   },
   "scripts": []
