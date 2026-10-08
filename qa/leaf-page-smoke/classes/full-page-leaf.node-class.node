@@ -1,24 +1,25 @@
 {
-  "fileVersion": "1.0",
   "metadata": {
-    "title": "Page Settings Node Class",
-    "description": "A titled list of settings: labels and their values.",
-    "version": "0.5.0",
+    "title": "Full Page Leaf Node Class",
+    "description": "A single node with its full view chain (Detail, Summary, Icon, Glyph) and no Landing Surface -- nothing else in the file.",
+    "version": "0.1.0",
     "kind": "node-class",
     "preferredViewer": "https://dev.twilite.zone",
-    "modified": "2026-10-08T21:47:02.567Z"
+    "created": "2026-10-08T22:32:39.979Z",
+    "modified": "2026-10-08T22:32:39.979Z"
   },
   "nodes": [
     {
-      "id": "page-settings-declaration",
+      "id": "full-page-leaf-declaration",
       "type": "declaration",
-      "label": "Page Settings Class",
+      "label": "Full Page Leaf Class",
+      "root": false,
       "position": {
         "x": -760,
         "y": -420
       },
       "width": 520,
-      "height": 390,
+      "height": 360,
       "ports": [
         {
           "id": "default-view",
@@ -55,15 +56,6 @@
           "dataType": "any",
           "angle": 180,
           "role": "shared-glyph"
-        },
-        {
-          "id": "editor-view",
-          "key": "editor-view",
-          "label": "editor-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "editor"
         }
       ],
       "handles": [
@@ -106,24 +98,14 @@
           "angle": 180,
           "role": "shared-glyph",
           "portId": "glyph"
-        },
-        {
-          "id": "editor-view",
-          "key": "editor-view",
-          "label": "editor-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "editor",
-          "portId": "editor-view"
         }
       ],
       "data": {
         "identity": {
-          "graphId": "page-settings-class",
-          "nodeId": "page-settings",
-          "name": "Page Settings",
-          "version": "0.5.0"
+          "graphId": "full-page-leaf-class",
+          "nodeId": "full-page-leaf",
+          "name": "Full Page Leaf",
+          "version": "0.1.0"
         },
         "intent": {
           "kind": "node-class",
@@ -172,58 +154,55 @@
               "id": "detail",
               "kind": "view",
               "payload": "node.web.detail",
-              "portNodeId": "page-settings-detail-view",
-              "viewNodeId": "page-settings-detail-view"
+              "portNodeId": "full-page-leaf-detail-view",
+              "viewNodeId": "full-page-leaf-detail-view"
             },
             {
               "id": "summary",
               "kind": "view",
               "payload": "node.web.summary",
-              "portNodeId": "page-settings-summary-view",
-              "viewNodeId": "page-settings-summary-view"
+              "portNodeId": "full-page-leaf-summary-view",
+              "viewNodeId": "full-page-leaf-summary-view"
             },
             {
               "id": "icon",
               "kind": "view",
               "payload": "node.web.icon",
-              "portNodeId": "page-settings-icon-view",
-              "viewNodeId": "page-settings-icon-view"
+              "portNodeId": "full-page-leaf-icon-view",
+              "viewNodeId": "full-page-leaf-icon-view"
             }
           ]
         },
         "nodeClass": {
           "contractVersion": "1.0.0",
-          "key": "page-settings",
-          "label": "Page Settings",
-          "meaning": "A titled list of settings: labels and their values.",
+          "key": "full-page-leaf",
+          "label": "Full Page Leaf",
+          "meaning": "A single node whose Detail view is a complete page. No Landing Surface -- there is nothing beneath it to navigate into.",
           "requiredDataKeys": [
             "title",
-            "rows"
+            "body"
           ],
           "nodeDef": {
-            "key": "page-settings",
-            "ref": "github://mikemartinez1974/public/templates/page-template/classes/page-settings.node-class.node",
+            "key": "full-page-leaf",
+            "ref": "github://mikemartinez1974/public/qa/leaf-page-smoke/classes/full-page-leaf.node-class.node",
             "source": "local",
             "version": ">=0.1.0",
             "defaults": {
-              "label": "Page Settings",
+              "label": "Full Page Leaf",
               "size": {
-                "width": 520,
-                "height": 320
+                "width": 640,
+                "height": 520
               },
               "showLabel": false,
               "data": {
-                "title": "Settings",
-                "rows": [
-                  {
-                    "label": "Setting",
-                    "value": "Value"
-                  }
-                ],
+                "title": "Welcome to Leaf Co",
+                "subtitle": "A page with nowhere else to go.",
+                "sectionHeading": "Why this page is a single node",
+                "body": "This node has a Detail, Summary, Icon and Glyph -- the full view chain -- and nothing else. No Landing Surface, no child content, no sub-graph to open.\n\nFocusing it in browse mode has nothing to navigate into, so it just zooms the camera onto this Detail view in place. At full zoom it reads as a page, not a doorway into another graph.",
                 "presentation": {
                   "glyph": {
                     "kind": "icon",
-                    "name": "Settings"
+                    "name": "FileText"
                   }
                 }
               },
@@ -241,84 +220,23 @@
                   }
                 }
               ],
-              "events": [
-                {
-                  "eventKey": "node.changed",
-                  "label": "Page Settings changed",
-                  "payloadContract": {
-                    "type": "object"
-                  }
-                }
-              ]
+              "events": []
             }
           }
         }
       }
     },
     {
-      "id": "page-settings-glyph",
-      "type": "glyph",
-      "label": "Glyph",
-      "position": {
-        "x": 750,
-        "y": -80
-      },
-      "width": 90,
-      "height": 90,
-      "ports": [
-        {
-          "id": "root",
-          "key": "root",
-          "label": "root",
-          "direction": "input",
-          "dataType": "any",
-          "angle": 270,
-          "position": {
-            "side": "top",
-            "offset": 0.5
-          }
-        }
-      ],
-      "handles": [
-        {
-          "id": "root",
-          "key": "root",
-          "label": "root",
-          "direction": "input",
-          "dataType": "any",
-          "angle": 270,
-          "position": {
-            "side": "top",
-            "offset": 0.5
-          },
-          "portId": "root"
-        }
-      ],
-      "data": {
-        "identity": {
-          "graphId": "page-settings-class",
-          "portId": "glyph"
-        },
-        "glyph": {
-          "kind": "icon",
-          "name": "Settings"
-        },
-        "view": {
-          "payload": "node.web.glyph"
-        }
-      }
-    },
-    {
-      "id": "page-settings-detail-view",
+      "id": "full-page-leaf-detail-view",
       "type": "view",
       "label": "Detail",
       "root": false,
       "position": {
         "x": 0,
-        "y": -420
+        "y": -480
       },
-      "width": 460,
-      "height": 280,
+      "width": 640,
+      "height": 520,
       "visible": true,
       "showLabel": true,
       "data": {
@@ -327,33 +245,33 @@
           "payload": "node.web.detail"
         },
         "identity": {
-          "graphId": "page-settings-class",
-          "nodeId": "page-settings-detail-view"
+          "graphId": "full-page-leaf-class",
+          "nodeId": "full-page-leaf-detail-view"
         },
         "content": {
           "kind": "html",
-          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;border-radius:16px;border:1px solid #e2e8f0;font-family:system-ui;color:#0f172a;overflow:auto'><div style='font:800 12px system-ui;letter-spacing:2px;color:#7c3aed;text-transform:uppercase;margin-bottom:10px'>Page Settings</div><p style='margin:0 0 12px;max-width:52ch;font:400 15px/1.7 system-ui;color:#334155'>A small table of facts about the page itself, rendered as a labeled list. Each <strong>row</strong> is a label and a value.</p><p style='margin:0;max-width:52ch;font:400 15px/1.7 system-ui;color:#334155'>A page has at most one settings piece, and it renders last.</p></div>"
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;background:#ffffff;font-family:system-ui;display:flex;flex-direction:column;overflow:auto'><nav style='display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:1px solid #e2e8f0'><div style='font:800 13px system-ui;letter-spacing:.14em;color:#0f172a;text-transform:uppercase'>Leaf Co</div><div style='display:flex;gap:20px;font:600 13px system-ui;color:#475569'><span>Product</span><span>Docs</span><span>Contact</span></div></nav><div style='padding:36px 28px 24px'><div style='font:800 12px system-ui;letter-spacing:.18em;color:#7c3aed;text-transform:uppercase;margin-bottom:14px'>WHOLE PAGE, ONE NODE</div><h1 style='margin:0 0 12px;font:850 34px/1.15 system-ui;color:#0f172a'>{{data.title || label || \"Untitled page\"}}</h1><p style='margin:0;max-width:60ch;font:400 17px/1.5 system-ui;color:#475569'>{{data.subtitle}}</p></div><div style='padding:0 28px 28px'><h2 style='margin:0 0 12px;font:800 20px/1.2 system-ui;color:#0f172a'>{{data.sectionHeading || \"About this page\"}}</h2><p style='margin:0;max-width:60ch;white-space:pre-wrap;font:400 16px/1.6 system-ui;color:#334155'>{{data.body}}</p></div><div style='flex:1 1 auto'></div><footer style='padding:16px 28px;border-top:1px solid #e2e8f0;font:400 12px system-ui;color:#94a3b8'>One node. No Landing Surface. Nothing beneath this.</footer></div>"
         },
         "_placement": {
           "version": 1,
           "state": "manually-shaped",
           "source": "manual",
-          "updatedAt": 1791496022567,
+          "updatedAt": 1791498759979,
           "reason": "node-drag"
         }
       }
     },
     {
-      "id": "page-settings-summary-view",
+      "id": "full-page-leaf-summary-view",
       "type": "view",
       "label": "Summary",
       "root": false,
       "position": {
         "x": 0,
-        "y": -80
+        "y": 120
       },
       "width": 360,
-      "height": 210,
+      "height": 220,
       "visible": true,
       "showLabel": true,
       "data": {
@@ -362,30 +280,30 @@
           "payload": "node.web.summary"
         },
         "identity": {
-          "graphId": "page-settings-class",
-          "nodeId": "page-settings-summary-view"
+          "graphId": "full-page-leaf-class",
+          "nodeId": "full-page-leaf-summary-view"
         },
         "content": {
           "kind": "html",
-          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:20px;background:#ffffff;border-radius:16px;border:1px solid #e2e8f0;overflow:auto'><h2 style='margin:0 0 10px;font:800 20px/1.2 system-ui;color:#0f172a'>{{data.title || label || \"Settings\"}}</h2><div style='font:600 13px/1.6 system-ui;color:#64748b'>{{data.rows.length}} {{eq(data.rows.length, \"1\", \"setting\", \"settings\")}}</div></div>"
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:22px;background:#ffffff;border-radius:16px;border:1px solid #e2e8f0;overflow:auto'><div style='font:800 11px system-ui;letter-spacing:.14em;color:#7c3aed;text-transform:uppercase;margin-bottom:10px'>Leaf Co</div><div style='font:850 22px/1.2 system-ui;color:#0f172a;margin-bottom:8px'>{{data.title || label || \"Untitled page\"}}</div><div style='font:400 14px/1.5 system-ui;color:#475569'>{{data.subtitle}}</div></div>"
         },
         "_placement": {
           "version": 1,
           "state": "manually-shaped",
           "source": "manual",
-          "updatedAt": 1791496022567,
+          "updatedAt": 1791498759979,
           "reason": "node-drag"
         }
       }
     },
     {
-      "id": "page-settings-icon-view",
+      "id": "full-page-leaf-icon-view",
       "type": "view",
       "label": "Icon",
       "root": false,
       "position": {
-        "x": 500,
-        "y": -80
+        "x": 460,
+        "y": 120
       },
       "width": 220,
       "height": 160,
@@ -397,76 +315,76 @@
           "payload": "node.web.icon"
         },
         "identity": {
-          "graphId": "page-settings-class",
-          "nodeId": "page-settings-icon-view"
+          "graphId": "full-page-leaf-class",
+          "nodeId": "full-page-leaf-icon-view"
         },
         "content": {
           "kind": "html",
-          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:16px;background:linear-gradient(135deg,#7c3aed,#5b21b6);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-family:system-ui;color:#ffffff'><svg width='34' height='34' viewBox='0 0 24 24' fill='none' stroke='#ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='3'/><path d='M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1'/></svg><div style='font:800 13px system-ui;letter-spacing:1.5px;text-transform:uppercase;color:#ffffff'>Page Settings</div></div>"
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:16px;background:linear-gradient(135deg,#7c3aed,#5b21b6);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-family:system-ui;color:#ffffff'><svg width='30' height='30' viewBox='0 0 24 24' fill='none' stroke='#ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='16' rx='2'/><path d='M3 9h18'/><path d='M7 4v5'/></svg><div style='font:800 12px system-ui;letter-spacing:1.5px;text-transform:uppercase;color:#ffffff'>Full Page Leaf</div></div>"
         },
         "_placement": {
           "version": 1,
           "state": "manually-shaped",
           "source": "manual",
-          "updatedAt": 1791496022567,
+          "updatedAt": 1791498759979,
           "reason": "node-drag"
         }
       }
     },
     {
-      "id": "page-settings-editor-view",
-      "type": "view",
-      "label": "Editor",
+      "id": "full-page-leaf-glyph",
+      "type": "glyph",
+      "label": "Full Page Leaf Glyph",
       "root": false,
       "position": {
         "x": 0,
-        "y": 240
+        "y": 400
       },
-      "width": 440,
-      "height": 360,
+      "width": 180,
+      "height": 120,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
       "visible": true,
       "showLabel": true,
       "data": {
-        "view": {
-          "intent": "editor",
-          "payload": "editor.web"
+        "glyph": {
+          "kind": "icon",
+          "name": "FileText"
+        },
+        "interfaceContract": {
+          "version": 1,
+          "receivesGlyphDefinition": true
         },
         "identity": {
-          "graphId": "page-settings-class",
-          "nodeId": "page-settings-editor-view"
-        },
-        "editor": {
-          "web": {
-            "host": {
-              "kind": "content-editor"
-            },
-            "fields": [
-              {
-                "key": "title",
-                "label": "Title",
-                "type": "text",
-                "path": "data.title",
-                "variant": "heading",
-                "placeholder": "Settings"
-              }
-            ]
-          }
-        },
-        "_placement": {
-          "version": 1,
-          "state": "manually-shaped",
-          "source": "manual",
-          "updatedAt": 1791496022567,
-          "reason": "node-drag"
+          "graphId": "full-page-leaf-class"
         }
       }
     }
   ],
   "edges": [
     {
-      "id": "page-settings-surface",
-      "source": "page-settings-declaration",
-      "target": "page-settings-detail-view",
+      "id": "full-page-leaf-surface",
+      "source": "full-page-leaf-declaration",
+      "target": "full-page-leaf-detail-view",
       "sourceHandle": "surfaces",
       "sourcePort": "surfaces",
       "targetHandle": "root",
@@ -480,9 +398,9 @@
       }
     },
     {
-      "id": "page-settings-detail-summary",
-      "source": "page-settings-detail-view",
-      "target": "page-settings-summary-view",
+      "id": "full-page-leaf-detail-summary",
+      "source": "full-page-leaf-detail-view",
+      "target": "full-page-leaf-summary-view",
       "sourceHandle": "sequence-out",
       "sourcePort": "sequence-out",
       "targetHandle": "sequence-in",
@@ -495,9 +413,9 @@
       }
     },
     {
-      "id": "page-settings-summary-icon",
-      "source": "page-settings-summary-view",
-      "target": "page-settings-icon-view",
+      "id": "full-page-leaf-summary-icon",
+      "source": "full-page-leaf-summary-view",
+      "target": "full-page-leaf-icon-view",
       "sourceHandle": "sequence-out",
       "sourcePort": "sequence-out",
       "targetHandle": "sequence-in",
@@ -510,9 +428,9 @@
       }
     },
     {
-      "id": "page-settings-icon-glyph",
-      "source": "page-settings-icon-view",
-      "target": "page-settings-glyph",
+      "id": "full-page-leaf-icon-glyph",
+      "source": "full-page-leaf-icon-view",
+      "target": "full-page-leaf-glyph",
       "sourceHandle": "sequence-out",
       "sourcePort": "sequence-out",
       "targetHandle": "root",
@@ -524,14 +442,5 @@
         "role": "view-sequence"
       }
     }
-  ],
-  "settings": {
-    "layout": {
-      "mode": "manual",
-      "direction": "RIGHT"
-    },
-    "snapToGrid": false,
-    "gridSize": 20,
-    "edgeRouting": "auto"
-  }
+  ]
 }
