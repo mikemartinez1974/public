@@ -3,10 +3,10 @@
   "metadata": {
     "title": "Page Section Node Class",
     "description": "A titled block of content.",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "kind": "node-class",
     "preferredViewer": "https://dev.twilite.zone",
-    "modified": "2026-10-08T17:43:34.573Z"
+    "modified": "2026-10-08T18:29:08.959Z"
   },
   "nodes": [
     {
@@ -123,7 +123,7 @@
           "graphId": "page-section-class",
           "nodeId": "page-section",
           "name": "Page Section",
-          "version": "0.5.0"
+          "version": "0.6.0"
         },
         "intent": {
           "kind": "node-class",
@@ -195,13 +195,6 @@
               "kind": "glyph",
               "payload": "node.web.glyph",
               "viewNodeId": "page-section-glyph"
-            },
-            {
-              "id": "editor",
-              "kind": "port",
-              "payload": "editor.web",
-              "portNodeId": "page-section-editor",
-              "viewNodeId": "page-section-editor"
             }
           ]
         },
@@ -318,61 +311,6 @@
       }
     },
     {
-      "id": "page-section-editor",
-      "type": "port",
-      "label": "Editor",
-      "position": {
-        "x": 0,
-        "y": 240
-      },
-      "width": 440,
-      "height": 360,
-      "ports": [
-        {
-          "id": "root",
-          "key": "root",
-          "label": "root",
-          "direction": "input",
-          "dataType": "any",
-          "angle": 270,
-          "position": {
-            "side": "top",
-            "offset": 0.5
-          }
-        }
-      ],
-      "handles": [
-        {
-          "id": "root",
-          "key": "root",
-          "label": "root",
-          "direction": "input",
-          "dataType": "any",
-          "angle": 270,
-          "position": {
-            "side": "top",
-            "offset": 0.5
-          },
-          "portId": "root"
-        }
-      ],
-      "data": {
-        "identity": {
-          "graphId": "page-section-class",
-          "portId": "editor"
-        },
-        "view": {
-          "intent": "editor",
-          "payload": "editor.web"
-        },
-        "editor": {
-          "web": {
-            "fields": []
-          }
-        }
-      }
-    },
-    {
       "id": "page-section-detail-view",
       "type": "view",
       "label": "Detail",
@@ -404,6 +342,38 @@
           "source": "manual",
           "updatedAt": 1791481414573,
           "reason": "node-drag"
+        },
+        "editor": {
+          "web": {
+            "fields": [
+              {
+                "key": "title",
+                "label": "Title",
+                "type": "text",
+                "path": "data.title",
+                "section": "content",
+                "placeholder": "Section title"
+              },
+              {
+                "key": "body",
+                "label": "Body",
+                "type": "textarea",
+                "path": "data.body",
+                "section": "content",
+                "multiline": true,
+                "rows": 8,
+                "placeholder": "What this section says."
+              }
+            ],
+            "layout": {
+              "sections": [
+                {
+                  "key": "content",
+                  "label": "Content"
+                }
+              ]
+            }
+          }
         }
       }
     },
@@ -431,7 +401,7 @@
         },
         "content": {
           "kind": "html",
-          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:20px;background:#78350f;border-radius:16px;font-family:system-ui;color:#fff;display:flex;flex-direction:column;gap:10px;overflow:hidden'><div style='font:800 12px system-ui;letter-spacing:2px;color:#fde68a;text-transform:uppercase'>Section</div><div style='font:800 24px/1.25 system-ui'>{{data.title || label || \"Section\"}}</div><div style='font:400 14px/1.6 system-ui;color:#fef3c7;overflow:hidden;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical'>{{data.body}}</div></div>"
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:20px;background:#ffffff;border-radius:16px;border:1px solid #e2e8f0;overflow:auto'><section style='padding:0'><h2 style='margin:0 0 12px;font:800 20px/1.2 system-ui;color:#0f172a'>{{data.title || label || \"Section\"}}</h2><p style='margin:0;max-width:60ch;font:400 16px/1.6 system-ui;color:#334155;white-space:pre-wrap'>{{data.body}}</p></section></div>"
         },
         "_placement": {
           "version": 1,
@@ -466,7 +436,7 @@
         },
         "content": {
           "kind": "html",
-          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:16px;background:linear-gradient(135deg,#92400e,#78350f);border-radius:16px;display:flex;flex-direction:column;justify-content:center;gap:6px;font-family:system-ui;color:#fff;overflow:hidden'><div style='font:800 11px system-ui;letter-spacing:2px;color:#fde68a;text-transform:uppercase'>Section</div><div style='font:800 20px/1.25 system-ui;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>{{data.title || label || \"Section\"}}</div></div>"
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:16px;background:linear-gradient(135deg,#92400e,#78350f);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-family:system-ui;color:#fff'><svg width='34' height='34' viewBox='0 0 24 24' fill='none' stroke='#fde68a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 4h16v16H4z' opacity='0'/><path d='M6 4h9l5 5v11H6z'/><path d='M15 4v5h5'/><path d='M9 13h6'/><path d='M9 17h6'/><path d='M9 9h3'/></svg><div style='font:800 13px system-ui;letter-spacing:1.5px;text-transform:uppercase;color:#fde68a'>Page Section</div></div>"
         },
         "_placement": {
           "version": 1,
@@ -521,19 +491,6 @@
       "type": "reference",
       "data": {
         "semanticRole": "shared-glyph"
-      }
-    },
-    {
-      "id": "page-section-editor-view-edge",
-      "source": "page-section-declaration",
-      "target": "page-section-editor",
-      "sourceHandle": "editor-view",
-      "sourcePort": "editor-view",
-      "targetHandle": "root",
-      "targetPort": "root",
-      "type": "reference",
-      "data": {
-        "semanticRole": "editor"
       }
     },
     {
