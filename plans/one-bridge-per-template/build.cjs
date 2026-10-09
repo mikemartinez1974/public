@@ -127,12 +127,13 @@ const contentNodes = [
 ];
 // Where the work stands. Anything not listed is still a draft, not started.
 const statuses = {
-  'the-plan': 'in-progress', goal: 'in-progress',
+  'the-plan': 'in-progress', goal: 'done', 'decision-direct': 'done',
   'phase-prove': 'done', 'action-demo': 'done', 'action-checks': 'done',
   'phase-create': 'done', 'action-menu': 'done', 'action-stamp': 'done',
-  'phase-authority': 'in-progress', 'action-validate': 'done',
+  'phase-authority': 'done', 'action-validate': 'done', 'action-lookups': 'done',
   'phase-show': 'done', 'action-line': 'done',
-  'milestone-demo': 'in-progress',
+  'milestone-demo': 'done', 'decision-review': 'done',
+  'phase-convert': 'done', 'action-convert': 'done', 'action-guidance': 'done', 'contingency-both': 'done',
   'constraint-nodes': 'done', 'constraint-fields': 'done', 'constraint-sides': 'done'
 };
 contentNodes.forEach((node) => {
