@@ -30,39 +30,38 @@
       "height": 260,
       "ports": [
         {
-          "id": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165
-        },
-        {
-          "id": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180
-        },
-        {
-          "id": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195
-        },
-        {
-          "id": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270
-        },
-        {
           "id": "landing-surface",
           "label": "landing surface",
           "direction": "output",
           "dataType": "any",
           "angle": 0
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "visible": true,
@@ -203,6 +202,10 @@
         "content": {
           "kind": "markdown",
           "value": "# OpenSim as a 3D Host Candidate\n\nWhether the OpenSim virtual-world server is a workable 3D host for Twilite graphs, what its object model already gives us, and what is still unresearched.\n\nStarted from one pasted fragment of a design conversation, not the full thread. Treat everything about OpenSim itself as unverified until the open questions in the synthesis are answered."
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
         }
       }
     },
@@ -244,6 +247,10 @@
         "content": {
           "kind": "markdown",
           "value": "OpenSim's object model rhymes with a graph. Whether it is a workable 3D host for Twilite is still research, not a decision."
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
         }
       }
     },
@@ -285,6 +292,10 @@
         "content": {
           "kind": "markdown",
           "value": "🌐"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
         }
       }
     },
@@ -1138,48 +1149,57 @@
   ],
   "edges": [
     {
-      "id": "osim-e-detail",
-      "type": "default-view",
+      "id": "osim-detail-surface",
+      "type": "surface",
       "source": "osim-decl",
       "target": "osim-detail",
-      "sourceHandle": "default-view",
+      "sourceHandle": "surfaces",
       "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {}
+      "data": {
+        "role": "surface",
+        "surfaceId": "default-view"
+      }
     },
     {
-      "id": "osim-e-summary",
-      "type": "reference",
-      "source": "osim-decl",
+      "id": "osim-detail-next",
+      "type": "view-sequence",
+      "source": "osim-detail",
       "target": "osim-summary",
-      "sourceHandle": "summary-view",
-      "targetHandle": "root",
-      "label": "summary",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
       "style": {},
-      "data": {}
+      "data": {
+        "role": "view-sequence"
+      }
     },
     {
-      "id": "osim-e-icon",
-      "type": "reference",
-      "source": "osim-decl",
+      "id": "osim-summary-next",
+      "type": "view-sequence",
+      "source": "osim-summary",
       "target": "osim-icon",
-      "sourceHandle": "icon-view",
-      "targetHandle": "root",
-      "label": "icon",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
       "style": {},
-      "data": {}
+      "data": {
+        "role": "view-sequence"
+      }
     },
     {
-      "id": "osim-e-glyph",
-      "type": "reference",
-      "source": "osim-decl",
+      "id": "osim-icon-next",
+      "type": "view-sequence",
+      "source": "osim-icon",
       "target": "osim-glyph",
-      "sourceHandle": "glyph",
+      "sourceHandle": "sequence-out",
       "targetHandle": "root",
-      "label": "glyph",
+      "label": "",
       "style": {},
-      "data": {}
+      "data": {
+        "role": "view-sequence"
+      }
     },
     {
       "id": "osim-e-land",

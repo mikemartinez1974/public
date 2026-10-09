@@ -30,114 +30,6 @@
       "height": 240,
       "ports": [
         {
-          "id": "default-view",
-          "key": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165,
-          "role": "default-view",
-          "allowedEdgeTypes": [
-            "default-view"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "default-view",
-            "required": true,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "view",
-                "targetPort": "root"
-              }
-            ]
-          }
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-summary",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "shared-summary",
-            "required": true,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "view",
-                "targetPort": "root"
-              }
-            ]
-          }
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195,
-          "role": "shared-icon",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "shared-icon",
-            "required": true,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "view",
-                "targetPort": "root"
-              }
-            ]
-          }
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270,
-          "role": "shared-glyph",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "shared-glyph",
-            "required": true,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "glyph",
-                "targetPort": "root"
-              }
-            ]
-          }
-        },
-        {
           "id": "port",
           "key": "port",
           "label": "port",
@@ -186,6 +78,33 @@
                 "trigger": "drag-create",
                 "action": "create-node",
                 "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
                 "targetPort": "root"
               }
             ]
@@ -306,7 +225,7 @@
           "surfaces": [
             {
               "id": "plan",
-              "kind": "port",
+              "kind": "view",
               "label": "Reciprocal Bridge Plan",
               "portNodeId": "reciprocal-multigraph-bridge-plan-port",
               "viewNodeId": "reciprocal-multigraph-bridge-plan-summary-view",
@@ -331,46 +250,6 @@
       },
       "handles": [
         {
-          "id": "default-view",
-          "key": "default-view",
-          "portId": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165,
-          "role": "default-view"
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "portId": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-summary"
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "portId": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195,
-          "role": "shared-icon"
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "portId": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270,
-          "role": "shared-glyph"
-        },
-        {
           "id": "port",
           "key": "port",
           "portId": "port",
@@ -389,6 +268,34 @@
           "dataType": "any",
           "angle": 0,
           "role": "landing-surface"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
         }
       ],
       "inputs": [],
@@ -2436,6 +2343,59 @@
   ],
   "edges": [
     {
+      "id": "reciprocal-multigraph-bridge-plan-detail-view-surface",
+      "type": "surface",
+      "source": "reciprocal-multigraph-bridge-plan-declaration",
+      "target": "reciprocal-multigraph-bridge-plan-detail-view",
+      "sourceHandle": "surfaces",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "surface",
+        "surfaceId": "plan"
+      }
+    },
+    {
+      "id": "reciprocal-multigraph-bridge-plan-detail-view-next",
+      "type": "view-sequence",
+      "source": "reciprocal-multigraph-bridge-plan-detail-view",
+      "target": "reciprocal-multigraph-bridge-plan-summary-view",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
+      "id": "reciprocal-multigraph-bridge-plan-summary-view-next",
+      "type": "view-sequence",
+      "source": "reciprocal-multigraph-bridge-plan-summary-view",
+      "target": "reciprocal-multigraph-bridge-plan-icon-view",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
+      "id": "reciprocal-multigraph-bridge-plan-icon-view-next",
+      "type": "view-sequence",
+      "source": "reciprocal-multigraph-bridge-plan-icon-view",
+      "target": "reciprocal-multigraph-bridge-plan-glyph",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
       "id": "e-achieves",
       "type": "plan.achieves",
       "source": "reciprocal-bridge-plan",
@@ -2610,58 +2570,6 @@
       "label": "contains",
       "sourceHandle": "root",
       "targetHandle": "root"
-    },
-    {
-      "id": "reciprocal-multigraph-bridge-plan-interface-01",
-      "source": "reciprocal-multigraph-bridge-plan-declaration",
-      "sourceHandle": "default-view",
-      "target": "reciprocal-multigraph-bridge-plan-detail-view",
-      "targetHandle": "root",
-      "label": "default view",
-      "type": "default-view",
-      "data": {
-        "role": "default-view",
-        "semanticRole": "default-view"
-      }
-    },
-    {
-      "id": "reciprocal-multigraph-bridge-plan-interface-02",
-      "source": "reciprocal-multigraph-bridge-plan-declaration",
-      "sourceHandle": "summary-view",
-      "target": "reciprocal-multigraph-bridge-plan-summary-view",
-      "targetHandle": "root",
-      "label": "summary view",
-      "type": "reference",
-      "data": {
-        "role": "shared-summary",
-        "semanticRole": "shared-summary"
-      }
-    },
-    {
-      "id": "reciprocal-multigraph-bridge-plan-interface-03",
-      "source": "reciprocal-multigraph-bridge-plan-declaration",
-      "sourceHandle": "icon-view",
-      "target": "reciprocal-multigraph-bridge-plan-icon-view",
-      "targetHandle": "root",
-      "label": "icon view",
-      "type": "reference",
-      "data": {
-        "role": "shared-icon",
-        "semanticRole": "shared-icon"
-      }
-    },
-    {
-      "id": "reciprocal-multigraph-bridge-plan-interface-04",
-      "source": "reciprocal-multigraph-bridge-plan-declaration",
-      "sourceHandle": "glyph",
-      "target": "reciprocal-multigraph-bridge-plan-glyph",
-      "targetHandle": "root",
-      "label": "glyph",
-      "type": "reference",
-      "data": {
-        "role": "shared-glyph",
-        "semanticRole": "shared-glyph"
-      }
     },
     {
       "id": "reciprocal-multigraph-bridge-plan-interface-05",

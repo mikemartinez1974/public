@@ -14,114 +14,6 @@
       "height": 280,
       "ports": [
         {
-          "id": "default-view",
-          "key": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165,
-          "role": "default-view",
-          "allowedEdgeTypes": [
-            "default-view"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "default-view",
-            "required": true,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "view",
-                "targetPort": "root"
-              }
-            ]
-          }
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-summary",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "shared-summary",
-            "required": true,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "view",
-                "targetPort": "root"
-              }
-            ]
-          }
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195,
-          "role": "shared-icon",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "shared-icon",
-            "required": true,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "view",
-                "targetPort": "root"
-              }
-            ]
-          }
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270,
-          "role": "shared-glyph",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "shared-glyph",
-            "required": true,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "glyph",
-                "targetPort": "root"
-              }
-            ]
-          }
-        },
-        {
           "id": "port",
           "key": "port",
           "label": "port",
@@ -174,49 +66,36 @@
               }
             ]
           }
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "handles": [
-        {
-          "id": "default-view",
-          "key": "default-view",
-          "portId": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165,
-          "role": "default-view"
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "portId": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-summary"
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "portId": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195,
-          "role": "shared-icon"
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "portId": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270,
-          "role": "shared-glyph"
-        },
         {
           "id": "port",
           "key": "port",
@@ -236,6 +115,34 @@
           "dataType": "any",
           "angle": 0,
           "role": "landing-surface"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
         }
       ],
       "visible": true,
@@ -260,7 +167,7 @@
             "version": 1,
             "implicitRootPort": true
           },
-          "defaultSurfaceId": "",
+          "defaultSurfaceId": "web",
           "surfaces": []
         }
       }
@@ -1099,55 +1006,56 @@
   ],
   "edges": [
     {
-      "id": "wikipedia-article-live-smoke-default-view",
-      "type": "default-view",
+      "id": "wikipedia-article-live-smoke-detail-surface",
+      "type": "surface",
       "source": "wikipedia-article-live-smoke-declaration",
       "target": "wikipedia-article-live-smoke-detail",
-      "sourceHandle": "default-view",
+      "sourceHandle": "surfaces",
       "targetHandle": "root",
-      "label": "default view",
+      "label": "",
+      "style": {},
       "data": {
-        "role": "default-view",
-        "semanticRole": "default-view"
+        "role": "surface",
+        "surfaceId": "web"
       }
     },
     {
-      "id": "wikipedia-article-live-smoke-summary-view",
-      "type": "reference",
-      "source": "wikipedia-article-live-smoke-declaration",
+      "id": "wikipedia-article-live-smoke-detail-next",
+      "type": "view-sequence",
+      "source": "wikipedia-article-live-smoke-detail",
       "target": "wikipedia-article-live-smoke-summary",
-      "sourceHandle": "summary-view",
-      "targetHandle": "root",
-      "label": "summary view",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
       "data": {
-        "role": "shared-summary",
-        "semanticRole": "shared-summary"
+        "role": "view-sequence"
       }
     },
     {
-      "id": "wikipedia-article-live-smoke-icon-view",
-      "type": "reference",
-      "source": "wikipedia-article-live-smoke-declaration",
+      "id": "wikipedia-article-live-smoke-summary-next",
+      "type": "view-sequence",
+      "source": "wikipedia-article-live-smoke-summary",
       "target": "wikipedia-article-live-smoke-icon",
-      "sourceHandle": "icon-view",
-      "targetHandle": "root",
-      "label": "icon view",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
       "data": {
-        "role": "shared-icon",
-        "semanticRole": "shared-icon"
+        "role": "view-sequence"
       }
     },
     {
-      "id": "wikipedia-article-live-smoke-glyph-edge",
-      "type": "reference",
-      "source": "wikipedia-article-live-smoke-declaration",
+      "id": "wikipedia-article-live-smoke-icon-next",
+      "type": "view-sequence",
+      "source": "wikipedia-article-live-smoke-icon",
       "target": "wikipedia-article-live-smoke-glyph",
-      "sourceHandle": "glyph",
+      "sourceHandle": "sequence-out",
       "targetHandle": "root",
-      "label": "glyph",
+      "label": "",
+      "style": {},
       "data": {
-        "role": "shared-glyph",
-        "semanticRole": "shared-glyph"
+        "role": "view-sequence"
       }
     },
     {

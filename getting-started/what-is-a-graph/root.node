@@ -28,42 +28,6 @@
       "height": 390,
       "ports": [
         {
-          "id": "default-view",
-          "key": "default-view",
-          "label": "default-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 55,
-          "role": "default-view"
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "label": "summary-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 70,
-          "role": "shared-summary"
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "label": "icon-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 85,
-          "role": "shared-icon"
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 100,
-          "role": "shared-glyph"
-        },
-        {
           "id": "landing-surface",
           "key": "landing-surface",
           "label": "landing-surface",
@@ -71,45 +35,36 @@
           "dataType": "any",
           "angle": 115,
           "role": "landing-surface"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "handles": [
-        {
-          "id": "default-view",
-          "portId": "default-view",
-          "label": "default-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 55,
-          "role": "default-view"
-        },
-        {
-          "id": "summary-view",
-          "portId": "summary-view",
-          "label": "summary-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 70,
-          "role": "shared-summary"
-        },
-        {
-          "id": "icon-view",
-          "portId": "icon-view",
-          "label": "icon-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 85,
-          "role": "shared-icon"
-        },
-        {
-          "id": "glyph",
-          "portId": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 100,
-          "role": "shared-glyph"
-        },
         {
           "id": "landing-surface",
           "portId": "landing-surface",
@@ -118,6 +73,34 @@
           "dataType": "any",
           "angle": 115,
           "role": "landing-surface"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
         }
       ],
       "visible": true,
@@ -853,48 +836,57 @@
   ],
   "edges": [
     {
-      "id": "edge-declaration-detail",
-      "type": "default-view",
+      "id": "learn-detail-surface",
+      "type": "surface",
       "source": "learn-declaration",
       "target": "learn-detail",
-      "sourceHandle": "default-view",
+      "sourceHandle": "surfaces",
       "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {}
+      "data": {
+        "role": "surface",
+        "surfaceId": "detail"
+      }
     },
     {
-      "id": "edge-declaration-summary",
-      "type": "reference",
-      "source": "learn-declaration",
+      "id": "learn-detail-next",
+      "type": "view-sequence",
+      "source": "learn-detail",
       "target": "learn-summary",
-      "sourceHandle": "summary-view",
-      "targetHandle": "root",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {}
+      "data": {
+        "role": "view-sequence"
+      }
     },
     {
-      "id": "edge-declaration-icon",
-      "type": "reference",
-      "source": "learn-declaration",
+      "id": "learn-summary-next",
+      "type": "view-sequence",
+      "source": "learn-summary",
       "target": "learn-icon",
-      "sourceHandle": "icon-view",
-      "targetHandle": "root",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {}
+      "data": {
+        "role": "view-sequence"
+      }
     },
     {
-      "id": "edge-declaration-glyph",
-      "type": "reference",
-      "source": "learn-declaration",
+      "id": "learn-icon-next",
+      "type": "view-sequence",
+      "source": "learn-icon",
       "target": "learn-glyph",
-      "sourceHandle": "glyph",
+      "sourceHandle": "sequence-out",
       "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {}
+      "data": {
+        "role": "view-sequence"
+      }
     },
     {
       "id": "edge-declaration-landing",

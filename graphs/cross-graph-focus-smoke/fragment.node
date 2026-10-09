@@ -28,38 +28,6 @@
       "height": 340,
       "ports": [
         {
-          "id": "default-view",
-          "key": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270
-        },
-        {
           "id": "landing-surface",
           "key": "landing-surface",
           "label": "landing surface",
@@ -74,41 +42,36 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "handles": [
-        {
-          "id": "default-view",
-          "portId": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165
-        },
-        {
-          "id": "summary-view",
-          "portId": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180
-        },
-        {
-          "id": "icon-view",
-          "portId": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195
-        },
-        {
-          "id": "glyph",
-          "portId": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270
-        },
         {
           "id": "landing-surface",
           "portId": "landing-surface",
@@ -124,6 +87,34 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
         }
       ],
       "visible": true,
@@ -182,7 +173,7 @@
             },
             {
               "id": "public-summary",
-              "kind": "port",
+              "kind": "view",
               "payload": "node.web.summary",
               "portNodeId": "focus-fragment-summary-port",
               "viewNodeId": "focus-fragment-summary"
@@ -313,7 +304,8 @@
       "data": {
         "html": "<article style='padding:24px;font-family:system-ui;background:#f8fafc;color:#0f172a;height:100%;box-sizing:border-box'><h2 style='color:#0f172a;margin-top:0'>Focus fragment</h2><p style='color:#334155'>A declaration-complete fragment with a visible landing path.</p></article>",
         "view": {
-          "payload": "node.web.detail"
+          "payload": "node.web.detail",
+          "intent": "node"
         },
         "identity": {
           "graphId": "cross-graph-focus-smoke-fragment"
@@ -363,7 +355,8 @@
       "data": {
         "html": "<div style='padding:20px;font-family:system-ui;background:#f8fafc;color:#0f172a;height:100%;box-sizing:border-box'><strong style='color:#0f172a'>Focus Fragment</strong><p style='color:#334155'>Landing → destination.</p></div>",
         "view": {
-          "payload": "node.web.summary"
+          "payload": "node.web.summary",
+          "intent": "node"
         },
         "identity": {
           "graphId": "cross-graph-focus-smoke-fragment"
@@ -413,7 +406,8 @@
       "data": {
         "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 100'><rect x='4' y='4' width='152' height='92' rx='18' fill='#064e3b' stroke='#6ee7b7' stroke-width='4'/><path d='M35 70 80 28l45 42' fill='none' stroke='#a7f3d0' stroke-width='9'/></svg>",
         "view": {
-          "payload": "node.web.icon"
+          "payload": "node.web.icon",
+          "intent": "node"
         },
         "identity": {
           "graphId": "cross-graph-focus-smoke-fragment"
@@ -684,59 +678,56 @@
   ],
   "edges": [
     {
-      "id": "focus-fragment-default-view-edge",
-      "type": "default-view",
+      "id": "focus-fragment-detail-surface",
+      "type": "surface",
       "source": "focus-fragment-declaration",
       "target": "focus-fragment-detail",
-      "sourceHandle": "default-view",
+      "sourceHandle": "surfaces",
       "targetHandle": "root",
-      "label": "default view",
+      "label": "",
       "style": {},
       "data": {
-        "role": "default-view",
-        "semanticRole": "default-view"
+        "role": "surface",
+        "surfaceId": "detail"
       }
     },
     {
-      "id": "focus-fragment-summary-view-edge",
-      "type": "reference",
-      "source": "focus-fragment-declaration",
+      "id": "focus-fragment-detail-next",
+      "type": "view-sequence",
+      "source": "focus-fragment-detail",
       "target": "focus-fragment-summary",
-      "sourceHandle": "summary-view",
-      "targetHandle": "root",
-      "label": "summary view",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
       "style": {},
       "data": {
-        "role": "shared-summary",
-        "semanticRole": "shared-summary"
+        "role": "view-sequence"
       }
     },
     {
-      "id": "focus-fragment-icon-view-edge",
-      "type": "reference",
-      "source": "focus-fragment-declaration",
+      "id": "focus-fragment-summary-next",
+      "type": "view-sequence",
+      "source": "focus-fragment-summary",
       "target": "focus-fragment-icon",
-      "sourceHandle": "icon-view",
-      "targetHandle": "root",
-      "label": "icon view",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
       "style": {},
       "data": {
-        "role": "shared-icon",
-        "semanticRole": "shared-icon"
+        "role": "view-sequence"
       }
     },
     {
-      "id": "focus-fragment-glyph-edge",
-      "type": "reference",
-      "source": "focus-fragment-declaration",
+      "id": "focus-fragment-icon-next",
+      "type": "view-sequence",
+      "source": "focus-fragment-icon",
       "target": "focus-fragment-glyph",
-      "sourceHandle": "glyph",
+      "sourceHandle": "sequence-out",
       "targetHandle": "root",
-      "label": "glyph",
+      "label": "",
       "style": {},
       "data": {
-        "role": "shared-glyph",
-        "semanticRole": "shared-glyph"
+        "role": "view-sequence"
       }
     },
     {

@@ -28,51 +28,61 @@
       "height": 240,
       "ports": [
         {
-          "id": "default-view",
-          "label": "default-view",
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
           "direction": "output",
           "dataType": "any",
-          "angle": 165
-        },
-        {
-          "id": "icon-view",
-          "label": "icon-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195
-        },
-        {
-          "id": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 225
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "handles": [
         {
-          "id": "default-view",
-          "label": "default-view",
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
           "direction": "output",
           "dataType": "any",
-          "angle": 165,
-          "portId": "default-view"
-        },
-        {
-          "id": "icon-view",
-          "label": "icon-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195,
-          "portId": "icon-view"
-        },
-        {
-          "id": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 225,
-          "portId": "glyph"
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
         }
       ],
       "visible": true,
@@ -383,39 +393,44 @@
   ],
   "edges": [
     {
-      "id": "edge-class-stroke-default",
-      "type": "default-view",
+      "id": "edge-class-stroke-detail-view-surface",
+      "type": "surface",
       "source": "edge-class-stroke-declaration",
       "target": "edge-class-stroke-detail-view",
-      "sourceHandle": "default-view",
+      "sourceHandle": "surfaces",
       "targetHandle": "root",
+      "label": "",
+      "style": {},
       "data": {
-        "semanticRole": "declaration.default-view"
+        "role": "surface",
+        "surfaceId": "root"
       }
     },
     {
-      "id": "edge-class-stroke-icon",
-      "type": "reference",
-      "source": "edge-class-stroke-declaration",
+      "id": "edge-class-stroke-detail-view-next",
+      "type": "view-sequence",
+      "source": "edge-class-stroke-detail-view",
       "target": "edge-class-stroke-icon-view",
-      "sourceHandle": "icon-view",
-      "targetHandle": "root",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
       "data": {
-        "semanticRole": "declaration.shared-icon"
+        "role": "view-sequence"
       }
     },
     {
-      "id": "edge-class-stroke-declaration-edge-glyph",
-      "type": "reference",
-      "source": "edge-class-stroke-declaration",
+      "id": "edge-class-stroke-icon-view-next",
+      "type": "view-sequence",
+      "source": "edge-class-stroke-icon-view",
       "target": "edge-class-stroke-glyph",
-      "label": "glyph",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
       "data": {
-        "role": "shared-glyph",
-        "semanticRole": "declaration.shared-glyph"
-      },
-      "sourceHandle": "glyph",
-      "targetHandle": "root"
+        "role": "view-sequence"
+      }
     }
   ],
   "clusters": [],

@@ -24,78 +24,6 @@
       "height": 340,
       "ports": [
         {
-          "id": "default-view",
-          "key": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 45,
-          "allowedEdgeTypes": [
-            "default-view"
-          ],
-          "metadata": {
-            "semantic": true,
-            "roles": [
-              "default-view"
-            ],
-            "repeatable": false
-          }
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 135,
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "semantic": true,
-            "roles": [
-              "reference"
-            ],
-            "repeatable": false
-          }
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "semantic": true,
-            "roles": [
-              "reference"
-            ],
-            "repeatable": false
-          }
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270,
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "semantic": true,
-            "roles": [
-              "reference"
-            ],
-            "repeatable": false
-          }
-        },
-        {
           "id": "port",
           "key": "port",
           "label": "port",
@@ -130,85 +58,36 @@
             ],
             "repeatable": false
           }
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "handles": [
-        {
-          "id": "default-view",
-          "key": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 45,
-          "allowedEdgeTypes": [
-            "default-view"
-          ],
-          "metadata": {
-            "semantic": true,
-            "roles": [
-              "default-view"
-            ],
-            "repeatable": false
-          },
-          "portId": "default-view"
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 135,
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "semantic": true,
-            "roles": [
-              "reference"
-            ],
-            "repeatable": false
-          },
-          "portId": "summary-view"
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "semantic": true,
-            "roles": [
-              "reference"
-            ],
-            "repeatable": false
-          },
-          "portId": "icon-view"
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270,
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "semantic": true,
-            "roles": [
-              "reference"
-            ],
-            "repeatable": false
-          },
-          "portId": "glyph"
-        },
         {
           "id": "port",
           "key": "port",
@@ -246,6 +125,34 @@
             "repeatable": false
           },
           "portId": "landing-surface"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
         }
       ],
       "data": {
@@ -732,99 +639,56 @@
   ],
   "edges": [
     {
-      "id": "plan-constraint-default-view",
-      "type": "default-view",
-      "hidden": true,
+      "id": "plan-constraint-detail-view-surface",
+      "type": "surface",
       "source": "plan-constraint-declaration",
       "target": "plan-constraint-detail-view",
-      "sourceHandle": "default-view",
+      "sourceHandle": "surfaces",
       "targetHandle": "root",
-      "sourcePort": "default-view",
-      "targetPort": "root",
       "label": "",
-      "style": {
-        "stroke": "#64748b",
-        "strokeWidth": 1,
-        "opacity": 0.03
-      },
+      "style": {},
       "data": {
-        "role": "default-view",
-        "semanticRole": "default-view",
-        "presentation": {
-          "layer": "contract"
-        }
+        "role": "surface",
+        "surfaceId": "root"
       }
     },
     {
-      "id": "plan-constraint-summary-view",
-      "type": "reference",
-      "hidden": true,
-      "source": "plan-constraint-declaration",
+      "id": "plan-constraint-detail-view-next",
+      "type": "view-sequence",
+      "source": "plan-constraint-detail-view",
       "target": "plan-constraint-summary-view",
-      "sourceHandle": "summary-view",
-      "targetHandle": "root",
-      "sourcePort": "summary-view",
-      "targetPort": "root",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
       "label": "",
-      "style": {
-        "stroke": "#64748b",
-        "strokeWidth": 1,
-        "opacity": 0.03
-      },
+      "style": {},
       "data": {
-        "role": "shared-summary",
-        "semanticRole": "shared-summary",
-        "presentation": {
-          "layer": "contract"
-        }
+        "role": "view-sequence"
       }
     },
     {
-      "id": "plan-constraint-icon-view",
-      "type": "reference",
-      "hidden": true,
-      "source": "plan-constraint-declaration",
+      "id": "plan-constraint-summary-view-next",
+      "type": "view-sequence",
+      "source": "plan-constraint-summary-view",
       "target": "plan-constraint-icon-view",
-      "sourceHandle": "icon-view",
-      "targetHandle": "root",
-      "sourcePort": "icon-view",
-      "targetPort": "root",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
       "label": "",
-      "style": {
-        "stroke": "#64748b",
-        "strokeWidth": 1,
-        "opacity": 0.03
-      },
+      "style": {},
       "data": {
-        "role": "shared-icon",
-        "semanticRole": "shared-icon",
-        "presentation": {
-          "layer": "contract"
-        }
+        "role": "view-sequence"
       }
     },
     {
-      "id": "plan-constraint-glyph-edge",
-      "type": "reference",
-      "hidden": true,
-      "source": "plan-constraint-declaration",
+      "id": "plan-constraint-icon-view-next",
+      "type": "view-sequence",
+      "source": "plan-constraint-icon-view",
       "target": "plan-constraint-glyph",
-      "sourceHandle": "glyph",
+      "sourceHandle": "sequence-out",
       "targetHandle": "root",
-      "sourcePort": "glyph",
-      "targetPort": "root",
       "label": "",
-      "style": {
-        "stroke": "#64748b",
-        "strokeWidth": 1,
-        "opacity": 0.03
-      },
+      "style": {},
       "data": {
-        "role": "shared-glyph",
-        "semanticRole": "shared-glyph",
-        "presentation": {
-          "layer": "contract"
-        }
+        "role": "view-sequence"
       }
     },
     {

@@ -32,6 +32,33 @@
           "direction": "bidirectional",
           "dataType": "any",
           "angle": 210
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "inputs": [
@@ -224,16 +251,17 @@
   ],
   "edges": [
     {
-      "id": "scripted-port-smoke-default-view-edge",
-      "type": "default-view",
+      "id": "scripted-port-smoke-default-view-surface",
+      "type": "surface",
       "source": "scripted-port-smoke-declaration",
       "target": "scripted-port-smoke-default-view",
-      "sourcePort": "primary-view",
-      "targetPort": "root",
-      "label": "default-view",
+      "sourceHandle": "surfaces",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
       "data": {
-        "role": "default-view",
-        "semanticRole": "declaration.default-view"
+        "role": "surface",
+        "surfaceId": "root"
       }
     },
     {

@@ -32,39 +32,38 @@
       "height": 260,
       "ports": [
         {
-          "id": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165
-        },
-        {
-          "id": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180
-        },
-        {
-          "id": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195
-        },
-        {
-          "id": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270
-        },
-        {
           "id": "landing-surface",
           "label": "landing surface",
           "direction": "output",
           "dataType": "any",
           "angle": 0
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "visible": true,
@@ -232,6 +231,10 @@
         "content": {
           "kind": "markdown",
           "value": "# Best Practices for Twilite Graph Building\n\nA topic graph of the habits that keep Twilite graphs coherent, composable, and safe to evolve. Each practice is a Claim traced to the contract that supports it and, where useful, explained by the Mechanism behind it.\n\nStart with the Synthesis, then follow a Concept into its Claims and Sources."
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
         }
       }
     },
@@ -274,6 +277,10 @@
         "content": {
           "kind": "markdown",
           "value": "## Build outward from the declaration\n\n**Declare identity first, author only what you need, let relationships carry meaning, make authority explicit, and validate the whole path.**"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
         }
       }
     },
@@ -316,6 +323,10 @@
         "content": {
           "kind": "svg",
           "value": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220'><rect width='320' height='220' rx='28' fill='#0f172a'/><g fill='none' stroke='#34d399' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'><path d='M52 64l14 14 26-30'/><path d='M52 118l14 14 26-30'/><path d='M52 172l14 14 26-30'/></g><g stroke='#94a3b8' stroke-width='9' stroke-linecap='round'><path d='M120 64h150'/><path d='M120 118h150'/><path d='M120 172h110'/></g></svg>"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
         }
       }
     },
@@ -5532,55 +5543,56 @@
   ],
   "edges": [
     {
-      "id": "twilite-graph-building-best-practices-default-surface",
-      "type": "default-view",
+      "id": "twilite-graph-building-best-practices-detail-view-surface",
+      "type": "surface",
       "source": "twilite-graph-building-best-practices-declaration",
       "target": "twilite-graph-building-best-practices-detail-view",
-      "sourceHandle": "default-view",
+      "sourceHandle": "surfaces",
       "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "semanticRole": "default-view"
+        "role": "surface",
+        "surfaceId": "default-view"
       }
     },
     {
-      "id": "twilite-graph-building-best-practices-summary-surface-edge",
-      "type": "reference",
-      "source": "twilite-graph-building-best-practices-declaration",
+      "id": "twilite-graph-building-best-practices-detail-view-next",
+      "type": "view-sequence",
+      "source": "twilite-graph-building-best-practices-detail-view",
       "target": "twilite-graph-building-best-practices-summary-view",
-      "sourceHandle": "summary-view",
-      "targetHandle": "root",
-      "label": "summary",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
       "style": {},
       "data": {
-        "semanticRole": "shared-summary"
+        "role": "view-sequence"
       }
     },
     {
-      "id": "twilite-graph-building-best-practices-icon-surface-edge",
-      "type": "reference",
-      "source": "twilite-graph-building-best-practices-declaration",
+      "id": "twilite-graph-building-best-practices-summary-view-next",
+      "type": "view-sequence",
+      "source": "twilite-graph-building-best-practices-summary-view",
       "target": "twilite-graph-building-best-practices-icon-view",
-      "sourceHandle": "icon-view",
-      "targetHandle": "root",
-      "label": "icon",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
       "style": {},
       "data": {
-        "semanticRole": "shared-icon"
+        "role": "view-sequence"
       }
     },
     {
-      "id": "twilite-graph-building-best-practices-glyph-edge",
-      "type": "reference",
-      "source": "twilite-graph-building-best-practices-declaration",
+      "id": "twilite-graph-building-best-practices-icon-view-next",
+      "type": "view-sequence",
+      "source": "twilite-graph-building-best-practices-icon-view",
       "target": "twilite-graph-building-best-practices-glyph",
-      "sourceHandle": "glyph",
+      "sourceHandle": "sequence-out",
       "targetHandle": "root",
-      "label": "glyph",
+      "label": "",
       "style": {},
       "data": {
-        "semanticRole": "shared-glyph"
+        "role": "view-sequence"
       }
     },
     {

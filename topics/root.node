@@ -28,34 +28,6 @@
       "height": 300,
       "ports": [
         {
-          "id": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165
-        },
-        {
-          "id": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180
-        },
-        {
-          "id": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195
-        },
-        {
-          "id": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270
-        },
-        {
           "id": "port",
           "label": "port",
           "direction": "output",
@@ -68,6 +40,33 @@
           "direction": "output",
           "dataType": "any",
           "angle": 0
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "visible": true,
@@ -233,6 +232,10 @@
         "content": {
           "kind": "markdown",
           "value": "# Topics\n\nA public collection of subject graphs built from the topic template. Each member separates concepts, claims, mechanisms, perspectives, sources, and synthesis so the structure of the subject remains visible."
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
         }
       }
     },
@@ -274,6 +277,10 @@
         "content": {
           "kind": "markdown",
           "value": "## Topics\n\nReusable subject graphs for understanding **what something is, how it works, what is claimed about it, which perspectives matter, and what the current synthesis says**."
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
         }
       }
     },
@@ -315,6 +322,10 @@
         "content": {
           "kind": "svg",
           "value": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220' role='img' aria-label='Topics collection'><rect width='320' height='220' rx='28' fill='#0f172a'/><circle cx='90' cy='110' r='30' fill='#60a5fa'/><circle cx='230' cy='70' r='22' fill='#34d399'/><circle cx='230' cy='150' r='22' fill='#f59e0b'/><path d='M121 100 L205 76 M121 120 L205 144' stroke='#e2e8f0' stroke-width='7' stroke-linecap='round'/><text x='90' y='116' text-anchor='middle' fill='#0f172a' font-family='system-ui' font-size='14' font-weight='900'>TOPICS</text></svg>"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
         }
       }
     },
@@ -832,51 +843,56 @@
   ],
   "edges": [
     {
-      "id": "topics-collection-default-view-edge",
-      "type": "default-view",
+      "id": "topics-collection-detail-view-surface",
+      "type": "surface",
       "source": "topics-collection-declaration",
       "target": "topics-collection-detail-view",
-      "sourceHandle": "default-view",
+      "sourceHandle": "surfaces",
       "targetHandle": "root",
-      "label": "default view",
+      "label": "",
+      "style": {},
       "data": {
-        "semanticRole": "default-view"
+        "role": "surface",
+        "surfaceId": "topics"
       }
     },
     {
-      "id": "topics-collection-summary-view-edge",
-      "type": "reference",
-      "source": "topics-collection-declaration",
+      "id": "topics-collection-detail-view-next",
+      "type": "view-sequence",
+      "source": "topics-collection-detail-view",
       "target": "topics-collection-summary-view",
-      "sourceHandle": "summary-view",
-      "targetHandle": "root",
-      "label": "summary view",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
       "data": {
-        "semanticRole": "shared-summary"
+        "role": "view-sequence"
       }
     },
     {
-      "id": "topics-collection-icon-view-edge",
-      "type": "reference",
-      "source": "topics-collection-declaration",
+      "id": "topics-collection-summary-view-next",
+      "type": "view-sequence",
+      "source": "topics-collection-summary-view",
       "target": "topics-collection-icon-view",
-      "sourceHandle": "icon-view",
-      "targetHandle": "root",
-      "label": "icon view",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
       "data": {
-        "semanticRole": "shared-icon"
+        "role": "view-sequence"
       }
     },
     {
-      "id": "topics-collection-glyph-edge",
-      "type": "reference",
-      "source": "topics-collection-declaration",
+      "id": "topics-collection-icon-view-next",
+      "type": "view-sequence",
+      "source": "topics-collection-icon-view",
       "target": "topics-collection-glyph",
-      "sourceHandle": "glyph",
+      "sourceHandle": "sequence-out",
       "targetHandle": "root",
-      "label": "glyph",
+      "label": "",
+      "style": {},
       "data": {
-        "semanticRole": "shared-glyph"
+        "role": "view-sequence"
       }
     },
     {

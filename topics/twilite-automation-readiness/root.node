@@ -30,39 +30,38 @@
       "height": 260,
       "ports": [
         {
-          "id": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165
-        },
-        {
-          "id": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180
-        },
-        {
-          "id": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195
-        },
-        {
-          "id": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270
-        },
-        {
           "id": "landing-surface",
           "label": "landing surface",
           "direction": "output",
           "dataType": "any",
           "angle": 0
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "visible": true,
@@ -245,6 +244,10 @@
           "source": "manual",
           "updatedAt": 1788114389974,
           "reason": "node-drag"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
         }
       }
     },
@@ -294,6 +297,10 @@
           "source": "manual",
           "updatedAt": 1788114500849,
           "reason": "node-drag"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
         }
       }
     },
@@ -343,6 +350,10 @@
           "source": "manual",
           "updatedAt": 1788114497851,
           "reason": "node-drag"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
         }
       }
     },
@@ -1676,55 +1687,56 @@
   ],
   "edges": [
     {
-      "id": "twilite-automation-readiness-default-surface",
-      "type": "default-view",
+      "id": "twilite-automation-readiness-detail-view-surface",
+      "type": "surface",
       "source": "twilite-automation-readiness-declaration",
       "target": "twilite-automation-readiness-detail-view",
-      "sourceHandle": "default-view",
+      "sourceHandle": "surfaces",
       "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "semanticRole": "default-view"
+        "role": "surface",
+        "surfaceId": "default-view"
       }
     },
     {
-      "id": "twilite-automation-readiness-summary-surface-edge",
-      "type": "reference",
-      "source": "twilite-automation-readiness-declaration",
+      "id": "twilite-automation-readiness-detail-view-next",
+      "type": "view-sequence",
+      "source": "twilite-automation-readiness-detail-view",
       "target": "twilite-automation-readiness-summary-view",
-      "sourceHandle": "summary-view",
-      "targetHandle": "root",
-      "label": "summary",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
       "style": {},
       "data": {
-        "semanticRole": "shared-summary"
+        "role": "view-sequence"
       }
     },
     {
-      "id": "twilite-automation-readiness-icon-surface-edge",
-      "type": "reference",
-      "source": "twilite-automation-readiness-declaration",
+      "id": "twilite-automation-readiness-summary-view-next",
+      "type": "view-sequence",
+      "source": "twilite-automation-readiness-summary-view",
       "target": "twilite-automation-readiness-icon-view",
-      "sourceHandle": "icon-view",
-      "targetHandle": "root",
-      "label": "icon",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
       "style": {},
       "data": {
-        "semanticRole": "shared-icon"
+        "role": "view-sequence"
       }
     },
     {
-      "id": "twilite-automation-readiness-glyph-edge",
-      "type": "reference",
-      "source": "twilite-automation-readiness-declaration",
+      "id": "twilite-automation-readiness-icon-view-next",
+      "type": "view-sequence",
+      "source": "twilite-automation-readiness-icon-view",
       "target": "twilite-automation-readiness-glyph",
-      "sourceHandle": "glyph",
+      "sourceHandle": "sequence-out",
       "targetHandle": "root",
-      "label": "glyph",
+      "label": "",
       "style": {},
       "data": {
-        "semanticRole": "shared-glyph"
+        "role": "view-sequence"
       }
     },
     {
