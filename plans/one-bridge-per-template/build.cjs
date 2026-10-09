@@ -125,6 +125,20 @@ const contentNodes = [
   makeNode('plan-contingency', 'contingency-deploy', 'Deploy the app before pushing converted graphs', at(4, 5),
     'Conversion is pushed only after the build that understands a template Bridge is live.')
 ];
+// Where the work stands. Anything not listed is still a draft, not started.
+const statuses = {
+  'the-plan': 'in-progress', goal: 'in-progress',
+  'phase-prove': 'done', 'action-demo': 'done', 'action-checks': 'done',
+  'phase-create': 'done', 'action-menu': 'done', 'action-stamp': 'done',
+  'phase-authority': 'in-progress', 'action-validate': 'done',
+  'phase-show': 'done', 'action-line': 'done',
+  'milestone-demo': 'in-progress',
+  'constraint-nodes': 'done', 'constraint-fields': 'done', 'constraint-sides': 'done'
+};
+contentNodes.forEach((node) => {
+  const status = statuses[node.id.slice(prefix.length + 1)];
+  if (status) node.data.status = status;
+});
 graph.nodes.push(...contentNodes);
 
 const edgeStyle = {
