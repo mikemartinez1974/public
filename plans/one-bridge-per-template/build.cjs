@@ -127,7 +127,8 @@ const contentNodes = [
 ];
 // Where the work stands. Anything not listed is still a draft, not started.
 const statuses = {
-  'the-plan': 'in-progress', goal: 'done', 'decision-direct': 'done',
+  'the-plan': 'done', goal: 'done', 'decision-direct': 'done', 'decision-in-place': 'done',
+  'milestone-done': 'done', 'risk-missed': 'done', 'risk-order': 'in-progress', 'contingency-deploy': 'in-progress',
   'phase-prove': 'done', 'action-demo': 'done', 'action-checks': 'done',
   'phase-create': 'done', 'action-menu': 'done', 'action-stamp': 'done',
   'phase-authority': 'done', 'action-validate': 'done', 'action-lookups': 'done',
