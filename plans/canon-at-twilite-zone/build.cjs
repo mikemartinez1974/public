@@ -147,7 +147,8 @@ const contentNodes = [
 ];
 // Where the work stands. Anything not listed is still a draft, not started.
 const statuses = { 'decision-tlz': 'done', 'decision-host': 'done', 'decision-publish': 'done', 'decision-alias': 'done', 'decision-form': 'done', 'action-publish': 'done',
-  'the-plan': 'in-progress', 'phase-address': 'done', 'action-parser': 'done', 'action-identity': 'done', 'constraint-github': 'done' };
+  'the-plan': 'in-progress', 'phase-address': 'done', 'action-parser': 'done', 'action-identity': 'done', 'constraint-github': 'done',
+  'phase-serve': 'in-progress', 'action-cors': 'done', 'phase-prove': 'in-progress', 'action-demo': 'done', 'action-checks': 'done', 'milestone-demo': 'in-progress' };
 contentNodes.forEach((node) => {
   const status = statuses[node.id.slice(prefix.length + 1)];
   if (status) node.data.status = status;
