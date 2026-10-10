@@ -148,7 +148,9 @@ const contentNodes = [
 // Where the work stands. Anything not listed is still a draft, not started.
 const statuses = { 'decision-tlz': 'done', 'decision-host': 'done', 'decision-publish': 'done', 'decision-alias': 'done', 'decision-form': 'done', 'action-publish': 'done',
   'the-plan': 'in-progress', 'phase-address': 'done', 'action-parser': 'done', 'action-identity': 'done', 'constraint-github': 'done',
-  'phase-serve': 'in-progress', 'action-cors': 'done', 'phase-prove': 'in-progress', 'action-demo': 'done', 'action-checks': 'done', 'milestone-demo': 'in-progress' };
+  'phase-serve': 'in-progress', 'action-cors': 'done', 'phase-prove': 'done', 'action-demo': 'done', 'action-checks': 'done', 'milestone-demo': 'done', 'decision-review': 'done',
+  'phase-move': 'in-progress', 'action-first': 'done', 'action-app': 'done', 'constraint-dev': 'done', 'constraint-copy': 'done', 'constraint-sorted': 'done', 'contingency-forward': 'done',
+  'risk-order': 'in-progress', 'contingency-deploy': 'in-progress' };
 contentNodes.forEach((node) => {
   const status = statuses[node.id.slice(prefix.length + 1)];
   if (status) node.data.status = status;
