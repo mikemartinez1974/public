@@ -132,15 +132,9 @@ const contentNodes = [
     'Conversion is pushed only after the build that can run a bridged Method is live. Until then the sync script stays.')
 ];
 // Where the work stands. Anything not listed is still a draft, not started.
-const statuses = {
-  'the-plan': 'in-progress',
-  'phase-prove': 'done', 'action-demo': 'done', 'action-checks': 'done',
-  'phase-offer': 'done', 'action-export': 'done', 'action-chain': 'done',
-  'phase-call': 'done', 'action-resolve': 'done', 'action-effects': 'done',
-  'phase-show': 'in-progress', 'action-editor': 'in-progress',
-  'milestone-demo': 'in-progress', 'contingency-keep': 'done', 'contingency-helper': 'done',
-  'constraint-stored': 'done', 'constraint-names': 'done', 'constraint-node': 'done', 'constraint-grant': 'done'
-};
+const statuses = Object.fromEntries(contentNodes.map((node) => [node.id.slice(prefix.length + 1), 'done']));
+// Still to do, and yours: the app must be live before the converted pages are pushed.
+Object.assign(statuses, { 'risk-order': 'in-progress', 'contingency-deploy': 'in-progress' });
 contentNodes.forEach((node) => {
   const status = statuses[node.id.slice(prefix.length + 1)];
   if (status) node.data.status = status;
