@@ -95,9 +95,9 @@ const contentNodes = [
   makeNode('plan-action', 'action-inventory', 'Write down what moving around does today', at(1, 2),
     'The workspace has Back, Forward, Step out and Open alongside; the browser has Home and an address bar; Portals and links open graphs. What each one does now, and where they disagree, before anything is proposed.'),
   makeNode('plan-action', 'action-proposal', 'Propose how navigation should work', at(1, 3),
-    'A proposal, not code. It answers the five questions beside this phase and says what the app provides in place of a way back drawn into every graph.'),
+    'Written and agreed: “A click means closer”. It is a canon document, tlz://twilite.zone/library/documentation/navigation/root.node, and navigation is built to it.'),
   makeNode('plan-action', 'action-build-navigation', 'Build what is agreed', at(1, 4),
-    'Only after the proposal has been read and changed.'),
+    'Built to the scheme as written. Five smaller questions are listed at the end of the scheme and are settled as the work reaches them.'),
 
   makeNode('plan-action', 'action-commons', 'The Commons, at its canon address', at(2, 2),
     'tlz://twilite.zone/github/the-commons/root.node. Needs the rule for how a public space comes to be listed.'),
@@ -131,11 +131,11 @@ const contentNodes = [
   makeNode('plan-action', 'action-sorting', 'The sorting board', at(6, 5),
     'plans/canon-or-personal. Eleven groups still await a call on whether they are canon or personal.'),
 
-  makeNode('plan-decision', 'decision-back', 'Going back', at(7, 1), 'Does every graph need its own way back, or is that the app’s job?', { decision: 'Open.' }),
-  makeNode('plan-decision', 'decision-up', 'Going up', at(7, 2), 'Is there a place above this one: an index above a primitive page, the root above the index?', { decision: 'Open.' }),
-  makeNode('plan-decision', 'decision-where', 'Knowing where you are', at(7, 3), 'With several graphs open, what tells you which one you are in and how you got there?', { decision: 'Open.' }),
-  makeNode('plan-decision', 'decision-open', 'Replace, or open alongside', at(7, 4), 'When does following a Portal replace what you are looking at, and when does it open beside it?', { decision: 'Open.' }),
-  makeNode('plan-decision', 'decision-walk', 'Walking', at(7, 5), 'Stepping next, next, next through a sequence inside a graph, and possibly from graph to graph.', { decision: 'Open.' }),
+  makeNode('plan-decision', 'decision-back', 'Going back', at(7, 1), 'Does every graph need its own way back, or is that the app’s job?', { decision: 'Agreed by Michael, 2026-10-12: it is the app’s job. Back returns to the same graph, node and distance; no graph draws a way back.' }),
+  makeNode('plan-decision', 'decision-up', 'Going up', at(7, 2), 'Is there a place above this one: an index above a primitive page, the root above the index?', { decision: 'Agreed by Michael, 2026-10-12: there is no separate “up”. In the workspace the trunk shows what a graph was opened from.' }),
+  makeNode('plan-decision', 'decision-where', 'Knowing where you are', at(7, 3), 'With several graphs open, what tells you which one you are in and how you got there?', { decision: 'Agreed by Michael, 2026-10-12: a trail near the address bar names the graphs you came through.' }),
+  makeNode('plan-decision', 'decision-open', 'Replace, or open alongside', at(7, 4), 'When does following a Portal replace what you are looking at, and when does it open beside it?', { decision: 'Agreed by Michael, 2026-10-12: going through always opens beside and never closes anything. Ctrl-click opens beside without travelling.' }),
+  makeNode('plan-decision', 'decision-walk', 'Walking', at(7, 5), 'Stepping next, next, next through a sequence inside a graph, and possibly from graph to graph.', { decision: 'Agreed by Michael, 2026-10-12: the arrow keys walk along the edge leaving the node in focus. Whether they are the right keys is one of the five questions the scheme leaves open.' }),
 
   makeNode('plan-milestone', 'milestone-proposal', 'A navigation proposal is written', at(8, 3),
     'It answers the five questions to its left. Each is decided by Michael before anything is built.'),
@@ -175,6 +175,8 @@ const statuses = {
   'the-plan': 'in-progress',
   'decision-scene': 'done', 'decision-ground': 'done', 'decision-bundled': 'done', 'decision-hand': 'done',
   'phase-demos': 'in-progress', 'action-commons-demo': 'done', 'action-boulevard-demo': 'done', 'action-twilite-demo': 'done', 'milestone-demos': 'done',
+  'phase-navigation': 'in-progress', 'action-proposal': 'done', 'milestone-proposal': 'done',
+  'decision-back': 'done', 'decision-up': 'done', 'decision-where': 'done', 'decision-open': 'done', 'decision-walk': 'done',
   'action-edges': 'in-progress'
 };
 contentNodes.forEach((node) => {
