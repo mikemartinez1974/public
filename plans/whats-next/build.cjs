@@ -93,7 +93,7 @@ const contentNodes = [
     'graphs/twilite-demo: a document from the Page Template. Four sections carried over from the product story, an At a glance list, and three ways out drawn as Portal-style cards in the flow.'),
 
   makeNode('plan-action', 'action-inventory', 'Write down what moving around does today', at(1, 2),
-    'The workspace has Back, Forward, Step out and Open alongside; the browser has Home and an address bar; Portals and links open graphs. What each one does now, and where they disagree, before anything is proposed.'),
+    'Done: graphs/navigation-today. What each click, drag and key does now, read from the code, set against the scheme: seven things that already match, twelve that differ, and a build order in seven steps.'),
   makeNode('plan-action', 'action-proposal', 'Propose how navigation should work', at(1, 3),
     'Written and agreed: “A click means closer”. It is a canon document, tlz://twilite.zone/library/documentation/navigation/root.node, and navigation is built to it.'),
   makeNode('plan-action', 'action-build-navigation', 'Build what is agreed', at(1, 4),
@@ -170,12 +170,22 @@ const contentNodes = [
   makeNode('plan-contingency', 'contingency-declare', 'Declare it when the template takes it', at(7, 6),
     'The route class declares the field, and its editor gains the control, in the same change that moves the card into the Page Template.')
 ];
+// The two documents navigation is built from stand beside its column, each as a Portal.
+const linked = (key, label, ref, memo, position) => ({ id: `${prefix}-${key}`, type: 'portal', label, root: false, position, width: 360, height: 240,
+  ports: [{ id: 'root', label: 'root', direction: 'bidirectional', dataType: 'any', angle: 210 }, { id: 'left', label: 'left', direction: 'bidirectional', dataType: 'value', angle: 180 }],
+  visible: true, showLabel: true,
+  data: { identity: { graphId }, memo, authority: 'navigate', intent: 'external', src: ref, ref, endpoint: ref, sourceRef: ref, sourcePayload: 'node.web.detail', surfaceId: 'root',
+    target: { ref, mode: 'navigate', portId: 'root', surfaceId: 'root', label: `Open ${label}` }, visibilityRole: 'browser' } });
+const linkedGraphs = [
+  linked('link-scheme', 'The navigation scheme', 'tlz://twilite.zone/library/documentation/navigation/root.node', 'A click means closer: what each click should do. Agreed 12 October 2026; navigation is built to it.', at(8, 1)),
+  linked('link-today', 'Navigation today', 'github://mikemartinez1974/public/graphs/navigation-today/root.node', 'What each click does now, read from the code, with the differences and a build order.', at(8, 2))
+];
 // Where the work stands. Anything not listed is still a draft, not started. Change this and run the build again.
 const statuses = {
   'the-plan': 'in-progress',
   'decision-scene': 'done', 'decision-ground': 'done', 'decision-bundled': 'done', 'decision-hand': 'done',
   'phase-demos': 'in-progress', 'action-commons-demo': 'done', 'action-boulevard-demo': 'done', 'action-twilite-demo': 'done', 'milestone-demos': 'done',
-  'phase-navigation': 'in-progress', 'action-proposal': 'done', 'milestone-proposal': 'done',
+  'phase-navigation': 'in-progress', 'action-inventory': 'done', 'action-proposal': 'done', 'milestone-proposal': 'done',
   'decision-back': 'done', 'decision-up': 'done', 'decision-where': 'done', 'decision-open': 'done', 'decision-walk': 'done',
   'action-edges': 'in-progress'
 };
@@ -183,7 +193,7 @@ contentNodes.forEach((node) => {
   const status = statuses[node.id.slice(prefix.length + 1)];
   if (status) node.data.status = status;
 });
-graph.nodes.push(...contentNodes);
+graph.nodes.push(...contentNodes, ...linkedGraphs);
 
 const edgeStyle = {
   'plan.achieves': { stroke: '#059669', strokeWidth: 3 },
@@ -311,6 +321,7 @@ instructions.data.markdown = '# How to read this plan\n\n'
   + '- **Michael looks at the demos** is the gate on phase 1.\n'
   + '- **Constraints** are how the work is done. **Risks** each have a **contingency** beside them.\n\n'
   + 'Status is kept in `plans/whats-next/build.cjs`, in the `statuses` list. Change it there and run `node plans/whats-next/build.cjs`.\n\n'
+  + 'Two Portals stand beside the navigation questions: **The navigation scheme**, the agreed document in canon, and **Navigation today**, what the app does now and the order to build the difference in.\n\n'
   + 'The demos are at `graphs/commons-demo`, `graphs/boulevard-demo` and `graphs/twilite-demo`. The designs are on the canvas, in the row headed “The rooms behind the root”.';
 
 for (const node of graph.nodes) {
