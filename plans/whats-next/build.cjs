@@ -70,6 +70,14 @@ const contentNodes = [
     'A fifteen-step procedure in the editor: put a picture in a Content node, draw the landing surface, pin it, place nodes, name an edge, add a Portal, zoom, browse, save and reload.',
     { decision: 'Run by Michael, 2026-10-12: every step passed, including pasting an image.' }),
 
+  makeNode('plan-decision', 'decision-free', 'Without the workspace, one graph at a time', at(8, 0),
+    'A free account works as a web browser does. Going through a Portal puts you wholly in the other graph. The border of the graph is never seen.',
+    { decision: 'Decided by Michael, 2026-10-12. Going through a connection puts you at its far end, the Port; going back puts you at the end you left. Written into the navigation scheme as “Without the workspace”.' }),
+
+  makeNode('plan-decision', 'decision-double', 'Double-click is the end of the line', at(8, 4),
+    'It does the last step for a thing at once, from any distance. Double-click a Portal that is only an icon or a mark, and it navigates.',
+    { decision: 'Decided by Michael, 2026-10-12. Written into the navigation scheme under rule 1 and “Keys and modifiers”.' }),
+
   makeNode('plan-phase', 'phase-demos', '1. Look at the room demos', at(0, 1),
     'The three rooms behind the root are built as demos in the personal library. Looking at them is the next thing, and what is seen feeds the navigation work.'),
   makeNode('plan-phase', 'phase-navigation', '2. Navigation', at(1, 1),
@@ -97,7 +105,7 @@ const contentNodes = [
   makeNode('plan-action', 'action-proposal', 'Propose how navigation should work', at(1, 3),
     'Written and agreed: “A click means closer”. It is a canon document, tlz://twilite.zone/library/documentation/navigation/root.node, and navigation is built to it.'),
   makeNode('plan-action', 'action-build-navigation', 'Build what is agreed', at(1, 4),
-    'Built to the scheme as written. Five smaller questions are listed at the end of the scheme and are settled as the work reaches them.'),
+    'Built to the scheme as written, in the seven steps set out in Navigation today. Step 1, the node ladder, is built and waiting to be seen in the app. Five smaller questions are listed at the end of the scheme and are settled as the work reaches them.'),
 
   makeNode('plan-action', 'action-commons', 'The Commons, at its canon address', at(2, 2),
     'tlz://twilite.zone/github/the-commons/root.node. Needs the rule for how a public space comes to be listed.'),
@@ -183,9 +191,9 @@ const linkedGraphs = [
 // Where the work stands. Anything not listed is still a draft, not started. Change this and run the build again.
 const statuses = {
   'the-plan': 'in-progress',
-  'decision-scene': 'done', 'decision-ground': 'done', 'decision-bundled': 'done', 'decision-hand': 'done',
+  'decision-scene': 'done', 'decision-double': 'done', 'decision-free': 'done', 'decision-ground': 'done', 'decision-bundled': 'done', 'decision-hand': 'done',
   'phase-demos': 'in-progress', 'action-commons-demo': 'done', 'action-boulevard-demo': 'done', 'action-twilite-demo': 'done', 'milestone-demos': 'done',
-  'phase-navigation': 'in-progress', 'action-inventory': 'done', 'action-proposal': 'done', 'milestone-proposal': 'done',
+  'phase-navigation': 'in-progress', 'action-build-navigation': 'in-progress', 'action-inventory': 'done', 'action-proposal': 'done', 'milestone-proposal': 'done',
   'decision-back': 'done', 'decision-up': 'done', 'decision-where': 'done', 'decision-open': 'done', 'decision-walk': 'done',
   'action-edges': 'in-progress'
 };
