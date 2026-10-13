@@ -5,8 +5,8 @@
     "graphId": "navigation-smoketest",
     "kind": "graph",
     "version": "0.1.0",
-    "created": "2026-10-13T03:02:41.576Z",
-    "modified": "2026-10-13T03:02:41.576Z",
+    "created": "2026-10-13T03:05:10.834Z",
+    "modified": "2026-10-13T03:05:10.834Z",
     "tags": [
       "demo",
       "scene",
@@ -867,7 +867,7 @@
         },
         "content": {
           "kind": "html",
-          "value": "<div style='position:relative;width:3360px;height:860px;background:#f8fafc;color:#0f172a;overflow:hidden;font-family:system-ui'><div style='position:absolute;left:60px;top:44px;font:700 15px system-ui;letter-spacing:0.16em;color:#6d28d9'>NAVIGATION · SMOKE TEST</div><div style='position:absolute;left:60px;top:74px;font:400 44px Georgia,serif'>Five nodes in a sequence</div><div style='position:absolute;left:60px;top:140px;width:1500px;font:400 19px/1.5 system-ui;color:#475569'>Click a node three times: the camera comes to it, it takes focus, you are inside. Click an edge three times: both ends are framed, it is selected, you travel to the far end. Follow a port to the next node. Escape steps out. Back retraces every move.</div></div>"
+          "value": "<div style='position:relative;width:3360px;height:860px;background:#f8fafc;color:#0f172a;overflow:hidden;font-family:system-ui'><div style='position:absolute;left:60px;top:44px;font:700 15px system-ui;letter-spacing:0.16em;color:#6d28d9'>NAVIGATION · SMOKE TEST</div><div style='position:absolute;left:60px;top:74px;font:400 44px Georgia,serif'>Five nodes in a sequence</div><div style='position:absolute;left:60px;top:140px;width:1500px;font:400 19px/1.5 system-ui;color:#475569'>Click a node three times: the camera comes to it, it takes focus, you are inside. Click an edge three times: both ends are framed, it is selected, you travel to the far end. Follow a port to the next node. Escape steps out. Back retraces every move. The two Portals at the top right go through: three clicks, or a double-click. Back returns you to the Portal you left by.</div></div>"
         }
       },
       "positionLocked": true
@@ -1329,6 +1329,110 @@
           "value": "## Five\n\nThe end of the sequence. An edge runs from here back to One."
         }
       }
+    },
+    {
+      "id": "through-to-primitives",
+      "type": "portal",
+      "label": "Primitives",
+      "root": false,
+      "position": {
+        "x": 2080,
+        "y": 90
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "navigation-smoketest"
+        },
+        "memo": "A canon graph: the sixteen parts every graph is made of.",
+        "authority": "navigate",
+        "intent": "external",
+        "src": "tlz://twilite.zone/library/primitives/root.node",
+        "ref": "tlz://twilite.zone/library/primitives/root.node",
+        "endpoint": "tlz://twilite.zone/library/primitives/root.node",
+        "sourceRef": "tlz://twilite.zone/library/primitives/root.node",
+        "sourcePayload": "node.web.detail",
+        "surfaceId": "root",
+        "target": {
+          "ref": "tlz://twilite.zone/library/primitives/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "root",
+          "label": "Open Primitives"
+        },
+        "visibilityRole": "browser"
+      }
+    },
+    {
+      "id": "through-to-water-cycle",
+      "type": "portal",
+      "label": "The water cycle",
+      "root": false,
+      "position": {
+        "x": 2560,
+        "y": 90
+      },
+      "width": 360,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "navigation-smoketest"
+        },
+        "memo": "A scene in this library.",
+        "authority": "navigate",
+        "intent": "external",
+        "src": "github://mikemartinez1974/public/graphs/water-cycle-demo/root.node",
+        "ref": "github://mikemartinez1974/public/graphs/water-cycle-demo/root.node",
+        "endpoint": "github://mikemartinez1974/public/graphs/water-cycle-demo/root.node",
+        "sourceRef": "github://mikemartinez1974/public/graphs/water-cycle-demo/root.node",
+        "sourcePayload": "node.web.detail",
+        "surfaceId": "root",
+        "target": {
+          "ref": "github://mikemartinez1974/public/graphs/water-cycle-demo/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "root",
+          "label": "Open The water cycle"
+        },
+        "visibilityRole": "browser"
+      }
     }
   ],
   "edges": [
@@ -1461,6 +1565,32 @@
       "sourceHandle": "out",
       "targetHandle": "in",
       "label": "back to the start",
+      "style": {
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "step-3-to-through-to-primitives",
+      "type": "reference",
+      "source": "step-3",
+      "target": "through-to-primitives",
+      "sourceHandle": "out",
+      "targetHandle": "root",
+      "label": "a way through",
+      "style": {
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "step-3-to-through-to-water-cycle",
+      "type": "reference",
+      "source": "step-3",
+      "target": "through-to-water-cycle",
+      "sourceHandle": "out",
+      "targetHandle": "root",
+      "label": "a way through",
       "style": {
         "route": "curved"
       },
