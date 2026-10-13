@@ -105,7 +105,7 @@ const contentNodes = [
   makeNode('plan-action', 'action-proposal', 'Propose how navigation should work', at(1, 3),
     'Written and agreed: “A click means closer”. It is a canon document, tlz://twilite.zone/library/documentation/navigation/root.node, and navigation is built to it.'),
   makeNode('plan-action', 'action-build-navigation', 'Build what is agreed', at(1, 4),
-    'Built to the scheme as written, in the seven steps set out in Navigation today. Steps 1 to 5, the node ladder, the tile ladder with stepping out, one history with the trail, going through, and travel along edges, are built and seen working. Step 6, walking with the arrow keys, is built and waiting to be seen. Step 7, removing the drawn way-back Portals, is done in the demos and in canon. Five smaller questions are listed at the end of the scheme and are settled as the work reaches them.'),
+    'Built to the scheme as written, in the seven steps set out in Navigation today. Steps 1 to 5, the node ladder, the tile ladder with stepping out, one history with the trail, going through, and travel along edges, are built and seen working. Step 6, walking with the arrow keys, is built and seen working. Step 7, removing the drawn way-back Portals, is done in the demos and in canon. Five smaller questions are listed at the end of the scheme and are settled as the work reaches them.'),
 
   makeNode('plan-action', 'action-commons', 'The Commons, at its canon address', at(2, 2),
     'tlz://twilite.zone/github/the-commons/root.node. Needs the rule for how a public space comes to be listed.'),
@@ -193,7 +193,7 @@ const statuses = {
   'the-plan': 'in-progress',
   'decision-scene': 'done', 'decision-double': 'done', 'decision-free': 'done', 'decision-ground': 'done', 'decision-bundled': 'done', 'decision-hand': 'done',
   'phase-demos': 'in-progress', 'action-commons-demo': 'done', 'action-boulevard-demo': 'done', 'action-twilite-demo': 'done', 'milestone-demos': 'done',
-  'phase-navigation': 'in-progress', 'action-build-navigation': 'in-progress', 'action-inventory': 'done', 'action-proposal': 'done', 'milestone-proposal': 'done',
+  'phase-navigation': 'in-progress', 'action-build-navigation': 'done', 'action-inventory': 'done', 'action-proposal': 'done', 'milestone-proposal': 'done',
   'decision-back': 'done', 'decision-up': 'done', 'decision-where': 'done', 'decision-open': 'done', 'decision-walk': 'done',
   'action-edges': 'in-progress'
 };
