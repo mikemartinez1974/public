@@ -105,7 +105,7 @@ const contentNodes = [
   makeNode('plan-action', 'action-proposal', 'Propose how navigation should work', at(1, 3),
     'Written and agreed: “A click means closer”. It is a canon document, tlz://twilite.zone/library/documentation/navigation/root.node, and navigation is built to it.'),
   makeNode('plan-action', 'action-build-navigation', 'Build what is agreed', at(1, 4),
-    'Built to the scheme as written, in the seven steps set out in Navigation today. Steps 1 to 4, the node ladder, the tile ladder with stepping out, one history with the trail, and going through, are built and seen working. Step 5, travel along edges, is built and waiting to be seen in the app. Five smaller questions are listed at the end of the scheme and are settled as the work reaches them.'),
+    'Built to the scheme as written, in the seven steps set out in Navigation today. Steps 1 to 5, the node ladder, the tile ladder with stepping out, one history with the trail, going through, and travel along edges, are built and seen working. Two remain: walking with the arrow keys, and removing the drawn way-back Portals. Five smaller questions are listed at the end of the scheme and are settled as the work reaches them.'),
 
   makeNode('plan-action', 'action-commons', 'The Commons, at its canon address', at(2, 2),
     'tlz://twilite.zone/github/the-commons/root.node. Needs the rule for how a public space comes to be listed.'),
