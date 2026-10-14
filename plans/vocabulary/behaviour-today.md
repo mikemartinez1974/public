@@ -93,6 +93,18 @@ Everything a Script does can be said as a Method: "on load" and "on change" are 
 
 ---
 
+## Decided (Michael, 2026-10-14)
+
+- **Event handling runs along the edges.** If a node wants to call a Method, it draws the edge. Structure matters: "any section changed" means every section has its own edge to the Method. There is no listening by class, and no Event Handler node.
+- **One edge for it**, proposed name `invokes` (the edge class canon already has): from what raises the event to the Method, naming the event. `listens`, trigger edges and Event Handler nodes retire.
+- **A Method has an `invokes` port**, so a Method runs the next Method by an edge from it. A sequence is a chain you can see.
+- **Scripts go.** Methods get things done. "On load" and "on change" are events from the root like any other.
+- **A Method can run from a button.** A button is a node that raises an event (`clicked`), with an `invokes` edge to the Method. Nothing new is needed beyond the button.
+- **Listening across graphs stays.** More templates will mean much more of it; it is redesigned in the same shape rather than left alone. The likely form: in the receiving graph, the import stands for the other graph, and the `invokes` edge is drawn from the import to the Method.
+- **Weak spot 8 is not a problem.** Today only `property` nodes announce `property.changed`; `field` nodes don't. Once every `field` is a `property` (Collision 3), every Property announces its changes. Announcing costs nothing: what makes something happen is the edge. A Property with no edge from it is what a "field" meant.
+
+Still to settle: effects said once (weak spot 4), and events declared in one place (weak spot 3).
+
 ## A shape to start from (not a proposal yet)
 
 Put next to Bridge, where we just found the same thing: a node whose only job is to stand between two others is really an edge.

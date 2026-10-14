@@ -145,6 +145,8 @@ const contentNodes = [
     'The trail and the one history work, but have little to look at. History and bookmarks need their own UI, using the icons and Glyphs graphs and nodes already have. Raised by Michael, 2026-10-14; needs a design first.'),
   makeNode('plan-action', 'action-web-pages', 'Web pages in the workspace', at(6, 8),
     'A link is an edge on the web, and it should be drawn wherever its ends are in the workspace, web pages included. How web pages show in the workspace has had little attention so far. Raised by Michael, 2026-10-14.'),
+  makeNode('plan-action', 'action-behaviour', 'Behaviour along the edges', at(6, 9),
+    'Decided with Michael, 2026-10-14 (plans/vocabulary/behaviour-today.md): every source draws its own invokes edge to the Method; Methods invoke Methods through an invokes port; a button raises an event; Scripts and Event Handler nodes retire; listening across graphs is redesigned in the same shape. Rebuild the primitive pages and templates on it.'),
   makeNode('plan-decision', 'decision-back', 'Going back', at(7, 1), 'Does every graph need its own way back, or is that the app’s job?', { decision: 'Agreed by Michael, 2026-10-12: it is the app’s job. Back returns to the same graph, node and distance; no graph draws a way back.' }),
   makeNode('plan-decision', 'decision-up', 'Going up', at(7, 2), 'Is there a place above this one: an index above a primitive page, the root above the index?', { decision: 'Agreed by Michael, 2026-10-12: there is no separate “up”. In the workspace the trunk shows what a graph was opened from.' }),
   makeNode('plan-decision', 'decision-where', 'Knowing where you are', at(7, 3), 'With several graphs open, what tells you which one you are in and how you got there?', { decision: 'Agreed by Michael, 2026-10-12: a trail near the address bar names the graphs you came through.' }),
@@ -247,7 +249,7 @@ phases.slice(1).forEach((phase, index) => addEdge(`phase-${index + 1}-${index + 
 const phaseActions = {
   demos: ['commons-demo', 'boulevard-demo', 'twilite-demo'], navigation: ['inventory', 'proposal', 'build-navigation'],
   rooms: ['commons', 'boulevard', 'twilite', 'card'], places: ['company', 'gallery', 'research'], cycle: ['move-cycle', 'examples'],
-  tutorials: ['write-tutorials', 'open-learn'], carried: ['edges', 'editor', 'small', 'sorting', 'rooting', 'trail-ui', 'web-pages']
+  tutorials: ['write-tutorials', 'open-learn'], carried: ['edges', 'editor', 'small', 'sorting', 'rooting', 'trail-ui', 'web-pages', 'behaviour']
 };
 for (const [phase, actions] of Object.entries(phaseActions)) {
   for (const action of actions) addEdge(`${phase}-${action}`, 'plan.contains', `phase-${phase}`, `action-${action}`, ['actions', 'parent']);

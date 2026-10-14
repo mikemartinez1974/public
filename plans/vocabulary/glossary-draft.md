@@ -59,10 +59,9 @@ Words for the template builder. A visitor never needs them.
 | **Bridge** | The connection from an export to the import that uses it: one graph drawing on another. A Bridge is a classed edge (the `bridge` edge class), not a class of node. Drawn in the workspace between the two graphs, and what Tidy arranges by. | not stored: worked out from the imports and exports of open graphs |
 | **class** | The definition a node or edge follows: which Properties it has and how it looks. | `classKey` and `classRef` on nodes; `edgeClassRef` on edges; `relationshipRef` in the app's code **→ on nodes and edges alike, `type` is the class key and `classRef` the class graph's address** (Collisions 4 and 6) |
 | **Edge Class** | A class for edges: what a kind of connection means and what it may join. | a graph built from the Edge Class template |
-| **Property** | One named value on a node, as its class defines it. Changing it raises `property.changed`, and its node raises `node.changed`. | node type `field` (186) **and** node type `property` (204, in edge classes) **→ `property`** (Collision 3) |
-| **Method** | Behaviour a graph can run, with its effects declared. *Under review: see Design talks.* | node type `method` |
-| **Event Handler** | What runs Methods when an event happens. *Under review: see Design talks.* | node type `event-handler`, edges `invokes` and `listens` |
-| **Script** | Code the graph loads and runs. *Under review: Michael is on team Method; see Design talks.* | node type `script`; also top-level `scripts` in the file |
+| **Property** | One named value on a node, as its class defines it. Every Property announces `property.changed` when its value changes; nothing happens unless an edge is drawn from it. A Property with no edge out is what a field used to be. | node type `field` (186) **and** node type `property` (204, in edge classes) **→ `property`** (Collision 3) |
+| **Method** | The only code in a graph. It runs when something invokes it, and declares what it may change; the app refuses anything else. A Method has an `invokes` port of its own, so one Method can run the next. | node type `method` |
+| **invokes** | The edge that makes something happen: from what raises an event (a Property, a node, a button, a Method) to the Method it runs, naming the event. Every source draws its own edge: structure matters. *Name proposed.* | edge `invokes`; today also the `event-handler` node, trigger edges and `listens` edges, all retired |
 | **Membrane** | A graph's boundary: what it holds in, and where its ports sit for things to cross. A graph grows from its root and is held by its membrane. | node type `membrane` (its control points), edge `membrane`; also stored as the "authored frame" **→ membrane only** (Collision 13) |
 | **Specification** | The page that defines a primitive. | an ordinary graph under `library/primitives/` |
 | **primitive** | One of the sixteen parts every graph is made of. Each has a Specification. | — |
@@ -84,7 +83,7 @@ Already in canon on the navigation page. Listed here so the glossary is complete
 
 Raised by Michael reading the tables, 2026-10-14. The words in these areas are not settled until the talk is had.
 
-- **A. Behaviour.** Property, event, Event Handler, Method, Script. Today a Property raises `property.changed`, an Event Handler listens for it and `invokes` Methods in order; Scripts run on their own (on load, on graph change). Michael: does a Property invoke a Method directly, can a Method invoke another, and is a Script anything a Method isn't? He is on team Method. The design needs looking at again to make sure it is solid.
+- **A. Behaviour.** Decided with Michael, 2026-10-14; see `behaviour-today.md`, "Decided". Event handling runs along the edges: every source draws its own `invokes` edge to the Method, Methods invoke Methods through their own `invokes` port, a button is a node that raises an event, and Scripts and Event Handler nodes retire. Listening across graphs stays and is redesigned in the same shape.
 - **B. Document, scene and collection.** What each one is, whether they are kinds of graph or ways of laying one out, and how a reader tells them apart.
 - **C. Web pages in the workspace.** A link is an edge on the web and should be drawn. Web pages in the workspace have had little attention so far.
 
@@ -113,6 +112,7 @@ Each is a place where two stored names mean one thing, or one name means two thi
 Node types the app knows that no current graph uses, or that only old graphs use. **Agreed** (Michael, 2026-10-14): removed from the app.
 
 - Old generation: `manifest`, `dictionary`, `legend` (16 left, all in old graph material), `promotable-markdown`, `subscription`, `event-declaration`, `graph-reference` (Collision 9).
+- Behaviour: `event-handler`, `script` and the top-level `scripts` list, `subscription`, the `listens` edge, trigger edges, listening by class. See Design talk A.
 - Groups (Collision 7): the `clusters` key in files, `GroupManager` and the group menus in the app.
 - Unused utilities: `default`, `fixed`, `div`, `timer`, `toggle`, `counter`, `gate`, `delay`, `value-trigger`, `background-rpc`, `3d`, and probably `api` and `canvas` (one graph each).
 - Old face wiring on the root: `default-view`, `summary-view`, `icon-view`, `editor-view`, `derived-view`, `shared-summary`, `shared-icon`, `shared-glyph`. The app still reads these as a Surface. The reading is deleted; current graphs that still use them are converted.
