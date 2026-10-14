@@ -197,7 +197,7 @@ for (const [phase, actions] of Object.entries(phaseActions)) {
   for (const action of actions) addEdge(`${phase}-${action}`, 'plan.contains', `phase-${phase}`, `action-${action}`, ['actions', 'parent']);
 }
 addEdge('wording-milestone', 'plan.produces', 'action-open', 'milestone-wording');
-['root', 'distinctive', 'faces'].forEach((question) => addEdge(`question-${question}`, 'plan.gates', 'action-open', `decision-${question}`));
+['root', 'distinctive', 'faces'].forEach((question) => addEdge(`question-${question}`, 'plan.gates', 'milestone-wording', `decision-${question}`));
 addEdge('done-milestone', 'plan.produces', 'action-create', 'milestone-done');
 addEdge('approval', 'plan.constrained-by', 'action-collisions', 'constraint-approval');
 addEdge('stored', 'plan.constrained-by', 'action-labels', 'constraint-stored');
