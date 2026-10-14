@@ -5,7 +5,7 @@ A draft for Michael to mark up. Nothing in canon, the app or the files has chang
 Numbers in **Collisions** and **Open questions** are there so you can answer by number.
 
 **Decided so far** (Michael, 2026-10-14):
-- **Root replaces Declaration**, everywhere: in the files, the app, canon and the guides. It is a noun and a verb.
+- **Root replaces Declaration**, everywhere: in the files, the app, canon and the guides. It is a noun and a verb: to root graphs is to select several in the workspace and make a new graph from them (not built yet).
 - **Faces** is the word for how a graph looks from further away. Face names are the author's to choose: Detail, Summary and Icon are the usual names, not the only ones, and a graph with faces named anything else works the same way.
 - **Membrane** stays, and is the only word for a graph's boundary. Frame, border and wrap are retired.
 - **Import** and **export** are the two ends; a **Bridge** is the connection between them.
@@ -47,7 +47,7 @@ Words for the template builder. A visitor never needs them.
 | Word | What it is | Stored as |
 |---|---|---|
 | **root** (noun) | The node a graph begins from. It says what the graph is (its name, description and faces) and everything else in the graph hangs from it. Every graph has exactly one. The file is already called `root.node`. | node type `declaration` **→ `root`**; older graphs `manifest` (357 graphs, all retired). Collision 10. |
-| **root** (verb) | To give something a root of its own, so it can be opened and gone inside: rooting a node makes it a graph. Proposed meaning; see Open question A. | — |
+| **root** (verb) | To select several graphs in the workspace and make a new graph from them, with a root of its own. *Not built yet.* | — |
 | **Surface** | One ordered set of faces a graph shows from outside. A graph can have more than one. | edge `surface` from the root to the first face |
 | **Port** | A named place where a graph offers something to other graphs. The root is the graph's root Port. | node type `port`; on edges, `sourcePort`/`targetPort` **and** `sourceHandle`/`targetHandle` (Collision 5) |
 | **export** | What a graph offers to other graphs: a class, a set of classes, or the whole graph. | node type `bridge` with role `export` **→ node type `export`** (Collision 12) |
@@ -107,8 +107,7 @@ Kept, because the app makes them while it runs and they are never saved: `route-
 
 ## Open questions
 
-- **A. Root as a verb.** Decided that root is a noun and a verb. This draft proposes the verb means *giving something a root of its own so it can be gone inside*: you root a node to make it a graph. Is that the meaning you have in mind?
-- **B. Is the Glyph a face?** With free names, the Glyph could simply be the last face, named Glyph by habit. Today it is its own primitive (a compact symbol) and ends every chain. Keep it separate, or make it a face like the others?
+- **Is the Glyph a face?** With free names, the Glyph could simply be the last face, named Glyph by habit. Today it is its own primitive (a compact symbol) and ends every chain. Keep it separate, or make it a face like the others?
 
 ## Old graph material
 
