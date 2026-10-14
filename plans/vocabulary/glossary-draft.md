@@ -98,7 +98,6 @@ Each is a place where two stored names mean one thing, or one name means two thi
 12. **A Bridge node is half a bridge.** A `bridge` node is only ever one end, an import or an export, while the line drawn between two graphs is also called a Bridge. Decided: the ends are **import** and **export**. **Agreed:** node types `import` and `export` replace `bridge` and its `role` field (2,862 nodes, mostly the class imports in templates); ids like `plan-template-class-bridge-plan-goal` become `…-import-plan-goal`. The Bridge Specification becomes the page for imports and exports, and the Bridge edge class keeps its name for the connection.
 13. **Membrane, frame, border, wrap.** Four words for a graph's boundary: the Membrane page, the stored "authored frame", the app's "border ports", the workspace's "wraps". Decided: **Membrane**. **Agreed:** wherever the boundary is stored it is stored as the membrane; the app's code and labels say membrane (membrane ports, not border ports).
 
-
 ## Retiring
 
 Node types the app knows that no current graph uses, or that only old graphs use. **Agreed** (Michael, 2026-10-14): removed from the app.
