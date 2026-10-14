@@ -36,13 +36,12 @@ Words that arrive when someone starts making things.
 | **content** | The words, pictures or markup a node shows. | node type `content` with `data.content.kind`; today also node type `markdown` (1,069 nodes) **→ `content` only** (Collision 1) |
 | **link** | An edge on the web: a connection to a graph or a web page, written in content or set on a node. It is drawn as an edge, and should be wherever its ends are in the workspace, including web pages. | `data.link`, `url`, `href`, or a link in content, drawn by the `link` edge class |
 | **ground** | What you stand on inside a graph: where you land when you go in. A graph with graph content has one; a document has none. | edge `reference` with role `landing-surface` **→ edge `ground`, from the root's `ground` port** (Collision 2) |
-| **document** | A graph that is only a page. It has no ground. *Under review: see Design talks.* | no marker: a graph with no ground |
-| **scene** | A graph laid out as a picture, its nodes pinned where they belong. The Twilite Zone's front page and the Boulevard are scenes. *Under review: see Design talks.* | nothing of its own: pinned nodes |
 | **faces** | How a graph or node looks from further away, largest to smallest. The author names them; the usual names are **Detail**, **Summary** and **Icon**. The first face is the page. What the app shows depends on a face's place in the order and the room it has, never on its name. The order ends at the Glyph. | `view` nodes joined by `view-sequence`, ending in a `glyph` node **→ `face` nodes joined by `next-face`**, ending in the `glyph` (Collision 11) |
 | **Glyph** | A node's mark: the symbol that stands for it. Faces are how a node looks; the Glyph is how it is recognised. A graph has one because, seen from outside, a graph is a node. It is shown when there is no room for even the smallest face, and wherever the node is named in a small space: lists, the trail, link chips, tabs, bookmarks. It has its own editor and its name is always Glyph. | node type `glyph` |
-| **template** | A graph you start a new graph from. | a graph made to be copied; kept under `templates/` |
-| **collection** | A graph whose job is to list other graphs. *Under review: see Design talks.* | a graph of Portals |
+| **template** | A graph you start a new graph from. Templates are how the shapes that work get passed on, and each generation built from one can become a template in turn. | a graph made to be copied; kept under `templates/` |
 | **workspace** | Where open graphs sit side by side. | not stored in graphs |
+
+**Patterns, not kinds of graph.** A graph can grow into anything. Some shapes come up again and again: a page on its own, a picture, a list of doors to other graphs. People call these **documents**, **scenes** and **collections**. They are patterns, not kinds of graph: nothing in a file says which one a graph is, and a graph can be more than one at once. What a graph does follows from what is in it, never from a label on it (a graph with no ground shows its page because it has no ground). Templates are how the patterns are passed on.
 
 ## Layer 3: Building templates and classes
 
@@ -84,7 +83,7 @@ Already in canon on the navigation page. Listed here so the glossary is complete
 Raised by Michael reading the tables, 2026-10-14. The words in these areas are not settled until the talk is had.
 
 - **A. Behaviour.** Decided with Michael, 2026-10-14; see `behaviour-today.md`, "Decided". Event handling runs along the edges: every source draws its own `invokes` edge to the Method, Methods invoke Methods through their own `invokes` port, a button is a node that raises an event, and Scripts and Event Handler nodes retire. Listening across graphs stays and is redesigned in the same shape.
-- **B. Document, scene and collection.** What each one is, whether they are kinds of graph or ways of laying one out, and how a reader tells them apart.
+- **B. Document, scene and collection.** Decided with Michael, 2026-10-14: they are patterns a graph grows into, not kinds of graph, and leave the tables. See the note under Layer 2.
 - **C. Web pages in the workspace.** A link is an edge on the web and should be drawn. Web pages in the workspace have had little attention so far.
 
 ## Collisions found in the files
