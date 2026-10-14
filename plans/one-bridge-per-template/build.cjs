@@ -37,7 +37,7 @@ const semanticTypes = new Set([
 const exemplars = new Map(template.nodes.filter((node) => semanticTypes.has(node.type)).map((node) => [node.type, node]));
 graph.nodes = graph.nodes.filter((node) => !semanticTypes.has(node.type));
 graph.edges = graph.edges.filter((edge) => {
-  const role = String(edge.data?.semanticRole || '').trim();
+  const role = String(edge.type || '').trim();
   return !role.startsWith('plan.') && role !== 'instantiates';
 });
 
@@ -166,9 +166,9 @@ const id = (suffix) => `${prefix}-${suffix}`;
 const addEdge = (name, type, source, target, ports = edgePorts[type]) => {
   graph.edges.push({
     id: id(`edge-${name}`), type, label: type.replace('plan.', '').replaceAll('-', ' '), source: id(source), target: id(target),
-    sourcePort: ports[0], sourceHandle: ports[0], targetPort: ports[1], targetHandle: ports[1],
+    sourcePort: ports[0], targetPort: ports[1],
     style: { ...edgeStyle[type], curved: true, dash: edgeStyle[type]?.dash || [] },
-    data: { semanticRole: type, presentation: { layer: 'semantic' } }
+    data: { presentation: { layer: 'semantic' } }
   });
 };
 
@@ -197,10 +197,10 @@ addEdge('deploy', 'plan.mitigated-by', 'risk-order', 'contingency-deploy');
 
 for (const node of contentNodes) {
   graph.edges.push({
-    id: `${node.id}-instantiates`, type: 'reference', label: '', source: `${prefix}-class-bridge-${node.type}`, target: node.id,
-    sourcePort: 'root', sourceHandle: 'root', targetPort: 'root', targetHandle: 'root', hidden: true,
+    id: `${node.id}-instantiates`, type: 'instantiates', label: '', source: `${prefix}-class-bridge-${node.type}`, target: node.id,
+    sourcePort: 'root', targetPort: 'root', hidden: true,
     style: { stroke: '#64748b', strokeWidth: 1, opacity: 0.03 },
-    data: { role: 'instantiates', semanticRole: 'instantiates', presentation: { layer: 'contract' } }
+    data: { presentation: { layer: 'contract' } }
   });
 }
 

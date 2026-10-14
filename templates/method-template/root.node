@@ -79,7 +79,7 @@
         },
         "content": {
           "kind": "html",
-          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a;overflow:auto'><h1 style='margin:0 0 12px;font:800 24px/1.2 system-ui'>Method's trigger binding</h1><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Below, <strong>Widget Ready (Event Source)</strong> raises a custom event -- <code>widget.ready</code> -- declared in its own <code>data.events</code>. That declaration is what gives it a real, selectable <code>event:widget.ready</code> output port; nothing else does. <strong>Local Trigger Demo</strong>'s <code>trigger</code> port is wired to that exact output by a real edge (<code>type: 'listens'</code>), so it actually fires when the event fires -- this is not two floating ports placed near each other.</p><h2 style='margin:20px 0 8px;font:700 16px/1.3 system-ui'>How this edge gets authored</h2><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Not by dragging a wire on the canvas. Open Local Trigger Demo's own properties and its <strong>TRIGGERS</strong> panel (MethodTriggersEditor.js) lists every event already wired in, and an <em>Add a trigger</em> dropdown lists every event any node in the graph has declared and not yet wired. Picking one calls <code>graphAPI.createEdge({ source: event.sourceNodeId, target: node.id, sourceHandle: 'event:' + event.eventKey, targetHandle: 'trigger', type: 'listens' })</code> -- the panel is the only authoring path; the edge below is its result, not a hand-drawn stand-in for it.</p><h2 style='margin:20px 0 8px;font:700 16px/1.3 system-ui'>Why trigger shows a bolt</h2><p style='margin:0;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Every other structural port borrows its icon from whatever it coincidentally creates when dragged into empty space -- View's surface-delegate shows Content's icon, a Declaration's surfaces shows View's. <code>trigger</code> can't do that: its source might be a Method, an Event Handler, or any other node type that happens to declare an event, so there's no single type to borrow from. portDeclarations.js authors an explicit <code>metadata.glyph: { kind: 'icon', name: 'Bolt' }</code> on it instead -- the same BoltIcon the TRIGGERS panel itself uses as its header, so the port and the UI that wires it always agree.</p></div>"
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a;overflow:auto'><h1 style='margin:0 0 12px;font:800 24px/1.2 system-ui'>Method's trigger binding</h1><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Below, <strong>Widget Ready (Event Source)</strong> raises a custom event -- <code>widget.ready</code> -- declared in its own <code>data.events</code>. That declaration is what gives it a real, selectable <code>event:widget.ready</code> output port; nothing else does. <strong>Local Trigger Demo</strong>'s <code>trigger</code> port is wired to that exact output by a real edge (<code>type: 'listens'</code>), so it actually fires when the event fires -- this is not two floating ports placed near each other.</p><h2 style='margin:20px 0 8px;font:700 16px/1.3 system-ui'>How this edge gets authored</h2><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Not by dragging a wire on the canvas. Open Local Trigger Demo's own properties and its <strong>TRIGGERS</strong> panel (MethodTriggersEditor.js) lists every event already wired in, and an <em>Add a trigger</em> dropdown lists every event any node in the graph has declared and not yet wired. Picking one calls <code>graphAPI.createEdge({ source: event.sourceNodeId, target: node.id, sourcePort: 'event:' + event.eventKey, targetPort: 'trigger', type: 'listens' })</code> -- the panel is the only authoring path; the edge below is its result, not a hand-drawn stand-in for it.</p><h2 style='margin:20px 0 8px;font:700 16px/1.3 system-ui'>Why trigger shows a bolt</h2><p style='margin:0;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'>Every other structural port borrows its icon from whatever it coincidentally creates when dragged into empty space -- View's surface-delegate shows Content's icon, a Declaration's surfaces shows View's. <code>trigger</code> can't do that: its source might be a Method, an Event Handler, or any other node type that happens to declare an event, so there's no single type to borrow from. portDeclarations.js authors an explicit <code>metadata.glyph: { kind: 'icon', name: 'Bolt' }</code> on it instead -- the same BoltIcon the TRIGGERS panel itself uses as its header, so the port and the UI that wires it always agree.</p></div>"
         }
       }
     },
@@ -171,39 +171,36 @@
       "id": "method-template-surfaces",
       "type": "surface",
       "source": "method-template-declaration",
-      "sourceHandle": "surfaces",
       "target": "method-template-view",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "method-template-sequence-out",
       "type": "view-sequence",
       "source": "method-template-view",
-      "sourceHandle": "sequence-out",
       "target": "method-template-glyph",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "method-template-widget-trigger",
       "type": "listens",
       "source": "method-template-event-source",
-      "sourceHandle": "event:widget.ready",
       "target": "method-template-triggered-method",
-      "targetHandle": "trigger",
       "label": "",
       "style": {},
-      "data": {}
+      "data": {},
+      "sourcePort": "event:widget.ready",
+      "targetPort": "trigger"
     }
   ],
   "settings": {
