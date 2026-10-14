@@ -198,7 +198,7 @@
     },
     {
       "id": "semantic-zoom-view-selection-instructions",
-      "type": "markdown",
+      "type": "content",
       "label": "Reading This Idea",
       "position": {
         "x": -220,
@@ -249,8 +249,11 @@
         "identity": {
           "graphId": "semantic-zoom-view-selection"
         },
-        "markdown": "## Semantic zoom and camera-scope rollover\n\nRead the proposal from **Problem → Idea → Proposed Approach**, then review the risk and implementation slice.\n\n### The observable sequence\n\n1. **Workspace scope:** pan and zoom arrange graph-nodes in the workspace.\n2. **Semantic approach:** each graph resolves the exact authored Glyph, Icon, Summary, or Detail surface appropriate to its rendered screen size.\n3. **The seam:** when the focused graph reaches the viewport threshold, its frame becomes the viewport without a visual jump.\n4. **Graph scope:** further zoom and pan operate inside that graph from its authored landing viewport.\n5. **Reverse rollover:** zooming back to the landing baseline returns control to the preserved workspace camera.\n\nOnly the focused graph can cross the seam. Use hysteresis around the entry and exit thresholds so small wheel movements do not bounce between scopes.\n\n### Ownership\n\n- The workspace document owns the workspace camera and graph-instance arrangement.\n- The graph owns its authored landing viewport.\n- The workspace session may remember a local camera per graph instance; it does not silently rewrite the authored landing viewport.\n- A missing semantic surface does not authorize an invented representation. Keep the nearest fuller valid authored representation visible.\n\n### Acceptance\n\nZooming in and out repeatedly must preserve the pointer/focus anchor, workspace arrangement, graph-local camera, active graph, and address. Saving and reopening the workspace must restore workspace scope independently of each graph's authored landing viewport.",
-        "title": "Reading This Idea"
+        "title": "Reading This Idea",
+        "content": {
+          "kind": "markdown",
+          "value": "## Semantic zoom and camera-scope rollover\n\nRead the proposal from **Problem → Idea → Proposed Approach**, then review the risk and implementation slice.\n\n### The observable sequence\n\n1. **Workspace scope:** pan and zoom arrange graph-nodes in the workspace.\n2. **Semantic approach:** each graph resolves the exact authored Glyph, Icon, Summary, or Detail surface appropriate to its rendered screen size.\n3. **The seam:** when the focused graph reaches the viewport threshold, its frame becomes the viewport without a visual jump.\n4. **Graph scope:** further zoom and pan operate inside that graph from its authored landing viewport.\n5. **Reverse rollover:** zooming back to the landing baseline returns control to the preserved workspace camera.\n\nOnly the focused graph can cross the seam. Use hysteresis around the entry and exit thresholds so small wheel movements do not bounce between scopes.\n\n### Ownership\n\n- The workspace document owns the workspace camera and graph-instance arrangement.\n- The graph owns its authored landing viewport.\n- The workspace session may remember a local camera per graph instance; it does not silently rewrite the authored landing viewport.\n- A missing semantic surface does not authorize an invented representation. Keep the nearest fuller valid authored representation visible.\n\n### Acceptance\n\nZooming in and out repeatedly must preserve the pointer/focus anchor, workspace arrangement, graph-local camera, active graph, and address. Saving and reopening the workspace must restore workspace scope independently of each graph's authored landing viewport."
+        }
       },
       "handles": [
         {
@@ -3310,7 +3313,7 @@
     },
     {
       "id": "semantic-zoom-view-selection-percentage-contract",
-      "type": "markdown",
+      "type": "content",
       "label": "Percentage View Contract",
       "position": {
         "x": 740,
@@ -3335,9 +3338,12 @@
         }
       ],
       "data": {
-        "markdown": "## Optional View-owned contract\n\n```json\n{\n  \"id\": \"reading-view\",\n  \"type\": \"view\",\n  \"data\": {\n    \"view\": { \"payload\": \"node.web.detail\" },\n    \"semanticZoom\": {\n      \"minPercent\": 35,\n      \"expandAtPercent\": 80\n    }\n  }\n}\n```\n\n`minPercent` changes when that exact View enters the sequence. `expandAtPercent` is meaningful on the highest-threshold View and changes when it yields to the full graph. Both are optional. Without them, exposed Glyph, Icon, Summary, and Detail roles use their conventional thresholds. Twilite sorts only the representations present in the graph, so missing roles are skipped rather than invented.\n\n### Generated fallback sequence\n\nWhen no authored View has reached its `minPercent`, Twilite renders a passive minimap from that graph’s visible nodes. Below 10%, it renders the graph glyph instead. These generated fallbacks require no declaration entry and never expose editor-only bridge plumbing in browse mode.",
         "identity": {
           "graphId": "semantic-zoom-view-selection"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "## Optional View-owned contract\n\n```json\n{\n  \"id\": \"reading-view\",\n  \"type\": \"view\",\n  \"data\": {\n    \"view\": { \"payload\": \"node.web.detail\" },\n    \"semanticZoom\": {\n      \"minPercent\": 35,\n      \"expandAtPercent\": 80\n    }\n  }\n}\n```\n\n`minPercent` changes when that exact View enters the sequence. `expandAtPercent` is meaningful on the highest-threshold View and changes when it yields to the full graph. Both are optional. Without them, exposed Glyph, Icon, Summary, and Detail roles use their conventional thresholds. Twilite sorts only the representations present in the graph, so missing roles are skipped rather than invented.\n\n### Generated fallback sequence\n\nWhen no authored View has reached its `minPercent`, Twilite renders a passive minimap from that graph’s visible nodes. Below 10%, it renders the graph glyph instead. These generated fallbacks require no declaration entry and never expose editor-only bridge plumbing in browse mode."
         }
       }
     }

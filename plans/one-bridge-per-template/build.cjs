@@ -250,12 +250,12 @@ landing.data.identity = { ...landing.data.identity, graphId, nodeId };
 const instructions = graph.nodes.find((node) => node.id === `${prefix}-instructions`);
 instructions.label = 'How to read this plan';
 instructions.position = at(4, 0);
-instructions.data.markdown = '# How to read this plan\n\nThis is a draft for review. Nothing in it has been started.\n\n'
+instructions.data.content = { kind: 'markdown', value: '# How to read this plan\n\nThis is a draft for review. Nothing in it has been started.\n\n'
   + '- The five **phases** run left to right. Each holds the **actions** beneath it.\n'
   + '- Phase 1 changes no app code. Phases 2 to 4 are the app work. Phase 5 is the only one that changes real graphs.\n'
   + '- **Michael reviews the demo** is a gate: conversion does not begin until that decision is made.\n'
   + '- **Constraints** are things the work must not break. **Risks** each have a **contingency** below them.\n\n'
-  + 'What was measured before writing this: pointed at the Page Template, a class Bridge is refused today, and the template offers no classes when asked. A Bridge to the whole template does find its four exports, then copies them in.';
+  + 'What was measured before writing this: pointed at the Page Template, a class Bridge is refused today, and the template offers no classes when asked. A Bridge to the whole template does find its four exports, then copies them in.' };
 
 for (const node of graph.nodes) {
   if (node.data?.identity?.graphId) node.data.identity.graphId = graphId;

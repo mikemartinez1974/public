@@ -332,7 +332,7 @@ const instructions = graph.nodes.find((node) => node.id === `${prefix}-instructi
 instructions.label = 'How to read this plan';
 instructions.position = at(6, 0);
 instructions.height = Math.min(instructions.height || 320, 320);
-instructions.data.markdown = '# How to read this plan\n\n'
+instructions.data.content = { kind: 'markdown', value: '# How to read this plan\n\n'
   + '- The six numbered **phases** run left to right and are done in that order. Each holds the **actions** beneath it.\n'
   + '- **Carried, not scheduled** is the seventh column: known work that blocks nothing.\n'
   + '- The **decisions** along the top are made. The five in the right-hand column are the open questions navigation has to answer.\n'
@@ -340,7 +340,7 @@ instructions.data.markdown = '# How to read this plan\n\n'
   + '- **Constraints** are how the work is done. **Risks** each have a **contingency** beside them.\n\n'
   + 'Status is kept in `plans/whats-next/build.cjs`, in the `statuses` list. Change it there and run `node plans/whats-next/build.cjs`.\n\n'
   + 'Two Portals stand beside the navigation questions: **The navigation scheme**, the agreed document in canon, and **Navigation today**, what the app does now and the order to build the difference in.\n\n'
-  + 'The demos are at `graphs/commons-demo`, `graphs/boulevard-demo` and `graphs/twilite-demo`. The designs are on the canvas, in the row headed “The rooms behind the root”.';
+  + 'The demos are at `graphs/commons-demo`, `graphs/boulevard-demo` and `graphs/twilite-demo`. The designs are on the canvas, in the row headed “The rooms behind the root”.' };
 
 for (const node of graph.nodes) {
   if (node.data?.identity?.graphId) node.data.identity.graphId = graphId;

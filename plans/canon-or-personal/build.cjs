@@ -198,14 +198,14 @@ landing.data.identity = { ...landing.data.identity, graphId, nodeId };
 const instructions = graph.nodes.find((node) => node.id === `${prefix}-instructions`);
 instructions.label = 'How to use this board';
 instructions.position = { x: origin.x + 960, y: origin.y };
-instructions.data.markdown = '# How to use this board\n\nNothing here has been decided. Each card is one group of graphs from this library.\n\n'
+instructions.data.content = { kind: 'markdown', value: '# How to use this board\n\nNothing here has been decided. Each card is one group of graphs from this library.\n\n'
   + '- **Description** holds the facts: how many graphs, when they last changed, whether they are on the standard Surface, and what points at them.\n'
   + '- **Decision** holds a suggestion and the reason for it. Replace it with your own: *canon*, *personal*, or *retire*.\n'
   + '- Set **status** to done when a card is settled, and use **notes** for anything that has to happen first.\n'
   + '- The four columns are only where a card starts. Drag a card to another column when you change your mind.\n\n'
   + '"Pointed at by the app" means the app or its tests name these graphs by address, so moving them means changing the app too. '
   + '"Pointed at by the Twilite Zone repo" means a graph over there already links to them.\n\n'
-  + 'The facts come from a count of the library taken on 2026-10-10, saved beside this graph as `census.json`.';
+  + 'The facts come from a count of the library taken on 2026-10-10, saved beside this graph as `census.json`.' };
 
 for (const node of graph.nodes) if (node.data?.identity?.graphId) node.data.identity.graphId = graphId;
 graph.settings = { ...graph.settings, snapToGrid: true, gridSize: 20, edgeRouting: 'orthogonal',

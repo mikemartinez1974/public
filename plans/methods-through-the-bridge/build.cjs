@@ -251,13 +251,13 @@ landing.data.identity = { ...landing.data.identity, graphId, nodeId };
 const instructions = graph.nodes.find((node) => node.id === `${prefix}-instructions`);
 instructions.label = 'How to read this plan';
 instructions.position = at(5, 0);
-instructions.data.markdown = '# How to read this plan\n\nThis is a draft for review. Nothing in it has been started.\n\n'
+instructions.data.content = { kind: 'markdown', value: '# How to read this plan\n\nThis is a draft for review. Nothing in it has been started.\n\n'
   + '- The five **phases** run left to right. Each holds the **actions** beneath it.\n'
   + '- Phase 1 changes no app code. Phases 2 to 4 are the app work. Phase 5 is the only one that changes real graphs.\n'
   + '- Three **decisions** along the top are open and each carries a proposal. They are yours to make: when a page picks up a change, what it shows when its template cannot be loaded, and whether a page may keep its own Method.\n'
   + '- **Michael reviews the demo** is a gate: conversion does not begin until then.\n'
   + '- **Constraints** are things the work must not break. **Risks** each have a **contingency** below them.\n\n'
-  + 'What was measured before writing this: 18 pages carry a copy of "Assemble the page" (the sixteen primitives, the Declaration Template and the Edge Class Page), kept identical by `npm run sync:page-method`, which only knows the Page Template and finds copies by the Method\'s name. A Bridge can already offer Scripts to a Script node when it grants "execute"; nothing offers a Method to a Handler.';
+  + 'What was measured before writing this: 18 pages carry a copy of "Assemble the page" (the sixteen primitives, the Declaration Template and the Edge Class Page), kept identical by `npm run sync:page-method`, which only knows the Page Template and finds copies by the Method\'s name. A Bridge can already offer Scripts to a Script node when it grants "execute"; nothing offers a Method to a Handler.' };
 
 for (const node of graph.nodes) {
   if (node.data?.identity?.graphId) node.data.identity.graphId = graphId;

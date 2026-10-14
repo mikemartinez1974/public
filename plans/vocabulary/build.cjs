@@ -269,12 +269,12 @@ const instructions = graph.nodes.find((node) => node.id === `${prefix}-instructi
 instructions.label = 'How to read this plan';
 instructions.position = at(9, 0);
 instructions.height = Math.min(instructions.height || 320, 320);
-instructions.data.markdown = '# How to read this plan\n\n'
+instructions.data.content = { kind: 'markdown', value: '# How to read this plan\n\n'
   + '- The five numbered **phases** run left to right and are done in that order. Each holds the **actions** beneath it.\n'
   + '- The **decisions** along the top are made. The three in the right-hand column are still open.\n'
   + '- **The wording is approved** is the gate before canon and the app change anything.\n'
   + '- **Constraints** are how the work is done. The **risk** has its **contingency** beside it.\n\n'
-  + 'Status is kept in `plans/vocabulary/build.cjs`, in the `statuses` list. Change it there and run `node plans/vocabulary/build.cjs`.';
+  + 'Status is kept in `plans/vocabulary/build.cjs`, in the `statuses` list. Change it there and run `node plans/vocabulary/build.cjs`.' };
 
 for (const node of graph.nodes) {
   if (node.data?.identity?.graphId) node.data.identity.graphId = graphId;

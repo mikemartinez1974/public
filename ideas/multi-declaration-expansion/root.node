@@ -270,7 +270,7 @@
     },
     {
       "id": "multi-declaration-expansion-instructions",
-      "type": "markdown",
+      "type": "content",
       "label": "Model Under Discussion",
       "root": false,
       "position": {
@@ -322,7 +322,10 @@
         "identity": {
           "graphId": "multi-declaration-expansion"
         },
-        "markdown": "# Model under discussion\n\n- `nodeId` identifies the semantic node.\n- `graphId` identifies one authored graph contributing to it.\n- Explicit declaration relationships establish membership.\n- Ports define graph entry points.\n- Handles invoke navigation or expansion.\n- Expansion projects another participating graph around the same node.\n- Collapse removes the projection, never the node identity."
+        "content": {
+          "kind": "markdown",
+          "value": "# Model under discussion\n\n- `nodeId` identifies the semantic node.\n- `graphId` identifies one authored graph contributing to it.\n- Explicit declaration relationships establish membership.\n- Ports define graph entry points.\n- Handles invoke navigation or expansion.\n- Expansion projects another participating graph around the same node.\n- Collapse removes the projection, never the node identity."
+        }
       }
     },
     {
@@ -5950,7 +5953,7 @@
     },
     {
       "id": "d1aaac88-2c2f-4d75-8d1f-fc7b0dc7e244",
-      "type": "markdown",
+      "type": "content",
       "label": "Comments from ChatGPT",
       "root": false,
       "position": {
@@ -6027,7 +6030,6 @@
         "identity": {
           "graphId": "multi-declaration-expansion"
         },
-        "markdown": "# Comments from ChatGPT\n\n## Product of the discussion\n\nThe model becomes clearer if graph membership, semantic identity, and ports are kept separate.\n\n### 1. Putting a node in a graph does not include that node's other graphs\n\nIf a graph contains an Idea, Document, Person, or other node, that means only that the node participates in the current graph. It does not implicitly import every other graph that contains the same semantic node.\n\nShared identity may help resolve corresponding nodes across graphs, but shared identity should not itself cause expansion.\n\n### 2. Ordinary graph composition should remain ordinary\n\nIf a Project contains an Idea, Tasks, Documents, Decisions, or other material, those things should normally be represented simply as nodes and edges in the Project graph.\n\nAdding a Document to a Project does not inherently require creating a Document port on the Project node. The document already has a place to live: the Project graph.\n\nThis suggests a useful rule:\n\n> If something belongs in the graph, add it to the graph. A port is not required merely because the thing is important or related.\n\n### 3. Ports are interface, not containment\n\nPorts should remain intentional entry or interaction surfaces rather than becoming an alternate representation of graph contents.\n\nEdges and graph membership describe relationships and structure. Ports describe what a node deliberately exposes as an interface.\n\nThis keeps richly connected graphs from automatically turning every related node into a visible port.\n\n### 4. Cross-graph expansion is therefore a separate concern\n\nA node may participate in several graphs without those graphs automatically appearing together. Expansion should be explicitly discoverable, likely through portals or another declaration-driven mechanism.\n\nA useful conceptual split is:\n\n- graph membership answers: what is in this graph?\n- semantic identity answers: which nodes across graphs represent the same thing?\n- portals or declarations answer: which other graphs may be traversed or expanded from here?\n- ports answer: what interface does this node intentionally expose?\n\n### 5. A possible guiding principle\n\n**Do not promote graph contents into ports merely because they are connected.**\n\nGraph composition should carry most of the semantic structure. Ports should stay scarce enough to mean something: deliberate doors rather than shelves for everything the graph contains.\n\n### Open question\n\nThe remaining architectural question is how another graph becomes discoverable for expansion around a shared semantic node. Explicit portals, declaration manifests, distributed declarations, or a hybrid may solve that without conflating graph membership with interface exposure.",
         "memo": "",
         "link": "",
         "_placement": {
@@ -6036,6 +6038,10 @@
           "source": "create",
           "updatedAt": 1787979024150,
           "reason": "node-batch-create"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Comments from ChatGPT\n\n## Product of the discussion\n\nThe model becomes clearer if graph membership, semantic identity, and ports are kept separate.\n\n### 1. Putting a node in a graph does not include that node's other graphs\n\nIf a graph contains an Idea, Document, Person, or other node, that means only that the node participates in the current graph. It does not implicitly import every other graph that contains the same semantic node.\n\nShared identity may help resolve corresponding nodes across graphs, but shared identity should not itself cause expansion.\n\n### 2. Ordinary graph composition should remain ordinary\n\nIf a Project contains an Idea, Tasks, Documents, Decisions, or other material, those things should normally be represented simply as nodes and edges in the Project graph.\n\nAdding a Document to a Project does not inherently require creating a Document port on the Project node. The document already has a place to live: the Project graph.\n\nThis suggests a useful rule:\n\n> If something belongs in the graph, add it to the graph. A port is not required merely because the thing is important or related.\n\n### 3. Ports are interface, not containment\n\nPorts should remain intentional entry or interaction surfaces rather than becoming an alternate representation of graph contents.\n\nEdges and graph membership describe relationships and structure. Ports describe what a node deliberately exposes as an interface.\n\nThis keeps richly connected graphs from automatically turning every related node into a visible port.\n\n### 4. Cross-graph expansion is therefore a separate concern\n\nA node may participate in several graphs without those graphs automatically appearing together. Expansion should be explicitly discoverable, likely through portals or another declaration-driven mechanism.\n\nA useful conceptual split is:\n\n- graph membership answers: what is in this graph?\n- semantic identity answers: which nodes across graphs represent the same thing?\n- portals or declarations answer: which other graphs may be traversed or expanded from here?\n- ports answer: what interface does this node intentionally expose?\n\n### 5. A possible guiding principle\n\n**Do not promote graph contents into ports merely because they are connected.**\n\nGraph composition should carry most of the semantic structure. Ports should stay scarce enough to mean something: deliberate doors rather than shelves for everything the graph contains.\n\n### Open question\n\nThe remaining architectural question is how another graph becomes discoverable for expansion around a shared semantic node. Explicit portals, declaration manifests, distributed declarations, or a hybrid may solve that without conflating graph membership with interface exposure."
         }
       }
     }

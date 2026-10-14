@@ -175,7 +175,7 @@
     },
     {
       "id": "semantic-ports-and-visual-handles-instructions",
-      "type": "markdown",
+      "type": "content",
       "label": "Port and Handle Contract",
       "position": {
         "x": -220,
@@ -226,7 +226,10 @@
         "identity": {
           "graphId": "semantic-ports-and-visual-handles"
         },
-        "markdown": "# Semantic endpoint and visual anchor contract\n\n## Distinction\n\n- **Port**: stable, addressable semantic endpoint declaring direction, accepted data or edge types, and optional behavior.\n- **Handle**: rendered interaction anchor bound to a Port. It owns visibility and placement, not connection meaning.\n- **Edge**: persists semantic endpoints and may also persist presentation anchors.\n\n```json\n{\n  \"sourcePort\": \"summary-view\",\n  \"sourceAnchor\": \"left\",\n  \"targetPort\": \"root\",\n  \"targetAnchor\": \"right\"\n}\n```\n\n## Baseline rules\n\n1. Every edge-capable node has at least an implicit `root` Port.\n2. A Port may project zero, one, or several Handles.\n3. Focused nodes reveal the Handles available for new connections.\n4. A focused edge reveals only its editable endpoint Handles and compatible targets.\n5. Hiding Handles never removes Ports or invalidates edges.\n6. Moving an anchor does not reassign the Port.\n7. Reassigning a Port is an explicit semantic edit.\n8. Port geometry may be graph-projected without becoming Port identity.\n\n## Legacy adapter\n\nFor a stored endpoint such as `right`:\n\n- if the node explicitly exposes a semantic Port named `right`, preserve it as the Port;\n- otherwise resolve it as `port: root` plus `anchor: right`;\n- do not rewrite persisted data until a deliberate save migration;\n- ensure old and migrated graphs render identically.\n\n## Questions to settle\n\n- Are anchors durable authored data or derived graph-local placement?\n- Can one Port expose multiple simultaneous Handles?\n- Does dropping on a node body select implicit root while dropping on a Handle selects its bound Port?\n- Which handle visibility rules differ between Browse and Edit modes?\n- How does compatibility negotiation highlight candidate Ports versus candidate Handles?"
+        "content": {
+          "kind": "markdown",
+          "value": "# Semantic endpoint and visual anchor contract\n\n## Distinction\n\n- **Port**: stable, addressable semantic endpoint declaring direction, accepted data or edge types, and optional behavior.\n- **Handle**: rendered interaction anchor bound to a Port. It owns visibility and placement, not connection meaning.\n- **Edge**: persists semantic endpoints and may also persist presentation anchors.\n\n```json\n{\n  \"sourcePort\": \"summary-view\",\n  \"sourceAnchor\": \"left\",\n  \"targetPort\": \"root\",\n  \"targetAnchor\": \"right\"\n}\n```\n\n## Baseline rules\n\n1. Every edge-capable node has at least an implicit `root` Port.\n2. A Port may project zero, one, or several Handles.\n3. Focused nodes reveal the Handles available for new connections.\n4. A focused edge reveals only its editable endpoint Handles and compatible targets.\n5. Hiding Handles never removes Ports or invalidates edges.\n6. Moving an anchor does not reassign the Port.\n7. Reassigning a Port is an explicit semantic edit.\n8. Port geometry may be graph-projected without becoming Port identity.\n\n## Legacy adapter\n\nFor a stored endpoint such as `right`:\n\n- if the node explicitly exposes a semantic Port named `right`, preserve it as the Port;\n- otherwise resolve it as `port: root` plus `anchor: right`;\n- do not rewrite persisted data until a deliberate save migration;\n- ensure old and migrated graphs render identically.\n\n## Questions to settle\n\n- Are anchors durable authored data or derived graph-local placement?\n- Can one Port expose multiple simultaneous Handles?\n- Does dropping on a node body select implicit root while dropping on a Handle selects its bound Port?\n- Which handle visibility rules differ between Browse and Edit modes?\n- How does compatibility negotiation highlight candidate Ports versus candidate Handles?"
+        }
       }
     },
     {
