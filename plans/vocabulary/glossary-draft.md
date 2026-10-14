@@ -49,7 +49,7 @@ Words for the template builder. A visitor never needs them.
 | Word | What it is | Stored as |
 |---|---|---|
 | **root** (noun) | The node a graph begins from. It says what the graph is (its name, description and faces) and everything else in the graph hangs from it. Every graph has exactly one. The file is already called `root.node`. | node type `declaration` **→ `root`**; older graphs `manifest` (357 graphs, all retired). Collision 10. |
-| **root** (verb) | To select several graphs in the workspace and make a new graph from them, with a root of its own. It is what Twilite has instead of grouping. *Not built yet.* Open: does it also work on several nodes inside a graph, lifting them out into a graph of their own? | — |
+| **root** (verb) | To select several graphs in the workspace and make a new graph from them, with a root of its own. It is what Twilite has instead of grouping. *Not built yet.* It works on graphs only: lifting nodes out of a graph into a new one is copy and paste, at least in the free version. | — |
 | **Surface** | One ordered set of faces a graph shows from outside. A graph can have more than one. | edge `surface` from the root to the first face |
 | **Port** | A named place where a graph offers something to other graphs. The root is the graph's root Port. | node type `port`; on edges, `sourcePort`/`targetPort` **and** `sourceHandle`/`targetHandle` **→ `sourcePort`/`targetPort` only** (Collision 5) |
 | **export** | What a graph offers to other graphs: a class, a set of classes, or the whole graph. | node type `bridge` with role `export` **→ node type `export`** (Collision 12) |
