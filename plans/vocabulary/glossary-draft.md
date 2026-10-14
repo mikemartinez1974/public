@@ -17,6 +17,8 @@ Numbers in **Collisions** are there so you can answer by number.
 
 These are the only words a visitor needs to read anything in the Twilite Zone.
 
+**Graph or node.** The same thing is a graph or a node depending on where you stand. Inside it, it is a graph, with nodes of its own. From outside, it is a node: it has faces and a Glyph, and it sits in the workspace or behind a Portal like any other node. The glossary uses whichever word fits where the reader is standing.
+
 | Word | What it is | Stored as |
 |---|---|---|
 | **graph** | A thing you can open: a set of nodes and the edges between them, saved as one `.node` file with its own address. | the file; `tlz://host/path/root.node` |
@@ -32,14 +34,14 @@ Words that arrive when someone starts making things.
 | Word | What it is | Stored as |
 |---|---|---|
 | **content** | The words, pictures or markup a node shows. | node type `content` with `data.content.kind`; today also node type `markdown` (1,069 nodes) **→ `content` only** (Collision 1) |
-| **link** | A hyperlink to a graph or a web page, written in content or set on a node. Drawn as a line when both ends are open. | `data.link`, `url`, `href`, or a link in content (not an edge) |
+| **link** | An edge on the web: a connection to a graph or a web page, written in content or set on a node. It is drawn as an edge, and should be wherever its ends are in the workspace, including web pages. | `data.link`, `url`, `href`, or a link in content, drawn by the `link` edge class |
 | **ground** | What you stand on inside a graph: where you land when you go in. A graph with graph content has one; a document has none. | edge `reference` with role `landing-surface` **→ edge `ground`, from the root's `ground` port** (Collision 2) |
-| **document** | A graph that is only a page. It has no ground. | no marker: a graph with no ground |
-| **scene** | A graph laid out as a picture, its nodes pinned where they belong. The Twilite Zone's front page and the Boulevard are scenes. | nothing of its own: pinned nodes |
+| **document** | A graph that is only a page. It has no ground. *Under review: see Design talks.* | no marker: a graph with no ground |
+| **scene** | A graph laid out as a picture, its nodes pinned where they belong. The Twilite Zone's front page and the Boulevard are scenes. *Under review: see Design talks.* | nothing of its own: pinned nodes |
 | **faces** | How a graph or node looks from further away, largest to smallest. The author names them; the usual names are **Detail**, **Summary** and **Icon**. The first face is the page. What the app shows depends on a face's place in the order and the room it has, never on its name. The order ends at the Glyph. | `view` nodes joined by `view-sequence`, ending in a `glyph` node **→ `face` nodes joined by `next-face`**, ending in the `glyph` (Collision 11) |
-| **Glyph** | The graph's mark: the symbol that stands for it. Faces are how a graph looks; the Glyph is how it is recognised. It is shown when there is no room for even the smallest face, and wherever the graph is named in a small space: lists, the trail, link chips, tabs. It has its own editor and its name is always Glyph. | node type `glyph` |
+| **Glyph** | A node's mark: the symbol that stands for it. Faces are how a node looks; the Glyph is how it is recognised. A graph has one because, seen from outside, a graph is a node. It is shown when there is no room for even the smallest face, and wherever the node is named in a small space: lists, the trail, link chips, tabs, bookmarks. It has its own editor and its name is always Glyph. | node type `glyph` |
 | **template** | A graph you start a new graph from. | a graph made to be copied; kept under `templates/` |
-| **collection** | A graph whose job is to list other graphs. | a graph of Portals |
+| **collection** | A graph whose job is to list other graphs. *Under review: see Design talks.* | a graph of Portals |
 | **workspace** | Where open graphs sit side by side. | not stored in graphs |
 
 ## Layer 3: Building templates and classes
@@ -54,13 +56,13 @@ Words for the template builder. A visitor never needs them.
 | **Port** | A named place where a graph offers something to other graphs. The root is the graph's root Port. | node type `port`; on edges, `sourcePort`/`targetPort` **and** `sourceHandle`/`targetHandle` **→ `sourcePort`/`targetPort` only** (Collision 5) |
 | **export** | What a graph offers to other graphs: a class, a set of classes, or the whole graph. | node type `bridge` with role `export` **→ node type `export`** (Collision 12) |
 | **import** | What a graph uses from another graph's export. A class used in a graph must come in through an import. | node type `bridge` with role `import` **→ node type `import`** (Collision 12) |
-| **Bridge** | The connection from an export to the import that uses it: one graph drawing on another. Drawn in the workspace between the two graphs, and what Tidy arranges by. | not stored: worked out from the imports and exports of open graphs |
+| **Bridge** | The connection from an export to the import that uses it: one graph drawing on another. A Bridge is a classed edge (the `bridge` edge class), not a class of node. Drawn in the workspace between the two graphs, and what Tidy arranges by. | not stored: worked out from the imports and exports of open graphs |
 | **class** | The definition a node or edge follows: which Properties it has and how it looks. | `classKey` and `classRef` on nodes; `edgeClassRef` on edges; `relationshipRef` in the app's code **→ on nodes and edges alike, `type` is the class key and `classRef` the class graph's address** (Collisions 4 and 6) |
 | **Edge Class** | A class for edges: what a kind of connection means and what it may join. | a graph built from the Edge Class template |
 | **Property** | One named value on a node, as its class defines it. Changing it raises `property.changed`, and its node raises `node.changed`. | node type `field` (186) **and** node type `property` (204, in edge classes) **→ `property`** (Collision 3) |
-| **Method** | Behaviour a graph can run, with its effects declared. | node type `method` |
-| **Event Handler** | What runs Methods when an event happens. | node type `event-handler`, edges `invokes` and `listens` |
-| **Script** | Code the graph loads and runs. | node type `script`; also top-level `scripts` in the file |
+| **Method** | Behaviour a graph can run, with its effects declared. *Under review: see Design talks.* | node type `method` |
+| **Event Handler** | What runs Methods when an event happens. *Under review: see Design talks.* | node type `event-handler`, edges `invokes` and `listens` |
+| **Script** | Code the graph loads and runs. *Under review: Michael is on team Method; see Design talks.* | node type `script`; also top-level `scripts` in the file |
 | **Membrane** | A graph's boundary: what it holds in, and where its ports sit for things to cross. A graph grows from its root and is held by its membrane. | node type `membrane` (its control points), edge `membrane`; also stored as the "authored frame" **→ membrane only** (Collision 13) |
 | **Specification** | The page that defines a primitive. | an ordinary graph under `library/primitives/` |
 | **primitive** | One of the sixteen parts every graph is made of. Each has a Specification. | — |
@@ -77,6 +79,14 @@ Already in canon on the navigation page. Listed here so the glossary is complete
 | **Tidy** | Arranging the workspace: graphs joined by a Bridge close together (imports on the left, exports on the right), Portal graphs further out. |
 
 ---
+
+## Design talks
+
+Raised by Michael reading the tables, 2026-10-14. The words in these areas are not settled until the talk is had.
+
+- **A. Behaviour.** Property, event, Event Handler, Method, Script. Today a Property raises `property.changed`, an Event Handler listens for it and `invokes` Methods in order; Scripts run on their own (on load, on graph change). Michael: does a Property invoke a Method directly, can a Method invoke another, and is a Script anything a Method isn't? He is on team Method. The design needs looking at again to make sure it is solid.
+- **B. Document, scene and collection.** What each one is, whether they are kinds of graph or ways of laying one out, and how a reader tells them apart.
+- **C. Web pages in the workspace.** A link is an edge on the web and should be drawn. Web pages in the workspace have had little attention so far.
 
 ## Collisions found in the files
 
