@@ -15,8 +15,8 @@ const nodeId = `${prefix}-plan`;
 const graphRef = `github://mikemartinez1974/public/plans/${prefix}/root.node`;
 const templateClassPrefix = 'github://mikemartinez1974/public/templates/plan-template/classes/';
 const title = 'Twilite’s vocabulary, in layers';
-const description = 'Twilite has about thirty words of its own. Every reader meets all of them at once, several pairs collide, and some name the machinery rather than what it is for. This plan sorts them into three layers and settles the collisions, without renaming anything stored in a file.';
-const now = '2026-10-13T18:00:00.000Z';
+const description = 'Twilite has about thirty words of its own. Every reader meets all of them at once, several pairs collide, and some name the machinery rather than what it is for. This plan sorts them into three layers, settles the collisions, and then changes every file to use the settled words, once.';
+const now = '2026-10-14T15:00:00.000Z';
 const replaceTemplateText = (value) => {
   if (Array.isArray(value)) return value.map(replaceTemplateText);
   if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([key, entry]) => [key, replaceTemplateText(entry)]));
@@ -62,9 +62,9 @@ const contentNodes = [
   makeNode('plan-decision', 'decision-layers', 'Three layers: reading, making, building', at(2, 0),
     'Reading: graph, node, edge, page, Portal. Making your own graph: content, link, scene, ground, and how a graph looks from far away (Detail, Summary, Icon, Glyph). Building templates and classes: Declaration, Surface, Port, Bridge, Property, Edge Class, Method, Event Handler, Script, Membrane, Specification.',
     { decision: 'Agreed by Michael, 2026-10-13, “directionally”. The exact list in each layer is worked out in this plan.' }),
-  makeNode('plan-decision', 'decision-stored', 'No stored name changes', at(3, 0),
-    'The type names in .node files and in the app’s code stay as they are. Only what a person reads changes: labels, menus, pages and tutorials. Renaming stored types would touch every graph in both libraries for nothing a reader can see.',
-    { decision: 'Agreed by Michael, 2026-10-13.' }),
+  makeNode('plan-decision', 'decision-stored', 'The files use the settled words', at(3, 0),
+    'The names stored in .node files and in the app’s code change to the settled words, once, so a reader, a file and the app all say the same thing and the tutorials never explain a past mistake. Twilite has no outside users: graphs in the repositories are rewritten directly and old graph material is deleted, not converted. No old names are read alongside the new ones.',
+    { decision: 'Reversed by Michael, 2026-10-13: “get it right once and for all and change the files.” “I have no users.”' }),
   makeNode('plan-decision', 'decision-property', 'Property, not Field', at(4, 0),
     'The word is Property. A Property is made from the Field primitive, and the two serve the same purpose, so a reader needs only one word; the events a Property announces stay as they are.',
     { decision: 'Decided by Michael, 2026-10-13: “We keep property … Let’s go with property and keep the events.”' }),
@@ -96,8 +96,8 @@ const contentNodes = [
     'For each layer, the words and one line each. For each collision, the exact sentences that settle it. Michael approves before anything is written.'),
   makeNode('plan-phase', 'phase-canon', '3. Canon follows', at(2, 1),
     'The primitives index grouped by layer, a glossary in canon, and the pages whose wording changes.'),
-  makeNode('plan-phase', 'phase-app', '4. The app follows', at(3, 1),
-    'The words people read in the app follow the layers: a person browsing sees layer one, a person making a graph layer two, the template builder everything.'),
+  makeNode('plan-phase', 'phase-app', '4. The app and the files follow', at(3, 1),
+    'The words people read in the app follow the layers: a person browsing sees layer one, a person making a graph layer two, the template builder everything. The stored names change to the same words.'),
   makeNode('plan-phase', 'phase-tutorials', '5. The tutorials are written in it', at(4, 1),
     'The tutorials in the What’s next plan introduce words in layer order.'),
 
@@ -126,25 +126,29 @@ const contentNodes = [
     'The names the app shows for node types and relationships, mapped from stored names to reading words in one place.'),
   makeNode('plan-action', 'action-create', 'The create menu by layer', at(3, 3),
     'Making a graph offers layer-two things first; the template builder’s parts are a step further in.'),
+  makeNode('plan-action', 'action-rename', 'Rename what is stored', at(3, 4),
+    'Type keys, edge roles and field names change to the settled words in the app’s code and in every graph in the three repositories, in one pass. The app stops knowing the old names.'),
+  makeNode('plan-action', 'action-scrap', 'Delete the legacy graphs', at(3, 5),
+    'Old graph material that nothing uses any more is deleted rather than converted. Michael confirms the list first.'),
 
   makeNode('plan-milestone', 'milestone-wording', 'The wording is approved', at(1, 5),
     'Michael has approved the three lists and the sentences that settle each collision.'),
   makeNode('plan-milestone', 'milestone-done', 'Readers meet five words', at(4, 2),
-    'A visitor reading the Twilite Zone meets graph, node, edge, page and Portal, and nothing else unless they go looking.'),
+    'A visitor reading the Twilite Zone meets graph, node, edge, page and Portal, and nothing else unless they go looking. The files, the app and canon all use the same words.'),
 
   makeNode('plan-constraint', 'constraint-approval', 'Canon wording is proposed first', at(6, 2),
     'Statements in canon are shown to Michael as wording and written only after his yes.'),
-  makeNode('plan-constraint', 'constraint-stored', 'Stored names stay', at(6, 3),
-    'No type key, field name or file address changes as part of this plan.'),
-  makeNode('plan-risk', 'risk-two-names', 'Two names for one thing', at(6, 4),
-    'If a reader sees “ground” and a file says landing-surface, or the app says Property and a file says field, the two can be confused, by people and by AI reading the files.'),
-  makeNode('plan-contingency', 'contingency-map', 'One map from reading word to stored name', at(7, 4),
-    'The glossary, the app’s label table and the AI guides all carry the same map, so whoever reads a file can find the word they know.')
+  makeNode('plan-constraint', 'constraint-stored', 'No compatibility layer', at(6, 3),
+    'Nothing reads the old names after the change. Every graph that is kept is rewritten; the rest is deleted.'),
+  makeNode('plan-risk', 'risk-two-names', 'An old name survives somewhere', at(6, 4),
+    'A graph, a test, a canon page or an AI guide that still uses an old name after the change would teach it again, to people and to AI.'),
+  makeNode('plan-contingency', 'contingency-map', 'The validator refuses the old names', at(7, 4),
+    'Once the change is made, the graph validator rejects every retired word, and a test sweeps the three repositories for them. The glossary lists each retired word once, with what replaced it.')
 ];
 
 // Where the work stands. Anything not listed is still a draft, not started. Change this and run the build again.
 const statuses = {
-  'the-plan': 'in-progress',
+  'the-plan': 'in-progress', 'phase-inventory': 'in-progress',
   'decision-layers': 'done', 'decision-stored': 'done', 'decision-property': 'done', 'decision-ground': 'done',
   'decision-portal': 'done', 'decision-specification': 'done'
 };
@@ -191,17 +195,17 @@ phases.forEach((phase) => addEdge(`plan-${phase}`, 'plan.contains', 'the-plan', 
 phases.slice(1).forEach((phase, index) => addEdge(`phase-${index + 1}-${index + 2}`, 'plan.precedes', `phase-${phases[index]}`, `phase-${phase}`));
 const phaseActions = {
   inventory: ['inventory-app', 'inventory-canon', 'inventory-ai'], wording: ['layers', 'collisions', 'open'],
-  canon: ['glossary', 'index', 'pages'], app: ['labels', 'create']
+  canon: ['glossary', 'index', 'pages'], app: ['labels', 'create', 'rename', 'scrap']
 };
 for (const [phase, actions] of Object.entries(phaseActions)) {
   for (const action of actions) addEdge(`${phase}-${action}`, 'plan.contains', `phase-${phase}`, `action-${action}`, ['actions', 'parent']);
 }
 addEdge('wording-milestone', 'plan.produces', 'action-open', 'milestone-wording');
 ['root', 'distinctive', 'faces'].forEach((question) => addEdge(`question-${question}`, 'plan.gates', 'milestone-wording', `decision-${question}`));
-addEdge('done-milestone', 'plan.produces', 'action-create', 'milestone-done');
+addEdge('done-milestone', 'plan.produces', 'action-scrap', 'milestone-done');
 addEdge('approval', 'plan.constrained-by', 'action-collisions', 'constraint-approval');
-addEdge('stored', 'plan.constrained-by', 'action-labels', 'constraint-stored');
-addEdge('two-names', 'plan.threatened-by', 'action-pages', 'risk-two-names');
+addEdge('stored', 'plan.constrained-by', 'action-rename', 'constraint-stored');
+addEdge('two-names', 'plan.threatened-by', 'action-rename', 'risk-two-names');
 addEdge('map', 'plan.mitigated-by', 'risk-two-names', 'contingency-map');
 
 for (const node of contentNodes) {
