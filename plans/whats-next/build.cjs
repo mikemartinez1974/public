@@ -139,6 +139,8 @@ const contentNodes = [
   makeNode('plan-action', 'action-sorting', 'The sorting board', at(6, 5),
     'plans/canon-or-personal. Eleven groups still await a call on whether they are canon or personal.'),
 
+  makeNode('plan-action', 'action-rooting', 'Rooting', at(6, 6),
+    'To root is to select several graphs in the workspace and make a new graph from them, with a root of its own. Named in the vocabulary glossary, 2026-10-14; not built. Needs a design conversation first: how the new graph holds the graphs it was made from, and whether they stay where they were.'),
   makeNode('plan-decision', 'decision-back', 'Going back', at(7, 1), 'Does every graph need its own way back, or is that the app’s job?', { decision: 'Agreed by Michael, 2026-10-12: it is the app’s job. Back returns to the same graph, node and distance; no graph draws a way back.' }),
   makeNode('plan-decision', 'decision-up', 'Going up', at(7, 2), 'Is there a place above this one: an index above a primitive page, the root above the index?', { decision: 'Agreed by Michael, 2026-10-12: there is no separate “up”. In the workspace the trunk shows what a graph was opened from.' }),
   makeNode('plan-decision', 'decision-where', 'Knowing where you are', at(7, 3), 'With several graphs open, what tells you which one you are in and how you got there?', { decision: 'Agreed by Michael, 2026-10-12: a trail near the address bar names the graphs you came through.' }),
@@ -241,7 +243,7 @@ phases.slice(1).forEach((phase, index) => addEdge(`phase-${index + 1}-${index + 
 const phaseActions = {
   demos: ['commons-demo', 'boulevard-demo', 'twilite-demo'], navigation: ['inventory', 'proposal', 'build-navigation'],
   rooms: ['commons', 'boulevard', 'twilite', 'card'], places: ['company', 'gallery', 'research'], cycle: ['move-cycle', 'examples'],
-  tutorials: ['write-tutorials', 'open-learn'], carried: ['edges', 'editor', 'small', 'sorting']
+  tutorials: ['write-tutorials', 'open-learn'], carried: ['edges', 'editor', 'small', 'sorting', 'rooting']
 };
 for (const [phase, actions] of Object.entries(phaseActions)) {
   for (const action of actions) addEdge(`${phase}-${action}`, 'plan.contains', `phase-${phase}`, `action-${action}`, ['actions', 'parent']);
