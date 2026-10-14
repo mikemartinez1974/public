@@ -81,13 +81,13 @@ const contentNodes = [
   // What is still open.
   makeNode('plan-decision', 'decision-root', 'Should the Declaration read as the graph’s root?', at(8, 1),
     'Michael’s idea: a reader might understand the Declaration better as the graph’s root. Only the word a reader sees would change, not the system.',
-    { decision: 'Open. Michael, 2026-10-13: “I don’t want to reengineer the system because of an idea.”' }),
+    { decision: 'Decided by Michael, 2026-10-14: root replaces Declaration everywhere, in the files too. It is a noun and a verb: to root graphs is to select several in the workspace and make a new graph from them.' }),
   makeNode('plan-decision', 'decision-distinctive', 'Which strange words to keep for being strange', at(8, 2),
     'Membrane and Bridge are unusual words. A distinctive word that is introduced well can be an asset; one that is never explained is a wall.',
-    { decision: 'Open.' }),
+    { decision: 'Decided by Michael, 2026-10-14: Membrane stays and is the only word for the boundary. A Bridge is the connection between an export and an import; the nodes are import and export.' }),
   makeNode('plan-decision', 'decision-faces', 'One phrase for “how a graph looks from far away”', at(8, 3),
     'Surface, View, Detail, Summary, Icon and Glyph all belong to one idea: the faces a graph shows from outside, getting smaller with distance. Making your own graph needs that idea in one phrase, not six words.',
-    { decision: 'Open.' }),
+    { decision: 'Decided by Michael, 2026-10-14: faces, with names the author chooses. The Glyph stays its own primitive and the faces end at it.' }),
 
   // The work, in order.
   makeNode('plan-phase', 'phase-inventory', '1. Find every word where it is used', at(0, 1),
@@ -148,7 +148,9 @@ const contentNodes = [
 
 // Where the work stands. Anything not listed is still a draft, not started. Change this and run the build again.
 const statuses = {
-  'the-plan': 'in-progress', 'phase-inventory': 'in-progress',
+  'the-plan': 'in-progress', 'phase-inventory': 'done', 'action-inventory-app': 'done', 'action-inventory-canon': 'done', 'action-inventory-ai': 'done',
+  'phase-wording': 'in-progress', 'action-collisions': 'in-progress', 'action-open': 'done', 'action-layers': 'in-progress',
+  'decision-root': 'done', 'decision-distinctive': 'done', 'decision-faces': 'done',
   'decision-layers': 'done', 'decision-stored': 'done', 'decision-property': 'done', 'decision-ground': 'done',
   'decision-portal': 'done', 'decision-specification': 'done'
 };
