@@ -149,7 +149,8 @@ const contentNodes = [
 // Where the work stands. Anything not listed is still a draft, not started. Change this and run the build again.
 const statuses = {
   'the-plan': 'in-progress', 'phase-inventory': 'done', 'action-inventory-app': 'done', 'action-inventory-canon': 'done', 'action-inventory-ai': 'done',
-  'phase-wording': 'in-progress', 'action-collisions': 'in-progress', 'action-open': 'done', 'action-layers': 'in-progress',
+  'phase-wording': 'done', 'action-collisions': 'done', 'action-open': 'done', 'action-layers': 'done', 'milestone-wording': 'done',
+  'phase-canon': 'in-progress',
   'decision-root': 'done', 'decision-distinctive': 'done', 'decision-faces': 'done',
   'decision-layers': 'done', 'decision-stored': 'done', 'decision-property': 'done', 'decision-ground': 'done',
   'decision-portal': 'done', 'decision-specification': 'done'
