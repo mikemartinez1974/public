@@ -2,13 +2,14 @@
 
 A draft for Michael to mark up. Nothing in canon, the app or the files has changed yet. Each entry gives the word a reader sees, what it is in one line, and how it is stored. The **→** marks a proposed change to the stored name.
 
-Numbers in **Collisions** and **Open questions** are there so you can answer by number.
+Numbers in **Collisions** are there so you can answer by number.
 
 **Decided so far** (Michael, 2026-10-14):
 - **Root replaces Declaration**, everywhere: in the files, the app, canon and the guides. It is a noun and a verb: to root graphs is to select several in the workspace and make a new graph from them (not built yet).
 - **Faces** is the word for how a graph looks from further away. Face names are the author's to choose: Detail, Summary and Icon are the usual names, not the only ones, and a graph with faces named anything else works the same way.
 - **Membrane** stays, and is the only word for a graph's boundary. Frame, border and wrap are retired.
 - **Import** and **export** are the two ends; a **Bridge** is the connection between them.
+- **The Glyph is not a face.** It stays its own primitive, with its own editor and a fixed name. The faces end at it.
 
 ---
 
@@ -35,7 +36,8 @@ Words that arrive when someone starts making things.
 | **ground** | What you stand on inside a graph: where you land when you go in. A graph with graph content has one; a document has none. | edge `reference` with role `landing-surface` **→ edge `ground`** (Collision 2) |
 | **document** | A graph that is only a page. It has no ground. | no marker: a graph with no ground |
 | **scene** | A graph laid out as a picture, its nodes pinned where they belong. The Twilite Zone's front page and the Boulevard are scenes. | nothing of its own: pinned nodes |
-| **faces** | How a graph or node looks from further away, largest to smallest. The author names them; the usual names are **Detail**, **Summary** and **Icon**, ending in the **Glyph**. The first face is the page. What the app shows depends on a face's place in the order and the room it has, never on its name. | `view` nodes joined by `view-sequence`, ending in a `glyph` node **→ `face` nodes joined by `next-face`** (Collision 11) |
+| **faces** | How a graph or node looks from further away, largest to smallest. The author names them; the usual names are **Detail**, **Summary** and **Icon**. The first face is the page. What the app shows depends on a face's place in the order and the room it has, never on its name. The order ends at the Glyph. | `view` nodes joined by `view-sequence`, ending in a `glyph` node **→ `face` nodes joined by `next-face`**, ending in the `glyph` (Collision 11) |
+| **Glyph** | The graph's mark: the symbol that stands for it. Faces are how a graph looks; the Glyph is how it is recognised. It is shown when there is no room for even the smallest face, and wherever the graph is named in a small space: lists, the trail, link chips, tabs. It has its own editor and its name is always Glyph. | node type `glyph` |
 | **template** | A graph you start a new graph from. | a graph made to be copied; kept under `templates/` |
 | **collection** | A graph whose job is to list other graphs. | a graph of Portals |
 | **workspace** | Where open graphs sit side by side. | not stored in graphs |
@@ -90,7 +92,7 @@ Each is a place where two stored names mean one thing, or one name means two thi
 8. **The graph's name in two places.** `metadata.title`/`description` and the root's `identity.name`/`description` hold the same thing and can disagree. **Proposed:** the root is the only source; `metadata` keeps only what the root doesn't (dates, version of the file format). Also drop `nodeCount`, `edgeCount` and `timestamp`, which the app can work out.
 9. **Portal and Graph Reference.** A `graph-reference` node type (6 nodes in 5 graphs) does what a Portal does. **Proposed:** retire it; those nodes become Portals.
 10. **Declaration, manifest and root.** Decided: **root**. Node type `declaration` becomes `root`; `data.declaration` (its `kind`) becomes `data.root`; ids like `plan-template-declaration` become `plan-template-root`. In the app, `manifestUtils.js`, `validateManifestNodes` and every "declaration" in the code are renamed with it. The Declaration Specification becomes the Root Specification. The existing `root` names already fit: the file `root.node`, and the port called `root` on every node. One does not: templates also carry a separate Port node, `<name>-root-port`, joined to the Declaration by `exposes-port`, holding a copy of the title and summary. With the root as the graph's root Port, that node is a second root. **Proposed:** it goes, and whatever reads it reads the root.
-11. **View, face and the fixed face names.** Decided: **faces**, with names the author chooses. **Proposed:** node type `view` becomes `face`, edge `view-sequence` becomes `next-face`, and a face's name is a plain field (`data.name`). The app stops looking for Detail, Summary or Icon by name: the first face is the page, the last is the Glyph, and the ones between are tried in order as room runs out. Anything in the app that asks for "the Detail view" asks for the first face instead.
+11. **View, face and the fixed face names.** Decided: **faces**, with names the author chooses. **Proposed:** node type `view` becomes `face`, edge `view-sequence` becomes `next-face`, and a face's name is a plain field (`data.name`). The app stops looking for Detail, Summary or Icon by name: the first face is the page, the rest are tried in order as room runs out, and when none fits the app shows the Glyph. Anything in the app that asks for "the Detail view" asks for the first face instead.
 12. **A Bridge node is half a bridge.** A `bridge` node is only ever one end, an import or an export, while the line drawn between two graphs is also called a Bridge. Decided: the ends are **import** and **export**. **Proposed:** node types `import` and `export` replace `bridge` and its `role` field (2,862 nodes, mostly the class imports in templates); ids like `plan-template-class-bridge-plan-goal` become `…-import-plan-goal`. The Bridge Specification becomes the page for imports and exports, and the Bridge edge class keeps its name for the connection.
 13. **Membrane, frame, border, wrap.** Four words for a graph's boundary: the Membrane page, the stored "authored frame", the app's "border ports", the workspace's "wraps". Decided: **Membrane**. **Proposed:** wherever the boundary is stored it is stored as the membrane; the app's code and labels say membrane (membrane ports, not border ports).
 
@@ -104,10 +106,6 @@ Node types the app knows that no current graph uses, or that only old graphs use
 - Address forwarding (`MOVED_TO_CANON`): old GitHub addresses for graphs that moved to canon. **Proposed:** rewrite the addresses in the files and delete the forwarding.
 
 Kept, because the app makes them while it runs and they are never saved: `route-pin`, `web-content`, `unavailable-resource`.
-
-## Open questions
-
-- **Is the Glyph a face?** With free names, the Glyph could simply be the last face, named Glyph by habit. Today it is its own primitive (a compact symbol) and ends every chain. Keep it separate, or make it a face like the others?
 
 ## Old graph material
 
