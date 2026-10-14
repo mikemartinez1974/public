@@ -96,7 +96,7 @@ Everything a Script does can be said as a Method: "on load" and "on change" are 
 ## Decided (Michael, 2026-10-14)
 
 - **Event handling runs along the edges.** If a node wants to call a Method, it draws the edge. Structure matters: "any section changed" means every section has its own edge to the Method. There is no listening by class, and no Event Handler node.
-- **One edge for it**, proposed name `invokes` (the edge class canon already has): from what raises the event to the Method, naming the event. `listens`, trigger edges and Event Handler nodes retire.
+- **One edge for it: `invokes`** (the edge class canon already has; name agreed): from what raises the event to the Method, naming the event. `listens`, trigger edges and Event Handler nodes retire.
 - **A Method has an `invokes` port**, so a Method runs the next Method by an edge from it. A sequence is a chain you can see.
 - **Scripts go.** Methods get things done. "On load" and "on change" are events from the root like any other.
 - **A Method can run from a button.** A button is a node that raises an event (`clicked`), with an `invokes` edge to the Method. Nothing new is needed beyond the button.
