@@ -29,42 +29,6 @@
       "height": 390,
       "ports": [
         {
-          "id": "default-view",
-          "key": "default-view",
-          "label": "default-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 55,
-          "role": "default-view"
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "label": "summary-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 70,
-          "role": "shared-summary"
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "label": "icon-view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 85,
-          "role": "shared-icon"
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 100,
-          "role": "shared-glyph"
-        },
-        {
           "id": "landing-surface",
           "key": "landing-surface",
           "label": "landing-surface",
@@ -72,6 +36,33 @@
           "dataType": "any",
           "angle": 115,
           "role": "landing-surface"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "visible": true,
@@ -702,36 +693,57 @@
   ],
   "edges": [
     {
-      "id": "edge-declaration-detail",
+      "id": "twilite-zone-detail-surface",
+      "type": "surface",
       "source": "twilite-zone-declaration",
-      "sourcePort": "default-view",
       "target": "twilite-zone-detail",
-      "targetPort": "root",
-      "type": "default-view"
+      "sourceHandle": "surfaces",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "surface",
+        "surfaceId": "detail"
+      }
     },
     {
-      "id": "edge-declaration-summary",
-      "source": "twilite-zone-declaration",
-      "sourcePort": "summary-view",
+      "id": "twilite-zone-detail-next",
+      "type": "view-sequence",
+      "source": "twilite-zone-detail",
       "target": "twilite-zone-summary",
-      "targetPort": "root",
-      "type": "reference"
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
     },
     {
-      "id": "edge-declaration-icon",
-      "source": "twilite-zone-declaration",
-      "sourcePort": "icon-view",
+      "id": "twilite-zone-summary-next",
+      "type": "view-sequence",
+      "source": "twilite-zone-summary",
       "target": "twilite-zone-icon",
-      "targetPort": "root",
-      "type": "reference"
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
     },
     {
-      "id": "edge-declaration-glyph",
-      "source": "twilite-zone-declaration",
-      "sourcePort": "glyph",
+      "id": "twilite-zone-icon-next",
+      "type": "view-sequence",
+      "source": "twilite-zone-icon",
       "target": "twilite-zone-glyph",
-      "targetPort": "root",
-      "type": "reference"
+      "sourceHandle": "sequence-out",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
     },
     {
       "id": "edge-declaration-landing",

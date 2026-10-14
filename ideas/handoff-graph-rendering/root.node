@@ -31,54 +31,6 @@
       "height": 240,
       "ports": [
         {
-          "id": "default-view",
-          "key": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165,
-          "role": "default-view",
-          "allowedEdgeTypes": [
-            "default-view"
-          ]
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-summary",
-          "allowedEdgeTypes": [
-            "reference"
-          ]
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195,
-          "role": "shared-icon",
-          "allowedEdgeTypes": [
-            "reference"
-          ]
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270,
-          "role": "shared-glyph",
-          "allowedEdgeTypes": [
-            "reference"
-          ]
-        },
-        {
           "id": "port",
           "key": "port",
           "label": "port",
@@ -101,49 +53,36 @@
           "allowedEdgeTypes": [
             "reference"
           ]
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "handles": [
-        {
-          "id": "default-view",
-          "key": "default-view",
-          "portId": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165,
-          "role": "default-view"
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "portId": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-summary"
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "portId": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195,
-          "role": "shared-icon"
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "portId": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270,
-          "role": "shared-glyph"
-        },
         {
           "id": "port",
           "key": "port",
@@ -163,6 +102,34 @@
           "dataType": "any",
           "angle": 0,
           "role": "landing-surface"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
         }
       ],
       "visible": true,
@@ -2746,6 +2713,59 @@
   ],
   "edges": [
     {
+      "id": "handoff-graph-rendering-detail-view-surface",
+      "type": "surface",
+      "source": "handoff-graph-rendering-declaration",
+      "target": "handoff-graph-rendering-detail-view",
+      "sourceHandle": "surfaces",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "surface",
+        "surfaceId": "root"
+      }
+    },
+    {
+      "id": "handoff-graph-rendering-detail-view-next",
+      "type": "view-sequence",
+      "source": "handoff-graph-rendering-detail-view",
+      "target": "handoff-graph-rendering-summary-view",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
+      "id": "handoff-graph-rendering-summary-view-next",
+      "type": "view-sequence",
+      "source": "handoff-graph-rendering-summary-view",
+      "target": "handoff-graph-rendering-icon-view",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
+      "id": "handoff-graph-rendering-icon-view-next",
+      "type": "view-sequence",
+      "source": "handoff-graph-rendering-icon-view",
+      "target": "handoff-graph-rendering-glyph",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "role": "view-sequence"
+      }
+    },
+    {
       "id": "handoff-problem-motivates",
       "type": "reference",
       "source": "handoff-graph-rendering-problem",
@@ -2958,62 +2978,6 @@
       },
       "sourceHandle": "top",
       "targetHandle": "bottom"
-    },
-    {
-      "id": "handoff-default-view",
-      "type": "default-view",
-      "source": "handoff-graph-rendering-declaration",
-      "target": "handoff-graph-rendering-detail-view",
-      "label": "default view",
-      "style": {},
-      "data": {
-        "role": "default-view",
-        "semanticRole": "default-view"
-      },
-      "sourceHandle": "default-view",
-      "targetHandle": "root"
-    },
-    {
-      "id": "handoff-summary-view",
-      "type": "reference",
-      "source": "handoff-graph-rendering-declaration",
-      "target": "handoff-graph-rendering-summary-view",
-      "label": "summary view",
-      "style": {},
-      "data": {
-        "role": "shared-summary",
-        "semanticRole": "shared-summary"
-      },
-      "sourceHandle": "summary-view",
-      "targetHandle": "root"
-    },
-    {
-      "id": "handoff-icon-view",
-      "type": "reference",
-      "source": "handoff-graph-rendering-declaration",
-      "target": "handoff-graph-rendering-icon-view",
-      "label": "icon view",
-      "style": {},
-      "data": {
-        "role": "shared-icon",
-        "semanticRole": "shared-icon"
-      },
-      "sourceHandle": "icon-view",
-      "targetHandle": "root"
-    },
-    {
-      "id": "handoff-glyph-edge",
-      "type": "reference",
-      "source": "handoff-graph-rendering-declaration",
-      "target": "handoff-graph-rendering-glyph",
-      "label": "glyph",
-      "style": {},
-      "data": {
-        "role": "shared-glyph",
-        "semanticRole": "shared-glyph"
-      },
-      "sourceHandle": "glyph",
-      "targetHandle": "root"
     },
     {
       "id": "handoff-landing-edge",

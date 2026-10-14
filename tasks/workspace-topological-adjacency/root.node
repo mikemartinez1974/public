@@ -31,42 +31,6 @@
       "height": 320,
       "ports": [
         {
-          "id": "default-view",
-          "key": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165,
-          "role": "default-view"
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-summary"
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195,
-          "role": "shared-icon"
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270,
-          "role": "shared-glyph"
-        },
-        {
           "id": "landing-surface",
           "key": "landing-surface",
           "label": "landing surface",
@@ -74,45 +38,36 @@
           "dataType": "any",
           "angle": 0,
           "role": "landing-surface"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
       "handles": [
-        {
-          "id": "default-view",
-          "portId": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165,
-          "role": "default-view"
-        },
-        {
-          "id": "summary-view",
-          "portId": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-summary"
-        },
-        {
-          "id": "icon-view",
-          "portId": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195,
-          "role": "shared-icon"
-        },
-        {
-          "id": "glyph",
-          "portId": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270,
-          "role": "shared-glyph"
-        },
         {
           "id": "landing-surface",
           "portId": "landing-surface",
@@ -121,6 +76,34 @@
           "dataType": "any",
           "angle": 0,
           "role": "landing-surface"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
         }
       ],
       "visible": true,
@@ -1547,55 +1530,56 @@
   ],
   "edges": [
     {
-      "id": "edge-detail",
+      "id": "topology-detail-surface",
+      "type": "surface",
       "source": "workspace-topological-adjacency-declaration",
-      "sourcePort": "default-view",
-      "sourceHandle": "default-view",
       "target": "topology-detail",
-      "targetPort": "root",
+      "sourceHandle": "surfaces",
       "targetHandle": "root",
-      "type": "default-view",
+      "label": "",
+      "style": {},
       "data": {
-        "semanticRole": "default-view"
+        "role": "surface",
+        "surfaceId": "detail"
       }
     },
     {
-      "id": "edge-summary",
-      "source": "workspace-topological-adjacency-declaration",
-      "sourcePort": "summary-view",
-      "sourceHandle": "summary-view",
+      "id": "topology-detail-next",
+      "type": "view-sequence",
+      "source": "topology-detail",
       "target": "topology-summary",
-      "targetPort": "root",
-      "targetHandle": "root",
-      "type": "reference",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
       "data": {
-        "semanticRole": "shared-summary"
+        "role": "view-sequence"
       }
     },
     {
-      "id": "edge-icon",
-      "source": "workspace-topological-adjacency-declaration",
-      "sourcePort": "icon-view",
-      "sourceHandle": "icon-view",
+      "id": "topology-summary-next",
+      "type": "view-sequence",
+      "source": "topology-summary",
       "target": "topology-icon",
-      "targetPort": "root",
-      "targetHandle": "root",
-      "type": "reference",
+      "sourceHandle": "sequence-out",
+      "targetHandle": "sequence-in",
+      "label": "",
+      "style": {},
       "data": {
-        "semanticRole": "shared-icon"
+        "role": "view-sequence"
       }
     },
     {
-      "id": "edge-glyph",
-      "source": "workspace-topological-adjacency-declaration",
-      "sourcePort": "glyph",
-      "sourceHandle": "glyph",
+      "id": "topology-icon-next",
+      "type": "view-sequence",
+      "source": "topology-icon",
       "target": "topology-glyph",
-      "targetPort": "root",
+      "sourceHandle": "sequence-out",
       "targetHandle": "root",
-      "type": "reference",
+      "label": "",
+      "style": {},
       "data": {
-        "semanticRole": "shared-glyph"
+        "role": "view-sequence"
       }
     },
     {
