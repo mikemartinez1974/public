@@ -105,21 +105,23 @@ These stay as they are until we talk about them again.
 
 ## Retiring
 
-Node types the app knows that no current graph uses, or that only old graphs use. **Proposed:** removed from the app.
+Node types the app knows that no current graph uses, or that only old graphs use. **Agreed** (Michael, 2026-10-14): removed from the app.
 
 - Old generation: `manifest`, `dictionary`, `legend` (16 left, all in old graph material), `promotable-markdown`, `subscription`, `event-declaration`.
 - Unused utilities: `default`, `fixed`, `div`, `timer`, `toggle`, `counter`, `gate`, `delay`, `value-trigger`, `background-rpc`, `3d`, and probably `api` and `canvas` (one graph each).
-- Old face wiring on the root: `default-view`, `summary-view`, `icon-view`, `editor-view`, `derived-view`, `shared-summary`, `shared-icon`, `shared-glyph`. The app still reads these as a Surface. **Proposed:** convert any graph we keep; delete the reading.
-- Address forwarding (`MOVED_TO_CANON`): old GitHub addresses for graphs that moved to canon. **Proposed:** rewrite the addresses in the files and delete the forwarding.
+- Old face wiring on the root: `default-view`, `summary-view`, `icon-view`, `editor-view`, `derived-view`, `shared-summary`, `shared-icon`, `shared-glyph`. The app still reads these as a Surface. The reading is deleted; current graphs that still use them are converted.
+- Address forwarding (`MOVED_TO_CANON`): old GitHub addresses for graphs that moved to canon. The addresses in current graphs are rewritten and the forwarding is deleted.
 
 Kept, because the app makes them while it runs and they are never saved: `route-pin`, `web-content`, `unavailable-resource`.
 
 ## Old graph material
 
-Graphs still on `manifest` are the previous generation. Where they are:
+Graphs still on `manifest` are the previous generation. **Agreed** (Michael, 2026-10-14): they are **kept, not deleted and not converted.** Once the app stops knowing the old words it will no longer render them, but the files can still be read, and they are needed for reference.
+
+Where they are:
 
 - **Twilite Zone:** `Roadmaps/` (16), `Sections/` (4), `next/` (2), `research/`, `twilite/storage-closet/`, most of `tasks/` (about 100 across `archive`, `nodeset-planning`, `dictionary-demotion`, `ui-analysis` and others), `tutorial/archive/` (39), `library/classes/` (123 of 160), `library/documentation/` (65 of 82).
 - **The app's bundled `public/`:** a copy of the same.
 - **Personal library:** one graph in `templates/idea-template`.
 
-Delete, or convert? `library/classes` and `library/documentation` are the ones to look at first, since they sit inside canon.
+Because they stay in the repositories, the sweep for retired words skips them. Two of these folders sit inside canon, `library/classes` and `library/documentation`; what belongs there now is a question for the canon work, not this plan.

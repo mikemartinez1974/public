@@ -63,7 +63,7 @@ const contentNodes = [
     'Reading: graph, node, edge, page, Portal. Making your own graph: content, link, scene, ground, and how a graph looks from far away (Detail, Summary, Icon, Glyph). Building templates and classes: Declaration, Surface, Port, Bridge, Property, Edge Class, Method, Event Handler, Script, Membrane, Specification.',
     { decision: 'Agreed by Michael, 2026-10-13, “directionally”. The exact list in each layer is worked out in this plan.' }),
   makeNode('plan-decision', 'decision-stored', 'The files use the settled words', at(3, 0),
-    'The names stored in .node files and in the app’s code change to the settled words, once, so a reader, a file and the app all say the same thing and the tutorials never explain a past mistake. Twilite has no outside users: graphs in the repositories are rewritten directly and old graph material is deleted, not converted. No old names are read alongside the new ones.',
+    'The names stored in .node files and in the app’s code change to the settled words, once, so a reader, a file and the app all say the same thing and the tutorials never explain a past mistake. Twilite has no outside users: current graphs are rewritten directly; the previous generation is kept as reference and no longer rendered. No old names are read alongside the new ones.',
     { decision: 'Reversed by Michael, 2026-10-13: “get it right once and for all and change the files.” “I have no users.”' }),
   makeNode('plan-decision', 'decision-property', 'Property, not Field', at(4, 0),
     'The word is Property. A Property is made from the Field primitive, and the two serve the same purpose, so a reader needs only one word; the events a Property announces stay as they are.',
@@ -128,8 +128,8 @@ const contentNodes = [
     'Making a graph offers layer-two things first; the template builder’s parts are a step further in.'),
   makeNode('plan-action', 'action-rename', 'Rename what is stored', at(3, 4),
     'Type keys, edge roles and field names change to the settled words in the app’s code and in every graph in the three repositories, in one pass. The app stops knowing the old names.'),
-  makeNode('plan-action', 'action-scrap', 'Delete the legacy graphs', at(3, 5),
-    'Old graph material that nothing uses any more is deleted rather than converted. Michael confirms the list first.'),
+  makeNode('plan-action', 'action-scrap', 'Leave the old graphs as reference', at(3, 5),
+    'The previous generation of graphs is neither converted nor deleted. The app stops rendering it, but the files stay readable, as reference. Agreed by Michael, 2026-10-14.'),
 
   makeNode('plan-milestone', 'milestone-wording', 'The wording is approved', at(1, 5),
     'Michael has approved the three lists and the sentences that settle each collision.'),
@@ -139,11 +139,11 @@ const contentNodes = [
   makeNode('plan-constraint', 'constraint-approval', 'Canon wording is proposed first', at(6, 2),
     'Statements in canon are shown to Michael as wording and written only after his yes.'),
   makeNode('plan-constraint', 'constraint-stored', 'No compatibility layer', at(6, 3),
-    'Nothing reads the old names after the change. Every graph that is kept is rewritten; the rest is deleted.'),
+    'The app stops knowing the old names. Current graphs are rewritten; the previous generation is left as it is, readable as files but no longer rendered.'),
   makeNode('plan-risk', 'risk-two-names', 'An old name survives somewhere', at(6, 4),
     'A graph, a test, a canon page or an AI guide that still uses an old name after the change would teach it again, to people and to AI.'),
   makeNode('plan-contingency', 'contingency-map', 'The validator refuses the old names', at(7, 4),
-    'Once the change is made, the graph validator rejects every retired word, and a test sweeps the three repositories for them. The glossary lists each retired word once, with what replaced it.')
+    'Once the change is made, the graph validator rejects every retired word, and a test sweeps the current graphs in the three repositories for them, skipping the old material kept for reference. The glossary lists each retired word once, with what replaced it.')
 ];
 
 // Where the work stands. Anything not listed is still a draft, not started. Change this and run the build again.
