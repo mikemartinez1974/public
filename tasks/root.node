@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Michael's Task Collection",
-    "description": "Durable collection of Michael's local tasks and projected task graphs.",
-    "graphId": "task-collection-declaration",
-    "version": "1.0.0",
-    "kind": "collection",
     "created": "2026-08-29T23:39:07.878Z",
     "modified": "2026-08-29T23:53:51.492Z",
     "author": "",
@@ -17,9 +12,8 @@
   "nodes": [
     {
       "id": "task-collection-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Michael's Task Collection",
-      "root": false,
       "position": {
         "x": -760,
         "y": -420
@@ -47,20 +41,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false
           }
@@ -105,14 +99,14 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "surfaces",
@@ -160,7 +154,82 @@
           "kind": "collection",
           "scope": "public"
         },
-        "declaration": {
+        "dependencies": {
+          "nodeTypes": [
+            "declaration",
+            "content",
+            "view",
+            "glyph",
+            "port",
+            "portal",
+            "markdown",
+            "bridge",
+            "task"
+          ],
+          "portContracts": [
+            "core"
+          ],
+          "skills": [
+            "twilite-planning-graphs",
+            "task-collection"
+          ],
+          "schemaVersions": {
+            "nodes": ">=1.0.0",
+            "ports": ">=1.0.0"
+          },
+          "optional": []
+        },
+        "authority": {
+          "mutation": {
+            "allowCreate": true,
+            "allowUpdate": true,
+            "allowDelete": true,
+            "appendOnly": false
+          },
+          "actors": {
+            "humans": true,
+            "agents": true,
+            "tools": true
+          },
+          "styleAuthority": "descriptive",
+          "history": {
+            "rewriteAllowed": false,
+            "squashAllowed": false
+          }
+        },
+        "settings": {
+          "defaultNodeColor": "#1976d2",
+          "defaultEdgeColor": "",
+          "snapToGrid": false,
+          "gridSize": 20,
+          "edgeRouting": "auto",
+          "theme": null,
+          "backgroundImage": null,
+          "layout": {
+            "mode": "autoOnMissingPositions",
+            "defaultLayout": "layered",
+            "direction": "DOWN",
+            "edgeLaneGapPx": 10,
+            "serpentine": {
+              "maxPerRow": 6
+            },
+            "cycleFallback": {
+              "enabled": true
+            },
+            "elk": {
+              "algorithm": "fixed",
+              "edgeRouting": "ORTHOGONAL",
+              "portConstraints": "FIXED_SIDE",
+              "nodeSpacing": 120,
+              "layeredEdgeSpacing": 80
+            }
+          },
+          "autoSave": false
+        },
+        "document": {
+          "url": ""
+        },
+        "root": {
           "kind": "collection",
           "targetMode": "artifact",
           "artifactKind": "collection",
@@ -303,89 +372,13 @@
             "Local tasks belong to this collection. Promoted tasks retain authority in their own graphs and appear here through portals.",
             "All agents maintaining this collection must load github://mikemartinez1974/public/tasks/SKILL.md; local skill installations are optional conveniences, not the portable contract."
           ]
-        },
-        "dependencies": {
-          "nodeTypes": [
-            "declaration",
-            "content",
-            "view",
-            "glyph",
-            "port",
-            "portal",
-            "markdown",
-            "bridge",
-            "task"
-          ],
-          "portContracts": [
-            "core"
-          ],
-          "skills": [
-            "twilite-planning-graphs",
-            "task-collection"
-          ],
-          "schemaVersions": {
-            "nodes": ">=1.0.0",
-            "ports": ">=1.0.0"
-          },
-          "optional": []
-        },
-        "authority": {
-          "mutation": {
-            "allowCreate": true,
-            "allowUpdate": true,
-            "allowDelete": true,
-            "appendOnly": false
-          },
-          "actors": {
-            "humans": true,
-            "agents": true,
-            "tools": true
-          },
-          "styleAuthority": "descriptive",
-          "history": {
-            "rewriteAllowed": false,
-            "squashAllowed": false
-          }
-        },
-        "settings": {
-          "defaultNodeColor": "#1976d2",
-          "defaultEdgeColor": "",
-          "snapToGrid": false,
-          "gridSize": 20,
-          "edgeRouting": "auto",
-          "theme": null,
-          "backgroundImage": null,
-          "layout": {
-            "mode": "autoOnMissingPositions",
-            "defaultLayout": "layered",
-            "direction": "DOWN",
-            "edgeLaneGapPx": 10,
-            "serpentine": {
-              "maxPerRow": 6
-            },
-            "cycleFallback": {
-              "enabled": true
-            },
-            "elk": {
-              "algorithm": "fixed",
-              "edgeRouting": "ORTHOGONAL",
-              "portConstraints": "FIXED_SIDE",
-              "nodeSpacing": 120,
-              "layeredEdgeSpacing": 80
-            }
-          },
-          "autoSave": false
-        },
-        "document": {
-          "url": ""
         }
       }
     },
     {
       "id": "task-collection-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Task Collection Detail",
-      "root": false,
       "position": {
         "x": -1360,
         "y": -500
@@ -437,9 +430,8 @@
     },
     {
       "id": "task-collection-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Task Collection Summary",
-      "root": false,
       "position": {
         "x": -1360,
         "y": -160
@@ -491,9 +483,8 @@
     },
     {
       "id": "task-collection-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Task Collection Icon",
-      "root": false,
       "position": {
         "x": -1360,
         "y": 120
@@ -547,7 +538,6 @@
       "id": "task-collection-glyph",
       "type": "glyph",
       "label": "Task Collection Glyph",
-      "root": false,
       "position": {
         "x": -760,
         "y": -760
@@ -595,7 +585,6 @@
       "id": "task-collection-root-port",
       "type": "port",
       "label": "Michael's Task Collection",
-      "root": false,
       "position": {
         "x": 0,
         "y": -430
@@ -694,7 +683,6 @@
       "id": "task-collection-introduction",
       "type": "content",
       "label": "Tasks remain tasks",
-      "root": false,
       "position": {
         "x": 0,
         "y": -40
@@ -764,7 +752,6 @@
       "id": "task-collection-workboard",
       "type": "portal",
       "label": "Michael's Workboard",
-      "root": false,
       "position": {
         "x": -589.3946114283746,
         "y": 378.9638510038439
@@ -846,7 +833,6 @@
       "id": "task-collection-graph-scoped-skills",
       "type": "portal",
       "label": "Graph-Scoped Skills",
-      "root": false,
       "position": {
         "x": 462.5309032431861,
         "y": 378.9639493050311
@@ -928,7 +914,6 @@
       "id": "task-collection-agent-readiness",
       "type": "task",
       "label": "Make Twilite self-describing for codebase-free agents",
-      "root": false,
       "position": {
         "x": 1002.3347857720162,
         "y": 790
@@ -963,147 +948,6 @@
             "viewNodeId": "task-collection-agent-readiness"
           }
         },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "views": [
-            {
-              "key": "task",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "task",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "task",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "task",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ],
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "task-collection-bridge-task",
-          "sourceBridgeNodeId": "task-collection-bridge-task",
-          "sourceBridgeLabel": "Task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
-        "definitionKey": "task",
         "identity": {
           "graphId": "michael-task-collection"
         },
@@ -1119,14 +963,14 @@
           "An onboarding-only agent can create and repair ordinary Twilite graphs with greater than 90 percent first-pass success.",
           "Unsupported fields and capabilities fail with specific machine-readable repair guidance.",
           "Ordinary graph authoring no longer requires inspecting the Twilite codebase."
-        ]
+        ],
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-collection-repo-analytics-switches",
       "type": "task",
       "label": "Finish graph-owned analytics participation and reporting",
-      "root": false,
       "position": {
         "x": 0,
         "y": 790
@@ -1161,147 +1005,6 @@
             "viewNodeId": "task-collection-repo-analytics-switches"
           }
         },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "views": [
-            {
-              "key": "task",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "task",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "task",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "task",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ],
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "task-collection-bridge-task",
-          "sourceBridgeNodeId": "task-collection-bridge-task",
-          "sourceBridgeLabel": "Task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
-        "definitionKey": "task",
         "identity": {
           "graphId": "michael-task-collection"
         },
@@ -1318,14 +1021,14 @@
           "Twilite supplies only verified, read-only runtime facts and browser delivery capability.",
           "Private and unverified repositories remain excluded at the repository boundary.",
           "Realtime reporting can distinguish an individual graph even when its browser route uses ?doc=."
-        ]
+        ],
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-collection-archive",
       "type": "portal",
       "label": "Task Archive",
-      "root": false,
       "position": {
         "x": 1113.857512655149,
         "y": 1188.4338898263074
@@ -1407,9 +1110,8 @@
     },
     {
       "id": "task-collection-bridge-task",
-      "type": "bridge",
+      "type": "import",
       "label": "Task",
-      "root": false,
       "position": {
         "x": -760,
         "y": -40
@@ -1429,142 +1131,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "task",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "task",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "task",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "task",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1600,7 +1166,6 @@
       "id": "task-collection-repo-root",
       "type": "portal",
       "label": "Public Repository Root",
-      "root": false,
       "position": {
         "x": -590,
         "y": 790
@@ -1649,7 +1214,6 @@
       "id": "task-collection-question-driven-explanation-template-prototype-portal",
       "type": "portal",
       "label": "Prototype the Question-Driven Explanation Template",
-      "root": false,
       "position": {
         "x": 1080,
         "y": 1540
@@ -1732,7 +1296,6 @@
       "id": "task-collection-create-chat-provenance-node-portal",
       "type": "portal",
       "label": "Create the Chat Provenance Node",
-      "root": false,
       "position": {
         "x": 1080,
         "y": 1900
@@ -1815,7 +1378,6 @@
       "id": "task-collection-customer-acquisition",
       "type": "portal",
       "label": "Customer Acquisition and Launch Content",
-      "root": false,
       "position": {
         "x": 0,
         "y": 1200
@@ -1891,7 +1453,6 @@
       "id": "task-collection-script-presentation",
       "type": "portal",
       "label": "Script Node Presentation",
-      "root": false,
       "position": {
         "x": 540,
         "y": 1200
@@ -1967,7 +1528,6 @@
       "id": "task-collection-mcp-integration",
       "type": "task",
       "label": "Define Twilite MCP integration",
-      "root": false,
       "position": {
         "x": 508.603964267681,
         "y": 1670.1893578166314
@@ -2002,147 +1562,6 @@
             "viewNodeId": "task-collection-mcp-integration"
           }
         },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "views": [
-            {
-              "key": "task",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "task",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "task",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "task",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ],
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "task-collection-bridge-task",
-          "sourceBridgeNodeId": "task-collection-bridge-task",
-          "sourceBridgeLabel": "Task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
-        "definitionKey": "task",
         "identity": {
           "graphId": "michael-task-collection"
         },
@@ -2172,14 +1591,14 @@
           "source": "manual",
           "updatedAt": 1788047623648,
           "reason": "node-drag"
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-collection-interaction-roadmap",
       "type": "portal",
       "label": "Interaction and Semantic Zoom Roadmap",
-      "root": false,
       "position": {
         "x": -161.89027692374975,
         "y": 1689.1656099258232
@@ -2262,7 +1681,6 @@
       "id": "task-collection-edge-endpoint-reassignment",
       "type": "portal",
       "label": "Implement Edge Endpoint Reassignment",
-      "root": false,
       "position": {
         "x": 1620,
         "y": 1200
@@ -2311,7 +1729,6 @@
       "id": "task-collection-zoom-level-floor-ceiling-model",
       "type": "portal",
       "label": "Zoom Level: Floor From Content, Ceiling From Allotted Space",
-      "root": false,
       "position": {
         "x": -1420,
         "y": 900
@@ -2361,224 +1778,205 @@
       "type": "surface",
       "source": "task-collection-declaration",
       "target": "task-collection-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "root"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "task-collection-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "task-collection-detail-view",
       "target": "task-collection-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "task-collection-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "task-collection-summary-view",
       "target": "task-collection-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "task-collection-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "task-collection-icon-view",
       "target": "task-collection-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "task-collection-landing-surface-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "task-collection-declaration",
       "target": "task-collection-introduction",
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root",
-      "label": "landing surface",
+      "label": "ground",
       "style": {},
-      "data": {
-        "semanticRole": "landing-surface"
-      }
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "task-collection-root-port-edge",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "task-collection-declaration",
       "target": "task-collection-root-port",
-      "sourceHandle": "port",
-      "targetHandle": "root",
       "label": "exposes root port",
       "style": {},
-      "data": {
-        "semanticRole": "exposes-port"
-      }
+      "data": {},
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "task-collection-agent-readiness-declaration-edge",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "task-collection-declaration",
       "target": "task-collection-agent-readiness",
-      "sourceHandle": "port",
-      "targetHandle": "root",
       "label": "exposes agent readiness",
       "style": {},
-      "data": {
-        "semanticRole": "exposes-port"
-      }
+      "data": {},
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "task-collection-analytics-declaration-edge",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "task-collection-declaration",
       "target": "task-collection-repo-analytics-switches",
-      "sourceHandle": "port",
-      "targetHandle": "root",
       "label": "exposes analytics verification",
       "style": {},
-      "data": {
-        "semanticRole": "exposes-port"
-      }
+      "data": {},
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "task-collection-mcp-declaration-edge",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "task-collection-declaration",
       "target": "task-collection-mcp-integration",
-      "sourceHandle": "port",
-      "targetHandle": "root",
       "label": "exposes MCP integration",
       "style": {},
-      "data": {
-        "semanticRole": "exposes-port"
-      }
+      "data": {},
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "task-collection-edge-introduction",
-      "type": "reference",
+      "type": "edge",
       "source": "task-collection-root-port",
       "target": "task-collection-introduction",
-      "sourceHandle": "bottom",
-      "targetHandle": "top",
       "label": "explains",
       "style": {
         "curved": true,
         "route": "curved"
       },
-      "data": {}
+      "data": {},
+      "sourcePort": "bottom",
+      "targetPort": "top"
     },
     {
       "id": "task-collection-edge-workboard",
-      "type": "reference",
+      "type": "edge",
       "source": "task-collection-introduction",
       "target": "task-collection-workboard",
-      "sourceHandle": "bottom",
-      "targetHandle": "top",
       "label": "operational view",
       "style": {
         "curved": true,
         "route": "curved"
       },
-      "data": {}
+      "data": {},
+      "sourcePort": "bottom",
+      "targetPort": "top"
     },
     {
       "id": "task-collection-edge-graph-scoped-skills",
-      "type": "reference",
+      "type": "edge",
       "source": "task-collection-introduction",
       "target": "task-collection-graph-scoped-skills",
-      "sourceHandle": "right",
-      "targetHandle": "top",
       "label": "contains task",
       "style": {
         "curved": true,
         "route": "curved"
       },
-      "data": {}
+      "data": {},
+      "sourcePort": "right",
+      "targetPort": "top"
     },
     {
       "id": "task-collection-edge-agent-readiness",
-      "type": "reference",
+      "type": "edge",
       "source": "task-collection-introduction",
       "target": "task-collection-agent-readiness",
-      "sourceHandle": "right",
-      "targetHandle": "root",
       "label": "contains task",
       "style": {
         "curved": true,
         "route": "curved"
       },
-      "data": {}
+      "data": {},
+      "sourcePort": "right",
+      "targetPort": "root"
     },
     {
       "id": "task-collection-edge-repo-analytics-switches",
-      "type": "reference",
+      "type": "edge",
       "source": "task-collection-introduction",
       "target": "task-collection-repo-analytics-switches",
-      "sourceHandle": "bottom",
-      "targetHandle": "root",
       "label": "contains task",
       "style": {
         "curved": true,
         "route": "curved"
       },
-      "data": {}
+      "data": {},
+      "sourcePort": "bottom",
+      "targetPort": "root"
     },
     {
       "id": "task-collection-edge-archive",
-      "type": "reference",
+      "type": "edge",
       "source": "task-collection-introduction",
       "target": "task-collection-archive",
-      "sourceHandle": "right",
-      "targetHandle": "top",
       "label": "completed work",
       "style": {
         "curved": true,
         "route": "curved"
       },
-      "data": {}
+      "data": {},
+      "sourcePort": "right",
+      "targetPort": "top"
     },
     {
       "id": "task-collection-repo-root-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "task-collection-root-port",
       "target": "task-collection-repo-root",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "repository home",
       "style": {
         "curved": true,
         "width": 2
       },
-      "data": {}
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "task-collection-question-driven-explanation-template-prototype-portal-edge-1",
-      "type": "reference",
+      "type": "edge",
       "source": "task-collection-root-port",
       "target": "task-collection-question-driven-explanation-template-prototype-portal",
-      "sourceHandle": "bottom",
-      "targetHandle": "top",
       "label": "active task graph",
       "style": {
         "curved": true,
@@ -2586,15 +1984,15 @@
       },
       "data": {
         "relation": "task-projection"
-      }
+      },
+      "sourcePort": "bottom",
+      "targetPort": "top"
     },
     {
       "id": "task-collection-create-chat-provenance-node-portal-edge-1",
-      "type": "reference",
+      "type": "edge",
       "source": "task-collection-root-port",
       "target": "task-collection-create-chat-provenance-node-portal",
-      "sourceHandle": "bottom",
-      "targetHandle": "top",
       "label": "active task graph",
       "style": {
         "curved": true,
@@ -2602,15 +2000,15 @@
       },
       "data": {
         "relation": "task-projection"
-      }
+      },
+      "sourcePort": "bottom",
+      "targetPort": "top"
     },
     {
       "id": "task-collection-customer-acquisition-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "task-collection-root-port",
       "target": "task-collection-customer-acquisition",
-      "sourceHandle": "bottom",
-      "targetHandle": "top",
       "label": "active task graph",
       "style": {
         "curved": true,
@@ -2618,15 +2016,15 @@
       },
       "data": {
         "relation": "task-projection"
-      }
+      },
+      "sourcePort": "bottom",
+      "targetPort": "top"
     },
     {
       "id": "task-collection-script-presentation-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "task-collection-root-port",
       "target": "task-collection-script-presentation",
-      "sourceHandle": "bottom",
-      "targetHandle": "top",
       "label": "active task graph",
       "style": {
         "curved": true,
@@ -2634,15 +2032,15 @@
       },
       "data": {
         "relation": "task-projection"
-      }
+      },
+      "sourcePort": "bottom",
+      "targetPort": "top"
     },
     {
       "id": "task-collection-mcp-integration-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "task-collection-introduction",
       "target": "task-collection-mcp-integration",
-      "sourceHandle": "bottom",
-      "targetHandle": "root",
       "label": "discovery task",
       "style": {
         "curved": true,
@@ -2650,15 +2048,15 @@
       },
       "data": {
         "relation": "collection-task"
-      }
+      },
+      "sourcePort": "bottom",
+      "targetPort": "root"
     },
     {
       "id": "task-collection-interaction-roadmap-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "task-collection-root-port",
       "target": "task-collection-interaction-roadmap",
-      "sourceHandle": "bottom",
-      "targetHandle": "top",
       "label": "active task graph",
       "style": {
         "curved": true,
@@ -2666,15 +2064,15 @@
       },
       "data": {
         "relation": "task-projection"
-      }
+      },
+      "sourcePort": "bottom",
+      "targetPort": "top"
     },
     {
       "id": "task-collection-edge-endpoint-reassignment-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "task-collection-root-port",
       "target": "task-collection-edge-endpoint-reassignment",
-      "sourceHandle": "bottom",
-      "targetHandle": "root",
       "label": "active task graph",
       "style": {
         "curved": true,
@@ -2682,11 +2080,13 @@
       },
       "data": {
         "relation": "task-projection"
-      }
+      },
+      "sourcePort": "bottom",
+      "targetPort": "root"
     },
     {
       "id": "task-collection-zoom-level-floor-ceiling-model-edge",
-      "type": "reference",
+      "type": "follow-on",
       "source": "task-collection-interaction-roadmap",
       "target": "task-collection-zoom-level-floor-ceiling-model",
       "sourcePort": "root",
@@ -2700,12 +2100,9 @@
           6
         ]
       },
-      "data": {
-        "semanticRole": "follow-on"
-      }
+      "data": {}
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

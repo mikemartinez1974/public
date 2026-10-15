@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Wikipedia Article",
-    "description": "A graph-backed Wikipedia article node with semantic Views and section interaction.",
-    "graphId": "wikipedia-article-template-declaration",
-    "version": "0.2.0",
-    "kind": "template",
     "created": "2026-08-24T19:59:20.368Z",
     "modified": "2026-08-24T20:27:38.036Z",
     "author": "",
@@ -17,9 +12,8 @@
   "nodes": [
     {
       "id": "wikipedia-article-template-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Wikipedia Article Template",
-      "root": false,
       "position": {
         "x": -1999.2666018365821,
         "y": -207.67192233519603
@@ -55,20 +49,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -121,14 +115,14 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "surfaces",
@@ -172,17 +166,6 @@
         "intent": {
           "kind": "template",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "template",
-          "targetMode": "artifact",
-          "artifactKind": "graph-template",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "defaultSurfaceId": "web",
-          "surfaces": []
         },
         "dependencies": {
           "nodeTypes": [
@@ -244,14 +227,24 @@
         },
         "document": {
           "url": ""
+        },
+        "root": {
+          "kind": "template",
+          "targetMode": "artifact",
+          "artifactKind": "graph-template",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       }
     },
     {
       "id": "wikipedia-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Wikipedia Article Detail",
-      "root": false,
       "position": {
         "x": -1520,
         "y": -420
@@ -342,9 +335,8 @@
     },
     {
       "id": "wikipedia-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Wikipedia Article Summary",
-      "root": false,
       "position": {
         "x": -1540,
         "y": -60
@@ -414,9 +406,8 @@
     },
     {
       "id": "wikipedia-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Wikipedia Article Icon",
-      "root": false,
       "position": {
         "x": -1520,
         "y": 240
@@ -488,7 +479,6 @@
       "id": "wikipedia-glyph",
       "type": "glyph",
       "label": "Wikipedia Glyph",
-      "root": false,
       "position": {
         "x": -980,
         "y": -700
@@ -541,7 +531,6 @@
       "id": "wikipedia-landing-content",
       "type": "content",
       "label": "Wikipedia Article",
-      "root": false,
       "position": {
         "x": -200,
         "y": -260
@@ -594,7 +583,6 @@
       "id": "wikipedia-summary-content",
       "type": "content",
       "label": "Wikipedia Summary Content",
-      "root": false,
       "position": {
         "x": -1060,
         "y": 80
@@ -642,7 +630,6 @@
       "id": "wikipedia-icon-content",
       "type": "content",
       "label": "Wikipedia Icon Content",
-      "root": false,
       "position": {
         "x": -1040,
         "y": 380
@@ -688,9 +675,8 @@
     },
     {
       "id": "wikipedia-article-source-class-import",
-      "type": "bridge",
+      "type": "import",
       "label": "Wikipedia Article Source Class",
-      "root": false,
       "position": {
         "x": 420,
         "y": 160
@@ -713,7 +699,6 @@
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node",
           "resourceKind": "node-class",
-          "role": "import",
           "scope": "focused-graph",
           "grants": [
             "create"
@@ -732,9 +717,8 @@
     },
     {
       "id": "wikipedia-section-class-import",
-      "type": "bridge",
+      "type": "import",
       "label": "Wikipedia Section Class",
-      "root": false,
       "position": {
         "x": 420,
         "y": 440
@@ -757,7 +741,6 @@
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-section.node-class.node",
           "resourceKind": "node-class",
-          "role": "import",
           "scope": "focused-graph",
           "grants": [
             "create"
@@ -778,7 +761,6 @@
       "id": "wikipedia-article-specimen",
       "type": "wikipedia-article-source",
       "label": "Wikipedia Article Specimen",
-      "root": false,
       "position": {
         "x": 1292.2635434244903,
         "y": -119.24363182329176
@@ -828,19 +810,6 @@
           "source": "Wikipedia",
           "license": "CC BY-SA",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
-        },
-        "definitionKey": "wikipedia-article-source",
-        "_classBinding": {
-          "key": "wikipedia-article-source",
-          "sourceRef": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "wikipedia-article-source",
-          "classRef": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node",
-          "targetKind": "node-class"
         },
         "identity": {
           "graphId": "wikipedia-article-template"
@@ -909,14 +878,14 @@
         "revisionTimestamp": "",
         "thumbnailUrl": "",
         "thumbnail": null,
-        "originalImageUrl": ""
+        "originalImageUrl": "",
+        "classRef": "github://mikemartinez1974/public/templates/wikipedia-article-template/classes/nodes/wikipedia-article-source.node-class.node"
       }
     },
     {
       "id": "wikipedia-section-expansion-contract",
       "type": "content",
       "label": "Section Expansion Contract",
-      "root": false,
       "position": {
         "x": 980,
         "y": 560
@@ -964,7 +933,6 @@
       "id": "wikipedia-template-design-task-portal",
       "type": "portal",
       "label": "Wikipedia Template Design Task",
-      "root": false,
       "position": {
         "x": 399.5768486697723,
         "y": -417.8842433488614
@@ -1015,7 +983,6 @@
       "id": "wikipedia-template-idea-portal",
       "type": "portal",
       "label": "Wikipedia Article Node Idea",
-      "root": false,
       "position": {
         "x": 982.170881659109,
         "y": -593.799042903441
@@ -1066,7 +1033,6 @@
       "id": "wiki-article-v1-design-notes",
       "type": "content",
       "label": "Codex: Wikipedia Article V1",
-      "root": false,
       "position": {
         "x": 2117.3695686787687,
         "y": -1280.3474623036793
@@ -1160,7 +1126,6 @@
       "id": "wiki-section-v1-design-notes",
       "type": "content",
       "label": "Codex: Wikipedia Section V1",
-      "root": false,
       "position": {
         "x": 2129.4858088809956,
         "y": -498.54089442783834
@@ -1257,156 +1222,136 @@
       "type": "surface",
       "source": "wikipedia-article-template-declaration",
       "target": "wikipedia-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "wikipedia-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "wikipedia-detail-view",
       "target": "wikipedia-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "wikipedia-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "wikipedia-summary-view",
       "target": "wikipedia-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "wikipedia-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "wikipedia-icon-view",
       "target": "wikipedia-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "wiki-declaration-landing",
-      "type": "reference",
+      "type": "ground",
       "source": "wikipedia-article-template-declaration",
       "target": "wikipedia-landing-content",
-      "label": "landing surface",
+      "label": "ground",
       "style": {},
-      "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface"
-      },
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "wiki-detail-content",
-      "type": "reference",
+      "type": "view.content",
       "source": "wikipedia-detail-view",
       "target": "wikipedia-landing-content",
       "label": "content",
       "style": {},
-      "data": {
-        "role": "content",
-        "semanticRole": "view.content"
-      },
-      "sourceHandle": "surface-delegate",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "surface-delegate",
+      "targetPort": "root"
     },
     {
       "id": "wiki-summary-content",
-      "type": "reference",
+      "type": "view.content",
       "source": "wikipedia-summary-view",
       "target": "wikipedia-summary-content",
       "label": "content",
       "style": {},
-      "data": {
-        "role": "content",
-        "semanticRole": "view.content"
-      },
-      "sourceHandle": "surface-delegate",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "surface-delegate",
+      "targetPort": "root"
     },
     {
       "id": "wiki-icon-content",
-      "type": "reference",
+      "type": "view.content",
       "source": "wikipedia-icon-view",
       "target": "wikipedia-icon-content",
       "label": "content",
       "style": {},
-      "data": {
-        "role": "content",
-        "semanticRole": "view.content"
-      },
-      "sourceHandle": "surface-delegate",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "surface-delegate",
+      "targetPort": "root"
     },
     {
       "id": "wiki-template-article-instance",
-      "type": "reference",
+      "type": "instantiates",
       "source": "wikipedia-article-source-class-import",
       "target": "wikipedia-article-specimen",
       "label": "instantiates",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "wiki-template-expansion-contract",
-      "type": "reference",
+      "type": "edge",
       "source": "wikipedia-article-specimen",
       "target": "wikipedia-section-expansion-contract",
       "label": "expands sections",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "wiki-template-task-provenance",
-      "type": "reference",
+      "type": "edge",
       "source": "wikipedia-template-design-task-portal",
       "target": "wikipedia-section-expansion-contract",
       "label": "implementation task",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "wiki-template-idea-provenance",
-      "type": "reference",
+      "type": "edge",
       "source": "wikipedia-template-idea-portal",
       "target": "wikipedia-landing-content",
       "label": "concept source",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,
@@ -1446,8 +1391,5 @@
     },
     "autoSave": false
   },
-  "scripts": [],
-  "timestamp": "2026-08-28T21:36:51.918Z",
-  "nodeCount": 16,
-  "edgeCount": 12
+  "scripts": []
 }

@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Idea Template",
-    "description": "A reusable graph for framing, testing, supporting, rejecting, and advancing an idea.",
-    "graphId": "expandable-graph-rooms",
-    "version": "1.0.0",
-    "kind": "graph",
     "created": "2026-08-01T00:00:00.000Z",
     "modified": "2026-08-02T00:00:00.000Z",
     "author": "",
@@ -20,7 +15,7 @@
   "nodes": [
     {
       "id": "expandable-graph-rooms-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Expandable Graph Rooms Declaration",
       "position": {
         "x": -1180,
@@ -49,35 +44,6 @@
         "intent": {
           "kind": "idea",
           "scope": "cross-file-graph-composition"
-        },
-        "declaration": {
-          "kind": "graph",
-          "targetMode": "artifact",
-          "artifactKind": "graph",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Idea Template",
-              "memo": "Entry surface for deriving an evidence-driven idea graph.",
-              "portNodeId": "expandable-graph-rooms-root-port",
-              "viewNodeId": "expandable-graph-rooms-root-port",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            }
-          ],
-          "notes": [
-            "A portal connects to another graph.",
-            "A bridge makes an exported capability part of this graph.",
-            "An expansion mounts another graph as a room in the current canvas while preserving file ownership."
-          ]
         },
         "dependencies": {
           "nodeTypes": [
@@ -126,6 +92,35 @@
             "rewriteAllowed": false,
             "squashAllowed": false
           }
+        },
+        "root": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "artifactKind": "graph",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Idea Template",
+              "memo": "Entry surface for deriving an evidence-driven idea graph.",
+              "portNodeId": "expandable-graph-rooms-root-port",
+              "viewNodeId": "expandable-graph-rooms-root-port",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ],
+          "notes": [
+            "A portal connects to another graph.",
+            "A bridge makes an exported capability part of this graph.",
+            "An expansion mounts another graph as a room in the current canvas while preserving file ownership."
+          ]
         }
       }
     },
@@ -179,7 +174,7 @@
     },
     {
       "id": "expandable-graph-rooms-instructions",
-      "type": "markdown",
+      "type": "content",
       "label": "Discussion Map",
       "position": {
         "x": -220,
@@ -230,7 +225,10 @@
         "identity": {
           "graphId": "expandable-graph-rooms"
         },
-        "markdown": "## Discussion Map\n\nFollow the semantic edges through the proposal:\n\n- a portal **motivates** a room-like expansion mode\n- the audience is **affected** by losing spatial context during navigation\n- the idea **assumes** mounted nodes can participate without changing ownership\n- evidence from portals, bridges, focus, and semantic zoom **supports** the model\n- the proposed mount contract **advances** the idea\n- the next step **tests** identity, saving, collapse, and cross-boundary edges\n\nThe governing principle is: **visually unified, operationally bounded.**"
+        "content": {
+          "kind": "markdown",
+          "value": "## Discussion Map\n\nFollow the semantic edges through the proposal:\n\n- a portal **motivates** a room-like expansion mode\n- the audience is **affected** by losing spatial context during navigation\n- the idea **assumes** mounted nodes can participate without changing ownership\n- evidence from portals, bridges, focus, and semantic zoom **supports** the model\n- the proposed mount contract **advances** the idea\n- the next step **tests** identity, saving, collapse, and cross-boundary edges\n\nThe governing principle is: **visually unified, operationally bounded.**"
+        }
       }
     },
     {
@@ -288,27 +286,15 @@
         "status": "framed",
         "confidence": "promising",
         "notes": "Portal navigation remains available. Expansion is an additional composition behavior, not a replacement for opening the source graph.",
-        "definitionKey": "idea",
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "expandable-graph-rooms"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-bridge-idea",
-      "type": "bridge",
+      "type": "import",
       "label": "Idea",
       "position": {
         "x": -1740,
@@ -328,18 +314,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -427,27 +401,15 @@
         "statement": "Opening every related graph as a separate destination makes deep structures feel like disconnected pages rather than rooms in one navigable system.",
         "impact": "Users lose context, branch relationships become harder to read, and large bodies of work are forced into oversized single files.",
         "urgency": "high",
-        "definitionKey": "idea-problem",
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "expandable-graph-rooms"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-bridge-idea-problem",
-      "type": "bridge",
+      "type": "import",
       "label": "Problem",
       "position": {
         "x": -1740,
@@ -467,18 +429,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -565,27 +515,15 @@
         "title": "People Building Multi-Graph Worlds",
         "description": "Authors, readers, and agents working across collections, task hierarchies, research branches, and nested graph spaces.",
         "needs": "Reveal deeper structure in place, retain a reliable way back, and understand which file owns every visible node.",
-        "definitionKey": "idea-audience",
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "expandable-graph-rooms"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-bridge-idea-audience",
-      "type": "bridge",
+      "type": "import",
       "label": "Audience",
       "position": {
         "x": -1740,
@@ -605,18 +543,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -703,27 +629,15 @@
         "title": "Mount a Bounded Subgraph",
         "description": "Let a portal offer Expand Here. The host mounts the target graph into a namespaced branch, participates in focus and semantic zoom, and unloads it on collapse while the target file retains ownership.",
         "differentiator": "It preserves the spatial experience of one graph without pretending that separately saved files share one mutation boundary.",
-        "definitionKey": "idea-proposed-approach",
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "expandable-graph-rooms"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-bridge-idea-proposed-approach",
-      "type": "bridge",
+      "type": "import",
       "label": "Proposed Approach",
       "position": {
         "x": -1740,
@@ -743,18 +657,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -842,27 +744,15 @@
         "question": "Which nodes, views, edges, scripts, and editing rights may participate in the host session, and how are those permissions declared?",
         "status": "open",
         "answer": "",
-        "definitionKey": "idea-question",
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "expandable-graph-rooms"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-bridge-idea-question",
-      "type": "bridge",
+      "type": "import",
       "label": "Question",
       "position": {
         "x": -1740,
@@ -882,18 +772,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -981,27 +859,15 @@
         "statement": "Namespaced identities, durable provenance, and explicit authority can make mounted nodes feel local while saves remain routed to their owning files.",
         "importance": "critical",
         "status": "partially-tested",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "expandable-graph-rooms"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-bridge-idea-assumption",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumption",
       "position": {
         "x": -1740,
@@ -1021,18 +887,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1120,27 +974,15 @@
         "findings": "Portals already preserve navigation and source references. Bridges already declare imported participation and authority. Focus and semantic zoom already operate on projected nodes. Expansion can compose these contracts instead of inventing anonymous graph merging.",
         "sourceUrl": "",
         "sourceType": "internal",
-        "definitionKey": "idea-research",
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "expandable-graph-rooms"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-bridge-idea-research",
-      "type": "bridge",
+      "type": "import",
       "label": "Research",
       "position": {
         "x": -1740,
@@ -1160,18 +1002,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1260,27 +1090,15 @@
         "kind": "working-system",
         "strength": "strong",
         "sourceRef": "github://mikemartinez1974/public/people/root.node",
-        "definitionKey": "idea-evidence",
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "expandable-graph-rooms"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-bridge-idea-evidence",
-      "type": "bridge",
+      "type": "import",
       "label": "Evidence",
       "position": {
         "x": -1740,
@@ -1300,18 +1118,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1398,27 +1204,15 @@
         "title": "Navigate or Copy Everything",
         "description": "Keep portals navigation-only, or copy every desired branch into the host graph.",
         "tradeoffs": "Navigation preserves ownership but loses spatial continuity. Copying preserves the canvas but creates duplicate authority, stale content, and ambiguous saves.",
-        "definitionKey": "idea-alternative",
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "expandable-graph-rooms"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-bridge-idea-alternative",
-      "type": "bridge",
+      "type": "import",
       "label": "Alternative",
       "position": {
         "x": -1740,
@@ -1438,18 +1232,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1538,27 +1320,15 @@
         "likelihood": "medium",
         "impact": "high",
         "mitigation": "Keep provenance inspectable, namespace mounted identities, route mutations to the owning graph, and make unsupported cross-boundary operations explicit.",
-        "definitionKey": "idea-risk",
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "expandable-graph-rooms"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-bridge-idea-risk",
-      "type": "bridge",
+      "type": "import",
       "label": "Risk",
       "position": {
         "x": -1740,
@@ -1578,18 +1348,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1677,27 +1435,15 @@
         "action": "Define a mount provenance record and implement one portal-driven Expand Here / Collapse Branch smoke test with focus, semantic zoom, reload, and save behavior.",
         "expectedEvidence": "The mounted room participates visually, collapses without deletion, reloads predictably, and no save writes nodes into the wrong file.",
         "status": "todo",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "expandable-graph-rooms"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-bridge-idea-next-step",
-      "type": "bridge",
+      "type": "import",
       "label": "Next Step",
       "position": {
         "x": -1740,
@@ -1717,18 +1463,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1764,9 +1498,8 @@
     },
     {
       "id": "idea-edge-class-advances",
-      "type": "bridge",
+      "type": "import",
       "label": "Advances",
-      "root": false,
       "position": {
         "x": -1180,
         "y": -1140
@@ -1820,9 +1553,8 @@
     },
     {
       "id": "idea-edge-class-affects",
-      "type": "bridge",
+      "type": "import",
       "label": "Affects",
-      "root": false,
       "position": {
         "x": -1140,
         "y": -1140
@@ -1876,9 +1608,8 @@
     },
     {
       "id": "idea-edge-class-assumes",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumes",
-      "root": false,
       "position": {
         "x": -1100,
         "y": -1140
@@ -1932,9 +1663,8 @@
     },
     {
       "id": "idea-edge-class-contradicts",
-      "type": "bridge",
+      "type": "import",
       "label": "Contradicts",
-      "root": false,
       "position": {
         "x": -1060,
         "y": -1140
@@ -1988,9 +1718,8 @@
     },
     {
       "id": "idea-edge-class-informs",
-      "type": "bridge",
+      "type": "import",
       "label": "Informs",
-      "root": false,
       "position": {
         "x": -1020,
         "y": -1140
@@ -2044,9 +1773,8 @@
     },
     {
       "id": "idea-edge-class-motivates",
-      "type": "bridge",
+      "type": "import",
       "label": "Motivates",
-      "root": false,
       "position": {
         "x": -980,
         "y": -1140
@@ -2100,9 +1828,8 @@
     },
     {
       "id": "idea-edge-class-questions",
-      "type": "bridge",
+      "type": "import",
       "label": "Questions",
-      "root": false,
       "position": {
         "x": -940,
         "y": -1140
@@ -2156,9 +1883,8 @@
     },
     {
       "id": "idea-edge-class-supports",
-      "type": "bridge",
+      "type": "import",
       "label": "Supports",
-      "root": false,
       "position": {
         "x": -900,
         "y": -1140
@@ -2212,9 +1938,8 @@
     },
     {
       "id": "idea-edge-class-tests",
-      "type": "bridge",
+      "type": "import",
       "label": "Tests",
-      "root": false,
       "position": {
         "x": -860,
         "y": -1140
@@ -2268,9 +1993,8 @@
     },
     {
       "id": "idea-edge-class-threatens",
-      "type": "bridge",
+      "type": "import",
       "label": "Threatens",
-      "root": false,
       "position": {
         "x": -820,
         "y": -1140
@@ -2326,7 +2050,6 @@
       "id": "expandable-graph-rooms-ideas-collection",
       "type": "portal",
       "label": "Ideas Collection",
-      "root": false,
       "position": {
         "x": 980,
         "y": -360
@@ -2383,7 +2106,6 @@
       "id": "expandable-graph-rooms-task-portal",
       "type": "portal",
       "label": "Interaction and Semantic Zoom Roadmap",
-      "root": false,
       "position": {
         "x": 980,
         "y": 20
@@ -2440,7 +2162,7 @@
   "edges": [
     {
       "id": "expandable-graph-rooms-entry-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "expandable-graph-rooms-declaration",
       "target": "expandable-graph-rooms-root-port",
       "sourcePort": "root",
@@ -2454,7 +2176,7 @@
     },
     {
       "id": "expandable-graph-rooms-problem-motivates",
-      "type": "reference",
+      "type": "idea.motivates",
       "source": "expandable-graph-rooms-idea-problem",
       "target": "expandable-graph-rooms-idea",
       "sourcePort": "right",
@@ -2468,15 +2190,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.motivates",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node",
-        "semanticRole": "idea.motivates",
-        "edgeClassMeaning": "source establishes the need or reason for the target"
+        "edgeClassMeaning": "source establishes the need or reason for the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-audience-affects",
-      "type": "reference",
+      "type": "idea.affects",
       "source": "expandable-graph-rooms-idea-audience",
       "target": "expandable-graph-rooms-idea-problem",
       "sourcePort": "right",
@@ -2490,15 +2210,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.affects",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node",
-        "semanticRole": "idea.affects",
-        "edgeClassMeaning": "source audience experiences or is affected by the target problem"
+        "edgeClassMeaning": "source audience experiences or is affected by the target problem",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-idea-assumes",
-      "type": "reference",
+      "type": "idea.assumes",
       "source": "expandable-graph-rooms-idea",
       "target": "expandable-graph-rooms-idea-assumption",
       "sourcePort": "bottom",
@@ -2516,15 +2234,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
+        "edgeClassMeaning": "source depends on the target assumption being true",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-question-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "expandable-graph-rooms-idea-question",
       "target": "expandable-graph-rooms-idea-assumption",
       "sourcePort": "right",
@@ -2542,15 +2258,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-research-informs",
-      "type": "reference",
+      "type": "idea.informs",
       "source": "expandable-graph-rooms-idea-research",
       "target": "expandable-graph-rooms-idea-question",
       "sourcePort": "right",
@@ -2564,15 +2278,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.informs",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
-        "semanticRole": "idea.informs",
-        "edgeClassMeaning": "source provides context that informs the target"
+        "edgeClassMeaning": "source provides context that informs the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-evidence-supports",
-      "type": "reference",
+      "type": "idea.supports",
       "source": "expandable-graph-rooms-idea-evidence",
       "target": "expandable-graph-rooms-idea-assumption",
       "sourcePort": "left",
@@ -2586,15 +2298,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.supports",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
-        "semanticRole": "idea.supports",
-        "edgeClassMeaning": "source evidence increases confidence in the target"
+        "edgeClassMeaning": "source evidence increases confidence in the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-alternative-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "expandable-graph-rooms-idea-alternative",
       "target": "expandable-graph-rooms-idea-proposed-approach",
       "sourcePort": "left",
@@ -2612,15 +2322,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-risk-threatens",
-      "type": "reference",
+      "type": "idea.threatens",
       "source": "expandable-graph-rooms-idea-risk",
       "target": "expandable-graph-rooms-idea",
       "sourcePort": "bottom",
@@ -2638,15 +2346,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.threatens",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node",
-        "semanticRole": "idea.threatens",
-        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target"
+        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-next-step-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "expandable-graph-rooms-idea-next-step",
       "target": "expandable-graph-rooms-idea-assumption",
       "sourcePort": "top",
@@ -2660,15 +2366,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-approach-advances",
-      "type": "reference",
+      "type": "idea.advances",
       "source": "expandable-graph-rooms-idea-proposed-approach",
       "target": "expandable-graph-rooms-idea",
       "sourcePort": "left",
@@ -2682,15 +2386,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.advances",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node",
-        "semanticRole": "idea.advances",
-        "edgeClassMeaning": "source action moves the target idea toward a better-supported state"
+        "edgeClassMeaning": "source action moves the target idea toward a better-supported state",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node"
       }
     },
     {
       "id": "expandable-graph-rooms-instructions-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "expandable-graph-rooms-idea-next-step",
       "target": "expandable-graph-rooms-instructions",
       "sourcePort": "right",
@@ -2711,95 +2413,95 @@
       "id": "expandable-graph-rooms-declaration-edge-class-authority-advances",
       "source": "expandable-graph-rooms-declaration",
       "target": "idea-edge-class-advances",
-      "sourceHandle": "root",
-      "targetHandle": "root",
-      "type": "reference",
-      "label": "edge authority"
+      "type": "imports",
+      "label": "edge authority",
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "expandable-graph-rooms-declaration-edge-class-authority-affects",
       "source": "expandable-graph-rooms-declaration",
       "target": "idea-edge-class-affects",
-      "sourceHandle": "root",
-      "targetHandle": "root",
-      "type": "reference",
-      "label": "edge authority"
+      "type": "imports",
+      "label": "edge authority",
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "expandable-graph-rooms-declaration-edge-class-authority-assumes",
       "source": "expandable-graph-rooms-declaration",
       "target": "idea-edge-class-assumes",
-      "sourceHandle": "root",
-      "targetHandle": "root",
-      "type": "reference",
-      "label": "edge authority"
+      "type": "imports",
+      "label": "edge authority",
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "expandable-graph-rooms-declaration-edge-class-authority-contradicts",
       "source": "expandable-graph-rooms-declaration",
       "target": "idea-edge-class-contradicts",
-      "sourceHandle": "root",
-      "targetHandle": "root",
-      "type": "reference",
-      "label": "edge authority"
+      "type": "imports",
+      "label": "edge authority",
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "expandable-graph-rooms-declaration-edge-class-authority-informs",
       "source": "expandable-graph-rooms-declaration",
       "target": "idea-edge-class-informs",
-      "sourceHandle": "root",
-      "targetHandle": "root",
-      "type": "reference",
-      "label": "edge authority"
+      "type": "imports",
+      "label": "edge authority",
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "expandable-graph-rooms-declaration-edge-class-authority-motivates",
       "source": "expandable-graph-rooms-declaration",
       "target": "idea-edge-class-motivates",
-      "sourceHandle": "root",
-      "targetHandle": "root",
-      "type": "reference",
-      "label": "edge authority"
+      "type": "imports",
+      "label": "edge authority",
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "expandable-graph-rooms-declaration-edge-class-authority-questions",
       "source": "expandable-graph-rooms-declaration",
       "target": "idea-edge-class-questions",
-      "sourceHandle": "root",
-      "targetHandle": "root",
-      "type": "reference",
-      "label": "edge authority"
+      "type": "imports",
+      "label": "edge authority",
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "expandable-graph-rooms-declaration-edge-class-authority-supports",
       "source": "expandable-graph-rooms-declaration",
       "target": "idea-edge-class-supports",
-      "sourceHandle": "root",
-      "targetHandle": "root",
-      "type": "reference",
-      "label": "edge authority"
+      "type": "imports",
+      "label": "edge authority",
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "expandable-graph-rooms-declaration-edge-class-authority-tests",
       "source": "expandable-graph-rooms-declaration",
       "target": "idea-edge-class-tests",
-      "sourceHandle": "root",
-      "targetHandle": "root",
-      "type": "reference",
-      "label": "edge authority"
+      "type": "imports",
+      "label": "edge authority",
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "expandable-graph-rooms-declaration-edge-class-authority-threatens",
       "source": "expandable-graph-rooms-declaration",
       "target": "idea-edge-class-threatens",
-      "sourceHandle": "root",
-      "targetHandle": "root",
-      "type": "reference",
-      "label": "edge authority"
+      "type": "imports",
+      "label": "edge authority",
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "expandable-graph-rooms-ideas-collection-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "expandable-graph-rooms-root-port",
       "target": "expandable-graph-rooms-ideas-collection",
       "sourcePort": "root",
@@ -2815,7 +2517,7 @@
     },
     {
       "id": "expandable-graph-rooms-task-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "expandable-graph-rooms-idea-next-step",
       "target": "expandable-graph-rooms-task-portal",
       "sourcePort": "right",
@@ -2830,7 +2532,6 @@
       }
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,
@@ -2869,8 +2570,5 @@
     },
     "autoSave": false
   },
-  "scripts": [],
-  "nodeCount": 37,
-  "edgeCount": 24,
-  "timestamp": "2026-08-16T04:00:32.991Z"
+  "scripts": []
 }

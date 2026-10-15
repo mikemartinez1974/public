@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Department of Health and Human Services",
-    "description": "Lightweight organization graph for U.S. Department of Health and Human Services.",
-    "graphId": "department-of-health-and-human-services-organization-graph",
-    "version": "0.1.0",
-    "kind": "organization",
     "created": "2026-08-07T20:40:00-05:00",
     "modified": "2026-08-07T20:40:00-05:00",
     "author": "",
@@ -18,7 +13,7 @@
   "nodes": [
     {
       "id": "decl",
-      "type": "declaration",
+      "type": "root",
       "label": "Department of Health and Human Services Declaration",
       "position": {
         "x": 0,
@@ -85,7 +80,7 @@
             "squashAllowed": false
           }
         },
-        "declaration": {
+        "root": {
           "kind": "graph",
           "targetMode": "artifact",
           "artifactKind": "graph",
@@ -588,7 +583,7 @@
     },
     {
       "id": "bridge-organization",
-      "type": "bridge",
+      "type": "import",
       "label": "Organization",
       "position": {
         "x": -500,
@@ -632,18 +627,6 @@
           "grants": [
             "create"
           ]
-        },
-        "_classBinding": {
-          "key": "organization",
-          "sourceRef": "github://mikemartinez1974/public/organizations/template/organization.node-class.node"
-        },
-        "_bridge": {
-          "sourceRef": "github://mikemartinez1974/public/organizations/template/organization.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "organization",
-          "classRef": "github://mikemartinez1974/public/organizations/template/organization.node-class.node"
         },
         "identity": {
           "graphId": "department-of-health-and-human-services-organization-graph"
@@ -805,25 +788,14 @@
         "logo": "",
         "status": "published",
         "canonicalUri": "github://mikemartinez1974/public/organizations/department-of-health-and-human-services.node",
-        "_classBinding": {
-          "key": "organization",
-          "sourceRef": "github://mikemartinez1974/public/organizations/template/organization.node-class.node"
-        },
-        "_bridge": {
-          "sourceRef": "github://mikemartinez1974/public/organizations/template/organization.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "organization",
-          "classRef": "github://mikemartinez1974/public/organizations/template/organization.node-class.node"
-        }
+        "classRef": "github://mikemartinez1974/public/organizations/template/organization.node-class.node"
       }
     }
   ],
   "edges": [
     {
       "id": "authority",
-      "type": "reference",
+      "type": "imports",
       "source": "decl",
       "target": "bridge-organization",
       "sourcePort": "root",
@@ -833,7 +805,7 @@
     },
     {
       "id": "instantiates",
-      "type": "reference",
+      "type": "instantiates",
       "source": "bridge-organization",
       "target": "organization",
       "sourcePort": "root",
@@ -843,7 +815,7 @@
     },
     {
       "id": "profile",
-      "type": "reference",
+      "type": "edge",
       "source": "profile",
       "target": "organization",
       "sourcePort": "bottom",
@@ -853,7 +825,7 @@
     },
     {
       "id": "icon-surface",
-      "type": "reference",
+      "type": "edge",
       "source": "decl",
       "target": "icon",
       "sourcePort": "root",
@@ -863,7 +835,7 @@
     },
     {
       "id": "research-surface",
-      "type": "reference",
+      "type": "edge",
       "source": "research",
       "target": "organization",
       "sourcePort": "bottom",
@@ -872,7 +844,6 @@
       "data": {}
     }
   ],
-  "clusters": [],
   "settings": {
     "edgeRouting": "auto",
     "autoSave": false,
@@ -882,8 +853,5 @@
       "direction": "DOWN"
     }
   },
-  "scripts": [],
-  "nodeCount": 6,
-  "edgeCount": 5,
-  "timestamp": "2026-08-07T20:40:00-05:00"
+  "scripts": []
 }

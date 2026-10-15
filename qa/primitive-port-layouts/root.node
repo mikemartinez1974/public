@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Primitive Port Layouts",
-    "description": "A working plan for input/output side conventions and chain-continuation handles across the ten primitives that render ports on canvas.",
-    "graphId": "primitive-port-layouts-declaration",
-    "version": "0.1.0",
-    "kind": "documentation",
     "created": "2026-09-30T16:09:44.918Z",
     "modified": "2026-09-30T16:09:44.918Z",
     "author": "",
@@ -19,9 +14,8 @@
   "nodes": [
     {
       "id": "primitive-port-layouts-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Primitive Port Layouts",
-      "root": true,
       "position": {
         "x": -1400,
         "y": -400
@@ -61,22 +55,6 @@
         "intent": {
           "summary": "A working plan for how each primitive should place its inputs and outputs, and which handles chain to an obvious next node."
         },
-        "declaration": {
-          "defaultSurfaceId": "web",
-          "surfaces": [],
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": false,
-            "excludedRelationships": [
-              "glyph",
-              "icon-view",
-              "summary-view",
-              "view-sequence",
-              "port",
-              "default-handle"
-            ]
-          }
-        },
         "document": {
           "url": "github://mikemartinez1974/public/qa/primitive-port-layouts/root.node"
         },
@@ -86,13 +64,32 @@
         },
         "identity": {
           "graphId": "primitive-port-layouts-declaration",
-          "nodeId": "primitive-port-layouts-declaration"
+          "nodeId": "primitive-port-layouts-declaration",
+          "name": "Primitive Port Layouts",
+          "description": "A working plan for input/output side conventions and chain-continuation handles across the ten primitives that render ports on canvas.",
+          "version": "0.1.0"
+        },
+        "root": {
+          "defaultSurfaceId": "web",
+          "surfaces": [],
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": false,
+            "excludedRelationships": [
+              "glyph",
+              "icon-view",
+              "summary-view",
+              "next-face",
+              "port",
+              "default-handle"
+            ]
+          }
         }
       }
     },
     {
       "id": "primitive-port-layouts-overview",
-      "type": "view",
+      "type": "face",
       "label": "Overview",
       "position": {
         "x": -820,
@@ -144,7 +141,6 @@
       "id": "primitive-doc-declaration",
       "type": "content",
       "label": "Declaration",
-      "root": false,
       "position": {
         "x": -80,
         "y": -400
@@ -170,7 +166,6 @@
       "id": "primitive-doc-view",
       "type": "content",
       "label": "View",
-      "root": false,
       "position": {
         "x": 480,
         "y": -400
@@ -196,7 +191,6 @@
       "id": "primitive-doc-content",
       "type": "content",
       "label": "Content",
-      "root": false,
       "position": {
         "x": 1040,
         "y": -400
@@ -222,7 +216,6 @@
       "id": "primitive-doc-glyph",
       "type": "content",
       "label": "Glyph",
-      "root": false,
       "position": {
         "x": 1600,
         "y": -400
@@ -248,7 +241,6 @@
       "id": "primitive-doc-port",
       "type": "content",
       "label": "Port",
-      "root": false,
       "position": {
         "x": 2160,
         "y": -400
@@ -274,7 +266,6 @@
       "id": "primitive-doc-portal",
       "type": "content",
       "label": "Portal",
-      "root": false,
       "position": {
         "x": -80,
         "y": 500
@@ -300,7 +291,6 @@
       "id": "primitive-doc-bridge",
       "type": "content",
       "label": "Bridge",
-      "root": false,
       "position": {
         "x": 480,
         "y": 500
@@ -326,7 +316,6 @@
       "id": "primitive-doc-membrane",
       "type": "content",
       "label": "Membrane (Boundary)",
-      "root": false,
       "position": {
         "x": 1040,
         "y": 500
@@ -352,7 +341,6 @@
       "id": "primitive-doc-method",
       "type": "content",
       "label": "Method",
-      "root": false,
       "position": {
         "x": 1600,
         "y": 500
@@ -381,147 +369,125 @@
       "type": "surface",
       "source": "primitive-port-layouts-declaration",
       "target": "primitive-port-layouts-overview",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "primitive-port-layouts-overview-chain",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "primitive-port-layouts-overview",
       "target": "primitive-port-layouts-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "overview-declaration",
-      "type": "reference",
+      "type": "edge",
       "source": "primitive-port-layouts-overview",
       "target": "primitive-doc-declaration",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "reference"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "overview-view",
-      "type": "reference",
+      "type": "edge",
       "source": "primitive-port-layouts-overview",
       "target": "primitive-doc-view",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "reference"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "overview-content",
-      "type": "reference",
+      "type": "edge",
       "source": "primitive-port-layouts-overview",
       "target": "primitive-doc-content",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "reference"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "overview-glyph",
-      "type": "reference",
+      "type": "edge",
       "source": "primitive-port-layouts-overview",
       "target": "primitive-doc-glyph",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "reference"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "overview-port",
-      "type": "reference",
+      "type": "edge",
       "source": "primitive-port-layouts-overview",
       "target": "primitive-doc-port",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "reference"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "overview-portal",
-      "type": "reference",
+      "type": "edge",
       "source": "primitive-port-layouts-overview",
       "target": "primitive-doc-portal",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "reference"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "overview-bridge",
-      "type": "reference",
+      "type": "edge",
       "source": "primitive-port-layouts-overview",
       "target": "primitive-doc-bridge",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "reference"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "overview-membrane",
-      "type": "reference",
+      "type": "edge",
       "source": "primitive-port-layouts-overview",
       "target": "primitive-doc-membrane",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "reference"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "overview-method",
-      "type": "reference",
+      "type": "edge",
       "source": "primitive-port-layouts-overview",
       "target": "primitive-doc-method",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "reference"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

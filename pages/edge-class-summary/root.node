@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Edge Class Summary",
-    "description": "A summary-size view template for an edge class: its drawing with the label, key and kinds it connects.",
-    "graphId": "edge-class-summary",
-    "version": "0.1.0",
-    "kind": "graph",
     "created": "2026-09-21T02:05:40.532Z",
     "modified": "2026-09-21T02:05:40.532Z",
     "author": "Michael Martinez",
@@ -20,9 +15,8 @@
   "nodes": [
     {
       "id": "edge-class-summary-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Smoke Test Template Declaration",
-      "root": false,
       "position": {
         "x": -1280,
         "y": -900
@@ -58,20 +52,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -124,14 +118,14 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "surfaces",
@@ -175,17 +169,6 @@
         "intent": {
           "kind": "graph",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "template",
-          "targetMode": "artifact",
-          "artifactKind": "graph-template",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "defaultSurfaceId": "web",
-          "surfaces": []
         },
         "dependencies": {
           "nodeTypes": [
@@ -256,14 +239,24 @@
         },
         "document": {
           "url": "github://mikemartinez1974/public/pages/edge-class-summary/root.node"
+        },
+        "root": {
+          "kind": "template",
+          "targetMode": "artifact",
+          "artifactKind": "graph-template",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       }
     },
     {
       "id": "edge-class-summary-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Edge Class Summary Detail",
-      "root": false,
       "position": {
         "x": -2700,
         "y": -1000
@@ -354,9 +347,8 @@
     },
     {
       "id": "edge-class-summary-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Edge Class Summary Summary",
-      "root": false,
       "position": {
         "x": -2700,
         "y": -500
@@ -447,9 +439,8 @@
     },
     {
       "id": "edge-class-summary-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Edge Class Summary Icon",
-      "root": false,
       "position": {
         "x": -2700,
         "y": -160
@@ -542,7 +533,6 @@
       "id": "edge-class-summary-glyph",
       "type": "glyph",
       "label": "Edge Class Summary Glyph",
-      "root": false,
       "position": {
         "x": -1280,
         "y": -1220
@@ -590,7 +580,6 @@
       "id": "edge-class-summary-landing-surface",
       "type": "content",
       "label": "Edge Class Summary Landing",
-      "root": false,
       "position": {
         "x": -620,
         "y": -900
@@ -687,70 +676,59 @@
       "type": "surface",
       "source": "edge-class-summary-declaration",
       "target": "edge-class-summary-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "edge-class-summary-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "edge-class-summary-detail-view",
       "target": "edge-class-summary-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "edge-class-summary-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "edge-class-summary-summary-view",
       "target": "edge-class-summary-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "edge-class-summary-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "edge-class-summary-icon-view",
       "target": "edge-class-summary-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "edge-class-summary-landing-surface-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "edge-class-summary-declaration",
       "target": "edge-class-summary-landing-surface",
-      "label": "landing surface",
+      "label": "ground",
       "style": {},
-      "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface"
-      },
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,
@@ -790,8 +768,5 @@
     },
     "autoSave": false
   },
-  "scripts": [],
-  "timestamp": "2026-09-21T02:05:40.532Z",
-  "nodeCount": 6,
-  "edgeCount": 5
+  "scripts": []
 }

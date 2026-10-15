@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "The Stroke Control",
-    "description": "Make the stroke widget a small graph of its own, with real Properties, a self-updating preview and a Bridge, so an edge class is edited through composed controls.",
-    "graphId": "stroke-control",
-    "version": "0.1.0",
-    "kind": "graph",
     "created": "2026-09-20T06:59:53.080Z",
     "modified": "2026-09-20T10:54:01.716Z",
     "author": "",
@@ -22,9 +17,8 @@
   "nodes": [
     {
       "id": "stroke-control-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "The Stroke Control",
-      "root": false,
       "position": {
         "x": -900,
         "y": -1500
@@ -60,20 +54,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -126,14 +120,14 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "surfaces",
@@ -178,17 +172,6 @@
         "intent": {
           "kind": "graph",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "idea",
-          "targetMode": "artifact",
-          "artifactKind": "idea-graph",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "defaultSurfaceId": "default-view",
-          "surfaces": []
         },
         "dependencies": {
           "nodeTypes": [
@@ -271,6 +254,17 @@
         },
         "document": {
           "url": "github://mikemartinez1974/public/ideas/stroke-control/root.node"
+        },
+        "root": {
+          "kind": "idea",
+          "targetMode": "artifact",
+          "artifactKind": "idea-graph",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "default-view",
+          "surfaces": []
         }
       }
     },
@@ -278,7 +272,6 @@
       "id": "stroke-control-instructions",
       "type": "content",
       "label": "Stroke Control Sketch",
-      "root": false,
       "position": {
         "x": -2060,
         "y": 260
@@ -356,7 +349,6 @@
       "id": "stroke-control-idea",
       "type": "idea",
       "label": "A Stroke Is a Control Graph",
-      "root": false,
       "position": {
         "x": -220,
         "y": -160
@@ -444,39 +436,6 @@
         "status": "framed",
         "confidence": "unproven",
         "notes": "Builds on the Edge Class template (github://mikemartinez1974/public/templates/edge-class-template/root.node), where Property and stroke changes already refresh the exposed views through class-scoped Handlers, and on the Bridge Editor idea (github://mikemartinez1974/public/ideas/bridge-editor/root.node), which is where a control's events would be exposed.",
-        "definitionKey": "idea",
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Lightbulb"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "stroke-control"
         },
@@ -485,7 +444,8 @@
             "kind": "icon",
             "name": "Lightbulb"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
       },
       "handles": [
         {
@@ -567,9 +527,8 @@
     },
     {
       "id": "stroke-control-bridge-idea",
-      "type": "bridge",
+      "type": "import",
       "label": "Idea",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -1046.5738210094617
@@ -616,126 +575,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "defaults": {
-            "label": "Idea",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#7c3aed",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "statement": "",
-              "status": "spark",
-              "confidence": "unproven",
-              "notes": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Lightbulb"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Idea",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#7c3aed",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "statement": "",
-                "status": "spark",
-                "confidence": "unproven",
-                "notes": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Lightbulb"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -823,7 +662,6 @@
       "id": "stroke-control-idea-problem",
       "type": "idea-problem",
       "label": "A Stroke Is Values on One Node",
-      "root": false,
       "position": {
         "x": -940,
         "y": -160
@@ -879,39 +717,6 @@
         "statement": "Today a stroke is a field node bound to the edge-class-stroke class, with color, width, opacity, dash and enabled as raw data keys. It announces one coarse node.changed event that lists which keys changed, so nothing can react to one setting on its own. No setting has its own type, access or default, and the editor is a generic form. The control also cannot be reused: it is welded to the Edge Class template that happens to contain it.",
         "impact": "The edge class settings editor, the thing the template previews, is the weakest editor in the graph. Every new control (a color, a paint stack, an arrow) would repeat the same shortcut.",
         "urgency": "high",
-        "definitionKey": "idea-problem",
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ReportProblem"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "stroke-control"
         },
@@ -920,7 +725,8 @@
             "kind": "icon",
             "name": "ReportProblem"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
       },
       "handles": [
         {
@@ -968,9 +774,8 @@
     },
     {
       "id": "stroke-control-bridge-idea-problem",
-      "type": "bridge",
+      "type": "import",
       "label": "Problem",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -896.5738210094617
@@ -1017,124 +822,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "defaults": {
-            "label": "Problem",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#dc2626",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "statement": "",
-              "impact": "",
-              "urgency": "unknown",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ReportProblem"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-problem",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Problem",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#dc2626",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "statement": "",
-                "impact": "",
-                "urgency": "unknown",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "ReportProblem"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-problem",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-problem",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-problem",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-problem",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1222,7 +909,6 @@
       "id": "stroke-control-idea-audience",
       "type": "idea-audience",
       "label": "People Who Build Edge Classes and Controls",
-      "root": false,
       "position": {
         "x": -1540,
         "y": -160
@@ -1261,39 +947,6 @@
         "title": "People who build edge classes and other composed controls",
         "description": "Authors and agents editing an edge class's paint, route and arrows, and anyone who wants to build a template out of smaller controls.",
         "needs": "Change one setting and see exactly that change wherever it matters, without opening a generic form.",
-        "definitionKey": "idea-audience",
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Groups"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "stroke-control"
         },
@@ -1302,7 +955,8 @@
             "kind": "icon",
             "name": "Groups"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
       },
       "handles": [
         {
@@ -1333,9 +987,8 @@
     },
     {
       "id": "stroke-control-bridge-idea-audience",
-      "type": "bridge",
+      "type": "import",
       "label": "Audience",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -746.5738210094617
@@ -1382,122 +1035,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "defaults": {
-            "label": "Audience",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#2563eb",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "needs": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Groups"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-audience",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Audience",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#2563eb",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "needs": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Groups"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-audience",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-audience",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-audience",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-audience",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1585,7 +1122,6 @@
       "id": "stroke-control-idea-proposed-approach",
       "type": "idea-proposed-approach",
       "label": "A Stroke Control Graph, Consumed Through a Bridge",
-      "root": false,
       "position": {
         "x": 560,
         "y": -160
@@ -1639,39 +1175,6 @@
         "title": "A Stroke Control graph, consumed through a Bridge",
         "description": "Create a Stroke Control graph template: a Declaration exposing five Properties (color, width, opacity, dash, enabled), a swatch view drawn from them, and one class-scoped Handler calling one Method that re-renders the swatch, the same pattern as the Edge Class template. An export Bridge exposes the Properties' events. The Edge Class template imports the control through a Bridge and reacts to its events, so each stroke is an instance of the control instead of a field node. This needs Bridges to carry class-scoped events, so a Handler can listen to any stroke control without being wired to each one.",
         "differentiator": "It reuses machinery that already exists and has been checked in the app (Property events, class-scoped Handlers, Methods that write stored views) and gives Bridges a real job, instead of adding a stroke-specific editor.",
-        "definitionKey": "idea-proposed-approach",
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Route"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "stroke-control"
         },
@@ -1680,7 +1183,8 @@
             "kind": "icon",
             "name": "Route"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
       },
       "handles": [
         {
@@ -1728,9 +1232,8 @@
     },
     {
       "id": "stroke-control-bridge-idea-proposed-approach",
-      "type": "bridge",
+      "type": "import",
       "label": "Proposed Approach",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -596.5738210094617
@@ -1777,122 +1280,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "defaults": {
-            "label": "Proposed Approach",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#0891b2",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "differentiator": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Route"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-proposed-approach",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Proposed Approach",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#0891b2",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "differentiator": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Route"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-proposed-approach",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-proposed-approach",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-proposed-approach",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-proposed-approach",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1980,7 +1367,6 @@
       "id": "stroke-control-idea-question",
       "type": "idea-question",
       "label": "How Many Strokes per Control Graph?",
-      "root": false,
       "position": {
         "x": -1180,
         "y": 700
@@ -2035,39 +1421,6 @@
         "question": "Is a stroke one instance of the control graph, with the edge class holding a list of instances, or does one control graph hold the whole paint stack?",
         "status": "open",
         "answer": "Lean towards one instance per stroke. It matches how strokes are added and removed today and keeps the control small. The edge class's paint stack is then its own control, built from Stroke Controls.",
-        "definitionKey": "idea-question",
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "stroke-control"
         },
@@ -2076,7 +1429,8 @@
             "kind": "icon",
             "name": "HelpOutline"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
       },
       "handles": [
         {
@@ -2124,9 +1478,8 @@
     },
     {
       "id": "stroke-control-bridge-idea-question",
-      "type": "bridge",
+      "type": "import",
       "label": "Question",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -446.57382100946165
@@ -2173,124 +1526,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "defaults": {
-            "label": "Question",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#ca8a04",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "question": "",
-              "status": "open",
-              "answer": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-question",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Question",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#ca8a04",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "question": "",
-                "status": "open",
-                "answer": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "HelpOutline"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-question",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-question",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-question",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-question",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -2378,7 +1613,6 @@
       "id": "stroke-control-idea-assumption",
       "type": "idea-assumption",
       "label": "Bridged Events Keep the Edge Class Live",
-      "root": false,
       "position": {
         "x": -700,
         "y": 260
@@ -2465,39 +1699,6 @@
         "statement": "If a Bridge can expose a control's Property events, and an importing graph can listen to them by class, the Edge Class template stays live with no more plumbing than it has now.",
         "importance": "critical",
         "status": "untested",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "stroke-control"
         },
@@ -2506,7 +1707,8 @@
             "kind": "icon",
             "name": "PsychologyAlt"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
       },
       "handles": [
         {
@@ -2588,9 +1790,8 @@
     },
     {
       "id": "stroke-control-bridge-idea-assumption",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumption",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -296.57382100946165
@@ -2637,124 +1838,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "label": "Assumption",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#d97706",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "statement": "",
-              "importance": "critical",
-              "status": "untested",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-assumption",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Assumption",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#d97706",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "statement": "",
-                "importance": "critical",
-                "status": "untested",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "PsychologyAlt"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-assumption",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-assumption",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-assumption",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-assumption",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -2842,7 +1925,6 @@
       "id": "stroke-control-idea-research",
       "type": "idea-research",
       "label": "What Exists Today",
-      "root": false,
       "position": {
         "x": -1780,
         "y": 700
@@ -2881,39 +1963,6 @@
         "findings": "A stroke is a field node bound to the edge-class-stroke class and announces node.changed with the keys that changed. A Handler can listen to one node or to every node of a class, and a class can declare events that its instances inherit. The Edge Class template refreshes its three exposed views from Property and stroke changes through three Handlers and one Method that writes stored SVG. Bridges expose and consume events one node at a time only, and their Events UI has only just been given its own section in the Properties panel.",
         "sourceUrl": "github://mikemartinez1974/public/templates/edge-class-template/root.node",
         "sourceType": "prototype",
-        "definitionKey": "idea-research",
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Search"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "stroke-control"
         },
@@ -2922,7 +1971,8 @@
             "kind": "icon",
             "name": "Search"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
       },
       "handles": [
         {
@@ -2953,9 +2003,8 @@
     },
     {
       "id": "stroke-control-bridge-idea-research",
-      "type": "bridge",
+      "type": "import",
       "label": "Research",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -146.57382100946165
@@ -3002,124 +2051,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "defaults": {
-            "label": "Research",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#4f46e5",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "findings": "",
-              "sourceUrl": "",
-              "sourceType": "article",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Search"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-research",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Research",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#4f46e5",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "findings": "",
-                "sourceUrl": "",
-                "sourceType": "article",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Search"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-research",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-research",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-research",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-research",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -3207,7 +2138,6 @@
       "id": "stroke-control-idea-evidence",
       "type": "idea-evidence",
       "label": "The Pattern Already Holds for the Edge Class",
-      "root": false,
       "position": {
         "x": 260,
         "y": 260
@@ -3246,39 +2176,6 @@
         "observation": "In the running app, editing any of the seven Edge Class properties, or a stroke's color, width or dash, updated the icon, summary and detail views through one Method. Adding a stroke node to the graph took the views from two strokes to three with nothing connecting it (every stroke node in the graph paints), and recoloring or disabling a stroke added later was covered by the class Handler with no new wiring. The Method's output matched the app's own renderer exactly across 13 variations.",
         "kind": "prototype",
         "strength": "strong",
-        "definitionKey": "idea-evidence",
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "FactCheck"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "stroke-control"
         },
@@ -3288,7 +2185,8 @@
             "name": "FactCheck"
           }
         },
-        "citationSourceId": "github://mikemartinez1974/public/templates/edge-class-template/root.node"
+        "citationSourceId": "github://mikemartinez1974/public/templates/edge-class-template/root.node",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
       },
       "handles": [
         {
@@ -3319,9 +2217,8 @@
     },
     {
       "id": "stroke-control-bridge-idea-evidence",
-      "type": "bridge",
+      "type": "import",
       "label": "Evidence",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 3.4261789905383466
@@ -3368,126 +2265,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "defaults": {
-            "label": "Evidence",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#059669",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "observation": "",
-              "kind": "observation",
-              "strength": "weak",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "FactCheck"
-                }
-              },
-              "citationSourceId": ""
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-evidence",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Evidence",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#059669",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "observation": "",
-                "kind": "observation",
-                "strength": "weak",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "FactCheck"
-                  }
-                },
-                "citationSourceId": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-evidence",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-evidence",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-evidence",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-evidence",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -3575,7 +2352,6 @@
       "id": "stroke-control-idea-alternative",
       "type": "idea-alternative",
       "label": "Keep One Node, React Per Key",
-      "root": false,
       "position": {
         "x": 1160,
         "y": -160
@@ -3613,39 +2389,6 @@
         "title": "Keep the stroke as one node and react per key",
         "description": "Leave the stroke as a field node and let Handlers read the changed keys from node.changed, with a nicer generic editor.",
         "tradeoffs": "Cheapest by far and already works. But it stays a bag of values: no typed settings, no preview of its own, no reuse outside this template, and nothing for Bridges to carry.",
-        "definitionKey": "idea-alternative",
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "AltRoute"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "stroke-control"
         },
@@ -3654,7 +2397,8 @@
             "kind": "icon",
             "name": "AltRoute"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
       },
       "handles": [
         {
@@ -3685,9 +2429,8 @@
     },
     {
       "id": "stroke-control-bridge-idea-alternative",
-      "type": "bridge",
+      "type": "import",
       "label": "Alternative",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 153.42617899053835
@@ -3734,122 +2477,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "defaults": {
-            "label": "Alternative",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#64748b",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "tradeoffs": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "AltRoute"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-alternative",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Alternative",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#64748b",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "tradeoffs": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "AltRoute"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-alternative",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-alternative",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-alternative",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-alternative",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -3937,7 +2564,6 @@
       "id": "stroke-control-idea-risk",
       "type": "idea-risk",
       "label": "Too Much Machinery for a Small Control",
-      "root": false,
       "position": {
         "x": -220,
         "y": -780
@@ -3977,39 +2603,6 @@
         "likelihood": "medium",
         "impact": "high",
         "mitigation": "Prove one instance end to end before generalizing, and decide the class-scoped Bridge behavior first because everything else depends on it. If it stays heavy, the alternative remains available.",
-        "definitionKey": "idea-risk",
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "WarningAmber"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "stroke-control"
         },
@@ -4018,7 +2611,8 @@
             "kind": "icon",
             "name": "WarningAmber"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
       },
       "handles": [
         {
@@ -4049,9 +2643,8 @@
     },
     {
       "id": "stroke-control-bridge-idea-risk",
-      "type": "bridge",
+      "type": "import",
       "label": "Risk",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 303.42617899053835
@@ -4098,126 +2691,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "defaults": {
-            "label": "Risk",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#e11d48",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "likelihood": "unknown",
-              "impact": "unknown",
-              "mitigation": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "WarningAmber"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-risk",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Risk",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#e11d48",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "likelihood": "unknown",
-                "impact": "unknown",
-                "mitigation": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "WarningAmber"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-risk",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-risk",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-risk",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-risk",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -4305,7 +2778,6 @@
       "id": "stroke-control-idea-next-step",
       "type": "idea-next-step",
       "label": "Prototype the Stroke Control Graph",
-      "root": false,
       "position": {
         "x": -1180,
         "y": 1160
@@ -4360,39 +2832,6 @@
         "action": "Create templates/stroke-control with five Properties, a swatch view, and one class-scoped Handler calling one Method that re-renders the swatch. Do not connect it to the Edge Class template yet.",
         "expectedEvidence": "Editing any of the five Properties updates the swatch through the Handler and Method, checked in the app, and the Method matches an independent render of the same values.",
         "status": "todo",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "stroke-control"
         },
@@ -4401,7 +2840,8 @@
             "kind": "icon",
             "name": "ArrowForward"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       },
       "handles": [
         {
@@ -4449,9 +2889,8 @@
     },
     {
       "id": "stroke-control-bridge-idea-next-step",
-      "type": "bridge",
+      "type": "import",
       "label": "Next Step",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 453.42617899053835
@@ -4498,124 +2937,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "label": "Next Step",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#16a34a",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "action": "",
-              "expectedEvidence": "",
-              "status": "todo",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-next-step",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Next Step",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#16a34a",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "action": "",
-                "expectedEvidence": "",
-                "status": "todo",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "ArrowForward"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-next-step",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-next-step",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-next-step",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-next-step",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -4701,9 +3022,8 @@
     },
     {
       "id": "idea-edge-class-advances",
-      "type": "bridge",
+      "type": "import",
       "label": "Advances",
-      "root": false,
       "position": {
         "x": -3191.520909540242,
         "y": -343.15226834791
@@ -4773,9 +3093,8 @@
     },
     {
       "id": "idea-edge-class-affects",
-      "type": "bridge",
+      "type": "import",
       "label": "Affects",
-      "root": false,
       "position": {
         "x": -3193.277364645633,
         "y": -18.23485205908281
@@ -4845,9 +3164,8 @@
     },
     {
       "id": "idea-edge-class-assumes",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumes",
-      "root": false,
       "position": {
         "x": -3192.4240413069374,
         "y": -181.34600481451798
@@ -4917,9 +3235,8 @@
     },
     {
       "id": "idea-edge-class-contradicts",
-      "type": "bridge",
+      "type": "import",
       "label": "Contradicts",
-      "root": false,
       "position": {
         "x": -3193.506546658578,
         "y": 467.7646821020603
@@ -4989,9 +3306,8 @@
     },
     {
       "id": "idea-edge-class-informs",
-      "type": "bridge",
+      "type": "import",
       "label": "Informs",
-      "root": false,
       "position": {
         "x": -3192.0222838515906,
         "y": 305.37767500770155
@@ -5061,9 +3377,8 @@
     },
     {
       "id": "idea-edge-class-motivates",
-      "type": "bridge",
+      "type": "import",
       "label": "Motivates",
-      "root": false,
       "position": {
         "x": -3193.7787389569817,
         "y": 146.18118991839606
@@ -5133,9 +3448,8 @@
     },
     {
       "id": "idea-edge-class-questions",
-      "type": "bridge",
+      "type": "import",
       "label": "Questions",
-      "root": false,
       "position": {
         "x": -3180.3205606453707,
         "y": -1003.2443506241401
@@ -5205,9 +3519,8 @@
     },
     {
       "id": "idea-edge-class-supports",
-      "type": "bridge",
+      "type": "import",
       "label": "Supports",
-      "root": false,
       "position": {
         "x": -3188.8287730658644,
         "y": -512.4189422986271
@@ -5277,9 +3590,8 @@
     },
     {
       "id": "idea-edge-class-tests",
-      "type": "bridge",
+      "type": "import",
       "label": "Tests",
-      "root": false,
       "position": {
         "x": -3189.6697541530466,
         "y": -677.8249157017144
@@ -5349,9 +3661,8 @@
     },
     {
       "id": "idea-edge-class-threatens",
-      "type": "bridge",
+      "type": "import",
       "label": "Threatens",
-      "root": false,
       "position": {
         "x": -3186.4266371315107,
         "y": -838.1257664689047
@@ -5421,9 +3732,8 @@
     },
     {
       "id": "stroke-control-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "The Stroke Control Detail",
-      "root": false,
       "position": {
         "x": -1500,
         "y": -1580
@@ -5511,9 +3821,8 @@
     },
     {
       "id": "stroke-control-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "The Stroke Control Summary",
-      "root": false,
       "position": {
         "x": -1500,
         "y": -1240
@@ -5601,9 +3910,8 @@
     },
     {
       "id": "stroke-control-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "The Stroke Control Icon",
-      "root": false,
       "position": {
         "x": -1500,
         "y": -900
@@ -5693,7 +4001,6 @@
       "id": "stroke-control-glyph",
       "type": "glyph",
       "label": "The Stroke Control Glyph",
-      "root": false,
       "position": {
         "x": -900,
         "y": -1900
@@ -5741,7 +4048,6 @@
       "id": "stroke-control-assumption-preview",
       "type": "idea-assumption",
       "label": "A Control Can Keep Its Own Preview Current",
-      "root": false,
       "position": {
         "x": -220,
         "y": 260
@@ -5828,39 +4134,6 @@
         "statement": "A control graph can render its own summary view from its Properties through one class-scoped Handler and one Method, as the Edge Class template does for its three exposed views.",
         "importance": "high",
         "status": "untested",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "stroke-control"
         },
@@ -5869,7 +4142,8 @@
             "kind": "icon",
             "name": "PsychologyAlt"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
       },
       "handles": [
         {
@@ -5953,7 +4227,6 @@
       "id": "stroke-control-question-listen",
       "type": "idea-question",
       "label": "How Does the Consumer Listen to Any Stroke?",
-      "root": false,
       "position": {
         "x": -700,
         "y": 700
@@ -6008,39 +4281,6 @@
         "question": "When strokes are separate graphs reached through Bridges, how does the Edge Class template react to a change in any of them without a Handler per stroke?",
         "status": "open",
         "answer": "Class-scoped listening has to cross Bridges: the export side exposes a class's events and an import Handler listens to the class. Bridges expose events node by node today, so this is a real gap and the second next step.",
-        "definitionKey": "idea-question",
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "stroke-control"
         },
@@ -6049,7 +4289,8 @@
             "kind": "icon",
             "name": "HelpOutline"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
       },
       "handles": [
         {
@@ -6099,7 +4340,6 @@
       "id": "stroke-control-next-step-bridge",
       "type": "idea-next-step",
       "label": "Carry Class Events Across Bridges",
-      "root": false,
       "position": {
         "x": -700,
         "y": 1160
@@ -6154,39 +4394,6 @@
         "action": "Let an export Bridge expose all events of a class, and let an import Handler listen to a class through the Bridge, in the model, the delivery path and the Bridge editor.",
         "expectedEvidence": "A second graph with two instances of a class, and a class Handler on the import side, receives a change from either instance, and adding a third instance needs no new wiring.",
         "status": "todo",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "stroke-control"
         },
@@ -6195,7 +4402,8 @@
             "kind": "icon",
             "name": "ArrowForward"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       },
       "handles": [
         {
@@ -6245,7 +4453,6 @@
       "id": "stroke-control-next-step-consume",
       "type": "idea-next-step",
       "label": "Consume the Control From the Edge Class",
-      "root": false,
       "position": {
         "x": -220,
         "y": 1160
@@ -6300,39 +4507,6 @@
         "action": "Replace the stroke field nodes in the Edge Class template with Stroke Control instances imported through a Bridge, with its refresh Handler listening to their bridged events.",
         "expectedEvidence": "Editing a stroke control updates the edge class's icon, summary and detail views, adding and removing a stroke control works, and the views still match the app renderer.",
         "status": "todo",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "stroke-control"
         },
@@ -6341,7 +4515,8 @@
             "kind": "icon",
             "name": "ArrowForward"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       },
       "handles": [
         {
@@ -6532,181 +4707,171 @@
       "type": "surface",
       "source": "stroke-control-declaration",
       "target": "stroke-control-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "default-view"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "stroke-control-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "stroke-control-detail-view",
       "target": "stroke-control-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "stroke-control-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "stroke-control-summary-view",
       "target": "stroke-control-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "stroke-control-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "stroke-control-icon-view",
       "target": "stroke-control-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "stroke-control-declaration-edge-class-authority-advances",
-      "type": "reference",
+      "type": "imports",
       "source": "stroke-control-declaration",
       "target": "idea-edge-class-advances",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "stroke-control-declaration-edge-class-authority-affects",
-      "type": "reference",
+      "type": "imports",
       "source": "stroke-control-declaration",
       "target": "idea-edge-class-affects",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "stroke-control-declaration-edge-class-authority-assumes",
-      "type": "reference",
+      "type": "imports",
       "source": "stroke-control-declaration",
       "target": "idea-edge-class-assumes",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "stroke-control-declaration-edge-class-authority-contradicts",
-      "type": "reference",
+      "type": "imports",
       "source": "stroke-control-declaration",
       "target": "idea-edge-class-contradicts",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "stroke-control-declaration-edge-class-authority-informs",
-      "type": "reference",
+      "type": "imports",
       "source": "stroke-control-declaration",
       "target": "idea-edge-class-informs",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "stroke-control-declaration-edge-class-authority-motivates",
-      "type": "reference",
+      "type": "imports",
       "source": "stroke-control-declaration",
       "target": "idea-edge-class-motivates",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "stroke-control-declaration-edge-class-authority-questions",
-      "type": "reference",
+      "type": "imports",
       "source": "stroke-control-declaration",
       "target": "idea-edge-class-questions",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "stroke-control-declaration-edge-class-authority-supports",
-      "type": "reference",
+      "type": "imports",
       "source": "stroke-control-declaration",
       "target": "idea-edge-class-supports",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "stroke-control-declaration-edge-class-authority-tests",
-      "type": "reference",
+      "type": "imports",
       "source": "stroke-control-declaration",
       "target": "idea-edge-class-tests",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "stroke-control-declaration-edge-class-authority-threatens",
-      "type": "reference",
+      "type": "imports",
       "source": "stroke-control-declaration",
       "target": "idea-edge-class-threatens",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "stroke-control-landing-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "stroke-control-declaration",
       "target": "stroke-control-idea",
-      "label": "landing surface",
+      "label": "ground",
       "style": {},
-      "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface"
-      },
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "stroke-control-problem-motivates",
-      "type": "reference",
+      "type": "idea.motivates",
       "source": "stroke-control-idea-problem",
       "target": "stroke-control-idea",
       "label": "motivates",
@@ -6718,17 +4883,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.motivates",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node",
-        "semanticRole": "idea.motivates",
-        "edgeClassMeaning": "source establishes the need or reason for the target"
+        "edgeClassMeaning": "source establishes the need or reason for the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node"
       },
-      "sourceHandle": "motivates",
-      "targetHandle": "motivated-by"
+      "sourcePort": "motivates",
+      "targetPort": "motivated-by"
     },
     {
       "id": "stroke-control-audience-affects",
-      "type": "reference",
+      "type": "idea.affects",
       "source": "stroke-control-idea-audience",
       "target": "stroke-control-idea-problem",
       "label": "affects",
@@ -6740,17 +4903,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.affects",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node",
-        "semanticRole": "idea.affects",
-        "edgeClassMeaning": "source audience experiences or is affected by the target problem"
+        "edgeClassMeaning": "source audience experiences or is affected by the target problem",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node"
       },
-      "sourceHandle": "affected-by",
-      "targetHandle": "affects"
+      "sourcePort": "affected-by",
+      "targetPort": "affects"
     },
     {
       "id": "stroke-control-approach-advances",
-      "type": "reference",
+      "type": "idea.advances",
       "source": "stroke-control-idea-proposed-approach",
       "target": "stroke-control-idea",
       "label": "advances",
@@ -6762,17 +4923,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.advances",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node",
-        "semanticRole": "idea.advances",
-        "edgeClassMeaning": "source action moves the target idea toward a better-supported state"
+        "edgeClassMeaning": "source action moves the target idea toward a better-supported state",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node"
       },
-      "sourceHandle": "advances",
-      "targetHandle": "advanced-by"
+      "sourcePort": "advances",
+      "targetPort": "advanced-by"
     },
     {
       "id": "stroke-control-idea-assumes-bridged",
-      "type": "reference",
+      "type": "idea.assumes",
       "source": "stroke-control-idea",
       "target": "stroke-control-idea-assumption",
       "label": "assumes",
@@ -6788,17 +4947,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
+        "edgeClassMeaning": "source depends on the target assumption being true",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node"
       },
-      "sourceHandle": "assumes",
-      "targetHandle": "assumed-by"
+      "sourcePort": "assumes",
+      "targetPort": "assumed-by"
     },
     {
       "id": "stroke-control-idea-assumes-preview",
-      "type": "reference",
+      "type": "idea.assumes",
       "source": "stroke-control-idea",
       "target": "stroke-control-assumption-preview",
       "label": "assumes",
@@ -6814,17 +4971,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
+        "edgeClassMeaning": "source depends on the target assumption being true",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node"
       },
-      "sourceHandle": "assumes",
-      "targetHandle": "assumed-by"
+      "sourcePort": "assumes",
+      "targetPort": "assumed-by"
     },
     {
       "id": "stroke-control-question-count-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "stroke-control-idea-question",
       "target": "stroke-control-idea-assumption",
       "label": "questions",
@@ -6840,17 +4995,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       },
-      "sourceHandle": "questions",
-      "targetHandle": "questioned-by"
+      "sourcePort": "questions",
+      "targetPort": "questioned-by"
     },
     {
       "id": "stroke-control-question-listen-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "stroke-control-question-listen",
       "target": "stroke-control-idea-assumption",
       "label": "questions",
@@ -6866,17 +5019,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       },
-      "sourceHandle": "questions",
-      "targetHandle": "questioned-by"
+      "sourcePort": "questions",
+      "targetPort": "questioned-by"
     },
     {
       "id": "stroke-control-research-informs-count",
-      "type": "reference",
+      "type": "idea.informs",
       "source": "stroke-control-idea-research",
       "target": "stroke-control-idea-question",
       "label": "informs",
@@ -6888,17 +5039,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.informs",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
-        "semanticRole": "idea.informs",
-        "edgeClassMeaning": "source provides context that informs the target"
+        "edgeClassMeaning": "source provides context that informs the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node"
       },
-      "sourceHandle": "informs",
-      "targetHandle": "informed-by"
+      "sourcePort": "informs",
+      "targetPort": "informed-by"
     },
     {
       "id": "stroke-control-research-informs-listen",
-      "type": "reference",
+      "type": "idea.informs",
       "source": "stroke-control-idea-research",
       "target": "stroke-control-question-listen",
       "label": "informs",
@@ -6910,17 +5059,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.informs",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
-        "semanticRole": "idea.informs",
-        "edgeClassMeaning": "source provides context that informs the target"
+        "edgeClassMeaning": "source provides context that informs the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node"
       },
-      "sourceHandle": "informs",
-      "targetHandle": "informed-by"
+      "sourcePort": "informs",
+      "targetPort": "informed-by"
     },
     {
       "id": "stroke-control-evidence-supports-preview",
-      "type": "reference",
+      "type": "idea.supports",
       "source": "stroke-control-idea-evidence",
       "target": "stroke-control-assumption-preview",
       "label": "supports",
@@ -6932,17 +5079,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.supports",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
-        "semanticRole": "idea.supports",
-        "edgeClassMeaning": "source evidence increases confidence in the target"
+        "edgeClassMeaning": "source evidence increases confidence in the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node"
       },
-      "sourceHandle": "supports",
-      "targetHandle": "supported-by"
+      "sourcePort": "supports",
+      "targetPort": "supported-by"
     },
     {
       "id": "stroke-control-alternative-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "stroke-control-idea-alternative",
       "target": "stroke-control-idea-proposed-approach",
       "label": "questions",
@@ -6958,17 +5103,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       },
-      "sourceHandle": "questions",
-      "targetHandle": "questioned-by"
+      "sourcePort": "questions",
+      "targetPort": "questioned-by"
     },
     {
       "id": "stroke-control-risk-threatens",
-      "type": "reference",
+      "type": "idea.threatens",
       "source": "stroke-control-idea-risk",
       "target": "stroke-control-idea",
       "label": "threatens",
@@ -6984,17 +5127,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.threatens",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node",
-        "semanticRole": "idea.threatens",
-        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target"
+        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node"
       },
-      "sourceHandle": "threatens",
-      "targetHandle": "threatened-by"
+      "sourcePort": "threatens",
+      "targetPort": "threatened-by"
     },
     {
       "id": "stroke-control-next-step-control-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "stroke-control-idea-next-step",
       "target": "stroke-control-assumption-preview",
       "label": "tests",
@@ -7006,17 +5147,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
+      "sourcePort": "tests",
+      "targetPort": "tested-by"
     },
     {
       "id": "stroke-control-next-step-bridge-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "stroke-control-next-step-bridge",
       "target": "stroke-control-idea-assumption",
       "label": "tests",
@@ -7028,17 +5167,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
+      "sourcePort": "tests",
+      "targetPort": "tested-by"
     },
     {
       "id": "stroke-control-next-step-consume-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "stroke-control-next-step-consume",
       "target": "stroke-control-idea-assumption",
       "label": "tests",
@@ -7050,17 +5187,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
+      "sourcePort": "tests",
+      "targetPort": "tested-by"
     },
     {
       "id": "stroke-control-instructions-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "stroke-control-idea-next-step",
       "target": "stroke-control-instructions",
       "label": "guidance",
@@ -7074,12 +5209,12 @@
         "orthogonal": true
       },
       "data": {},
-      "sourceHandle": "guidance",
-      "targetHandle": "guided-by"
+      "sourcePort": "guidance",
+      "targetPort": "guided-by"
     },
     {
       "id": "stroke-control-tracked-stroke-control-template",
-      "type": "reference",
+      "type": "edge",
       "source": "stroke-control-idea-next-step",
       "target": "stroke-control-task-stroke-control-template",
       "label": "tracked by",
@@ -7095,12 +5230,12 @@
       "data": {
         "relation": "task-projection"
       },
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "stroke-control-tracked-bridge-class-scoped-events",
-      "type": "reference",
+      "type": "edge",
       "source": "stroke-control-next-step-bridge",
       "target": "stroke-control-task-bridge-class-scoped-events",
       "label": "tracked by",
@@ -7116,12 +5251,12 @@
       "data": {
         "relation": "task-projection"
       },
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "stroke-control-tracked-edge-class-consumes-stroke-control",
-      "type": "reference",
+      "type": "edge",
       "source": "stroke-control-next-step-consume",
       "target": "stroke-control-task-edge-class-consumes-stroke-control",
       "label": "tracked by",
@@ -7137,11 +5272,10 @@
       "data": {
         "relation": "task-projection"
       },
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,
@@ -7181,8 +5315,5 @@
     },
     "autoSave": false
   },
-  "scripts": [],
-  "timestamp": "2026-09-20T06:59:53.080Z",
-  "nodeCount": 45,
-  "edgeCount": 34
+  "scripts": []
 }

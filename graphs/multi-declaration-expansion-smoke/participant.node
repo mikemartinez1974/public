@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Twilite Document Declaration",
-    "description": "A document graph contributing structure to the same semantic Twilite node.",
-    "graphId": "expansion-smoke-participant-declaration",
-    "version": "0.1.0",
-    "kind": "graph",
     "created": "2026-09-01T15:15:35.526Z",
     "modified": "2026-09-01T18:33:53.912Z",
     "author": "",
@@ -17,9 +12,8 @@
   "nodes": [
     {
       "id": "expansion-smoke-participant-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Twilite · Document Declaration",
-      "root": false,
       "position": {
         "x": 80,
         "y": -80
@@ -28,9 +22,9 @@
       "height": 280,
       "ports": [
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0
@@ -46,9 +40,9 @@
       ],
       "handles": [
         {
-          "id": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0
@@ -75,23 +69,6 @@
         "intent": {
           "kind": "graph",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "graph",
-          "targetMode": "artifact",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "content",
-              "label": "Document Landing Surface",
-              "viewNodeId": "expansion-smoke-participant-landing"
-            }
-          ]
         },
         "settings": {
           "autoSave": false,
@@ -154,14 +131,30 @@
               }
             }
           }
-        ]
+        ],
+        "root": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "content",
+              "label": "Document Landing Surface",
+              "viewNodeId": "expansion-smoke-participant-landing"
+            }
+          ]
+        }
       }
     },
     {
       "id": "expansion-smoke-participant-landing",
       "type": "content",
       "label": "Participant Landing Surface",
-      "root": false,
       "position": {
         "x": 560,
         "y": -80
@@ -215,7 +208,6 @@
       "id": "expansion-smoke-participant-detail",
       "type": "content",
       "label": "Participant-Owned Detail",
-      "root": false,
       "position": {
         "x": 771.6427684340318,
         "y": 349.12423665157144
@@ -269,7 +261,6 @@
       "id": "expansion-smoke-host-reference",
       "type": "graph-reference",
       "label": "Expand Host Participant",
-      "root": false,
       "position": {
         "x": -420,
         "y": 280
@@ -325,48 +316,44 @@
   "edges": [
     {
       "id": "expansion-smoke-participant-landing-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "expansion-smoke-participant-declaration",
       "target": "expansion-smoke-participant-landing",
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root",
-      "label": "landing surface",
+      "label": "ground",
       "style": {},
-      "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface"
-      }
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "expansion-smoke-participant-detail-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "expansion-smoke-participant-landing",
       "target": "expansion-smoke-participant-detail",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "contains",
       "style": {},
       "data": {
         "relation": "participant-owned-detail"
-      }
+      },
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "expansion-smoke-participant-host",
-      "type": "reference",
+      "type": "edge",
       "source": "expansion-smoke-participant-declaration",
       "target": "expansion-smoke-host-reference",
-      "sourceHandle": "host-participant",
-      "targetHandle": "root",
       "label": "participating graph",
       "style": {},
       "data": {
         "relation": "same-node-participant",
         "explicit": true,
         "reciprocal": true
-      }
+      },
+      "sourcePort": "host-participant",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

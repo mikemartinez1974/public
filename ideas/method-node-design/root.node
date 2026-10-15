@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "A Solid Method Node",
-    "description": "Design a small, reviewable Method node that works well when an Event Handler invokes it: inputs, effects, invocation context, and outcome.",
-    "graphId": "method-node-design",
-    "version": "0.1.0",
-    "kind": "graph",
     "created": "2026-09-20T03:20:05.821Z",
     "modified": "2026-09-20T07:02:13.807Z",
     "author": "",
@@ -21,9 +16,8 @@
   "nodes": [
     {
       "id": "method-node-design-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "A Solid Method Node",
-      "root": false,
       "position": {
         "x": -900,
         "y": -1500
@@ -59,20 +53,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -125,14 +119,14 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "surfaces",
@@ -177,17 +171,6 @@
         "intent": {
           "kind": "graph",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "idea",
-          "targetMode": "artifact",
-          "artifactKind": "idea-graph",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "defaultSurfaceId": "default-view",
-          "surfaces": []
         },
         "dependencies": {
           "nodeTypes": [
@@ -270,6 +253,17 @@
         },
         "document": {
           "url": "github://mikemartinez1974/public/ideas/method-node-design/root.node"
+        },
+        "root": {
+          "kind": "idea",
+          "targetMode": "artifact",
+          "artifactKind": "idea-graph",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "default-view",
+          "surfaces": []
         }
       }
     },
@@ -277,7 +271,6 @@
       "id": "method-node-design-instructions",
       "type": "content",
       "label": "Method Contract Sketch",
-      "root": false,
       "position": {
         "x": -2060,
         "y": 260
@@ -355,7 +348,6 @@
       "id": "method-node-design-idea",
       "type": "idea",
       "label": "A Method Is a Reviewable Contract",
-      "root": false,
       "position": {
         "x": -220,
         "y": -160
@@ -443,39 +435,6 @@
         "status": "framed",
         "confidence": "unproven",
         "notes": "Deliberately narrow: it covers a Method that an Event Handler invokes once per occurrence and that finishes, not asynchronous or long-running work. Invocation stays lightweight and ephemeral for now, but it has an identity from the start so lifecycle, progress, cancellation, persistence and retries can be added later without retrofitting causality. What happens after a Method fails is the Handler's composition policy, not part of what a Method is. It builds on What an Event Handler Node Should Do (github://mikemartinez1974/public/ideas/event-handler-behavior/root.node); the wider Methods topic is github://mikemartinez1974/public/topics/twilite-scripting-system/methods/root.node.",
-        "definitionKey": "idea",
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Lightbulb"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -484,7 +443,8 @@
             "kind": "icon",
             "name": "Lightbulb"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
       },
       "handles": [
         {
@@ -566,9 +526,8 @@
     },
     {
       "id": "method-node-design-bridge-idea",
-      "type": "bridge",
+      "type": "import",
       "label": "Idea",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -1046.5738210094617
@@ -615,126 +574,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "defaults": {
-            "label": "Idea",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#7c3aed",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "statement": "",
-              "status": "spark",
-              "confidence": "unproven",
-              "notes": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Lightbulb"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Idea",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#7c3aed",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "statement": "",
-                "status": "spark",
-                "confidence": "unproven",
-                "notes": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Lightbulb"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -822,7 +661,6 @@
       "id": "method-node-design-idea-problem",
       "type": "idea-problem",
       "label": "A Method Is a Script With a Nametag",
-      "root": false,
       "position": {
         "x": -940,
         "y": -160
@@ -878,39 +716,6 @@
         "statement": "A Method node today is a name, some source, a parameters list of labels, and an allowMutations flag. The runner gives its source a frozen api.invocation object and takes the return value as the result. Nothing states what the Method needs, what it may change, or what happened when it ran. The flag that looks like a safety setting is not one: outside dry runs the host applies calls such as updateNode and createNode whether or not allowMutations is set. Only dry runs consult it, and only sendHandoff refuses without it.",
         "impact": "The Handler editor can only say \"Read-only execution\" or \"May update graph state\" from that flag, which promises more than the runtime enforces. A reviewer cannot tell what a Method touches, one Method cannot be reused safely from Handlers with differently shaped events, and a dry run has nothing to be checked against.",
         "urgency": "high",
-        "definitionKey": "idea-problem",
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ReportProblem"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -919,7 +724,8 @@
             "kind": "icon",
             "name": "ReportProblem"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
       },
       "handles": [
         {
@@ -967,9 +773,8 @@
     },
     {
       "id": "method-node-design-bridge-idea-problem",
-      "type": "bridge",
+      "type": "import",
       "label": "Problem",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -896.5738210094617
@@ -1016,124 +821,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "defaults": {
-            "label": "Problem",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#dc2626",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "statement": "",
-              "impact": "",
-              "urgency": "unknown",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ReportProblem"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-problem",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Problem",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#dc2626",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "statement": "",
-                "impact": "",
-                "urgency": "unknown",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "ReportProblem"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-problem",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-problem",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-problem",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-problem",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1221,7 +908,6 @@
       "id": "method-node-design-idea-audience",
       "type": "idea-audience",
       "label": "Authors Who Reuse Methods, and Reviewers",
-      "root": false,
       "position": {
         "x": -1540,
         "y": -160
@@ -1260,39 +946,6 @@
         "title": "People who write a Method once and the people who must trust it",
         "description": "Authors who connect one Method to several Event Handlers, and reviewers who decide whether a Method is safe to run or import.",
         "needs": "See what a Method reads, what it may change, and what happened the last time it ran, from the Method itself.",
-        "definitionKey": "idea-audience",
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Groups"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -1301,7 +954,8 @@
             "kind": "icon",
             "name": "Groups"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
       },
       "handles": [
         {
@@ -1332,9 +986,8 @@
     },
     {
       "id": "method-node-design-bridge-idea-audience",
-      "type": "bridge",
+      "type": "import",
       "label": "Audience",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -746.5738210094617
@@ -1381,122 +1034,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "defaults": {
-            "label": "Audience",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#2563eb",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "needs": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Groups"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-audience",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Audience",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#2563eb",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "needs": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Groups"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-audience",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-audience",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-audience",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-audience",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1584,7 +1121,6 @@
       "id": "method-node-design-idea-proposed-approach",
       "type": "idea-proposed-approach",
       "label": "Inputs, Effects, Invocation, Outcome",
-      "root": false,
       "position": {
         "x": 560,
         "y": -160
@@ -1638,39 +1174,6 @@
         "title": "Give the Method a contract and each call an identity",
         "description": "Inputs: a short list of named inputs read from the occurrence payload by name; a missing required input fails the Invocation before any code runs and names the input. Effects: a short list of coarse kinds the Method may perform (update node, create node, delete node, edges, emit event, hand off), each with optional target nodes; the host refuses calls outside the list, and allowMutations becomes derived from it. Invocation: every call is an explicit runtime entity with an id, the Method, the caller (Handler and position), the arguments, the mode (dry or live), and its cause (occurrence, root occurrence and delivery), exposed to the source as the frozen api.invocation. It is not persisted as a node. Outcome: each Invocation reports status, result or error, duration and attempted effects, keyed by the invocation id; a dry run returns the proposed effects instead of applying them. Authority: a call runs only where what the Method declares, what the caller may do, and what the runtime permits all agree. The Method card shows its last outcome, and the Handler shows a read-only summary of its Methods' declared effects.",
         "differentiator": "Small enough to write by hand, enforced at the one place every mutation already passes through, so a declaration is a limit and not only a description. Identity now and lifecycle later: the effects of one Invocation can be followed to the Event they emit, which answers why something happened.",
-        "definitionKey": "idea-proposed-approach",
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Route"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -1679,7 +1182,8 @@
             "kind": "icon",
             "name": "Route"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
       },
       "handles": [
         {
@@ -1727,9 +1231,8 @@
     },
     {
       "id": "method-node-design-bridge-idea-proposed-approach",
-      "type": "bridge",
+      "type": "import",
       "label": "Proposed Approach",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -596.5738210094617
@@ -1776,122 +1279,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "defaults": {
-            "label": "Proposed Approach",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#0891b2",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "differentiator": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Route"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-proposed-approach",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Proposed Approach",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#0891b2",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "differentiator": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Route"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-proposed-approach",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-proposed-approach",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-proposed-approach",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-proposed-approach",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1979,7 +1366,6 @@
       "id": "method-node-design-idea-question",
       "type": "idea-question",
       "label": "Where Do Inputs Come From?",
-      "root": false,
       "position": {
         "x": -1180,
         "y": 700
@@ -2034,39 +1420,6 @@
         "question": "Should a Method read its inputs from the occurrence payload by name, or should the Action Method edge map payload fields to the Method's inputs?",
         "status": "open",
         "answer": "Start by name: it needs nothing new on the graph. Add an optional mapping on the Action Method edge only if reusing one Method from differently shaped events proves clumsy.",
-        "definitionKey": "idea-question",
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -2075,7 +1428,8 @@
             "kind": "icon",
             "name": "HelpOutline"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
       },
       "handles": [
         {
@@ -2123,9 +1477,8 @@
     },
     {
       "id": "method-node-design-bridge-idea-question",
-      "type": "bridge",
+      "type": "import",
       "label": "Question",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -446.57382100946165
@@ -2172,124 +1525,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "defaults": {
-            "label": "Question",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#ca8a04",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "question": "",
-              "status": "open",
-              "answer": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-question",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Question",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#ca8a04",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "question": "",
-                "status": "open",
-                "answer": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "HelpOutline"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-question",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-question",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-question",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-question",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -2377,7 +1612,6 @@
       "id": "method-node-design-idea-assumption",
       "type": "idea-assumption",
       "label": "The Host Gate Can Enforce Effects",
-      "root": false,
       "position": {
         "x": -700,
         "y": 260
@@ -2464,39 +1698,6 @@
         "statement": "Every mutating host call goes through one request handler that already names the mutating methods and counts them per run, so it can check each call's kind and target against the Method's declared effects and refuse the rest.",
         "importance": "critical",
         "status": "untested",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -2505,7 +1706,8 @@
             "kind": "icon",
             "name": "PsychologyAlt"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
       },
       "handles": [
         {
@@ -2587,9 +1789,8 @@
     },
     {
       "id": "method-node-design-bridge-idea-assumption",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumption",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -296.57382100946165
@@ -2636,124 +1837,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "label": "Assumption",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#d97706",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "statement": "",
-              "importance": "critical",
-              "status": "untested",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-assumption",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Assumption",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#d97706",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "statement": "",
-                "importance": "critical",
-                "status": "untested",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "PsychologyAlt"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-assumption",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-assumption",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-assumption",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-assumption",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -2841,7 +1924,6 @@
       "id": "method-node-design-idea-research",
       "type": "idea-research",
       "label": "How Methods Run Today",
-      "root": false,
       "position": {
         "x": -1780,
         "y": 700
@@ -2880,39 +1962,6 @@
         "findings": "A Method's source runs as the body of an async function in a sandboxed iframe and receives one api object. The return value is the result and a thrown error is the failure. api.invocation is a frozen copy of the host's run metadata: occurrence and event key and payload, Handler and Method ids, Method index and count, fragment, and the allowMutations and dry flags. Runs share one serial queue, each is limited to 200 calls and 100 mutations, and a run that exceeds 15 seconds fails and resets the runner. parameters is only a list of labels shown on the card: the Edge Class Template's Method declares eventPayload and reads it from api.invocation. The card's status comes from a window event and shows the last run of that Method, without saying which Handler or event caused it.",
         "sourceUrl": "github://TwiliteLLC/twilite/components/GraphEditor/Scripting/ScriptRunner.js",
         "sourceType": "other",
-        "definitionKey": "idea-research",
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Search"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -2921,7 +1970,8 @@
             "kind": "icon",
             "name": "Search"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
       },
       "handles": [
         {
@@ -2952,9 +2002,8 @@
     },
     {
       "id": "method-node-design-bridge-idea-research",
-      "type": "bridge",
+      "type": "import",
       "label": "Research",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -146.57382100946165
@@ -3001,124 +2050,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "defaults": {
-            "label": "Research",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#4f46e5",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "findings": "",
-              "sourceUrl": "",
-              "sourceType": "article",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Search"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-research",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Research",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#4f46e5",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "findings": "",
-                "sourceUrl": "",
-                "sourceType": "article",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Search"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-research",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-research",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-research",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-research",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -3206,7 +2137,6 @@
       "id": "method-node-design-idea-evidence",
       "type": "idea-evidence",
       "label": "The Flag Does Not Gate Live Runs",
-      "root": false,
       "position": {
         "x": -220,
         "y": 260
@@ -3245,39 +2175,6 @@
         "observation": "In the host request handler, allowMutations is read at 13 sites. Twelve are the pattern \"if (isDry && !allowMutations) return simulated\", so they only apply to dry runs; the thirteenth refuses sendHandoff without it. A live updateNode or createNode is applied whether or not the Method has allowMutations set. The same handler is the single place every mutating call passes through: it lists them (createNode, createNodes, applyDeltas, composePort, sendHandoff, updateNode, updateView, deleteNode, deleteNodes, createEdge, deleteEdge) and counts them per run. The Handler editor nevertheless labels a Method without the flag \"Read-only execution\".",
         "kind": "observation",
         "strength": "strong",
-        "definitionKey": "idea-evidence",
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "FactCheck"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -3287,7 +2184,8 @@
             "name": "FactCheck"
           }
         },
-        "citationSourceId": "github://TwiliteLLC/twilite/components/GraphEditor/hooks/usePluginRuntime.js"
+        "citationSourceId": "github://TwiliteLLC/twilite/components/GraphEditor/hooks/usePluginRuntime.js",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
       },
       "handles": [
         {
@@ -3318,9 +2216,8 @@
     },
     {
       "id": "method-node-design-bridge-idea-evidence",
-      "type": "bridge",
+      "type": "import",
       "label": "Evidence",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 3.4261789905383466
@@ -3367,126 +2264,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "defaults": {
-            "label": "Evidence",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#059669",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "observation": "",
-              "kind": "observation",
-              "strength": "weak",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "FactCheck"
-                }
-              },
-              "citationSourceId": ""
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-evidence",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Evidence",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#059669",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "observation": "",
-                "kind": "observation",
-                "strength": "weak",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "FactCheck"
-                  }
-                },
-                "citationSourceId": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-evidence",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-evidence",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-evidence",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-evidence",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -3574,7 +2351,6 @@
       "id": "method-node-design-idea-alternative",
       "type": "idea-alternative",
       "label": "Persist Invocations With a Lifecycle",
-      "root": false,
       "position": {
         "x": 1160,
         "y": -160
@@ -3612,39 +2388,6 @@
         "title": "Persist Invocation nodes and a full lifecycle now",
         "description": "Store each call as a graph node with a lifecycle (requested, authorized, running, succeeded, failed, cancelled), progress, cancellation and history, as sketched in the discussion on the Methods topic.",
         "tradeoffs": "The right shape for long-running Personal Server Methods and for tracing across graphs, but it is a storage and runtime design of its own. Handler-invoked Methods that finish do not need it yet. What they do need is the identity, which is why it is kept: Invocation is explicit now, and persistence and lifecycle are what is deferred.",
-        "definitionKey": "idea-alternative",
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "AltRoute"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -3653,7 +2396,8 @@
             "kind": "icon",
             "name": "AltRoute"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
       },
       "handles": [
         {
@@ -3684,9 +2428,8 @@
     },
     {
       "id": "method-node-design-bridge-idea-alternative",
-      "type": "bridge",
+      "type": "import",
       "label": "Alternative",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 153.42617899053835
@@ -3733,122 +2476,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "defaults": {
-            "label": "Alternative",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#64748b",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "tradeoffs": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "AltRoute"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-alternative",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Alternative",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#64748b",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "tradeoffs": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "AltRoute"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-alternative",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-alternative",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-alternative",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-alternative",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -3936,7 +2563,6 @@
       "id": "method-node-design-idea-risk",
       "type": "idea-risk",
       "label": "Effects Too Coarse to Mean Much",
-      "root": false,
       "position": {
         "x": -220,
         "y": -780
@@ -3976,39 +2602,6 @@
         "likelihood": "medium",
         "impact": "high",
         "mitigation": "Let effects name target nodes, and show \"any node\" as a warning in the Handler's summary. Enforce at the host gate so a declaration is a limit and never only a description.",
-        "definitionKey": "idea-risk",
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "WarningAmber"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -4017,7 +2610,8 @@
             "kind": "icon",
             "name": "WarningAmber"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
       },
       "handles": [
         {
@@ -4048,9 +2642,8 @@
     },
     {
       "id": "method-node-design-bridge-idea-risk",
-      "type": "bridge",
+      "type": "import",
       "label": "Risk",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 303.42617899053835
@@ -4097,126 +2690,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "defaults": {
-            "label": "Risk",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#e11d48",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "likelihood": "unknown",
-              "impact": "unknown",
-              "mitigation": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "WarningAmber"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-risk",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Risk",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#e11d48",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "likelihood": "unknown",
-                "impact": "unknown",
-                "mitigation": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "WarningAmber"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-risk",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-risk",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-risk",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-risk",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -4304,7 +2777,6 @@
       "id": "method-node-design-idea-next-step",
       "type": "idea-next-step",
       "label": "Gate One Effect Family",
-      "root": false,
       "position": {
         "x": -1780,
         "y": 1560
@@ -4359,39 +2831,6 @@
         "action": "In the host request handler, refuse updateNode and updateView calls whose target is not in the Method's declared effects, in live and dry runs. Leave every other call family unchanged.",
         "expectedEvidence": "A Method that writes outside its declared targets is refused with a message naming the target, one that writes inside them succeeds, and nothing else about running Methods changes.",
         "status": "done",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -4400,7 +2839,8 @@
             "kind": "icon",
             "name": "ArrowForward"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       },
       "handles": [
         {
@@ -4448,9 +2888,8 @@
     },
     {
       "id": "method-node-design-bridge-idea-next-step",
-      "type": "bridge",
+      "type": "import",
       "label": "Next Step",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 453.42617899053835
@@ -4497,124 +2936,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "label": "Next Step",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#16a34a",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "action": "",
-              "expectedEvidence": "",
-              "status": "todo",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-next-step",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Next Step",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#16a34a",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "action": "",
-                "expectedEvidence": "",
-                "status": "todo",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "ArrowForward"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-next-step",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-next-step",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-next-step",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-next-step",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -4700,9 +3021,8 @@
     },
     {
       "id": "idea-edge-class-advances",
-      "type": "bridge",
+      "type": "import",
       "label": "Advances",
-      "root": false,
       "position": {
         "x": -3191.520909540242,
         "y": -343.15226834791
@@ -4772,9 +3092,8 @@
     },
     {
       "id": "idea-edge-class-affects",
-      "type": "bridge",
+      "type": "import",
       "label": "Affects",
-      "root": false,
       "position": {
         "x": -3193.277364645633,
         "y": -18.23485205908281
@@ -4844,9 +3163,8 @@
     },
     {
       "id": "idea-edge-class-assumes",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumes",
-      "root": false,
       "position": {
         "x": -3192.4240413069374,
         "y": -181.34600481451798
@@ -4916,9 +3234,8 @@
     },
     {
       "id": "idea-edge-class-contradicts",
-      "type": "bridge",
+      "type": "import",
       "label": "Contradicts",
-      "root": false,
       "position": {
         "x": -3193.506546658578,
         "y": 467.7646821020603
@@ -4988,9 +3305,8 @@
     },
     {
       "id": "idea-edge-class-informs",
-      "type": "bridge",
+      "type": "import",
       "label": "Informs",
-      "root": false,
       "position": {
         "x": -3192.0222838515906,
         "y": 305.37767500770155
@@ -5060,9 +3376,8 @@
     },
     {
       "id": "idea-edge-class-motivates",
-      "type": "bridge",
+      "type": "import",
       "label": "Motivates",
-      "root": false,
       "position": {
         "x": -3193.7787389569817,
         "y": 146.18118991839606
@@ -5132,9 +3447,8 @@
     },
     {
       "id": "idea-edge-class-questions",
-      "type": "bridge",
+      "type": "import",
       "label": "Questions",
-      "root": false,
       "position": {
         "x": -3180.3205606453707,
         "y": -1003.2443506241401
@@ -5204,9 +3518,8 @@
     },
     {
       "id": "idea-edge-class-supports",
-      "type": "bridge",
+      "type": "import",
       "label": "Supports",
-      "root": false,
       "position": {
         "x": -3188.8287730658644,
         "y": -512.4189422986271
@@ -5276,9 +3589,8 @@
     },
     {
       "id": "idea-edge-class-tests",
-      "type": "bridge",
+      "type": "import",
       "label": "Tests",
-      "root": false,
       "position": {
         "x": -3189.6697541530466,
         "y": -677.8249157017144
@@ -5348,9 +3660,8 @@
     },
     {
       "id": "idea-edge-class-threatens",
-      "type": "bridge",
+      "type": "import",
       "label": "Threatens",
-      "root": false,
       "position": {
         "x": -3186.4266371315107,
         "y": -838.1257664689047
@@ -5420,9 +3731,8 @@
     },
     {
       "id": "method-node-design-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "A Solid Method Node Detail",
-      "root": false,
       "position": {
         "x": -1500,
         "y": -1580
@@ -5510,9 +3820,8 @@
     },
     {
       "id": "method-node-design-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "A Solid Method Node Summary",
-      "root": false,
       "position": {
         "x": -1500,
         "y": -1240
@@ -5600,9 +3909,8 @@
     },
     {
       "id": "method-node-design-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "A Solid Method Node Icon",
-      "root": false,
       "position": {
         "x": -1500,
         "y": -900
@@ -5692,7 +4000,6 @@
       "id": "method-node-design-glyph",
       "type": "glyph",
       "label": "A Solid Method Node Glyph",
-      "root": false,
       "position": {
         "x": -900,
         "y": -1900
@@ -5740,7 +4047,6 @@
       "id": "method-node-design-assumption-context",
       "type": "idea-assumption",
       "label": "Invocation Can Stay Ephemeral",
-      "root": false,
       "position": {
         "x": -700,
         "y": 700
@@ -5827,39 +4133,6 @@
         "statement": "For a Method that a Handler calls once per occurrence and that finishes, an Invocation needs an id, a caller, arguments, context and mode, and an Outcome keyed to it. It does not need a persisted Invocation node, a lifecycle, progress, cancellation or history yet, and adding them later will not require changing what identifies it.",
         "importance": "high",
         "status": "untested",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -5868,7 +4141,8 @@
             "kind": "icon",
             "name": "PsychologyAlt"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
       },
       "handles": [
         {
@@ -5952,7 +4226,6 @@
       "id": "method-node-design-assumption-policy",
       "type": "idea-assumption",
       "label": "Failure Policy Belongs to the Handler",
-      "root": false,
       "position": {
         "x": -1180,
         "y": 1120
@@ -6039,39 +4312,6 @@
         "statement": "A Method only knows it was invoked and what happened. Whether the next Method runs after a failure (continue, stop, retry, roll back, branch, call a failure handler) belongs to whatever composes the Methods, so the Method contract stays the same as policies grow. Continue-on-failure is a fine Handler default for now.",
         "importance": "medium",
         "status": "untested",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -6080,7 +4320,8 @@
             "kind": "icon",
             "name": "PsychologyAlt"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
       },
       "handles": [
         {
@@ -6164,7 +4405,6 @@
       "id": "method-node-design-evidence-identity",
       "type": "idea-evidence",
       "label": "The Call Already Has Everything but an Id",
-      "root": false,
       "position": {
         "x": -220,
         "y": 1120
@@ -6203,39 +4443,6 @@
         "observation": "The frozen api.invocation object the runner hands the source already carries the occurrence and root occurrence ids, the delivery id, the Handler, the Method and its position, the fragment, and the dry and mutation flags. It has no id of its own, so an Outcome or an attempted effect cannot be attached to one call. Occurrence emission already records its cause and root occurrence, so a Method that emits an event continues the chain, but only through the occurrence ids.",
         "kind": "observation",
         "strength": "strong",
-        "definitionKey": "idea-evidence",
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "FactCheck"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -6245,7 +4452,8 @@
             "name": "FactCheck"
           }
         },
-        "citationSourceId": "github://TwiliteLLC/twilite/components/GraphEditor/Scripting/ScriptRunner.js"
+        "citationSourceId": "github://TwiliteLLC/twilite/components/GraphEditor/Scripting/ScriptRunner.js",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
       },
       "handles": [
         {
@@ -6278,7 +4486,6 @@
       "id": "method-node-design-next-step-reuse",
       "type": "idea-next-step",
       "label": "Reuse One Method Twice",
-      "root": false,
       "position": {
         "x": -220,
         "y": 1560
@@ -6333,39 +4540,6 @@
         "action": "Connect one Method to two Event Handlers whose events carry differently shaped payloads. Declare its inputs and read them by name from the invocation, and omit a required input on one of them.",
         "expectedEvidence": "Both Handlers run the Method cleanly, and the missing input fails that Invocation with a message naming the Method and the input, with no persisted Invocation node or lifecycle needed.",
         "status": "todo",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -6374,7 +4548,8 @@
             "kind": "icon",
             "name": "ArrowForward"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       },
       "handles": [
         {
@@ -6424,7 +4599,6 @@
       "id": "method-node-design-next-step-identity",
       "type": "idea-next-step",
       "label": "Give Every Call an Identity",
-      "root": false,
       "position": {
         "x": -700,
         "y": 1560
@@ -6479,39 +4653,6 @@
         "action": "Create an Invocation id for every Method call and put it in api.invocation with the caller, arguments, mode and cause (occurrence, root occurrence, delivery). Return an Outcome keyed by that id with status, result or error, duration and attempted effects. Persist nothing in the graph.",
         "expectedEvidence": "From one property change, a single diagnostic can list occurrence, delivery, Handler, Invocation and Outcome by id, including the event that the Method emitted in turn, without adding a lifecycle, progress, cancellation or history.",
         "status": "todo",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -6520,7 +4661,8 @@
             "kind": "icon",
             "name": "ArrowForward"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       },
       "handles": [
         {
@@ -6570,7 +4712,6 @@
       "id": "method-node-design-next-step-policy",
       "type": "idea-next-step",
       "label": "Move Failure Policy to the Handler",
-      "root": false,
       "position": {
         "x": -1180,
         "y": 1560
@@ -6625,39 +4766,6 @@
         "action": "Name the current behavior, where one failing Method does not stop the rest, as the Handler's default failure policy, and record each Method's outcome separately against its own Invocation. The Method contract does not change.",
         "expectedEvidence": "The Handler reports per-Method outcomes and its policy without any Method knowing about its siblings, and adding a second policy such as stop-on-failure changes only the Handler.",
         "status": "todo",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "method-node-design"
         },
@@ -6666,7 +4774,8 @@
             "kind": "icon",
             "name": "ArrowForward"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       },
       "handles": [
         {
@@ -6903,181 +5012,171 @@
       "type": "surface",
       "source": "method-node-design-declaration",
       "target": "method-node-design-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "default-view"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "method-node-design-detail-view",
       "target": "method-node-design-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "method-node-design-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "method-node-design-summary-view",
       "target": "method-node-design-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "method-node-design-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "method-node-design-icon-view",
       "target": "method-node-design-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-declaration-edge-class-authority-advances",
-      "type": "reference",
+      "type": "imports",
       "source": "method-node-design-declaration",
       "target": "idea-edge-class-advances",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-declaration-edge-class-authority-affects",
-      "type": "reference",
+      "type": "imports",
       "source": "method-node-design-declaration",
       "target": "idea-edge-class-affects",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-declaration-edge-class-authority-assumes",
-      "type": "reference",
+      "type": "imports",
       "source": "method-node-design-declaration",
       "target": "idea-edge-class-assumes",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-declaration-edge-class-authority-contradicts",
-      "type": "reference",
+      "type": "imports",
       "source": "method-node-design-declaration",
       "target": "idea-edge-class-contradicts",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-declaration-edge-class-authority-informs",
-      "type": "reference",
+      "type": "imports",
       "source": "method-node-design-declaration",
       "target": "idea-edge-class-informs",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-declaration-edge-class-authority-motivates",
-      "type": "reference",
+      "type": "imports",
       "source": "method-node-design-declaration",
       "target": "idea-edge-class-motivates",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-declaration-edge-class-authority-questions",
-      "type": "reference",
+      "type": "imports",
       "source": "method-node-design-declaration",
       "target": "idea-edge-class-questions",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-declaration-edge-class-authority-supports",
-      "type": "reference",
+      "type": "imports",
       "source": "method-node-design-declaration",
       "target": "idea-edge-class-supports",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-declaration-edge-class-authority-tests",
-      "type": "reference",
+      "type": "imports",
       "source": "method-node-design-declaration",
       "target": "idea-edge-class-tests",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-declaration-edge-class-authority-threatens",
-      "type": "reference",
+      "type": "imports",
       "source": "method-node-design-declaration",
       "target": "idea-edge-class-threatens",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-landing-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "method-node-design-declaration",
       "target": "method-node-design-idea",
-      "label": "landing surface",
+      "label": "ground",
       "style": {},
-      "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface"
-      },
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-problem-motivates",
-      "type": "reference",
+      "type": "idea.motivates",
       "source": "method-node-design-idea-problem",
       "target": "method-node-design-idea",
       "label": "motivates",
@@ -7089,17 +5188,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.motivates",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node",
-        "semanticRole": "idea.motivates",
-        "edgeClassMeaning": "source establishes the need or reason for the target"
+        "edgeClassMeaning": "source establishes the need or reason for the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node"
       },
-      "sourceHandle": "motivates",
-      "targetHandle": "motivated-by"
+      "sourcePort": "motivates",
+      "targetPort": "motivated-by"
     },
     {
       "id": "method-node-design-audience-affects",
-      "type": "reference",
+      "type": "idea.affects",
       "source": "method-node-design-idea-audience",
       "target": "method-node-design-idea-problem",
       "label": "affects",
@@ -7111,17 +5208,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.affects",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node",
-        "semanticRole": "idea.affects",
-        "edgeClassMeaning": "source audience experiences or is affected by the target problem"
+        "edgeClassMeaning": "source audience experiences or is affected by the target problem",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node"
       },
-      "sourceHandle": "affected-by",
-      "targetHandle": "affects"
+      "sourcePort": "affected-by",
+      "targetPort": "affects"
     },
     {
       "id": "method-node-design-approach-advances",
-      "type": "reference",
+      "type": "idea.advances",
       "source": "method-node-design-idea-proposed-approach",
       "target": "method-node-design-idea",
       "label": "advances",
@@ -7133,17 +5228,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.advances",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node",
-        "semanticRole": "idea.advances",
-        "edgeClassMeaning": "source action moves the target idea toward a better-supported state"
+        "edgeClassMeaning": "source action moves the target idea toward a better-supported state",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node"
       },
-      "sourceHandle": "advances",
-      "targetHandle": "advanced-by"
+      "sourcePort": "advances",
+      "targetPort": "advanced-by"
     },
     {
       "id": "method-node-design-idea-assumes-gate",
-      "type": "reference",
+      "type": "idea.assumes",
       "source": "method-node-design-idea",
       "target": "method-node-design-idea-assumption",
       "label": "assumes",
@@ -7159,17 +5252,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
+        "edgeClassMeaning": "source depends on the target assumption being true",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node"
       },
-      "sourceHandle": "assumes",
-      "targetHandle": "assumed-by"
+      "sourcePort": "assumes",
+      "targetPort": "assumed-by"
     },
     {
       "id": "method-node-design-idea-assumes-context",
-      "type": "reference",
+      "type": "idea.assumes",
       "source": "method-node-design-idea",
       "target": "method-node-design-assumption-context",
       "label": "assumes",
@@ -7185,17 +5276,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
+        "edgeClassMeaning": "source depends on the target assumption being true",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node"
       },
-      "sourceHandle": "assumes",
-      "targetHandle": "assumed-by"
+      "sourcePort": "assumes",
+      "targetPort": "assumed-by"
     },
     {
       "id": "method-node-design-question-inputs-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "method-node-design-idea-question",
       "target": "method-node-design-assumption-context",
       "label": "questions",
@@ -7211,17 +5300,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       },
-      "sourceHandle": "questions",
-      "targetHandle": "questioned-by"
+      "sourcePort": "questions",
+      "targetPort": "questioned-by"
     },
     {
       "id": "method-node-design-research-today-informs",
-      "type": "reference",
+      "type": "idea.informs",
       "source": "method-node-design-idea-research",
       "target": "method-node-design-idea-question",
       "label": "informs",
@@ -7233,17 +5320,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.informs",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
-        "semanticRole": "idea.informs",
-        "edgeClassMeaning": "source provides context that informs the target"
+        "edgeClassMeaning": "source provides context that informs the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node"
       },
-      "sourceHandle": "informs",
-      "targetHandle": "informed-by"
+      "sourcePort": "informs",
+      "targetPort": "informed-by"
     },
     {
       "id": "method-node-design-evidence-flag-supports",
-      "type": "reference",
+      "type": "idea.supports",
       "source": "method-node-design-idea-evidence",
       "target": "method-node-design-idea-assumption",
       "label": "supports",
@@ -7255,17 +5340,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.supports",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
-        "semanticRole": "idea.supports",
-        "edgeClassMeaning": "source evidence increases confidence in the target"
+        "edgeClassMeaning": "source evidence increases confidence in the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node"
       },
-      "sourceHandle": "supports",
-      "targetHandle": "supported-by"
+      "sourcePort": "supports",
+      "targetPort": "supported-by"
     },
     {
       "id": "method-node-design-alternative-invocations-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "method-node-design-idea-alternative",
       "target": "method-node-design-idea-proposed-approach",
       "label": "questions",
@@ -7281,17 +5364,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       },
-      "sourceHandle": "questions",
-      "targetHandle": "questioned-by"
+      "sourcePort": "questions",
+      "targetPort": "questioned-by"
     },
     {
       "id": "method-node-design-risk-coarse-threatens",
-      "type": "reference",
+      "type": "idea.threatens",
       "source": "method-node-design-idea-risk",
       "target": "method-node-design-idea",
       "label": "threatens",
@@ -7307,17 +5388,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.threatens",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node",
-        "semanticRole": "idea.threatens",
-        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target"
+        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node"
       },
-      "sourceHandle": "threatens",
-      "targetHandle": "threatened-by"
+      "sourcePort": "threatens",
+      "targetPort": "threatened-by"
     },
     {
       "id": "method-node-design-next-step-gate-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "method-node-design-idea-next-step",
       "target": "method-node-design-idea-assumption",
       "label": "tests",
@@ -7329,17 +5408,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
+      "sourcePort": "tests",
+      "targetPort": "tested-by"
     },
     {
       "id": "method-node-design-next-step-reuse-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "method-node-design-next-step-reuse",
       "target": "method-node-design-assumption-context",
       "label": "tests",
@@ -7351,17 +5428,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
+      "sourcePort": "tests",
+      "targetPort": "tested-by"
     },
     {
       "id": "method-node-design-instructions-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "method-node-design-idea-next-step",
       "target": "method-node-design-instructions",
       "label": "guidance",
@@ -7375,12 +5450,12 @@
         "orthogonal": true
       },
       "data": {},
-      "sourceHandle": "guidance",
-      "targetHandle": "guided-by"
+      "sourcePort": "guidance",
+      "targetPort": "guided-by"
     },
     {
       "id": "method-node-design-idea-assumes-policy",
-      "type": "reference",
+      "type": "idea.assumes",
       "source": "method-node-design-idea",
       "target": "method-node-design-assumption-policy",
       "label": "assumes",
@@ -7396,17 +5471,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
+        "edgeClassMeaning": "source depends on the target assumption being true",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node"
       },
-      "sourceHandle": "assumes",
-      "targetHandle": "assumed-by"
+      "sourcePort": "assumes",
+      "targetPort": "assumed-by"
     },
     {
       "id": "method-node-design-evidence-identity-supports",
-      "type": "reference",
+      "type": "idea.supports",
       "source": "method-node-design-evidence-identity",
       "target": "method-node-design-assumption-context",
       "label": "supports",
@@ -7418,17 +5491,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.supports",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
-        "semanticRole": "idea.supports",
-        "edgeClassMeaning": "source evidence increases confidence in the target"
+        "edgeClassMeaning": "source evidence increases confidence in the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node"
       },
-      "sourceHandle": "supports",
-      "targetHandle": "supported-by"
+      "sourcePort": "supports",
+      "targetPort": "supported-by"
     },
     {
       "id": "method-node-design-next-step-identity-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "method-node-design-next-step-identity",
       "target": "method-node-design-assumption-context",
       "label": "tests",
@@ -7440,17 +5511,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
+      "sourcePort": "tests",
+      "targetPort": "tested-by"
     },
     {
       "id": "method-node-design-next-step-policy-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "method-node-design-next-step-policy",
       "target": "method-node-design-assumption-policy",
       "label": "tests",
@@ -7462,17 +5531,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
+      "sourcePort": "tests",
+      "targetPort": "tested-by"
     },
     {
       "id": "method-node-design-tracked-method-effects-gate",
-      "type": "reference",
+      "type": "edge",
       "source": "method-node-design-idea-next-step",
       "target": "method-node-design-task-method-effects-gate",
       "label": "tracked by",
@@ -7488,12 +5555,12 @@
       "data": {
         "relation": "task-projection"
       },
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-tracked-handler-method-failure-policy",
-      "type": "reference",
+      "type": "edge",
       "source": "method-node-design-next-step-policy",
       "target": "method-node-design-task-handler-method-failure-policy",
       "label": "tracked by",
@@ -7509,12 +5576,12 @@
       "data": {
         "relation": "task-projection"
       },
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-tracked-method-invocation-identity",
-      "type": "reference",
+      "type": "edge",
       "source": "method-node-design-next-step-identity",
       "target": "method-node-design-task-method-invocation-identity",
       "label": "tracked by",
@@ -7530,12 +5597,12 @@
       "data": {
         "relation": "task-projection"
       },
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "method-node-design-tracked-method-reuse-two-handlers",
-      "type": "reference",
+      "type": "edge",
       "source": "method-node-design-next-step-reuse",
       "target": "method-node-design-task-method-reuse-two-handlers",
       "label": "tracked by",
@@ -7551,11 +5618,10 @@
       "data": {
         "relation": "task-projection"
       },
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,
@@ -7595,8 +5661,5 @@
     },
     "autoSave": false
   },
-  "scripts": [],
-  "timestamp": "2026-09-20T03:20:05.821Z",
-  "nodeCount": 48,
-  "edgeCount": 36
+  "scripts": []
 }

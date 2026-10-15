@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Twilite Host Declaration",
-    "description": "The host declaration for one semantic Twilite node.",
-    "graphId": "expansion-smoke-host-declaration",
-    "version": "0.1.0",
-    "kind": "graph",
     "created": "2026-09-01T15:15:35.526Z",
     "modified": "2026-09-01T18:33:48.085Z",
     "author": "",
@@ -17,9 +12,8 @@
   "nodes": [
     {
       "id": "expansion-smoke-host-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Twilite · Host Declaration",
-      "root": false,
       "position": {
         "x": -440,
         "y": -100
@@ -76,23 +70,6 @@
           "kind": "graph",
           "scope": "shared"
         },
-        "declaration": {
-          "kind": "graph",
-          "targetMode": "artifact",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "defaultSurfaceId": "host",
-          "surfaces": [
-            {
-              "id": "host",
-              "kind": "content",
-              "label": "Host Surface",
-              "viewNodeId": "expansion-smoke-host-content"
-            }
-          ]
-        },
         "settings": {
           "autoSave": false,
           "layout": {
@@ -124,6 +101,23 @@
         },
         "document": {
           "url": "github://mikemartinez1974/public/graphs/multi-declaration-expansion-smoke/host.node"
+        },
+        "root": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "host",
+          "surfaces": [
+            {
+              "id": "host",
+              "kind": "content",
+              "label": "Host Surface",
+              "viewNodeId": "expansion-smoke-host-content"
+            }
+          ]
         }
       }
     },
@@ -131,7 +125,6 @@
       "id": "expansion-smoke-host-content",
       "type": "content",
       "label": "Host Graph",
-      "root": false,
       "position": {
         "x": 20,
         "y": -100
@@ -178,7 +171,6 @@
       "id": "expansion-smoke-participant-reference",
       "type": "graph-reference",
       "label": "Expand Document Participant",
-      "root": false,
       "position": {
         "x": 560,
         "y": -80
@@ -235,21 +227,17 @@
       "type": "default-view",
       "source": "expansion-smoke-host-declaration",
       "target": "expansion-smoke-host-content",
-      "sourceHandle": "default-view",
-      "targetHandle": "root",
       "label": "default view",
       "style": {},
-      "data": {
-        "role": "default-view"
-      }
+      "data": {},
+      "sourcePort": "default-view",
+      "targetPort": "root"
     },
     {
       "id": "expansion-smoke-host-participant",
-      "type": "reference",
+      "type": "edge",
       "source": "expansion-smoke-host-declaration",
       "target": "expansion-smoke-participant-reference",
-      "sourceHandle": "participant",
-      "targetHandle": "root",
       "label": "participating graph",
       "style": {},
       "data": {
@@ -260,15 +248,15 @@
           "expansionId": "exp_bma9mk",
           "previousVisible": true
         }
-      }
+      },
+      "sourcePort": "participant",
+      "targetPort": "root"
     },
     {
       "id": "edge_1788287614698",
-      "type": "default",
+      "type": "edge",
       "source": "expansion-smoke-participant-reference",
       "target": "expansion-smoke-host-content",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "portMeta": {
         "source": {
           "label": "root",
@@ -303,10 +291,11 @@
           "sourceNodeId": "expansion-smoke-participant-reference",
           "endpoint": "source"
         }
-      }
+      },
+      "sourcePort": "root",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

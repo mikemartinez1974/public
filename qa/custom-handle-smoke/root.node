@@ -2,7 +2,7 @@
   "nodes": [
     {
       "id": "smoke-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Custom Handle Smoke",
       "position": {
         "x": 0,
@@ -141,20 +141,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -304,20 +304,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -352,7 +352,7 @@
     },
     {
       "id": "smoke-view",
-      "type": "view",
+      "type": "face",
       "label": "View",
       "position": {
         "x": 0,
@@ -408,10 +408,10 @@
           "dataType": "any",
           "side": "left",
           "offset": 0.2,
-          "role": "view-sequence",
+          "role": "next-face",
           "metadata": {
             "structural": true,
-            "role": "view-sequence"
+            "role": "next-face"
           }
         },
         {
@@ -422,10 +422,10 @@
           "dataType": "any",
           "side": "right",
           "offset": 0.5,
-          "role": "view-sequence",
+          "role": "next-face",
           "metadata": {
             "structural": true,
-            "role": "view-sequence"
+            "role": "next-face"
           }
         }
       ],
@@ -477,10 +477,10 @@
           "dataType": "any",
           "side": "left",
           "offset": 0.2,
-          "role": "view-sequence",
+          "role": "next-face",
           "metadata": {
             "structural": true,
-            "role": "view-sequence"
+            "role": "next-face"
           }
         },
         {
@@ -491,10 +491,10 @@
           "dataType": "any",
           "side": "right",
           "offset": 0.5,
-          "role": "view-sequence",
+          "role": "next-face",
           "metadata": {
             "structural": true,
-            "role": "view-sequence"
+            "role": "next-face"
           }
         }
       ],
@@ -604,20 +604,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -686,20 +686,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -743,7 +743,7 @@
     },
     {
       "id": "smoke-orb-handle",
-      "type": "view",
+      "type": "face",
       "label": "Orb Handle",
       "position": {
         "x": -480,
@@ -775,54 +775,47 @@
       "id": "smoke-surfaces",
       "type": "surface",
       "source": "smoke-declaration",
-      "sourceHandle": "surfaces",
       "target": "smoke-view",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "smoke-sequence-out",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "smoke-view",
-      "sourceHandle": "sequence-out",
       "target": "smoke-glyph",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "smoke-exposes-port",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "smoke-declaration",
-      "sourceHandle": "port",
       "target": "smoke-port",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "exposes-port"
-      }
+      "data": {},
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "smoke-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "source": "smoke-declaration",
-      "sourceHandle": "landing-surface",
       "target": "smoke-content",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "landing-surface"
-      }
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     }
   ]
 }

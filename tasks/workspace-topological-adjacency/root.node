@@ -1,218 +1,1497 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Workspace Topological Adjacency",
-    "description": "Plan graph for evolving multi-graph workspace bridges into topology-driven adjacency with derived graph regions.",
-    "graphId": "workspace-topological-adjacency-declaration",
-    "version": "0.2.0",
-    "kind": "task-graph",
     "author": "Michael Martinez",
-    "tags": ["tasks", "workspace", "multi-graph", "bridge", "topology", "adjacency", "regions"],
+    "tags": [
+      "tasks",
+      "workspace",
+      "multi-graph",
+      "bridge",
+      "topology",
+      "adjacency",
+      "regions"
+    ],
     "preferredViewer": "https://dev.twilite.zone"
   },
   "nodes": [
     {
       "id": "workspace-topological-adjacency-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Workspace Topological Adjacency",
-      "position": {"x": -720, "y": -760},
+      "position": {
+        "x": -720,
+        "y": -760
+      },
       "width": 420,
       "height": 320,
       "ports": [
-        {"id":"default-view","key":"default-view","label":"default view","direction":"output","dataType":"any","angle":165,"role":"default-view"},
-        {"id":"summary-view","key":"summary-view","label":"summary view","direction":"output","dataType":"any","angle":180,"role":"shared-summary"},
-        {"id":"icon-view","key":"icon-view","label":"icon view","direction":"output","dataType":"any","angle":195,"role":"shared-icon"},
-        {"id":"glyph","key":"glyph","label":"glyph","direction":"output","dataType":"any","angle":270,"role":"shared-glyph"},
-        {"id":"landing-surface","key":"landing-surface","label":"landing surface","direction":"output","dataType":"any","angle":0,"role":"landing-surface"}
+        {
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "ground"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
       ],
       "handles": [
-        {"id":"default-view","portId":"default-view","label":"default view","direction":"output","dataType":"any","angle":165,"role":"default-view"},
-        {"id":"summary-view","portId":"summary-view","label":"summary view","direction":"output","dataType":"any","angle":180,"role":"shared-summary"},
-        {"id":"icon-view","portId":"icon-view","label":"icon view","direction":"output","dataType":"any","angle":195,"role":"shared-icon"},
-        {"id":"glyph","portId":"glyph","label":"glyph","direction":"output","dataType":"any","angle":270,"role":"shared-glyph"},
-        {"id":"landing-surface","portId":"landing-surface","label":"landing surface","direction":"output","dataType":"any","angle":0,"role":"landing-surface"}
+        {
+          "id": "ground",
+          "portId": "ground",
+          "label": "ground",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "ground"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
+        }
       ],
       "visible": true,
       "showLabel": true,
       "data": {
-        "identity": {"graphId":"workspace-topological-adjacency-declaration","nodeId":"workspace-topological-adjacency","name":"Workspace Topological Adjacency","version":"0.2.0"},
-        "intent": {"kind":"template","scope":"local"},
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration",
+          "nodeId": "workspace-topological-adjacency",
+          "name": "Workspace Topological Adjacency",
+          "version": "0.2.0",
+          "description": "Plan graph for evolving multi-graph workspace bridges into topology-driven adjacency with derived graph regions."
+        },
+        "intent": {
+          "kind": "template",
+          "scope": "local"
+        },
         "dependencies": {
-          "nodeTypes": ["declaration","view","content","glyph","bridge","goal","task","open-question","decision"],
-          "portContracts": ["core"],
-          "skills": ["twilite-planning-graphs"],
-          "schemaVersions": {"nodes":">=1.0.0","ports":">=1.0.0"},
+          "nodeTypes": [
+            "declaration",
+            "view",
+            "content",
+            "glyph",
+            "bridge",
+            "goal",
+            "task",
+            "open-question",
+            "decision"
+          ],
+          "portContracts": [
+            "core"
+          ],
+          "skills": [
+            "twilite-planning-graphs"
+          ],
+          "schemaVersions": {
+            "nodes": ">=1.0.0",
+            "ports": ">=1.0.0"
+          },
           "optional": []
         },
-        "document": {"url":"github://mikemartinez1974/public/tasks/workspace-topological-adjacency/root.node"},
-        "settings": {"autoSave":false,"expansion":{"allowGraphEntry":true},"layout":{"mode":"manual","direction":"RIGHT"}},
-        "declaration": {
-          "kind":"template",
-          "targetMode":"artifact",
-          "artifactKind":"task-graph-template",
-          "interfaceContract":{"version":1,"implicitRootPort":true},
-          "defaultSurfaceId":"detail",
-          "landingSurfaceId":"landing",
-          "surfaces":[
-            {"id":"detail","kind":"view","payload":"node.web.detail","viewNodeId":"topology-detail"},
-            {"id":"summary","kind":"view","payload":"node.web.summary","viewNodeId":"topology-summary"},
-            {"id":"icon","kind":"view","payload":"node.web.icon","viewNodeId":"topology-icon"},
-            {"id":"glyph","kind":"glyph","payload":"node.web.glyph","viewNodeId":"topology-glyph"},
-            {"id":"landing","kind":"content","payload":"node.web.landing","viewNodeId":"topology-landing"}
+        "document": {
+          "url": "github://mikemartinez1974/public/tasks/workspace-topological-adjacency/root.node"
+        },
+        "settings": {
+          "autoSave": false,
+          "expansion": {
+            "allowGraphEntry": true
+          },
+          "layout": {
+            "mode": "manual",
+            "direction": "RIGHT"
+          }
+        },
+        "root": {
+          "kind": "template",
+          "targetMode": "artifact",
+          "artifactKind": "task-graph-template",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "detail",
+          "landingSurfaceId": "landing",
+          "surfaces": [
+            {
+              "id": "detail",
+              "kind": "view",
+              "payload": "node.web.detail",
+              "viewNodeId": "topology-detail"
+            },
+            {
+              "id": "summary",
+              "kind": "view",
+              "payload": "node.web.summary",
+              "viewNodeId": "topology-summary"
+            },
+            {
+              "id": "icon",
+              "kind": "view",
+              "payload": "node.web.icon",
+              "viewNodeId": "topology-icon"
+            },
+            {
+              "id": "glyph",
+              "kind": "glyph",
+              "payload": "node.web.glyph",
+              "viewNodeId": "topology-glyph"
+            },
+            {
+              "id": "landing",
+              "kind": "content",
+              "payload": "node.web.landing",
+              "viewNodeId": "topology-landing"
+            }
           ]
         }
       }
     },
     {
-      "id":"topology-detail","type":"view","label":"Topological adjacency detail","position":{"x":-220,"y":-760},"width":460,"height":250,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"input","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"input","dataType":"any","angle":180}],
-      "visible":true,"showLabel":true,
-      "data":{"view":{"intent":"node","payload":"node.web.detail"},"content":{"kind":"markdown","value":"# Workspace Topological Adjacency\n\n**Bridges define adjacency, not position.** Move a graph anywhere; the workspace embedding changes while authored topology remains authoritative."},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
+      "id": "topology-detail",
+      "type": "face",
+      "label": "Topological adjacency detail",
+      "position": {
+        "x": -220,
+        "y": -760
+      },
+      "width": 460,
+      "height": 250,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Workspace Topological Adjacency\n\n**Bridges define adjacency, not position.** Move a graph anywhere; the workspace embedding changes while authored topology remains authoritative."
+        },
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        }
+      }
     },
     {
-      "id":"topology-summary","type":"view","label":"Topology summary","position":{"x":300,"y":-760},"width":380,"height":210,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"input","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"input","dataType":"any","angle":180}],
-      "visible":true,"showLabel":true,
-      "data":{"view":{"intent":"node","payload":"node.web.summary"},"content":{"kind":"markdown","value":"## Topology first\n\nSemantic bridge topology → derived workspace topology → derived geometry."},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
+      "id": "topology-summary",
+      "type": "face",
+      "label": "Topology summary",
+      "position": {
+        "x": 300,
+        "y": -760
+      },
+      "width": 380,
+      "height": 210,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "## Topology first\n\nSemantic bridge topology → derived workspace topology → derived geometry."
+        },
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        }
+      }
     },
     {
-      "id":"topology-icon","type":"view","label":"Topology icon","position":{"x":730,"y":-760},"width":200,"height":140,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"input","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"input","dataType":"any","angle":180}],
-      "visible":true,"showLabel":true,
-      "data":{"view":{"intent":"node","payload":"node.web.icon"},"content":{"kind":"markdown","value":"# ⬡\nAdjacency regions"},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
+      "id": "topology-icon",
+      "type": "face",
+      "label": "Topology icon",
+      "position": {
+        "x": 730,
+        "y": -760
+      },
+      "width": 200,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# ⬡\nAdjacency regions"
+        },
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        }
+      }
     },
     {
-      "id":"topology-glyph","type":"glyph","label":"Topology","position":{"x":980,"y":-740},"width":90,"height":90,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"input","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"input","dataType":"any","angle":180}],
-      "visible":true,"showLabel":true,"data":{"glyph":"⬡","identity":{"graphId":"workspace-topological-adjacency-declaration"}}
+      "id": "topology-glyph",
+      "type": "glyph",
+      "label": "Topology",
+      "position": {
+        "x": 980,
+        "y": -740
+      },
+      "width": 90,
+      "height": 90,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "glyph": "⬡",
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        }
+      }
     },
     {
-      "id":"topology-landing","type":"content","label":"Workspace Topological Adjacency Plan","root":true,"position":{"x":-700,"y":-280},"width":540,"height":330,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180}],
-      "visible":true,"showLabel":true,
-      "data":{"content":{"kind":"markdown","value":"# Workspace Topological Adjacency\n\n## Core invariant\n\n**Bridges dictate adjacency. Graph position does not.**\n\nMoving a graph changes the current 2D embedding. It does not change authored bridge relationships. The workspace derives regions, shared boundaries, and apertures from that topology."},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
-    },
-
-    {
-      "id":"bridge-goal","type":"bridge","label":"Goal","position":{"x":-700,"y":180},"width":300,"height":120,
-      "ports":[{"id":"root","label":"root","direction":"bidirectional","dataType":"any","angle":210}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":210}],
-      "visible":true,"showLabel":true,
-      "data":{"intent":"external","authority":"bridge","resourceKind":"node-class","scope":"focused-graph","grants":["create"],"bridge":{"ref":"github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node","resourceKind":"node-class","scope":"focused-graph","grants":["create"]},"target":{"mode":"bridge","label":"Create","kind":"node-class","key":"goal","ref":"github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node","resourceKind":"node-class","scope":"focused-graph","grants":["create"]},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
-    },
-    {
-      "id":"bridge-task","type":"bridge","label":"Task","position":{"x":-360,"y":180},"width":300,"height":120,
-      "ports":[{"id":"root","label":"root","direction":"bidirectional","dataType":"any","angle":210}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":210}],
-      "visible":true,"showLabel":true,
-      "data":{"intent":"external","authority":"bridge","resourceKind":"node-class","scope":"focused-graph","grants":["create"],"bridge":{"ref":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node","resourceKind":"node-class","scope":"focused-graph","grants":["create"]},"target":{"mode":"bridge","label":"Create","kind":"node-class","key":"task","ref":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node","resourceKind":"node-class","scope":"focused-graph","grants":["create"]},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
-    },
-    {
-      "id":"bridge-decision","type":"bridge","label":"Decision","position":{"x":-20,"y":180},"width":300,"height":120,
-      "ports":[{"id":"root","label":"root","direction":"bidirectional","dataType":"any","angle":210}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":210}],
-      "visible":true,"showLabel":true,
-      "data":{"intent":"external","authority":"bridge","resourceKind":"node-class","scope":"focused-graph","grants":["create"],"bridge":{"ref":"github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node","resourceKind":"node-class","scope":"focused-graph","grants":["create"]},"target":{"mode":"bridge","label":"Create","kind":"node-class","key":"decision","ref":"github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node","resourceKind":"node-class","scope":"focused-graph","grants":["create"]},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
-    },
-    {
-      "id":"bridge-question","type":"bridge","label":"Open Question","position":{"x":320,"y":180},"width":300,"height":120,
-      "ports":[{"id":"root","label":"root","direction":"bidirectional","dataType":"any","angle":210}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":210}],
-      "visible":true,"showLabel":true,
-      "data":{"intent":"external","authority":"bridge","resourceKind":"node-class","scope":"focused-graph","grants":["create"],"bridge":{"ref":"github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node","resourceKind":"node-class","scope":"focused-graph","grants":["create"]},"target":{"mode":"bridge","label":"Create","kind":"node-class","key":"open-question","ref":"github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node","resourceKind":"node-class","scope":"focused-graph","grants":["create"]},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
-    },
-
-    {
-      "id":"goal-topology","type":"goal","label":"Topology survives movement","position":{"x":-120,"y":420},"width":420,"height":250,"color":"linear-gradient(135deg, #dbeafe, #2563eb)",
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180},{"id":"left","portId":"root","label":"left","direction":"bidirectional","dataType":"value","angle":180},{"id":"right","portId":"root","label":"right","direction":"bidirectional","dataType":"value","angle":360}],
-      "visible":true,"showLabel":true,
-      "data":{"title":"Topology survives movement","body":"Dragging or resizing a graph changes only the workspace embedding. Authored bridge adjacency remains authoritative and graph documents remain clean.","status":"proposed","definitionKey":"goal","_classBinding":{"key":"goal","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node","ref":"github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node"},"_bridge":{"sourceNodeId":"bridge-goal","sourceBridgeNodeId":"bridge-goal","sourceBridgeLabel":"Goal","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node","entryPort":"root","kind":"node-class","targetKind":"node-class","classKey":"goal","classRef":"github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node"},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
+      "id": "topology-landing",
+      "type": "content",
+      "label": "Workspace Topological Adjacency Plan",
+      "position": {
+        "x": -700,
+        "y": -280
+      },
+      "width": 540,
+      "height": 330,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Workspace Topological Adjacency\n\n## Core invariant\n\n**Bridges dictate adjacency. Graph position does not.**\n\nMoving a graph changes the current 2D embedding. It does not change authored bridge relationships. The workspace derives regions, shared boundaries, and apertures from that topology."
+        },
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        }
+      }
     },
     {
-      "id":"decision-layers","type":"decision","label":"Separate topology from geometry","position":{"x":430,"y":420},"width":420,"height":250,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180},{"id":"left","portId":"root","label":"left","direction":"bidirectional","dataType":"value","angle":180},{"id":"right","portId":"root","label":"right","direction":"bidirectional","dataType":"value","angle":360}],
-      "visible":true,"showLabel":true,
-      "data":{"title":"Separate semantic topology, workspace topology, and geometry","body":"Bridge nodes express adjacency. The workspace derives shared-region relationships. Geometry derives paths, apertures, hit regions, and minimap shapes from the current embedding.","status":"proposed","definitionKey":"decision","_classBinding":{"key":"decision","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node","ref":"github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"},"_bridge":{"sourceNodeId":"bridge-decision","sourceBridgeNodeId":"bridge-decision","sourceBridgeLabel":"Decision","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node","entryPort":"root","kind":"node-class","targetKind":"node-class","classKey":"decision","classRef":"github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
+      "id": "bridge-goal",
+      "type": "import",
+      "label": "Goal",
+      "position": {
+        "x": -700,
+        "y": 180
+      },
+      "width": 300,
+      "height": 120,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "intent": "external",
+        "authority": "bridge",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "grants": [
+          "create"
+        ],
+        "bridge": {
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "target": {
+          "mode": "bridge",
+          "label": "Create",
+          "kind": "node-class",
+          "key": "goal",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        }
+      }
     },
-
     {
-      "id":"task-audit","type":"task","label":"Audit current frame geometry","position":{"x":980,"y":260},"width":380,"height":260,"color":"linear-gradient(135deg, #9be7c4, #1f9d67)",
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180},{"id":"left","portId":"root","label":"left","direction":"bidirectional","dataType":"value","angle":180},{"id":"right","portId":"root","label":"right","direction":"bidirectional","dataType":"value","angle":360}],
-      "visible":true,"showLabel":true,"data":{"title":"Audit current frame geometry","body":"Trace rectangular frame, drag, resize, hit testing, focus, and minimap assumptions. Identify the minimum seams needed to support derived non-rectangular regions.","priority":"high","status":"todo","acceptanceCriteria":["Rectangular assumptions are enumerated","Workspace-only geometry ownership is identified"],"definitionKey":"task","_classBinding":{"key":"task","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node","ref":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"},"_bridge":{"sourceNodeId":"bridge-task","sourceBridgeNodeId":"bridge-task","sourceBridgeLabel":"Task","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node","entryPort":"root","kind":"node-class","targetKind":"node-class","classKey":"task","classRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
+      "id": "bridge-task",
+      "type": "import",
+      "label": "Task",
+      "position": {
+        "x": -360,
+        "y": 180
+      },
+      "width": 300,
+      "height": 120,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "intent": "external",
+        "authority": "bridge",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "grants": [
+          "create"
+        ],
+        "bridge": {
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "target": {
+          "mode": "bridge",
+          "label": "Create",
+          "kind": "node-class",
+          "key": "task",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        }
+      }
     },
     {
-      "id":"task-region","type":"task","label":"Define derived region model","position":{"x":980,"y":560},"width":380,"height":260,"color":"linear-gradient(135deg, #9be7c4, #1f9d67)",
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180},{"id":"left","portId":"root","label":"left","direction":"bidirectional","dataType":"value","angle":180},{"id":"right","portId":"root","label":"right","direction":"bidirectional","dataType":"value","angle":360}],
-      "visible":true,"showLabel":true,"data":{"title":"Define derived region model","body":"Define a workspace-only region around each graph content extent. The region may be non-rectangular and must expose shared-boundary information without mutating graph documents.","priority":"high","status":"todo","acceptanceCriteria":["Region model is derived","Graph-local coordinates remain unchanged","Shared boundary can be queried"],"definitionKey":"task","_classBinding":{"key":"task","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node","ref":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"},"_bridge":{"sourceNodeId":"bridge-task","sourceBridgeNodeId":"bridge-task","sourceBridgeLabel":"Task","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node","entryPort":"root","kind":"node-class","targetKind":"node-class","classKey":"task","classRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
+      "id": "bridge-decision",
+      "type": "import",
+      "label": "Decision",
+      "position": {
+        "x": -20,
+        "y": 180
+      },
+      "width": 300,
+      "height": 120,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "intent": "external",
+        "authority": "bridge",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "grants": [
+          "create"
+        ],
+        "bridge": {
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "target": {
+          "mode": "bridge",
+          "label": "Create",
+          "kind": "node-class",
+          "key": "decision",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        }
+      }
     },
     {
-      "id":"task-resolver","type":"task","label":"Derive adjacency constraints","position":{"x":1420,"y":260},"width":380,"height":260,"color":"linear-gradient(135deg, #9be7c4, #1f9d67)",
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180},{"id":"left","portId":"root","label":"left","direction":"bidirectional","dataType":"value","angle":180},{"id":"right","portId":"root","label":"right","direction":"bidirectional","dataType":"value","angle":360}],
-      "visible":true,"showLabel":true,"data":{"title":"Derive adjacency constraints","body":"Convert authored bridge refs into workspace topology constraints saying which graph regions must be neighbors, independent of current graph position.","priority":"high","status":"todo","acceptanceCriteria":["Only authored bridge nodes establish adjacency","No fixed left/right/top/bottom semantics are authored","Closed and open targets remain distinguishable"],"definitionKey":"task","_classBinding":{"key":"task","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node","ref":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"},"_bridge":{"sourceNodeId":"bridge-task","sourceBridgeNodeId":"bridge-task","sourceBridgeLabel":"Task","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node","entryPort":"root","kind":"node-class","targetKind":"node-class","classKey":"task","classRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
+      "id": "bridge-question",
+      "type": "import",
+      "label": "Open Question",
+      "position": {
+        "x": 320,
+        "y": 180
+      },
+      "width": 300,
+      "height": 120,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "intent": "external",
+        "authority": "bridge",
+        "resourceKind": "node-class",
+        "scope": "focused-graph",
+        "grants": [
+          "create"
+        ],
+        "bridge": {
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "target": {
+          "mode": "bridge",
+          "label": "Create",
+          "kind": "node-class",
+          "key": "open-question",
+          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
+          "resourceKind": "node-class",
+          "scope": "focused-graph",
+          "grants": [
+            "create"
+          ]
+        },
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        }
+      }
     },
     {
-      "id":"task-boundary","type":"task","label":"Derive shared boundaries and apertures","position":{"x":1420,"y":560},"width":380,"height":260,"color":"linear-gradient(135deg, #9be7c4, #1f9d67)",
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180},{"id":"left","portId":"root","label":"left","direction":"bidirectional","dataType":"value","angle":180},{"id":"right","portId":"root","label":"right","direction":"bidirectional","dataType":"value","angle":360}],
-      "visible":true,"showLabel":true,"data":{"title":"Derive shared boundaries and apertures","body":"When bridged regions are adjacent, derive their common boundary and place the bridge aperture on that shared boundary. Corridor rails disappear once this model is authoritative.","priority":"high","status":"todo","acceptanceCriteria":["Bridged regions share visible boundary","Apertures align by construction","No corridor rails are required"],"definitionKey":"task","_classBinding":{"key":"task","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node","ref":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"},"_bridge":{"sourceNodeId":"bridge-task","sourceBridgeNodeId":"bridge-task","sourceBridgeLabel":"Task","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node","entryPort":"root","kind":"node-class","targetKind":"node-class","classKey":"task","classRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
+      "id": "goal-topology",
+      "type": "goal",
+      "label": "Topology survives movement",
+      "position": {
+        "x": -120,
+        "y": 420
+      },
+      "width": 420,
+      "height": 250,
+      "color": "linear-gradient(135deg, #dbeafe, #2563eb)",
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "portId": "root",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "portId": "root",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Topology survives movement",
+        "body": "Dragging or resizing a graph changes only the workspace embedding. Authored bridge adjacency remains authoritative and graph documents remain clean.",
+        "status": "proposed",
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node"
+      }
     },
     {
-      "id":"task-drag","type":"task","label":"Re-embed on graph movement","position":{"x":1860,"y":260},"width":380,"height":260,"color":"linear-gradient(135deg, #9be7c4, #1f9d67)",
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180},{"id":"left","portId":"root","label":"left","direction":"bidirectional","dataType":"value","angle":180},{"id":"right","portId":"root","label":"right","direction":"bidirectional","dataType":"value","angle":360}],
-      "visible":true,"showLabel":true,"data":{"title":"Re-embed on graph movement","body":"Dragging a graph changes the 2D embedding and recomputes region geometry while preserving bridge topology, graph-local node coordinates, and clean graph documents.","priority":"high","status":"todo","acceptanceCriteria":["Movement never rewrites bridge semantics","Graph documents remain clean","Region geometry settles deterministically"],"definitionKey":"task","_classBinding":{"key":"task","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node","ref":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"},"_bridge":{"sourceNodeId":"bridge-task","sourceBridgeNodeId":"bridge-task","sourceBridgeLabel":"Task","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node","entryPort":"root","kind":"node-class","targetKind":"node-class","classKey":"task","classRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
+      "id": "decision-layers",
+      "type": "decision",
+      "label": "Separate topology from geometry",
+      "position": {
+        "x": 430,
+        "y": 420
+      },
+      "width": 420,
+      "height": 250,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "portId": "root",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "portId": "root",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Separate semantic topology, workspace topology, and geometry",
+        "body": "Bridge nodes express adjacency. The workspace derives shared-region relationships. Geometry derives paths, apertures, hit regions, and minimap shapes from the current embedding.",
+        "status": "proposed",
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
+      }
     },
     {
-      "id":"task-minimap","type":"task","label":"Project regions into workspace minimap","position":{"x":1860,"y":560},"width":380,"height":260,"color":"linear-gradient(135deg, #9be7c4, #1f9d67)",
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180},{"id":"left","portId":"root","label":"left","direction":"bidirectional","dataType":"value","angle":180},{"id":"right","portId":"root","label":"right","direction":"bidirectional","dataType":"value","angle":360}],
-      "visible":true,"showLabel":true,"data":{"title":"Project regions into workspace minimap","body":"Render the same derived workspace regions and shared apertures in the workspace minimap. Do not maintain a second adjacency geometry model.","priority":"medium","status":"todo","acceptanceCriteria":["Minimap consumes canonical derived geometry","No duplicate adjacency derivation exists"],"definitionKey":"task","_classBinding":{"key":"task","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node","ref":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"},"_bridge":{"sourceNodeId":"bridge-task","sourceBridgeNodeId":"bridge-task","sourceBridgeLabel":"Task","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node","entryPort":"root","kind":"node-class","targetKind":"node-class","classKey":"task","classRef":"github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
+      "id": "task-audit",
+      "type": "task",
+      "label": "Audit current frame geometry",
+      "position": {
+        "x": 980,
+        "y": 260
+      },
+      "width": 380,
+      "height": 260,
+      "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "portId": "root",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "portId": "root",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Audit current frame geometry",
+        "body": "Trace rectangular frame, drag, resize, hit testing, focus, and minimap assumptions. Identify the minimum seams needed to support derived non-rectangular regions.",
+        "priority": "high",
+        "status": "todo",
+        "acceptanceCriteria": [
+          "Rectangular assumptions are enumerated",
+          "Workspace-only geometry ownership is identified"
+        ],
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+      }
     },
-
     {
-      "id":"question-region","type":"open-question","label":"How amorphous should regions be?","position":{"x":2320,"y":240},"width":420,"height":250,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180},{"id":"left","portId":"root","label":"left","direction":"bidirectional","dataType":"value","angle":180},{"id":"right","portId":"root","label":"right","direction":"bidirectional","dataType":"value","angle":360}],
-      "visible":true,"showLabel":true,"data":{"title":"How amorphous should regions be?","question":"What is the simplest region algorithm that preserves adjacency and adapts around graph extents without producing unstable blob geometry?","status":"open","notes":"Candidates: rectilinear unions, orthogonal polygons, padded hulls, Voronoi-like partitioning, or a staged approach.","definitionKey":"open-question","_classBinding":{"key":"open-question","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node","ref":"github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"},"_bridge":{"sourceNodeId":"bridge-question","sourceBridgeNodeId":"bridge-question","sourceBridgeLabel":"Open Question","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node","entryPort":"root","kind":"node-class","targetKind":"node-class","classKey":"open-question","classRef":"github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
+      "id": "task-region",
+      "type": "task",
+      "label": "Define derived region model",
+      "position": {
+        "x": 980,
+        "y": 560
+      },
+      "width": 380,
+      "height": 260,
+      "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "portId": "root",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "portId": "root",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Define derived region model",
+        "body": "Define a workspace-only region around each graph content extent. The region may be non-rectangular and must expose shared-boundary information without mutating graph documents.",
+        "priority": "high",
+        "status": "todo",
+        "acceptanceCriteria": [
+          "Region model is derived",
+          "Graph-local coordinates remain unchanged",
+          "Shared boundary can be queried"
+        ],
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+      }
     },
     {
-      "id":"question-conflicts","type":"open-question","label":"How do conflicting adjacency constraints resolve?","position":{"x":2320,"y":540},"width":420,"height":250,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180},{"id":"left","portId":"root","label":"left","direction":"bidirectional","dataType":"value","angle":180},{"id":"right","portId":"root","label":"right","direction":"bidirectional","dataType":"value","angle":360}],
-      "visible":true,"showLabel":true,"data":{"title":"Conflicting adjacency constraints","question":"How should the workspace resolve several bridges that cannot all be represented as direct pairwise shared boundaries in the current embedding?","status":"open","notes":"Keep this policy outside authored bridge semantics. It belongs in the workspace topology/layout resolver.","definitionKey":"open-question","_classBinding":{"key":"open-question","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node","ref":"github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"},"_bridge":{"sourceNodeId":"bridge-question","sourceBridgeNodeId":"bridge-question","sourceBridgeLabel":"Open Question","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node","entryPort":"root","kind":"node-class","targetKind":"node-class","classKey":"open-question","classRef":"github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
+      "id": "task-resolver",
+      "type": "task",
+      "label": "Derive adjacency constraints",
+      "position": {
+        "x": 1420,
+        "y": 260
+      },
+      "width": 380,
+      "height": 260,
+      "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "portId": "root",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "portId": "root",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Derive adjacency constraints",
+        "body": "Convert authored bridge refs into workspace topology constraints saying which graph regions must be neighbors, independent of current graph position.",
+        "priority": "high",
+        "status": "todo",
+        "acceptanceCriteria": [
+          "Only authored bridge nodes establish adjacency",
+          "No fixed left/right/top/bottom semantics are authored",
+          "Closed and open targets remain distinguishable"
+        ],
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+      }
     },
     {
-      "id":"question-resize","type":"open-question","label":"What does graph resize mean?","position":{"x":2780,"y":390},"width":420,"height":250,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180}],
-      "handles":[{"id":"root","portId":"root","label":"root","direction":"bidirectional","dataType":"any","angle":180},{"id":"left","portId":"root","label":"left","direction":"bidirectional","dataType":"value","angle":180}],
-      "visible":true,"showLabel":true,"data":{"title":"Graph resize semantics","question":"If graph frames become derived regions, what does user resize mean?","status":"open","notes":"Possibly resize changes a preferred workspace envelope while topology and content extents still constrain the final region.","definitionKey":"open-question","_classBinding":{"key":"open-question","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node","ref":"github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"},"_bridge":{"sourceNodeId":"bridge-question","sourceBridgeNodeId":"bridge-question","sourceBridgeLabel":"Open Question","sourceRef":"github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node","entryPort":"root","kind":"node-class","targetKind":"node-class","classKey":"open-question","classRef":"github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"},"identity":{"graphId":"workspace-topological-adjacency-declaration"}}
+      "id": "task-boundary",
+      "type": "task",
+      "label": "Derive shared boundaries and apertures",
+      "position": {
+        "x": 1420,
+        "y": 560
+      },
+      "width": 380,
+      "height": 260,
+      "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "portId": "root",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "portId": "root",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Derive shared boundaries and apertures",
+        "body": "When bridged regions are adjacent, derive their common boundary and place the bridge aperture on that shared boundary. Corridor rails disappear once this model is authoritative.",
+        "priority": "high",
+        "status": "todo",
+        "acceptanceCriteria": [
+          "Bridged regions share visible boundary",
+          "Apertures align by construction",
+          "No corridor rails are required"
+        ],
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+      }
+    },
+    {
+      "id": "task-drag",
+      "type": "task",
+      "label": "Re-embed on graph movement",
+      "position": {
+        "x": 1860,
+        "y": 260
+      },
+      "width": 380,
+      "height": 260,
+      "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "portId": "root",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "portId": "root",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Re-embed on graph movement",
+        "body": "Dragging a graph changes the 2D embedding and recomputes region geometry while preserving bridge topology, graph-local node coordinates, and clean graph documents.",
+        "priority": "high",
+        "status": "todo",
+        "acceptanceCriteria": [
+          "Movement never rewrites bridge semantics",
+          "Graph documents remain clean",
+          "Region geometry settles deterministically"
+        ],
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+      }
+    },
+    {
+      "id": "task-minimap",
+      "type": "task",
+      "label": "Project regions into workspace minimap",
+      "position": {
+        "x": 1860,
+        "y": 560
+      },
+      "width": 380,
+      "height": 260,
+      "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "portId": "root",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "portId": "root",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Project regions into workspace minimap",
+        "body": "Render the same derived workspace regions and shared apertures in the workspace minimap. Do not maintain a second adjacency geometry model.",
+        "priority": "medium",
+        "status": "todo",
+        "acceptanceCriteria": [
+          "Minimap consumes canonical derived geometry",
+          "No duplicate adjacency derivation exists"
+        ],
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
+      }
+    },
+    {
+      "id": "question-region",
+      "type": "open-question",
+      "label": "How amorphous should regions be?",
+      "position": {
+        "x": 2320,
+        "y": 240
+      },
+      "width": 420,
+      "height": 250,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "portId": "root",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "portId": "root",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "How amorphous should regions be?",
+        "question": "What is the simplest region algorithm that preserves adjacency and adapts around graph extents without producing unstable blob geometry?",
+        "status": "open",
+        "notes": "Candidates: rectilinear unions, orthogonal polygons, padded hulls, Voronoi-like partitioning, or a staged approach.",
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
+      }
+    },
+    {
+      "id": "question-conflicts",
+      "type": "open-question",
+      "label": "How do conflicting adjacency constraints resolve?",
+      "position": {
+        "x": 2320,
+        "y": 540
+      },
+      "width": 420,
+      "height": 250,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "portId": "root",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "right",
+          "portId": "root",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Conflicting adjacency constraints",
+        "question": "How should the workspace resolve several bridges that cannot all be represented as direct pairwise shared boundaries in the current embedding?",
+        "status": "open",
+        "notes": "Keep this policy outside authored bridge semantics. It belongs in the workspace topology/layout resolver.",
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
+      }
+    },
+    {
+      "id": "question-resize",
+      "type": "open-question",
+      "label": "What does graph resize mean?",
+      "position": {
+        "x": 2780,
+        "y": 390
+      },
+      "width": 420,
+      "height": 250,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        },
+        {
+          "id": "left",
+          "portId": "root",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Graph resize semantics",
+        "question": "If graph frames become derived regions, what does user resize mean?",
+        "status": "open",
+        "notes": "Possibly resize changes a preferred workspace envelope while topology and content extents still constrain the final region.",
+        "identity": {
+          "graphId": "workspace-topological-adjacency-declaration"
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
+      }
     }
   ],
   "edges": [
-    {"id":"edge-detail","source":"workspace-topological-adjacency-declaration","sourcePort":"default-view","sourceHandle":"default-view","target":"topology-detail","targetPort":"root","targetHandle":"root","type":"default-view","data":{"semanticRole":"default-view"}},
-    {"id":"edge-summary","source":"workspace-topological-adjacency-declaration","sourcePort":"summary-view","sourceHandle":"summary-view","target":"topology-summary","targetPort":"root","targetHandle":"root","type":"reference","data":{"semanticRole":"shared-summary"}},
-    {"id":"edge-icon","source":"workspace-topological-adjacency-declaration","sourcePort":"icon-view","sourceHandle":"icon-view","target":"topology-icon","targetPort":"root","targetHandle":"root","type":"reference","data":{"semanticRole":"shared-icon"}},
-    {"id":"edge-glyph","source":"workspace-topological-adjacency-declaration","sourcePort":"glyph","sourceHandle":"glyph","target":"topology-glyph","targetPort":"root","targetHandle":"root","type":"reference","data":{"semanticRole":"shared-glyph"}},
-    {"id":"edge-landing","source":"workspace-topological-adjacency-declaration","sourcePort":"landing-surface","sourceHandle":"landing-surface","target":"topology-landing","targetPort":"root","targetHandle":"root","type":"reference","data":{"semanticRole":"landing-surface"}},
-    {"id":"edge-goal-decision","source":"goal-topology","sourceHandle":"right","target":"decision-layers","targetHandle":"left","type":"reference","label":"architecture"},
-    {"id":"edge-decision-audit","source":"decision-layers","sourceHandle":"right","target":"task-audit","targetHandle":"left","type":"reference","label":"task"},
-    {"id":"edge-decision-region","source":"decision-layers","sourceHandle":"right","target":"task-region","targetHandle":"left","type":"reference","label":"task"},
-    {"id":"edge-audit-resolver","source":"task-audit","sourceHandle":"right","target":"task-resolver","targetHandle":"left","type":"reference","label":"informs"},
-    {"id":"edge-region-boundary","source":"task-region","sourceHandle":"right","target":"task-boundary","targetHandle":"left","type":"reference","label":"enables"},
-    {"id":"edge-resolver-drag","source":"task-resolver","sourceHandle":"right","target":"task-drag","targetHandle":"left","type":"reference","label":"drives"},
-    {"id":"edge-boundary-minimap","source":"task-boundary","sourceHandle":"right","target":"task-minimap","targetHandle":"left","type":"reference","label":"projects"},
-    {"id":"edge-region-question","source":"task-region","sourceHandle":"right","target":"question-region","targetHandle":"left","type":"reference","label":"opens"},
-    {"id":"edge-resolver-question","source":"task-resolver","sourceHandle":"right","target":"question-conflicts","targetHandle":"left","type":"reference","label":"opens"},
-    {"id":"edge-question-resize","source":"question-conflicts","sourceHandle":"right","target":"question-resize","targetHandle":"left","type":"reference","label":"next question"}
+    {
+      "id": "topology-detail-surface",
+      "type": "surface",
+      "source": "workspace-topological-adjacency-declaration",
+      "target": "topology-detail",
+      "label": "",
+      "style": {},
+      "data": {
+        "surfaceId": "detail"
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
+    },
+    {
+      "id": "topology-detail-next",
+      "type": "next-face",
+      "source": "topology-detail",
+      "target": "topology-summary",
+      "label": "",
+      "style": {},
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
+    },
+    {
+      "id": "topology-summary-next",
+      "type": "next-face",
+      "source": "topology-summary",
+      "target": "topology-icon",
+      "label": "",
+      "style": {},
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
+    },
+    {
+      "id": "topology-icon-next",
+      "type": "next-face",
+      "source": "topology-icon",
+      "target": "topology-glyph",
+      "label": "",
+      "style": {},
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
+    },
+    {
+      "id": "edge-landing",
+      "source": "workspace-topological-adjacency-declaration",
+      "sourcePort": "ground",
+      "target": "topology-landing",
+      "targetPort": "root",
+      "type": "ground",
+      "data": {}
+    },
+    {
+      "id": "edge-goal-decision",
+      "source": "goal-topology",
+      "target": "decision-layers",
+      "type": "edge",
+      "label": "architecture",
+      "sourcePort": "right",
+      "targetPort": "left"
+    },
+    {
+      "id": "edge-decision-audit",
+      "source": "decision-layers",
+      "target": "task-audit",
+      "type": "edge",
+      "label": "task",
+      "sourcePort": "right",
+      "targetPort": "left"
+    },
+    {
+      "id": "edge-decision-region",
+      "source": "decision-layers",
+      "target": "task-region",
+      "type": "edge",
+      "label": "task",
+      "sourcePort": "right",
+      "targetPort": "left"
+    },
+    {
+      "id": "edge-audit-resolver",
+      "source": "task-audit",
+      "target": "task-resolver",
+      "type": "edge",
+      "label": "informs",
+      "sourcePort": "right",
+      "targetPort": "left"
+    },
+    {
+      "id": "edge-region-boundary",
+      "source": "task-region",
+      "target": "task-boundary",
+      "type": "edge",
+      "label": "enables",
+      "sourcePort": "right",
+      "targetPort": "left"
+    },
+    {
+      "id": "edge-resolver-drag",
+      "source": "task-resolver",
+      "target": "task-drag",
+      "type": "edge",
+      "label": "drives",
+      "sourcePort": "right",
+      "targetPort": "left"
+    },
+    {
+      "id": "edge-boundary-minimap",
+      "source": "task-boundary",
+      "target": "task-minimap",
+      "type": "edge",
+      "label": "projects",
+      "sourcePort": "right",
+      "targetPort": "left"
+    },
+    {
+      "id": "edge-region-question",
+      "source": "task-region",
+      "target": "question-region",
+      "type": "edge",
+      "label": "opens",
+      "sourcePort": "right",
+      "targetPort": "left"
+    },
+    {
+      "id": "edge-resolver-question",
+      "source": "task-resolver",
+      "target": "question-conflicts",
+      "type": "edge",
+      "label": "opens",
+      "sourcePort": "right",
+      "targetPort": "left"
+    },
+    {
+      "id": "edge-question-resize",
+      "source": "question-conflicts",
+      "target": "question-resize",
+      "type": "edge",
+      "label": "next question",
+      "sourcePort": "right",
+      "targetPort": "left"
+    }
   ]
 }

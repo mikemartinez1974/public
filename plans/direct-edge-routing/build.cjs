@@ -35,7 +35,7 @@ const exemplars = new Map(
 
 graph.nodes = graph.nodes.filter((node) => !semanticTypes.has(node.type));
 graph.edges = graph.edges.filter((edge) => {
-  const role = String(edge.data?.semanticRole || '').trim();
+  const role = String(edge.type || '').trim();
   return !role.startsWith('plan.') && role !== 'instantiates';
 });
 
@@ -127,9 +127,9 @@ const edgePorts = {
 const addEdge = (id, type, source, target, ports = edgePorts[type]) => {
   graph.edges.push({
     id, type, label: type.replace('plan.', '').replaceAll('-', ' '), source, target,
-    sourcePort: ports[0], sourceHandle: ports[0], targetPort: ports[1], targetHandle: ports[1],
+    sourcePort: ports[0], targetPort: ports[1],
     style: { ...edgeStyle[type], curved: true, dash: edgeStyle[type]?.dash || [] },
-    data: { semanticRole: type, presentation: { layer: 'semantic' } }
+    data: { presentation: { layer: 'semantic' } }
   });
 };
 
@@ -161,10 +161,10 @@ addEdge(`${prefix}-edge-milestone`, 'plan.produces', `${prefix}-action-guidance`
 for (const node of contentNodes) {
   const bridgeId = `${prefix}-class-bridge-${node.type}`;
   graph.edges.push({
-    id: `${node.id}-instantiates`, type: 'reference', label: '', source: bridgeId, target: node.id,
-    sourcePort: 'root', sourceHandle: 'root', targetPort: 'root', targetHandle: 'root', hidden: true,
+    id: `${node.id}-instantiates`, type: 'instantiates', label: '', source: bridgeId, target: node.id,
+    sourcePort: 'root', targetPort: 'root', hidden: true,
     style: { stroke: '#64748b', strokeWidth: 1, opacity: 0.03 },
-    data: { role: 'instantiates', semanticRole: 'instantiates', presentation: { layer: 'contract' } }
+    data: { presentation: { layer: 'contract' } }
   });
 }
 
@@ -212,7 +212,7 @@ landing.data.identity = { ...landing.data.identity, graphId, nodeId: 'direct-edg
 
 const instructions = graph.nodes.find((node) => node.id === `${prefix}-instructions`);
 instructions.label = 'Route Authoring Contract';
-instructions.data.markdown = '# Route authoring contract\n\n- A route pin changes presentation, never logical connectivity.\n- A route pin belongs to exactly one edge.\n- Pin Route persists the current route; Unpin Route and Reset Route return it to automatic routing.\n- Add Route Pin inserts a layout control at the selected edge location; deleting a pin resequences the remaining controls.\n- Manual route pins produce orthogonal segments. Curve control handles are a separate future control type.\n- Shared or branching topology requires an explicit router node.\n- Promotion must wait for a router contract covering ports, traversal, relationship continuity, deletion, and serialization.\n- Invalid manual geometry preserves the logical edge and offers Reset Route.';
+instructions.data.content = { kind: 'markdown', value: '# Route authoring contract\n\n- A route pin changes presentation, never logical connectivity.\n- A route pin belongs to exactly one edge.\n- Pin Route persists the current route; Unpin Route and Reset Route return it to automatic routing.\n- Add Route Pin inserts a layout control at the selected edge location; deleting a pin resequences the remaining controls.\n- Manual route pins produce orthogonal segments. Curve control handles are a separate future control type.\n- Shared or branching topology requires an explicit router node.\n- Promotion must wait for a router contract covering ports, traversal, relationship continuity, deletion, and serialization.\n- Invalid manual geometry preserves the logical edge and offers Reset Route.' };
 
 for (const node of graph.nodes) {
   if (node.data?.identity?.graphId) node.data.identity.graphId = graphId;
@@ -224,9 +224,6 @@ graph.settings = {
   edgeRouting: 'orthogonal',
   layout: { mode: 'manual', defaultLayout: 'layered', direction: 'RIGHT', edgeLaneGapPx: 20 }
 };
-graph.nodeCount = graph.nodes.length;
-graph.edgeCount = graph.edges.length;
-graph.timestamp = now;
 
 fs.mkdirSync(__dirname, { recursive: true });
 fs.writeFileSync(outputPath, `${JSON.stringify(graph, null, 2)}\n`);

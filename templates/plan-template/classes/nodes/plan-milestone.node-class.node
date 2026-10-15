@@ -1,10 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Milestone Node Class",
-    "description": "A checkpoint or achieved state that marks progress.",
-    "graphId": "plan-milestone-class",
-    "version": "0.4.0",
     "tags": [
       "node-class",
       "plan-template"
@@ -14,7 +10,7 @@
   "nodes": [
     {
       "id": "plan-milestone-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Milestone Declaration",
       "position": {
         "x": 0,
@@ -42,9 +38,9 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
@@ -108,9 +104,9 @@
           "portId": "port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
@@ -124,7 +120,7 @@
             ],
             "repeatable": false
           },
-          "portId": "landing-surface"
+          "portId": "ground"
         },
         {
           "id": "surfaces",
@@ -166,47 +162,6 @@
         "intent": {
           "kind": "node-class",
           "scope": "local"
-        },
-        "declaration": {
-          "kind": "node-class",
-          "targetMode": "artifact",
-          "artifactKind": "node-class",
-          "defaultSurfaceId": "root",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Milestone",
-              "portNodeId": "plan-milestone-root-port",
-              "presentation": {
-                "detail": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-milestone-detail-view"
-                },
-                "summary": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-milestone-summary-view"
-                },
-                "icon": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-milestone-icon-view"
-                }
-              }
-            }
-          ],
-          "sharedPresentation": {
-            "detailViewNodeId": "plan-milestone-detail-view",
-            "summaryViewNodeId": "plan-milestone-summary-view",
-            "iconViewNodeId": "plan-milestone-icon-view",
-            "glyphNodeId": "plan-milestone-glyph"
-          },
-          "primaryNodeViewId": "plan-milestone-detail-view",
-          "primaryEditorViewId": "plan-milestone-editor-view",
-          "portViewNodeId": "plan-milestone-root-port"
         },
         "nodeClass": {
           "contractVersion": "1.1.0",
@@ -302,6 +257,47 @@
             "core",
             "plan-edge-port-contract@0.1.0"
           ]
+        },
+        "root": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "artifactKind": "node-class",
+          "defaultSurfaceId": "root",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Milestone",
+              "portNodeId": "plan-milestone-root-port",
+              "presentation": {
+                "detail": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-milestone-detail-view"
+                },
+                "summary": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-milestone-summary-view"
+                },
+                "icon": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-milestone-icon-view"
+                }
+              }
+            }
+          ],
+          "sharedPresentation": {
+            "detailViewNodeId": "plan-milestone-detail-view",
+            "summaryViewNodeId": "plan-milestone-summary-view",
+            "iconViewNodeId": "plan-milestone-icon-view",
+            "glyphNodeId": "plan-milestone-glyph"
+          },
+          "primaryNodeViewId": "plan-milestone-detail-view",
+          "primaryEditorViewId": "plan-milestone-editor-view",
+          "portViewNodeId": "plan-milestone-root-port"
         }
       }
     },
@@ -424,7 +420,7 @@
     },
     {
       "id": "plan-milestone-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Milestone Detail",
       "position": {
         "x": -520,
@@ -468,7 +464,7 @@
     },
     {
       "id": "plan-milestone-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Milestone Summary",
       "position": {
         "x": -520,
@@ -512,7 +508,7 @@
     },
     {
       "id": "plan-milestone-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Milestone Icon",
       "position": {
         "x": -520,
@@ -556,7 +552,7 @@
     },
     {
       "id": "plan-milestone-editor-view",
-      "type": "view",
+      "type": "face",
       "label": "Milestone Editor",
       "position": {
         "x": 0,
@@ -692,62 +688,53 @@
       "type": "surface",
       "source": "plan-milestone-declaration",
       "target": "plan-milestone-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "root"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "plan-milestone-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-milestone-detail-view",
       "target": "plan-milestone-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "plan-milestone-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-milestone-summary-view",
       "target": "plan-milestone-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "plan-milestone-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-milestone-icon-view",
       "target": "plan-milestone-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "plan-milestone-port-edge",
-      "type": "reference",
+      "type": "exposes-port",
       "hidden": true,
       "source": "plan-milestone-declaration",
       "target": "plan-milestone-root-port",
-      "sourceHandle": "port",
-      "targetHandle": "root",
       "sourcePort": "port",
       "targetPort": "root",
       "label": "",
@@ -757,8 +744,6 @@
         "opacity": 0.03
       },
       "data": {
-        "role": "exposes-port",
-        "semanticRole": "exposes-port",
         "presentation": {
           "layer": "contract"
         }
@@ -766,13 +751,11 @@
     },
     {
       "id": "plan-milestone-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "hidden": true,
       "source": "plan-milestone-declaration",
       "target": "plan-milestone-landing-content",
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root",
-      "sourcePort": "landing-surface",
+      "sourcePort": "ground",
       "targetPort": "root",
       "label": "",
       "style": {
@@ -781,15 +764,12 @@
         "opacity": 0.03
       },
       "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface",
         "presentation": {
           "layer": "contract"
         }
       }
     }
   ],
-  "clusters": [],
   "settings": {
     "edgeRouting": "orthogonal",
     "layout": {

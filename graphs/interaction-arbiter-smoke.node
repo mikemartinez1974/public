@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Interaction Arbiter Smoke Test",
-    "description": "A focused Graph Lab fixture for proving gesture ownership before semantic zoom work continues.",
-    "graphId": "interaction-smoke-declaration",
-    "version": "0.1.0",
-    "kind": "smoke-test",
     "created": "2026-08-10T18:05:37.562Z",
     "modified": "2026-08-10T18:36:45.122Z",
     "author": "",
@@ -17,9 +12,8 @@
   "nodes": [
     {
       "id": "interaction-smoke-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Interaction Smoke Declaration",
-      "root": false,
       "position": {
         "x": -760,
         "y": -620
@@ -54,33 +48,6 @@
         "intent": {
           "kind": "smoke-test",
           "scope": "public"
-        },
-        "declaration": {
-          "kind": "smoke-test",
-          "targetMode": "artifact",
-          "artifactKind": "graph",
-          "graphViewRole": "validation",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Interaction Arbiter Smoke Test",
-              "portNodeId": "interaction-smoke-root",
-              "viewNodeId": "interaction-smoke-root",
-              "memo": "Canonical entry for the interaction smoke fixture.",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            }
-          ],
-          "primaryNodeViewId": "interaction-smoke-root",
-          "portViewNodeId": "interaction-smoke-root"
         },
         "dependencies": {
           "nodeTypes": [
@@ -135,6 +102,33 @@
         },
         "document": {
           "url": ""
+        },
+        "root": {
+          "kind": "smoke-test",
+          "targetMode": "artifact",
+          "artifactKind": "graph",
+          "graphViewRole": "validation",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Interaction Arbiter Smoke Test",
+              "portNodeId": "interaction-smoke-root",
+              "viewNodeId": "interaction-smoke-root",
+              "memo": "Canonical entry for the interaction smoke fixture.",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ],
+          "primaryNodeViewId": "interaction-smoke-root",
+          "portViewNodeId": "interaction-smoke-root"
         }
       }
     },
@@ -142,7 +136,6 @@
       "id": "interaction-smoke-root",
       "type": "port",
       "label": "Interaction Arbiter Smoke Test",
-      "root": true,
       "position": {
         "x": -180,
         "y": -720
@@ -189,9 +182,8 @@
     },
     {
       "id": "interaction-smoke-procedure",
-      "type": "markdown",
+      "type": "content",
       "label": "Phase 2 Procedure",
-      "root": false,
       "position": {
         "x": -860,
         "y": -180
@@ -225,18 +217,20 @@
       "showLabel": true,
       "data": {
         "title": "Phase 2 Procedure",
-        "markdown": "# Phase 2 Procedure\n\nUse this graph on `dev.twilite.zone` in edit mode.\n\n1. Drag empty canvas: the canvas pans.\n2. Drag the unpinned card: only that node moves.\n3. Drag the pinned card background: the canvas pans.\n4. Scroll inside the long card: its content scrolls until the boundary, then wheel zoom becomes reachable.\n5. Drag connection and resize handles: each handle keeps ownership.\n6. Hover and click the labeled edges: the intended edge highlights and selects.\n7. Open the People portal and confirm its pager controls remain clickable.\n8. Save, reload, and confirm the authored pin survives.\n\nDo not accept a renderer-local propagation patch as a passing result.",
         "visibilityRole": "browser",
         "identity": {
           "graphId": "interaction-arbiter-smoke"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Phase 2 Procedure\n\nUse this graph on `dev.twilite.zone` in edit mode.\n\n1. Drag empty canvas: the canvas pans.\n2. Drag the unpinned card: only that node moves.\n3. Drag the pinned card background: the canvas pans.\n4. Scroll inside the long card: its content scrolls until the boundary, then wheel zoom becomes reachable.\n5. Drag connection and resize handles: each handle keeps ownership.\n6. Hover and click the labeled edges: the intended edge highlights and selects.\n7. Open the People portal and confirm its pager controls remain clickable.\n8. Save, reload, and confirm the authored pin survives.\n\nDo not accept a renderer-local propagation patch as a passing result."
         }
       }
     },
     {
       "id": "interaction-smoke-unpinned",
-      "type": "markdown",
+      "type": "content",
       "label": "Unpinned Node",
-      "root": false,
       "position": {
         "x": -180,
         "y": -120
@@ -277,18 +271,20 @@
       "showLabel": true,
       "data": {
         "title": "Unpinned Node",
-        "markdown": "# Unpinned Node\n\nDragging this background moves the node. Handles, text, and chrome must retain their own behavior.",
         "visibilityRole": "browser",
         "identity": {
           "graphId": "interaction-arbiter-smoke"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Unpinned Node\n\nDragging this background moves the node. Handles, text, and chrome must retain their own behavior."
         }
       }
     },
     {
       "id": "interaction-smoke-pinned-scroll",
-      "type": "markdown",
+      "type": "content",
       "label": "Pinned Scroll Surface",
-      "root": false,
       "position": {
         "x": 420,
         "y": -120
@@ -330,10 +326,13 @@
       "showLabel": true,
       "data": {
         "title": "Pinned Scroll Surface",
-        "markdown": "# Pinned Scroll Surface\n\nDragging unused card background pans the canvas; it never selects text or moves this node.\n\n## Internal scrolling\n\nWheel input over this content belongs here while more content remains in that direction. At the scroll boundary, the canvas must regain wheel zoom.\n\n## Controls and chrome\n\nPin, Edit, links, inputs, and resize or connection handles remain interactive even though the node is pinned. Pinning transfers only background movement ownership.\n\n## Reload proof\n\nSave and reload. This card must remain pinned because `positionLocked` is authored graph state.\n\n## Regression warning\n\nA fix that works only for one renderer, one zoom level, or one mouse path does not pass.",
         "visibilityRole": "browser",
         "identity": {
           "graphId": "interaction-arbiter-smoke"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Pinned Scroll Surface\n\nDragging unused card background pans the canvas; it never selects text or moves this node.\n\n## Internal scrolling\n\nWheel input over this content belongs here while more content remains in that direction. At the scroll boundary, the canvas must regain wheel zoom.\n\n## Controls and chrome\n\nPin, Edit, links, inputs, and resize or connection handles remain interactive even though the node is pinned. Pinning transfers only background movement ownership.\n\n## Reload proof\n\nSave and reload. This card must remain pinned because `positionLocked` is authored graph state.\n\n## Regression warning\n\nA fix that works only for one renderer, one zoom level, or one mouse path does not pass."
         }
       }
     },
@@ -341,7 +340,6 @@
       "id": "interaction-smoke-people",
       "type": "portal",
       "label": "People Collection",
-      "root": false,
       "position": {
         "x": -120,
         "y": 420
@@ -391,7 +389,6 @@
       "id": "interaction-smoke-roadmap",
       "type": "portal",
       "label": "Interaction Roadmap",
-      "root": false,
       "position": {
         "x": 480,
         "y": 420
@@ -505,7 +502,7 @@
     },
     {
       "id": "interaction-smoke-edge-pinned-roadmap",
-      "type": "reference",
+      "type": "edge",
       "source": "interaction-smoke-pinned-scroll",
       "target": "interaction-smoke-roadmap",
       "sourcePort": "bottom",
@@ -530,7 +527,6 @@
       "data": {}
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

@@ -1,17 +1,12 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Collection Window Controller Node Class",
-    "description": "Executable collection window behavior with an authored firing surface and configuration view.",
-    "graphId": "collection-window-controller-class",
-    "version": "1.0.0",
-    "kind": "node-class",
     "preferredViewer": "https://twilite.zone"
   },
   "nodes": [
     {
       "id": "collection-window-controller-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Collection Window Controller Declaration",
       "position": {
         "x": -760,
@@ -46,44 +41,6 @@
         "intent": {
           "kind": "node-class",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "node-class",
-          "targetMode": "artifact",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Collection Window Controller",
-              "portNodeId": "collection-window-controller-root",
-              "viewNodeId": "collection-window-controller-summary"
-            },
-            {
-              "id": "summary",
-              "kind": "view",
-              "label": "Firing Surface",
-              "viewNodeId": "collection-window-controller-summary"
-            },
-            {
-              "id": "detail",
-              "kind": "view",
-              "label": "Configuration",
-              "viewNodeId": "collection-window-controller-detail"
-            },
-            {
-              "id": "icon",
-              "kind": "view",
-              "label": "Icon",
-              "viewNodeId": "collection-window-controller-icon"
-            },
-            {
-              "id": "editor",
-              "kind": "view",
-              "label": "Editor",
-              "viewNodeId": "collection-window-controller-editor"
-            }
-          ]
         },
         "nodeClass": {
           "contractVersion": "1.0.0",
@@ -165,6 +122,44 @@
             "ports": ">=1.0.0"
           },
           "optional": []
+        },
+        "root": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Collection Window Controller",
+              "portNodeId": "collection-window-controller-root",
+              "viewNodeId": "collection-window-controller-summary"
+            },
+            {
+              "id": "summary",
+              "kind": "view",
+              "label": "Firing Surface",
+              "viewNodeId": "collection-window-controller-summary"
+            },
+            {
+              "id": "detail",
+              "kind": "view",
+              "label": "Configuration",
+              "viewNodeId": "collection-window-controller-detail"
+            },
+            {
+              "id": "icon",
+              "kind": "view",
+              "label": "Icon",
+              "viewNodeId": "collection-window-controller-icon"
+            },
+            {
+              "id": "editor",
+              "kind": "view",
+              "label": "Editor",
+              "viewNodeId": "collection-window-controller-editor"
+            }
+          ]
         }
       },
       "handles": [
@@ -229,7 +224,7 @@
     },
     {
       "id": "collection-window-controller-summary",
-      "type": "view",
+      "type": "face",
       "label": "Controller Firing Surface",
       "position": {
         "x": 320,
@@ -322,7 +317,7 @@
     },
     {
       "id": "collection-window-controller-detail",
-      "type": "view",
+      "type": "face",
       "label": "Controller Configuration",
       "position": {
         "x": 320,
@@ -398,7 +393,7 @@
     },
     {
       "id": "collection-window-controller-icon",
-      "type": "view",
+      "type": "face",
       "label": "Controller Icon",
       "position": {
         "x": 1000,
@@ -454,7 +449,7 @@
     },
     {
       "id": "collection-window-controller-editor",
-      "type": "view",
+      "type": "face",
       "label": "Controller Editor",
       "position": {
         "x": 320,
@@ -518,7 +513,7 @@
     },
     {
       "id": "collection-window-controller-export",
-      "type": "bridge",
+      "type": "export",
       "label": "Collection Window Controller Class Export",
       "position": {
         "x": -760,
@@ -530,7 +525,6 @@
       "data": {
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controller.node-class.node",
-          "role": "export",
           "resourceKind": "node-class",
           "scope": "focused-graph",
           "grants": [
@@ -560,21 +554,21 @@
   "edges": [
     {
       "id": "controller-class-edge-root",
-      "type": "reference",
+      "type": "edge",
       "source": "collection-window-controller-declaration",
       "target": "collection-window-controller-root",
       "label": "exposes class",
-      "sourceHandle": "right",
-      "targetHandle": "root"
+      "sourcePort": "right",
+      "targetPort": "root"
     },
     {
       "id": "controller-class-edge-summary",
-      "type": "reference",
+      "type": "edge",
       "source": "collection-window-controller-root",
       "target": "collection-window-controller-summary",
       "label": "fires as",
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     }
   ],
   "viewport": {

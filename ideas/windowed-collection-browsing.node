@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Windowed Collection Browsing",
-    "description": "Explore a scrollable, bounded collection surface over ordinary members in one graph.",
-    "graphId": "windowed-collection-view",
-    "version": "0.1.0",
-    "kind": "idea",
     "created": "2026-08-02T23:45:00.000Z",
     "modified": "2026-08-02T23:45:00.000Z",
     "author": "Michael Martinez",
@@ -20,7 +15,7 @@
   "nodes": [
     {
       "id": "windowed-collection-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Windowed Collection Browsing Declaration",
       "position": {
         "x": -1180,
@@ -51,30 +46,6 @@
         "intent": {
           "kind": "idea",
           "scope": "public"
-        },
-        "declaration": {
-          "kind": "idea",
-          "targetMode": "artifact",
-          "artifactKind": "idea",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Windowed Collection Browsing",
-              "memo": "Canonical entry surface for the windowed-collection idea.",
-              "portNodeId": "windowed-collection-root-port",
-              "viewNodeId": "windowed-collection-root-port",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            }
-          ]
         },
         "dependencies": {
           "nodeTypes": [
@@ -124,7 +95,31 @@
             "squashAllowed": false
           }
         },
-        "declaresKind": "idea"
+        "declaresKind": "idea",
+        "root": {
+          "kind": "idea",
+          "targetMode": "artifact",
+          "artifactKind": "idea",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Windowed Collection Browsing",
+              "memo": "Canonical entry surface for the windowed-collection idea.",
+              "portNodeId": "windowed-collection-root-port",
+              "viewNodeId": "windowed-collection-root-port",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     {
@@ -177,7 +172,7 @@
     },
     {
       "id": "windowed-collection-instructions",
-      "type": "markdown",
+      "type": "content",
       "label": "Discussion Map",
       "position": {
         "x": -220,
@@ -228,7 +223,10 @@
         "identity": {
           "graphId": "windowed-collection-view"
         },
-        "markdown": "# Discussion Map\n\nUse the semantic edges to follow the proposal:\n\n- large collections **motivate** a bounded browsing window\n- authors and visitors are **affected by** crowded collection surfaces\n- the idea **assumes** windowing can remain presentation-only\n- existing list virtualization **informs** the membership question\n- observed virtualization behavior **supports** the presentation assumption\n- explicit page graphs **question** directory discovery\n- address-changing file moves **threaten** the idea\n- a ten-member prototype **tests** the assumption and the proposed surface **advances** the idea\n\nMembership comes from repository structure. Direct `.node` files and `root.node` files in direct child directories become collection members; the collection’s own `root.node` and deeper descendants do not. Scrolling changes browser state, not authored graph state."
+        "content": {
+          "kind": "markdown",
+          "value": "# Discussion Map\n\nUse the semantic edges to follow the proposal:\n\n- large collections **motivate** a bounded browsing window\n- authors and visitors are **affected by** crowded collection surfaces\n- the idea **assumes** windowing can remain presentation-only\n- existing list virtualization **informs** the membership question\n- observed virtualization behavior **supports** the presentation assumption\n- explicit page graphs **question** directory discovery\n- address-changing file moves **threaten** the idea\n- a ten-member prototype **tests** the assumption and the proposed surface **advances** the idea\n\nMembership comes from repository structure. Direct `.node` files and `root.node` files in direct child directories become collection members; the collection’s own `root.node` and deeper descendants do not. Scrolling changes browser state, not authored graph state."
+        }
       }
     },
     {
@@ -286,27 +284,15 @@
         "status": "framed",
         "confidence": "promising",
         "notes": "The first proof should show ten discovered graph members, advance without saving layout mutations, and automatically include a newly added `.node` file or child `root.node`.",
-        "definitionKey": "idea",
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "windowed-collection-view"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
       }
     },
     {
       "id": "windowed-collection-bridge-idea",
-      "type": "bridge",
+      "type": "import",
       "label": "Idea",
       "position": {
         "x": -1740,
@@ -326,18 +312,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -425,27 +399,15 @@
         "statement": "A collection graph may remain understandable as a set, yet rendering every member simultaneously crowds the canvas and makes browsing increasingly awkward.",
         "impact": "Authors lose a useful collection surface and visitors cannot scan members comfortably, even though the underlying graph and membership model are still adequate.",
         "urgency": "high",
-        "definitionKey": "idea-problem",
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "windowed-collection-view"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
       }
     },
     {
       "id": "windowed-collection-bridge-idea-problem",
-      "type": "bridge",
+      "type": "import",
       "label": "Problem",
       "position": {
         "x": -1740,
@@ -465,18 +427,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -563,27 +513,15 @@
         "title": "Collection Authors and Browsing Visitors",
         "description": "People who add ordinary nodes or member portals to a collection and people who want to browse those members without confronting the entire canvas at once.",
         "needs": "Add members exactly as they do now, see a manageable window of cards, scroll naturally, and retain ordinary node and portal navigation.",
-        "definitionKey": "idea-audience",
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "windowed-collection-view"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
       }
     },
     {
       "id": "windowed-collection-bridge-idea-audience",
-      "type": "bridge",
+      "type": "import",
       "label": "Audience",
       "position": {
         "x": -1740,
@@ -603,18 +541,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -701,27 +627,15 @@
         "title": "A Windowed Collection Surface",
         "description": "Treat repository structure as collection membership: include direct `.node` files except the collection’s own `root.node`, plus `root.node` from each direct child directory, without recursively flattening deeper descendants. In browse mode, resolve and render a fixed-size window such as ten root-surface cards and advance the temporary offset through wheel, touch, or explicit controls.",
         "differentiator": "Authors add graph files exactly as they do now; no second portal registry or page graph is required. Directory enumeration supplies lightweight membership, and only the visible window needs its graph root surfaces resolved.",
-        "definitionKey": "idea-proposed-approach",
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "windowed-collection-view"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
       }
     },
     {
       "id": "windowed-collection-bridge-idea-proposed-approach",
-      "type": "bridge",
+      "type": "import",
       "label": "Proposed Approach",
       "position": {
         "x": -1740,
@@ -741,18 +655,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -840,29 +742,17 @@
         "question": "What is the smallest reliable membership rule that lets a collection automatically include newly added graphs?",
         "status": "answered",
         "answer": "Repository location determines membership. Include direct `.node` files other than the collection’s own `root.node`, and include `root.node` from each direct child directory. Do not recursively flatten deeper descendants; supporting files and directories without a `root.node` are not members.",
-        "definitionKey": "idea-question",
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "windowed-collection-view"
         },
         "resolution": "The collection directory is authoritative for membership; the collection graph owns presentation rather than a duplicated member registry.",
-        "resolutionPath": "Decision recorded in this idea graph and linked to Graph Organization’s active collection-growth task."
+        "resolutionPath": "Decision recorded in this idea graph and linked to Graph Organization’s active collection-growth task.",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
       }
     },
     {
       "id": "windowed-collection-bridge-idea-question",
-      "type": "bridge",
+      "type": "import",
       "label": "Question",
       "position": {
         "x": -1740,
@@ -882,18 +772,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -982,27 +860,15 @@
         "importance": "critical",
         "status": "partially-tested",
         "result": "The Elements panel already virtualizes long lists, demonstrating the bounded-rendering pattern, but a canvas collection surface has not yet proven navigation and state isolation.",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "windowed-collection-view"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
       }
     },
     {
       "id": "windowed-collection-bridge-idea-assumption",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumption",
       "position": {
         "x": -1740,
@@ -1022,18 +888,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1121,31 +975,19 @@
         "findings": "The existing panels switch to virtualized rows for long lists. This proves that bounded rendering can be local UI state, though it does not yet define collection membership or an on-canvas browsing surface.",
         "sourceUrl": "github://mikemartinez1974/public/templates/workboard-template/root.node",
         "sourceType": "graph",
-        "definitionKey": "idea-research",
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "windowed-collection-view"
         },
         "topic": "How Twilite already limits rendering work for long node lists.",
         "method": "Inspect the NodeListPanel and GroupListPanel virtualization behavior and compare its temporary window state with the needs of a collection browse surface.",
         "status": "reviewed",
-        "citationSourceId": "twilite/components/GraphEditor/components/NodeListPanel.js"
+        "citationSourceId": "twilite/components/GraphEditor/components/NodeListPanel.js",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
       }
     },
     {
       "id": "windowed-collection-bridge-idea-research",
-      "type": "bridge",
+      "type": "import",
       "label": "Research",
       "position": {
         "x": -1740,
@@ -1165,18 +1007,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1269,27 +1099,15 @@
           "twilite/components/GraphEditor/components/NodeListPanel.js",
           "twilite/components/GraphEditor/components/GroupListPanel.js"
         ],
-        "definitionKey": "idea-evidence",
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "windowed-collection-view"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
       }
     },
     {
       "id": "windowed-collection-bridge-idea-evidence",
-      "type": "bridge",
+      "type": "import",
       "label": "Evidence",
       "position": {
         "x": -1740,
@@ -1309,18 +1127,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1407,30 +1213,18 @@
         "title": "Maintain Explicit Page Graphs",
         "description": "Store copied member listings in separate page or partition graphs and navigate between them from a collection index.",
         "tradeoffs": "This bounds loading as well as rendering, but introduces page artifacts and changes the authoring experience. It remains a future storage strategy if a single graph payload becomes genuinely too large.",
-        "definitionKey": "idea-alternative",
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "windowed-collection-view"
         },
         "status": "rejected-for-now",
         "tradeoff": "More control over storage partitions, but a duplicate membership index and additional artifacts for authors to maintain.",
-        "reasonNotPreferred": "Directory discovery already supplies membership automatically and avoids forcing authors to maintain page artifacts or duplicate portal registries."
+        "reasonNotPreferred": "Directory discovery already supplies membership automatically and avoids forcing authors to maintain page artifacts or duplicate portal registries.",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
       }
     },
     {
       "id": "windowed-collection-bridge-idea-alternative",
-      "type": "bridge",
+      "type": "import",
       "label": "Alternative",
       "position": {
         "x": -1740,
@@ -1450,18 +1244,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1550,27 +1332,15 @@
         "likelihood": "medium",
         "impact": "high",
         "mitigation": "Do not physically move source graphs merely to change how they are presented. Prefer filters, archive indexes, or an explicit redirect when a move is unavoidable.",
-        "definitionKey": "idea-risk",
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "windowed-collection-view"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
       }
     },
     {
       "id": "windowed-collection-bridge-idea-risk",
-      "type": "bridge",
+      "type": "import",
       "label": "Risk",
       "position": {
         "x": -1740,
@@ -1590,18 +1360,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1689,28 +1447,16 @@
         "action": "Create a browse-mode collection surface that enumerates direct member `.node` files and direct child `root.node` files, resolves ten root-surface cards in stable order, scrolls forward and backward, and automatically includes a newly added member graph.",
         "expectedEvidence": "A collection directory can contain more than ten member graphs while only ten root cards are resolved and rendered; adding a member file makes it appear without editing the collection root graph, and scrolling does not mutate graph data.",
         "status": "todo",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "windowed-collection-view"
         },
-        "description": "Start with the Ideas collection. Exclude its own `root.node`, include one level of child graph roots, and leave global search and large remote indexes out of scope."
+        "description": "Start with the Ideas collection. Exclude its own `root.node`, include one level of child graph roots, and leave global search and large remote indexes out of scope.",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       }
     },
     {
       "id": "windowed-collection-bridge-idea-next-step",
-      "type": "bridge",
+      "type": "import",
       "label": "Next Step",
       "position": {
         "x": -1740,
@@ -1730,18 +1476,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1777,9 +1511,8 @@
     },
     {
       "id": "idea-edge-class-advances",
-      "type": "bridge",
+      "type": "import",
       "label": "Advances",
-      "root": false,
       "position": {
         "x": -1180,
         "y": -1140
@@ -1833,9 +1566,8 @@
     },
     {
       "id": "idea-edge-class-affects",
-      "type": "bridge",
+      "type": "import",
       "label": "Affects",
-      "root": false,
       "position": {
         "x": -1140,
         "y": -1140
@@ -1889,9 +1621,8 @@
     },
     {
       "id": "idea-edge-class-assumes",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumes",
-      "root": false,
       "position": {
         "x": -1100,
         "y": -1140
@@ -1945,9 +1676,8 @@
     },
     {
       "id": "idea-edge-class-contradicts",
-      "type": "bridge",
+      "type": "import",
       "label": "Contradicts",
-      "root": false,
       "position": {
         "x": -1060,
         "y": -1140
@@ -2001,9 +1731,8 @@
     },
     {
       "id": "idea-edge-class-informs",
-      "type": "bridge",
+      "type": "import",
       "label": "Informs",
-      "root": false,
       "position": {
         "x": -1020,
         "y": -1140
@@ -2057,9 +1786,8 @@
     },
     {
       "id": "idea-edge-class-motivates",
-      "type": "bridge",
+      "type": "import",
       "label": "Motivates",
-      "root": false,
       "position": {
         "x": -980,
         "y": -1140
@@ -2113,9 +1841,8 @@
     },
     {
       "id": "idea-edge-class-questions",
-      "type": "bridge",
+      "type": "import",
       "label": "Questions",
-      "root": false,
       "position": {
         "x": -940,
         "y": -1140
@@ -2169,9 +1896,8 @@
     },
     {
       "id": "idea-edge-class-supports",
-      "type": "bridge",
+      "type": "import",
       "label": "Supports",
-      "root": false,
       "position": {
         "x": -900,
         "y": -1140
@@ -2225,9 +1951,8 @@
     },
     {
       "id": "idea-edge-class-tests",
-      "type": "bridge",
+      "type": "import",
       "label": "Tests",
-      "root": false,
       "position": {
         "x": -860,
         "y": -1140
@@ -2281,9 +2006,8 @@
     },
     {
       "id": "idea-edge-class-threatens",
-      "type": "bridge",
+      "type": "import",
       "label": "Threatens",
-      "root": false,
       "position": {
         "x": -820,
         "y": -1140
@@ -2486,7 +2210,7 @@
   "edges": [
     {
       "id": "windowed-collection-entry-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "windowed-collection-declaration",
       "target": "windowed-collection-root-port",
       "sourcePort": "root",
@@ -2500,7 +2224,7 @@
     },
     {
       "id": "windowed-collection-problem-motivates",
-      "type": "reference",
+      "type": "idea.motivates",
       "source": "windowed-collection-idea-problem",
       "target": "windowed-collection-idea",
       "sourcePort": "right",
@@ -2514,15 +2238,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.motivates",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node",
-        "semanticRole": "idea.motivates",
-        "edgeClassMeaning": "source establishes the need or reason for the target"
+        "edgeClassMeaning": "source establishes the need or reason for the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node"
       }
     },
     {
       "id": "windowed-collection-audience-affects",
-      "type": "reference",
+      "type": "idea.affects",
       "source": "windowed-collection-idea-audience",
       "target": "windowed-collection-idea-problem",
       "sourcePort": "right",
@@ -2536,15 +2258,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.affects",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node",
-        "semanticRole": "idea.affects",
-        "edgeClassMeaning": "source audience experiences or is affected by the target problem"
+        "edgeClassMeaning": "source audience experiences or is affected by the target problem",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node"
       }
     },
     {
       "id": "windowed-collection-idea-assumes",
-      "type": "reference",
+      "type": "idea.assumes",
       "source": "windowed-collection-idea",
       "target": "windowed-collection-idea-assumption",
       "sourcePort": "bottom",
@@ -2562,15 +2282,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
+        "edgeClassMeaning": "source depends on the target assumption being true",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node"
       }
     },
     {
       "id": "windowed-collection-question-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "windowed-collection-idea-question",
       "target": "windowed-collection-idea-assumption",
       "sourcePort": "right",
@@ -2588,15 +2306,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       }
     },
     {
       "id": "windowed-collection-research-informs",
-      "type": "reference",
+      "type": "idea.informs",
       "source": "windowed-collection-idea-research",
       "target": "windowed-collection-idea-question",
       "sourcePort": "right",
@@ -2610,15 +2326,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.informs",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
-        "semanticRole": "idea.informs",
-        "edgeClassMeaning": "source provides context that informs the target"
+        "edgeClassMeaning": "source provides context that informs the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node"
       }
     },
     {
       "id": "windowed-collection-evidence-supports",
-      "type": "reference",
+      "type": "idea.supports",
       "source": "windowed-collection-idea-evidence",
       "target": "windowed-collection-idea-assumption",
       "sourcePort": "left",
@@ -2632,15 +2346,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.supports",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
-        "semanticRole": "idea.supports",
-        "edgeClassMeaning": "source evidence increases confidence in the target"
+        "edgeClassMeaning": "source evidence increases confidence in the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node"
       }
     },
     {
       "id": "windowed-collection-alternative-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "windowed-collection-idea-alternative",
       "target": "windowed-collection-idea-proposed-approach",
       "sourcePort": "left",
@@ -2658,15 +2370,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       }
     },
     {
       "id": "windowed-collection-risk-threatens",
-      "type": "reference",
+      "type": "idea.threatens",
       "source": "windowed-collection-idea-risk",
       "target": "windowed-collection-idea",
       "sourcePort": "bottom",
@@ -2684,15 +2394,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.threatens",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node",
-        "semanticRole": "idea.threatens",
-        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target"
+        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node"
       }
     },
     {
       "id": "windowed-collection-next-step-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "windowed-collection-idea-next-step",
       "target": "windowed-collection-idea-assumption",
       "sourcePort": "top",
@@ -2706,15 +2414,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       }
     },
     {
       "id": "windowed-collection-approach-advances",
-      "type": "reference",
+      "type": "idea.advances",
       "source": "windowed-collection-idea-proposed-approach",
       "target": "windowed-collection-idea",
       "sourcePort": "left",
@@ -2728,15 +2434,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.advances",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node",
-        "semanticRole": "idea.advances",
-        "edgeClassMeaning": "source action moves the target idea toward a better-supported state"
+        "edgeClassMeaning": "source action moves the target idea toward a better-supported state",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node"
       }
     },
     {
       "id": "windowed-collection-instructions-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "windowed-collection-idea-next-step",
       "target": "windowed-collection-instructions",
       "sourcePort": "right",
@@ -2757,115 +2461,95 @@
       "id": "windowed-collection-declaration-edge-class-authority-advances",
       "source": "windowed-collection-declaration",
       "target": "idea-edge-class-advances",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "windowed-collection-declaration-edge-class-authority-affects",
       "source": "windowed-collection-declaration",
       "target": "idea-edge-class-affects",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "windowed-collection-declaration-edge-class-authority-assumes",
       "source": "windowed-collection-declaration",
       "target": "idea-edge-class-assumes",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "windowed-collection-declaration-edge-class-authority-contradicts",
       "source": "windowed-collection-declaration",
       "target": "idea-edge-class-contradicts",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "windowed-collection-declaration-edge-class-authority-informs",
       "source": "windowed-collection-declaration",
       "target": "idea-edge-class-informs",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "windowed-collection-declaration-edge-class-authority-motivates",
       "source": "windowed-collection-declaration",
       "target": "idea-edge-class-motivates",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "windowed-collection-declaration-edge-class-authority-questions",
       "source": "windowed-collection-declaration",
       "target": "idea-edge-class-questions",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "windowed-collection-declaration-edge-class-authority-supports",
       "source": "windowed-collection-declaration",
       "target": "idea-edge-class-supports",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "windowed-collection-declaration-edge-class-authority-tests",
       "source": "windowed-collection-declaration",
       "target": "idea-edge-class-tests",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "windowed-collection-declaration-edge-class-authority-threatens",
       "source": "windowed-collection-declaration",
       "target": "idea-edge-class-threatens",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "windowed-collection-ideas-collection-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "windowed-collection-root-port",
       "target": "windowed-collection-ideas-collection",
       "sourcePort": "root",
@@ -2883,7 +2567,7 @@
     },
     {
       "id": "windowed-collection-next-step-task-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "windowed-collection-idea-next-step",
       "target": "windowed-collection-implementation-task",
       "sourcePort": "right",
@@ -2900,7 +2584,6 @@
       }
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,
@@ -2939,8 +2622,5 @@
     },
     "autoSave": false
   },
-  "scripts": [],
-  "nodeCount": 37,
-  "edgeCount": 24,
-  "timestamp": "2026-08-02T22:00:00.000Z"
+  "scripts": []
 }

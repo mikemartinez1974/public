@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Podcast Episode Node Class",
-    "description": "One finite audio or video episode belonging to a continuing show.",
-    "graphId": "podcast-episode-work-class",
-    "version": "0.1.0",
-    "kind": "node-class",
     "created": "2026-07-20T00:00:00.000Z",
     "modified": "2026-07-20T00:00:00.000Z",
     "tags": [
@@ -17,9 +12,8 @@
   "nodes": [
     {
       "id": "podcast-episode-class-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Podcast Episode Class Declaration",
-      "root": false,
       "position": {
         "x": 0,
         "y": -420
@@ -191,36 +185,6 @@
           },
           "styleAuthority": "descriptive"
         },
-        "declaration": {
-          "kind": "node-class",
-          "defaultSurfaceId": "podcast-episode-detail-view",
-          "surfaces": [
-            {
-              "id": "podcast-episode-detail-view",
-              "kind": "view",
-              "label": "Surface",
-              "viewNodeId": "podcast-episode-detail-view"
-            },
-            {
-              "id": "podcast-episode-summary-view",
-              "kind": "view",
-              "label": "Card",
-              "viewNodeId": "podcast-episode-summary-view"
-            },
-            {
-              "id": "podcast-episode-icon-view",
-              "kind": "view",
-              "label": "Icon",
-              "viewNodeId": "podcast-episode-icon-view"
-            },
-            {
-              "id": "podcast-episode-editor-view",
-              "kind": "view",
-              "label": "Editor",
-              "viewNodeId": "podcast-episode-editor-view"
-            }
-          ]
-        },
         "nodeClass": {
           "contractVersion": "1.0.0",
           "key": "podcast-episode",
@@ -345,14 +309,43 @@
           "defaultNodeColor": "#7c3aed",
           "defaultEdgeColor": "#64748b",
           "edgeRouting": "auto"
+        },
+        "root": {
+          "kind": "node-class",
+          "defaultSurfaceId": "podcast-episode-detail-view",
+          "surfaces": [
+            {
+              "id": "podcast-episode-detail-view",
+              "kind": "view",
+              "label": "Surface",
+              "viewNodeId": "podcast-episode-detail-view"
+            },
+            {
+              "id": "podcast-episode-summary-view",
+              "kind": "view",
+              "label": "Card",
+              "viewNodeId": "podcast-episode-summary-view"
+            },
+            {
+              "id": "podcast-episode-icon-view",
+              "kind": "view",
+              "label": "Icon",
+              "viewNodeId": "podcast-episode-icon-view"
+            },
+            {
+              "id": "podcast-episode-editor-view",
+              "kind": "view",
+              "label": "Editor",
+              "viewNodeId": "podcast-episode-editor-view"
+            }
+          ]
         }
       }
     },
     {
       "id": "podcast-episode-definition",
-      "type": "markdown",
+      "type": "content",
       "label": "Definition",
-      "root": false,
       "position": {
         "x": -390,
         "y": -130
@@ -493,15 +486,17 @@
         "identity": {
           "graphId": "podcast-episode-work-class"
         },
-        "markdown": "## Podcast Episode\n\nOne finite audio or video episode belonging to a continuing show.\n\nRequired: title, publishedDate, parentWorkRef, summary.",
-        "visibilityRole": "editor"
+        "visibilityRole": "editor",
+        "content": {
+          "kind": "markdown",
+          "value": "## Podcast Episode\n\nOne finite audio or video episode belonging to a continuing show.\n\nRequired: title, publishedDate, parentWorkRef, summary."
+        }
       }
     },
     {
       "id": "podcast-episode-editor-view",
       "type": "port",
       "label": "Editor",
-      "root": false,
       "position": {
         "x": -410,
         "y": 130
@@ -781,7 +776,6 @@
       "id": "podcast-episode-detail-view",
       "type": "port",
       "label": "Surface",
-      "root": false,
       "position": {
         "x": 10,
         "y": 130
@@ -958,7 +952,6 @@
       "id": "podcast-episode-summary-view",
       "type": "port",
       "label": "Card",
-      "root": false,
       "position": {
         "x": 510,
         "y": 130
@@ -1113,7 +1106,6 @@
       "id": "podcast-episode-icon-view",
       "type": "port",
       "label": "Icon",
-      "root": false,
       "position": {
         "x": 880,
         "y": 130
@@ -1269,7 +1261,7 @@
   "edges": [
     {
       "id": "podcast-episode-decl-definition",
-      "type": "reference",
+      "type": "edge",
       "source": "podcast-episode-class-declaration",
       "target": "podcast-episode-definition",
       "sourcePort": "bottom",
@@ -1283,7 +1275,7 @@
     },
     {
       "id": "podcast-episode-decl-editor",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "podcast-episode-class-declaration",
       "target": "podcast-episode-editor-view",
       "sourcePort": "bottom",
@@ -1297,7 +1289,7 @@
     },
     {
       "id": "podcast-episode-decl-detail",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "podcast-episode-class-declaration",
       "target": "podcast-episode-detail-view",
       "sourcePort": "bottom",
@@ -1311,7 +1303,7 @@
     },
     {
       "id": "podcast-episode-decl-summary",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "podcast-episode-class-declaration",
       "target": "podcast-episode-summary-view",
       "sourcePort": "bottom",
@@ -1325,7 +1317,7 @@
     },
     {
       "id": "podcast-episode-decl-icon",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "podcast-episode-class-declaration",
       "target": "podcast-episode-icon-view",
       "sourcePort": "bottom",

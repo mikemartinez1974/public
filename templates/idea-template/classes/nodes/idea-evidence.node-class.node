@@ -1,8 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Evidence Node Class",
-    "description": "A direct observation, measurement, experiment, or demonstrated outcome.",
     "created": "2026-08-01T00:00:00.000Z",
     "modified": "2026-08-27T00:00:00.000Z",
     "author": "",
@@ -15,9 +13,8 @@
   "nodes": [
     {
       "id": "idea-evidence-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Evidence Declaration",
-      "root": false,
       "position": {
         "x": 0,
         "y": -420
@@ -25,46 +22,6 @@
       "width": 360,
       "height": 240,
       "handles": [
-        {
-          "id": "default-view",
-          "key": "default-view",
-          "portId": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165,
-          "role": "default-view"
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "portId": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-summary"
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "portId": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195,
-          "role": "shared-icon"
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "portId": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270,
-          "role": "shared-glyph"
-        },
         {
           "id": "port",
           "key": "port",
@@ -76,125 +33,45 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
         }
       ],
       "ports": [
-        {
-          "id": "default-view",
-          "key": "default-view",
-          "label": "default view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 165,
-          "role": "default-view",
-          "allowedEdgeTypes": [
-            "default-view"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "default-view",
-            "required": true,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "view",
-                "targetPort": "root"
-              }
-            ]
-          }
-        },
-        {
-          "id": "summary-view",
-          "key": "summary-view",
-          "label": "summary view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 180,
-          "role": "shared-summary",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "shared-summary",
-            "required": true,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "view",
-                "targetPort": "root"
-              }
-            ]
-          }
-        },
-        {
-          "id": "icon-view",
-          "key": "icon-view",
-          "label": "icon view",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 195,
-          "role": "shared-icon",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "shared-icon",
-            "required": true,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "view",
-                "targetPort": "root"
-              }
-            ]
-          }
-        },
-        {
-          "id": "glyph",
-          "key": "glyph",
-          "label": "glyph",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 270,
-          "role": "shared-glyph",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "shared-glyph",
-            "required": true,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "glyph",
-                "targetPort": "root"
-              }
-            ]
-          }
-        },
         {
           "id": "port",
           "key": "port",
@@ -223,20 +100,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -244,6 +121,33 @@
                 "trigger": "drag-create",
                 "action": "create-node",
                 "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
                 "targetPort": "root"
               }
             ]
@@ -303,7 +207,66 @@
             "squashAllowed": false
           }
         },
-        "declaration": {
+        "nodeClass": {
+          "contractVersion": "1.0.0",
+          "key": "idea-evidence",
+          "nodeDef": {
+            "key": "idea-evidence",
+            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
+            "source": "local",
+            "version": ">=0.1.0",
+            "defaults": {
+              "label": "Evidence",
+              "size": {
+                "width": 400,
+                "height": 300
+              },
+              "color": "#059669",
+              "showLabel": false,
+              "data": {
+                "title": "",
+                "observation": "",
+                "kind": "observation",
+                "strength": "weak",
+                "citationSourceId": "",
+                "presentation": {
+                  "glyph": {
+                    "kind": "icon",
+                    "name": "FactCheck"
+                  }
+                }
+              },
+              "ports": [
+                {
+                  "id": "root",
+                  "key": "root",
+                  "label": "root",
+                  "direction": "bidirectional",
+                  "dataType": "any",
+                  "angle": 180
+                }
+              ]
+            }
+          },
+          "label": "Evidence",
+          "meaning": "A direct observation, measurement, experiment, or demonstrated outcome.",
+          "description": "A direct observation, measurement, experiment, or demonstrated outcome.",
+          "requiredDataKeys": [
+            "title"
+          ]
+        },
+        "settings": {
+          "theme": null,
+          "backgroundImage": null,
+          "defaultNodeColor": "#1976d2",
+          "defaultEdgeColor": "#666666",
+          "snapToGrid": false,
+          "gridSize": 20,
+          "edgeRouting": "auto",
+          "autoSave": false
+        },
+        "primaryNodeViewId": "idea-evidence-detail-view",
+        "root": {
           "kind": "node-class",
           "targetMode": "artifact",
           "defaultSurfaceId": "root",
@@ -349,73 +312,13 @@
           "primaryEditorViewId": "idea-evidence-editor-view",
           "iconViewNodeId": "idea-evidence-icon-view",
           "portViewNodeId": ""
-        },
-        "nodeClass": {
-          "contractVersion": "1.0.0",
-          "key": "idea-evidence",
-          "nodeDef": {
-            "key": "idea-evidence",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Evidence",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#059669",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "observation": "",
-                "kind": "observation",
-                "strength": "weak",
-            "citationSourceId": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "FactCheck"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "label": "Evidence",
-          "meaning": "A direct observation, measurement, experiment, or demonstrated outcome.",
-          "description": "A direct observation, measurement, experiment, or demonstrated outcome.",
-          "requiredDataKeys": [
-            "title"
-          ]
-        },
-        "settings": {
-          "theme": null,
-          "backgroundImage": null,
-          "defaultNodeColor": "#1976d2",
-          "defaultEdgeColor": "#666666",
-          "snapToGrid": false,
-          "gridSize": 20,
-          "edgeRouting": "auto",
-          "autoSave": false
-        },
-        "primaryNodeViewId": "idea-evidence-detail-view"
+        }
       }
     },
     {
       "id": "idea-evidence-notes",
       "type": "content",
       "label": "Evidence Landing Surface",
-      "root": false,
       "position": {
         "x": 520,
         "y": -360
@@ -455,10 +358,10 @@
           "graphId": "idea-evidence-class",
           "nodeId": "idea-evidence"
         },
-    "markdown": "## Evidence\n\nA direct observation, measurement, experiment, or demonstrated outcome.\n\nRequired identity data: `title`.\n\nAuthored fields: `title`, `observation`, `kind`, `strength`, `citationSourceId`.\n\nThe detail surface represents every editor field; card and icon surfaces are deliberate projections. `data.sourceRef` is runtime-reserved for addressed view resolution and must not be used for citations.",
+        "markdown": "## Evidence\n\nA direct observation, measurement, experiment, or demonstrated outcome.\n\nRequired identity data: `title`.\n\nAuthored fields: `title`, `observation`, `kind`, `strength`, `citationSourceId`.\n\nThe detail surface represents every editor field; card and icon surfaces are deliberate projections. `data.sourceRef` is runtime-reserved for addressed view resolution and must not be used for citations.",
         "content": {
           "kind": "markdown",
-      "value": "## Evidence\n\nA direct observation, measurement, experiment, or demonstrated outcome.\n\nRequired identity data: `title`.\n\nAuthored fields: `title`, `observation`, `kind`, `strength`, `citationSourceId`.\n\nThe detail surface represents every editor field; card and icon surfaces are deliberate projections. `data.sourceRef` is runtime-reserved for addressed view resolution and must not be used for citations."
+          "value": "## Evidence\n\nA direct observation, measurement, experiment, or demonstrated outcome.\n\nRequired identity data: `title`.\n\nAuthored fields: `title`, `observation`, `kind`, `strength`, `citationSourceId`.\n\nThe detail surface represents every editor field; card and icon surfaces are deliberate projections. `data.sourceRef` is runtime-reserved for addressed view resolution and must not be used for citations."
         },
         "renderShape": {
           "kind": "markdown"
@@ -467,9 +370,8 @@
     },
     {
       "id": "idea-evidence-editor-view",
-      "type": "view",
+      "type": "face",
       "label": "Editor",
-      "root": false,
       "position": {
         "x": 40,
         "y": 420
@@ -612,10 +514,10 @@
                 ]
               },
               {
-            "key": "citationSourceId",
+                "key": "citationSourceId",
                 "label": "Source Reference",
                 "type": "text",
-            "path": "data.citationSourceId",
+                "path": "data.citationSourceId",
                 "placeholder": "Link, graph ref, experiment, or locator"
               }
             ]
@@ -625,9 +527,8 @@
     },
     {
       "id": "idea-evidence-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Surface",
-      "root": false,
       "position": {
         "x": -620,
         "y": -180
@@ -708,15 +609,14 @@
         "renderShape": {
           "kind": "html"
         },
-    "html": "<div style='width:100%;height:100%;display:flex;flex-direction:column;border-radius:18px;overflow:hidden;background:#ffffff;color:#0f172a;border:1px solid rgba(15,23,42,.14);'><div style='padding:12px 16px;background:#059669;color:white;'><div style='display:flex;justify-content:space-between;gap:8px;font:800 10px system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;'><span>Evidence</span><span>{{data.kind}} · {{data.strength}}</span></div><div style='font:800 20px/1.2 system-ui,sans-serif;'>{{data.title}}</div></div><div style='padding:16px;overflow:auto;font:500 14px/1.5 system-ui,sans-serif;'><div style='white-space:pre-wrap;'>{{data.observation}}</div><div style='margin-top:14px;padding-top:12px;border-top:1px solid #e2e8f0;'><div style='font:800 10px system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#047857;'>Citation Source</div><div style='margin-top:5px;overflow-wrap:anywhere;'>{{data.citationSourceId}}</div></div></div></div>",
+        "html": "<div style='width:100%;height:100%;display:flex;flex-direction:column;border-radius:18px;overflow:hidden;background:#ffffff;color:#0f172a;border:1px solid rgba(15,23,42,.14);'><div style='padding:12px 16px;background:#059669;color:white;'><div style='display:flex;justify-content:space-between;gap:8px;font:800 10px system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;'><span>Evidence</span><span>{{data.kind}} · {{data.strength}}</span></div><div style='font:800 20px/1.2 system-ui,sans-serif;'>{{data.title}}</div></div><div style='padding:16px;overflow:auto;font:500 14px/1.5 system-ui,sans-serif;'><div style='white-space:pre-wrap;'>{{data.observation}}</div><div style='margin-top:14px;padding-top:12px;border-top:1px solid #e2e8f0;'><div style='font:800 10px system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#047857;'>Citation Source</div><div style='margin-top:5px;overflow-wrap:anywhere;'>{{data.citationSourceId}}</div></div></div></div>",
         "semanticLevel": "detail"
       }
     },
     {
       "id": "idea-evidence-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Card",
-      "root": false,
       "position": {
         "x": -620,
         "y": 170
@@ -803,9 +703,8 @@
     },
     {
       "id": "idea-evidence-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Icon",
-      "root": false,
       "position": {
         "x": -620,
         "y": 500
@@ -891,7 +790,6 @@
       "id": "idea-evidence-glyph",
       "type": "glyph",
       "label": "Evidence Glyph",
-      "root": false,
       "position": {
         "x": 70,
         "y": -680
@@ -939,72 +837,62 @@
   ],
   "edges": [
     {
-      "id": "idea-evidence-edge-default-view",
-      "type": "default-view",
+      "id": "idea-evidence-detail-view-surface",
+      "type": "surface",
       "source": "idea-evidence-declaration",
       "target": "idea-evidence-detail-view",
-      "label": "default view",
+      "label": "",
+      "style": {},
       "data": {
-        "role": "default view",
-        "semanticRole": "declaration.default-view"
+        "surfaceId": "root"
       },
-      "sourceHandle": "default-view",
-      "targetHandle": "root"
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
-      "id": "idea-evidence-edge-summary-view",
-      "type": "reference",
-      "source": "idea-evidence-declaration",
+      "id": "idea-evidence-detail-view-next",
+      "type": "next-face",
+      "source": "idea-evidence-detail-view",
       "target": "idea-evidence-summary-view",
-      "label": "summary view",
-      "data": {
-        "role": "summary view",
-        "semanticRole": "declaration.shared-summary"
-      },
-      "sourceHandle": "summary-view",
-      "targetHandle": "root"
+      "label": "",
+      "style": {},
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
-      "id": "idea-evidence-edge-icon-view",
-      "type": "reference",
-      "source": "idea-evidence-declaration",
+      "id": "idea-evidence-summary-view-next",
+      "type": "next-face",
+      "source": "idea-evidence-summary-view",
       "target": "idea-evidence-icon-view",
-      "label": "icon view",
-      "data": {
-        "role": "icon view",
-        "semanticRole": "declaration.shared-icon"
-      },
-      "sourceHandle": "icon-view",
-      "targetHandle": "root"
+      "label": "",
+      "style": {},
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
-      "id": "idea-evidence-edge-glyph",
-      "type": "reference",
-      "source": "idea-evidence-declaration",
+      "id": "idea-evidence-icon-view-next",
+      "type": "next-face",
+      "source": "idea-evidence-icon-view",
       "target": "idea-evidence-glyph",
-      "label": "glyph",
-      "data": {
-        "role": "glyph",
-        "semanticRole": "declaration.shared-glyph"
-      },
-      "sourceHandle": "glyph",
-      "targetHandle": "root"
+      "label": "",
+      "style": {},
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "idea-evidence-edge-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "source": "idea-evidence-declaration",
       "target": "idea-evidence-notes",
-      "label": "landing surface",
-      "data": {
-        "role": "landing surface",
-        "semanticRole": "declaration.landing-surface"
-      },
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root"
+      "label": "ground",
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

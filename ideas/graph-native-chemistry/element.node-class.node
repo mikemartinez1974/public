@@ -1,8 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Element Node Class",
-    "description": "Minimal chemical-element node class with editor, detail, summary, and icon surfaces.",
     "created": "2026-08-18T05:49:00.000Z",
     "modified": "2026-08-18T05:49:00.000Z",
     "author": "",
@@ -16,7 +14,7 @@
   "nodes": [
     {
       "id": "element-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Element Node Class Declaration",
       "position": {
         "x": 0,
@@ -73,48 +71,6 @@
         "intent": {
           "kind": "node-class",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "node-class",
-          "targetMode": "artifact",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Detail",
-              "portNodeId": "element-detail-view",
-              "viewNodeId": "element-detail-view"
-            },
-            {
-              "id": "detail",
-              "kind": "port",
-              "label": "Detail",
-              "portNodeId": "element-detail-view",
-              "viewNodeId": "element-detail-view"
-            },
-            {
-              "id": "summary",
-              "kind": "port",
-              "label": "Summary",
-              "portNodeId": "element-summary-view",
-              "viewNodeId": "element-summary-view"
-            },
-            {
-              "id": "icon",
-              "kind": "port",
-              "label": "Icon",
-              "portNodeId": "element-icon-view",
-              "viewNodeId": "element-icon-view"
-            },
-            {
-              "id": "editor",
-              "kind": "port",
-              "label": "Editor",
-              "portNodeId": "element-editor-view",
-              "viewNodeId": "element-editor-view"
-            }
-          ]
         },
         "nodeClass": {
           "contractVersion": "1.0.0",
@@ -220,12 +176,54 @@
             "rewriteAllowed": false,
             "squashAllowed": false
           }
+        },
+        "root": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Detail",
+              "portNodeId": "element-detail-view",
+              "viewNodeId": "element-detail-view"
+            },
+            {
+              "id": "detail",
+              "kind": "port",
+              "label": "Detail",
+              "portNodeId": "element-detail-view",
+              "viewNodeId": "element-detail-view"
+            },
+            {
+              "id": "summary",
+              "kind": "port",
+              "label": "Summary",
+              "portNodeId": "element-summary-view",
+              "viewNodeId": "element-summary-view"
+            },
+            {
+              "id": "icon",
+              "kind": "port",
+              "label": "Icon",
+              "portNodeId": "element-icon-view",
+              "viewNodeId": "element-icon-view"
+            },
+            {
+              "id": "editor",
+              "kind": "port",
+              "label": "Editor",
+              "portNodeId": "element-editor-view",
+              "viewNodeId": "element-editor-view"
+            }
+          ]
         }
       }
     },
     {
       "id": "element-contract",
-      "type": "markdown",
+      "type": "content",
       "label": "Element Contract",
       "position": {
         "x": -650,
@@ -276,7 +274,10 @@
         "identity": {
           "graphId": "element-class"
         },
-        "markdown": "# Element\n\nA chemical element is modeled as a durable chemical identity, not as a cell in a periodic table.\n\n## Authored fields\n\n- `name`\n- `symbol`\n- `atomicNumber`\n- `standardAtomicWeight`\n- `electronConfiguration`\n- `category`\n\nRequired identity data: `name`, `symbol`, and `atomicNumber`.\n\n`group`, `period`, `block`, table coordinates, and table-specific styling are intentionally excluded. They belong to a periodic-table view or classification layer.\n\nThe detail surface represents every authored field. Summary and icon are smaller semantic projections."
+        "content": {
+          "kind": "markdown",
+          "value": "# Element\n\nA chemical element is modeled as a durable chemical identity, not as a cell in a periodic table.\n\n## Authored fields\n\n- `name`\n- `symbol`\n- `atomicNumber`\n- `standardAtomicWeight`\n- `electronConfiguration`\n- `category`\n\nRequired identity data: `name`, `symbol`, and `atomicNumber`.\n\n`group`, `period`, `block`, table coordinates, and table-specific styling are intentionally excluded. They belong to a periodic-table view or classification layer.\n\nThe detail surface represents every authored field. Summary and icon are smaller semantic projections."
+        }
       }
     },
     {
@@ -592,77 +593,68 @@
   "edges": [
     {
       "id": "element-declaration-contract",
-      "type": "reference",
+      "type": "contract",
       "source": "element-declaration",
       "target": "element-contract",
       "sourcePort": "bottom",
       "targetPort": "top",
       "label": "defines contract",
       "data": {
-        "relationship": "defines contract",
-        "semanticRole": "contract"
+        "relationship": "defines contract"
       }
     },
     {
       "id": "element-declaration-editor",
-      "type": "reference",
+      "type": "contract",
       "source": "element-declaration",
       "target": "element-editor-view",
       "sourcePort": "bottom",
       "targetPort": "top",
       "label": "exposes editor",
       "data": {
-        "relationship": "exposes editor",
-        "semanticRole": "contract"
+        "relationship": "exposes editor"
       }
     },
     {
       "id": "element-declaration-icon",
-      "type": "reference",
+      "type": "contract",
       "source": "element-declaration",
       "target": "element-icon-view",
       "sourcePort": "bottom",
       "targetPort": "top",
       "label": "exposes icon",
       "data": {
-        "relationship": "exposes icon",
-        "semanticRole": "contract"
+        "relationship": "exposes icon"
       }
     },
     {
       "id": "element-declaration-summary",
-      "type": "reference",
+      "type": "contract",
       "source": "element-declaration",
       "target": "element-summary-view",
       "sourcePort": "bottom",
       "targetPort": "top",
       "label": "exposes summary",
       "data": {
-        "relationship": "exposes summary",
-        "semanticRole": "contract"
+        "relationship": "exposes summary"
       }
     },
     {
       "id": "element-declaration-detail",
-      "type": "reference",
+      "type": "contract",
       "source": "element-declaration",
       "target": "element-detail-view",
       "sourcePort": "bottom",
       "targetPort": "top",
       "label": "exposes detail",
       "data": {
-        "relationship": "exposes detail",
-        "semanticRole": "contract"
+        "relationship": "exposes detail"
       }
     }
   ],
-  "clusters": [],
   "viewport": {
     "x": 620,
     "y": 500,
     "zoom": 0.65
-  },
-  "timestamp": "2026-08-18T05:49:00.000Z",
-  "nodeCount": 6,
-  "edgeCount": 5
+  }
 }

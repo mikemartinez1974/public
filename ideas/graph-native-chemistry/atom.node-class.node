@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Atom Node Class",
-    "description": "An individual atom modeled from a referenced element, optional isotope identity, and an explicit electron population.",
-    "graphId": "atom-declaration",
-    "version": "0.2.0",
-    "kind": "node-class",
     "created": "2026-08-18T23:00:22.074Z",
     "modified": "2026-08-19T00:23:49.598Z",
     "author": "",
@@ -17,9 +12,8 @@
   "nodes": [
     {
       "id": "atom-contract",
-      "type": "markdown",
+      "type": "content",
       "label": "Atom Contract",
-      "root": false,
       "position": {
         "x": -650,
         "y": -30
@@ -69,16 +63,18 @@
         "identity": {
           "graphId": "atom-class"
         },
-        "markdown": "# Atom\n\nAn atom is modeled as an **instance-level chemical entity**. It references an Element rather than duplicating element properties.\n\n## Authored fields\n\n- `elementRef` — required durable reference to an Element\n- `isotopeRef` — optional durable reference to a specific Isotope\n- `electronCount` — current number of electrons\n- `state` — optional descriptive electronic or excitation state\n\n## Derived properties\n\nThe referenced Element determines proton count through its atomic number.\n\nA referenced Isotope determines neutron composition when one is specified.\n\nNet charge is derived from proton count and electron count:\n\n`charge = protonCount - electronCount`\n\nElectron-shell population is derived from electron count and electronic state. Shell occupancy should not be duplicated as authored data.\n\nAn ion is therefore not a separate atom type. It is an Atom whose electron count differs from its proton count.\n\nThe Detail surface is the atomic visualization surface. Icon and Summary provide smaller semantic projections of the same Atom.\n\nThis class is intended for atom instances used inside molecules, reactions, ions, and other chemistry graphs.",
         "memo": "",
-        "link": ""
+        "link": "",
+        "content": {
+          "kind": "markdown",
+          "value": "# Atom\n\nAn atom is modeled as an **instance-level chemical entity**. It references an Element rather than duplicating element properties.\n\n## Authored fields\n\n- `elementRef` — required durable reference to an Element\n- `isotopeRef` — optional durable reference to a specific Isotope\n- `electronCount` — current number of electrons\n- `state` — optional descriptive electronic or excitation state\n\n## Derived properties\n\nThe referenced Element determines proton count through its atomic number.\n\nA referenced Isotope determines neutron composition when one is specified.\n\nNet charge is derived from proton count and electron count:\n\n`charge = protonCount - electronCount`\n\nElectron-shell population is derived from electron count and electronic state. Shell occupancy should not be duplicated as authored data.\n\nAn ion is therefore not a separate atom type. It is an Atom whose electron count differs from its proton count.\n\nThe Detail surface is the atomic visualization surface. Icon and Summary provide smaller semantic projections of the same Atom.\n\nThis class is intended for atom instances used inside molecules, reactions, ions, and other chemistry graphs."
+        }
       }
     },
     {
       "id": "atom-editor-view",
       "type": "port",
       "label": "Editor",
-      "root": false,
       "position": {
         "x": -40,
         "y": 20
@@ -176,7 +172,6 @@
       "id": "atom-icon-view",
       "type": "port",
       "label": "Icon",
-      "root": false,
       "position": {
         "x": 480,
         "y": 20
@@ -247,7 +242,6 @@
       "id": "atom-summary-view",
       "type": "port",
       "label": "Summary",
-      "root": false,
       "position": {
         "x": 860,
         "y": 20
@@ -318,7 +312,6 @@
       "id": "atom-detail-view",
       "type": "port",
       "label": "Detail",
-      "root": true,
       "position": {
         "x": 272.3738764399144,
         "y": 438.0860393718887
@@ -394,9 +387,8 @@
     },
     {
       "id": "atom-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Atom Node Class Declaration",
-      "root": false,
       "position": {
         "x": 0,
         "y": -520
@@ -452,48 +444,6 @@
         "intent": {
           "kind": "node-class",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "node-class",
-          "targetMode": "artifact",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Detail",
-              "portNodeId": "atom-detail-view",
-              "viewNodeId": "atom-detail-view"
-            },
-            {
-              "id": "detail",
-              "kind": "port",
-              "label": "Detail",
-              "portNodeId": "atom-detail-view",
-              "viewNodeId": "atom-detail-view"
-            },
-            {
-              "id": "summary",
-              "kind": "port",
-              "label": "Summary",
-              "portNodeId": "atom-summary-view",
-              "viewNodeId": "atom-summary-view"
-            },
-            {
-              "id": "icon",
-              "kind": "port",
-              "label": "Icon",
-              "portNodeId": "atom-icon-view",
-              "viewNodeId": "atom-icon-view"
-            },
-            {
-              "id": "editor",
-              "kind": "port",
-              "label": "Editor",
-              "portNodeId": "atom-editor-view",
-              "viewNodeId": "atom-editor-view"
-            }
-          ]
         },
         "nodeClass": {
           "contractVersion": "1.0.0",
@@ -604,12 +554,53 @@
         },
         "document": {
           "url": ""
+        },
+        "root": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Detail",
+              "portNodeId": "atom-detail-view",
+              "viewNodeId": "atom-detail-view"
+            },
+            {
+              "id": "detail",
+              "kind": "port",
+              "label": "Detail",
+              "portNodeId": "atom-detail-view",
+              "viewNodeId": "atom-detail-view"
+            },
+            {
+              "id": "summary",
+              "kind": "port",
+              "label": "Summary",
+              "portNodeId": "atom-summary-view",
+              "viewNodeId": "atom-summary-view"
+            },
+            {
+              "id": "icon",
+              "kind": "port",
+              "label": "Icon",
+              "portNodeId": "atom-icon-view",
+              "viewNodeId": "atom-icon-view"
+            },
+            {
+              "id": "editor",
+              "kind": "port",
+              "label": "Editor",
+              "portNodeId": "atom-editor-view",
+              "viewNodeId": "atom-editor-view"
+            }
+          ]
         }
       }
     }
   ],
   "edges": [],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

@@ -2,9 +2,8 @@
   "nodes": [
     {
       "id": "receiver-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Custom Event + Bridge Smoke — Receiver",
-      "root": true,
       "position": {
         "x": -1400,
         "y": -360
@@ -16,11 +15,6 @@
           "summary": "Smoke test: subscribes to the custom widget.ready Event exposed by qa/custom-event-bridge-smoke/source, across an import Bridge.",
           "kind": "qa-smoke-test",
           "scope": "testing"
-        },
-        "declaration": {
-          "defaultSurfaceId": "web",
-          "surfaces": [],
-          "kind": "graph"
         },
         "document": {
           "url": "github://mikemartinez1974/public/qa/custom-event-bridge-smoke/receiver/root.node"
@@ -35,12 +29,17 @@
           "name": "Custom Event + Bridge Smoke — Receiver",
           "version": "0.1.0",
           "description": "Imports a Bridge from the source graph and subscribes an Event Handler to its custom Event."
+        },
+        "root": {
+          "defaultSurfaceId": "web",
+          "surfaces": [],
+          "kind": "graph"
         }
       }
     },
     {
       "id": "receiver-overview",
-      "type": "view",
+      "type": "face",
       "label": "Overview",
       "position": {
         "x": -800,
@@ -90,7 +89,7 @@
     },
     {
       "id": "receiver-import-bridge",
-      "type": "bridge",
+      "type": "import",
       "label": "Import from Source",
       "position": {
         "x": -140,
@@ -106,7 +105,6 @@
           "ref": "github://mikemartinez1974/public/qa/custom-event-bridge-smoke/source/root.node",
           "resourceKind": "graph",
           "scope": "graph",
-          "role": "import",
           "consumesBridgeNodeId": "source-export-bridge",
           "grants": [],
           "subscriptions": [
@@ -130,7 +128,6 @@
           "resourceKind": "graph",
           "scope": "graph",
           "label": "Custom Event + Bridge Smoke — Source",
-          "role": "import",
           "grants": []
         },
         "identity": {
@@ -208,7 +205,7 @@
     },
     {
       "id": "receiver-live-activity-summary",
-      "type": "view",
+      "type": "face",
       "label": "Live Activity (Summary)",
       "position": {
         "x": 360,
@@ -234,129 +231,112 @@
       "type": "surface",
       "source": "receiver-declaration",
       "target": "receiver-overview",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "receiver-overview-chain",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "receiver-overview",
       "target": "receiver-live-activity-summary",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "receiver-overview-import-bridge",
-      "type": "reference",
+      "type": "edge",
       "source": "receiver-overview",
       "target": "receiver-import-bridge",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "reference"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "receiver-overview-handler",
-      "type": "reference",
+      "type": "edge",
       "source": "receiver-overview",
       "target": "receiver-handler",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "reference"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "receiver-overview-method",
-      "type": "reference",
+      "type": "edge",
       "source": "receiver-overview",
       "target": "receiver-method",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "reference"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "receiver-handler-action",
       "type": "invokes",
       "source": "receiver-handler",
       "target": "receiver-method",
-      "sourceHandle": "action-method",
-      "targetHandle": "invoke",
       "label": "",
       "style": {},
-      "data": {}
+      "data": {},
+      "sourcePort": "action-method",
+      "targetPort": "invoke"
     },
     {
       "id": "receiver-overview-live-activity",
-      "type": "reference",
+      "type": "edge",
       "source": "receiver-overview",
       "target": "receiver-live-activity",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "reference"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "receiver-live-activity-summary-delegate",
-      "type": "reference",
+      "type": "surface-delegate",
       "source": "receiver-live-activity-summary",
       "target": "receiver-live-activity",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "surface-delegate"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "receiver-overview-live-activity-summary",
-      "type": "reference",
+      "type": "edge",
       "source": "receiver-overview",
       "target": "receiver-live-activity-summary",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "reference"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "receiver-live-activity-summary-chain",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "receiver-live-activity-summary",
       "target": "receiver-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     }
   ]
 }

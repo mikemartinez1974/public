@@ -1,10 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Decision Node Class",
-    "description": "A branch whose outcome changes the path.",
-    "graphId": "plan-decision-class",
-    "version": "0.4.0",
     "tags": [
       "node-class",
       "plan-template"
@@ -14,7 +10,7 @@
   "nodes": [
     {
       "id": "plan-decision-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Decision Declaration",
       "position": {
         "x": 0,
@@ -42,9 +38,9 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
@@ -108,9 +104,9 @@
           "portId": "port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
@@ -124,7 +120,7 @@
             ],
             "repeatable": false
           },
-          "portId": "landing-surface"
+          "portId": "ground"
         },
         {
           "id": "surfaces",
@@ -166,47 +162,6 @@
         "intent": {
           "kind": "node-class",
           "scope": "local"
-        },
-        "declaration": {
-          "kind": "node-class",
-          "targetMode": "artifact",
-          "artifactKind": "node-class",
-          "defaultSurfaceId": "root",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Decision",
-              "portNodeId": "plan-decision-root-port",
-              "presentation": {
-                "detail": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-decision-detail-view"
-                },
-                "summary": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-decision-summary-view"
-                },
-                "icon": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-decision-icon-view"
-                }
-              }
-            }
-          ],
-          "sharedPresentation": {
-            "detailViewNodeId": "plan-decision-detail-view",
-            "summaryViewNodeId": "plan-decision-summary-view",
-            "iconViewNodeId": "plan-decision-icon-view",
-            "glyphNodeId": "plan-decision-glyph"
-          },
-          "primaryNodeViewId": "plan-decision-detail-view",
-          "primaryEditorViewId": "plan-decision-editor-view",
-          "portViewNodeId": "plan-decision-root-port"
         },
         "nodeClass": {
           "contractVersion": "1.1.0",
@@ -306,6 +261,47 @@
             "core",
             "plan-edge-port-contract@0.1.0"
           ]
+        },
+        "root": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "artifactKind": "node-class",
+          "defaultSurfaceId": "root",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Decision",
+              "portNodeId": "plan-decision-root-port",
+              "presentation": {
+                "detail": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-decision-detail-view"
+                },
+                "summary": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-decision-summary-view"
+                },
+                "icon": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-decision-icon-view"
+                }
+              }
+            }
+          ],
+          "sharedPresentation": {
+            "detailViewNodeId": "plan-decision-detail-view",
+            "summaryViewNodeId": "plan-decision-summary-view",
+            "iconViewNodeId": "plan-decision-icon-view",
+            "glyphNodeId": "plan-decision-glyph"
+          },
+          "primaryNodeViewId": "plan-decision-detail-view",
+          "primaryEditorViewId": "plan-decision-editor-view",
+          "portViewNodeId": "plan-decision-root-port"
         }
       }
     },
@@ -436,7 +432,7 @@
     },
     {
       "id": "plan-decision-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Decision Detail",
       "position": {
         "x": -520,
@@ -480,7 +476,7 @@
     },
     {
       "id": "plan-decision-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Decision Summary",
       "position": {
         "x": -520,
@@ -524,7 +520,7 @@
     },
     {
       "id": "plan-decision-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Decision Icon",
       "position": {
         "x": -520,
@@ -568,7 +564,7 @@
     },
     {
       "id": "plan-decision-editor-view",
-      "type": "view",
+      "type": "face",
       "label": "Decision Editor",
       "position": {
         "x": 0,
@@ -704,62 +700,53 @@
       "type": "surface",
       "source": "plan-decision-declaration",
       "target": "plan-decision-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "root"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "plan-decision-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-decision-detail-view",
       "target": "plan-decision-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "plan-decision-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-decision-summary-view",
       "target": "plan-decision-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "plan-decision-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-decision-icon-view",
       "target": "plan-decision-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "plan-decision-port-edge",
-      "type": "reference",
+      "type": "exposes-port",
       "hidden": true,
       "source": "plan-decision-declaration",
       "target": "plan-decision-root-port",
-      "sourceHandle": "port",
-      "targetHandle": "root",
       "sourcePort": "port",
       "targetPort": "root",
       "label": "",
@@ -769,8 +756,6 @@
         "opacity": 0.03
       },
       "data": {
-        "role": "exposes-port",
-        "semanticRole": "exposes-port",
         "presentation": {
           "layer": "contract"
         }
@@ -778,13 +763,11 @@
     },
     {
       "id": "plan-decision-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "hidden": true,
       "source": "plan-decision-declaration",
       "target": "plan-decision-landing-content",
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root",
-      "sourcePort": "landing-surface",
+      "sourcePort": "ground",
       "targetPort": "root",
       "label": "",
       "style": {
@@ -793,15 +776,12 @@
         "opacity": 0.03
       },
       "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface",
         "presentation": {
           "layer": "contract"
         }
       }
     }
   ],
-  "clusters": [],
   "settings": {
     "edgeRouting": "orthogonal",
     "layout": {

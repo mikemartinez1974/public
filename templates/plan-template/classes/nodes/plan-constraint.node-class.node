@@ -1,10 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Constraint Node Class",
-    "description": "A condition that limits available paths.",
-    "graphId": "plan-constraint-class",
-    "version": "0.4.0",
     "tags": [
       "node-class",
       "plan-template"
@@ -14,7 +10,7 @@
   "nodes": [
     {
       "id": "plan-constraint-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Constraint Declaration",
       "position": {
         "x": 0,
@@ -42,9 +38,9 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
@@ -108,9 +104,9 @@
           "portId": "port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
@@ -124,7 +120,7 @@
             ],
             "repeatable": false
           },
-          "portId": "landing-surface"
+          "portId": "ground"
         },
         {
           "id": "surfaces",
@@ -166,47 +162,6 @@
         "intent": {
           "kind": "node-class",
           "scope": "local"
-        },
-        "declaration": {
-          "kind": "node-class",
-          "targetMode": "artifact",
-          "artifactKind": "node-class",
-          "defaultSurfaceId": "root",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Constraint",
-              "portNodeId": "plan-constraint-root-port",
-              "presentation": {
-                "detail": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-constraint-detail-view"
-                },
-                "summary": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-constraint-summary-view"
-                },
-                "icon": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-constraint-icon-view"
-                }
-              }
-            }
-          ],
-          "sharedPresentation": {
-            "detailViewNodeId": "plan-constraint-detail-view",
-            "summaryViewNodeId": "plan-constraint-summary-view",
-            "iconViewNodeId": "plan-constraint-icon-view",
-            "glyphNodeId": "plan-constraint-glyph"
-          },
-          "primaryNodeViewId": "plan-constraint-detail-view",
-          "primaryEditorViewId": "plan-constraint-editor-view",
-          "portViewNodeId": "plan-constraint-root-port"
         },
         "nodeClass": {
           "contractVersion": "1.1.0",
@@ -286,6 +241,47 @@
             "core",
             "plan-edge-port-contract@0.1.0"
           ]
+        },
+        "root": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "artifactKind": "node-class",
+          "defaultSurfaceId": "root",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Constraint",
+              "portNodeId": "plan-constraint-root-port",
+              "presentation": {
+                "detail": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-constraint-detail-view"
+                },
+                "summary": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-constraint-summary-view"
+                },
+                "icon": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-constraint-icon-view"
+                }
+              }
+            }
+          ],
+          "sharedPresentation": {
+            "detailViewNodeId": "plan-constraint-detail-view",
+            "summaryViewNodeId": "plan-constraint-summary-view",
+            "iconViewNodeId": "plan-constraint-icon-view",
+            "glyphNodeId": "plan-constraint-glyph"
+          },
+          "primaryNodeViewId": "plan-constraint-detail-view",
+          "primaryEditorViewId": "plan-constraint-editor-view",
+          "portViewNodeId": "plan-constraint-root-port"
         }
       }
     },
@@ -375,7 +371,7 @@
     },
     {
       "id": "plan-constraint-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Constraint Detail",
       "position": {
         "x": -520,
@@ -419,7 +415,7 @@
     },
     {
       "id": "plan-constraint-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Constraint Summary",
       "position": {
         "x": -520,
@@ -463,7 +459,7 @@
     },
     {
       "id": "plan-constraint-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Constraint Icon",
       "position": {
         "x": -520,
@@ -507,7 +503,7 @@
     },
     {
       "id": "plan-constraint-editor-view",
-      "type": "view",
+      "type": "face",
       "label": "Constraint Editor",
       "position": {
         "x": 0,
@@ -643,62 +639,53 @@
       "type": "surface",
       "source": "plan-constraint-declaration",
       "target": "plan-constraint-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "root"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "plan-constraint-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-constraint-detail-view",
       "target": "plan-constraint-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "plan-constraint-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-constraint-summary-view",
       "target": "plan-constraint-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "plan-constraint-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-constraint-icon-view",
       "target": "plan-constraint-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "plan-constraint-port-edge",
-      "type": "reference",
+      "type": "exposes-port",
       "hidden": true,
       "source": "plan-constraint-declaration",
       "target": "plan-constraint-root-port",
-      "sourceHandle": "port",
-      "targetHandle": "root",
       "sourcePort": "port",
       "targetPort": "root",
       "label": "",
@@ -708,8 +695,6 @@
         "opacity": 0.03
       },
       "data": {
-        "role": "exposes-port",
-        "semanticRole": "exposes-port",
         "presentation": {
           "layer": "contract"
         }
@@ -717,13 +702,11 @@
     },
     {
       "id": "plan-constraint-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "hidden": true,
       "source": "plan-constraint-declaration",
       "target": "plan-constraint-landing-content",
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root",
-      "sourcePort": "landing-surface",
+      "sourcePort": "ground",
       "targetPort": "root",
       "label": "",
       "style": {
@@ -732,15 +715,12 @@
         "opacity": 0.03
       },
       "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface",
         "presentation": {
           "layer": "contract"
         }
       }
     }
   ],
-  "clusters": [],
   "settings": {
     "edgeRouting": "orthogonal",
     "layout": {

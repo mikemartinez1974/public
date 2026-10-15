@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Installing Templates Into Existing Graphs",
-    "description": "An idea graph for defining how a template can install a bounded capability into an existing graph without replacing its identity, declaration, or root.",
-    "graphId": "installable-template-capabilities",
-    "version": "0.1.0",
-    "kind": "idea",
     "created": "2026-08-02T19:00:00.000Z",
     "modified": "2026-08-02T19:00:00.000Z",
     "author": "Michael Martinez",
@@ -21,7 +16,7 @@
   "nodes": [
     {
       "id": "installable-template-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Installing Templates Into Existing Graphs Declaration",
       "position": {
         "x": -1180,
@@ -52,30 +47,6 @@
         "intent": {
           "kind": "idea",
           "scope": "public"
-        },
-        "declaration": {
-          "kind": "idea",
-          "targetMode": "artifact",
-          "artifactKind": "idea",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Installing Templates Into Existing Graphs",
-              "memo": "Canonical entry surface for the installable-template capability idea.",
-              "portNodeId": "installable-template-root-port",
-              "viewNodeId": "installable-template-root-port",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            }
-          ]
         },
         "dependencies": {
           "nodeTypes": [
@@ -125,7 +96,31 @@
             "squashAllowed": false
           }
         },
-        "declaresKind": "idea"
+        "declaresKind": "idea",
+        "root": {
+          "kind": "idea",
+          "targetMode": "artifact",
+          "artifactKind": "idea",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Installing Templates Into Existing Graphs",
+              "memo": "Canonical entry surface for the installable-template capability idea.",
+              "portNodeId": "installable-template-root-port",
+              "viewNodeId": "installable-template-root-port",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     {
@@ -178,7 +173,7 @@
     },
     {
       "id": "installable-template-instructions",
-      "type": "markdown",
+      "type": "content",
       "label": "Discussion Map",
       "position": {
         "x": -220,
@@ -229,7 +224,10 @@
         "identity": {
           "graphId": "installable-template-capabilities"
         },
-        "markdown": "# Discussion Map\n\nUse the semantic edges to follow the proposal:\n\n- the audience **is affected by** whole-graph template ownership\n- that problem **motivates** installable capabilities\n- the proposal **assumes** one root can host bounded behaviors\n- the workboard audit **informs** the open installation-contract question\n- current reconciler behavior **supports** the assumption\n- collision risk **threatens** the idea\n- the proof task **tests** the assumption and **advances** the proposed approach\n\nKeep whole-graph derivation and capability installation as separate authority operations."
+        "content": {
+          "kind": "markdown",
+          "value": "# Discussion Map\n\nUse the semantic edges to follow the proposal:\n\n- the audience **is affected by** whole-graph template ownership\n- that problem **motivates** installable capabilities\n- the proposal **assumes** one root can host bounded behaviors\n- the workboard audit **informs** the open installation-contract question\n- current reconciler behavior **supports** the assumption\n- collision risk **threatens** the idea\n- the proof task **tests** the assumption and **advances** the proposed approach\n\nKeep whole-graph derivation and capability installation as separate authority operations."
+        }
       }
     },
     {
@@ -287,27 +285,15 @@
         "status": "framed",
         "confidence": "promising",
         "notes": "The first proof should install workboard behavior into an idea graph while preserving idea authority and root semantics.",
-        "definitionKey": "idea",
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "installable-template-capabilities"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
       }
     },
     {
       "id": "installable-template-bridge-idea",
-      "type": "bridge",
+      "type": "import",
       "label": "Idea",
       "position": {
         "x": -1740,
@@ -327,18 +313,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -426,27 +400,15 @@
         "statement": "Current template instructions commonly assume they own the entire destination graph, including its declaration, graph kind, fixed IDs, and root surface.",
         "impact": "Authors cannot safely add a mature capability such as workboard reconciliation to an existing idea, research, or project graph without hand-merging infrastructure.",
         "urgency": "high",
-        "definitionKey": "idea-problem",
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "installable-template-capabilities"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
       }
     },
     {
       "id": "installable-template-bridge-idea-problem",
-      "type": "bridge",
+      "type": "import",
       "label": "Problem",
       "position": {
         "x": -1740,
@@ -466,18 +428,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -564,27 +514,15 @@
         "title": "Graph Authors, Template Designers, and Agents",
         "description": "People and agents who want to extend an existing graph rather than create a separate artifact for every new behavior.",
         "needs": "Install a capability predictably, preserve existing authority, understand what was added, and update or remove it safely later.",
-        "definitionKey": "idea-audience",
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "installable-template-capabilities"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
       }
     },
     {
       "id": "installable-template-bridge-idea-audience",
-      "type": "bridge",
+      "type": "import",
       "label": "Audience",
       "position": {
         "x": -1740,
@@ -604,18 +542,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -702,27 +628,15 @@
         "title": "Two Template Modes: Derive and Install",
         "description": "A whole-graph template may derive a new graph. An installable template instead copies a bounded set of functional nodes and edges into an existing graph, adds the bridges those nodes require, and leaves the host declaration and canonical root untouched.",
         "differentiator": "Installation reuses Twilite's existing class resolution, dependency discovery, view behavior, layout, and save rules. It does not introduce a package manager, ownership ledger, receipt system, or automatic ID suffixing.",
-        "definitionKey": "idea-proposed-approach",
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "installable-template-capabilities"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
       }
     },
     {
       "id": "installable-template-bridge-idea-proposed-approach",
-      "type": "bridge",
+      "type": "import",
       "label": "Proposed Approach",
       "position": {
         "x": -1740,
@@ -742,18 +656,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -841,29 +743,17 @@
         "question": "What minimum manifest, ownership map, configuration, collision policy, and lifecycle hooks make capability installation idempotent, updateable, and removable?",
         "status": "answered",
         "answer": "Keep installation lean: copy the bounded nodes and edges, add the required bridges, preserve the host declaration and root, and rely on existing graph rules. A capability may declare itself singleton; Workboard does, so a second Workboard installation is rejected rather than scoped or renamed.",
-        "definitionKey": "idea-question",
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "installable-template-capabilities"
         },
         "resolution": "A first installable template is a bounded set of nodes, edges, and required bridges copied into an existing graph. It preserves the host declaration and canonical root, relies on Twilite's existing automatic rules, and fails on ID collisions without generating suffixes.",
-        "resolutionPath": "Promoted into Graph Organization as the local implementation task “Implement lean template installation.”"
+        "resolutionPath": "Promoted into Graph Organization as the local implementation task “Implement lean template installation.”",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
       }
     },
     {
       "id": "installable-template-bridge-idea-question",
-      "type": "bridge",
+      "type": "import",
       "label": "Question",
       "position": {
         "x": -1740,
@@ -883,18 +773,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -983,27 +861,15 @@
         "importance": "critical",
         "status": "tested",
         "result": "Supported with a boundary. One canonical root can host several different capabilities, but the Workboard capability is singleton because one graph-local task placement should have one owner.",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "installable-template-capabilities"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
       }
     },
     {
       "id": "installable-template-bridge-idea-assumption",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumption",
       "position": {
         "x": -1740,
@@ -1023,18 +889,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1122,27 +976,15 @@
         "findings": "The workboard reconciler already discovers a controller and does not need to mutate the declaration or root, but the derivation instructions assume whole-graph ownership and the script hardcodes lane and empty-state node IDs.",
         "sourceUrl": "github://mikemartinez1974/public/templates/workboard-template/root.node",
         "sourceType": "graph",
-        "definitionKey": "idea-research",
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "installable-template-capabilities"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
       }
     },
     {
       "id": "installable-template-bridge-idea-research",
-      "type": "bridge",
+      "type": "import",
       "label": "Research",
       "position": {
         "x": -1740,
@@ -1162,18 +1004,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1267,27 +1097,15 @@
           "github://mikemartinez1974/public/graphs/template-installation-multiple-workboards.node",
           "github://mikemartinez1974/public/templates/workboard-template/root.node"
         ],
-        "definitionKey": "idea-evidence",
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "installable-template-capabilities"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
       }
     },
     {
       "id": "installable-template-bridge-idea-evidence",
-      "type": "bridge",
+      "type": "import",
       "label": "Evidence",
       "position": {
         "x": -1740,
@@ -1307,18 +1125,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1405,29 +1211,17 @@
         "title": "Build a Template Package Manager",
         "description": "Track manifests, receipts, ownership categories, rollback, update, and uninstall from the first version.",
         "tradeoffs": "This preserves clean authority boundaries but forces unnecessary graph proliferation and prevents useful local behaviors from operating directly over the host graph’s nodes.",
-        "definitionKey": "idea-alternative",
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "installable-template-capabilities"
         },
         "status": "rejected-for-now",
-        "tradeoff": "More lifecycle control, but far more machinery than the first working installation requires. Revisit only when real installed capabilities demonstrate the need."
+        "tradeoff": "More lifecycle control, but far more machinery than the first working installation requires. Revisit only when real installed capabilities demonstrate the need.",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
       }
     },
     {
       "id": "installable-template-bridge-idea-alternative",
-      "type": "bridge",
+      "type": "import",
       "label": "Alternative",
       "position": {
         "x": -1740,
@@ -1447,18 +1241,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1547,27 +1329,15 @@
         "likelihood": "medium",
         "impact": "high",
         "mitigation": "Keep the first contract lean and add lifecycle machinery only in response to observed failures.",
-        "definitionKey": "idea-risk",
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "installable-template-capabilities"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
       }
     },
     {
       "id": "installable-template-bridge-idea-risk",
-      "type": "bridge",
+      "type": "import",
       "label": "Risk",
       "position": {
         "x": -1740,
@@ -1587,18 +1357,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1686,29 +1444,17 @@
         "action": "Confirm that installation rejects both Workboard capability collisions and exact duplicate node IDs without suffixing. The graph-authored copy operation remains the installation mechanism.",
         "expectedEvidence": "A second Workboard is rejected as a singleton capability collision, and an exact duplicate node ID is rejected without suffixing.",
         "status": "done",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "installable-template-capabilities"
         },
         "description": "Graph-authored copying is the chosen installation mechanism. Workboard is explicitly singleton, and both capability collision and exact-ID collision behavior are verified.",
-        "result": "Complete. The first duplicate-ID run was rejected without suffixing."
+        "result": "Complete. The first duplicate-ID run was rejected without suffixing.",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       }
     },
     {
       "id": "installable-template-bridge-idea-next-step",
-      "type": "bridge",
+      "type": "import",
       "label": "Next Step",
       "position": {
         "x": -1740,
@@ -1728,18 +1474,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1775,9 +1509,8 @@
     },
     {
       "id": "idea-edge-class-advances",
-      "type": "bridge",
+      "type": "import",
       "label": "Advances",
-      "root": false,
       "position": {
         "x": -1180,
         "y": -1140
@@ -1831,9 +1564,8 @@
     },
     {
       "id": "idea-edge-class-affects",
-      "type": "bridge",
+      "type": "import",
       "label": "Affects",
-      "root": false,
       "position": {
         "x": -1140,
         "y": -1140
@@ -1887,9 +1619,8 @@
     },
     {
       "id": "idea-edge-class-assumes",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumes",
-      "root": false,
       "position": {
         "x": -1100,
         "y": -1140
@@ -1943,9 +1674,8 @@
     },
     {
       "id": "idea-edge-class-contradicts",
-      "type": "bridge",
+      "type": "import",
       "label": "Contradicts",
-      "root": false,
       "position": {
         "x": -1060,
         "y": -1140
@@ -1999,9 +1729,8 @@
     },
     {
       "id": "idea-edge-class-informs",
-      "type": "bridge",
+      "type": "import",
       "label": "Informs",
-      "root": false,
       "position": {
         "x": -1020,
         "y": -1140
@@ -2055,9 +1784,8 @@
     },
     {
       "id": "idea-edge-class-motivates",
-      "type": "bridge",
+      "type": "import",
       "label": "Motivates",
-      "root": false,
       "position": {
         "x": -980,
         "y": -1140
@@ -2111,9 +1839,8 @@
     },
     {
       "id": "idea-edge-class-questions",
-      "type": "bridge",
+      "type": "import",
       "label": "Questions",
-      "root": false,
       "position": {
         "x": -940,
         "y": -1140
@@ -2167,9 +1894,8 @@
     },
     {
       "id": "idea-edge-class-supports",
-      "type": "bridge",
+      "type": "import",
       "label": "Supports",
-      "root": false,
       "position": {
         "x": -900,
         "y": -1140
@@ -2223,9 +1949,8 @@
     },
     {
       "id": "idea-edge-class-tests",
-      "type": "bridge",
+      "type": "import",
       "label": "Tests",
-      "root": false,
       "position": {
         "x": -860,
         "y": -1140
@@ -2279,9 +2004,8 @@
     },
     {
       "id": "idea-edge-class-threatens",
-      "type": "bridge",
+      "type": "import",
       "label": "Threatens",
-      "root": false,
       "position": {
         "x": -820,
         "y": -1140
@@ -2611,7 +2335,7 @@
   "edges": [
     {
       "id": "installable-template-entry-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "installable-template-declaration",
       "target": "installable-template-root-port",
       "sourcePort": "root",
@@ -2625,7 +2349,7 @@
     },
     {
       "id": "installable-template-problem-motivates",
-      "type": "reference",
+      "type": "idea.motivates",
       "source": "installable-template-idea-problem",
       "target": "installable-template-idea",
       "sourcePort": "right",
@@ -2639,15 +2363,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.motivates",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node",
-        "semanticRole": "idea.motivates",
-        "edgeClassMeaning": "source establishes the need or reason for the target"
+        "edgeClassMeaning": "source establishes the need or reason for the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node"
       }
     },
     {
       "id": "installable-template-audience-affects",
-      "type": "reference",
+      "type": "idea.affects",
       "source": "installable-template-idea-audience",
       "target": "installable-template-idea-problem",
       "sourcePort": "right",
@@ -2661,15 +2383,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.affects",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node",
-        "semanticRole": "idea.affects",
-        "edgeClassMeaning": "source audience experiences or is affected by the target problem"
+        "edgeClassMeaning": "source audience experiences or is affected by the target problem",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node"
       }
     },
     {
       "id": "installable-template-idea-assumes",
-      "type": "reference",
+      "type": "idea.assumes",
       "source": "installable-template-idea",
       "target": "installable-template-idea-assumption",
       "sourcePort": "bottom",
@@ -2687,15 +2407,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
+        "edgeClassMeaning": "source depends on the target assumption being true",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node"
       }
     },
     {
       "id": "installable-template-question-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "installable-template-idea-question",
       "target": "installable-template-idea-assumption",
       "sourcePort": "right",
@@ -2713,15 +2431,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       }
     },
     {
       "id": "installable-template-research-informs",
-      "type": "reference",
+      "type": "idea.informs",
       "source": "installable-template-idea-research",
       "target": "installable-template-idea-question",
       "sourcePort": "right",
@@ -2735,15 +2451,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.informs",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
-        "semanticRole": "idea.informs",
-        "edgeClassMeaning": "source provides context that informs the target"
+        "edgeClassMeaning": "source provides context that informs the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node"
       }
     },
     {
       "id": "installable-template-evidence-supports",
-      "type": "reference",
+      "type": "idea.supports",
       "source": "installable-template-idea-evidence",
       "target": "installable-template-idea-assumption",
       "sourcePort": "left",
@@ -2757,15 +2471,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.supports",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
-        "semanticRole": "idea.supports",
-        "edgeClassMeaning": "source evidence increases confidence in the target"
+        "edgeClassMeaning": "source evidence increases confidence in the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node"
       }
     },
     {
       "id": "installable-template-alternative-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "installable-template-idea-alternative",
       "target": "installable-template-idea-proposed-approach",
       "sourcePort": "left",
@@ -2783,15 +2495,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       }
     },
     {
       "id": "installable-template-risk-threatens",
-      "type": "reference",
+      "type": "idea.threatens",
       "source": "installable-template-idea-risk",
       "target": "installable-template-idea",
       "sourcePort": "bottom",
@@ -2809,15 +2519,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.threatens",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node",
-        "semanticRole": "idea.threatens",
-        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target"
+        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node"
       }
     },
     {
       "id": "installable-template-next-step-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "installable-template-idea-next-step",
       "target": "installable-template-idea-assumption",
       "sourcePort": "top",
@@ -2831,15 +2539,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       }
     },
     {
       "id": "installable-template-approach-advances",
-      "type": "reference",
+      "type": "idea.advances",
       "source": "installable-template-idea-proposed-approach",
       "target": "installable-template-idea",
       "sourcePort": "left",
@@ -2853,15 +2559,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.advances",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node",
-        "semanticRole": "idea.advances",
-        "edgeClassMeaning": "source action moves the target idea toward a better-supported state"
+        "edgeClassMeaning": "source action moves the target idea toward a better-supported state",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node"
       }
     },
     {
       "id": "installable-template-instructions-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "installable-template-idea-next-step",
       "target": "installable-template-instructions",
       "sourcePort": "right",
@@ -2882,115 +2586,95 @@
       "id": "installable-template-declaration-edge-class-authority-advances",
       "source": "installable-template-declaration",
       "target": "idea-edge-class-advances",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "installable-template-declaration-edge-class-authority-affects",
       "source": "installable-template-declaration",
       "target": "idea-edge-class-affects",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "installable-template-declaration-edge-class-authority-assumes",
       "source": "installable-template-declaration",
       "target": "idea-edge-class-assumes",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "installable-template-declaration-edge-class-authority-contradicts",
       "source": "installable-template-declaration",
       "target": "idea-edge-class-contradicts",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "installable-template-declaration-edge-class-authority-informs",
       "source": "installable-template-declaration",
       "target": "idea-edge-class-informs",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "installable-template-declaration-edge-class-authority-motivates",
       "source": "installable-template-declaration",
       "target": "idea-edge-class-motivates",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "installable-template-declaration-edge-class-authority-questions",
       "source": "installable-template-declaration",
       "target": "idea-edge-class-questions",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "installable-template-declaration-edge-class-authority-supports",
       "source": "installable-template-declaration",
       "target": "idea-edge-class-supports",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "installable-template-declaration-edge-class-authority-tests",
       "source": "installable-template-declaration",
       "target": "idea-edge-class-tests",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "installable-template-declaration-edge-class-authority-threatens",
       "source": "installable-template-declaration",
       "target": "idea-edge-class-threatens",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "sourcePort": "root",
       "targetPort": "root",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority"
     },
     {
       "id": "installable-template-ideas-collection-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "installable-template-root-port",
       "target": "installable-template-ideas-collection",
       "sourcePort": "root",
@@ -3008,7 +2692,7 @@
     },
     {
       "id": "installable-template-next-step-promoted",
-      "type": "reference",
+      "type": "edge",
       "source": "installable-template-idea-next-step",
       "target": "installable-template-implementation-task",
       "sourcePort": "right",
@@ -3025,7 +2709,7 @@
     },
     {
       "id": "installable-template-next-step-smoke-test",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "installable-template-idea-next-step",
       "target": "installable-template-smoke-test",
       "sourcePort": "right",
@@ -3039,14 +2723,12 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests"
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       }
     },
     {
       "id": "installable-template-next-step-multiple-workboards",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "installable-template-idea-next-step",
       "target": "installable-template-multiple-workboards-test",
       "sourcePort": "right",
@@ -3060,13 +2742,10 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests"
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       }
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,
@@ -3105,8 +2784,5 @@
     },
     "autoSave": false
   },
-  "scripts": [],
-  "nodeCount": 39,
-  "edgeCount": 26,
-  "timestamp": "2026-08-02T22:00:00.000Z"
+  "scripts": []
 }

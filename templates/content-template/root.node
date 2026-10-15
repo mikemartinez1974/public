@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Content Template",
-    "description": "Where a node's real material lives -- reached two ways: a Declaration's landing-surface (the content a graph shows before you open any particular View), and a View's surface-delegate (the content a View shows instead of owning its own). Both relationships land on the same root port; smoke-content proved that locally, this template proves it across a real cross-template link, via the portal back to view-template.",
-    "graphId": "content-template-declaration",
-    "version": "0.2.3",
-    "kind": "template",
     "created": "2026-10-04T17:33:21.900Z",
     "modified": "2026-10-08T23:57:08.331Z",
     "author": "",
@@ -18,9 +13,8 @@
   "nodes": [
     {
       "id": "content-template-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Content Template",
-      "root": true,
       "position": {
         "x": 0,
         "y": -300
@@ -40,11 +34,6 @@
           "kind": "template",
           "scope": "local"
         },
-        "declaration": {
-          "kind": "graph",
-          "defaultSurfaceId": "web",
-          "surfaces": []
-        },
         "glyph": {
           "kind": "icon",
           "name": "Description"
@@ -53,6 +42,11 @@
         "purpose": "",
         "document": {
           "url": "github://mikemartinez1974/public/templates/content-template/root.node"
+        },
+        "root": {
+          "kind": "graph",
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       }
     },
@@ -126,9 +120,8 @@
     },
     {
       "id": "content-template-detail",
-      "type": "view",
+      "type": "face",
       "label": "Detail",
-      "root": false,
       "position": {
         "x": -1300,
         "y": -180
@@ -157,14 +150,14 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90,
-          "role": "view-sequence",
+          "role": "next-face",
           "allowedEdgeTypes": [
-            "view-sequence"
+            "next-face"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false,
             "behaviors": [
               {
@@ -231,9 +224,8 @@
     },
     {
       "id": "content-template-icon",
-      "type": "view",
+      "type": "face",
       "label": "Icon",
-      "root": false,
       "position": {
         "x": -780,
         "y": -60
@@ -262,11 +254,11 @@
           "direction": "input",
           "dataType": "any",
           "angle": 270,
-          "role": "view-sequence",
+          "role": "next-face",
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false
           }
         },
@@ -277,14 +269,14 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90,
-          "role": "view-sequence",
+          "role": "next-face",
           "allowedEdgeTypes": [
-            "view-sequence"
+            "next-face"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false,
             "behaviors": [
               {
@@ -327,7 +319,6 @@
       "id": "content-template-glyph",
       "type": "glyph",
       "label": "Glyph",
-      "root": false,
       "position": {
         "x": -560,
         "y": -10
@@ -377,72 +368,62 @@
   "edges": [
     {
       "id": "content-template-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "source": "content-template-declaration",
-      "sourceHandle": "landing-surface",
       "target": "content-template-content",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "landing-surface"
-      }
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "content-template-surface-delegate",
-      "type": "reference",
+      "type": "view.content",
       "source": "content-template-view-portal",
-      "sourceHandle": "root",
       "target": "content-template-content",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view.content"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "content-template-surface",
       "type": "surface",
       "source": "content-template-declaration",
-      "sourceHandle": "surfaces",
       "target": "content-template-detail",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "content-template-detail-icon",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "content-template-detail",
-      "sourceHandle": "sequence-out",
       "target": "content-template-icon",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "content-template-icon-glyph",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "content-template-icon",
-      "sourceHandle": "sequence-out",
       "target": "content-template-glyph",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

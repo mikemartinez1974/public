@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Bridge Template (Export)",
-    "description": "The export half of a real Bridge pair -- not an isolated node. Exposes widget.ready, a custom Event raised by the Method below, to templates/bridge-template/import/root.node. See the detail view for how this graph's auto-loading actually behaves.",
-    "graphId": "export-declaration",
-    "version": "0.1.0",
-    "kind": "template",
     "created": "2026-10-04T20:33:08.325Z",
     "modified": "2026-10-04T20:33:08.325Z",
     "author": "",
@@ -18,9 +13,8 @@
   "nodes": [
     {
       "id": "export-template-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Bridge Template (Export)",
-      "root": true,
       "position": {
         "x": 0,
         "y": -600
@@ -40,11 +34,6 @@
           "kind": "template",
           "scope": "local"
         },
-        "declaration": {
-          "kind": "graph",
-          "defaultSurfaceId": "web",
-          "surfaces": []
-        },
         "glyph": {
           "kind": "icon",
           "name": "Cable"
@@ -53,12 +42,17 @@
         "purpose": "",
         "document": {
           "url": "github://mikemartinez1974/public/templates/bridge-template/export/root.node"
+        },
+        "root": {
+          "kind": "graph",
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       }
     },
     {
       "id": "export-template-view",
-      "type": "view",
+      "type": "face",
       "label": "View",
       "position": {
         "x": 0,
@@ -143,7 +137,7 @@
     },
     {
       "id": "export-template-bridge",
-      "type": "bridge",
+      "type": "export",
       "label": "Export to Import",
       "position": {
         "x": 0,
@@ -161,7 +155,6 @@
           "ref": "github://mikemartinez1974/public/templates/bridge-template/import/root.node",
           "resourceKind": "graph",
           "scope": "graph",
-          "role": "export",
           "grants": [],
           "exposure": {
             "events": {
@@ -179,7 +172,6 @@
           "resourceKind": "graph",
           "scope": "graph",
           "label": "Bridge Template (Import)",
-          "role": "export",
           "grants": [],
           "exposure": {
             "events": {
@@ -202,31 +194,27 @@
       "id": "export-template-surfaces",
       "type": "surface",
       "source": "export-template-declaration",
-      "sourceHandle": "surfaces",
       "target": "export-template-view",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "export-template-sequence-out",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "export-template-view",
-      "sourceHandle": "sequence-out",
       "target": "export-template-glyph",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

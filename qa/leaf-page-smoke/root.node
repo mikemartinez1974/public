@@ -1,18 +1,13 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Leaf Page Smoke Test",
-    "description": "A node with its full view chain and no Landing Surface, focused in browse mode.",
-    "graphId": "leaf-page-smoke",
-    "version": "1.0.0",
-    "kind": "graph",
     "created": "2026-10-08T22:38:12.421Z",
     "modified": "2026-10-08T22:38:12.421Z",
     "author": "Michael Martinez",
     "tags": [
       "smoke-test",
       "qa",
-      "landing-surface",
+      "ground",
       "focus"
     ],
     "preferredViewer": "https://dev.twilite.zone"
@@ -20,9 +15,8 @@
   "nodes": [
     {
       "id": "leaf-page-smoke-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Leaf Page Smoke Declaration",
-      "root": false,
       "position": {
         "x": -1280,
         "y": -900
@@ -58,20 +52,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -124,14 +118,14 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "surfaces",
@@ -175,17 +169,6 @@
         "intent": {
           "kind": "graph",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "template",
-          "targetMode": "artifact",
-          "artifactKind": "graph-template",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "defaultSurfaceId": "web",
-          "surfaces": []
         },
         "dependencies": {
           "nodeTypes": [
@@ -256,14 +239,24 @@
         },
         "document": {
           "url": "github://mikemartinez1974/public/templates/smoke-test-template/root.node"
+        },
+        "root": {
+          "kind": "template",
+          "targetMode": "artifact",
+          "artifactKind": "graph-template",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       }
     },
     {
       "id": "leaf-page-smoke-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Smoke Test Bench",
-      "root": false,
       "position": {
         "x": -1880,
         "y": -980
@@ -351,9 +344,8 @@
     },
     {
       "id": "leaf-page-smoke-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Smoke Test Summary View",
-      "root": false,
       "position": {
         "x": -1880,
         "y": -620
@@ -441,9 +433,8 @@
     },
     {
       "id": "leaf-page-smoke-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Smoke Test Icon View",
-      "root": false,
       "position": {
         "x": -1880,
         "y": -320
@@ -533,7 +524,6 @@
       "id": "leaf-page-smoke-glyph",
       "type": "glyph",
       "label": "Smoke Test Glyph",
-      "root": false,
       "position": {
         "x": -1280,
         "y": -1220
@@ -581,7 +571,6 @@
       "id": "leaf-page-smoke-landing-surface",
       "type": "content",
       "label": "Smoke Test Landing Surface",
-      "root": false,
       "position": {
         "x": -620,
         "y": -900
@@ -673,9 +662,8 @@
     },
     {
       "id": "leaf-page-smoke-setup",
-      "type": "markdown",
+      "type": "content",
       "label": "Setup",
-      "root": false,
       "position": {
         "x": -1020,
         "y": -420
@@ -725,7 +713,10 @@
         "identity": {
           "graphId": "smoke-test-template"
         },
-        "markdown": "## Setup\n\nThe card to the right is one instance of `full-page-leaf` -- a node class with a Detail, Summary, Icon and Glyph chain, and **no Landing Surface**. The Bridge below imports the class so the instance resolves.\n\nTwo ways to see it:\n1. Focus the card here and zoom in -- it's an ordinary instance, so this is just camera movement.\n2. Open the class file directly as its own graph: `github://mikemartinez1974/public/qa/leaf-page-smoke/classes/full-page-leaf.node-class.node`. *This* is the real test -- it has to resolve where to land with nothing to fall back on."
+        "content": {
+          "kind": "markdown",
+          "value": "## Setup\n\nThe card to the right is one instance of `full-page-leaf` -- a node class with a Detail, Summary, Icon and Glyph chain, and **no Landing Surface**. The Bridge below imports the class so the instance resolves.\n\nTwo ways to see it:\n1. Focus the card here and zoom in -- it's an ordinary instance, so this is just camera movement.\n2. Open the class file directly as its own graph: `github://mikemartinez1974/public/qa/leaf-page-smoke/classes/full-page-leaf.node-class.node`. *This* is the real test -- it has to resolve where to land with nothing to fall back on."
+        }
       },
       "handles": [
         {
@@ -767,9 +758,8 @@
     },
     {
       "id": "leaf-page-smoke-expected",
-      "type": "markdown",
+      "type": "content",
       "label": "Expected Result",
-      "root": false,
       "position": {
         "x": 340,
         "y": -420
@@ -819,7 +809,10 @@
         "identity": {
           "graphId": "smoke-test-template"
         },
-        "markdown": "## Expected Result\n\nOpening the class file directly lands on its **Detail view**, full-size, immediately -- not on a landing card, not on an empty canvas. Verified by calling the app's own `resolveGraphNavigationExposure` against the file: `landingSurfaceNodeId` comes back empty and `focusNodeId` resolves to `full-page-leaf-detail-view` directly.\n\nCompare to `node-template` (which has a Landing Surface): the same function resolves `focusNodeId` to its landing content, not its Detail view. No Landing Surface means the Detail view *is* the landing -- a node file with a full view chain and nothing else already reads as a page when opened, with no separate mechanism required."
+        "content": {
+          "kind": "markdown",
+          "value": "## Expected Result\n\nOpening the class file directly lands on its **Detail view**, full-size, immediately -- not on a landing card, not on an empty canvas. Verified by calling the app's own `resolveGraphNavigationExposure` against the file: `landingSurfaceNodeId` comes back empty and `focusNodeId` resolves to `full-page-leaf-detail-view` directly.\n\nCompare to `node-template` (which has a Landing Surface): the same function resolves `focusNodeId` to its landing content, not its Detail view. No Landing Surface means the Detail view *is* the landing -- a node file with a full view chain and nothing else already reads as a page when opened, with no separate mechanism required."
+        }
       },
       "handles": [
         {
@@ -861,9 +854,8 @@
     },
     {
       "id": "leaf-page-smoke-observations",
-      "type": "markdown",
+      "type": "content",
       "label": "Observations",
-      "root": false,
       "position": {
         "x": -400,
         "y": 80
@@ -913,7 +905,10 @@
         "identity": {
           "graphId": "smoke-test-template"
         },
-        "markdown": "## Observations\n\nStructural check (2026, this session): `resolveGraphNavigationExposure` on `full-page-leaf.node-class.node` returns `focusNodeId: \"full-page-leaf-detail-view\"`, `landingSurfaceNodeId: \"\"` -- confirmed against the real function, not simulated.\n\nRecord the live, visual result here after opening the file in the browser: what you actually see on arrival, the browser, zoom level, and commit/build under test."
+        "content": {
+          "kind": "markdown",
+          "value": "## Observations\n\nStructural check (2026, this session): `resolveGraphNavigationExposure` on `full-page-leaf.node-class.node` returns `focusNodeId: \"full-page-leaf-detail-view\"`, `landingSurfaceNodeId: \"\"` -- confirmed against the real function, not simulated.\n\nRecord the live, visual result here after opening the file in the browser: what you actually see on arrival, the browser, zoom level, and commit/build under test."
+        }
       },
       "handles": [
         {
@@ -957,7 +952,6 @@
       "id": "leaf-page-smoke-subject",
       "type": "full-page-leaf",
       "label": "Full Page Leaf",
-      "root": false,
       "position": {
         "x": -400,
         "y": -480
@@ -991,7 +985,6 @@
             "name": "FileText"
           }
         },
-        "definitionKey": "full-page-leaf",
         "identity": {
           "graphId": "leaf-page-smoke",
           "nodeId": "leaf-page-smoke-subject"
@@ -1003,124 +996,13 @@
           "updatedAt": 1791499092421,
           "reason": "node-drag"
         },
-        "_classBinding": {
-          "key": "full-page-leaf",
-          "ref": "github://mikemartinez1974/public/qa/leaf-page-smoke/classes/full-page-leaf.node-class.node",
-          "source": "local",
-          "version": ">=0.1.0",
-          "defaults": {
-            "label": "Full Page Leaf",
-            "size": {
-              "width": 640,
-              "height": 520
-            },
-            "showLabel": false,
-            "data": {
-              "title": "Welcome to Leaf Co",
-              "subtitle": "A page with nowhere else to go.",
-              "sectionHeading": "Why this page is a single node",
-              "body": "This node has a Detail, Summary, Icon and Glyph -- the full view chain -- and nothing else. No Landing Surface, no child content, no sub-graph to open.\n\nFocusing it in browse mode has nothing to navigate into, so it just zooms the camera onto this Detail view in place. At full zoom it reads as a page, not a doorway into another graph.",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "FileText"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 270,
-                "position": {
-                  "side": "top",
-                  "offset": 0.2
-                }
-              }
-            ],
-            "events": []
-          },
-          "nodeDef": {
-            "key": "full-page-leaf",
-            "ref": "github://mikemartinez1974/public/qa/leaf-page-smoke/classes/full-page-leaf.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Full Page Leaf",
-              "size": {
-                "width": 640,
-                "height": 520
-              },
-              "showLabel": false,
-              "data": {
-                "title": "Welcome to Leaf Co",
-                "subtitle": "A page with nowhere else to go.",
-                "sectionHeading": "Why this page is a single node",
-                "body": "This node has a Detail, Summary, Icon and Glyph -- the full view chain -- and nothing else. No Landing Surface, no child content, no sub-graph to open.\n\nFocusing it in browse mode has nothing to navigate into, so it just zooms the camera onto this Detail view in place. At full zoom it reads as a page, not a doorway into another graph.",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "FileText"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 270,
-                  "position": {
-                    "side": "top",
-                    "offset": 0.2
-                  }
-                }
-              ],
-              "events": []
-            }
-          },
-          "views": [
-            {
-              "key": "full-page-leaf",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/qa/leaf-page-smoke/classes/full-page-leaf.node-class.node",
-              "source": "local",
-              "version": "0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "full-page-leaf",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/qa/leaf-page-smoke/classes/full-page-leaf.node-class.node",
-              "source": "local",
-              "version": "0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "full-page-leaf",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/qa/leaf-page-smoke/classes/full-page-leaf.node-class.node",
-              "source": "local",
-              "version": "0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        }
+        "classRef": "github://mikemartinez1974/public/qa/leaf-page-smoke/classes/full-page-leaf.node-class.node"
       }
     },
     {
       "id": "leaf-page-smoke-bridge-full-page-leaf",
-      "type": "bridge",
+      "type": "import",
       "label": "Full Page Leaf Class",
-      "root": false,
       "position": {
         "x": -400,
         "y": -720
@@ -1151,7 +1033,6 @@
       "data": {
         "bridge": {
           "ref": "github://mikemartinez1974/public/qa/leaf-page-smoke/classes/full-page-leaf.node-class.node",
-          "role": "import",
           "resourceKind": "node-class",
           "scope": "focused-graph",
           "grants": [
@@ -1179,71 +1060,61 @@
       "type": "surface",
       "source": "leaf-page-smoke-declaration",
       "target": "leaf-page-smoke-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "leaf-page-smoke-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "leaf-page-smoke-detail-view",
       "target": "leaf-page-smoke-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "leaf-page-smoke-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "leaf-page-smoke-summary-view",
       "target": "leaf-page-smoke-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "leaf-page-smoke-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "leaf-page-smoke-icon-view",
       "target": "leaf-page-smoke-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "smoke-test-template-landing-surface-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "leaf-page-smoke-declaration",
       "target": "leaf-page-smoke-landing-surface",
-      "label": "landing surface",
+      "label": "ground",
       "style": {},
-      "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface"
-      },
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "smoke-test-template-enter-subject",
-      "type": "reference",
+      "type": "navigation",
       "source": "leaf-page-smoke-landing-surface",
       "target": "leaf-page-smoke-subject",
       "label": "Enter test bench",
@@ -1251,15 +1122,11 @@
         "route": "orthogonal",
         "orthogonal": true
       },
-      "data": {
-        "role": "navigation",
-        "semanticRole": "navigation"
-      },
-      "sourceHandle": "enter",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "enter",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

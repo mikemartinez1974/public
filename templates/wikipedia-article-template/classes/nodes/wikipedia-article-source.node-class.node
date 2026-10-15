@@ -3,9 +3,8 @@
   "nodes": [
     {
       "id": "wikipedia-article-source-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Wikipedia Article Source Declaration",
-      "root": false,
       "position": {
         "x": -1280,
         "y": 0
@@ -41,20 +40,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -107,14 +106,14 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "surfaces",
@@ -158,17 +157,6 @@
         "intent": {
           "kind": "node-class",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "node-class",
-          "targetMode": "artifact",
-          "artifactKind": "node-class",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "defaultSurfaceId": "web",
-          "surfaces": []
         },
         "nodeClass": {
           "contractVersion": "1.0.0",
@@ -286,14 +274,24 @@
               }
             }
           }
+        },
+        "root": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "artifactKind": "node-class",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       }
     },
     {
       "id": "wikipedia-article-source-detail",
-      "type": "view",
+      "type": "face",
       "label": "Article Detail",
-      "root": false,
       "position": {
         "x": -720,
         "y": -300
@@ -385,9 +383,8 @@
     },
     {
       "id": "wikipedia-article-source-summary",
-      "type": "view",
+      "type": "face",
       "label": "Article Summary",
-      "root": false,
       "position": {
         "x": -720,
         "y": 80
@@ -479,9 +476,8 @@
     },
     {
       "id": "wikipedia-article-source-icon",
-      "type": "view",
+      "type": "face",
       "label": "Article Icon",
-      "root": false,
       "position": {
         "x": -720,
         "y": 380
@@ -573,9 +569,8 @@
     },
     {
       "id": "wikipedia-article-source-editor",
-      "type": "view",
+      "type": "face",
       "label": "Article Editor",
-      "root": false,
       "position": {
         "x": -720,
         "y": 680
@@ -691,7 +686,6 @@
       "id": "wikipedia-article-source-glyph",
       "type": "glyph",
       "label": "Wikipedia Glyph",
-      "root": false,
       "position": {
         "x": -1180,
         "y": -480
@@ -745,7 +739,6 @@
       "id": "wikipedia-article-source-landing",
       "type": "content",
       "label": "Article Landing Surface",
-      "root": false,
       "position": {
         "x": -120,
         "y": -40
@@ -797,7 +790,6 @@
       "id": "wikipedia-article-source-contract",
       "type": "content",
       "label": "Article Source Contract",
-      "root": false,
       "position": {
         "x": 660,
         "y": -40
@@ -849,7 +841,6 @@
       "id": "wikipedia-article-resolver-script",
       "type": "script",
       "label": "Wikipedia Article Resolver",
-      "root": false,
       "position": {
         "x": 660,
         "y": 540
@@ -897,69 +888,56 @@
       "type": "surface",
       "source": "wikipedia-article-source-declaration",
       "target": "wikipedia-article-source-detail",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "wikipedia-article-source-detail-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "wikipedia-article-source-detail",
       "target": "wikipedia-article-source-summary",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "wikipedia-article-source-summary-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "wikipedia-article-source-summary",
       "target": "wikipedia-article-source-icon",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "wikipedia-article-source-icon-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "wikipedia-article-source-icon",
       "target": "wikipedia-article-source-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "article-landing",
-      "type": "reference",
+      "type": "ground",
       "source": "wikipedia-article-source-declaration",
       "target": "wikipedia-article-source-landing",
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root",
-      "label": "landing surface",
-      "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface"
-      }
+      "label": "ground",
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     }
-  ],
-  "timestamp": "2026-08-28T21:36:51.902Z",
-  "nodeCount": 9,
-  "edgeCount": 6
+  ]
 }

@@ -35,7 +35,7 @@ const semanticTypes = new Set(['plan', 'plan-goal', 'plan-phase', 'plan-action',
 const exemplars = new Map(template.nodes.filter((node) => semanticTypes.has(node.type)).map((node) => [node.type, node]));
 graph.nodes = graph.nodes.filter((node) => !semanticTypes.has(node.type));
 graph.edges = graph.edges.filter((edge) => {
-  const role = String(edge.data?.semanticRole || '').trim();
+  const role = String(edge.type || '').trim();
   return !role.startsWith('plan.') && role !== 'instantiates';
 });
 
@@ -137,21 +137,21 @@ graph.nodes.push(...contentNodes);
 const id = (suffix) => `${prefix}-${suffix}`;
 const addEdge = (name, type, source, target, ports, stroke) => graph.edges.push({
   id: id(`edge-${name}`), type, label: type.replace('plan.', ''), source: id(source), target: id(target),
-  sourcePort: ports[0], sourceHandle: ports[0], targetPort: ports[1], targetHandle: ports[1],
-  style: { stroke, strokeWidth: 2, curved: true, dash: [] }, data: { semanticRole: type, presentation: { layer: 'semantic' } }
+  sourcePort: ports[0], targetPort: ports[1],
+  style: { stroke, strokeWidth: 2, curved: true, dash: [] }, data: { presentation: { layer: 'semantic' } }
 });
 addEdge('goal', 'plan.achieves', 'the-plan', 'goal', ['goal', 'plan'], '#059669');
 COLUMNS.forEach(([key]) => addEdge(`column-${key}`, 'plan.contains', 'the-plan', `column-${key}`, ['phases', 'parent'], '#334155'));
 for (const node of contentNodes) {
   graph.edges.push({
-    id: `${node.id}-instantiates`, type: 'reference', label: '', source: `${prefix}-class-bridge-${node.type}`, target: node.id,
-    sourcePort: 'root', sourceHandle: 'root', targetPort: 'root', targetHandle: 'root', hidden: true,
+    id: `${node.id}-instantiates`, type: 'instantiates', label: '', source: `${prefix}-class-bridge-${node.type}`, target: node.id,
+    sourcePort: 'root', targetPort: 'root', hidden: true,
     style: { stroke: '#64748b', strokeWidth: 1, opacity: 0.03 },
-    data: { role: 'instantiates', semanticRole: 'instantiates', presentation: { layer: 'contract' } }
+    data: { presentation: { layer: 'contract' } }
   });
 }
 
-graph.metadata = { ...graph.metadata, title, description, graphId, version: '0.1.0', created: now, modified: now,
+graph.metadata = { ...graph.metadata, created: now, modified: now,
   tags: ['plan', 'library', 'canon', 'sorting'], preferredViewer: 'https://dev.twilite.zone' };
 declaration.label = title;
 declaration.data.identity = { ...declaration.data.identity, graphId, nodeId, name: title, version: '0.1.0', description };
@@ -198,21 +198,18 @@ landing.data.identity = { ...landing.data.identity, graphId, nodeId };
 const instructions = graph.nodes.find((node) => node.id === `${prefix}-instructions`);
 instructions.label = 'How to use this board';
 instructions.position = { x: origin.x + 960, y: origin.y };
-instructions.data.markdown = '# How to use this board\n\nNothing here has been decided. Each card is one group of graphs from this library.\n\n'
+instructions.data.content = { kind: 'markdown', value: '# How to use this board\n\nNothing here has been decided. Each card is one group of graphs from this library.\n\n'
   + '- **Description** holds the facts: how many graphs, when they last changed, whether they are on the standard Surface, and what points at them.\n'
   + '- **Decision** holds a suggestion and the reason for it. Replace it with your own: *canon*, *personal*, or *retire*.\n'
   + '- Set **status** to done when a card is settled, and use **notes** for anything that has to happen first.\n'
   + '- The four columns are only where a card starts. Drag a card to another column when you change your mind.\n\n'
   + '"Pointed at by the app" means the app or its tests name these graphs by address, so moving them means changing the app too. '
   + '"Pointed at by the Twilite Zone repo" means a graph over there already links to them.\n\n'
-  + 'The facts come from a count of the library taken on 2026-10-10, saved beside this graph as `census.json`.';
+  + 'The facts come from a count of the library taken on 2026-10-10, saved beside this graph as `census.json`.' };
 
 for (const node of graph.nodes) if (node.data?.identity?.graphId) node.data.identity.graphId = graphId;
 graph.settings = { ...graph.settings, snapToGrid: true, gridSize: 20, edgeRouting: 'orthogonal',
   layout: { mode: 'manual', defaultLayout: 'layered', direction: 'DOWN', edgeLaneGapPx: 20 } };
-graph.nodeCount = graph.nodes.length;
-graph.edgeCount = graph.edges.length;
-graph.timestamp = now;
 
 fs.writeFileSync(outputPath, `${JSON.stringify(graph, null, 2)}\n`);
 console.log(`wrote ${path.relative(process.cwd(), outputPath)}: ${graph.nodes.length} nodes, ${graph.edges.length} edges`);

@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Wheel Test Page",
-    "description": "A tall page for the wheel test bench: open it next to the bench and zoom out to the workspace to check that its page view scrolls.",
-    "graphId": "wheel-test-page",
-    "version": "0.1.0",
-    "kind": "graph",
     "created": "2026-09-20T23:24:22.118Z",
     "modified": "2026-09-20T23:24:22.118Z",
     "author": "Michael Martinez",
@@ -19,9 +14,8 @@
   "nodes": [
     {
       "id": "wheel-test-page-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Wheel Test Page",
-      "root": false,
       "position": {
         "x": -1280,
         "y": -900
@@ -138,17 +132,6 @@
           "kind": "graph",
           "scope": "shared"
         },
-        "declaration": {
-          "kind": "template",
-          "targetMode": "artifact",
-          "artifactKind": "graph-template",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "defaultSurfaceId": "web",
-          "surfaces": []
-        },
         "dependencies": {
           "nodeTypes": [
             "declaration",
@@ -218,14 +201,24 @@
         },
         "document": {
           "url": "github://mikemartinez1974/public/qa/wheel-test-bench/page/root.node"
+        },
+        "root": {
+          "kind": "template",
+          "targetMode": "artifact",
+          "artifactKind": "graph-template",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       }
     },
     {
       "id": "wheel-test-page-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Wheel Test Page",
-      "root": false,
       "position": {
         "x": -1880,
         "y": -980
@@ -313,9 +306,8 @@
     },
     {
       "id": "wheel-test-page-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Wheel Test Page Summary",
-      "root": false,
       "position": {
         "x": -1880,
         "y": -620
@@ -403,9 +395,8 @@
     },
     {
       "id": "wheel-test-page-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Wheel Test Page Icon",
-      "root": false,
       "position": {
         "x": -1880,
         "y": -320
@@ -495,7 +486,6 @@
       "id": "wheel-test-page-glyph",
       "type": "glyph",
       "label": "Wheel Test Page Glyph",
-      "root": false,
       "position": {
         "x": -1280,
         "y": -1220
@@ -546,56 +536,48 @@
       "type": "surface",
       "source": "wheel-test-page-declaration",
       "target": "wheel-test-page-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "wheel-test-page-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "wheel-test-page-detail-view",
       "target": "wheel-test-page-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "wheel-test-page-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "wheel-test-page-summary-view",
       "target": "wheel-test-page-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "wheel-test-page-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "wheel-test-page-icon-view",
       "target": "wheel-test-page-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,
@@ -635,8 +617,5 @@
     },
     "autoSave": false
   },
-  "scripts": [],
-  "timestamp": "2026-09-20T23:24:22.118Z",
-  "nodeCount": 5,
-  "edgeCount": 4
+  "scripts": []
 }

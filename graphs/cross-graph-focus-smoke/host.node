@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Canonical Cross-Graph Focus Smoke Host",
-    "description": "Canonical host graph proving portal-owned expansion and edge-following focus into a modern fragment.",
-    "graphId": "cross-graph-focus-smoke-host",
-    "version": "1.0.0",
-    "kind": "smoke-test",
     "created": "2026-08-30T17:30:00.000Z",
     "modified": "2026-08-30T21:21:55.000Z",
     "tags": [
@@ -20,7 +15,7 @@
   "nodes": [
     {
       "id": "focus-host-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Canonical Focus Host",
       "position": {
         "x": -900,
@@ -30,13 +25,13 @@
       "height": 360,
       "handles": [
         {
-          "id": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "port",
@@ -78,13 +73,13 @@
       ],
       "ports": [
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "port",
@@ -128,13 +123,24 @@
           "graphId": "cross-graph-focus-smoke-host",
           "nodeId": "cross-graph-focus-smoke",
           "name": "Canonical Cross-Graph Focus Smoke Host",
-          "version": "1.0.0"
+          "version": "1.0.0",
+          "description": "Canonical host graph proving portal-owned expansion and edge-following focus into a modern fragment."
         },
         "intent": {
           "kind": "graph",
           "scope": "public"
         },
-        "declaration": {
+        "settings": {
+          "autoSave": false,
+          "layout": {
+            "mode": "manual",
+            "direction": "RIGHT"
+          }
+        },
+        "document": {
+          "url": "github://mikemartinez1974/public/graphs/cross-graph-focus-smoke/host.node"
+        },
+        "root": {
           "kind": "graph",
           "targetMode": "artifact",
           "artifactKind": "smoke-test",
@@ -183,22 +189,12 @@
               "viewNodeId": "focus-host-summary"
             }
           ]
-        },
-        "settings": {
-          "autoSave": false,
-          "layout": {
-            "mode": "manual",
-            "direction": "RIGHT"
-          }
-        },
-        "document": {
-          "url": "github://mikemartinez1974/public/graphs/cross-graph-focus-smoke/host.node"
         }
       }
     },
     {
       "id": "focus-host-detail",
-      "type": "view",
+      "type": "face",
       "label": "Host Detail",
       "position": {
         "x": -900,
@@ -239,7 +235,7 @@
     },
     {
       "id": "focus-host-summary",
-      "type": "view",
+      "type": "face",
       "label": "Host Summary",
       "position": {
         "x": -430,
@@ -280,7 +276,7 @@
     },
     {
       "id": "focus-host-icon",
-      "type": "view",
+      "type": "face",
       "label": "Host Icon",
       "position": {
         "x": -430,
@@ -365,7 +361,6 @@
       "id": "focus-host-landing",
       "type": "content",
       "label": "Start Here",
-      "root": true,
       "position": {
         "x": -220,
         "y": 160
@@ -539,102 +534,85 @@
       "type": "surface",
       "source": "focus-host-declaration",
       "target": "focus-host-detail",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "detail"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "focus-host-detail-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "focus-host-detail",
       "target": "focus-host-summary",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "focus-host-summary-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "focus-host-summary",
       "target": "focus-host-icon",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "focus-host-icon-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "focus-host-icon",
       "target": "focus-host-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "focus-host-landing-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "focus-host-declaration",
       "target": "focus-host-landing",
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root",
-      "label": "landing surface",
-      "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface"
-      }
+      "label": "ground",
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "focus-host-port-edge",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "focus-host-declaration",
       "target": "focus-host-summary-port",
-      "sourceHandle": "port",
-      "targetHandle": "root",
       "label": "port",
-      "data": {
-        "role": "exposes-port",
-        "semanticRole": "exposes-port"
-      }
+      "data": {},
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "focus-host-to-portal",
-      "type": "reference",
+      "type": "navigation",
       "source": "focus-host-landing",
       "target": "focus-host-fragment-portal",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "continue to fragment",
       "style": {
         "curved": true
       },
-      "data": {
-        "semanticRole": "navigation"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "focus-host-handoff-edge",
-      "type": "reference",
+      "type": "inter-graph-handoff",
       "source": "focus-host-handoff-producer",
       "target": "focus-host-fragment-portal",
-      "sourceHandle": "result",
-      "targetHandle": "root",
       "label": "send typed text",
       "style": {
         "curved": true,
@@ -642,7 +620,6 @@
         "strokeWidth": 3
       },
       "data": {
-        "semanticRole": "inter-graph-handoff",
         "interGraph": {
           "version": 1,
           "source": {
@@ -662,7 +639,9 @@
           "sourceNodeId": "focus-host-fragment-portal",
           "endpoint": "target"
         }
-      }
+      },
+      "sourcePort": "result",
+      "targetPort": "root"
     }
   ],
   "settings": {

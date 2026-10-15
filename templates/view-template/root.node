@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "View Template",
-    "description": "Where a View authors its own interface: root (left) is where a Declaration's surfaces edge lands, or where a previous View's sequence-out lands on a later one. surface-delegate (top) branches sideways to a Content node instead of owning content directly. sequence-in/sequence-out (left/right) continue the chain to the next View or a terminal Glyph. Content and Glyph each have their own dedicated template -- linked below, not merged in here.",
-    "graphId": "view-template-declaration",
-    "version": "0.1.0",
-    "kind": "template",
     "created": "2026-10-04T17:33:21.900Z",
     "modified": "2026-10-04T17:33:21.900Z",
     "author": "",
@@ -18,9 +13,8 @@
   "nodes": [
     {
       "id": "view-template-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "View Template",
-      "root": true,
       "position": {
         "x": 0,
         "y": -360
@@ -40,11 +34,6 @@
           "kind": "template",
           "scope": "local"
         },
-        "declaration": {
-          "kind": "graph",
-          "defaultSurfaceId": "web",
-          "surfaces": []
-        },
         "glyph": {
           "kind": "icon",
           "name": "Preview"
@@ -53,12 +42,17 @@
         "purpose": "",
         "document": {
           "url": "github://mikemartinez1974/public/templates/view-template/root.node"
+        },
+        "root": {
+          "kind": "graph",
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       }
     },
     {
       "id": "view-template-view",
-      "type": "view",
+      "type": "face",
       "label": "View",
       "position": {
         "x": 0,
@@ -86,7 +80,7 @@
     {
       "id": "view-template-content-portal",
       "type": "portal",
-      "label": "Content \u2192",
+      "label": "Content →",
       "position": {
         "x": 480,
         "y": 100
@@ -154,7 +148,7 @@
     {
       "id": "view-template-glyph-portal",
       "type": "portal",
-      "label": "Glyph Template \u2192",
+      "label": "Glyph Template →",
       "position": {
         "x": 760,
         "y": -140
@@ -202,57 +196,49 @@
       "id": "view-template-surfaces",
       "type": "surface",
       "source": "view-template-declaration",
-      "sourceHandle": "surfaces",
       "target": "view-template-view",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "view-template-surface-delegate",
-      "type": "reference",
+      "type": "view.content",
       "source": "view-template-view",
-      "sourceHandle": "surface-delegate",
       "target": "view-template-content-portal",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view.content"
-      }
+      "data": {},
+      "sourcePort": "surface-delegate",
+      "targetPort": "root"
     },
     {
       "id": "view-template-sequence-out",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "view-template-view",
-      "sourceHandle": "sequence-out",
       "target": "view-template-glyph",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "view-template-glyph-see-also",
-      "type": "reference",
+      "type": "default-handle",
       "source": "view-template-declaration",
-      "sourceHandle": "default-handle",
       "target": "view-template-glyph-portal",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "default-handle"
-      }
+      "data": {},
+      "sourcePort": "default-handle",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

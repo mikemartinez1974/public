@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Collection Window Controller Capability",
-    "description": "Placeable graph-owned collection browsing behavior.",
-    "graphId": "collection-window-controller-capability",
-    "version": "1.0.0",
-    "kind": "script-capability",
     "tags": [
       "script",
       "capability",
@@ -16,7 +11,7 @@
   "nodes": [
     {
       "id": "collection-window-capability-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Collection Window Controller Declaration",
       "position": {
         "x": -760,
@@ -52,41 +47,6 @@
         "intent": {
           "kind": "script-capability",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "script-capability",
-          "targetMode": "artifact",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Collection Window Controller",
-              "memo": "Operational summary and firing surface.",
-              "portNodeId": "collection-window-capability-root",
-              "viewNodeId": "collection-window-controller-script",
-              "exposes": {
-                "nodeClasses": {
-                  "mode": "allow",
-                  "include": [
-                    "collection-surface"
-                  ]
-                },
-                "scripts": {
-                  "mode": "allow",
-                  "include": [
-                    "collection-window-controller"
-                  ]
-                },
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            }
-          ]
         },
         "dependencies": {
           "nodeTypes": [
@@ -125,6 +85,41 @@
             "rewriteAllowed": false,
             "squashAllowed": false
           }
+        },
+        "root": {
+          "kind": "script-capability",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Collection Window Controller",
+              "memo": "Operational summary and firing surface.",
+              "portNodeId": "collection-window-capability-root",
+              "viewNodeId": "collection-window-controller-script",
+              "exposes": {
+                "nodeClasses": {
+                  "mode": "allow",
+                  "include": [
+                    "collection-surface"
+                  ]
+                },
+                "scripts": {
+                  "mode": "allow",
+                  "include": [
+                    "collection-window-controller"
+                  ]
+                },
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ]
         }
       },
       "handles": [
@@ -225,7 +220,7 @@
     },
     {
       "id": "collection-window-surface-class",
-      "type": "bridge",
+      "type": "import",
       "label": "Collection Surface Class",
       "position": {
         "x": -760,
@@ -257,13 +252,11 @@
           "ref": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-surface.node-class.node",
           "mode": "bridge",
           "kind": "node-class",
-          "role": "import",
           "key": "collection-surface",
           "label": "Collection Surface"
         },
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-surface.node-class.node",
-          "role": "import",
           "resourceKind": "node-class",
           "scope": "focused-graph",
           "grants": [
@@ -367,20 +360,8 @@
           "update",
           "delete"
         ],
-        "definitionKey": "collection-window-controller",
-        "_classBinding": {
-          "key": "collection-window-controller",
-          "sourceRef": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controller.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "collection-window-controller",
-          "classRef": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controller.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controller.node-class.node",
-          "targetKind": "node-class"
-        },
-        "visibilityRole": "browser"
+        "visibilityRole": "browser",
+        "classRef": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controller.node-class.node"
       },
       "handles": [
         {
@@ -401,7 +382,7 @@
     },
     {
       "id": "collection-window-capability-export",
-      "type": "bridge",
+      "type": "export",
       "label": "Collection Capability Export",
       "position": {
         "x": -120,
@@ -438,7 +419,6 @@
         "memo": "Curated executable boundary for the two-node collection kit.",
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/collection-window-controller/root.node",
-          "role": "export",
           "resourceKind": "capability-kit",
           "scope": "focused-graph",
           "grants": [
@@ -495,7 +475,7 @@
     },
     {
       "id": "collection-window-capability-contract",
-      "type": "markdown",
+      "type": "content",
       "label": "Placement Contract",
       "position": {
         "x": 560,
@@ -522,8 +502,11 @@
         }
       ],
       "data": {
-        "markdown": "## Placement Contract\n\nConsume **Collection Capability Export** through a real import bridge with `nodeClasses: allow`, `scripts: allow`, and explicit read, create, execute, runtime, update, and delete grants. The consumer Legend receives two entries:\n\n1. **Collection Surface**\n2. **Collection Window Controller**\n\nThe Controller is a real Script node. Icon, Summary, and Detail are operational firing surfaces backed by one declared paging-event vocabulary; Editor is configuration entered explicitly through the node context menu. The bridge deliberately exposes executable graph capability to the host. Place each entry once; the host graph retains its own identity and membership policy.",
-        "visibilityRole": "browser"
+        "visibilityRole": "browser",
+        "content": {
+          "kind": "markdown",
+          "value": "## Placement Contract\n\nConsume **Collection Capability Export** through a real import bridge with `nodeClasses: allow`, `scripts: allow`, and explicit read, create, execute, runtime, update, and delete grants. The consumer Legend receives two entries:\n\n1. **Collection Surface**\n2. **Collection Window Controller**\n\nThe Controller is a real Script node. Icon, Summary, and Detail are operational firing surfaces backed by one declared paging-event vocabulary; Editor is configuration entered explicitly through the node context menu. The bridge deliberately exposes executable graph capability to the host. Place each entry once; the host graph retains its own identity and membership policy."
+        }
       },
       "handles": [
         {
@@ -673,68 +656,63 @@
   "edges": [
     {
       "id": "collection-window-capability-edge-root",
-      "type": "reference",
+      "type": "structural",
       "source": "collection-window-capability-declaration",
       "target": "collection-window-capability-root",
       "label": "exposes capability",
       "data": {
-        "relationship": "exposes capability",
-        "semanticRole": "structural"
+        "relationship": "exposes capability"
       },
-      "sourceHandle": "right",
-      "targetHandle": "left"
+      "sourcePort": "right",
+      "targetPort": "left"
     },
     {
       "id": "collection-window-capability-edge-surface",
-      "type": "reference",
+      "type": "structural",
       "source": "collection-window-surface-class",
       "target": "collection-window-controller-script",
       "label": "provides layout",
       "data": {
-        "relationship": "provides layout",
-        "semanticRole": "structural"
+        "relationship": "provides layout"
       },
-      "sourceHandle": "right",
-      "targetHandle": "trigger"
+      "sourcePort": "right",
+      "targetPort": "trigger"
     },
     {
       "id": "collection-window-capability-edge-export",
-      "type": "reference",
+      "type": "structural",
       "source": "collection-window-controller-script",
       "target": "collection-window-capability-export",
       "label": "exports kit",
       "data": {
-        "relationship": "exports kit",
-        "semanticRole": "structural"
+        "relationship": "exports kit"
       },
-      "sourceHandle": "result",
-      "targetHandle": "top"
+      "sourcePort": "result",
+      "targetPort": "top"
     },
     {
       "id": "collection-window-capability-edge-contract",
-      "type": "reference",
+      "type": "structural",
       "source": "collection-window-controller-script",
       "target": "collection-window-capability-contract",
       "label": "declares placement",
       "data": {
-        "relationship": "declares placement",
-        "semanticRole": "structural"
+        "relationship": "declares placement"
       },
-      "sourceHandle": "result",
-      "targetHandle": "left"
+      "sourcePort": "result",
+      "targetPort": "left"
     },
     {
       "id": "collection-window-capability-edge-smoke",
-      "type": "reference",
+      "type": "structural",
       "source": "collection-window-capability-contract",
       "target": "collection-window-capability-smoke",
       "label": "proved by",
       "data": {
-        "relationship": "proved by",
-        "semanticRole": "structural"
+        "relationship": "proved by"
       },
-      "sourceHandle": "root",
-      "targetHandle": "left"
+      "sourcePort": "root",
+      "targetPort": "left"
     }
   ],
   "viewport": {

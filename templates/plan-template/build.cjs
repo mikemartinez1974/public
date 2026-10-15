@@ -322,8 +322,8 @@ function buildRoot() {
   }
 
   nodes.push({
-    id: 'plan-template-instructions', type: 'markdown', label: 'Using This Template', position: { x: 1040, y: 0 }, width: 520, height: 260,
-    data: { identity: { graphId: GRAPH_ID }, markdown: '## Build a readable path\n\nKeep **Plan** and **Goal** as anchors. Duplicate the remaining vocabulary only when the plan needs it.\n\nUse named semantic ports. Sequence reads left to right, containment reads top to bottom, and supporting conditions stay below the execution path.\n\nSee `SKILL.md` and `EDGE_AND_PORT_CONTRACT.md` before deriving a graph.' },
+    id: 'plan-template-instructions', type: 'content', label: 'Using This Template', position: { x: 1040, y: 0 }, width: 520, height: 260,
+    data: { identity: { graphId: GRAPH_ID }, content: { kind: 'markdown', value: '## Build a readable path\n\nKeep **Plan** and **Goal** as anchors. Duplicate the remaining vocabulary only when the plan needs it.\n\nUse named semantic ports. Sequence reads left to right, containment reads top to bottom, and supporting conditions stay below the execution path.\n\nSee `SKILL.md` and `EDGE_AND_PORT_CONTRACT.md` before deriving a graph.' } },
   });
 
   const edges = [

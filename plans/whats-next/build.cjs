@@ -33,7 +33,7 @@ const semanticTypes = new Set(['plan', 'plan-goal', 'plan-phase', 'plan-action',
 const exemplars = new Map(template.nodes.filter((node) => semanticTypes.has(node.type)).map((node) => [node.type, node]));
 graph.nodes = graph.nodes.filter((node) => !semanticTypes.has(node.type));
 graph.edges = graph.edges.filter((edge) => {
-  const role = String(edge.data?.semanticRole || '').trim();
+  const role = String(edge.type || '').trim();
   return !role.startsWith('plan.') && role !== 'instantiates';
 });
 
@@ -149,6 +149,12 @@ const contentNodes = [
     'Decided with Michael, 2026-10-14 (plans/vocabulary/behaviour-today.md): every source draws its own invokes edge to the Method; Methods invoke Methods through an invokes port; a button raises an event; Scripts and Event Handler nodes retire; listening across graphs is redesigned in the same shape. Rebuild the primitive pages and templates on it.'),
   makeNode('plan-action', 'action-api-example', 'An API node, as an example', at(6, 10),
     'The old API node (fetch a URL when triggered) is retired in the vocabulary pass. Once behaviour runs along the edges, build the same thing from a class and a Method, and keep it as the worked example of making your own node. Michael, 2026-10-14.'),
+  makeNode('plan-action', 'action-faces-by-order', 'Faces chosen by order, never by name', at(6, 11),
+    'Decided with the vocabulary (Collision 11): the first face is the page, the rest are tried in order as room runs out, then the Glyph; Detail, Summary and Icon are only usual names. The app still asks for faces by those names in many places, Ports still read and write their own per-face wiring (owns-detail and the like), and composePort writes it.'),
+  makeNode('plan-action', 'action-class-binding', 'A node names its class the way an edge does', at(6, 12),
+    'After the vocabulary pass an edge stores its class as type plus data.classRef. A node of a class still carries it several ways (data._bridge.classKey, data._classBinding.key with a full copy of the class definition, definitionKey). Needs a decision: look the class up by address when the graph loads, instead of reading an embedded copy.'),
+  makeNode('plan-action', 'action-old-builders', 'Builders that would write the old shapes', at(6, 13),
+    'Do not run these until they are brought up to date: the Plan Template build.cjs, the Twilite Zone root build.cjs, and the older plan builders fragment-extraction-authoring-contract, public-root-arrival and reciprocal-multigraph-bridge-contract. Their saved graphs are converted.'),
   makeNode('plan-decision', 'decision-back', 'Going back', at(7, 1), 'Does every graph need its own way back, or is that the app’s job?', { decision: 'Agreed by Michael, 2026-10-12: it is the app’s job. Back returns to the same graph, node and distance; no graph draws a way back.' }),
   makeNode('plan-decision', 'decision-up', 'Going up', at(7, 2), 'Is there a place above this one: an index above a primitive page, the root above the index?', { decision: 'Agreed by Michael, 2026-10-12: there is no separate “up”. In the workspace the trunk shows what a graph was opened from.' }),
   makeNode('plan-decision', 'decision-where', 'Knowing where you are', at(7, 3), 'With several graphs open, what tells you which one you are in and how you got there?', { decision: 'Agreed by Michael, 2026-10-12: a trail near the address bar names the graphs you came through.' }),
@@ -189,7 +195,7 @@ const contentNodes = [
     'The route class declares the field, and its editor gains the control, in the same change that moves the card into the Page Template.')
 ];
 // The two documents navigation is built from stand beside its column, each as a Portal.
-const linked = (key, label, ref, memo, position) => ({ id: `${prefix}-${key}`, type: 'portal', label, root: false, position, width: 360, height: 240,
+const linked = (key, label, ref, memo, position) => ({ id: `${prefix}-${key}`, type: 'portal', label, position, width: 360, height: 240,
   ports: [{ id: 'root', label: 'root', direction: 'bidirectional', dataType: 'any', angle: 210 }, { id: 'left', label: 'left', direction: 'bidirectional', dataType: 'value', angle: 180 }],
   visible: true, showLabel: true,
   data: { identity: { graphId }, memo, authority: 'navigate', intent: 'external', src: ref, ref, endpoint: ref, sourceRef: ref, sourcePayload: 'node.web.detail', surfaceId: 'root',
@@ -238,9 +244,9 @@ const addEdge = (name, type, source, target, ports = edgePorts[type]) => {
   if (!known.has(id(source)) || !known.has(id(target))) throw new Error(`edge ${name}: ${source} or ${target} is not a node of this plan`);
   graph.edges.push({
     id: id(`edge-${name}`), type, label: type.replace('plan.', '').replaceAll('-', ' '), source: id(source), target: id(target),
-    sourcePort: ports[0], sourceHandle: ports[0], targetPort: ports[1], targetHandle: ports[1],
+    sourcePort: ports[0], targetPort: ports[1],
     style: { ...edgeStyle[type], curved: true, dash: edgeStyle[type]?.dash || [] },
-    data: { semanticRole: type, presentation: { layer: 'semantic' } }
+    data: { presentation: { layer: 'semantic' } }
   });
 };
 
@@ -251,7 +257,7 @@ phases.slice(1).forEach((phase, index) => addEdge(`phase-${index + 1}-${index + 
 const phaseActions = {
   demos: ['commons-demo', 'boulevard-demo', 'twilite-demo'], navigation: ['inventory', 'proposal', 'build-navigation'],
   rooms: ['commons', 'boulevard', 'twilite', 'card'], places: ['company', 'gallery', 'research'], cycle: ['move-cycle', 'examples'],
-  tutorials: ['write-tutorials', 'open-learn'], carried: ['edges', 'editor', 'small', 'sorting', 'rooting', 'trail-ui', 'web-pages', 'behaviour', 'api-example']
+  tutorials: ['write-tutorials', 'open-learn'], carried: ['edges', 'editor', 'small', 'sorting', 'rooting', 'trail-ui', 'web-pages', 'behaviour', 'api-example', 'faces-by-order', 'class-binding', 'old-builders']
 };
 for (const [phase, actions] of Object.entries(phaseActions)) {
   for (const action of actions) addEdge(`${phase}-${action}`, 'plan.contains', `phase-${phase}`, `action-${action}`, ['actions', 'parent']);
@@ -275,14 +281,14 @@ addEdge('declare', 'plan.mitigated-by', 'risk-setting', 'contingency-declare');
 
 for (const node of contentNodes) {
   graph.edges.push({
-    id: `${node.id}-instantiates`, type: 'reference', label: '', source: `${prefix}-class-bridge-${node.type}`, target: node.id,
-    sourcePort: 'root', sourceHandle: 'root', targetPort: 'root', targetHandle: 'root', hidden: true,
+    id: `${node.id}-instantiates`, type: 'instantiates', label: '', source: `${prefix}-class-bridge-${node.type}`, target: node.id,
+    sourcePort: 'root', targetPort: 'root', hidden: true,
     style: { stroke: '#64748b', strokeWidth: 1, opacity: 0.03 },
-    data: { role: 'instantiates', semanticRole: 'instantiates', presentation: { layer: 'contract' } }
+    data: { presentation: { layer: 'contract' } }
   });
 }
 
-graph.metadata = { ...graph.metadata, title, description, graphId, version: '0.1.0', created: now, modified: now,
+graph.metadata = { ...graph.metadata, created: now, modified: now,
   tags: ['plan', 'twilite-zone', 'navigation', 'rooms'], preferredViewer: 'https://dev.twilite.zone' };
 declaration.label = `${title} Plan`;
 declaration.data.identity = { ...declaration.data.identity, graphId, nodeId, name: title, version: '0.1.0', description };
@@ -332,7 +338,7 @@ const instructions = graph.nodes.find((node) => node.id === `${prefix}-instructi
 instructions.label = 'How to read this plan';
 instructions.position = at(6, 0);
 instructions.height = Math.min(instructions.height || 320, 320);
-instructions.data.markdown = '# How to read this plan\n\n'
+instructions.data.content = { kind: 'markdown', value: '# How to read this plan\n\n'
   + '- The six numbered **phases** run left to right and are done in that order. Each holds the **actions** beneath it.\n'
   + '- **Carried, not scheduled** is the seventh column: known work that blocks nothing.\n'
   + '- The **decisions** along the top are made. The five in the right-hand column are the open questions navigation has to answer.\n'
@@ -340,16 +346,13 @@ instructions.data.markdown = '# How to read this plan\n\n'
   + '- **Constraints** are how the work is done. **Risks** each have a **contingency** beside them.\n\n'
   + 'Status is kept in `plans/whats-next/build.cjs`, in the `statuses` list. Change it there and run `node plans/whats-next/build.cjs`.\n\n'
   + 'Two Portals stand beside the navigation questions: **The navigation scheme**, the agreed document in canon, and **Navigation today**, what the app does now and the order to build the difference in.\n\n'
-  + 'The demos are at `graphs/commons-demo`, `graphs/boulevard-demo` and `graphs/twilite-demo`. The designs are on the canvas, in the row headed “The rooms behind the root”.';
+  + 'The demos are at `graphs/commons-demo`, `graphs/boulevard-demo` and `graphs/twilite-demo`. The designs are on the canvas, in the row headed “The rooms behind the root”.' };
 
 for (const node of graph.nodes) {
   if (node.data?.identity?.graphId) node.data.identity.graphId = graphId;
 }
 graph.settings = { ...graph.settings, snapToGrid: true, gridSize: 20, edgeRouting: 'orthogonal',
   layout: { mode: 'manual', defaultLayout: 'layered', direction: 'RIGHT', edgeLaneGapPx: 20 } };
-graph.nodeCount = graph.nodes.length;
-graph.edgeCount = graph.edges.length;
-graph.timestamp = now;
 
 fs.writeFileSync(outputPath, `${JSON.stringify(graph, null, 2)}\n`);
 console.log(`wrote ${path.relative(process.cwd(), outputPath)}: ${graph.nodes.length} nodes, ${graph.edges.length} edges`);

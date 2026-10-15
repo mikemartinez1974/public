@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Event Handler and Method Smoke",
-    "description": "Property.changed binds through a structured Event Handler to a reusable Method that updates a View.",
-    "graphId": "event-handler-smoke",
-    "version": "0.2.0",
-    "kind": "smoke-test",
     "tags": [
       "smoke",
       "event-handler",
@@ -18,7 +13,7 @@
   "nodes": [
     {
       "id": "event-handler-smoke-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Event Handler Smoke",
       "position": {
         "x": -900,
@@ -30,7 +25,8 @@
         "identity": {
           "graphId": "event-handler-smoke",
           "name": "Event Handler and Method Smoke",
-          "version": "0.2.0"
+          "version": "0.2.0",
+          "description": "Property.changed binds through a structured Event Handler to a reusable Method that updates a View."
         },
         "intent": {
           "kind": "smoke-test",
@@ -50,7 +46,10 @@
           ],
           "skills": []
         },
-        "declaration": {
+        "document": {
+          "url": "github://mikemartinez1974/public/tasks/event-handler-node-smoke/root.node"
+        },
+        "root": {
           "kind": "graph",
           "targetMode": "artifact",
           "artifactKind": "graph",
@@ -63,15 +62,12 @@
               "viewNodeId": "event-handler-smoke-guide"
             }
           ]
-        },
-        "document": {
-          "url": "github://mikemartinez1974/public/tasks/event-handler-node-smoke/root.node"
         }
       }
     },
     {
       "id": "event-handler-smoke-guide",
-      "type": "view",
+      "type": "face",
       "label": "Event Handler Smoke Guide",
       "position": {
         "x": -340,
@@ -95,7 +91,7 @@
     },
     {
       "id": "event-handler-smoke-property-class",
-      "type": "bridge",
+      "type": "import",
       "label": "Property Class",
       "position": {
         "x": -900,
@@ -109,8 +105,7 @@
         },
         "authority": "bridge",
         "bridge": {
-          "ref": "github://mikemartinez1974/public/templates/property-template/property.node-class.node",
-          "role": "import",
+          "ref": "tlz://twilite.zone/library/edges/classes/property.node-class.node",
           "resourceKind": "node-class",
           "scope": "focused-graph",
           "grants": [
@@ -119,8 +114,8 @@
             "update"
           ]
         },
-        "_bridge": {
-          "classKey": "property"
+        "target": {
+          "key": "property"
         }
       }
     },
@@ -146,20 +141,6 @@
       "visible": true,
       "showLabel": false,
       "data": {
-        "definitionKey": "property",
-        "_classBinding": {
-          "key": "property",
-          "sourceRef": "github://mikemartinez1974/public/templates/property-template/property.node-class.node",
-          "nodeDef": {
-            "key": "property",
-            "overrides": {
-              "dataMode": "replace"
-            },
-            "ref": "github://mikemartinez1974/public/templates/property-template/property.node-class.node",
-            "source": "github",
-            "version": ">=0.1.0"
-          }
-        },
         "identity": {
           "graphId": "event-handler-smoke"
         },
@@ -171,7 +152,8 @@
         },
         "name": "demo label",
         "value": "Hello from an Event Handler",
-        "defaultValue": "Hello"
+        "defaultValue": "Hello",
+        "classRef": "tlz://twilite.zone/library/edges/classes/property.node-class.node"
       }
     },
     {
@@ -281,7 +263,7 @@
     },
     {
       "id": "event-handler-smoke-output",
-      "type": "view",
+      "type": "face",
       "label": "Rendered result",
       "position": {
         "x": 1010,
@@ -316,83 +298,76 @@
       "type": "surface",
       "source": "event-handler-smoke-declaration",
       "target": "event-handler-smoke-guide",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "default-view"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "event-handler-smoke-property-class-edge",
-      "type": "reference",
+      "type": "instantiates",
       "source": "event-handler-smoke-property-class",
       "target": "event-handler-smoke-label",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "label": "class authority",
-      "data": {
-        "semanticRole": "class-authority"
-      }
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "event-handler-smoke-trigger-edge",
-      "type": "reference",
+      "type": "event-trigger",
       "source": "event-handler-smoke-label",
       "target": "event-handler-smoke-handler",
-      "sourceHandle": "root",
-      "targetHandle": "trigger",
       "label": "when changed",
       "data": {
-        "semanticRole": "event-trigger",
         "plumbing": true
       },
       "style": {
         "curved": true,
         "stroke": "#38bdf8",
         "strokeWidth": 2
-      }
+      },
+      "sourcePort": "root",
+      "targetPort": "trigger"
     },
     {
       "id": "event-handler-smoke-action-edge",
-      "type": "reference",
+      "type": "handler-action",
       "source": "event-handler-smoke-handler",
       "target": "event-handler-smoke-method",
-      "sourceHandle": "result",
-      "targetHandle": "call",
       "label": "calls",
       "data": {
-        "semanticRole": "handler-action",
         "plumbing": true
       },
       "style": {
         "curved": true,
         "stroke": "#fbbf24",
         "strokeWidth": 2
-      }
+      },
+      "sourcePort": "result",
+      "targetPort": "call"
     },
     {
       "id": "event-handler-smoke-update-edge",
-      "type": "reference",
+      "type": "method-effect",
       "source": "event-handler-smoke-method",
       "target": "event-handler-smoke-output",
-      "sourceHandle": "result",
-      "targetHandle": "root",
       "label": "updates",
       "data": {
-        "semanticRole": "method-effect",
         "plumbing": true
       },
       "style": {
         "curved": true,
         "stroke": "#a78bfa",
         "strokeWidth": 2
-      }
+      },
+      "sourcePort": "result",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "edgeRouting": "curved",

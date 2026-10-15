@@ -1,17 +1,12 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Collection Window Controls Node Class",
-    "description": "Previous, next, and page-size controls for a windowed collection.",
-    "graphId": "collection-window-controls-class",
-    "version": "1.0.0",
-    "kind": "node-class",
     "preferredViewer": "https://twilite.zone"
   },
   "nodes": [
     {
       "id": "collection-window-controls-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Collection Window Controls Declaration",
       "position": {
         "x": -700,
@@ -46,44 +41,6 @@
         "intent": {
           "kind": "node-class",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "node-class",
-          "targetMode": "artifact",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Collection Window Controls",
-              "portNodeId": "collection-window-controls-root",
-              "viewNodeId": "collection-window-controls-detail"
-            },
-            {
-              "id": "detail",
-              "kind": "view",
-              "label": "Detail",
-              "viewNodeId": "collection-window-controls-detail"
-            },
-            {
-              "id": "summary",
-              "kind": "view",
-              "label": "Summary",
-              "viewNodeId": "collection-window-controls-summary"
-            },
-            {
-              "id": "icon",
-              "kind": "view",
-              "label": "Icon",
-              "viewNodeId": "collection-window-controls-icon"
-            },
-            {
-              "id": "editor",
-              "kind": "view",
-              "label": "Editor",
-              "viewNodeId": "collection-window-controls-editor"
-            }
-          ]
         },
         "nodeClass": {
           "contractVersion": "1.0.0",
@@ -169,6 +126,44 @@
             "ports": ">=1.0.0"
           },
           "optional": []
+        },
+        "root": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Collection Window Controls",
+              "portNodeId": "collection-window-controls-root",
+              "viewNodeId": "collection-window-controls-detail"
+            },
+            {
+              "id": "detail",
+              "kind": "view",
+              "label": "Detail",
+              "viewNodeId": "collection-window-controls-detail"
+            },
+            {
+              "id": "summary",
+              "kind": "view",
+              "label": "Summary",
+              "viewNodeId": "collection-window-controls-summary"
+            },
+            {
+              "id": "icon",
+              "kind": "view",
+              "label": "Icon",
+              "viewNodeId": "collection-window-controls-icon"
+            },
+            {
+              "id": "editor",
+              "kind": "view",
+              "label": "Editor",
+              "viewNodeId": "collection-window-controls-editor"
+            }
+          ]
         }
       },
       "handles": [
@@ -233,7 +228,7 @@
     },
     {
       "id": "collection-window-controls-detail",
-      "type": "view",
+      "type": "face",
       "label": "Controls Detail",
       "position": {
         "x": 340,
@@ -314,7 +309,7 @@
     },
     {
       "id": "collection-window-controls-summary",
-      "type": "view",
+      "type": "face",
       "label": "Controls Summary",
       "position": {
         "x": 340,
@@ -334,7 +329,7 @@
     },
     {
       "id": "collection-window-controls-icon",
-      "type": "view",
+      "type": "face",
       "label": "Controls Icon",
       "position": {
         "x": 900,
@@ -354,7 +349,7 @@
     },
     {
       "id": "collection-window-controls-editor",
-      "type": "view",
+      "type": "face",
       "label": "Controls Editor",
       "position": {
         "x": 340,
@@ -395,7 +390,7 @@
     },
     {
       "id": "collection-window-controls-export",
-      "type": "bridge",
+      "type": "export",
       "label": "Collection Window Controls Class Export",
       "position": {
         "x": -700,
@@ -407,7 +402,6 @@
       "data": {
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controls.node-class.node",
-          "role": "export",
           "resourceKind": "node-class",
           "scope": "focused-graph",
           "grants": [
@@ -433,21 +427,21 @@
   "edges": [
     {
       "id": "controls-class-edge-root",
-      "type": "reference",
+      "type": "edge",
       "source": "collection-window-controls-declaration",
       "target": "collection-window-controls-root",
       "label": "exposes class",
-      "sourceHandle": "right",
-      "targetHandle": "root"
+      "sourcePort": "right",
+      "targetPort": "root"
     },
     {
       "id": "controls-class-edge-view",
-      "type": "reference",
+      "type": "edge",
       "source": "collection-window-controls-root",
       "target": "collection-window-controls-detail",
       "label": "renders as",
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     }
   ],
   "viewport": {

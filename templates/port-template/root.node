@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Port Template",
-    "description": "The interface socket a Declaration exposes (relationship: port) so another graph can be wired to a specific named entry point instead of just its default surface. root (bottom, Login glyph) is that socket. surfaces (top, repeatable) is the single way in to any number of Views, same mechanism as a Declaration's own surfaces relationship -- its icon is View's own, a coincidental create-node match, not an authored glyph. landing-surface (right) rounds it out, same as a Declaration.",
-    "graphId": "port-template-declaration",
-    "version": "0.2.3",
-    "kind": "template",
     "created": "2026-10-04T19:38:05.558Z",
     "modified": "2026-10-08T23:57:08.331Z",
     "author": "",
@@ -18,9 +13,8 @@
   "nodes": [
     {
       "id": "port-template-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Port Template",
-      "root": true,
       "position": {
         "x": 0,
         "y": -360
@@ -40,11 +34,6 @@
           "kind": "template",
           "scope": "local"
         },
-        "declaration": {
-          "kind": "graph",
-          "defaultSurfaceId": "web",
-          "surfaces": []
-        },
         "glyph": {
           "kind": "icon",
           "name": "Visibility"
@@ -53,6 +42,11 @@
         "purpose": "",
         "document": {
           "url": "github://mikemartinez1974/public/templates/port-template/root.node"
+        },
+        "root": {
+          "kind": "graph",
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       }
     },
@@ -77,7 +71,7 @@
     },
     {
       "id": "port-template-view",
-      "type": "view",
+      "type": "face",
       "label": "View",
       "position": {
         "x": 0,
@@ -127,9 +121,8 @@
     },
     {
       "id": "port-template-detail",
-      "type": "view",
+      "type": "face",
       "label": "Detail",
-      "root": false,
       "position": {
         "x": -1300,
         "y": -180
@@ -158,14 +151,14 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90,
-          "role": "view-sequence",
+          "role": "next-face",
           "allowedEdgeTypes": [
-            "view-sequence"
+            "next-face"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false,
             "behaviors": [
               {
@@ -235,9 +228,8 @@
     },
     {
       "id": "port-template-icon",
-      "type": "view",
+      "type": "face",
       "label": "Icon",
-      "root": false,
       "position": {
         "x": -780,
         "y": -60
@@ -266,11 +258,11 @@
           "direction": "input",
           "dataType": "any",
           "angle": 270,
-          "role": "view-sequence",
+          "role": "next-face",
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false
           }
         },
@@ -281,14 +273,14 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90,
-          "role": "view-sequence",
+          "role": "next-face",
           "allowedEdgeTypes": [
-            "view-sequence"
+            "next-face"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false,
             "behaviors": [
               {
@@ -331,7 +323,6 @@
       "id": "port-template-glyph",
       "type": "glyph",
       "label": "Glyph",
-      "root": false,
       "position": {
         "x": -560,
         "y": -10
@@ -381,112 +372,97 @@
   "edges": [
     {
       "id": "port-template-decl-port",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "port-template-declaration",
-      "sourceHandle": "port",
       "target": "port-template-port",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "exposes-port"
-      }
+      "data": {},
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "port-template-surfaces",
       "type": "surface",
       "source": "port-template-port",
-      "sourceHandle": "surfaces",
       "target": "port-template-view",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "port-template-surface-delegate",
-      "type": "reference",
+      "type": "view.content",
       "source": "port-template-view",
-      "sourceHandle": "surface-delegate",
       "target": "port-template-content",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view.content"
-      }
+      "data": {},
+      "sourcePort": "surface-delegate",
+      "targetPort": "root"
     },
     {
       "id": "port-template-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "source": "port-template-port",
-      "sourceHandle": "landing-surface",
       "target": "port-template-content",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "landing-surface"
-      }
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "port-template-surface",
       "type": "surface",
       "source": "port-template-declaration",
-      "sourceHandle": "surfaces",
       "target": "port-template-detail",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "port-template-detail-icon",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "port-template-detail",
-      "sourceHandle": "sequence-out",
       "target": "port-template-icon",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "port-template-icon-glyph",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "port-template-icon",
-      "sourceHandle": "sequence-out",
       "target": "port-template-glyph",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "port-template-declaration-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "source": "port-template-declaration",
-      "sourceHandle": "landing-surface",
       "target": "port-template-content",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "landing-surface"
-      }
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

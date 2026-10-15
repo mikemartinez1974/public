@@ -1,10 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Risk Node Class",
-    "description": "Something that may derail or degrade the plan.",
-    "graphId": "plan-risk-class",
-    "version": "0.4.0",
     "tags": [
       "node-class",
       "plan-template"
@@ -14,7 +10,7 @@
   "nodes": [
     {
       "id": "plan-risk-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Risk Declaration",
       "position": {
         "x": 0,
@@ -42,9 +38,9 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
@@ -108,9 +104,9 @@
           "portId": "port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
@@ -124,7 +120,7 @@
             ],
             "repeatable": false
           },
-          "portId": "landing-surface"
+          "portId": "ground"
         },
         {
           "id": "surfaces",
@@ -166,47 +162,6 @@
         "intent": {
           "kind": "node-class",
           "scope": "local"
-        },
-        "declaration": {
-          "kind": "node-class",
-          "targetMode": "artifact",
-          "artifactKind": "node-class",
-          "defaultSurfaceId": "root",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Risk",
-              "portNodeId": "plan-risk-root-port",
-              "presentation": {
-                "detail": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-risk-detail-view"
-                },
-                "summary": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-risk-summary-view"
-                },
-                "icon": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-risk-icon-view"
-                }
-              }
-            }
-          ],
-          "sharedPresentation": {
-            "detailViewNodeId": "plan-risk-detail-view",
-            "summaryViewNodeId": "plan-risk-summary-view",
-            "iconViewNodeId": "plan-risk-icon-view",
-            "glyphNodeId": "plan-risk-glyph"
-          },
-          "primaryNodeViewId": "plan-risk-detail-view",
-          "primaryEditorViewId": "plan-risk-editor-view",
-          "portViewNodeId": "plan-risk-root-port"
         },
         "nodeClass": {
           "contractVersion": "1.1.0",
@@ -302,6 +257,47 @@
             "core",
             "plan-edge-port-contract@0.1.0"
           ]
+        },
+        "root": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "artifactKind": "node-class",
+          "defaultSurfaceId": "root",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Risk",
+              "portNodeId": "plan-risk-root-port",
+              "presentation": {
+                "detail": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-risk-detail-view"
+                },
+                "summary": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-risk-summary-view"
+                },
+                "icon": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-risk-icon-view"
+                }
+              }
+            }
+          ],
+          "sharedPresentation": {
+            "detailViewNodeId": "plan-risk-detail-view",
+            "summaryViewNodeId": "plan-risk-summary-view",
+            "iconViewNodeId": "plan-risk-icon-view",
+            "glyphNodeId": "plan-risk-glyph"
+          },
+          "primaryNodeViewId": "plan-risk-detail-view",
+          "primaryEditorViewId": "plan-risk-editor-view",
+          "portViewNodeId": "plan-risk-root-port"
         }
       }
     },
@@ -424,7 +420,7 @@
     },
     {
       "id": "plan-risk-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Risk Detail",
       "position": {
         "x": -520,
@@ -468,7 +464,7 @@
     },
     {
       "id": "plan-risk-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Risk Summary",
       "position": {
         "x": -520,
@@ -512,7 +508,7 @@
     },
     {
       "id": "plan-risk-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Risk Icon",
       "position": {
         "x": -520,
@@ -556,7 +552,7 @@
     },
     {
       "id": "plan-risk-editor-view",
-      "type": "view",
+      "type": "face",
       "label": "Risk Editor",
       "position": {
         "x": 0,
@@ -692,62 +688,53 @@
       "type": "surface",
       "source": "plan-risk-declaration",
       "target": "plan-risk-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "root"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "plan-risk-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-risk-detail-view",
       "target": "plan-risk-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "plan-risk-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-risk-summary-view",
       "target": "plan-risk-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "plan-risk-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-risk-icon-view",
       "target": "plan-risk-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "plan-risk-port-edge",
-      "type": "reference",
+      "type": "exposes-port",
       "hidden": true,
       "source": "plan-risk-declaration",
       "target": "plan-risk-root-port",
-      "sourceHandle": "port",
-      "targetHandle": "root",
       "sourcePort": "port",
       "targetPort": "root",
       "label": "",
@@ -757,8 +744,6 @@
         "opacity": 0.03
       },
       "data": {
-        "role": "exposes-port",
-        "semanticRole": "exposes-port",
         "presentation": {
           "layer": "contract"
         }
@@ -766,13 +751,11 @@
     },
     {
       "id": "plan-risk-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "hidden": true,
       "source": "plan-risk-declaration",
       "target": "plan-risk-landing-content",
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root",
-      "sourcePort": "landing-surface",
+      "sourcePort": "ground",
       "targetPort": "root",
       "label": "",
       "style": {
@@ -781,15 +764,12 @@
         "opacity": 0.03
       },
       "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface",
         "presentation": {
           "layer": "contract"
         }
       }
     }
   ],
-  "clusters": [],
   "settings": {
     "edgeRouting": "orthogonal",
     "layout": {

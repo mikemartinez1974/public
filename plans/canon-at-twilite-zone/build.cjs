@@ -37,7 +37,7 @@ const semanticTypes = new Set([
 const exemplars = new Map(template.nodes.filter((node) => semanticTypes.has(node.type)).map((node) => [node.type, node]));
 graph.nodes = graph.nodes.filter((node) => !semanticTypes.has(node.type));
 graph.edges = graph.edges.filter((edge) => {
-  const role = String(edge.data?.semanticRole || '').trim();
+  const role = String(edge.type || '').trim();
   return !role.startsWith('plan.') && role !== 'instantiates';
 });
 
@@ -180,9 +180,9 @@ const id = (suffix) => `${prefix}-${suffix}`;
 const addEdge = (name, type, source, target, ports = edgePorts[type]) => {
   graph.edges.push({
     id: id(`edge-${name}`), type, label: type.replace('plan.', '').replaceAll('-', ' '), source: id(source), target: id(target),
-    sourcePort: ports[0], sourceHandle: ports[0], targetPort: ports[1], targetHandle: ports[1],
+    sourcePort: ports[0], targetPort: ports[1],
     style: { ...edgeStyle[type], curved: true, dash: edgeStyle[type]?.dash || [] },
-    data: { semanticRole: type, presentation: { layer: 'semantic' } }
+    data: { presentation: { layer: 'semantic' } }
   });
 };
 
@@ -210,14 +210,14 @@ addEdge('deploy', 'plan.mitigated-by', 'risk-order', 'contingency-deploy');
 
 for (const node of contentNodes) {
   graph.edges.push({
-    id: `${node.id}-instantiates`, type: 'reference', label: '', source: `${prefix}-class-bridge-${node.type}`, target: node.id,
-    sourcePort: 'root', sourceHandle: 'root', targetPort: 'root', targetHandle: 'root', hidden: true,
+    id: `${node.id}-instantiates`, type: 'instantiates', label: '', source: `${prefix}-class-bridge-${node.type}`, target: node.id,
+    sourcePort: 'root', targetPort: 'root', hidden: true,
     style: { stroke: '#64748b', strokeWidth: 1, opacity: 0.03 },
-    data: { role: 'instantiates', semanticRole: 'instantiates', presentation: { layer: 'contract' } }
+    data: { presentation: { layer: 'contract' } }
   });
 }
 
-graph.metadata = { ...graph.metadata, title, description, graphId, version: '0.1.0', created: now, modified: now,
+graph.metadata = { ...graph.metadata, created: now, modified: now,
   tags: ['plan', 'addresses', 'canon', 'hosting'], preferredViewer: 'https://dev.twilite.zone' };
 declaration.label = `${title} Plan`;
 declaration.data.identity = { ...declaration.data.identity, graphId, nodeId, name: title, version: '0.1.0', description };
@@ -266,23 +266,20 @@ const instructions = graph.nodes.find((node) => node.id === `${prefix}-instructi
 instructions.label = 'How to read this plan';
 instructions.position = at(6, 0);
 instructions.height = Math.min(instructions.height || 320, 320);
-instructions.data.markdown = '# How to read this plan\n\nThis is a draft for review. Nothing in it has been started.\n\n'
+instructions.data.content = { kind: 'markdown', value: '# How to read this plan\n\nThis is a draft for review. Nothing in it has been started.\n\n'
   + '- The five **phases** run left to right. Each holds the **actions** beneath it.\n'
   + '- Phases 1 and 2 are app and site work and change no graph. Phase 4 is the first that moves real graphs.\n'
   + '- All five **decisions** along the top are made: what tlz means, the host name, that saving is not publishing, that the dev site reads live canon, and that a graph is one graph however it is reached.\n'
   + '- **Michael reviews the demo** is a gate: nothing real moves until then.\n'
   + '- **Constraints** are things the work must not break. **Risks** each have a **contingency** beside them.\n\n'
   + 'This plan covers how canon is addressed and served. What is canon is decided on the sorting board, `plans/canon-or-personal`, and only what is decided there moves.\n\n'
-  + 'What was measured before writing this: the app accepts github://, https://, a site path, local:// and tlz:// as graph addresses, but tlz is parsed in four separate places and not by the shared loader, so a Bridge to a tlz address would not load today. Graphs are already published: nginx serves them from a checkout of the Twilite Zone repo, updated by scripts/publish-graphs.ps1, and the dev site is built to read that live content. The app\'s public folder still holds an old hand-made copy (613 files; 86 under library differ from the repo), which is what the dev site serves at its own paths. The app loads the core edge classes from the personal library.';
+  + 'What was measured before writing this: the app accepts github://, https://, a site path, local:// and tlz:// as graph addresses, but tlz is parsed in four separate places and not by the shared loader, so a Bridge to a tlz address would not load today. Graphs are already published: nginx serves them from a checkout of the Twilite Zone repo, updated by scripts/publish-graphs.ps1, and the dev site is built to read that live content. The app\'s public folder still holds an old hand-made copy (613 files; 86 under library differ from the repo), which is what the dev site serves at its own paths. The app loads the core edge classes from the personal library.' };
 
 for (const node of graph.nodes) {
   if (node.data?.identity?.graphId) node.data.identity.graphId = graphId;
 }
 graph.settings = { ...graph.settings, snapToGrid: true, gridSize: 20, edgeRouting: 'orthogonal',
   layout: { mode: 'manual', defaultLayout: 'layered', direction: 'RIGHT', edgeLaneGapPx: 20 } };
-graph.nodeCount = graph.nodes.length;
-graph.edgeCount = graph.edges.length;
-graph.timestamp = now;
 
 fs.writeFileSync(outputPath, `${JSON.stringify(graph, null, 2)}\n`);
 console.log(`wrote ${path.relative(process.cwd(), outputPath)}: ${graph.nodes.length} nodes, ${graph.edges.length} edges`);

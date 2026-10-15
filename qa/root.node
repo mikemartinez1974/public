@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Q&A Collection",
-    "description": "A public collection of question-driven explanation graphs.",
-    "graphId": "qa-collection-declaration",
-    "version": "0.3.0",
-    "kind": "collection",
     "created": "2026-08-06T05:45:25.260Z",
     "modified": "2026-08-08T14:24:00.000Z",
     "author": "",
@@ -17,9 +12,8 @@
   "nodes": [
     {
       "id": "qa-collection-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Q&A Collection Declaration",
-      "root": false,
       "position": {
         "x": -760,
         "y": -420
@@ -78,39 +72,6 @@
           "kind": "collection",
           "scope": "public"
         },
-        "declaration": {
-          "kind": "collection",
-          "targetMode": "artifact",
-          "artifactKind": "collection",
-          "graphViewRole": "publishing",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Q&A Collection",
-              "portNodeId": "qa-collection-root-port",
-              "viewNodeId": "qa-collection-root-port",
-              "memo": "Public visual entry point for the Q&A collection.",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            },
-            {
-              "id": "qa-home",
-              "kind": "port",
-              "label": "Q&A Home",
-              "portNodeId": "qa-collection-root-port",
-              "viewNodeId": "qa-collection-root-port",
-              "memo": "Stable named entry surface for the collection."
-            }
-          ]
-        },
         "dependencies": {
           "nodeTypes": [
             "declaration",
@@ -155,6 +116,39 @@
         },
         "document": {
           "url": ""
+        },
+        "root": {
+          "kind": "collection",
+          "targetMode": "artifact",
+          "artifactKind": "collection",
+          "graphViewRole": "publishing",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Q&A Collection",
+              "portNodeId": "qa-collection-root-port",
+              "viewNodeId": "qa-collection-root-port",
+              "memo": "Public visual entry point for the Q&A collection.",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            },
+            {
+              "id": "qa-home",
+              "kind": "port",
+              "label": "Q&A Home",
+              "portNodeId": "qa-collection-root-port",
+              "viewNodeId": "qa-collection-root-port",
+              "memo": "Stable named entry surface for the collection."
+            }
+          ]
         }
       }
     },
@@ -162,7 +156,6 @@
       "id": "qa-collection-root-port",
       "type": "port",
       "label": "Q&A Collection",
-      "root": false,
       "position": {
         "x": -180,
         "y": -420
@@ -246,7 +239,6 @@
       "id": "qa-collection-template-portal",
       "type": "portal",
       "label": "Question-Driven Explanation Template",
-      "root": false,
       "position": {
         "x": -180,
         "y": 60
@@ -302,7 +294,6 @@
       "id": "qa-collection-graph-based-interfaces-portal",
       "type": "portal",
       "label": "How Will Graph-Based Interfaces Change the Web?",
-      "root": false,
       "position": {
         "x": 420,
         "y": 60
@@ -358,7 +349,6 @@
       "id": "qa-collection-repo-root",
       "type": "portal",
       "label": "Public Repository Root",
-      "root": false,
       "position": {
         "x": 1020,
         "y": -420
@@ -407,7 +397,6 @@
       "id": "qa-collection-what-is-twilite-portal",
       "type": "portal",
       "label": "What Is Twilite?",
-      "root": false,
       "position": {
         "x": -180,
         "y": 450
@@ -463,7 +452,6 @@
       "id": "qa-collection-target-audience-portal",
       "type": "portal",
       "label": "Who Is Twilite For?",
-      "root": false,
       "position": {
         "x": 420,
         "y": 450
@@ -519,7 +507,6 @@
       "id": "qa-collection-workspace-persistence-portal",
       "type": "portal",
       "label": "Does Twilite Remember My Workspace?",
-      "root": false,
       "position": {
         "x": 1020,
         "y": 450
@@ -575,7 +562,7 @@
   "edges": [
     {
       "id": "qa-collection-default-surface",
-      "type": "reference",
+      "type": "edge",
       "source": "qa-collection-declaration",
       "target": "qa-collection-root-port",
       "sourcePort": "root",
@@ -589,7 +576,7 @@
     },
     {
       "id": "qa-collection-template-edge",
-      "type": "reference",
+      "type": "collection-entry",
       "source": "qa-collection-root-port",
       "target": "qa-collection-template-portal",
       "sourcePort": "bottom",
@@ -600,13 +587,11 @@
         "width": 2,
         "stroke": "#4338ca"
       },
-      "data": {
-        "semanticRole": "collection-entry"
-      }
+      "data": {}
     },
     {
       "id": "qa-collection-first-graph-edge",
-      "type": "reference",
+      "type": "collection-entry",
       "source": "qa-collection-root-port",
       "target": "qa-collection-graph-based-interfaces-portal",
       "sourcePort": "bottom",
@@ -617,13 +602,11 @@
         "width": 2,
         "stroke": "#0891b2"
       },
-      "data": {
-        "semanticRole": "collection-entry"
-      }
+      "data": {}
     },
     {
       "id": "qa-collection-what-is-twilite-edge",
-      "type": "reference",
+      "type": "collection-entry",
       "source": "qa-collection-root-port",
       "target": "qa-collection-what-is-twilite-portal",
       "sourcePort": "bottom",
@@ -634,13 +617,11 @@
         "width": 2,
         "stroke": "#0f766e"
       },
-      "data": {
-        "semanticRole": "collection-entry"
-      }
+      "data": {}
     },
     {
       "id": "qa-collection-target-audience-edge",
-      "type": "reference",
+      "type": "collection-entry",
       "source": "qa-collection-root-port",
       "target": "qa-collection-target-audience-portal",
       "sourcePort": "bottom",
@@ -651,13 +632,11 @@
         "width": 2,
         "stroke": "#7c3aed"
       },
-      "data": {
-        "semanticRole": "collection-entry"
-      }
+      "data": {}
     },
     {
       "id": "qa-collection-repo-root-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "qa-collection-root-port",
       "target": "qa-collection-repo-root",
       "sourcePort": "right",
@@ -671,7 +650,7 @@
     },
     {
       "id": "qa-collection-workspace-persistence-edge",
-      "type": "reference",
+      "type": "collection-entry",
       "source": "qa-collection-root-port",
       "target": "qa-collection-workspace-persistence-portal",
       "sourcePort": "bottom",
@@ -682,12 +661,9 @@
         "width": 2,
         "stroke": "#0f766e"
       },
-      "data": {
-        "semanticRole": "collection-entry"
-      }
+      "data": {}
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

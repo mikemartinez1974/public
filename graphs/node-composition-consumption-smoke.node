@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Node Composition Consumption Smoke Test",
-    "description": "Graph Lab host proving a Bridge can instantiate a graph-authored node with Declaration-synthesized root and Port-scoped semantic views.",
-    "graphId": "node-composition-consumption-smoke",
-    "version": "1.0.0",
-    "kind": "smoke-test",
     "tags": [
       "graph-lab",
       "smoke-test",
@@ -18,7 +13,7 @@
   "nodes": [
     {
       "id": "composition-consumer-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Composition Consumer Declaration",
       "position": {
         "x": -980,
@@ -56,7 +51,24 @@
           "kind": "smoke-test",
           "scope": "graph-lab"
         },
-        "declaration": {
+        "dependencies": {
+          "nodeTypes": [
+            "declaration",
+            "port",
+            "bridge",
+            "markdown",
+            "composition-smoke-node"
+          ],
+          "portContracts": [
+            "core",
+            "node-composition"
+          ],
+          "schemaVersions": {
+            "nodes": ">=1.0.0",
+            "ports": ">=1.0.0"
+          }
+        },
+        "root": {
           "kind": "smoke-test",
           "targetMode": "artifact",
           "artifactKind": "graph",
@@ -78,20 +90,6 @@
               }
             }
           ]
-        },
-        "dependencies": {
-          "nodeTypes": [
-            "declaration",
-            "port",
-            "bridge",
-            "markdown",
-            "composition-smoke-node"
-          ],
-          "portContracts": ["core", "node-composition"],
-          "schemaVersions": {
-            "nodes": ">=1.0.0",
-            "ports": ">=1.0.0"
-          }
         }
       }
     },
@@ -99,7 +97,6 @@
       "id": "composition-consumer-root",
       "type": "port",
       "label": "Node Composition Consumption",
-      "root": true,
       "position": {
         "x": -480,
         "y": -520
@@ -144,7 +141,7 @@
     },
     {
       "id": "composition-consumer-bridge",
-      "type": "bridge",
+      "type": "import",
       "label": "Composition Smoke Node Graph",
       "position": {
         "x": -900,
@@ -175,12 +172,16 @@
         "intent": "external",
         "resourceKind": "graph",
         "scope": "focused-graph",
-        "grants": ["create"],
+        "grants": [
+          "create"
+        ],
         "bridge": {
           "ref": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
           "resourceKind": "graph",
           "scope": "focused-graph",
-          "grants": ["create"]
+          "grants": [
+            "create"
+          ]
         },
         "target": {
           "endpoint": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node:root",
@@ -191,7 +192,9 @@
           "label": "Composition Smoke Node",
           "resourceKind": "graph",
           "scope": "focused-graph",
-          "grants": ["create"]
+          "grants": [
+            "create"
+          ]
         }
       }
     },
@@ -324,231 +327,12 @@
           "baseLevel": "detail"
         },
         "addressedIdentity": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-        "definitionKey": "composition-smoke-node",
-        "_classBinding": {
-          "key": "composition-smoke-node",
-          "sourceRef": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-          "ref": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-          "identity": {
-            "graphId": "interface-frame-smoke",
-            "nodeId": "composition-smoke-node",
-            "name": "Composition Smoke Node",
-            "version": "2.0.0",
-            "description": "Two authored Ports with shared and specialized semantic presentations."
-          },
-          "intent": "graph",
-          "description": "Two authored Ports with shared and specialized semantic presentations.",
-          "defaults": {
-            "label": "Composition Smoke Node",
-            "size": {
-              "width": 520,
-              "height": 340
-            },
-            "ports": [
-              {
-                "id": "root",
-                "label": "Root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 148.29857033049427,
-                "surfaceId": "root",
-                "metadata": {
-                  "graphRef": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-                  "graphId": "interface-frame-smoke",
-                  "sourceNodeId": "interface-frame-smoke-declaration",
-                  "sourcePayload": "node.web"
-                }
-              },
-              {
-                "id": "action",
-                "label": "Action",
-                "direction": "output",
-                "dataType": "any",
-                "angle": 38.873066994505905,
-                "surfaceId": "action",
-                "metadata": {
-                  "graphRef": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-                  "graphId": "interface-frame-smoke",
-                  "sourceNodeId": "composition-smoke-action-port",
-                  "sourcePayload": "node.web.detail"
-                }
-              }
-            ],
-            "data": {
-              "identity": {
-                "nodeId": "composition-smoke-node",
-                "graphId": "interface-frame-smoke"
-              },
-              "sourceRef": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-              "surfaceId": "root",
-              "presentation": {
-                "surfaceId": "root",
-                "payload": "node.web",
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Hub"
-                }
-              }
-            }
-          },
-          "nodeDef": {
-            "key": "composition-smoke-node",
-            "ref": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-            "source": "graph-declaration",
-            "version": "2.0.0",
-            "defaults": {
-              "label": "Composition Smoke Node",
-              "size": {
-                "width": 520,
-                "height": 340
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "label": "Root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 148.29857033049427,
-                  "surfaceId": "root",
-                  "metadata": {
-                    "graphRef": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-                    "graphId": "interface-frame-smoke",
-                    "sourceNodeId": "interface-frame-smoke-declaration",
-                    "sourcePayload": "node.web"
-                  }
-                },
-                {
-                  "id": "action",
-                  "label": "Action",
-                  "direction": "output",
-                  "dataType": "any",
-                  "angle": 38.873066994505905,
-                  "surfaceId": "action",
-                  "metadata": {
-                    "graphRef": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-                    "graphId": "interface-frame-smoke",
-                    "sourceNodeId": "composition-smoke-action-port",
-                    "sourcePayload": "node.web.detail"
-                  }
-                }
-              ],
-              "data": {
-                "identity": {
-                  "nodeId": "composition-smoke-node",
-                  "graphId": "interface-frame-smoke"
-                },
-                "sourceRef": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-                "surfaceId": "root",
-                "presentation": {
-                  "surfaceId": "root",
-                  "payload": "node.web",
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Hub"
-                  }
-                }
-              }
-            }
-          },
-          "views": [
-            {
-              "key": "composition-smoke-node",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-              "sourceNodeId": "composition-smoke-shared-detail",
-              "surfaceId": "root",
-              "semanticLevel": "detail",
-              "resolutionMode": "root",
-              "portNodeId": "interface-frame-smoke-declaration"
-            },
-            {
-              "key": "composition-smoke-node",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-              "sourceNodeId": "composition-smoke-shared-summary",
-              "surfaceId": "root",
-              "semanticLevel": "summary",
-              "resolutionMode": "fallback",
-              "portNodeId": "interface-frame-smoke-declaration"
-            },
-            {
-              "key": "composition-smoke-node",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-              "sourceNodeId": "composition-smoke-shared-icon",
-              "surfaceId": "root",
-              "semanticLevel": "icon",
-              "resolutionMode": "shared",
-              "portNodeId": "interface-frame-smoke-declaration"
-            },
-            {
-              "key": "composition-smoke-node",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-              "sourceNodeId": "composition-smoke-action-detail",
-              "surfaceId": "action",
-              "semanticLevel": "detail",
-              "resolutionMode": "own",
-              "portNodeId": "composition-smoke-action-port"
-            },
-            {
-              "key": "composition-smoke-node",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-              "sourceNodeId": "composition-smoke-action-summary",
-              "surfaceId": "action",
-              "semanticLevel": "summary",
-              "resolutionMode": "own",
-              "portNodeId": "composition-smoke-action-port"
-            },
-            {
-              "key": "composition-smoke-node",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-              "sourceNodeId": "composition-smoke-shared-icon",
-              "surfaceId": "action",
-              "semanticLevel": "icon",
-              "resolutionMode": "shared",
-              "portNodeId": "composition-smoke-action-port"
-            }
-          ],
-          "nodeView": {
-            "key": "composition-smoke-node",
-            "intent": "node",
-            "payload": "node.web.detail",
-            "ref": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-            "sourceNodeId": "composition-smoke-shared-detail",
-            "surfaceId": "root",
-            "semanticLevel": "detail",
-            "resolutionMode": "root",
-            "portNodeId": "interface-frame-smoke-declaration"
-          },
-          "editorView": null,
-          "declarations": [
-            {
-              "ref": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-              "nodeId": "composition-smoke-node",
-              "graphId": "interface-frame-smoke"
-            }
-          ]
-        },
-        "_bridge": {
-          "classKey": "composition-smoke-node",
-          "classRef": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-          "entryPort": "root",
-          "kind": "graph",
-          "sourceRef": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node",
-          "targetKind": "graph"
-        },
         "smokeExpectation": {
           "implicitRoot": true,
-          "authoredPorts": ["action", "create-action"],
+          "authoredPorts": [
+            "action",
+            "create-action"
+          ],
           "portDirections": {
             "root": "input",
             "action": "input",
@@ -564,7 +348,8 @@
             "kind": "icon",
             "name": "Hub"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/graphs/interface-frame-smoke.node"
       }
     },
     {
@@ -618,7 +403,7 @@
     },
     {
       "id": "composition-consumer-procedure",
-      "type": "markdown",
+      "type": "content",
       "label": "Pass Procedure",
       "position": {
         "x": 760,
@@ -641,62 +426,57 @@
         "identity": {
           "graphId": "node-composition-consumption-smoke"
         },
-        "markdown": "## Pass procedure\n\n### Authored minimap camera\n\n1. Inspect **Authored Frame Minimap**.\n2. Confirm its visible world is the node-shaped frame centered on the default view.\n3. Move the Declaration, save, and return; the minimap crop should rescale from the new Declaration-to-default-view distance.\n4. Confirm the editor's ordinary minimap still fits the whole graph.\n\n### Navigation proof\n\n1. Open **Enter Through Action**.\n2. Confirm the source graph opens focused through its Action interface rather than Root.\n3. Confirm **Action Detail** is the active presentation.\n\n### Creation proof\n\n1. Confirm the widget exposes **Root** and **Action** as input sockets.\n2. Confirm **Create Action** is the single output plug.\n3. Drag **Create Action** into open graph space.\n4. Confirm a Composition Smoke Node is created and the edge terminates at its **Action** socket.\n5. Confirm the created node opens on **Action Detail**.\n\n### UI review still required\n\nReview Port configuration authoring for direction, exposed view, creation behavior, created node type, target port, and projected placement.\n\n**Pass:** authored camera, navigation, and creation independently follow the graph contract."
+        "content": {
+          "kind": "markdown",
+          "value": "## Pass procedure\n\n### Authored minimap camera\n\n1. Inspect **Authored Frame Minimap**.\n2. Confirm its visible world is the node-shaped frame centered on the default view.\n3. Move the Declaration, save, and return; the minimap crop should rescale from the new Declaration-to-default-view distance.\n4. Confirm the editor's ordinary minimap still fits the whole graph.\n\n### Navigation proof\n\n1. Open **Enter Through Action**.\n2. Confirm the source graph opens focused through its Action interface rather than Root.\n3. Confirm **Action Detail** is the active presentation.\n\n### Creation proof\n\n1. Confirm the widget exposes **Root** and **Action** as input sockets.\n2. Confirm **Create Action** is the single output plug.\n3. Drag **Create Action** into open graph space.\n4. Confirm a Composition Smoke Node is created and the edge terminates at its **Action** socket.\n5. Confirm the created node opens on **Action Detail**.\n\n### UI review still required\n\nReview Port configuration authoring for direction, exposed view, creation behavior, created node type, target port, and projected placement.\n\n**Pass:** authored camera, navigation, and creation independently follow the graph contract."
+        }
       }
     }
   ],
   "edges": [
     {
       "id": "composition-consumer-entry",
-      "type": "reference",
+      "type": "default-surface",
       "source": "composition-consumer-declaration",
       "target": "composition-consumer-root",
       "sourcePort": "right",
       "targetPort": "root",
       "label": "default surface",
-      "data": {
-        "role": "default-surface"
-      }
+      "data": {}
     },
     {
       "id": "composition-consumer-creates",
-      "type": "reference",
+      "type": "creates-node",
       "source": "composition-consumer-bridge",
       "target": "composition-consumer-instance",
       "sourcePort": "create",
       "targetPort": "root",
       "label": "instantiates",
-      "data": {
-        "role": "creates-node"
-      }
+      "data": {}
     },
     {
       "id": "composition-consumer-action-navigation",
-      "type": "reference",
+      "type": "tests-addressed-port-navigation",
       "source": "composition-consumer-root",
       "target": "composition-consumer-action-portal",
       "sourcePort": "bottom",
       "targetPort": "root",
       "label": "tests action navigation",
       "data": {
-        "role": "tests-addressed-port-navigation",
         "surfaceId": "action"
       }
     },
     {
       "id": "composition-consumer-verifies",
-      "type": "reference",
+      "type": "tests-contract",
       "source": "composition-consumer-instance",
       "target": "composition-consumer-procedure",
       "sourcePort": "action",
       "targetPort": "left",
       "label": "verify matrix",
-      "data": {
-        "role": "tests-contract"
-      }
+      "data": {}
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

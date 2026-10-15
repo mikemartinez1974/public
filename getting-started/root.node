@@ -1,120 +1,748 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Twilite Zone",
-    "description": "The first five minutes of Twilite: a new way to create and experience web content.",
-    "graphId": "twilite-zone-arrival",
-    "version": "0.4.0",
-    "kind": "public arrival",
     "author": "Michael Martinez",
-    "tags": ["twilite", "onboarding", "public arrival", "web content"],
+    "tags": [
+      "twilite",
+      "onboarding",
+      "public arrival",
+      "web content"
+    ],
     "preferredViewer": "https://dev.twilite.zone"
   },
   "nodes": [
     {
       "id": "twilite-zone-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Twilite Zone",
-      "root": false,
-      "position": {"x": -1180, "y": -560},
+      "position": {
+        "x": -1180,
+        "y": -560
+      },
       "width": 520,
       "height": 390,
       "ports": [
-        {"id":"default-view","key":"default-view","label":"default-view","direction":"output","dataType":"any","angle":55,"role":"default-view"},
-        {"id":"summary-view","key":"summary-view","label":"summary-view","direction":"output","dataType":"any","angle":70,"role":"shared-summary"},
-        {"id":"icon-view","key":"icon-view","label":"icon-view","direction":"output","dataType":"any","angle":85,"role":"shared-icon"},
-        {"id":"glyph","key":"glyph","label":"glyph","direction":"output","dataType":"any","angle":100,"role":"shared-glyph"},
-        {"id":"landing-surface","key":"landing-surface","label":"landing-surface","direction":"output","dataType":"any","angle":115,"role":"landing-surface"}
+        {
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 115,
+          "role": "ground"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
       ],
       "visible": true,
       "showLabel": true,
       "data": {
-        "identity": {"graphId":"twilite-zone-arrival","nodeId":"twilite-zone","name":"Twilite Zone","version":"0.4.0"},
-        "intent": {"kind":"public arrival","scope":"first-five-minutes"},
-        "dependencies": {"nodeTypes":["declaration","view","glyph","arrival","arrival-route"],"portContracts":["core"],"schemaVersions":{"nodes":">=1.0.0","ports":">=1.0.0"},"optional":[]},
-        "authority": {"mutation":{"allowCreate":true,"allowUpdate":true,"allowDelete":true,"appendOnly":false},"actors":{"humans":true,"agents":true,"tools":true},"styleAuthority":"descriptive","history":{"rewriteAllowed":false,"squashAllowed":false}},
-        "declaration": {
-          "kind":"graph","targetMode":"artifact","artifactKind":"getting-started","interfaceContract":{"version":1,"implicitRootPort":true},
-          "defaultSurfaceId":"detail","landingSurfaceId":"landing",
-          "surfaces":[
-            {"id":"detail","kind":"view","payload":"node.web.detail","viewNodeId":"twilite-zone-detail"},
-            {"id":"summary","kind":"view","payload":"node.web.summary","viewNodeId":"twilite-zone-summary"},
-            {"id":"icon","kind":"view","payload":"node.web.icon","viewNodeId":"twilite-zone-icon"},
-            {"id":"glyph","kind":"glyph","payload":"node.web.glyph","viewNodeId":"twilite-zone-glyph"},
-            {"id":"landing","kind":"node","payload":"node.web.detail","viewNodeId":"twilite-zone-root"}
-          ]
+        "identity": {
+          "graphId": "twilite-zone-arrival",
+          "nodeId": "twilite-zone",
+          "name": "Twilite Zone",
+          "version": "0.4.0",
+          "description": "The first five minutes of Twilite: a new way to create and experience web content."
         },
-        "settings":{"autoSave":false,"layout":{"mode":"manual","direction":"DOWN","defaultLayout":"layered","edgeLaneGapPx":18}},
-        "document":{"url":"github://mikemartinez1974/public/getting-started/root.node"},
-        "visibilityRole":"editor"
+        "intent": {
+          "kind": "public arrival",
+          "scope": "first-five-minutes"
+        },
+        "dependencies": {
+          "nodeTypes": [
+            "declaration",
+            "view",
+            "glyph",
+            "arrival",
+            "arrival-route"
+          ],
+          "portContracts": [
+            "core"
+          ],
+          "schemaVersions": {
+            "nodes": ">=1.0.0",
+            "ports": ">=1.0.0"
+          },
+          "optional": []
+        },
+        "authority": {
+          "mutation": {
+            "allowCreate": true,
+            "allowUpdate": true,
+            "allowDelete": true,
+            "appendOnly": false
+          },
+          "actors": {
+            "humans": true,
+            "agents": true,
+            "tools": true
+          },
+          "styleAuthority": "descriptive",
+          "history": {
+            "rewriteAllowed": false,
+            "squashAllowed": false
+          }
+        },
+        "settings": {
+          "autoSave": false,
+          "layout": {
+            "mode": "manual",
+            "direction": "DOWN",
+            "defaultLayout": "layered",
+            "edgeLaneGapPx": 18
+          }
+        },
+        "document": {
+          "url": "github://mikemartinez1974/public/getting-started/root.node"
+        },
+        "visibilityRole": "editor",
+        "root": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "artifactKind": "getting-started",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "detail",
+          "landingSurfaceId": "landing",
+          "surfaces": [
+            {
+              "id": "detail",
+              "kind": "view",
+              "payload": "node.web.detail",
+              "viewNodeId": "twilite-zone-detail"
+            },
+            {
+              "id": "summary",
+              "kind": "view",
+              "payload": "node.web.summary",
+              "viewNodeId": "twilite-zone-summary"
+            },
+            {
+              "id": "icon",
+              "kind": "view",
+              "payload": "node.web.icon",
+              "viewNodeId": "twilite-zone-icon"
+            },
+            {
+              "id": "glyph",
+              "kind": "glyph",
+              "payload": "node.web.glyph",
+              "viewNodeId": "twilite-zone-glyph"
+            },
+            {
+              "id": "landing",
+              "kind": "node",
+              "payload": "node.web.detail",
+              "viewNodeId": "twilite-zone-root"
+            }
+          ]
+        }
       }
     },
     {
-      "id":"twilite-zone-detail","type":"view","label":"Twilite Zone detail","root":false,"position":{"x":-600,"y":-520},"width":520,"height":300,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"input","dataType":"any","angle":270}],"visible":true,"showLabel":true,
-      "data":{"identity":{"graphId":"twilite-zone-arrival"},"view":{"intent":"node","payload":"node.web.detail"},"html":"<div style='width:100%;height:100%;box-sizing:border-box;padding:26px;border-radius:20px;background:#111827;border:1px solid #475569;box-shadow:0 18px 38px rgba(0,0,0,.28);font-family:system-ui;color:#f8fafc'><div style='font:800 11px/1 system-ui;color:#67e8f9'>TWILITE ZONE</div><div style='font:850 32px/1.05 system-ui;margin:15px 0'>A new way to create and experience the web.</div><div style='font:500 16px/1.6 system-ui;color:#cbd5e1'>Twilite turns web content into connected, interactive graphs you can explore, create, and share. You are looking at one now.</div></div>"}
-    },
-    {
-      "id":"twilite-zone-summary","type":"view","label":"Twilite Zone summary","root":false,"position":{"x":0,"y":-520},"width":420,"height":240,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"input","dataType":"any","angle":270}],"visible":true,"showLabel":true,
-      "data":{"identity":{"graphId":"twilite-zone-arrival"},"view":{"intent":"node","payload":"node.web.summary"},"html":"<div style='width:100%;height:100%;box-sizing:border-box;padding:20px;border-radius:18px;background:#111827;border:1px solid #475569;font-family:system-ui;color:#f8fafc'><div style='font:800 10px/1 system-ui;color:#67e8f9'>TWILITE ZONE</div><div style='font:850 24px/1.08 system-ui;margin:14px 0'>A new way to experience the web.</div><div style='font:500 14px/1.55 system-ui;color:#cbd5e1'>Connected, interactive web content built as graphs.</div></div>"}
-    },
-    {
-      "id":"twilite-zone-icon","type":"view","label":"Twilite Zone icon","root":false,"position":{"x":480,"y":-520},"width":240,"height":170,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"input","dataType":"any","angle":270}],"visible":true,"showLabel":true,
-      "data":{"identity":{"graphId":"twilite-zone-arrival"},"view":{"intent":"node","payload":"node.web.icon"},"html":"<div style='width:100%;height:100%;box-sizing:border-box;padding:16px;border-radius:16px;background:#111827;border:1px solid #475569;font-family:system-ui;color:#f8fafc;display:flex;flex-direction:column;justify-content:space-between'><div style='font-size:30px'>✦</div><div style='font:800 17px/1.15 system-ui'>Twilite Zone</div></div>"}
-    },
-    {"id":"twilite-zone-glyph","type":"glyph","label":"Twilite Zone","root":false,"position":{"x":780,"y":-520},"width":90,"height":90,"ports":[{"id":"root","key":"root","label":"root","direction":"input","dataType":"any","angle":270}],"visible":true,"showLabel":true,"data":{"identity":{"graphId":"twilite-zone-arrival"},"view":{"intent":"node","payload":"node.web.glyph"},"glyph":"✦"}},
-    {
-      "id":"twilite-zone-root","type":"arrival","label":"Twilite Zone","root":true,"position":{"x":120,"y":160},"width":640,"height":340,
-      "ports":[
-        {"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":270,"position":{"side":"top","offset":0.5}},
-        {"id":"route-1","key":"route-1","label":"learn","direction":"output","dataType":"navigation","angle":90,"position":{"side":"bottom","offset":0.12}},
-        {"id":"route-2","key":"route-2","label":"create","direction":"output","dataType":"navigation","angle":90,"position":{"side":"bottom","offset":0.37}},
-        {"id":"route-3","key":"route-3","label":"explore","direction":"output","dataType":"navigation","angle":90,"position":{"side":"bottom","offset":0.63}},
-        {"id":"utilities","key":"utilities","label":"account","direction":"output","dataType":"navigation","angle":90,"position":{"side":"bottom","offset":0.88}}
+      "id": "twilite-zone-detail",
+      "type": "face",
+      "label": "Twilite Zone detail",
+      "position": {
+        "x": -600,
+        "y": -520
+      },
+      "width": 520,
+      "height": 300,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
       ],
-      "handles":[
-        {"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":270,"portId":"root"},
-        {"id":"route-1","key":"route-1","label":"learn","direction":"output","dataType":"navigation","angle":55,"portId":"route-1"},
-        {"id":"route-2","key":"route-2","label":"create","direction":"output","dataType":"navigation","angle":80,"portId":"route-2"},
-        {"id":"route-3","key":"route-3","label":"explore","direction":"output","dataType":"navigation","angle":105,"portId":"route-3"},
-        {"id":"utilities","key":"utilities","label":"account","direction":"output","dataType":"navigation","angle":130,"portId":"utilities"}
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "twilite-zone-arrival"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "html": "<div style='width:100%;height:100%;box-sizing:border-box;padding:26px;border-radius:20px;background:#111827;border:1px solid #475569;box-shadow:0 18px 38px rgba(0,0,0,.28);font-family:system-ui;color:#f8fafc'><div style='font:800 11px/1 system-ui;color:#67e8f9'>TWILITE ZONE</div><div style='font:850 32px/1.05 system-ui;margin:15px 0'>A new way to create and experience the web.</div><div style='font:500 16px/1.6 system-ui;color:#cbd5e1'>Twilite turns web content into connected, interactive graphs you can explore, create, and share. You are looking at one now.</div></div>"
+      }
+    },
+    {
+      "id": "twilite-zone-summary",
+      "type": "face",
+      "label": "Twilite Zone summary",
+      "position": {
+        "x": 0,
+        "y": -520
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
       ],
-      "visible":true,"showLabel":false,
-      "data":{"identity":{"graphId":"twilite-zone-arrival"},"eyebrow":"WELCOME TO TWILITE","title":"A new way to create and experience the web.","body":"Twilite turns web content into connected, interactive graphs you can explore, create, and share. You are looking at one now.","definitionKey":"arrival","_classBinding":{"key":"arrival","sourceRef":"github://mikemartinez1974/public/templates/public-arrival-template/classes/arrival.node-class.node","ref":"github://mikemartinez1974/public/templates/public-arrival-template/classes/arrival.node-class.node"}}
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "twilite-zone-arrival"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "html": "<div style='width:100%;height:100%;box-sizing:border-box;padding:20px;border-radius:18px;background:#111827;border:1px solid #475569;font-family:system-ui;color:#f8fafc'><div style='font:800 10px/1 system-ui;color:#67e8f9'>TWILITE ZONE</div><div style='font:850 24px/1.08 system-ui;margin:14px 0'>A new way to experience the web.</div><div style='font:500 14px/1.55 system-ui;color:#cbd5e1'>Connected, interactive web content built as graphs.</div></div>"
+      }
     },
     {
-      "id":"twilite-zone-learn","type":"arrival-route","label":"Learn about the graph","root":false,"position":{"x":-760,"y":760},"width":460,"height":280,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":270},{"id":"parent","key":"parent","label":"parent","direction":"input","dataType":"navigation","angle":270},{"id":"destination","key":"destination","label":"destination","direction":"output","dataType":"graph","angle":90}],"visible":true,"showLabel":false,
-      "data":{"identity":{"graphId":"twilite-zone-arrival"},"eyebrow":"LEARN THE MEDIUM","title":"Learn about the graph","body":"Twilite replaces the page as the basic shape of web content. See how nodes, relationships, and navigation turn content into something you can move through.","destinationRef":"github://mikemartinez1974/public/getting-started/what-is-a-graph/root.node","destinationLabel":"Show me","routeKind":"learning","prominence":"primary","status":"active","target":{"mode":"navigate","kind":"graph","ref":"github://mikemartinez1974/public/getting-started/what-is-a-graph/root.node","entryPort":"root"},"definitionKey":"arrival-route","_classBinding":{"key":"arrival-route","sourceRef":"github://mikemartinez1974/public/templates/public-arrival-template/classes/arrival-route.node-class.node","ref":"github://mikemartinez1974/public/templates/public-arrival-template/classes/arrival-route.node-class.node"}}
+      "id": "twilite-zone-icon",
+      "type": "face",
+      "label": "Twilite Zone icon",
+      "position": {
+        "x": 480,
+        "y": -520
+      },
+      "width": 240,
+      "height": 170,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "twilite-zone-arrival"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.icon"
+        },
+        "html": "<div style='width:100%;height:100%;box-sizing:border-box;padding:16px;border-radius:16px;background:#111827;border:1px solid #475569;font-family:system-ui;color:#f8fafc;display:flex;flex-direction:column;justify-content:space-between'><div style='font-size:30px'>✦</div><div style='font:800 17px/1.15 system-ui'>Twilite Zone</div></div>"
+      }
     },
     {
-      "id":"twilite-zone-create","type":"arrival-route","label":"Create something","root":false,"position":{"x":-240,"y":760},"width":460,"height":280,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":270},{"id":"parent","key":"parent","label":"parent","direction":"input","dataType":"navigation","angle":270},{"id":"destination","key":"destination","label":"destination","direction":"output","dataType":"graph","angle":90}],"visible":true,"showLabel":false,
-      "data":{"identity":{"graphId":"twilite-zone-arrival"},"eyebrow":"BUILD THE WEB","title":"Create something","body":"Create web content as a graph instead of a page. Start with a node, add content, connect another piece, and watch a navigable experience emerge.","destinationLabel":"Start creating","routeKind":"creation","prominence":"primary","status":"active","definitionKey":"arrival-route","_classBinding":{"key":"arrival-route","sourceRef":"github://mikemartinez1974/public/templates/public-arrival-template/classes/arrival-route.node-class.node","ref":"github://mikemartinez1974/public/templates/public-arrival-template/classes/arrival-route.node-class.node"}}
+      "id": "twilite-zone-glyph",
+      "type": "glyph",
+      "label": "Twilite Zone",
+      "position": {
+        "x": 780,
+        "y": -520
+      },
+      "width": 90,
+      "height": 90,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "twilite-zone-arrival"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.glyph"
+        },
+        "glyph": "✦"
+      }
     },
     {
-      "id":"twilite-zone-explore","type":"arrival-route","label":"Explore","root":false,"position":{"x":280,"y":760},"width":460,"height":280,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":270},{"id":"parent","key":"parent","label":"parent","direction":"input","dataType":"navigation","angle":270},{"id":"destination","key":"destination","label":"destination","direction":"output","dataType":"graph","angle":90}],"visible":true,"showLabel":false,
-      "data":{"identity":{"graphId":"twilite-zone-arrival"},"eyebrow":"EXPERIENCE IT","title":"Explore","body":"See what happens when web content has structure you can travel through. Open real graphs, follow connections, zoom between levels, and choose your own path.","destinationRef":"github://mikemartinez1974/public/root.node","destinationLabel":"Go exploring","routeKind":"discovery","prominence":"primary","status":"active","target":{"mode":"navigate","kind":"graph","ref":"github://mikemartinez1974/public/root.node","entryPort":"root"},"definitionKey":"arrival-route","_classBinding":{"key":"arrival-route","sourceRef":"github://mikemartinez1974/public/templates/public-arrival-template/classes/arrival-route.node-class.node","ref":"github://mikemartinez1974/public/templates/public-arrival-template/classes/arrival-route.node-class.node"}}
+      "id": "twilite-zone-root",
+      "type": "arrival",
+      "label": "Twilite Zone",
+      "position": {
+        "x": 120,
+        "y": 160
+      },
+      "width": 640,
+      "height": 340,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "position": {
+            "side": "top",
+            "offset": 0.5
+          }
+        },
+        {
+          "id": "route-1",
+          "key": "route-1",
+          "label": "learn",
+          "direction": "output",
+          "dataType": "navigation",
+          "angle": 90,
+          "position": {
+            "side": "bottom",
+            "offset": 0.12
+          }
+        },
+        {
+          "id": "route-2",
+          "key": "route-2",
+          "label": "create",
+          "direction": "output",
+          "dataType": "navigation",
+          "angle": 90,
+          "position": {
+            "side": "bottom",
+            "offset": 0.37
+          }
+        },
+        {
+          "id": "route-3",
+          "key": "route-3",
+          "label": "explore",
+          "direction": "output",
+          "dataType": "navigation",
+          "angle": 90,
+          "position": {
+            "side": "bottom",
+            "offset": 0.63
+          }
+        },
+        {
+          "id": "utilities",
+          "key": "utilities",
+          "label": "account",
+          "direction": "output",
+          "dataType": "navigation",
+          "angle": 90,
+          "position": {
+            "side": "bottom",
+            "offset": 0.88
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "route-1",
+          "key": "route-1",
+          "label": "learn",
+          "direction": "output",
+          "dataType": "navigation",
+          "angle": 55,
+          "portId": "route-1"
+        },
+        {
+          "id": "route-2",
+          "key": "route-2",
+          "label": "create",
+          "direction": "output",
+          "dataType": "navigation",
+          "angle": 80,
+          "portId": "route-2"
+        },
+        {
+          "id": "route-3",
+          "key": "route-3",
+          "label": "explore",
+          "direction": "output",
+          "dataType": "navigation",
+          "angle": 105,
+          "portId": "route-3"
+        },
+        {
+          "id": "utilities",
+          "key": "utilities",
+          "label": "account",
+          "direction": "output",
+          "dataType": "navigation",
+          "angle": 130,
+          "portId": "utilities"
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "identity": {
+          "graphId": "twilite-zone-arrival"
+        },
+        "eyebrow": "WELCOME TO TWILITE",
+        "title": "A new way to create and experience the web.",
+        "body": "Twilite turns web content into connected, interactive graphs you can explore, create, and share. You are looking at one now.",
+        "classRef": "github://mikemartinez1974/public/templates/public-arrival-template/classes/arrival.node-class.node"
+      }
     },
     {
-      "id":"twilite-zone-account","type":"arrival-route","label":"Your Twilite","root":false,"position":{"x":800,"y":760},"width":460,"height":280,
-      "ports":[{"id":"root","key":"root","label":"root","direction":"bidirectional","dataType":"any","angle":270},{"id":"parent","key":"parent","label":"parent","direction":"input","dataType":"navigation","angle":270},{"id":"destination","key":"destination","label":"destination","direction":"output","dataType":"graph","angle":90}],"visible":true,"showLabel":false,
-      "data":{"identity":{"graphId":"twilite-zone-arrival"},"eyebrow":"PUBLISH YOUR OWN","title":"Your Twilite","body":"Build your own corner of this web. Learn how an account lets you keep, publish, and share the graphs and experiences you create.","destinationLabel":"Learn more","routeKind":"account","prominence":"secondary","status":"active","definitionKey":"arrival-route","_classBinding":{"key":"arrival-route","sourceRef":"github://mikemartinez1974/public/templates/public-arrival-template/classes/arrival-route.node-class.node","ref":"github://mikemartinez1974/public/templates/public-arrival-template/classes/arrival-route.node-class.node"}}
+      "id": "twilite-zone-learn",
+      "type": "arrival-route",
+      "label": "Learn about the graph",
+      "position": {
+        "x": -760,
+        "y": 760
+      },
+      "width": 460,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "parent",
+          "key": "parent",
+          "label": "parent",
+          "direction": "input",
+          "dataType": "navigation",
+          "angle": 270
+        },
+        {
+          "id": "destination",
+          "key": "destination",
+          "label": "destination",
+          "direction": "output",
+          "dataType": "graph",
+          "angle": 90
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "identity": {
+          "graphId": "twilite-zone-arrival"
+        },
+        "eyebrow": "LEARN THE MEDIUM",
+        "title": "Learn about the graph",
+        "body": "Twilite replaces the page as the basic shape of web content. See how nodes, relationships, and navigation turn content into something you can move through.",
+        "destinationRef": "github://mikemartinez1974/public/getting-started/what-is-a-graph/root.node",
+        "destinationLabel": "Show me",
+        "routeKind": "learning",
+        "prominence": "primary",
+        "status": "active",
+        "target": {
+          "mode": "navigate",
+          "kind": "graph",
+          "ref": "github://mikemartinez1974/public/getting-started/what-is-a-graph/root.node",
+          "entryPort": "root"
+        },
+        "classRef": "github://mikemartinez1974/public/templates/public-arrival-template/classes/arrival-route.node-class.node"
+      }
+    },
+    {
+      "id": "twilite-zone-create",
+      "type": "arrival-route",
+      "label": "Create something",
+      "position": {
+        "x": -240,
+        "y": 760
+      },
+      "width": 460,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "parent",
+          "key": "parent",
+          "label": "parent",
+          "direction": "input",
+          "dataType": "navigation",
+          "angle": 270
+        },
+        {
+          "id": "destination",
+          "key": "destination",
+          "label": "destination",
+          "direction": "output",
+          "dataType": "graph",
+          "angle": 90
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "identity": {
+          "graphId": "twilite-zone-arrival"
+        },
+        "eyebrow": "BUILD THE WEB",
+        "title": "Create something",
+        "body": "Create web content as a graph instead of a page. Start with a node, add content, connect another piece, and watch a navigable experience emerge.",
+        "destinationLabel": "Start creating",
+        "routeKind": "creation",
+        "prominence": "primary",
+        "status": "active",
+        "classRef": "github://mikemartinez1974/public/templates/public-arrival-template/classes/arrival-route.node-class.node"
+      }
+    },
+    {
+      "id": "twilite-zone-explore",
+      "type": "arrival-route",
+      "label": "Explore",
+      "position": {
+        "x": 280,
+        "y": 760
+      },
+      "width": 460,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "parent",
+          "key": "parent",
+          "label": "parent",
+          "direction": "input",
+          "dataType": "navigation",
+          "angle": 270
+        },
+        {
+          "id": "destination",
+          "key": "destination",
+          "label": "destination",
+          "direction": "output",
+          "dataType": "graph",
+          "angle": 90
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "identity": {
+          "graphId": "twilite-zone-arrival"
+        },
+        "eyebrow": "EXPERIENCE IT",
+        "title": "Explore",
+        "body": "See what happens when web content has structure you can travel through. Open real graphs, follow connections, zoom between levels, and choose your own path.",
+        "destinationRef": "github://mikemartinez1974/public/root.node",
+        "destinationLabel": "Go exploring",
+        "routeKind": "discovery",
+        "prominence": "primary",
+        "status": "active",
+        "target": {
+          "mode": "navigate",
+          "kind": "graph",
+          "ref": "github://mikemartinez1974/public/root.node",
+          "entryPort": "root"
+        },
+        "classRef": "github://mikemartinez1974/public/templates/public-arrival-template/classes/arrival-route.node-class.node"
+      }
+    },
+    {
+      "id": "twilite-zone-account",
+      "type": "arrival-route",
+      "label": "Your Twilite",
+      "position": {
+        "x": 800,
+        "y": 760
+      },
+      "width": 460,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        },
+        {
+          "id": "parent",
+          "key": "parent",
+          "label": "parent",
+          "direction": "input",
+          "dataType": "navigation",
+          "angle": 270
+        },
+        {
+          "id": "destination",
+          "key": "destination",
+          "label": "destination",
+          "direction": "output",
+          "dataType": "graph",
+          "angle": 90
+        }
+      ],
+      "visible": true,
+      "showLabel": false,
+      "data": {
+        "identity": {
+          "graphId": "twilite-zone-arrival"
+        },
+        "eyebrow": "PUBLISH YOUR OWN",
+        "title": "Your Twilite",
+        "body": "Build your own corner of this web. Learn how an account lets you keep, publish, and share the graphs and experiences you create.",
+        "destinationLabel": "Learn more",
+        "routeKind": "account",
+        "prominence": "secondary",
+        "status": "active",
+        "classRef": "github://mikemartinez1974/public/templates/public-arrival-template/classes/arrival-route.node-class.node"
+      }
     }
   ],
   "edges": [
-    {"id":"edge-declaration-detail","source":"twilite-zone-declaration","sourcePort":"default-view","target":"twilite-zone-detail","targetPort":"root","type":"default-view"},
-    {"id":"edge-declaration-summary","source":"twilite-zone-declaration","sourcePort":"summary-view","target":"twilite-zone-summary","targetPort":"root","type":"reference"},
-    {"id":"edge-declaration-icon","source":"twilite-zone-declaration","sourcePort":"icon-view","target":"twilite-zone-icon","targetPort":"root","type":"reference"},
-    {"id":"edge-declaration-glyph","source":"twilite-zone-declaration","sourcePort":"glyph","target":"twilite-zone-glyph","targetPort":"root","type":"reference"},
-    {"id":"edge-declaration-landing","source":"twilite-zone-declaration","sourcePort":"landing-surface","target":"twilite-zone-root","targetPort":"root","type":"reference"},
-    {"id":"edge-root-learn","source":"twilite-zone-root","sourcePort":"route-1","target":"twilite-zone-learn","targetPort":"parent","type":"navigation"},
-    {"id":"edge-root-create","source":"twilite-zone-root","sourcePort":"route-2","target":"twilite-zone-create","targetPort":"parent","type":"navigation"},
-    {"id":"edge-root-explore","source":"twilite-zone-root","sourcePort":"route-3","target":"twilite-zone-explore","targetPort":"parent","type":"navigation"},
-    {"id":"edge-root-account","source":"twilite-zone-root","sourcePort":"utilities","target":"twilite-zone-account","targetPort":"parent","type":"navigation"}
+    {
+      "id": "twilite-zone-detail-surface",
+      "type": "surface",
+      "source": "twilite-zone-declaration",
+      "target": "twilite-zone-detail",
+      "label": "",
+      "style": {},
+      "data": {
+        "surfaceId": "detail"
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
+    },
+    {
+      "id": "twilite-zone-detail-next",
+      "type": "next-face",
+      "source": "twilite-zone-detail",
+      "target": "twilite-zone-summary",
+      "label": "",
+      "style": {},
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
+    },
+    {
+      "id": "twilite-zone-summary-next",
+      "type": "next-face",
+      "source": "twilite-zone-summary",
+      "target": "twilite-zone-icon",
+      "label": "",
+      "style": {},
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
+    },
+    {
+      "id": "twilite-zone-icon-next",
+      "type": "next-face",
+      "source": "twilite-zone-icon",
+      "target": "twilite-zone-glyph",
+      "label": "",
+      "style": {},
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
+    },
+    {
+      "id": "edge-declaration-landing",
+      "source": "twilite-zone-declaration",
+      "sourcePort": "ground",
+      "target": "twilite-zone-root",
+      "targetPort": "root",
+      "type": "edge"
+    },
+    {
+      "id": "edge-root-learn",
+      "source": "twilite-zone-root",
+      "sourcePort": "route-1",
+      "target": "twilite-zone-learn",
+      "targetPort": "parent",
+      "type": "navigation"
+    },
+    {
+      "id": "edge-root-create",
+      "source": "twilite-zone-root",
+      "sourcePort": "route-2",
+      "target": "twilite-zone-create",
+      "targetPort": "parent",
+      "type": "navigation"
+    },
+    {
+      "id": "edge-root-explore",
+      "source": "twilite-zone-root",
+      "sourcePort": "route-3",
+      "target": "twilite-zone-explore",
+      "targetPort": "parent",
+      "type": "navigation"
+    },
+    {
+      "id": "edge-root-account",
+      "source": "twilite-zone-root",
+      "sourcePort": "utilities",
+      "target": "twilite-zone-account",
+      "targetPort": "parent",
+      "type": "navigation"
+    }
   ],
-  "viewport": {"x": 120, "y": 160, "zoom": 0.72}
+  "viewport": {
+    "x": 120,
+    "y": 160,
+    "zoom": 0.72
+  }
 }

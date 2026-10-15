@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Task Nodeset Upgrade Plan",
-    "description": "Decision and implementation graph for evolving the task-planning nodeset and introducing a bounded operational workboard.",
-    "graphId": "task-nodeset-upgrade-declaration",
-    "version": "0.1.0",
-    "kind": "task",
     "created": "2026-07-29T16:53:44.114Z",
     "modified": "2026-07-29T23:00:00.000Z",
     "author": "",
@@ -17,9 +12,8 @@
   "nodes": [
     {
       "id": "task-nodeset-upgrade-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Task Nodeset Upgrade Plan",
-      "root": false,
       "position": {
         "x": -1040,
         "y": -1200
@@ -66,7 +60,9 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "analytics": { "contentGroup": "tasks" },
+        "analytics": {
+          "contentGroup": "tasks"
+        },
         "authority": {
           "actors": {
             "agents": true,
@@ -84,49 +80,6 @@
             "appendOnly": false
           },
           "styleAuthority": "descriptive"
-        },
-        "declaration": {
-          "defaultSurfaceId": "summary",
-          "graphViewRole": "authoring",
-          "kind": "task",
-          "primaryEditorViewId": "",
-          "artifactKind": "graph",
-          "primaryNodeViewId": "task-nodeset-upgrade-root-port",
-          "portViewNodeId": "task-nodeset-upgrade-root-port",
-          "surfaces": [
-            {
-              "exposes": {
-                "declarations": {
-                  "mode": "allow"
-                },
-                "views": {
-                  "mode": "allow"
-                }
-              },
-              "id": "summary",
-              "kind": "port",
-              "label": "Summary",
-              "memo": "Invisible root port that presents the live task-graph summary.",
-              "portNodeId": "task-nodeset-upgrade-root-port",
-              "viewNodeId": "task-nodeset-upgrade-root-port"
-            },
-            {
-              "exposes": {
-                "declarations": {
-                  "mode": "allow"
-                },
-                "views": {
-                  "mode": "allow"
-                }
-              },
-              "id": "workspace",
-              "kind": "view",
-              "label": "Workspace",
-              "memo": "Primary planning workspace.",
-              "viewNodeId": "task-nodeset-upgrade-goal"
-            }
-          ],
-          "targetMode": "artifact"
         },
         "declaresKind": "task",
         "dependencies": {
@@ -200,14 +153,56 @@
           "snapToGrid": true,
           "theme": null
         },
-        "summaryNodeId": "task-nodeset-upgrade-summary"
+        "summaryNodeId": "task-nodeset-upgrade-summary",
+        "root": {
+          "defaultSurfaceId": "summary",
+          "graphViewRole": "authoring",
+          "kind": "task",
+          "primaryEditorViewId": "",
+          "artifactKind": "graph",
+          "primaryNodeViewId": "task-nodeset-upgrade-root-port",
+          "portViewNodeId": "task-nodeset-upgrade-root-port",
+          "surfaces": [
+            {
+              "exposes": {
+                "declarations": {
+                  "mode": "allow"
+                },
+                "views": {
+                  "mode": "allow"
+                }
+              },
+              "id": "summary",
+              "kind": "port",
+              "label": "Summary",
+              "memo": "Invisible root port that presents the live task-graph summary.",
+              "portNodeId": "task-nodeset-upgrade-root-port",
+              "viewNodeId": "task-nodeset-upgrade-root-port"
+            },
+            {
+              "exposes": {
+                "declarations": {
+                  "mode": "allow"
+                },
+                "views": {
+                  "mode": "allow"
+                }
+              },
+              "id": "workspace",
+              "kind": "view",
+              "label": "Workspace",
+              "memo": "Primary planning workspace.",
+              "viewNodeId": "task-nodeset-upgrade-goal"
+            }
+          ],
+          "targetMode": "artifact"
+        }
       }
     },
     {
       "id": "task-nodeset-upgrade-bridge-goal",
-      "type": "bridge",
+      "type": "import",
       "label": "Goal",
-      "root": false,
       "position": {
         "x": -1580,
         "y": -430
@@ -254,18 +249,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "goal",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "goal",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -303,7 +286,6 @@
       "id": "task-nodeset-upgrade-root-port",
       "type": "port",
       "label": "Task Nodeset Upgrade",
-      "root": false,
       "position": {
         "x": -290,
         "y": -1320
@@ -357,9 +339,8 @@
     },
     {
       "id": "task-nodeset-upgrade-bridge-task",
-      "type": "bridge",
+      "type": "import",
       "label": "Task",
-      "root": false,
       "position": {
         "x": -1580,
         "y": -260
@@ -406,18 +387,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -453,9 +422,8 @@
     },
     {
       "id": "task-nodeset-upgrade-bridge-open-question",
-      "type": "bridge",
+      "type": "import",
       "label": "Open Question",
-      "root": false,
       "position": {
         "x": -1580,
         "y": -90
@@ -502,18 +470,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "open-question",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "open-question",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -549,9 +505,8 @@
     },
     {
       "id": "task-nodeset-upgrade-bridge-decision",
-      "type": "bridge",
+      "type": "import",
       "label": "Decision",
-      "root": false,
       "position": {
         "x": -1580,
         "y": 80
@@ -598,18 +553,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "decision",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "decision",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -645,9 +588,8 @@
     },
     {
       "id": "task-nodeset-upgrade-bridge-summary",
-      "type": "bridge",
+      "type": "import",
       "label": "Summary",
-      "root": false,
       "position": {
         "x": -1580,
         "y": 250
@@ -694,18 +636,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "summary",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "summary",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -743,7 +673,6 @@
       "id": "task-nodeset-upgrade-goal",
       "type": "goal",
       "label": "Evolve task planning into a manageable multi-graph system",
-      "root": true,
       "position": {
         "x": -560,
         "y": -720
@@ -790,23 +719,7 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "goal",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-goal",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-goal",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "goal",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node"
-        },
         "body": "Upgrade the existing task-planning nodeset without breaking current graphs, strengthen graph-owned summaries and board projections, and prove the design with a bounded public workboard.",
-        "definitionKey": "goal",
         "identity": {
           "graphId": "task-nodeset-upgrade"
         },
@@ -826,14 +739,14 @@
           "source": "manual",
           "updatedAt": 1785345453023,
           "reason": "node-drag"
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-summary",
       "type": "summary",
       "label": "Task Nodeset Upgrade",
-      "root": false,
       "position": {
         "x": -560,
         "y": -380
@@ -880,23 +793,7 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "summary",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-summary",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-summary",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "summary",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node"
-        },
         "blockedReason": "",
-        "definitionKey": "summary",
         "goal": "Evolve task planning into a manageable multi-graph system",
         "health": "on-track",
         "identity": {
@@ -956,14 +853,14 @@
           "reason": "node-drag"
         },
         "memo": "",
-        "link": ""
+        "link": "",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-updater",
       "type": "script",
       "label": "Summary Updater",
-      "root": false,
       "position": {
         "x": -1040,
         "y": -800
@@ -1115,7 +1012,6 @@
       "id": "task-nodeset-upgrade-decision-evolve",
       "type": "decision",
       "label": "Evolve the current nodeset in place",
-      "root": false,
       "position": {
         "x": -20,
         "y": -690
@@ -1162,37 +1058,21 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "decision",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-decision",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-decision",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "decision",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
-        },
         "decidedAt": "2026-07-22",
-        "definitionKey": "decision",
         "identity": {
           "graphId": "task-nodeset-upgrade"
         },
         "owner": "Michael",
         "rationale": "The existing planning vocabulary is sound. Changes will be additive and backward-compatible rather than a replacement nodeset.",
         "status": "decided",
-        "supersededBy": ""
+        "supersededBy": "",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-decision-truth",
       "type": "decision",
       "label": "Project graphs own truth; workboards own projection",
-      "root": false,
       "position": {
         "x": 1390,
         "y": -400
@@ -1239,37 +1119,21 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "decision",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-decision",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-decision",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "decision",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
-        },
         "decidedAt": "2026-07-22",
-        "definitionKey": "decision",
         "identity": {
           "graphId": "task-nodeset-upgrade"
         },
         "owner": "Michael",
         "rationale": "Statuses, progress, blockers, and next actions belong to source graphs. Workboard lanes, order, pinning, and review state belong to local summary consumers. Summary is a source view selected by the port, not a special node type.",
         "status": "decided",
-        "supersededBy": ""
+        "supersededBy": "",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-question-status",
       "type": "open-question",
       "label": "What is the exact canonical status vocabulary?",
-      "root": false,
       "position": {
         "x": 1390,
         "y": -690
@@ -1316,38 +1180,22 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "open-question",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-open-question",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-open-question",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "open-question",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
-        },
         "_semanticLevel": "detail",
         "body": "Should waiting and cancelled be first-class states, and how should legacy goal values such as achieved map into summary state?",
-        "definitionKey": "open-question",
         "identity": {
           "graphId": "task-nodeset-upgrade"
         },
         "owner": "Michael",
         "prominence": "high",
         "resolutionPath": "Use todo, in-progress, blocked, waiting, done, and cancelled for summaries; normalize legacy open, active, achieved, completed, deferred, paused, canceled, and abandoned values.",
-        "status": "answered"
+        "status": "answered",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-question-lane",
       "type": "open-question",
       "label": "Where should workboard lane and rank live?",
-      "root": false,
       "position": {
         "x": 1390,
         "y": -110
@@ -1394,37 +1242,21 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "open-question",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-open-question",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-open-question",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "open-question",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
-        },
         "body": "Confirm whether lane, rank, pinning, and review time belong on the ordinary local port rather than the source project graph.",
-        "definitionKey": "open-question",
         "identity": {
           "graphId": "task-nodeset-upgrade"
         },
         "owner": "Michael",
         "prominence": "high",
         "resolutionPath": "Lane, rank, pinning, and reviewedAt belong to data.board on the local task-summary projection. The source project graph owns status, priority, progress, next action, blockers, and target dates.",
-        "status": "resolved"
+        "status": "resolved",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-question-derived",
       "type": "open-question",
       "label": "Which summary fields are derived versus authorable?",
-      "root": false,
       "position": {
         "x": -20,
         "y": -400
@@ -1471,38 +1303,22 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "open-question",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-open-question",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-open-question",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "open-question",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
-        },
         "_semanticLevel": "detail",
         "body": "Progress should be derived, but priority, next action, health, target date, and blocker text need a clear ownership contract.",
-        "definitionKey": "open-question",
         "identity": {
           "graphId": "task-nodeset-upgrade"
         },
         "owner": "Michael",
         "prominence": "high",
         "resolutionPath": "Derive status, progress, counts, owner, priority, target date, and updatedAt. Author nextAction, blockedReason, and health in the source summary; author workboard placement on the local projection.",
-        "status": "answered"
+        "status": "answered",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-question-capture",
       "type": "open-question",
       "label": "Do we need a task-capture node class?",
-      "root": false,
       "position": {
         "x": 1390,
         "y": 180
@@ -1549,37 +1365,21 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "open-question",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-open-question",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-open-question",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "open-question",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
-        },
         "body": "Confirm that ordinary task nodes can serve as Inbox captures and define when a task should be promoted into its own task graph.",
-        "definitionKey": "open-question",
         "identity": {
           "graphId": "task-nodeset-upgrade"
         },
         "owner": "Michael",
         "prominence": "high",
         "resolutionPath": "Use ordinary task nodes for Inbox capture. A task remains a task inside its own graph and when projected elsewhere. Promote it into its own graph only when it needs subordinate structure, independent authority, or a durable exposed surface.",
-        "status": "resolved"
+        "status": "resolved",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-question-automation",
       "type": "open-question",
       "label": "How automatic should the workboard be?",
-      "root": false,
       "position": {
         "x": -20,
         "y": 180
@@ -1626,37 +1426,21 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "open-question",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-open-question",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-open-question",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "open-question",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
-        },
         "body": "Choose between a deliberately curated board, script-assisted sorting, or automatic filtering from the complete Task Library.",
-        "definitionKey": "open-question",
         "identity": {
           "graphId": "task-nodeset-upgrade"
         },
         "owner": "Michael",
         "prominence": "normal",
         "resolutionPath": "Automate reconciliation, not task ownership. Begin with explicit source registration, idempotent projection updates, deterministic lane policy, local placement preservation, and authoritative refresh behavior.",
-        "status": "answered"
+        "status": "answered",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-question-migration",
       "type": "open-question",
       "label": "How much existing content should be migrated initially?",
-      "root": false,
       "position": {
         "x": 1390,
         "y": 1050
@@ -1703,37 +1487,21 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "open-question",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-open-question",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-open-question",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "open-question",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
-        },
         "body": "Decide whether to update only active graphs during the pilot or perform a broader normalization pass.",
-        "definitionKey": "open-question",
         "identity": {
           "graphId": "task-nodeset-upgrade"
         },
         "owner": "Michael",
         "prominence": "normal",
         "resolutionPath": "Optimize for a coherent forward contract. Preserve compatible reading and status normalization, but migrate existing graphs only when they become active or participate in the pilot.",
-        "status": "resolved"
+        "status": "resolved",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-question-location",
       "type": "open-question",
       "label": "Where should the canonical workboard template live?",
-      "root": false,
       "position": {
         "x": 1390,
         "y": 1340
@@ -1780,37 +1548,21 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "open-question",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-open-question",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-open-question",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "open-question",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
-        },
         "body": "The canonical reusable template lives in the public templates collection and remains distinct from Michael’s populated public workboard.",
-        "definitionKey": "open-question",
         "identity": {
           "graphId": "task-nodeset-upgrade"
         },
         "owner": "Michael",
         "prominence": "normal",
         "resolutionPath": "github://mikemartinez1974/public/templates/workboard-template/root.node",
-        "status": "resolved"
+        "status": "resolved",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-audit",
       "type": "task",
       "label": "Audit current planning contracts and consumers",
-      "root": false,
       "position": {
         "x": 450,
         "y": -690
@@ -1857,25 +1609,9 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [],
         "body": "Inventory planning classes, summary updaters, task-summary consumers, templates, and active graphs before changing the contract.",
         "completedAt": "2026-07-22",
-        "definitionKey": "task",
         "estimateHours": "",
         "externalRef": "",
         "identity": {
@@ -1886,14 +1622,14 @@
         "startedAt": "",
         "status": "done",
         "targetDate": "",
-        "title": "Audit current planning contracts and consumers"
+        "title": "Audit current planning contracts and consumers",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-statuses",
       "type": "task",
       "label": "Define status vocabulary and compatibility mapping",
-      "root": false,
       "position": {
         "x": 920,
         "y": -690
@@ -1940,25 +1676,9 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [],
         "body": "Choose canonical task, goal, and summary states; document rollup behavior for existing values and any new waiting or cancelled states.",
         "completedAt": "2026-07-22",
-        "definitionKey": "task",
         "estimateHours": "",
         "externalRef": "",
         "identity": {
@@ -1969,14 +1689,14 @@
         "startedAt": "",
         "status": "done",
         "targetDate": "",
-        "title": "Define status vocabulary and compatibility mapping"
+        "title": "Define status vocabulary and compatibility mapping",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-summary",
       "type": "task",
       "label": "Strengthen the graph-owned summary contract",
-      "root": false,
       "position": {
         "x": 450,
         "y": -400
@@ -2023,25 +1743,9 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [],
         "body": "Add only the operational fields needed by cross-graph views and define which values are derived versus explicitly authored.",
         "completedAt": "2026-07-22",
-        "definitionKey": "task",
         "estimateHours": "",
         "externalRef": "",
         "identity": {
@@ -2052,14 +1756,14 @@
         "startedAt": "",
         "status": "done",
         "targetDate": "",
-        "title": "Strengthen the graph-owned summary contract"
+        "title": "Strengthen the graph-owned summary contract",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-projection",
       "type": "task",
       "label": "Use portals as workboard summary consumers",
-      "root": false,
       "position": {
         "x": 920,
         "y": -400
@@ -2106,25 +1810,9 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [],
         "body": "Expose a stable summary port and surface from each source task graph, then consume that summary through an ordinary portal on the workboard. Keep lane, rank, pinning, and review metadata local to the workboard so project truth remains in the source graph.",
         "completedAt": "2026-07-22",
-        "definitionKey": "task",
         "description": "Treat a task summary as a selected source view displayed by an ordinary port. Keep lane, rank, pinning, and review time as optional local data.board metadata on that port.",
         "estimateHours": "",
         "externalRef": "",
@@ -2136,14 +1824,14 @@
         "startedAt": "",
         "status": "done",
         "targetDate": "",
-        "title": "Use portals as workboard summary consumers"
+        "title": "Use portals as workboard summary consumers",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-lifecycle",
       "type": "task",
       "label": "Add restrained lifecycle fields to tasks",
-      "root": false,
       "position": {
         "x": 450,
         "y": -110
@@ -2190,25 +1878,9 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [],
         "body": "Evaluate optional target, start, completion, and external-reference fields without turning the nodeset into a generic ticket system.",
         "completedAt": "2026-07-22",
-        "definitionKey": "task",
         "estimateHours": "",
         "externalRef": "",
         "identity": {
@@ -2219,14 +1891,14 @@
         "startedAt": "",
         "status": "done",
         "targetDate": "",
-        "title": "Add restrained lifecycle fields to tasks"
+        "title": "Add restrained lifecycle fields to tasks",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-capture",
       "type": "task",
       "label": "Resolve the inbox capture model",
-      "root": false,
       "position": {
         "x": 920,
         "y": -110
@@ -2273,25 +1945,9 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [],
         "body": "Use ordinary task nodes for quick Inbox capture, verify graph-owned registration and placement, then define promotion into a standalone task graph without losing provenance.",
         "completedAt": "2026-07-31",
-        "definitionKey": "task",
         "estimateHours": "",
         "externalRef": "",
         "identity": {
@@ -2302,14 +1958,14 @@
         "startedAt": "2026-07-22",
         "status": "done",
         "targetDate": "",
-        "title": "Resolve the inbox capture model"
+        "title": "Resolve the inbox capture model",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-template",
       "type": "task",
       "label": "Create the canonical workboard template",
-      "root": false,
       "position": {
         "x": 920,
         "y": 1050
@@ -2356,21 +2012,6 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [
           "Template is declaration-first and contains no manifest, legend, or dictionary registration substitutes.",
           "Five lanes, meaningful empty states, Workboard and Task bridges, Task Library navigation, and graph-owned reconciliation are present.",
@@ -2378,7 +2019,6 @@
         ],
         "body": "Build a declaration-first index with Inbox, Now, Next, Waiting, Recently Completed, required bridges, bindings, and Task Library navigation.",
         "completedAt": "2026-07-30",
-        "definitionKey": "task",
         "estimateHours": "",
         "externalRef": "github://mikemartinez1974/public/templates/workboard-template/root.node",
         "identity": {
@@ -2389,14 +2029,14 @@
         "startedAt": "2026-07-30",
         "status": "done",
         "targetDate": "",
-        "title": "Create the canonical workboard template"
+        "title": "Create the canonical workboard template",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-pilot",
       "type": "task",
       "label": "Pilot the upgraded model in the private work repo",
-      "root": false,
       "position": {
         "x": 450,
         "y": 1050
@@ -2443,25 +2083,9 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [],
         "body": "Create a real workboard, populate it with project summaries, and verify editing, navigation, history, and summary refresh behavior.",
         "completedAt": "2026-07-30",
-        "definitionKey": "task",
         "estimateHours": "",
         "externalRef": "github://mikemartinez1974/public/workboard/root.node",
         "identity": {
@@ -2472,14 +2096,14 @@
         "startedAt": "2026-07-22",
         "status": "done",
         "targetDate": "",
-        "title": "Pilot the upgraded model in the private work repo"
+        "title": "Pilot the upgraded model in the private work repo",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-library",
       "type": "task",
       "label": "Create Michael's personal task collection",
-      "root": false,
       "position": {
         "x": 450,
         "y": 1340
@@ -2526,25 +2150,9 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [],
         "body": "Create a durable personal collection for ordinary local tasks and projected task graphs. Keep the existing Twilite public task collection largely unchanged and link the personal collection to the operational workboard.",
         "completedAt": "2026-07-31",
-        "definitionKey": "task",
         "estimateHours": "",
         "externalRef": "",
         "identity": {
@@ -2555,14 +2163,14 @@
         "startedAt": "2026-07-31",
         "status": "done",
         "targetDate": "",
-        "title": "Create Michael's personal task collection"
+        "title": "Create Michael's personal task collection",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-docs",
       "type": "task",
       "label": "Document migration and authoring contracts",
-      "root": false,
       "position": {
         "x": 920,
         "y": 1340
@@ -2609,25 +2217,9 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [],
         "body": "Update canonical guidance, examples, and compatibility notes after the pilot settles the open questions.",
         "completedAt": "2026-07-31",
-        "definitionKey": "task",
         "estimateHours": "",
         "externalRef": "",
         "identity": {
@@ -2638,14 +2230,14 @@
         "startedAt": "2026-07-31",
         "status": "done",
         "targetDate": "",
-        "title": "Document migration and authoring contracts"
+        "title": "Document migration and authoring contracts",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-automation-contract",
       "type": "task",
       "label": "Define the workboard automation contract",
-      "root": false,
       "position": {
         "x": 450,
         "y": 180
@@ -2692,21 +2284,6 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [
           "The reconciler selects source-backed portal carriers whose effective rendered type resolves to task.",
           "Rendered type precedence is explicit port override, source declaration type, selected source-node type, then portal fallback.",
@@ -2716,7 +2293,6 @@
         ],
         "body": "Specify the boundary between source task graphs, authored portal carriers, resolved task instances, local workbench projection state, and the reconciler. Automation synchronizes representations; it does not autonomously manage project truth. Membership is based on the resolved semantic type task, never on the carrier being a portal or on data.board.",
         "completedAt": "2026-07-29",
-        "definitionKey": "task",
         "estimateHours": "",
         "externalRef": "",
         "identity": {
@@ -2727,14 +2303,14 @@
         "startedAt": "2026-07-29",
         "status": "done",
         "targetDate": "",
-        "title": "Define the workboard automation contract"
+        "title": "Define the workboard automation contract",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-registration",
       "type": "task",
       "label": "Define the rendered-task registration contract",
-      "root": false,
       "position": {
         "x": 920,
         "y": 180
@@ -2781,21 +2357,6 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [
           "A workbench registers resolved task instances, not every portal and not a separate registry record.",
           "The authored portal remains the durable carrier and provenance for a source-backed task.",
@@ -2806,7 +2367,6 @@
         ],
         "body": "Treat workbench membership as the presence of a resolved task instance. For source-backed work, that instance is authored through a portal carrier, but the portal is transport and provenance rather than the semantic node type. The exposed source port may override rendered type; otherwise the source graph declaration supplies it before the selected internal node is considered.",
         "completedAt": "2026-07-29",
-        "definitionKey": "task",
         "estimateHours": "",
         "externalRef": "",
         "identity": {
@@ -2817,14 +2377,14 @@
         "startedAt": "2026-07-29",
         "status": "done",
         "targetDate": "",
-        "title": "Define the rendered-task registration contract"
+        "title": "Define the rendered-task registration contract",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-reconciliation",
       "type": "task",
       "label": "Implement idempotent projection reconciliation",
-      "root": false,
       "position": {
         "x": 450,
         "y": 470
@@ -2871,21 +2431,6 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [
           "Each source-backed portal carrier whose effective rendered type is task is reconciled at most once per pass using sourceRef plus surfaceId as stable identity.",
           "Port-level rendered type overrides source declaration type; declaration type overrides the selected internal source-node type.",
@@ -2896,7 +2441,6 @@
         ],
         "body": "Implemented a runtime reconciler that iterates existing source-backed portal carriers, resolves each effective semantic type, and selects only those resolving to task. It deduplicates by durable source reference plus exposed surface, preserves workbench-owned projection metadata without mutation, reports recoverable failures, and lets the existing portal renderer perform the refreshed source projection.",
         "completedAt": "2026-07-29",
-        "definitionKey": "task",
         "estimateHours": "",
         "externalRef": "",
         "identity": {
@@ -2907,14 +2451,14 @@
         "startedAt": "2026-07-29",
         "status": "done",
         "targetDate": "",
-        "title": "Implement idempotent projection reconciliation"
+        "title": "Implement idempotent projection reconciliation",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-lane-policy",
       "type": "task",
       "label": "Define automatic lane and ordering policy",
-      "root": false,
       "position": {
         "x": 920,
         "y": 470
@@ -2961,21 +2505,6 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [
           "Canonical statuses map predictably into workboard lanes.",
           "Cancelled and completed work cannot silently return to active lanes.",
@@ -2984,7 +2513,6 @@
         ],
         "body": "Map task-graph status and health into Inbox, Now, Next, Waiting, and Recently Completed. For the current pilot, pinning is manual placement: pinned tasks preserve their authored lane and position, while unpinned tasks follow automatic policy. Keep rank and cancellation semantics local without changing source truth.\n\nVerified on the public workboard: the first reconciliation moved Inter-Graph Data Handoff from Next to Waiting and hid the Waiting empty state (`updated: 2`, no failures); the unchanged second reconciliation returned `updated: 0`, `unchanged: 1`, no failures, and no duplicates.",
         "completedAt": "2026-07-30",
-        "definitionKey": "task",
         "estimateHours": "",
         "externalRef": "",
         "identity": {
@@ -2995,14 +2523,14 @@
         "startedAt": "2026-07-30",
         "status": "done",
         "targetDate": "",
-        "title": "Define automatic lane and ordering policy"
+        "title": "Define automatic lane and ordering policy",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-refresh",
       "type": "task",
       "label": "Implement authoritative refresh and failure states",
-      "root": false,
       "position": {
         "x": 450,
         "y": 760
@@ -3049,21 +2577,6 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [
           "Explicit Refresh bypasses stale graph and surface caches.",
           "Board load can reconcile without silently replacing newer source state with cached state.",
@@ -3071,7 +2584,6 @@
         ],
         "body": "Make Refresh mean refetch and reconcile. Define load-time refresh, stale indicators, cancellation propagation, unavailable-source behavior, and recovery without losing the local projection.",
         "completedAt": "2026-07-30",
-        "definitionKey": "task",
         "estimateHours": "",
         "externalRef": "",
         "identity": {
@@ -3082,14 +2594,14 @@
         "startedAt": "2026-07-30",
         "status": "done",
         "targetDate": "",
-        "title": "Implement authoritative refresh and failure states"
+        "title": "Implement authoritative refresh and failure states",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-task-reconciliation-tests",
       "type": "task",
       "label": "Prove reconciliation with acceptance tests",
-      "root": false,
       "position": {
         "x": 920,
         "y": 760
@@ -3136,21 +2648,6 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "task",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "acceptanceCriteria": [
           "Repeated runs create no duplicates and preserve board metadata.",
           "Status, cancellation, rename, missing, private, and malformed-source cases are covered.",
@@ -3158,7 +2655,6 @@
         ],
         "body": "Focused unit coverage proves semantic task selection, navigation-portal exclusion, stable registration identity, duplicate reporting, board-state preservation, and failure isolation. The real public workboard passed acceptance: task projections resolved correctly, lane and ordering state remained intact, and repeated refreshes produced no visible drift.",
         "completedAt": "2026-07-29",
-        "definitionKey": "task",
         "estimateHours": "",
         "externalRef": "",
         "identity": {
@@ -3169,14 +2665,14 @@
         "startedAt": "2026-07-29",
         "status": "done",
         "targetDate": "",
-        "title": "Prove reconciliation with acceptance tests"
+        "title": "Prove reconciliation with acceptance tests",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-decision-reconciliation",
       "type": "decision",
       "label": "Automation reconciles projections; it does not own tasks",
-      "root": false,
       "position": {
         "x": -20,
         "y": 470
@@ -3223,37 +2719,21 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "decision",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-decision",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-decision",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "decision",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
-        },
         "decidedAt": "2026-07-29",
-        "definitionKey": "decision",
         "identity": {
           "graphId": "task-nodeset-upgrade"
         },
         "owner": "Michael",
         "rationale": "Source task graphs retain status, progress, blockers, next actions, and lifecycle truth. The reconciler updates their workboard projections while preserving board-local placement metadata.",
         "status": "decided",
-        "supersededBy": ""
+        "supersededBy": "",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-decision-registration",
       "type": "decision",
       "label": "Resolved task instances are workbench registrations",
-      "root": false,
       "position": {
         "x": 1390,
         "y": 470
@@ -3300,37 +2780,21 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "decision",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-decision",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-decision",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "decision",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
-        },
         "decidedAt": "2026-07-29",
-        "definitionKey": "decision",
         "identity": {
           "graphId": "task-nodeset-upgrade"
         },
         "owner": "Michael",
         "rationale": "Membership belongs to each workbench and is represented by resolved task instances. A source-backed instance retains an authored portal as its carrier and provenance, but the portal is not its semantic type. Effective type resolves from an explicit exposed-port override, then the source graph declaration, then the selected internal source node, with portal only as the unresolved fallback. data.board stores workbench-local projection state; it is not a type marker or registry. A second registry would duplicate truth and drift.",
         "status": "decided",
-        "supersededBy": ""
+        "supersededBy": "",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-decision-task-invariant",
       "type": "decision",
       "label": "A task remains a task across graph boundaries",
-      "root": false,
       "position": {
         "x": 1390,
         "y": 1630
@@ -3338,44 +2802,61 @@
       "width": 450,
       "height": 270,
       "ports": [
-        { "angle": 210, "dataType": "any", "direction": "bidirectional", "id": "root", "label": "root" },
-        { "angle": 270, "dataType": "value", "direction": "bidirectional", "id": "top", "label": "top" },
-        { "angle": 180, "dataType": "value", "direction": "bidirectional", "id": "left", "label": "left" },
-        { "angle": 90, "dataType": "value", "direction": "bidirectional", "id": "bottom", "label": "bottom" },
-        { "angle": 360, "dataType": "value", "direction": "bidirectional", "id": "right", "label": "right" }
+        {
+          "angle": 210,
+          "dataType": "any",
+          "direction": "bidirectional",
+          "id": "root",
+          "label": "root"
+        },
+        {
+          "angle": 270,
+          "dataType": "value",
+          "direction": "bidirectional",
+          "id": "top",
+          "label": "top"
+        },
+        {
+          "angle": 180,
+          "dataType": "value",
+          "direction": "bidirectional",
+          "id": "left",
+          "label": "left"
+        },
+        {
+          "angle": 90,
+          "dataType": "value",
+          "direction": "bidirectional",
+          "id": "bottom",
+          "label": "bottom"
+        },
+        {
+          "angle": 360,
+          "dataType": "value",
+          "direction": "bidirectional",
+          "id": "right",
+          "label": "right"
+        }
       ],
       "visible": true,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "decision",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-decision",
-          "sourceNodeId": "task-nodeset-upgrade-bridge-decision",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "decision",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
-        },
         "decidedAt": "2026-07-31",
-        "definitionKey": "decision",
-        "identity": { "graphId": "task-nodeset-upgrade" },
+        "identity": {
+          "graphId": "task-nodeset-upgrade"
+        },
         "owner": "Michael",
         "rationale": "Task is the semantic invariant. Inside its own graph it is still an ordinary task, possibly supported by subtasks, questions, decisions, risks, and dependencies. Outside that graph it is exposed and projected as a task. Project describes the scope and point of view of a task with its own graph; it is not a separate node type. Promotion changes the location of authority and available detail without changing semantic type.",
         "status": "decided",
-        "supersededBy": ""
+        "supersededBy": "",
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
       }
     }
   ],
   "edges": [
     {
       "id": "task-nodeset-upgrade-edge-declaration-summary",
-      "type": "reference",
+      "type": "edge",
       "source": "task-nodeset-upgrade-declaration",
       "target": "task-nodeset-upgrade-root-port",
       "sourcePort": "right",
@@ -3389,7 +2870,7 @@
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-summary",
-      "type": "reference",
+      "type": "edge",
       "source": "task-nodeset-upgrade-root-port",
       "target": "task-nodeset-upgrade-summary",
       "sourcePort": "bottom",
@@ -3403,7 +2884,7 @@
     },
     {
       "id": "task-nodeset-upgrade-edge-updater-summary",
-      "type": "reference",
+      "type": "edge",
       "source": "task-nodeset-upgrade-updater",
       "target": "task-nodeset-upgrade-summary",
       "sourcePort": "right",
@@ -3417,7 +2898,7 @@
     },
     {
       "id": "task-nodeset-upgrade-edge-declaration-bridge-0",
-      "type": "reference",
+      "type": "imports",
       "source": "task-nodeset-upgrade-declaration",
       "target": "task-nodeset-upgrade-bridge-goal",
       "sourcePort": "left",
@@ -3431,7 +2912,7 @@
     },
     {
       "id": "task-nodeset-upgrade-edge-declaration-bridge-1",
-      "type": "reference",
+      "type": "imports",
       "source": "task-nodeset-upgrade-declaration",
       "target": "task-nodeset-upgrade-bridge-task",
       "sourcePort": "left",
@@ -3445,7 +2926,7 @@
     },
     {
       "id": "task-nodeset-upgrade-edge-declaration-bridge-2",
-      "type": "reference",
+      "type": "imports",
       "source": "task-nodeset-upgrade-declaration",
       "target": "task-nodeset-upgrade-bridge-open-question",
       "sourcePort": "left",
@@ -3459,7 +2940,7 @@
     },
     {
       "id": "task-nodeset-upgrade-edge-declaration-bridge-3",
-      "type": "reference",
+      "type": "imports",
       "source": "task-nodeset-upgrade-declaration",
       "target": "task-nodeset-upgrade-bridge-decision",
       "sourcePort": "left",
@@ -3473,7 +2954,7 @@
     },
     {
       "id": "task-nodeset-upgrade-edge-declaration-bridge-4",
-      "type": "reference",
+      "type": "imports",
       "source": "task-nodeset-upgrade-declaration",
       "target": "task-nodeset-upgrade-bridge-summary",
       "sourcePort": "left",
@@ -3487,7 +2968,7 @@
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-0",
-      "type": "reference",
+      "type": "edge",
       "source": "task-nodeset-upgrade-goal",
       "target": "task-nodeset-upgrade-task-audit",
       "sourcePort": "right",
@@ -3501,7 +2982,7 @@
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-1",
-      "type": "reference",
+      "type": "task.depends-on",
       "source": "task-nodeset-upgrade-task-statuses",
       "target": "task-nodeset-upgrade-task-audit",
       "sourcePort": "left",
@@ -3512,13 +2993,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "task.depends-on",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-2",
-      "type": "reference",
+      "type": "task.depends-on",
       "source": "task-nodeset-upgrade-task-summary",
       "target": "task-nodeset-upgrade-task-statuses",
       "sourcePort": "right",
@@ -3529,13 +3009,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "task.depends-on",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-3",
-      "type": "reference",
+      "type": "task.depends-on",
       "source": "task-nodeset-upgrade-task-projection",
       "target": "task-nodeset-upgrade-task-summary",
       "sourcePort": "left",
@@ -3546,13 +3025,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "task.depends-on",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-4",
-      "type": "reference",
+      "type": "task.depends-on",
       "source": "task-nodeset-upgrade-task-lifecycle",
       "target": "task-nodeset-upgrade-task-projection",
       "sourcePort": "right",
@@ -3563,13 +3041,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "task.depends-on",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-5",
-      "type": "reference",
+      "type": "task.depends-on",
       "source": "task-nodeset-upgrade-task-capture",
       "target": "task-nodeset-upgrade-task-lifecycle",
       "sourcePort": "left",
@@ -3580,13 +3057,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "task.depends-on",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-6",
-      "type": "reference",
+      "type": "task.depends-on",
       "source": "task-nodeset-upgrade-task-automation-contract",
       "target": "task-nodeset-upgrade-task-lifecycle",
       "sourcePort": "top",
@@ -3597,13 +3073,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "task.depends-on",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-7",
-      "type": "reference",
+      "type": "task.depends-on",
       "source": "task-nodeset-upgrade-task-automation-contract",
       "target": "task-nodeset-upgrade-task-registration",
       "sourcePort": "right",
@@ -3614,13 +3089,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "task.depends-on",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-8",
-      "type": "reference",
+      "type": "task.depends-on",
       "source": "task-nodeset-upgrade-task-reconciliation",
       "target": "task-nodeset-upgrade-task-automation-contract",
       "sourcePort": "top",
@@ -3631,13 +3105,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "task.depends-on",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-9",
-      "type": "reference",
+      "type": "task.depends-on",
       "source": "task-nodeset-upgrade-task-lane-policy",
       "target": "task-nodeset-upgrade-task-reconciliation",
       "sourcePort": "left",
@@ -3648,13 +3121,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "task.depends-on",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-question-0",
-      "type": "reference",
+      "type": "planning.answers",
       "source": "task-nodeset-upgrade-task-statuses",
       "target": "task-nodeset-upgrade-question-status",
       "sourcePort": "right",
@@ -3665,13 +3137,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "planning.answers",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/planning-answers.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/planning-answers.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-question-1",
-      "type": "reference",
+      "type": "planning.answers",
       "source": "task-nodeset-upgrade-task-projection",
       "target": "task-nodeset-upgrade-question-lane",
       "sourcePort": "bottom",
@@ -3682,13 +3153,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "planning.answers",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/planning-answers.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/planning-answers.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-question-2",
-      "type": "reference",
+      "type": "planning.answers",
       "source": "task-nodeset-upgrade-task-summary",
       "target": "task-nodeset-upgrade-question-derived",
       "sourcePort": "left",
@@ -3699,13 +3169,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "planning.answers",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/planning-answers.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/planning-answers.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-question-3",
-      "type": "reference",
+      "type": "planning.answers",
       "source": "task-nodeset-upgrade-task-capture",
       "target": "task-nodeset-upgrade-question-capture",
       "sourcePort": "bottom",
@@ -3716,13 +3185,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "planning.answers",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/planning-answers.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/planning-answers.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-question-4",
-      "type": "reference",
+      "type": "planning.answers",
       "source": "task-nodeset-upgrade-task-automation-contract",
       "target": "task-nodeset-upgrade-question-automation",
       "sourcePort": "left",
@@ -3733,13 +3201,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "planning.answers",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/planning-answers.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/planning-answers.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-question-5",
-      "type": "reference",
+      "type": "planning.answers",
       "source": "task-nodeset-upgrade-task-pilot",
       "target": "task-nodeset-upgrade-question-migration",
       "sourcePort": "bottom",
@@ -3750,13 +3217,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "planning.answers",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/planning-answers.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/planning-answers.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-question-6",
-      "type": "reference",
+      "type": "planning.answers",
       "source": "task-nodeset-upgrade-task-template",
       "target": "task-nodeset-upgrade-question-location",
       "sourcePort": "left",
@@ -3767,13 +3233,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "planning.answers",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/planning-answers.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/planning-answers.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-10",
-      "type": "reference",
+      "type": "task.depends-on",
       "source": "task-nodeset-upgrade-task-refresh",
       "target": "task-nodeset-upgrade-task-lane-policy",
       "sourcePort": "right",
@@ -3784,13 +3249,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "task.depends-on",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-11",
-      "type": "reference",
+      "type": "task.depends-on",
       "source": "task-nodeset-upgrade-task-reconciliation-tests",
       "target": "task-nodeset-upgrade-task-refresh",
       "sourcePort": "left",
@@ -3801,13 +3265,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "task.depends-on",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-12",
-      "type": "reference",
+      "type": "task.depends-on",
       "source": "task-nodeset-upgrade-task-pilot",
       "target": "task-nodeset-upgrade-task-reconciliation-tests",
       "sourcePort": "right",
@@ -3818,13 +3281,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "task.depends-on",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-13",
-      "type": "reference",
+      "type": "task.depends-on",
       "source": "task-nodeset-upgrade-task-template",
       "target": "task-nodeset-upgrade-task-pilot",
       "sourcePort": "left",
@@ -3835,13 +3297,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "task.depends-on",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-14",
-      "type": "reference",
+      "type": "task.depends-on",
       "source": "task-nodeset-upgrade-task-library",
       "target": "task-nodeset-upgrade-task-template",
       "sourcePort": "right",
@@ -3852,13 +3313,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "task.depends-on",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-task-15",
-      "type": "reference",
+      "type": "task.depends-on",
       "source": "task-nodeset-upgrade-task-docs",
       "target": "task-nodeset-upgrade-task-library",
       "sourcePort": "left",
@@ -3869,13 +3329,12 @@
         "route": "curved"
       },
       "data": {
-        "edgeClassKey": "task.depends-on",
-        "edgeClassRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/edges/task-depends-on.edge-class.node"
       }
     },
     {
       "id": "task-nodeset-upgrade-edge-decision-reconciliation",
-      "type": "reference",
+      "type": "edge",
       "source": "task-nodeset-upgrade-decision-reconciliation",
       "target": "task-nodeset-upgrade-task-reconciliation",
       "sourcePort": "right",
@@ -3889,7 +3348,7 @@
     },
     {
       "id": "task-nodeset-upgrade-edge-decision-registration",
-      "type": "reference",
+      "type": "edge",
       "source": "task-nodeset-upgrade-decision-registration",
       "target": "task-nodeset-upgrade-task-registration",
       "sourcePort": "left",
@@ -3903,7 +3362,7 @@
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-decision-0",
-      "type": "reference",
+      "type": "edge",
       "source": "task-nodeset-upgrade-decision-evolve",
       "target": "task-nodeset-upgrade-task-audit",
       "sourcePort": "right",
@@ -3917,7 +3376,7 @@
     },
     {
       "id": "task-nodeset-upgrade-edge-goal-decision-1",
-      "type": "reference",
+      "type": "edge",
       "source": "task-nodeset-upgrade-decision-truth",
       "target": "task-nodeset-upgrade-task-projection",
       "sourcePort": "left",
@@ -3931,7 +3390,7 @@
     },
     {
       "id": "task-nodeset-upgrade-edge-decision-task-invariant",
-      "type": "reference",
+      "type": "edge",
       "source": "task-nodeset-upgrade-decision-task-invariant",
       "target": "task-nodeset-upgrade-task-capture",
       "sourcePort": "left",
@@ -3944,7 +3403,6 @@
       "data": {}
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

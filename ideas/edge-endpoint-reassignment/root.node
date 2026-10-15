@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Edge Endpoint Reassignment",
-    "description": "An interaction model for unplugging one endpoint of an existing edge and reconnecting it to another compatible Port without destroying the relationship.",
-    "graphId": "edge-endpoint-reassignment",
-    "version": "0.1.0",
-    "kind": "idea",
     "created": "2026-08-25T18:03:39.942Z",
     "modified": "2026-08-25T18:13:37.193Z",
     "author": "",
@@ -21,7 +16,7 @@
   "nodes": [
     {
       "id": "edge-endpoint-reassignment-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Edge Endpoint Reassignment Declaration",
       "position": {
         "x": -1180,
@@ -52,30 +47,6 @@
         "intent": {
           "kind": "graph",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "graph",
-          "targetMode": "artifact",
-          "artifactKind": "graph",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Idea Template",
-              "memo": "Entry surface for deriving an evidence-driven idea graph.",
-              "portNodeId": "idea-template-root-port",
-              "viewNodeId": "idea-template-root-port",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            }
-          ]
         },
         "dependencies": {
           "nodeTypes": [
@@ -124,6 +95,30 @@
             "rewriteAllowed": false,
             "squashAllowed": false
           }
+        },
+        "root": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "artifactKind": "graph",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Idea Template",
+              "memo": "Entry surface for deriving an evidence-driven idea graph.",
+              "portNodeId": "idea-template-root-port",
+              "viewNodeId": "idea-template-root-port",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ]
         }
       }
     },
@@ -177,7 +172,7 @@
     },
     {
       "id": "edge-endpoint-reassignment-instructions",
-      "type": "markdown",
+      "type": "content",
       "label": "Interaction Contract",
       "position": {
         "x": -220,
@@ -228,7 +223,10 @@
         "identity": {
           "graphId": "edge-endpoint-reassignment"
         },
-        "markdown": "# Edge endpoint reassignment\n\n## Gesture\n\n1. Focus or select an existing edge.\n2. Grab its source or target endpoint.\n3. The opposite endpoint stays anchored and the selected end becomes a live tether.\n4. Compatible Ports become visible and labeled.\n5. Dropping on a compatible Port commits one atomic edge update.\n6. Escape, an invalid target, or a cancelled drop restores the original endpoint.\n\n## Invariants\n\n- Preserve edge ID, label, style, semantic role, and metadata.\n- Revalidate direction, datatype, and allowed edge types.\n- Never trigger a Port's drag-create behavior during reconnect.\n- Record one undoable transaction.\n- Support moving either source or target.\n- Keep a properties-panel endpoint selector as an accessible companion interaction.\n"
+        "content": {
+          "kind": "markdown",
+          "value": "# Edge endpoint reassignment\n\n## Gesture\n\n1. Focus or select an existing edge.\n2. Grab its source or target endpoint.\n3. The opposite endpoint stays anchored and the selected end becomes a live tether.\n4. Compatible Ports become visible and labeled.\n5. Dropping on a compatible Port commits one atomic edge update.\n6. Escape, an invalid target, or a cancelled drop restores the original endpoint.\n\n## Invariants\n\n- Preserve edge ID, label, style, semantic role, and metadata.\n- Revalidate direction, datatype, and allowed edge types.\n- Never trigger a Port's drag-create behavior during reconnect.\n- Record one undoable transaction.\n- Support moving either source or target.\n- Keep a properties-panel endpoint selector as an accessible companion interaction.\n"
+        }
       }
     },
     {
@@ -286,27 +284,15 @@
         "status": "framed",
         "confidence": "plausible",
         "notes": "Endpoint reassignment is edge editing. It is distinct from creating a new edge, creating a node from a handle, or deleting and recreating a relationship.",
-        "definitionKey": "idea",
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "edge-endpoint-reassignment"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-bridge-idea",
-      "type": "bridge",
+      "type": "import",
       "label": "Idea",
       "position": {
         "x": -1740,
@@ -326,18 +312,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -425,27 +399,15 @@
         "statement": "When an edge is attached to the wrong Port, the author must delete it and create another edge instead of directly correcting the endpoint.",
         "impact": "Correction destroys continuity, risks losing edge type and authored metadata, and makes graph refinement feel brittle.",
         "urgency": "high",
-        "definitionKey": "idea-problem",
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "edge-endpoint-reassignment"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-bridge-idea-problem",
-      "type": "bridge",
+      "type": "import",
       "label": "Problem",
       "position": {
         "x": -1740,
@@ -465,18 +427,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -563,27 +513,15 @@
         "title": "Graph authors",
         "description": "People arranging, correcting, and refining typed relationships on the Twilite canvas.",
         "needs": "A direct manipulation gesture that treats an endpoint as editable without making the relationship disposable.",
-        "definitionKey": "idea-audience",
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "edge-endpoint-reassignment"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-bridge-idea-audience",
-      "type": "bridge",
+      "type": "import",
       "label": "Audience",
       "position": {
         "x": -1740,
@@ -603,18 +541,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -701,27 +627,15 @@
         "title": "Detach, negotiate, and atomically reconnect",
         "description": "Dragging a connected endpoint detaches that end into a live tether while the opposite endpoint remains anchored. Compatible Ports are revealed. A valid drop updates the endpoint; cancellation restores the original connection.",
         "differentiator": "The interaction preserves edge identity, type, label, style, and metadata unless endpoint compatibility requires an explicit negotiated change.",
-        "definitionKey": "idea-proposed-approach",
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "edge-endpoint-reassignment"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-bridge-idea-proposed-approach",
-      "type": "bridge",
+      "type": "import",
       "label": "Proposed Approach",
       "position": {
         "x": -1740,
@@ -741,18 +655,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -840,27 +742,15 @@
         "question": "Should edge identity and metadata always survive reassignment, and how should the editor respond when the new Port is incompatible with the current edge type?",
         "status": "open",
         "answer": "Proposed: preserve the edge ID and authored data; accept only compatible targets by default, and require an explicit negotiation before changing edge type.",
-        "definitionKey": "idea-question",
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "edge-endpoint-reassignment"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-bridge-idea-question",
-      "type": "bridge",
+      "type": "import",
       "label": "Question",
       "position": {
         "x": -1740,
@@ -880,18 +770,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -979,27 +857,15 @@
         "statement": "Authors expect unplugging and replugging one endpoint to preserve the edge rather than silently delete one relationship and create another.",
         "importance": "critical",
         "status": "supported",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "edge-endpoint-reassignment"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-bridge-idea-assumption",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumption",
       "position": {
         "x": -1740,
@@ -1019,18 +885,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1118,27 +972,15 @@
         "findings": "Twilite already resolves handle positions, validates connection compatibility, previews connection drags, stores stable edge IDs, and applies graph mutations. Endpoint reassignment can reuse those contracts but needs an explicit reconnect transaction and gesture state.",
         "sourceUrl": "",
         "sourceType": "codebase",
-        "definitionKey": "idea-research",
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "edge-endpoint-reassignment"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-bridge-idea-research",
-      "type": "bridge",
+      "type": "import",
       "label": "Research",
       "position": {
         "x": -1740,
@@ -1158,18 +1000,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1257,28 +1087,16 @@
         "observation": "While editing real graph interfaces, the author asked to unplug an existing edge from one Port and plug that same edge into another Port instead of recreating it.",
         "kind": "user-observation",
         "strength": "strong",
-        "definitionKey": "idea-evidence",
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "edge-endpoint-reassignment"
         },
-        "citationSourceId": "conversation:2026-08-25"
+        "citationSourceId": "conversation:2026-08-25",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-bridge-idea-evidence",
-      "type": "bridge",
+      "type": "import",
       "label": "Evidence",
       "position": {
         "x": -1740,
@@ -1298,18 +1116,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1396,27 +1202,15 @@
         "title": "Edit endpoints in the edge properties panel",
         "description": "Expose source and target Port selectors only in the selected-edge editor, while leaving canvas gestures unchanged.",
         "tradeoffs": "This is explicit and accessible but slower, less spatial, and does not provide the plug-and-socket correction gesture the canvas model suggests. It remains a useful keyboard-accessible companion.",
-        "definitionKey": "idea-alternative",
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "edge-endpoint-reassignment"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-bridge-idea-alternative",
-      "type": "bridge",
+      "type": "import",
       "label": "Alternative",
       "position": {
         "x": -1740,
@@ -1436,18 +1230,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1536,27 +1318,15 @@
         "likelihood": "medium",
         "impact": "high",
         "mitigation": "Use an endpoint-specific grab target, preserve the original edge as a reversible draft, reveal only compatible targets, cancel back to the original endpoint, and commit as one undoable transaction.",
-        "definitionKey": "idea-risk",
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "edge-endpoint-reassignment"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-bridge-idea-risk",
-      "type": "bridge",
+      "type": "import",
       "label": "Risk",
       "position": {
         "x": -1740,
@@ -1576,18 +1346,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1675,27 +1433,15 @@
         "action": "Create an interaction smoke graph with two compatible Ports and one incompatible Port, then implement endpoint pickup, preview, valid drop, invalid drop, cancellation, and undo as one reconnectEdge transaction.",
         "expectedEvidence": "The same edge ID and metadata survive valid source and target reassignment; invalid or cancelled drops restore the original edge; undo reverses the entire change.",
         "status": "todo",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "edge-endpoint-reassignment"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-bridge-idea-next-step",
-      "type": "bridge",
+      "type": "import",
       "label": "Next Step",
       "position": {
         "x": -1740,
@@ -1715,18 +1461,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1762,9 +1496,8 @@
     },
     {
       "id": "idea-edge-class-advances",
-      "type": "bridge",
+      "type": "import",
       "label": "Advances",
-      "root": false,
       "position": {
         "x": -1180,
         "y": -1140
@@ -1818,9 +1551,8 @@
     },
     {
       "id": "idea-edge-class-affects",
-      "type": "bridge",
+      "type": "import",
       "label": "Affects",
-      "root": false,
       "position": {
         "x": -1140,
         "y": -1140
@@ -1874,9 +1606,8 @@
     },
     {
       "id": "idea-edge-class-assumes",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumes",
-      "root": false,
       "position": {
         "x": -1100,
         "y": -1140
@@ -1930,9 +1661,8 @@
     },
     {
       "id": "idea-edge-class-contradicts",
-      "type": "bridge",
+      "type": "import",
       "label": "Contradicts",
-      "root": false,
       "position": {
         "x": -1060,
         "y": -1140
@@ -1986,9 +1716,8 @@
     },
     {
       "id": "idea-edge-class-informs",
-      "type": "bridge",
+      "type": "import",
       "label": "Informs",
-      "root": false,
       "position": {
         "x": -1020,
         "y": -1140
@@ -2042,9 +1771,8 @@
     },
     {
       "id": "idea-edge-class-motivates",
-      "type": "bridge",
+      "type": "import",
       "label": "Motivates",
-      "root": false,
       "position": {
         "x": -980,
         "y": -1140
@@ -2098,9 +1826,8 @@
     },
     {
       "id": "idea-edge-class-questions",
-      "type": "bridge",
+      "type": "import",
       "label": "Questions",
-      "root": false,
       "position": {
         "x": -940,
         "y": -1140
@@ -2154,9 +1881,8 @@
     },
     {
       "id": "idea-edge-class-supports",
-      "type": "bridge",
+      "type": "import",
       "label": "Supports",
-      "root": false,
       "position": {
         "x": -900,
         "y": -1140
@@ -2210,9 +1936,8 @@
     },
     {
       "id": "idea-edge-class-tests",
-      "type": "bridge",
+      "type": "import",
       "label": "Tests",
-      "root": false,
       "position": {
         "x": -860,
         "y": -1140
@@ -2266,9 +1991,8 @@
     },
     {
       "id": "idea-edge-class-threatens",
-      "type": "bridge",
+      "type": "import",
       "label": "Threatens",
-      "root": false,
       "position": {
         "x": -820,
         "y": -1140
@@ -2367,7 +2091,7 @@
   "edges": [
     {
       "id": "edge-endpoint-reassignment-entry-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "edge-endpoint-reassignment-declaration",
       "target": "edge-endpoint-reassignment-root-port",
       "sourcePort": "root",
@@ -2381,7 +2105,7 @@
     },
     {
       "id": "edge-endpoint-reassignment-problem-motivates",
-      "type": "reference",
+      "type": "idea.motivates",
       "source": "edge-endpoint-reassignment-idea-problem",
       "target": "edge-endpoint-reassignment-idea",
       "sourcePort": "right",
@@ -2395,15 +2119,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.motivates",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node",
-        "semanticRole": "idea.motivates",
-        "edgeClassMeaning": "source establishes the need or reason for the target"
+        "edgeClassMeaning": "source establishes the need or reason for the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-audience-affects",
-      "type": "reference",
+      "type": "idea.affects",
       "source": "edge-endpoint-reassignment-idea-audience",
       "target": "edge-endpoint-reassignment-idea-problem",
       "sourcePort": "right",
@@ -2417,15 +2139,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.affects",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node",
-        "semanticRole": "idea.affects",
-        "edgeClassMeaning": "source audience experiences or is affected by the target problem"
+        "edgeClassMeaning": "source audience experiences or is affected by the target problem",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-idea-assumes",
-      "type": "reference",
+      "type": "idea.assumes",
       "source": "edge-endpoint-reassignment-idea",
       "target": "edge-endpoint-reassignment-idea-assumption",
       "sourcePort": "bottom",
@@ -2443,15 +2163,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
+        "edgeClassMeaning": "source depends on the target assumption being true",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-question-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "edge-endpoint-reassignment-idea-question",
       "target": "edge-endpoint-reassignment-idea-assumption",
       "sourcePort": "right",
@@ -2469,15 +2187,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-research-informs",
-      "type": "reference",
+      "type": "idea.informs",
       "source": "edge-endpoint-reassignment-idea-research",
       "target": "edge-endpoint-reassignment-idea-question",
       "sourcePort": "right",
@@ -2491,15 +2207,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.informs",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
-        "semanticRole": "idea.informs",
-        "edgeClassMeaning": "source provides context that informs the target"
+        "edgeClassMeaning": "source provides context that informs the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-evidence-supports",
-      "type": "reference",
+      "type": "idea.supports",
       "source": "edge-endpoint-reassignment-idea-evidence",
       "target": "edge-endpoint-reassignment-idea-assumption",
       "sourcePort": "left",
@@ -2513,15 +2227,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.supports",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
-        "semanticRole": "idea.supports",
-        "edgeClassMeaning": "source evidence increases confidence in the target"
+        "edgeClassMeaning": "source evidence increases confidence in the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-alternative-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "edge-endpoint-reassignment-idea-alternative",
       "target": "edge-endpoint-reassignment-idea-proposed-approach",
       "sourcePort": "left",
@@ -2539,15 +2251,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-risk-threatens",
-      "type": "reference",
+      "type": "idea.threatens",
       "source": "edge-endpoint-reassignment-idea-risk",
       "target": "edge-endpoint-reassignment-idea",
       "sourcePort": "bottom",
@@ -2565,15 +2275,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.threatens",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node",
-        "semanticRole": "idea.threatens",
-        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target"
+        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-next-step-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "edge-endpoint-reassignment-idea-next-step",
       "target": "edge-endpoint-reassignment-idea-assumption",
       "sourcePort": "top",
@@ -2587,15 +2295,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-approach-advances",
-      "type": "reference",
+      "type": "idea.advances",
       "source": "edge-endpoint-reassignment-idea-proposed-approach",
       "target": "edge-endpoint-reassignment-idea",
       "sourcePort": "left",
@@ -2609,15 +2315,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.advances",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node",
-        "semanticRole": "idea.advances",
-        "edgeClassMeaning": "source action moves the target idea toward a better-supported state"
+        "edgeClassMeaning": "source action moves the target idea toward a better-supported state",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node"
       }
     },
     {
       "id": "edge-endpoint-reassignment-instructions-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "edge-endpoint-reassignment-idea-next-step",
       "target": "edge-endpoint-reassignment-instructions",
       "sourcePort": "right",
@@ -2638,7 +2342,7 @@
       "id": "edge-endpoint-reassignment-declaration-edge-class-authority-advances",
       "source": "edge-endpoint-reassignment-declaration",
       "target": "idea-edge-class-advances",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority",
       "sourcePort": "root",
       "targetPort": "root"
@@ -2647,7 +2351,7 @@
       "id": "edge-endpoint-reassignment-declaration-edge-class-authority-affects",
       "source": "edge-endpoint-reassignment-declaration",
       "target": "idea-edge-class-affects",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority",
       "sourcePort": "root",
       "targetPort": "root"
@@ -2656,7 +2360,7 @@
       "id": "edge-endpoint-reassignment-declaration-edge-class-authority-assumes",
       "source": "edge-endpoint-reassignment-declaration",
       "target": "idea-edge-class-assumes",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority",
       "sourcePort": "root",
       "targetPort": "root"
@@ -2665,7 +2369,7 @@
       "id": "edge-endpoint-reassignment-declaration-edge-class-authority-contradicts",
       "source": "edge-endpoint-reassignment-declaration",
       "target": "idea-edge-class-contradicts",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority",
       "sourcePort": "root",
       "targetPort": "root"
@@ -2674,7 +2378,7 @@
       "id": "edge-endpoint-reassignment-declaration-edge-class-authority-informs",
       "source": "edge-endpoint-reassignment-declaration",
       "target": "idea-edge-class-informs",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority",
       "sourcePort": "root",
       "targetPort": "root"
@@ -2683,7 +2387,7 @@
       "id": "edge-endpoint-reassignment-declaration-edge-class-authority-motivates",
       "source": "edge-endpoint-reassignment-declaration",
       "target": "idea-edge-class-motivates",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority",
       "sourcePort": "root",
       "targetPort": "root"
@@ -2692,7 +2396,7 @@
       "id": "edge-endpoint-reassignment-declaration-edge-class-authority-questions",
       "source": "edge-endpoint-reassignment-declaration",
       "target": "idea-edge-class-questions",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority",
       "sourcePort": "root",
       "targetPort": "root"
@@ -2701,7 +2405,7 @@
       "id": "edge-endpoint-reassignment-declaration-edge-class-authority-supports",
       "source": "edge-endpoint-reassignment-declaration",
       "target": "idea-edge-class-supports",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority",
       "sourcePort": "root",
       "targetPort": "root"
@@ -2710,7 +2414,7 @@
       "id": "edge-endpoint-reassignment-declaration-edge-class-authority-tests",
       "source": "edge-endpoint-reassignment-declaration",
       "target": "idea-edge-class-tests",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority",
       "sourcePort": "root",
       "targetPort": "root"
@@ -2719,14 +2423,14 @@
       "id": "edge-endpoint-reassignment-declaration-edge-class-authority-threatens",
       "source": "edge-endpoint-reassignment-declaration",
       "target": "idea-edge-class-threatens",
-      "type": "reference",
+      "type": "imports",
       "label": "edge authority",
       "sourcePort": "root",
       "targetPort": "root"
     },
     {
       "id": "edge-endpoint-reassignment-next-step-task",
-      "type": "reference",
+      "type": "idea.advances",
       "source": "edge-endpoint-reassignment-idea-next-step",
       "target": "edge-endpoint-reassignment-task-portal",
       "sourcePort": "right",
@@ -2736,12 +2440,10 @@
         "curved": true
       },
       "data": {
-        "relation": "promoted-task",
-        "semanticRole": "idea.advances"
+        "relation": "promoted-task"
       }
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,
@@ -2780,8 +2482,5 @@
     },
     "autoSave": false
   },
-  "scripts": [],
-  "nodeCount": 35,
-  "edgeCount": 22,
-  "timestamp": "2026-08-02T00:00:00.000Z"
+  "scripts": []
 }

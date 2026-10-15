@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Events",
-    "description": "A public index of sourced event graphs.",
-    "graphId": "events-root-declaration",
-    "version": "1.0.0",
-    "kind": "collection",
     "created": "2026-07-23T21:11:44.917Z",
     "modified": "2026-07-24T00:45:20.479Z",
     "author": "",
@@ -17,7 +12,7 @@
   "nodes": [
     {
       "id": "events-root-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Events Declaration",
       "position": {
         "x": -480,
@@ -202,44 +197,6 @@
             "tools": true
           }
         },
-        "declaration": {
-          "kind": "graph",
-          "graphViewRole": "publishing",
-          "targetMode": "artifact",
-          "artifactKind": "graph",
-          "notes": [
-            "This graph is the public entry point for the Events collection.",
-            "Event portals use exposed icon surfaces; the template portal uses its overview surface.",
-            "The Event class bridge supplies a legend entry explaining the icon portals in this collection."
-          ],
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Root Port",
-              "memo": "Public visual entry point for the Events collection.",
-              "portNodeId": "events-home-surface",
-              "viewNodeId": "events-home-surface",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            },
-            {
-              "id": "events-home",
-              "kind": "port",
-              "label": "Events Collection",
-              "memo": "Stable named collection entry retained for existing links.",
-              "portNodeId": "events-home-surface",
-              "viewNodeId": "events-home-surface"
-            }
-          ]
-        },
         "settings": {
           "layout": {
             "mode": "autoOnMissingPositions",
@@ -283,6 +240,44 @@
           "source": "layout",
           "updatedAt": 1784853913632,
           "reason": "auto-layout"
+        },
+        "root": {
+          "kind": "graph",
+          "graphViewRole": "publishing",
+          "targetMode": "artifact",
+          "artifactKind": "graph",
+          "notes": [
+            "This graph is the public entry point for the Events collection.",
+            "Event portals use exposed icon surfaces; the template portal uses its overview surface.",
+            "The Event class bridge supplies a legend entry explaining the icon portals in this collection."
+          ],
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Root Port",
+              "memo": "Public visual entry point for the Events collection.",
+              "portNodeId": "events-home-surface",
+              "viewNodeId": "events-home-surface",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            },
+            {
+              "id": "events-home",
+              "kind": "port",
+              "label": "Events Collection",
+              "memo": "Stable named collection entry retained for existing links.",
+              "portNodeId": "events-home-surface",
+              "viewNodeId": "events-home-surface"
+            }
+          ]
         }
       }
     },
@@ -1807,7 +1802,7 @@
     },
     {
       "id": "events-event-class-bridge",
-      "type": "bridge",
+      "type": "import",
       "label": "Event",
       "position": {
         "x": 720,
@@ -1973,18 +1968,6 @@
           "grants": [
             "create"
           ]
-        },
-        "_classBinding": {
-          "key": "event",
-          "sourceRef": "github://mikemartinez1974/public/events/template/event.node-class.node"
-        },
-        "_bridge": {
-          "sourceRef": "github://mikemartinez1974/public/events/template/event.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "event",
-          "classRef": "github://mikemartinez1974/public/events/template/event.node-class.node"
         },
         "identity": {
           "graphId": "events-root-declaration"
@@ -2806,7 +2789,7 @@
   "edges": [
     {
       "id": "events-root-surface-edge",
-      "type": "default",
+      "type": "edge",
       "source": "events-root-declaration",
       "target": "events-home-surface",
       "sourcePort": "bottom",
@@ -2817,7 +2800,7 @@
     },
     {
       "id": "events-root-event-edge",
-      "type": "default",
+      "type": "edge",
       "source": "events-root-declaration",
       "target": "charlie-kirk-assassination-portal",
       "sourcePort": "right",
@@ -2828,7 +2811,7 @@
     },
     {
       "id": "events-root-template-edge",
-      "type": "default",
+      "type": "edge",
       "source": "events-root-declaration",
       "target": "event-template-portal",
       "sourcePort": "bottom",
@@ -2839,7 +2822,7 @@
     },
     {
       "id": "events-root-apollo-11-edge",
-      "type": "default",
+      "type": "edge",
       "source": "events-root-declaration",
       "target": "apollo-11-portal",
       "sourcePort": "right",
@@ -2850,7 +2833,7 @@
     },
     {
       "id": "events-root-death-of-jeffrey-epstein-edge",
-      "type": "default",
+      "type": "edge",
       "source": "events-root-declaration",
       "target": "death-of-jeffrey-epstein-portal",
       "sourcePort": "right",
@@ -2861,7 +2844,7 @@
     },
     {
       "id": "events-event-class-bridge-authority",
-      "type": "reference",
+      "type": "imports",
       "source": "events-root-declaration",
       "target": "events-event-class-bridge",
       "sourcePort": "left",
@@ -2875,7 +2858,7 @@
     },
     {
       "id": "erpenbeck-fraud-case-portal-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "events-home-surface",
       "target": "erpenbeck-fraud-case-portal",
       "sourcePort": "bottom",
@@ -2889,7 +2872,7 @@
     },
     {
       "id": "operation-enduring-freedom-portal-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "events-home-surface",
       "target": "operation-enduring-freedom-portal",
       "sourcePort": "bottom",
@@ -2903,7 +2886,7 @@
     },
     {
       "id": "kouri-richins-criminal-case-portal-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "events-home-surface",
       "target": "kouri-richins-criminal-case-portal",
       "sourcePort": "bottom",
@@ -2916,7 +2899,6 @@
       "data": {}
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

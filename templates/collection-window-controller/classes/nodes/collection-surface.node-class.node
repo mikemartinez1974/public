@@ -1,17 +1,12 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Collection Surface Node Class",
-    "description": "Placeable landing surface and layout context for a collection.",
-    "graphId": "collection-surface-class",
-    "version": "1.0.0",
-    "kind": "node-class",
     "preferredViewer": "https://twilite.zone"
   },
   "nodes": [
     {
       "id": "collection-surface-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Collection Surface Declaration",
       "position": {
         "x": -700,
@@ -46,44 +41,6 @@
         "intent": {
           "kind": "node-class",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "node-class",
-          "targetMode": "artifact",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Collection Surface",
-              "portNodeId": "collection-surface-root",
-              "viewNodeId": "collection-surface-detail"
-            },
-            {
-              "id": "detail",
-              "kind": "view",
-              "label": "Detail",
-              "viewNodeId": "collection-surface-detail"
-            },
-            {
-              "id": "summary",
-              "kind": "view",
-              "label": "Summary",
-              "viewNodeId": "collection-surface-summary"
-            },
-            {
-              "id": "icon",
-              "kind": "view",
-              "label": "Icon",
-              "viewNodeId": "collection-surface-icon"
-            },
-            {
-              "id": "editor",
-              "kind": "view",
-              "label": "Editor",
-              "viewNodeId": "collection-surface-editor"
-            }
-          ]
         },
         "nodeClass": {
           "contractVersion": "1.0.0",
@@ -180,6 +137,44 @@
             "ports": ">=1.0.0"
           },
           "optional": []
+        },
+        "root": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Collection Surface",
+              "portNodeId": "collection-surface-root",
+              "viewNodeId": "collection-surface-detail"
+            },
+            {
+              "id": "detail",
+              "kind": "view",
+              "label": "Detail",
+              "viewNodeId": "collection-surface-detail"
+            },
+            {
+              "id": "summary",
+              "kind": "view",
+              "label": "Summary",
+              "viewNodeId": "collection-surface-summary"
+            },
+            {
+              "id": "icon",
+              "kind": "view",
+              "label": "Icon",
+              "viewNodeId": "collection-surface-icon"
+            },
+            {
+              "id": "editor",
+              "kind": "view",
+              "label": "Editor",
+              "viewNodeId": "collection-surface-editor"
+            }
+          ]
         }
       },
       "handles": [
@@ -244,7 +239,7 @@
     },
     {
       "id": "collection-surface-detail",
-      "type": "view",
+      "type": "face",
       "label": "Collection Surface Detail",
       "position": {
         "x": 340,
@@ -281,7 +276,7 @@
     },
     {
       "id": "collection-surface-summary",
-      "type": "view",
+      "type": "face",
       "label": "Collection Surface Summary",
       "position": {
         "x": 340,
@@ -318,7 +313,7 @@
     },
     {
       "id": "collection-surface-icon",
-      "type": "view",
+      "type": "face",
       "label": "Collection Surface Icon",
       "position": {
         "x": 900,
@@ -355,7 +350,7 @@
     },
     {
       "id": "collection-surface-editor",
-      "type": "view",
+      "type": "face",
       "label": "Collection Surface Editor",
       "position": {
         "x": 340,
@@ -437,7 +432,7 @@
     },
     {
       "id": "collection-surface-export",
-      "type": "bridge",
+      "type": "export",
       "label": "Collection Surface Class Export",
       "position": {
         "x": -700,
@@ -449,7 +444,6 @@
       "data": {
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-surface.node-class.node",
-          "role": "export",
           "resourceKind": "node-class",
           "scope": "focused-graph",
           "grants": [
@@ -475,21 +469,21 @@
   "edges": [
     {
       "id": "surface-class-edge-root",
-      "type": "reference",
+      "type": "edge",
       "source": "collection-surface-declaration",
       "target": "collection-surface-root",
       "label": "exposes class",
-      "sourceHandle": "right",
-      "targetHandle": "root"
+      "sourcePort": "right",
+      "targetPort": "root"
     },
     {
       "id": "surface-class-edge-view",
-      "type": "reference",
+      "type": "edge",
       "source": "collection-surface-root",
       "target": "collection-surface-detail",
       "label": "renders as",
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     }
   ],
   "viewport": {

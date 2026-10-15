@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Portal Template",
-    "description": "A real, resolvable jump to another graph -- not a placeholder. This template's Portal targets templates/port-template/root.node's own Port node, so opening it and following the Portal actually lands you somewhere live.",
-    "graphId": "portal-template-declaration",
-    "version": "0.2.3",
-    "kind": "template",
     "created": "2026-10-04T19:38:05.558Z",
     "modified": "2026-10-08T23:57:08.331Z",
     "author": "",
@@ -18,9 +13,8 @@
   "nodes": [
     {
       "id": "portal-template-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Portal Template",
-      "root": true,
       "position": {
         "x": 0,
         "y": -300
@@ -40,11 +34,6 @@
           "kind": "template",
           "scope": "local"
         },
-        "declaration": {
-          "kind": "graph",
-          "defaultSurfaceId": "web",
-          "surfaces": []
-        },
         "glyph": {
           "kind": "icon",
           "name": "MeetingRoom"
@@ -53,6 +42,11 @@
         "purpose": "",
         "document": {
           "url": "github://mikemartinez1974/public/templates/portal-template/root.node"
+        },
+        "root": {
+          "kind": "graph",
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       }
     },
@@ -87,9 +81,8 @@
     },
     {
       "id": "portal-template-detail",
-      "type": "view",
+      "type": "face",
       "label": "Detail",
-      "root": false,
       "position": {
         "x": -1300,
         "y": -180
@@ -118,14 +111,14 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90,
-          "role": "view-sequence",
+          "role": "next-face",
           "allowedEdgeTypes": [
-            "view-sequence"
+            "next-face"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false,
             "behaviors": [
               {
@@ -192,9 +185,8 @@
     },
     {
       "id": "portal-template-icon",
-      "type": "view",
+      "type": "face",
       "label": "Icon",
-      "root": false,
       "position": {
         "x": -780,
         "y": -60
@@ -223,11 +215,11 @@
           "direction": "input",
           "dataType": "any",
           "angle": 270,
-          "role": "view-sequence",
+          "role": "next-face",
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false
           }
         },
@@ -238,14 +230,14 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90,
-          "role": "view-sequence",
+          "role": "next-face",
           "allowedEdgeTypes": [
-            "view-sequence"
+            "next-face"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false,
             "behaviors": [
               {
@@ -288,7 +280,6 @@
       "id": "portal-template-glyph",
       "type": "glyph",
       "label": "Glyph",
-      "root": false,
       "position": {
         "x": -560,
         "y": -10
@@ -338,7 +329,6 @@
       "id": "portal-template-content",
       "type": "content",
       "label": "Content",
-      "root": false,
       "position": {
         "x": -1300,
         "y": -560
@@ -369,72 +359,62 @@
   "edges": [
     {
       "id": "portal-template-default-handle",
-      "type": "reference",
+      "type": "default-handle",
       "source": "portal-template-declaration",
-      "sourceHandle": "default-handle",
       "target": "portal-template-portal",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "default-handle"
-      }
+      "data": {},
+      "sourcePort": "default-handle",
+      "targetPort": "root"
     },
     {
       "id": "portal-template-surface",
       "type": "surface",
       "source": "portal-template-declaration",
-      "sourceHandle": "surfaces",
       "target": "portal-template-detail",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "portal-template-detail-icon",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "portal-template-detail",
-      "sourceHandle": "sequence-out",
       "target": "portal-template-icon",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "portal-template-icon-glyph",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "portal-template-icon",
-      "sourceHandle": "sequence-out",
       "target": "portal-template-glyph",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "portal-template-declaration-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "source": "portal-template-declaration",
-      "sourceHandle": "landing-surface",
       "target": "portal-template-content",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "landing-surface"
-      }
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

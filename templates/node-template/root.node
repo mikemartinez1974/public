@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Node Template",
-    "description": "The minimal reference for how any node wires its own presentation: one Surface, leading detail -> summary -> icon -> glyph, the Detail view owning its own background content directly.",
-    "graphId": "node-template-declaration",
-    "version": "0.6.2",
-    "kind": "template",
     "created": "2026-09-30T15:50:52.475Z",
     "modified": "2026-10-09T17:39:22.993Z",
     "author": "",
@@ -17,9 +12,8 @@
   "nodes": [
     {
       "id": "node-template-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Node Template",
-      "root": true,
       "position": {
         "x": 662.9976978236416,
         "y": -232.59867415364204
@@ -109,20 +103,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -222,20 +216,20 @@
           "portId": "boundary-end"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -247,7 +241,7 @@
               }
             ]
           },
-          "portId": "landing-surface"
+          "portId": "ground"
         }
       ],
       "visible": true,
@@ -263,23 +257,6 @@
         "intent": {
           "kind": "template",
           "scope": "local"
-        },
-        "declaration": {
-          "kind": "graph",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": false,
-            "excludedRelationships": [
-              "glyph",
-              "icon-view",
-              "summary-view",
-              "view-sequence",
-              "port",
-              "default-handle"
-            ]
-          },
-          "defaultSurfaceId": "web",
-          "surfaces": []
         },
         "glyph": {
           "kind": "icon",
@@ -325,14 +302,30 @@
             }
           },
           "autoSave": false
+        },
+        "root": {
+          "kind": "graph",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": false,
+            "excludedRelationships": [
+              "glyph",
+              "icon-view",
+              "summary-view",
+              "next-face",
+              "port",
+              "default-handle"
+            ]
+          },
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       }
     },
     {
       "id": "node-template-detail",
-      "type": "view",
+      "type": "face",
       "label": "Detail",
-      "root": false,
       "position": {
         "x": 662.9976978236416,
         "y": 107.40132584635796
@@ -359,14 +352,14 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90,
-          "role": "view-sequence",
+          "role": "next-face",
           "allowedEdgeTypes": [
-            "view-sequence"
+            "next-face"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false,
             "behaviors": [
               {
@@ -426,14 +419,14 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90,
-          "role": "view-sequence",
+          "role": "next-face",
           "allowedEdgeTypes": [
-            "view-sequence"
+            "next-face"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false,
             "behaviors": [
               {
@@ -504,9 +497,8 @@
     },
     {
       "id": "node-template-summary",
-      "type": "view",
+      "type": "face",
       "label": "Summary",
-      "root": false,
       "position": {
         "x": 662.9976978236416,
         "y": 507.40132584635796
@@ -533,11 +525,11 @@
           "direction": "input",
           "dataType": "any",
           "angle": 270,
-          "role": "view-sequence",
+          "role": "next-face",
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false
           }
         },
@@ -548,14 +540,14 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90,
-          "role": "view-sequence",
+          "role": "next-face",
           "allowedEdgeTypes": [
-            "view-sequence"
+            "next-face"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false,
             "behaviors": [
               {
@@ -589,11 +581,11 @@
           "direction": "input",
           "dataType": "any",
           "angle": 270,
-          "role": "view-sequence",
+          "role": "next-face",
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false
           },
           "portId": "sequence-in"
@@ -605,14 +597,14 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90,
-          "role": "view-sequence",
+          "role": "next-face",
           "allowedEdgeTypes": [
-            "view-sequence"
+            "next-face"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false,
             "behaviors": [
               {
@@ -649,9 +641,8 @@
     },
     {
       "id": "node-template-icon",
-      "type": "view",
+      "type": "face",
       "label": "Icon",
-      "root": false,
       "position": {
         "x": 662.9976978236416,
         "y": 757.401325846358
@@ -678,11 +669,11 @@
           "direction": "input",
           "dataType": "any",
           "angle": 270,
-          "role": "view-sequence",
+          "role": "next-face",
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false
           }
         },
@@ -693,14 +684,14 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90,
-          "role": "view-sequence",
+          "role": "next-face",
           "allowedEdgeTypes": [
-            "view-sequence"
+            "next-face"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false,
             "behaviors": [
               {
@@ -734,11 +725,11 @@
           "direction": "input",
           "dataType": "any",
           "angle": 270,
-          "role": "view-sequence",
+          "role": "next-face",
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false
           },
           "portId": "sequence-in"
@@ -750,14 +741,14 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90,
-          "role": "view-sequence",
+          "role": "next-face",
           "allowedEdgeTypes": [
-            "view-sequence"
+            "next-face"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false,
             "behaviors": [
               {
@@ -803,7 +794,6 @@
       "id": "node-template-glyph",
       "type": "glyph",
       "label": "Glyph",
-      "root": false,
       "position": {
         "x": 662.9976978236416,
         "y": 947.401325846358
@@ -869,7 +859,6 @@
       "id": "node-template-landing-content",
       "type": "content",
       "label": "Landing Content",
-      "root": false,
       "position": {
         "x": 1262.9976978236416,
         "y": -232.59867415364204
@@ -903,69 +892,59 @@
       "type": "surface",
       "source": "node-template-declaration",
       "target": "node-template-detail",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "node-template-icon-glyph",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "node-template-icon",
       "target": "node-template-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "node-template-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "source": "node-template-declaration",
-      "sourceHandle": "landing-surface",
       "target": "node-template-landing-content",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "landing-surface"
-      }
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "node-template-detail-summary",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "node-template-detail",
       "target": "node-template-summary",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "node-template-summary-icon",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "node-template-summary",
       "target": "node-template-icon",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

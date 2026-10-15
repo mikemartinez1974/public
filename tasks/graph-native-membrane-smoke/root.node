@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Graph-Native Membrane Smoke",
-    "description": "Declaration begin/end and four chained boundary nodes test the rectangle/oval/triangle/polygon ladder and mixed line/curve sides.",
-    "graphId": "graph-native-membrane-smoke",
-    "version": "1.0.0",
-    "kind": "graph",
     "created": "2026-09-14T00:00:00.000Z",
     "modified": "2026-09-14T00:00:00.000Z",
     "author": "Michael Martinez",
@@ -19,9 +14,8 @@
   "nodes": [
     {
       "id": "graph-native-membrane-smoke-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Membrane Smoke Declaration",
-      "root": false,
       "position": {
         "x": -1280,
         "y": -900
@@ -57,20 +51,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -177,14 +171,14 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "boundary-begin",
@@ -285,17 +279,6 @@
           "kind": "graph",
           "scope": "shared"
         },
-        "declaration": {
-          "kind": "template",
-          "targetMode": "artifact",
-          "artifactKind": "graph-template",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "defaultSurfaceId": "web",
-          "surfaces": []
-        },
         "dependencies": {
           "nodeTypes": [
             "declaration",
@@ -374,6 +357,17 @@
           "kind": "icon",
           "name": "Science",
           "rotation": 35
+        },
+        "root": {
+          "kind": "template",
+          "targetMode": "artifact",
+          "artifactKind": "graph-template",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       },
       "style": {
@@ -384,9 +378,8 @@
     },
     {
       "id": "graph-native-membrane-smoke-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Smoke Test Bench",
-      "root": false,
       "position": {
         "x": -1880,
         "y": -980
@@ -474,9 +467,8 @@
     },
     {
       "id": "graph-native-membrane-smoke-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Smoke Test Summary View",
-      "root": false,
       "position": {
         "x": -1880,
         "y": -620
@@ -564,9 +556,8 @@
     },
     {
       "id": "graph-native-membrane-smoke-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Smoke Test Icon View",
-      "root": false,
       "position": {
         "x": -1880,
         "y": -320
@@ -656,7 +647,6 @@
       "id": "graph-native-membrane-smoke-landing-surface",
       "type": "content",
       "label": "Smoke Test Landing Surface",
-      "root": false,
       "position": {
         "x": -220,
         "y": -180
@@ -748,9 +738,8 @@
     },
     {
       "id": "graph-native-membrane-smoke-test-subject",
-      "type": "markdown",
+      "type": "content",
       "label": "Four Membrane Controls",
-      "root": false,
       "position": {
         "x": -120,
         "y": -40
@@ -800,7 +789,10 @@
         "identity": {
           "graphId": "graph-native-membrane-smoke"
         },
-        "markdown": "## Shape the membrane\n\nThe Declaration owns the glyph and membrane. Its `boundary-begin` handle starts a chain; each `membrane` node receives at `root` and sends from `next`; the last node returns to Declaration `boundary-end`. The visible border follows that chain, not positions sorted by bearing. Drag begin to prepend, end to append, or next to insert after a node. Each node owns its outgoing `line` or `curve`; optional `angle` steers a curve tangent."
+        "content": {
+          "kind": "markdown",
+          "value": "## Shape the membrane\n\nThe Declaration owns the glyph and membrane. Its `boundary-begin` handle starts a chain; each `membrane` node receives at `root` and sends from `next`; the last node returns to Declaration `boundary-end`. The visible border follows that chain, not positions sorted by bearing. Drag begin to prepend, end to append, or next to insert after a node. Each node owns its outgoing `line` or `curve`; optional `angle` steers a curve tangent."
+        }
       },
       "handles": [
         {
@@ -842,9 +834,8 @@
     },
     {
       "id": "graph-native-membrane-smoke-setup",
-      "type": "markdown",
+      "type": "content",
       "label": "Setup",
-      "root": false,
       "position": {
         "x": -700,
         "y": -40
@@ -894,7 +885,10 @@
         "identity": {
           "graphId": "graph-native-membrane-smoke"
         },
-        "markdown": "## Setup\n\nOpen this graph at detail zoom. Inspect the connected chain Declaration → Boundary 1 → 2 → 3 → 4 → Declaration and the purple outline. It has four authored control points plus the Declaration corner; one side is curved. In edit mode, drag `boundary-begin`, `boundary-end`, or a node `next` handle to insert a new boundary node and verify the old link is split. Move a node, switch its `segmentToNext`, resize, pan, and zoom. Delete controls to test 3+ authored polygon, 2 fitted triangle, 1 fitted oval, and 0 full-graph rectangle."
+        "content": {
+          "kind": "markdown",
+          "value": "## Setup\n\nOpen this graph at detail zoom. Inspect the connected chain Declaration → Boundary 1 → 2 → 3 → 4 → Declaration and the purple outline. It has four authored control points plus the Declaration corner; one side is curved. In edit mode, drag `boundary-begin`, `boundary-end`, or a node `next` handle to insert a new boundary node and verify the old link is split. Move a node, switch its `segmentToNext`, resize, pan, and zoom. Delete controls to test 3+ authored polygon, 2 fitted triangle, 1 fitted oval, and 0 full-graph rectangle."
+        }
       },
       "handles": [
         {
@@ -936,9 +930,8 @@
     },
     {
       "id": "graph-native-membrane-smoke-expected",
-      "type": "markdown",
+      "type": "content",
       "label": "Expected Result",
-      "root": false,
       "position": {
         "x": 460,
         "y": -40
@@ -988,7 +981,10 @@
         "identity": {
           "graphId": "graph-native-membrane-smoke"
         },
-        "markdown": "## Expected Result\n\nThe chain edges determine the visible boundary order. Three or more controls author a polygon through the Declaration corner and may clip graph content. Two controls produce a triangle fitted around the graph; one produces a fitted circle/oval; none leaves a full-graph rectangle. Begin/end/next insertion rewires one link into two, without forks. The same resolved contour drives border, clipping, ports, workspace edges, and minimap. `segmentToNext` selects a line or curve on the leaving side."
+        "content": {
+          "kind": "markdown",
+          "value": "## Expected Result\n\nThe chain edges determine the visible boundary order. Three or more controls author a polygon through the Declaration corner and may clip graph content. Two controls produce a triangle fitted around the graph; one produces a fitted circle/oval; none leaves a full-graph rectangle. Begin/end/next insertion rewires one link into two, without forks. The same resolved contour drives border, clipping, ports, workspace edges, and minimap. `segmentToNext` selects a line or curve on the leaving side."
+        }
       },
       "handles": [
         {
@@ -1030,9 +1026,8 @@
     },
     {
       "id": "graph-native-membrane-smoke-observations",
-      "type": "markdown",
+      "type": "content",
       "label": "Observations",
-      "root": false,
       "position": {
         "x": -120,
         "y": 360
@@ -1082,7 +1077,10 @@
         "identity": {
           "graphId": "graph-native-membrane-smoke"
         },
-        "markdown": "## Observations\n\nAutomated checks cover chain traversal and insertion at begin/end/interior, the count ladder, authored clipping, line/curve segments, tangent steering, resize, and port attachment. Record interactive observations after opening the updated runtime build."
+        "content": {
+          "kind": "markdown",
+          "value": "## Observations\n\nAutomated checks cover chain traversal and insertion at begin/end/interior, the count ladder, authored clipping, line/curve segments, tangent steering, resize, and port attachment. Record interactive observations after opening the updated runtime build."
+        }
       },
       "handles": [
         {
@@ -1534,58 +1532,50 @@
       "type": "surface",
       "source": "graph-native-membrane-smoke-declaration",
       "target": "graph-native-membrane-smoke-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "graph-native-membrane-smoke-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "graph-native-membrane-smoke-detail-view",
       "target": "graph-native-membrane-smoke-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "graph-native-membrane-smoke-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "graph-native-membrane-smoke-summary-view",
       "target": "graph-native-membrane-smoke-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "graph-native-membrane-smoke-landing-surface-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "graph-native-membrane-smoke-declaration",
       "target": "graph-native-membrane-smoke-landing-surface",
-      "label": "landing surface",
+      "label": "ground",
       "style": {},
-      "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface"
-      },
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "graph-native-membrane-smoke-enter-subject",
-      "type": "reference",
+      "type": "navigation",
       "source": "graph-native-membrane-smoke-landing-surface",
       "target": "graph-native-membrane-smoke-test-subject",
       "label": "Enter test bench",
@@ -1593,80 +1583,61 @@
         "route": "orthogonal",
         "orthogonal": true
       },
-      "data": {
-        "role": "navigation",
-        "semanticRole": "navigation"
-      },
-      "sourceHandle": "enter",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "enter",
+      "targetPort": "root"
     },
     {
       "id": "graph-native-membrane-smoke-boundary-link-1",
       "type": "membrane",
       "source": "graph-native-membrane-smoke-declaration",
       "target": "graph-native-membrane-smoke-membrane-1",
-      "sourceHandle": "boundary-begin",
-      "targetHandle": "root",
       "label": "boundary link 1",
-      "data": {
-        "role": "membrane-control",
-        "semanticRole": "membrane-control"
-      }
+      "data": {},
+      "sourcePort": "boundary-begin",
+      "targetPort": "root"
     },
     {
       "id": "graph-native-membrane-smoke-boundary-link-2",
       "type": "membrane",
       "source": "graph-native-membrane-smoke-membrane-1",
       "target": "graph-native-membrane-smoke-membrane-2",
-      "sourceHandle": "next",
-      "targetHandle": "root",
       "label": "boundary link 2",
-      "data": {
-        "role": "membrane-control",
-        "semanticRole": "membrane-control"
-      }
+      "data": {},
+      "sourcePort": "next",
+      "targetPort": "root"
     },
     {
       "id": "graph-native-membrane-smoke-boundary-link-3",
       "type": "membrane",
       "source": "graph-native-membrane-smoke-membrane-2",
       "target": "graph-native-membrane-smoke-membrane-3",
-      "sourceHandle": "next",
-      "targetHandle": "root",
       "label": "boundary link 3",
-      "data": {
-        "role": "membrane-control",
-        "semanticRole": "membrane-control"
-      }
+      "data": {},
+      "sourcePort": "next",
+      "targetPort": "root"
     },
     {
       "id": "graph-native-membrane-smoke-boundary-link-4",
       "type": "membrane",
       "source": "graph-native-membrane-smoke-membrane-3",
       "target": "graph-native-membrane-smoke-membrane-4",
-      "sourceHandle": "next",
-      "targetHandle": "root",
       "label": "boundary link 4",
-      "data": {
-        "role": "membrane-control",
-        "semanticRole": "membrane-control"
-      }
+      "data": {},
+      "sourcePort": "next",
+      "targetPort": "root"
     },
     {
       "id": "graph-native-membrane-smoke-boundary-link-5",
       "type": "membrane",
       "source": "graph-native-membrane-smoke-membrane-4",
       "target": "graph-native-membrane-smoke-declaration",
-      "sourceHandle": "next",
-      "targetHandle": "boundary-end",
       "label": "boundary link 5",
-      "data": {
-        "role": "membrane-control",
-        "semanticRole": "membrane-control"
-      }
+      "data": {},
+      "sourcePort": "next",
+      "targetPort": "boundary-end"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

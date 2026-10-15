@@ -1,8 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Evidence Class",
-    "description": "A passage, observation, or artifact that supports or challenges a claim.",
     "created": "2026-07-18T12:00:00.000Z",
     "modified": "2026-07-18T22:00:00.000Z",
     "author": "",
@@ -16,9 +14,8 @@
   "nodes": [
     {
       "id": "evidence-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Evidence Declaration",
-      "root": false,
       "position": {
         "x": 0,
         "y": -420
@@ -202,39 +199,6 @@
             "squashAllowed": false
           }
         },
-        "declaration": {
-          "kind": "node-class",
-          "artifactKind": "class-artifact",
-          "graphViewRole": "artifact",
-          "targetMode": "artifact",
-          "defaultSurfaceId": "evidence-detail-view",
-          "surfaces": [
-            {
-              "id": "evidence-detail-view",
-              "kind": "view",
-              "label": "Surface",
-              "viewNodeId": "evidence-detail-view"
-            },
-            {
-              "id": "evidence-summary-view",
-              "kind": "view",
-              "label": "Card",
-              "viewNodeId": "evidence-summary-view"
-            },
-            {
-              "id": "evidence-icon-view",
-              "kind": "view",
-              "label": "Icon",
-              "viewNodeId": "evidence-icon-view"
-            },
-            {
-              "id": "evidence-editor-view",
-              "kind": "view",
-              "label": "Editor",
-              "viewNodeId": "evidence-editor-view"
-            }
-          ]
-        },
         "nodeClass": {
           "contractVersion": "1.0.0",
           "key": "evidence",
@@ -316,14 +280,46 @@
           "gridSize": 20,
           "edgeRouting": "auto",
           "autoSave": false
+        },
+        "root": {
+          "kind": "node-class",
+          "artifactKind": "class-artifact",
+          "graphViewRole": "artifact",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "evidence-detail-view",
+          "surfaces": [
+            {
+              "id": "evidence-detail-view",
+              "kind": "view",
+              "label": "Surface",
+              "viewNodeId": "evidence-detail-view"
+            },
+            {
+              "id": "evidence-summary-view",
+              "kind": "view",
+              "label": "Card",
+              "viewNodeId": "evidence-summary-view"
+            },
+            {
+              "id": "evidence-icon-view",
+              "kind": "view",
+              "label": "Icon",
+              "viewNodeId": "evidence-icon-view"
+            },
+            {
+              "id": "evidence-editor-view",
+              "kind": "view",
+              "label": "Editor",
+              "viewNodeId": "evidence-editor-view"
+            }
+          ]
         }
       }
     },
     {
       "id": "evidence-notes",
-      "type": "markdown",
+      "type": "content",
       "label": "Evidence Contract",
-      "root": false,
       "position": {
         "x": -460,
         "y": -160
@@ -464,14 +460,16 @@
         "identity": {
           "graphId": "evidence-person-class"
         },
-        "markdown": "## Evidence\n\nA passage, observation, or artifact that supports or challenges a claim.\n\nLayer: **research**\n\nRequired data: `evidenceText`."
+        "content": {
+          "kind": "markdown",
+          "value": "## Evidence\n\nA passage, observation, or artifact that supports or challenges a claim.\n\nLayer: **research**\n\nRequired data: `evidenceText`."
+        }
       }
     },
     {
       "id": "evidence-editor-view",
       "type": "port",
       "label": "Editor",
-      "root": false,
       "position": {
         "x": -420,
         "y": 140
@@ -686,7 +684,6 @@
       "id": "evidence-detail-view",
       "type": "port",
       "label": "Surface",
-      "root": false,
       "position": {
         "x": 0,
         "y": 140
@@ -841,7 +838,6 @@
       "id": "evidence-summary-view",
       "type": "port",
       "label": "Card",
-      "root": false,
       "position": {
         "x": 460,
         "y": 140
@@ -996,7 +992,6 @@
       "id": "evidence-icon-view",
       "type": "port",
       "label": "Icon",
-      "root": false,
       "position": {
         "x": 840,
         "y": 140
@@ -1152,7 +1147,7 @@
   "edges": [
     {
       "id": "evidence-edge-1",
-      "type": "reference",
+      "type": "edge",
       "source": "evidence-declaration",
       "target": "evidence-notes",
       "sourcePort": "bottom",
@@ -1163,7 +1158,7 @@
     },
     {
       "id": "evidence-edge-2",
-      "type": "reference",
+      "type": "edge",
       "source": "evidence-declaration",
       "target": "evidence-editor-view",
       "sourcePort": "bottom",
@@ -1174,7 +1169,7 @@
     },
     {
       "id": "evidence-edge-3",
-      "type": "reference",
+      "type": "edge",
       "source": "evidence-declaration",
       "target": "evidence-detail-view",
       "sourcePort": "bottom",
@@ -1185,7 +1180,7 @@
     },
     {
       "id": "evidence-edge-4",
-      "type": "reference",
+      "type": "edge",
       "source": "evidence-declaration",
       "target": "evidence-summary-view",
       "sourcePort": "bottom",
@@ -1196,7 +1191,7 @@
     },
     {
       "id": "evidence-edge-5",
-      "type": "reference",
+      "type": "edge",
       "source": "evidence-declaration",
       "target": "evidence-icon-view",
       "sourcePort": "bottom",
@@ -1206,8 +1201,5 @@
       "data": {}
     }
   ],
-  "clusters": [],
-  "scripts": [],
-  "nodeCount": 6,
-  "edgeCount": 5
+  "scripts": []
 }

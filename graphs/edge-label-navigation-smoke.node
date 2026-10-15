@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Edge and Label Navigation Smoke Test",
-    "description": "Interaction specimen for relationship-driven focus navigation.",
-    "graphId": "edge-label-navigation-smoke-declaration",
-    "version": "0.1.0",
-    "kind": "graph",
     "created": "2026-08-28T22:51:11.062Z",
     "modified": "2026-08-28T22:51:11.062Z",
     "tags": [
@@ -19,7 +14,7 @@
   "nodes": [
     {
       "id": "edge-label-navigation-smoke-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Edge and Label Navigation Smoke Test Declaration",
       "position": {
         "x": -1200,
@@ -56,20 +51,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -122,14 +117,14 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "surfaces",
@@ -174,7 +169,46 @@
           "kind": "smoke-test",
           "scope": "shared"
         },
-        "declaration": {
+        "dependencies": {
+          "nodeTypes": [
+            "declaration",
+            "content",
+            "view",
+            "glyph",
+            "port"
+          ],
+          "portContracts": [
+            "core"
+          ],
+          "schemaVersions": {
+            "nodes": ">=1.0.0",
+            "ports": ">=1.0.0"
+          }
+        },
+        "authority": {
+          "mutation": {
+            "allowCreate": true,
+            "allowUpdate": true,
+            "allowDelete": true,
+            "appendOnly": false
+          },
+          "actors": {
+            "humans": true,
+            "agents": true,
+            "tools": true
+          },
+          "styleAuthority": "descriptive"
+        },
+        "settings": {
+          "layout": {
+            "mode": "manual"
+          },
+          "autoSave": false
+        },
+        "document": {
+          "url": ""
+        },
+        "root": {
           "kind": "smoke-test",
           "targetMode": "artifact",
           "artifactKind": "smoke-test",
@@ -218,51 +252,12 @@
             "iconViewNodeId": "edge-label-navigation-smoke-icon-view",
             "glyphNodeId": "edge-label-navigation-smoke-glyph"
           }
-        },
-        "dependencies": {
-          "nodeTypes": [
-            "declaration",
-            "content",
-            "view",
-            "glyph",
-            "port"
-          ],
-          "portContracts": [
-            "core"
-          ],
-          "schemaVersions": {
-            "nodes": ">=1.0.0",
-            "ports": ">=1.0.0"
-          }
-        },
-        "authority": {
-          "mutation": {
-            "allowCreate": true,
-            "allowUpdate": true,
-            "allowDelete": true,
-            "appendOnly": false
-          },
-          "actors": {
-            "humans": true,
-            "agents": true,
-            "tools": true
-          },
-          "styleAuthority": "descriptive"
-        },
-        "settings": {
-          "layout": {
-            "mode": "manual"
-          },
-          "autoSave": false
-        },
-        "document": {
-          "url": ""
         }
       }
     },
     {
       "id": "edge-label-navigation-smoke-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Edge and Label Navigation Smoke Test Detail",
       "position": {
         "x": -1800,
@@ -352,7 +347,7 @@
     },
     {
       "id": "edge-label-navigation-smoke-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Edge and Label Navigation Smoke Test Summary",
       "position": {
         "x": -1800,
@@ -442,7 +437,7 @@
     },
     {
       "id": "edge-label-navigation-smoke-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Edge and Label Navigation Smoke Test Icon",
       "position": {
         "x": -1800,
@@ -978,132 +973,116 @@
       "type": "surface",
       "source": "edge-label-navigation-smoke-declaration",
       "target": "edge-label-navigation-smoke-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "edge-label-navigation-smoke"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "edge-label-navigation-smoke-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "edge-label-navigation-smoke-detail-view",
       "target": "edge-label-navigation-smoke-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "edge-label-navigation-smoke-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "edge-label-navigation-smoke-summary-view",
       "target": "edge-label-navigation-smoke-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "edge-label-navigation-smoke-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "edge-label-navigation-smoke-icon-view",
       "target": "edge-label-navigation-smoke-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "edge-label-navigation-smoke-landing-surface-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "edge-label-navigation-smoke-declaration",
       "target": "edge-label-navigation-smoke-landing-surface",
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root",
-      "label": "landing surface",
-      "data": {
-        "semanticRole": "landing-surface"
-      }
+      "label": "ground",
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "edge-label-navigation-smoke-single-door-edge",
-      "type": "reference",
+      "type": "navigation.door",
       "source": "edge-label-navigation-smoke-lobby",
-      "sourceHandle": "single-door",
       "target": "edge-label-navigation-smoke-room-a",
-      "targetHandle": "root",
       "label": "single door",
       "data": {
-        "semanticRole": "navigation.door",
         "navigation": {
           "mode": "focus-opposite-endpoint",
           "minimumZoom": 1
         }
-      }
+      },
+      "sourcePort": "single-door",
+      "targetPort": "root"
     },
     {
       "id": "edge-label-navigation-smoke-elevator-room-b-edge",
-      "type": "reference",
+      "type": "navigation.door",
       "source": "edge-label-navigation-smoke-lobby",
-      "sourceHandle": "elevator",
       "target": "edge-label-navigation-smoke-room-b",
-      "targetHandle": "root",
       "label": "elevator · Room B",
       "data": {
-        "semanticRole": "navigation.door",
         "navigation": {
           "mode": "focus-opposite-endpoint",
           "minimumZoom": 1
         }
-      }
+      },
+      "sourcePort": "elevator",
+      "targetPort": "root"
     },
     {
       "id": "edge-label-navigation-smoke-elevator-room-c-edge",
-      "type": "reference",
+      "type": "navigation.door",
       "source": "edge-label-navigation-smoke-lobby",
-      "sourceHandle": "elevator",
       "target": "edge-label-navigation-smoke-room-c",
-      "targetHandle": "root",
       "label": "elevator · Room C",
       "data": {
-        "semanticRole": "navigation.door",
         "navigation": {
           "mode": "focus-opposite-endpoint",
           "minimumZoom": 1
         }
-      }
+      },
+      "sourcePort": "elevator",
+      "targetPort": "root"
     },
     {
       "id": "edge-label-navigation-smoke-prior-art-edge",
-      "type": "reference",
+      "type": "navigation.portal-entry",
       "source": "edge-label-navigation-smoke-lobby",
-      "sourceHandle": "prior-art",
       "target": "edge-label-navigation-smoke-focus-model-portal",
-      "targetHandle": "root",
       "label": "focus model",
       "data": {
-        "semanticRole": "navigation.portal-entry",
         "navigation": {
           "mode": "focus-opposite-endpoint",
           "minimumZoom": 1
         }
-      }
+      },
+      "sourcePort": "prior-art",
+      "targetPort": "root"
     }
-  ],
-  "timestamp": "2026-08-28T22:51:11.062Z",
-  "nodeCount": 12,
-  "edgeCount": 9
+  ]
 }

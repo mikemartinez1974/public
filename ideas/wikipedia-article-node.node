@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Wikipedia Article Node",
-    "description": "Explore a Twilite node class that turns a Wikipedia article into a durable, inspectable, refreshable knowledge surface.",
-    "graphId": "wikipedia-article-node-declaration",
-    "version": "0.1.0",
-    "kind": "idea",
     "created": "2026-08-18T23:00:22.074Z",
     "modified": "2026-08-19T18:07:12.709Z",
     "author": "",
@@ -17,9 +12,8 @@
   "nodes": [
     {
       "id": "wikipedia-article-node-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Wikipedia Article Node Declaration",
-      "root": false,
       "position": {
         "x": -1180,
         "y": -1040
@@ -48,30 +42,6 @@
           "kind": "idea",
           "scope": "shared",
           "artifactKind": "idea"
-        },
-        "declaration": {
-          "kind": "idea",
-          "targetMode": "artifact",
-          "artifactKind": "idea",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Wikipedia Article Node",
-              "memo": "Entry surface for the Wikipedia Article Node idea.",
-              "portNodeId": "wikipedia-article-node-root-port",
-              "viewNodeId": "wikipedia-article-node-root-port",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            }
-          ]
         },
         "dependencies": {
           "nodeTypes": [
@@ -130,6 +100,30 @@
         },
         "document": {
           "url": ""
+        },
+        "root": {
+          "kind": "idea",
+          "targetMode": "artifact",
+          "artifactKind": "idea",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Wikipedia Article Node",
+              "memo": "Entry surface for the Wikipedia Article Node idea.",
+              "portNodeId": "wikipedia-article-node-root-port",
+              "viewNodeId": "wikipedia-article-node-root-port",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ]
         }
       }
     },
@@ -137,7 +131,6 @@
       "id": "wikipedia-article-node-root-port",
       "type": "port",
       "label": "Wikipedia Article Node",
-      "root": true,
       "position": {
         "x": -620,
         "y": -1040
@@ -184,9 +177,8 @@
     },
     {
       "id": "wikipedia-article-node-notes",
-      "type": "markdown",
+      "type": "content",
       "label": "Concept Notes",
-      "root": false,
       "position": {
         "x": 775.6655484919305,
         "y": 609.7828978276902
@@ -208,13 +200,16 @@
         "identity": {
           "graphId": "wikipedia-article-node"
         },
-        "markdown": "# Wikipedia Article Node\n\nThe node should preserve **source identity** separately from any cached presentation. A user should be able to point the node at a Wikipedia article and get a compact icon, useful summary, richer detail, and an editor that exposes source/refetch behavior.\n\nThe interesting product question is whether this is merely an embed, or a real semantic node that can expose article metadata, sections, references, images, links, and freshness as graph-addressable data.\n\nA strong version should remain inspectable and useful even when offline or when the upstream article changes.",
         "_placement": {
           "version": 1,
           "state": "manually-shaped",
           "source": "manual",
           "updatedAt": 1787160191065,
           "reason": "node-drag"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Wikipedia Article Node\n\nThe node should preserve **source identity** separately from any cached presentation. A user should be able to point the node at a Wikipedia article and get a compact icon, useful summary, richer detail, and an editor that exposes source/refetch behavior.\n\nThe interesting product question is whether this is merely an embed, or a real semantic node that can expose article metadata, sections, references, images, links, and freshness as graph-addressable data.\n\nA strong version should remain inspectable and useful even when offline or when the upstream article changes."
         }
       }
     },
@@ -222,7 +217,6 @@
       "id": "wikipedia-article-node-idea",
       "type": "idea",
       "label": "Idea",
-      "root": false,
       "position": {
         "x": -120,
         "y": -120
@@ -274,29 +268,16 @@
         "status": "framed",
         "confidence": "plausible",
         "notes": "The node should be useful as a knowledge primitive, not merely a framed webpage.",
-        "definitionKey": "idea",
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "wikipedia-article-node"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
       }
     },
     {
       "id": "wikipedia-article-node-problem",
       "type": "idea-problem",
       "label": "Problem",
-      "root": false,
       "position": {
         "x": -620,
         "y": -120
@@ -347,29 +328,16 @@
         "statement": "Wikipedia is useful, but an article opened in a browser is not yet a durable graph object that can participate directly in Twilite relationships, views, collections, or agent workflows.",
         "impact": "Users repeatedly re-find, re-read, and manually extract the same source material instead of keeping an inspectable reference object in the graph.",
         "urgency": "medium",
-        "definitionKey": "idea-problem",
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "wikipedia-article-node"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
       }
     },
     {
       "id": "wikipedia-article-node-audience",
       "type": "idea-audience",
       "label": "Audience",
-      "root": false,
       "position": {
         "x": -620,
         "y": 260
@@ -419,29 +387,16 @@
         "title": "Researchers, Students, Builders, and Agents",
         "description": "People and agents who use Wikipedia as a starting reference and want sources to remain visible inside an evolving graph of work.",
         "needs": "Fast source capture, readable summaries, inspectable provenance, and a way to refresh without destroying local context.",
-        "definitionKey": "idea-audience",
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "wikipedia-article-node"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
       }
     },
     {
       "id": "wikipedia-article-node-approach",
       "type": "idea-proposed-approach",
       "label": "Proposed Approach",
-      "root": false,
       "position": {
         "x": 380,
         "y": -120
@@ -491,29 +446,16 @@
         "title": "Source-Aware Wikipedia Article Node Class",
         "description": "Create a node class with a canonical article reference plus cached source metadata/content. Icon shows identity, summary shows title and extract, detail exposes article content/sections/source state, and editor manages article URL/title, refresh, cache, and presentation options.",
         "differentiator": "Keep the Wikipedia source address and freshness separate from the local graph representation so the node can be refreshed without ceasing to be the same graph object.",
-        "definitionKey": "idea-proposed-approach",
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "wikipedia-article-node"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
       }
     },
     {
       "id": "wikipedia-article-node-question",
       "type": "idea-question",
       "label": "Question",
-      "root": false,
       "position": {
         "x": 287.8018003939713,
         "y": 293.2518096939776
@@ -564,19 +506,6 @@
         "question": "Should the first version cache only title, extract, image, URL, revision metadata, and selected sections, or should it model links, references, infobox fields, and section structure immediately?",
         "whyItMatters": "The first version should stay centered on article sections. Wikipedia already does an excellent job of organizing links, references, infoboxes, and the broader encyclopedia. Twilite should initially add value by turning the article's section structure into an explorable spatial browsing surface, rather than trying to ingest Wikipedia's entire knowledge model.",
         "status": "answered",
-        "definitionKey": "idea-question",
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "wikipedia-article-node"
         },
@@ -589,14 +518,14 @@
         },
         "answer": "Start with sections. The root article node should source the Wikipedia article, present the lead and first useful section, and expose additional article sections as expandable ports. Pulled sections can become transient child nodes. Leave links, references, infobox fields, categories, and deeper semantic ingestion to later iterations unless real use proves they need first-class treatment.",
         "memo": "",
-        "link": ""
+        "link": "",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
       }
     },
     {
       "id": "wikipedia-article-node-risk",
       "type": "idea-risk",
       "label": "Risk",
-      "root": false,
       "position": {
         "x": 860,
         "y": -120
@@ -647,29 +576,16 @@
         "description": "Wikipedia revisions can make cached content stale, while modeling too much of the article too early could turn a useful node into a large ingestion subsystem.",
         "severity": "medium",
         "mitigation": "Track source revision/fetched-at metadata and begin with a deliberately small source contract that can expand later.",
-        "definitionKey": "idea-risk",
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "wikipedia-article-node"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
       }
     },
     {
       "id": "wikipedia-article-node-next-step",
       "type": "idea-next-step",
       "label": "Next Step",
-      "root": false,
       "position": {
         "x": 860,
         "y": 260
@@ -721,29 +637,16 @@
         "expectedEvidence": "A resolved design discussion that narrows source identity, article state, section behavior, refresh and cache boundaries, and the first end-to-end specimen without inheriting legacy Port-as-View assumptions.",
         "status": "waiting",
         "blockedReason": "Implementation intentionally paused for product and authoring-model discussion.",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "wikipedia-article-node"
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       }
     },
     {
       "id": "wikipedia-article-node-bridge-idea",
-      "type": "bridge",
+      "type": "import",
       "label": "Idea",
-      "root": false,
       "position": {
         "x": -1680,
         "y": -700
@@ -778,9 +681,8 @@
     },
     {
       "id": "wikipedia-article-node-bridge-problem",
-      "type": "bridge",
+      "type": "import",
       "label": "Problem",
-      "root": false,
       "position": {
         "x": -1680,
         "y": -540
@@ -815,9 +717,8 @@
     },
     {
       "id": "wikipedia-article-node-bridge-audience",
-      "type": "bridge",
+      "type": "import",
       "label": "Audience",
-      "root": false,
       "position": {
         "x": -1680,
         "y": -380
@@ -852,9 +753,8 @@
     },
     {
       "id": "wikipedia-article-node-bridge-approach",
-      "type": "bridge",
+      "type": "import",
       "label": "Proposed Approach",
-      "root": false,
       "position": {
         "x": -1680,
         "y": -220
@@ -889,9 +789,8 @@
     },
     {
       "id": "wikipedia-article-node-bridge-question",
-      "type": "bridge",
+      "type": "import",
       "label": "Question",
-      "root": false,
       "position": {
         "x": -1680,
         "y": -60
@@ -926,9 +825,8 @@
     },
     {
       "id": "wikipedia-article-node-bridge-risk",
-      "type": "bridge",
+      "type": "import",
       "label": "Risk",
-      "root": false,
       "position": {
         "x": -1680,
         "y": 100
@@ -963,9 +861,8 @@
     },
     {
       "id": "wikipedia-article-node-bridge-next-step",
-      "type": "bridge",
+      "type": "import",
       "label": "Next Step",
-      "root": false,
       "position": {
         "x": -1680,
         "y": 260
@@ -1002,7 +899,6 @@
       "id": "wikipedia-browser-template-design-portal",
       "type": "portal",
       "label": "Design the Wikipedia Browser Template",
-      "root": false,
       "position": {
         "x": 1360,
         "y": 260
@@ -1088,11 +984,21 @@
       "id": "wikipedia-article-template-portal",
       "type": "portal",
       "label": "Wikipedia Article Template",
-      "root": false,
-      "position": {"x": 1360, "y": 620},
+      "position": {
+        "x": 1360,
+        "y": 620
+      },
       "width": 420,
       "height": 280,
-      "ports": [{"id": "root", "label": "root", "direction": "bidirectional", "dataType": "value", "angle": 210}],
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 210
+        }
+      ],
       "visible": true,
       "showLabel": true,
       "data": {
@@ -1104,8 +1010,16 @@
         "sourceNodeId": "wikipedia-summary-view",
         "sourcePayload": "node.web.summary",
         "surfaceId": "root",
-        "target": {"mode": "navigate", "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/root.node", "portId": "root", "surfaceId": "root", "label": "Open Wikipedia Article Template"},
-        "identity": {"graphId": "wikipedia-article-node"},
+        "target": {
+          "mode": "navigate",
+          "ref": "github://mikemartinez1974/public/templates/wikipedia-article-template/root.node",
+          "portId": "root",
+          "surfaceId": "root",
+          "label": "Open Wikipedia Article Template"
+        },
+        "identity": {
+          "graphId": "wikipedia-article-node"
+        },
         "visibilityRole": "browser"
       }
     }
@@ -1113,7 +1027,7 @@
   "edges": [
     {
       "id": "wiki-problem-motivates-idea",
-      "type": "reference",
+      "type": "edge",
       "source": "wikipedia-article-node-problem",
       "target": "wikipedia-article-node-idea",
       "sourcePort": "right",
@@ -1124,7 +1038,7 @@
     },
     {
       "id": "wiki-audience-affected",
-      "type": "reference",
+      "type": "edge",
       "source": "wikipedia-article-node-audience",
       "target": "wikipedia-article-node-problem",
       "sourcePort": "top",
@@ -1135,7 +1049,7 @@
     },
     {
       "id": "wiki-approach-advances",
-      "type": "reference",
+      "type": "edge",
       "source": "wikipedia-article-node-approach",
       "target": "wikipedia-article-node-idea",
       "sourcePort": "left",
@@ -1146,7 +1060,7 @@
     },
     {
       "id": "wiki-question-challenges-approach",
-      "type": "reference",
+      "type": "edge",
       "source": "wikipedia-article-node-question",
       "target": "wikipedia-article-node-approach",
       "sourcePort": "top",
@@ -1157,7 +1071,7 @@
     },
     {
       "id": "wiki-risk-threatens-approach",
-      "type": "reference",
+      "type": "edge",
       "source": "wikipedia-article-node-risk",
       "target": "wikipedia-article-node-approach",
       "sourcePort": "left",
@@ -1168,7 +1082,7 @@
     },
     {
       "id": "wiki-next-step-tests-question",
-      "type": "reference",
+      "type": "edge",
       "source": "wikipedia-article-node-next-step",
       "target": "wikipedia-article-node-question",
       "sourcePort": "left",
@@ -1179,7 +1093,7 @@
     },
     {
       "id": "wiki-next-step-to-template-design-task",
-      "type": "reference",
+      "type": "implementation-work",
       "source": "wikipedia-article-node-next-step",
       "target": "wikipedia-browser-template-design-portal",
       "sourcePort": "right",
@@ -1207,23 +1121,25 @@
         "animation": null,
         "dash": []
       },
-      "data": {
-        "semanticRole": "implementation work"
-      }
+      "data": {}
     },
     {
       "id": "wiki-next-step-to-template-artifact",
-      "type": "reference",
+      "type": "implementation-artifact",
       "source": "wikipedia-article-node-next-step",
       "target": "wikipedia-article-template-portal",
       "sourcePort": "right",
       "targetPort": "root",
       "label": "produces template",
-      "style": {"curved": true, "width": 2, "animation": null, "dash": []},
-      "data": {"semanticRole": "implementation artifact"}
+      "style": {
+        "curved": true,
+        "width": 2,
+        "animation": null,
+        "dash": []
+      },
+      "data": {}
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

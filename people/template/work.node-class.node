@@ -1,8 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Work Class",
-    "description": "Something authored, created, performed, founded, or otherwise contributed to.",
     "created": "2026-07-18T12:00:00.000Z",
     "modified": "2026-07-18T22:00:00.000Z",
     "author": "",
@@ -16,9 +14,8 @@
   "nodes": [
     {
       "id": "work-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Work Declaration",
-      "root": false,
       "position": {
         "x": 0,
         "y": -420
@@ -202,39 +199,6 @@
             "squashAllowed": false
           }
         },
-        "declaration": {
-          "kind": "node-class",
-          "artifactKind": "class-artifact",
-          "graphViewRole": "artifact",
-          "targetMode": "artifact",
-          "defaultSurfaceId": "work-detail-view",
-          "surfaces": [
-            {
-              "id": "work-detail-view",
-              "kind": "view",
-              "label": "Surface",
-              "viewNodeId": "work-detail-view"
-            },
-            {
-              "id": "work-summary-view",
-              "kind": "view",
-              "label": "Card",
-              "viewNodeId": "work-summary-view"
-            },
-            {
-              "id": "work-icon-view",
-              "kind": "view",
-              "label": "Icon",
-              "viewNodeId": "work-icon-view"
-            },
-            {
-              "id": "work-editor-view",
-              "kind": "view",
-              "label": "Editor",
-              "viewNodeId": "work-editor-view"
-            }
-          ]
-        },
         "nodeClass": {
           "contractVersion": "1.0.0",
           "key": "work",
@@ -316,14 +280,46 @@
           "gridSize": 20,
           "edgeRouting": "auto",
           "autoSave": false
+        },
+        "root": {
+          "kind": "node-class",
+          "artifactKind": "class-artifact",
+          "graphViewRole": "artifact",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "work-detail-view",
+          "surfaces": [
+            {
+              "id": "work-detail-view",
+              "kind": "view",
+              "label": "Surface",
+              "viewNodeId": "work-detail-view"
+            },
+            {
+              "id": "work-summary-view",
+              "kind": "view",
+              "label": "Card",
+              "viewNodeId": "work-summary-view"
+            },
+            {
+              "id": "work-icon-view",
+              "kind": "view",
+              "label": "Icon",
+              "viewNodeId": "work-icon-view"
+            },
+            {
+              "id": "work-editor-view",
+              "kind": "view",
+              "label": "Editor",
+              "viewNodeId": "work-editor-view"
+            }
+          ]
         }
       }
     },
     {
       "id": "work-notes",
-      "type": "markdown",
+      "type": "content",
       "label": "Work Contract",
-      "root": false,
       "position": {
         "x": -460,
         "y": -160
@@ -464,14 +460,16 @@
         "identity": {
           "graphId": "work-person-class"
         },
-        "markdown": "## Work\n\nSomething authored, created, performed, founded, or otherwise contributed to.\n\nLayer: **profile**\n\nRequired data: `title`."
+        "content": {
+          "kind": "markdown",
+          "value": "## Work\n\nSomething authored, created, performed, founded, or otherwise contributed to.\n\nLayer: **profile**\n\nRequired data: `title`."
+        }
       }
     },
     {
       "id": "work-editor-view",
       "type": "port",
       "label": "Editor",
-      "root": false,
       "position": {
         "x": -420,
         "y": 140
@@ -686,7 +684,6 @@
       "id": "work-detail-view",
       "type": "port",
       "label": "Surface",
-      "root": false,
       "position": {
         "x": 0,
         "y": 140
@@ -853,7 +850,6 @@
       "id": "work-summary-view",
       "type": "port",
       "label": "Card",
-      "root": false,
       "position": {
         "x": 460,
         "y": 140
@@ -1008,7 +1004,6 @@
       "id": "work-icon-view",
       "type": "port",
       "label": "Icon",
-      "root": false,
       "position": {
         "x": 840,
         "y": 140
@@ -1164,7 +1159,7 @@
   "edges": [
     {
       "id": "work-edge-1",
-      "type": "reference",
+      "type": "edge",
       "source": "work-declaration",
       "target": "work-notes",
       "sourcePort": "bottom",
@@ -1175,7 +1170,7 @@
     },
     {
       "id": "work-edge-2",
-      "type": "reference",
+      "type": "edge",
       "source": "work-declaration",
       "target": "work-editor-view",
       "sourcePort": "bottom",
@@ -1186,7 +1181,7 @@
     },
     {
       "id": "work-edge-3",
-      "type": "reference",
+      "type": "edge",
       "source": "work-declaration",
       "target": "work-detail-view",
       "sourcePort": "bottom",
@@ -1197,7 +1192,7 @@
     },
     {
       "id": "work-edge-4",
-      "type": "reference",
+      "type": "edge",
       "source": "work-declaration",
       "target": "work-summary-view",
       "sourcePort": "bottom",
@@ -1208,7 +1203,7 @@
     },
     {
       "id": "work-edge-5",
-      "type": "reference",
+      "type": "edge",
       "source": "work-declaration",
       "target": "work-icon-view",
       "sourcePort": "bottom",
@@ -1218,8 +1213,5 @@
       "data": {}
     }
   ],
-  "clusters": [],
-  "scripts": [],
-  "nodeCount": 6,
-  "edgeCount": 5
+  "scripts": []
 }

@@ -33,7 +33,7 @@ const semanticTypes = new Set(['plan', 'plan-goal', 'plan-phase', 'plan-action',
 const exemplars = new Map(template.nodes.filter((node) => semanticTypes.has(node.type)).map((node) => [node.type, node]));
 graph.nodes = graph.nodes.filter((node) => !semanticTypes.has(node.type));
 graph.edges = graph.edges.filter((edge) => {
-  const role = String(edge.data?.semanticRole || '').trim();
+  const role = String(edge.type || '').trim();
   return !role.startsWith('plan.') && role !== 'instantiates';
 });
 
@@ -150,7 +150,8 @@ const contentNodes = [
 const statuses = {
   'the-plan': 'in-progress', 'phase-inventory': 'done', 'action-inventory-app': 'done', 'action-inventory-canon': 'done', 'action-inventory-ai': 'done',
   'phase-wording': 'done', 'action-collisions': 'done', 'action-open': 'done', 'action-layers': 'done', 'milestone-wording': 'done',
-  'phase-canon': 'in-progress',
+  'phase-canon': 'in-progress', 'phase-app': 'in-progress', 'action-rename': 'done', 'action-scrap': 'done', 'action-labels': 'in-progress',
+  'constraint-stored': 'done', 'contingency-map': 'done',
   'decision-root': 'done', 'decision-distinctive': 'done', 'decision-faces': 'done',
   'decision-layers': 'done', 'decision-stored': 'done', 'decision-property': 'done', 'decision-ground': 'done',
   'decision-portal': 'done', 'decision-specification': 'done'
@@ -186,9 +187,9 @@ const addEdge = (name, type, source, target, ports = edgePorts[type]) => {
   if (!known.has(id(source)) || !known.has(id(target))) throw new Error(`edge ${name}: ${source} or ${target} is not a node of this plan`);
   graph.edges.push({
     id: id(`edge-${name}`), type, label: type.replace('plan.', '').replaceAll('-', ' '), source: id(source), target: id(target),
-    sourcePort: ports[0], sourceHandle: ports[0], targetPort: ports[1], targetHandle: ports[1],
+    sourcePort: ports[0], targetPort: ports[1],
     style: { ...edgeStyle[type], curved: true, dash: edgeStyle[type]?.dash || [] },
-    data: { semanticRole: type, presentation: { layer: 'semantic' } }
+    data: { presentation: { layer: 'semantic' } }
   });
 };
 
@@ -213,14 +214,14 @@ addEdge('map', 'plan.mitigated-by', 'risk-two-names', 'contingency-map');
 
 for (const node of contentNodes) {
   graph.edges.push({
-    id: `${node.id}-instantiates`, type: 'reference', label: '', source: `${prefix}-class-bridge-${node.type}`, target: node.id,
-    sourcePort: 'root', sourceHandle: 'root', targetPort: 'root', targetHandle: 'root', hidden: true,
+    id: `${node.id}-instantiates`, type: 'instantiates', label: '', source: `${prefix}-class-bridge-${node.type}`, target: node.id,
+    sourcePort: 'root', targetPort: 'root', hidden: true,
     style: { stroke: '#64748b', strokeWidth: 1, opacity: 0.03 },
-    data: { role: 'instantiates', semanticRole: 'instantiates', presentation: { layer: 'contract' } }
+    data: { presentation: { layer: 'contract' } }
   });
 }
 
-graph.metadata = { ...graph.metadata, title, description, graphId, version: '0.1.0', created: now, modified: now,
+graph.metadata = { ...graph.metadata, created: now, modified: now,
   tags: ['plan', 'vocabulary', 'twilite-zone'], preferredViewer: 'https://dev.twilite.zone' };
 declaration.label = `${title} Plan`;
 declaration.data.identity = { ...declaration.data.identity, graphId, nodeId, name: title, version: '0.1.0', description };
@@ -269,21 +270,18 @@ const instructions = graph.nodes.find((node) => node.id === `${prefix}-instructi
 instructions.label = 'How to read this plan';
 instructions.position = at(9, 0);
 instructions.height = Math.min(instructions.height || 320, 320);
-instructions.data.markdown = '# How to read this plan\n\n'
+instructions.data.content = { kind: 'markdown', value: '# How to read this plan\n\n'
   + '- The five numbered **phases** run left to right and are done in that order. Each holds the **actions** beneath it.\n'
   + '- The **decisions** along the top are made. The three in the right-hand column are still open.\n'
   + '- **The wording is approved** is the gate before canon and the app change anything.\n'
   + '- **Constraints** are how the work is done. The **risk** has its **contingency** beside it.\n\n'
-  + 'Status is kept in `plans/vocabulary/build.cjs`, in the `statuses` list. Change it there and run `node plans/vocabulary/build.cjs`.';
+  + 'Status is kept in `plans/vocabulary/build.cjs`, in the `statuses` list. Change it there and run `node plans/vocabulary/build.cjs`.' };
 
 for (const node of graph.nodes) {
   if (node.data?.identity?.graphId) node.data.identity.graphId = graphId;
 }
 graph.settings = { ...graph.settings, snapToGrid: true, gridSize: 20, edgeRouting: 'orthogonal',
   layout: { mode: 'manual', defaultLayout: 'layered', direction: 'RIGHT', edgeLaneGapPx: 20 } };
-graph.nodeCount = graph.nodes.length;
-graph.edgeCount = graph.edges.length;
-graph.timestamp = now;
 
 fs.writeFileSync(outputPath, `${JSON.stringify(graph, null, 2)}\n`);
 console.log(`wrote ${path.relative(process.cwd(), outputPath)}: ${graph.nodes.length} nodes, ${graph.edges.length} edges`);

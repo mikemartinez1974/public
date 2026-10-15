@@ -1,10 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Phase Node Class",
-    "description": "A meaningful stage of execution.",
-    "graphId": "plan-phase-class",
-    "version": "0.4.0",
     "tags": [
       "node-class",
       "plan-template"
@@ -14,7 +10,7 @@
   "nodes": [
     {
       "id": "plan-phase-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Phase Declaration",
       "position": {
         "x": 0,
@@ -42,9 +38,9 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
@@ -108,9 +104,9 @@
           "portId": "port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
@@ -124,7 +120,7 @@
             ],
             "repeatable": false
           },
-          "portId": "landing-surface"
+          "portId": "ground"
         },
         {
           "id": "surfaces",
@@ -166,47 +162,6 @@
         "intent": {
           "kind": "node-class",
           "scope": "local"
-        },
-        "declaration": {
-          "kind": "node-class",
-          "targetMode": "artifact",
-          "artifactKind": "node-class",
-          "defaultSurfaceId": "root",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Phase",
-              "portNodeId": "plan-phase-root-port",
-              "presentation": {
-                "detail": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-phase-detail-view"
-                },
-                "summary": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-phase-summary-view"
-                },
-                "icon": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-phase-icon-view"
-                }
-              }
-            }
-          ],
-          "sharedPresentation": {
-            "detailViewNodeId": "plan-phase-detail-view",
-            "summaryViewNodeId": "plan-phase-summary-view",
-            "iconViewNodeId": "plan-phase-icon-view",
-            "glyphNodeId": "plan-phase-glyph"
-          },
-          "primaryNodeViewId": "plan-phase-detail-view",
-          "primaryEditorViewId": "plan-phase-editor-view",
-          "portViewNodeId": "plan-phase-root-port"
         },
         "nodeClass": {
           "contractVersion": "1.1.0",
@@ -358,6 +313,47 @@
             "core",
             "plan-edge-port-contract@0.1.0"
           ]
+        },
+        "root": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "artifactKind": "node-class",
+          "defaultSurfaceId": "root",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Phase",
+              "portNodeId": "plan-phase-root-port",
+              "presentation": {
+                "detail": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-phase-detail-view"
+                },
+                "summary": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-phase-summary-view"
+                },
+                "icon": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-phase-icon-view"
+                }
+              }
+            }
+          ],
+          "sharedPresentation": {
+            "detailViewNodeId": "plan-phase-detail-view",
+            "summaryViewNodeId": "plan-phase-summary-view",
+            "iconViewNodeId": "plan-phase-icon-view",
+            "glyphNodeId": "plan-phase-glyph"
+          },
+          "primaryNodeViewId": "plan-phase-detail-view",
+          "primaryEditorViewId": "plan-phase-editor-view",
+          "portViewNodeId": "plan-phase-root-port"
         }
       }
     },
@@ -595,7 +591,7 @@
     },
     {
       "id": "plan-phase-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Phase Detail",
       "position": {
         "x": -520,
@@ -639,7 +635,7 @@
     },
     {
       "id": "plan-phase-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Phase Summary",
       "position": {
         "x": -520,
@@ -683,7 +679,7 @@
     },
     {
       "id": "plan-phase-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Phase Icon",
       "position": {
         "x": -520,
@@ -727,7 +723,7 @@
     },
     {
       "id": "plan-phase-editor-view",
-      "type": "view",
+      "type": "face",
       "label": "Phase Editor",
       "position": {
         "x": 0,
@@ -863,62 +859,53 @@
       "type": "surface",
       "source": "plan-phase-declaration",
       "target": "plan-phase-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "root"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "plan-phase-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-phase-detail-view",
       "target": "plan-phase-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "plan-phase-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-phase-summary-view",
       "target": "plan-phase-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "plan-phase-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-phase-icon-view",
       "target": "plan-phase-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "plan-phase-port-edge",
-      "type": "reference",
+      "type": "exposes-port",
       "hidden": true,
       "source": "plan-phase-declaration",
       "target": "plan-phase-root-port",
-      "sourceHandle": "port",
-      "targetHandle": "root",
       "sourcePort": "port",
       "targetPort": "root",
       "label": "",
@@ -928,8 +915,6 @@
         "opacity": 0.03
       },
       "data": {
-        "role": "exposes-port",
-        "semanticRole": "exposes-port",
         "presentation": {
           "layer": "contract"
         }
@@ -937,13 +922,11 @@
     },
     {
       "id": "plan-phase-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "hidden": true,
       "source": "plan-phase-declaration",
       "target": "plan-phase-landing-content",
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root",
-      "sourcePort": "landing-surface",
+      "sourcePort": "ground",
       "targetPort": "root",
       "label": "",
       "style": {
@@ -952,15 +935,12 @@
         "opacity": 0.03
       },
       "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface",
         "presentation": {
           "layer": "contract"
         }
       }
     }
   ],
-  "clusters": [],
   "settings": {
     "edgeRouting": "orthogonal",
     "layout": {

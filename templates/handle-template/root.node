@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Handle Template",
-    "description": "A Handle primitive: a reusable, addressable node (a View with payload 'handle.web') whose content becomes a custom decoration rendered ON a specific port -- alongside the default connection dot, not instead of it. The orb here is wired onto three of the Declaration's six ports, at three different angles, to show it rotating to face exactly outward every time.",
-    "graphId": "handle-template-declaration",
-    "version": "0.2.3",
-    "kind": "template",
     "created": "2026-10-05T04:44:58.349Z",
     "modified": "2026-10-08T05:19:32.432Z",
     "author": "",
@@ -18,9 +13,8 @@
   "nodes": [
     {
       "id": "handle-template-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Handle Template",
-      "root": true,
       "position": {
         "x": 0,
         "y": -600
@@ -165,20 +159,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -333,20 +327,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -376,11 +370,6 @@
           "kind": "template",
           "scope": "local"
         },
-        "declaration": {
-          "kind": "graph",
-          "defaultSurfaceId": "web",
-          "surfaces": []
-        },
         "glyph": {
           "kind": "icon",
           "name": "Lens"
@@ -389,12 +378,17 @@
         "purpose": "",
         "document": {
           "url": "github://mikemartinez1974/public/templates/handle-template/root.node"
+        },
+        "root": {
+          "kind": "graph",
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       }
     },
     {
       "id": "handle-template-view",
-      "type": "view",
+      "type": "face",
       "label": "View",
       "position": {
         "x": 0,
@@ -486,7 +480,7 @@
     },
     {
       "id": "handle-template-orb-handle",
-      "type": "view",
+      "type": "face",
       "label": "Orb Handle",
       "position": {
         "x": -480,
@@ -516,9 +510,8 @@
     },
     {
       "id": "handle-template-icon",
-      "type": "view",
+      "type": "face",
       "label": "Icon",
-      "root": false,
       "position": {
         "x": 560,
         "y": 560
@@ -555,83 +548,71 @@
       "id": "handle-template-surfaces",
       "type": "surface",
       "source": "handle-template-declaration",
-      "sourceHandle": "surfaces",
       "target": "handle-template-view",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "handle-template-exposes-port",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "handle-template-declaration",
-      "sourceHandle": "port",
       "target": "handle-template-port",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "exposes-port"
-      }
+      "data": {},
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "handle-template-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "source": "handle-template-declaration",
-      "sourceHandle": "landing-surface",
       "target": "handle-template-content",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "landing-surface"
-      }
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "handle-template-default-handle",
-      "type": "reference",
+      "type": "default-handle",
       "source": "handle-template-declaration",
-      "sourceHandle": "default-handle",
       "target": "handle-template-orb-handle",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "default-handle"
-      }
+      "data": {},
+      "sourcePort": "default-handle",
+      "targetPort": "root"
     },
     {
       "id": "handle-template-detail-icon",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "handle-template-view",
-      "sourceHandle": "sequence-out",
       "target": "handle-template-icon",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "handle-template-icon-glyph",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "handle-template-icon",
-      "sourceHandle": "sequence-out",
       "target": "handle-template-glyph",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

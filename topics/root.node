@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Topics",
-    "description": "A public collection of topic graphs that explain subjects through concepts, claims, mechanisms, perspectives, sources, and synthesis.",
-    "graphId": "topics-collection",
-    "version": "1.0.0",
-    "kind": "collection",
     "created": "2026-09-17T16:11:00.000Z",
     "modified": "2026-09-18T00:00:00.000Z",
     "author": "",
@@ -18,7 +13,7 @@
   "nodes": [
     {
       "id": "topics-collection-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Topics Collection Declaration",
       "position": {
         "x": -900,
@@ -35,8 +30,8 @@
           "angle": 90
         },
         {
-          "id": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0
@@ -117,7 +112,35 @@
           },
           "autoSave": false
         },
-        "declaration": {
+        "document": {
+          "url": "github://mikemartinez1974/public/topics/root.node"
+        },
+        "collection": {
+          "collectionRef": "github://mikemartinez1974/public/topics/root.node",
+          "membership": {
+            "source": "repository-directory",
+            "includeDirectNodeFiles": true,
+            "includeDirectChildRoots": true,
+            "recursive": false
+          },
+          "view": {
+            "mode": "windowed",
+            "windowSize": 9,
+            "payload": "node.web.icon",
+            "columns": 3,
+            "cardWidth": 240,
+            "cardHeight": 220,
+            "iconCardWidth": 240,
+            "iconCardHeight": 220,
+            "gapX": 70,
+            "gapY": 70,
+            "origin": {
+              "x": -600,
+              "y": 360
+            }
+          }
+        },
+        "root": {
           "kind": "collection",
           "targetMode": "artifact",
           "artifactKind": "collection",
@@ -163,40 +186,12 @@
             "iconViewNodeId": "topics-collection-icon-view",
             "glyphNodeId": "topics-collection-glyph"
           }
-        },
-        "document": {
-          "url": "github://mikemartinez1974/public/topics/root.node"
-        },
-        "collection": {
-          "collectionRef": "github://mikemartinez1974/public/topics/root.node",
-          "membership": {
-            "source": "repository-directory",
-            "includeDirectNodeFiles": true,
-            "includeDirectChildRoots": true,
-            "recursive": false
-          },
-          "view": {
-            "mode": "windowed",
-            "windowSize": 9,
-            "payload": "node.web.icon",
-            "columns": 3,
-            "cardWidth": 240,
-            "cardHeight": 220,
-            "iconCardWidth": 240,
-            "iconCardHeight": 220,
-            "gapX": 70,
-            "gapY": 70,
-            "origin": {
-              "x": -600,
-              "y": 360
-            }
-          }
         }
       }
     },
     {
       "id": "topics-collection-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Topics Collection Detail",
       "position": {
         "x": -1650,
@@ -241,7 +236,7 @@
     },
     {
       "id": "topics-collection-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Topics Collection Summary",
       "position": {
         "x": -1700,
@@ -286,7 +281,7 @@
     },
     {
       "id": "topics-collection-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Topics Collection Icon",
       "position": {
         "x": -1480,
@@ -587,7 +582,7 @@
     },
     {
       "id": "topics-collection-guidance",
-      "type": "markdown",
+      "type": "content",
       "label": "Topic Collection Membership",
       "position": {
         "x": -160,
@@ -632,8 +627,11 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "markdown": "## Topic collection membership\n\nPut each topic in a direct child directory with its own `root.node`. The collection declaration records directory-backed membership; authored portals can provide an immediate, durable index as the collection grows.",
-        "visibilityRole": "browser"
+        "visibilityRole": "browser",
+        "content": {
+          "kind": "markdown",
+          "value": "## Topic collection membership\n\nPut each topic in a direct child directory with its own `root.node`. The collection declaration records directory-backed membership; authored portals can provide an immediate, durable index as the collection grows."
+        }
       }
     },
     {
@@ -847,142 +845,119 @@
       "type": "surface",
       "source": "topics-collection-declaration",
       "target": "topics-collection-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "topics"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "topics-collection-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "topics-collection-detail-view",
       "target": "topics-collection-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "topics-collection-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "topics-collection-summary-view",
       "target": "topics-collection-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "topics-collection-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "topics-collection-icon-view",
       "target": "topics-collection-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "topics-collection-landing-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "topics-collection-declaration",
       "target": "topics-collection-landing-surface",
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root",
-      "label": "landing surface",
-      "data": {
-        "semanticRole": "landing-surface"
-      }
+      "label": "ground",
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "topics-collection-port-edge",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "topics-collection-declaration",
       "target": "topics-collection-root-port",
-      "sourceHandle": "port",
-      "targetHandle": "root",
       "label": "exposes port",
-      "data": {
-        "semanticRole": "exposes-port"
-      }
+      "data": {},
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "topics-collection-member-edge",
-      "type": "reference",
+      "type": "collection-member",
       "source": "topics-collection-root-port",
       "target": "topics-collection-twilite-graph-model",
-      "sourceHandle": "right",
-      "targetHandle": "left",
       "label": "opens topic",
-      "data": {
-        "semanticRole": "collection-member"
-      }
+      "data": {},
+      "sourcePort": "right",
+      "targetPort": "left"
     },
     {
       "id": "topics-collection-guidance-edge",
-      "type": "reference",
+      "type": "guidance",
       "source": "topics-collection-root-port",
       "target": "topics-collection-guidance",
-      "sourceHandle": "bottom",
-      "targetHandle": "top",
       "label": "explains membership",
-      "data": {
-        "semanticRole": "guidance"
-      }
+      "data": {},
+      "sourcePort": "bottom",
+      "targetPort": "top"
     },
     {
       "id": "topics-collection-scripting-member-edge",
-      "type": "reference",
+      "type": "collection-member",
       "source": "topics-collection-root-port",
       "target": "topics-collection-twilite-scripting-system",
-      "sourceHandle": "right",
-      "targetHandle": "left",
       "label": "opens topic",
-      "data": {
-        "semanticRole": "collection-member"
-      }
+      "data": {},
+      "sourcePort": "right",
+      "targetPort": "left"
     },
     {
       "id": "topics-collection-twilite-graph-building-best-practices-member-edge",
-      "type": "reference",
+      "type": "collection-member",
       "source": "topics-collection-root-port",
       "target": "topics-collection-twilite-graph-building-best-practices",
-      "sourceHandle": "right",
-      "targetHandle": "left",
       "label": "opens topic",
-      "data": {
-        "semanticRole": "collection-member"
-      }
+      "data": {},
+      "sourcePort": "right",
+      "targetPort": "left"
     },
     {
       "id": "topics-collection-twilite-automation-readiness-member-edge",
-      "type": "reference",
+      "type": "collection-member",
       "source": "topics-collection-root-port",
       "target": "topics-collection-twilite-automation-readiness",
-      "sourceHandle": "right",
-      "targetHandle": "left",
       "label": "opens topic",
-      "data": {
-        "semanticRole": "collection-member"
-      }
+      "data": {},
+      "sourcePort": "right",
+      "targetPort": "left"
     }
   ],
   "groups": [],
-  "nodeCount": 11,
-  "edgeCount": 10,
   "settings": {
     "theme": null,
     "backgroundImage": null,

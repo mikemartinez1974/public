@@ -1,10 +1,5 @@
 {
   "metadata": {
-    "title": "Media Node Class",
-    "description": "A visual, audio, or interactive representation of the work.",
-    "graphId": "work-media-work-class",
-    "version": "0.1.0",
-    "kind": "node-class",
     "created": "2026-07-20T00:00:00.000Z",
     "modified": "2026-07-20T00:00:00.000Z",
     "tags": [
@@ -15,9 +10,8 @@
   "nodes": [
     {
       "id": "work-media-class-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Media Class Declaration",
-      "root": false,
       "position": {
         "x": 0,
         "y": -420
@@ -195,36 +189,6 @@
           },
           "styleAuthority": "descriptive"
         },
-        "declaration": {
-          "kind": "node-class",
-          "defaultSurfaceId": "work-media-detail-view",
-          "surfaces": [
-            {
-              "id": "work-media-detail-view",
-              "kind": "view",
-              "label": "Surface",
-              "viewNodeId": "work-media-detail-view"
-            },
-            {
-              "id": "work-media-summary-view",
-              "kind": "view",
-              "label": "Card",
-              "viewNodeId": "work-media-summary-view"
-            },
-            {
-              "id": "work-media-icon-view",
-              "kind": "view",
-              "label": "Icon",
-              "viewNodeId": "work-media-icon-view"
-            },
-            {
-              "id": "work-media-editor-view",
-              "kind": "view",
-              "label": "Editor",
-              "viewNodeId": "work-media-editor-view"
-            }
-          ]
-        },
         "nodeClass": {
           "contractVersion": "1.0.0",
           "key": "work-media",
@@ -342,14 +306,43 @@
           "gridSize": 20,
           "edgeRouting": "auto",
           "autoSave": false
+        },
+        "root": {
+          "kind": "node-class",
+          "defaultSurfaceId": "work-media-detail-view",
+          "surfaces": [
+            {
+              "id": "work-media-detail-view",
+              "kind": "view",
+              "label": "Surface",
+              "viewNodeId": "work-media-detail-view"
+            },
+            {
+              "id": "work-media-summary-view",
+              "kind": "view",
+              "label": "Card",
+              "viewNodeId": "work-media-summary-view"
+            },
+            {
+              "id": "work-media-icon-view",
+              "kind": "view",
+              "label": "Icon",
+              "viewNodeId": "work-media-icon-view"
+            },
+            {
+              "id": "work-media-editor-view",
+              "kind": "view",
+              "label": "Editor",
+              "viewNodeId": "work-media-editor-view"
+            }
+          ]
         }
       }
     },
     {
       "id": "work-media-definition",
-      "type": "markdown",
+      "type": "content",
       "label": "Definition",
-      "root": false,
       "position": {
         "x": -380,
         "y": -140
@@ -490,15 +483,17 @@
         "identity": {
           "graphId": "work-media-work-class"
         },
-        "markdown": "## Media\n\nA visual, audio, or interactive representation of the work.\n\nRequired data: `title`, `mediaType`, `uri`.",
-        "visibilityRole": "editor"
+        "visibilityRole": "editor",
+        "content": {
+          "kind": "markdown",
+          "value": "## Media\n\nA visual, audio, or interactive representation of the work.\n\nRequired data: `title`, `mediaType`, `uri`."
+        }
       }
     },
     {
       "id": "work-media-editor-view",
       "type": "port",
       "label": "Editor",
-      "root": false,
       "position": {
         "x": -400,
         "y": 120
@@ -724,7 +719,6 @@
       "id": "work-media-detail-view",
       "type": "port",
       "label": "Surface",
-      "root": false,
       "position": {
         "x": 0,
         "y": 120
@@ -891,7 +885,6 @@
       "id": "work-media-summary-view",
       "type": "port",
       "label": "Card",
-      "root": false,
       "position": {
         "x": 480,
         "y": 120
@@ -1046,7 +1039,6 @@
       "id": "work-media-icon-view",
       "type": "port",
       "label": "Icon",
-      "root": false,
       "position": {
         "x": 850,
         "y": 120
@@ -1202,7 +1194,7 @@
   "edges": [
     {
       "id": "work-media-decl-definition",
-      "type": "reference",
+      "type": "edge",
       "source": "work-media-class-declaration",
       "target": "work-media-definition",
       "sourcePort": "bottom",
@@ -1216,7 +1208,7 @@
     },
     {
       "id": "work-media-decl-editor",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "work-media-class-declaration",
       "target": "work-media-editor-view",
       "sourcePort": "bottom",
@@ -1230,7 +1222,7 @@
     },
     {
       "id": "work-media-decl-detail",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "work-media-class-declaration",
       "target": "work-media-detail-view",
       "sourcePort": "bottom",
@@ -1244,7 +1236,7 @@
     },
     {
       "id": "work-media-decl-summary",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "work-media-class-declaration",
       "target": "work-media-summary-view",
       "sourcePort": "bottom",
@@ -1258,7 +1250,7 @@
     },
     {
       "id": "work-media-decl-icon",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "work-media-class-declaration",
       "target": "work-media-icon-view",
       "sourcePort": "bottom",

@@ -1,8 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Quote Class",
-    "description": "An attributed statement with context and provenance.",
     "created": "2026-07-18T12:00:00.000Z",
     "modified": "2026-07-18T22:00:00.000Z",
     "author": "",
@@ -16,9 +14,8 @@
   "nodes": [
     {
       "id": "quote-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Quote Declaration",
-      "root": false,
       "position": {
         "x": 0,
         "y": -420
@@ -202,39 +199,6 @@
             "squashAllowed": false
           }
         },
-        "declaration": {
-          "kind": "node-class",
-          "artifactKind": "class-artifact",
-          "graphViewRole": "artifact",
-          "targetMode": "artifact",
-          "defaultSurfaceId": "quote-detail-view",
-          "surfaces": [
-            {
-              "id": "quote-detail-view",
-              "kind": "view",
-              "label": "Surface",
-              "viewNodeId": "quote-detail-view"
-            },
-            {
-              "id": "quote-summary-view",
-              "kind": "view",
-              "label": "Card",
-              "viewNodeId": "quote-summary-view"
-            },
-            {
-              "id": "quote-icon-view",
-              "kind": "view",
-              "label": "Icon",
-              "viewNodeId": "quote-icon-view"
-            },
-            {
-              "id": "quote-editor-view",
-              "kind": "view",
-              "label": "Editor",
-              "viewNodeId": "quote-editor-view"
-            }
-          ]
-        },
         "nodeClass": {
           "contractVersion": "1.0.0",
           "key": "quote",
@@ -318,14 +282,46 @@
           "gridSize": 20,
           "edgeRouting": "auto",
           "autoSave": false
+        },
+        "root": {
+          "kind": "node-class",
+          "artifactKind": "class-artifact",
+          "graphViewRole": "artifact",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "quote-detail-view",
+          "surfaces": [
+            {
+              "id": "quote-detail-view",
+              "kind": "view",
+              "label": "Surface",
+              "viewNodeId": "quote-detail-view"
+            },
+            {
+              "id": "quote-summary-view",
+              "kind": "view",
+              "label": "Card",
+              "viewNodeId": "quote-summary-view"
+            },
+            {
+              "id": "quote-icon-view",
+              "kind": "view",
+              "label": "Icon",
+              "viewNodeId": "quote-icon-view"
+            },
+            {
+              "id": "quote-editor-view",
+              "kind": "view",
+              "label": "Editor",
+              "viewNodeId": "quote-editor-view"
+            }
+          ]
         }
       }
     },
     {
       "id": "quote-notes",
-      "type": "markdown",
+      "type": "content",
       "label": "Quote Contract",
-      "root": false,
       "position": {
         "x": -460,
         "y": -160
@@ -466,14 +462,16 @@
         "identity": {
           "graphId": "quote-person-class"
         },
-        "markdown": "## Quote\n\nAn attributed statement with context and provenance.\n\nLayer: **research**\n\nRequired data: `quoteText`, `speakerRef`."
+        "content": {
+          "kind": "markdown",
+          "value": "## Quote\n\nAn attributed statement with context and provenance.\n\nLayer: **research**\n\nRequired data: `quoteText`, `speakerRef`."
+        }
       }
     },
     {
       "id": "quote-editor-view",
       "type": "port",
       "label": "Editor",
-      "root": false,
       "position": {
         "x": -420,
         "y": 140
@@ -697,7 +695,6 @@
       "id": "quote-detail-view",
       "type": "port",
       "label": "Surface",
-      "root": false,
       "position": {
         "x": 0,
         "y": 140
@@ -852,7 +849,6 @@
       "id": "quote-summary-view",
       "type": "port",
       "label": "Card",
-      "root": false,
       "position": {
         "x": 460,
         "y": 140
@@ -1007,7 +1003,6 @@
       "id": "quote-icon-view",
       "type": "port",
       "label": "Icon",
-      "root": false,
       "position": {
         "x": 840,
         "y": 140
@@ -1163,7 +1158,7 @@
   "edges": [
     {
       "id": "quote-edge-1",
-      "type": "reference",
+      "type": "edge",
       "source": "quote-declaration",
       "target": "quote-notes",
       "sourcePort": "bottom",
@@ -1174,7 +1169,7 @@
     },
     {
       "id": "quote-edge-2",
-      "type": "reference",
+      "type": "edge",
       "source": "quote-declaration",
       "target": "quote-editor-view",
       "sourcePort": "bottom",
@@ -1185,7 +1180,7 @@
     },
     {
       "id": "quote-edge-3",
-      "type": "reference",
+      "type": "edge",
       "source": "quote-declaration",
       "target": "quote-detail-view",
       "sourcePort": "bottom",
@@ -1196,7 +1191,7 @@
     },
     {
       "id": "quote-edge-4",
-      "type": "reference",
+      "type": "edge",
       "source": "quote-declaration",
       "target": "quote-summary-view",
       "sourcePort": "bottom",
@@ -1207,7 +1202,7 @@
     },
     {
       "id": "quote-edge-5",
-      "type": "reference",
+      "type": "edge",
       "source": "quote-declaration",
       "target": "quote-icon-view",
       "sourcePort": "bottom",
@@ -1217,8 +1212,5 @@
       "data": {}
     }
   ],
-  "clusters": [],
-  "scripts": [],
-  "nodeCount": 6,
-  "edgeCount": 5
+  "scripts": []
 }

@@ -1,10 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Plan Node Class",
-    "description": "The coordinated path from current state to desired outcome.",
-    "graphId": "plan-class",
-    "version": "0.4.0",
     "tags": [
       "node-class",
       "plan-template"
@@ -14,7 +10,7 @@
   "nodes": [
     {
       "id": "plan-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Plan Declaration",
       "position": {
         "x": 0,
@@ -42,9 +38,9 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
@@ -108,9 +104,9 @@
           "portId": "port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
@@ -124,7 +120,7 @@
             ],
             "repeatable": false
           },
-          "portId": "landing-surface"
+          "portId": "ground"
         },
         {
           "id": "surfaces",
@@ -166,47 +162,6 @@
         "intent": {
           "kind": "node-class",
           "scope": "local"
-        },
-        "declaration": {
-          "kind": "node-class",
-          "targetMode": "artifact",
-          "artifactKind": "node-class",
-          "defaultSurfaceId": "root",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Plan",
-              "portNodeId": "plan-root-port",
-              "presentation": {
-                "detail": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-detail-view"
-                },
-                "summary": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-summary-view"
-                },
-                "icon": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-icon-view"
-                }
-              }
-            }
-          ],
-          "sharedPresentation": {
-            "detailViewNodeId": "plan-detail-view",
-            "summaryViewNodeId": "plan-summary-view",
-            "iconViewNodeId": "plan-icon-view",
-            "glyphNodeId": "plan-glyph"
-          },
-          "primaryNodeViewId": "plan-detail-view",
-          "primaryEditorViewId": "plan-editor-view",
-          "portViewNodeId": "plan-root-port"
         },
         "nodeClass": {
           "contractVersion": "1.1.0",
@@ -320,6 +275,47 @@
             "core",
             "plan-edge-port-contract@0.1.0"
           ]
+        },
+        "root": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "artifactKind": "node-class",
+          "defaultSurfaceId": "root",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Plan",
+              "portNodeId": "plan-root-port",
+              "presentation": {
+                "detail": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-detail-view"
+                },
+                "summary": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-summary-view"
+                },
+                "icon": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-icon-view"
+                }
+              }
+            }
+          ],
+          "sharedPresentation": {
+            "detailViewNodeId": "plan-detail-view",
+            "summaryViewNodeId": "plan-summary-view",
+            "iconViewNodeId": "plan-icon-view",
+            "glyphNodeId": "plan-glyph"
+          },
+          "primaryNodeViewId": "plan-detail-view",
+          "primaryEditorViewId": "plan-editor-view",
+          "portViewNodeId": "plan-root-port"
         }
       }
     },
@@ -479,7 +475,7 @@
     },
     {
       "id": "plan-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Plan Detail",
       "position": {
         "x": -520,
@@ -523,7 +519,7 @@
     },
     {
       "id": "plan-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Plan Summary",
       "position": {
         "x": -520,
@@ -567,7 +563,7 @@
     },
     {
       "id": "plan-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Plan Icon",
       "position": {
         "x": -520,
@@ -611,7 +607,7 @@
     },
     {
       "id": "plan-editor-view",
-      "type": "view",
+      "type": "face",
       "label": "Plan Editor",
       "position": {
         "x": 0,
@@ -747,62 +743,53 @@
       "type": "surface",
       "source": "plan-declaration",
       "target": "plan-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "root"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "plan-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-detail-view",
       "target": "plan-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "plan-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-summary-view",
       "target": "plan-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "plan-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-icon-view",
       "target": "plan-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "plan-port-edge",
-      "type": "reference",
+      "type": "exposes-port",
       "hidden": true,
       "source": "plan-declaration",
       "target": "plan-root-port",
-      "sourceHandle": "port",
-      "targetHandle": "root",
       "sourcePort": "port",
       "targetPort": "root",
       "label": "",
@@ -812,8 +799,6 @@
         "opacity": 0.03
       },
       "data": {
-        "role": "exposes-port",
-        "semanticRole": "exposes-port",
         "presentation": {
           "layer": "contract"
         }
@@ -821,13 +806,11 @@
     },
     {
       "id": "plan-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "hidden": true,
       "source": "plan-declaration",
       "target": "plan-landing-content",
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root",
-      "sourcePort": "landing-surface",
+      "sourcePort": "ground",
       "targetPort": "root",
       "label": "",
       "style": {
@@ -836,15 +819,12 @@
         "opacity": 0.03
       },
       "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface",
         "presentation": {
           "layer": "contract"
         }
       }
     }
   ],
-  "clusters": [],
   "settings": {
     "edgeRouting": "orthogonal",
     "layout": {

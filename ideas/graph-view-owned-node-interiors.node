@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Graph View-Owned Node Interiors",
-    "description": "An implementation idea for making graph views the sole owners of node representation, interior, background, and semantic density.",
-    "graphId": "graph-view-owned-node-interiors",
-    "version": "0.2.0",
-    "kind": "idea",
     "created": "2026-09-13T12:00:00.000Z",
     "modified": "2026-09-13T12:30:00.000Z",
     "author": "",
@@ -17,9 +12,8 @@
   "nodes": [
     {
       "id": "graph-view-owned-node-interiors-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Graph View-Owned Node Interiors Declaration",
-      "root": false,
       "position": {
         "x": -900,
         "y": -1500
@@ -55,20 +49,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -121,14 +115,14 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "surfaces",
@@ -172,17 +166,6 @@
         "intent": {
           "kind": "idea",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "idea",
-          "targetMode": "artifact",
-          "artifactKind": "idea",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "defaultSurfaceId": "web",
-          "surfaces": []
         },
         "dependencies": {
           "nodeTypes": [
@@ -265,14 +248,24 @@
         },
         "document": {
           "url": "github://mikemartinez1974/public/ideas/graph-view-owned-node-interiors.node"
+        },
+        "root": {
+          "kind": "idea",
+          "targetMode": "artifact",
+          "artifactKind": "idea",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       }
     },
     {
       "id": "graph-view-owned-node-interiors-instructions",
-      "type": "markdown",
+      "type": "content",
       "label": "Rendering Ownership Contract",
-      "root": false,
       "position": {
         "x": -220,
         "y": 700
@@ -322,7 +315,10 @@
         "identity": {
           "graphId": "graph-view-owned-node-interiors"
         },
-        "markdown": "## Rendering ownership\n\n**Semantic node** owns identity and state. **Graph** owns authored instances and relationships. **Graph view** owns the complete representation: content, interior, background, and semantic density. **Runtime** owns chrome, placement, focus, resize, and boundary handles.\n\nPipeline: resolve semantic node → resolve the exact exposed graph view → render its background and payload → wrap it in runtime chrome → attach boundary capabilities.\n\nA missing view is an authoring defect. Browse mode does not invent one; edit mode names the missing exposure. HTML backgrounds are sanitized and inert in this slice. Interactive document surfaces remain sandboxed capabilities.\n\nAcceptance: the same authored view renders in graph and workspace contexts, no generic gray fill sits beneath collapsed views, and no implicit Detail-to-Glyph fallback occurs."
+        "content": {
+          "kind": "markdown",
+          "value": "## Rendering ownership\n\n**Semantic node** owns identity and state. **Graph** owns authored instances and relationships. **Graph view** owns the complete representation: content, interior, background, and semantic density. **Runtime** owns chrome, placement, focus, resize, and boundary handles.\n\nPipeline: resolve semantic node → resolve the exact exposed graph view → render its background and payload → wrap it in runtime chrome → attach boundary capabilities.\n\nA missing view is an authoring defect. Browse mode does not invent one; edit mode names the missing exposure. HTML backgrounds are sanitized and inert in this slice. Interactive document surfaces remain sandboxed capabilities.\n\nAcceptance: the same authored view renders in graph and workspace contexts, no generic gray fill sits beneath collapsed views, and no implicit Detail-to-Glyph fallback occurs."
+        }
       },
       "handles": [
         {
@@ -366,7 +362,6 @@
       "id": "graph-view-owned-node-interiors-idea",
       "type": "idea",
       "label": "Idea",
-      "root": false,
       "position": {
         "x": -220,
         "y": -160
@@ -418,39 +413,6 @@
         "status": "testing",
         "confidence": "supported",
         "notes": "This separates semantic representation from runtime interaction without inventing a second node-interior model.",
-        "definitionKey": "idea",
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Lightbulb"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "graph-view-owned-node-interiors"
         },
@@ -459,7 +421,8 @@
             "kind": "icon",
             "name": "Lightbulb"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
       },
       "handles": [
         {
@@ -501,9 +464,8 @@
     },
     {
       "id": "graph-view-owned-node-interiors-bridge-idea",
-      "type": "bridge",
+      "type": "import",
       "label": "Idea",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -1046.5738210094617
@@ -550,126 +512,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "defaults": {
-            "label": "Idea",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#7c3aed",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "statement": "",
-              "status": "spark",
-              "confidence": "unproven",
-              "notes": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Lightbulb"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Idea",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#7c3aed",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "statement": "",
-                "status": "spark",
-                "confidence": "unproven",
-                "notes": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Lightbulb"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -757,7 +599,6 @@
       "id": "graph-view-owned-node-interiors-idea-problem",
       "type": "idea-problem",
       "label": "Problem",
-      "root": false,
       "position": {
         "x": -700,
         "y": -160
@@ -808,39 +649,6 @@
         "statement": "What pain, limitation, inefficiency, or unmet need makes this idea worth pursuing?",
         "impact": "Readers see inconsistent nodes and authors cannot control the full visual meaning of a view.",
         "urgency": "unknown",
-        "definitionKey": "idea-problem",
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ReportProblem"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "graph-view-owned-node-interiors"
         },
@@ -850,7 +658,8 @@
             "name": "ReportProblem"
           }
         },
-        "problem": "Ordinary View nodes, workspace graph projections, and runtime shells each paint parts of the interior. The overlap produces gray slabs, fabricated glyph fallbacks, and representations that no graph actually exposes."
+        "problem": "Ordinary View nodes, workspace graph projections, and runtime shells each paint parts of the interior. The overlap produces gray slabs, fabricated glyph fallbacks, and representations that no graph actually exposes.",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
       },
       "handles": [
         {
@@ -892,9 +701,8 @@
     },
     {
       "id": "graph-view-owned-node-interiors-bridge-idea-problem",
-      "type": "bridge",
+      "type": "import",
       "label": "Problem",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -896.5738210094617
@@ -941,124 +749,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "defaults": {
-            "label": "Problem",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#dc2626",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "statement": "",
-              "impact": "",
-              "urgency": "unknown",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ReportProblem"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-problem",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Problem",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#dc2626",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "statement": "",
-                "impact": "",
-                "urgency": "unknown",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "ReportProblem"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-problem",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-problem",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-problem",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-problem",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1146,7 +836,6 @@
       "id": "graph-view-owned-node-interiors-idea-audience",
       "type": "idea-audience",
       "label": "Audience",
-      "root": false,
       "position": {
         "x": -1180,
         "y": -160
@@ -1196,39 +885,6 @@
         "title": "Graph Authors and Readers",
         "description": "Who experiences the problem or benefits from the idea?",
         "needs": "What behavior or outcome should change?",
-        "definitionKey": "idea-audience",
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Groups"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "graph-view-owned-node-interiors"
         },
@@ -1239,7 +895,8 @@
           }
         },
         "audience": "Authors need one place to define every node representation. Readers need semantic zoom to show only representations the graph actually exposes.",
-        "need": "The same authored view must render consistently inside a graph and when that graph is projected as a workspace node."
+        "need": "The same authored view must render consistently inside a graph and when that graph is projected as a workspace node.",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
       },
       "handles": [
         {
@@ -1281,9 +938,8 @@
     },
     {
       "id": "graph-view-owned-node-interiors-bridge-idea-audience",
-      "type": "bridge",
+      "type": "import",
       "label": "Audience",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -746.5738210094617
@@ -1330,122 +986,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "defaults": {
-            "label": "Audience",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#2563eb",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "needs": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Groups"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-audience",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Audience",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#2563eb",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "needs": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Groups"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-audience",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-audience",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-audience",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-audience",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1533,7 +1073,6 @@
       "id": "graph-view-owned-node-interiors-idea-proposed-approach",
       "type": "idea-proposed-approach",
       "label": "Proposed Approach",
-      "root": false,
       "position": {
         "x": 260,
         "y": -160
@@ -1583,39 +1122,6 @@
         "title": "One Graph View Renderer",
         "description": "Describe a revisable approach, not implementation details.",
         "differentiator": "Why might this approach be preferable to the alternatives?",
-        "definitionKey": "idea-proposed-approach",
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Route"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "graph-view-owned-node-interiors"
         },
@@ -1626,7 +1132,8 @@
           }
         },
         "approach": "Introduce a shared GraphViewRenderer used by ordinary View nodes and workspace semantic projections. It layers an authored view background beneath the view payload and leaves chrome, focus, resize, and handles to the runtime.",
-        "rationale": "The graph remains the source of visual meaning while runtime behavior stays consistent at every zoom scope."
+        "rationale": "The graph remains the source of visual meaning while runtime behavior stays consistent at every zoom scope.",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
       },
       "handles": [
         {
@@ -1668,9 +1175,8 @@
     },
     {
       "id": "graph-view-owned-node-interiors-bridge-idea-proposed-approach",
-      "type": "bridge",
+      "type": "import",
       "label": "Proposed Approach",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -596.5738210094617
@@ -1717,122 +1223,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "defaults": {
-            "label": "Proposed Approach",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#0891b2",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "differentiator": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Route"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-proposed-approach",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Proposed Approach",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#0891b2",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "differentiator": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Route"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-proposed-approach",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-proposed-approach",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-proposed-approach",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-proposed-approach",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1920,7 +1310,6 @@
       "id": "graph-view-owned-node-interiors-idea-question",
       "type": "idea-question",
       "label": "Question",
-      "root": false,
       "position": {
         "x": -1180,
         "y": 260
@@ -1971,39 +1360,6 @@
         "question": "Should the runtime invent a smaller representation when the requested semantic view is absent?",
         "status": "answered",
         "answer": "No. Browse mode omits the missing representation; edit mode shows an authoring diagnostic. Substitution is allowed only when the declaration authors an explicit fallback policy.",
-        "definitionKey": "idea-question",
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "graph-view-owned-node-interiors"
         },
@@ -2012,7 +1368,8 @@
             "kind": "icon",
             "name": "HelpOutline"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
       },
       "handles": [
         {
@@ -2054,9 +1411,8 @@
     },
     {
       "id": "graph-view-owned-node-interiors-bridge-idea-question",
-      "type": "bridge",
+      "type": "import",
       "label": "Question",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -446.57382100946165
@@ -2103,124 +1459,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "defaults": {
-            "label": "Question",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#ca8a04",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "question": "",
-              "status": "open",
-              "answer": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-question",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Question",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#ca8a04",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "question": "",
-                "status": "open",
-                "answer": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "HelpOutline"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-question",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-question",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-question",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-question",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -2308,7 +1546,6 @@
       "id": "graph-view-owned-node-interiors-idea-assumption",
       "type": "idea-assumption",
       "label": "Assumption",
-      "root": false,
       "position": {
         "x": -700,
         "y": 260
@@ -2359,39 +1596,6 @@
         "statement": "What must be true for the idea or proposed approach to work?",
         "importance": "critical",
         "status": "supported",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "graph-view-owned-node-interiors"
         },
@@ -2402,7 +1606,8 @@
           }
         },
         "assumption": "Markdown, HTML, SVG, text, and image payload rendering already cover the content layer needed by the shared renderer.",
-        "test": "Render the same Detail view as an ordinary node and as a collapsed workspace projection and compare the output."
+        "test": "Render the same Detail view as an ordinary node and as a collapsed workspace projection and compare the output.",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
       },
       "handles": [
         {
@@ -2444,9 +1649,8 @@
     },
     {
       "id": "graph-view-owned-node-interiors-bridge-idea-assumption",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumption",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -296.57382100946165
@@ -2493,124 +1697,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "label": "Assumption",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#d97706",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "statement": "",
-              "importance": "critical",
-              "status": "untested",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-assumption",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Assumption",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#d97706",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "statement": "",
-                "importance": "critical",
-                "status": "untested",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "PsychologyAlt"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-assumption",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-assumption",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-assumption",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-assumption",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -2698,7 +1784,6 @@
       "id": "graph-view-owned-node-interiors-idea-research",
       "type": "idea-research",
       "label": "Research",
-      "root": false,
       "position": {
         "x": -1660,
         "y": 260
@@ -2749,39 +1834,6 @@
         "findings": "Collect prior art, references, market context, technical findings, or expert opinion.",
         "sourceUrl": "",
         "sourceType": "other",
-        "definitionKey": "idea-research",
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Search"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "graph-view-owned-node-interiors"
         },
@@ -2792,7 +1844,8 @@
           }
         },
         "finding": "ViewContentPayload already resolves inline, owned, and delegated content and sanitizes HTML and SVG. WorkspaceLayer already resolves authored semantic exposures.",
-        "source": "twilite/components/GraphEditor/Nodes/ViewNode.js and components/GraphEditor/components/WorkspaceLayer.js"
+        "source": "twilite/components/GraphEditor/Nodes/ViewNode.js and components/GraphEditor/components/WorkspaceLayer.js",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
       },
       "handles": [
         {
@@ -2834,9 +1887,8 @@
     },
     {
       "id": "graph-view-owned-node-interiors-bridge-idea-research",
-      "type": "bridge",
+      "type": "import",
       "label": "Research",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -146.57382100946165
@@ -2883,124 +1935,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "defaults": {
-            "label": "Research",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#4f46e5",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "findings": "",
-              "sourceUrl": "",
-              "sourceType": "article",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Search"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-research",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Research",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#4f46e5",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "findings": "",
-                "sourceUrl": "",
-                "sourceType": "article",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Search"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-research",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-research",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-research",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-research",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -3088,7 +2022,6 @@
       "id": "graph-view-owned-node-interiors-idea-evidence",
       "type": "idea-evidence",
       "label": "Evidence",
-      "root": false,
       "position": {
         "x": -220,
         "y": 260
@@ -3139,39 +2072,6 @@
         "observation": "Runtime commit 43093b50 routes ordinary View nodes and workspace semantic projections through one GraphViewRenderer. Exact semantic resolution and authored background normalization are covered by focused tests; the production build succeeds.",
         "kind": "observation",
         "strength": "weak",
-        "definitionKey": "idea-evidence",
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "FactCheck"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "graph-view-owned-node-interiors"
         },
@@ -3182,7 +2082,8 @@
           }
         },
         "citationSourceId": "",
-        "supports": "Graph views can own their backgrounds and payloads in both rendering contexts without a fabricated glyph fallback or workspace gray fill."
+        "supports": "Graph views can own their backgrounds and payloads in both rendering contexts without a fabricated glyph fallback or workspace gray fill.",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
       },
       "handles": [
         {
@@ -3224,9 +2125,8 @@
     },
     {
       "id": "graph-view-owned-node-interiors-bridge-idea-evidence",
-      "type": "bridge",
+      "type": "import",
       "label": "Evidence",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 3.4261789905383466
@@ -3273,126 +2173,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "defaults": {
-            "label": "Evidence",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#059669",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "observation": "",
-              "kind": "observation",
-              "strength": "weak",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "FactCheck"
-                }
-              },
-              "citationSourceId": ""
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-evidence",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Evidence",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#059669",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "observation": "",
-                "kind": "observation",
-                "strength": "weak",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "FactCheck"
-                  }
-                },
-                "citationSourceId": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-evidence",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-evidence",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-evidence",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-evidence",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -3480,7 +2260,6 @@
       "id": "graph-view-owned-node-interiors-idea-alternative",
       "type": "idea-alternative",
       "label": "Alternative",
-      "root": false,
       "position": {
         "x": 740,
         "y": -160
@@ -3530,39 +2309,6 @@
         "title": "Keep Per-Context Renderers",
         "description": "What else could address the same problem, including doing nothing?",
         "tradeoffs": "What becomes better or worse with this alternative?",
-        "definitionKey": "idea-alternative",
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "AltRoute"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "graph-view-owned-node-interiors"
         },
@@ -3573,7 +2319,8 @@
           }
         },
         "alternative": "Let ordinary nodes and workspace projections continue to interpret view data independently.",
-        "tradeoff": "This preserves duplication and makes semantic zoom drift whenever one renderer changes."
+        "tradeoff": "This preserves duplication and makes semantic zoom drift whenever one renderer changes.",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
       },
       "handles": [
         {
@@ -3615,9 +2362,8 @@
     },
     {
       "id": "graph-view-owned-node-interiors-bridge-idea-alternative",
-      "type": "bridge",
+      "type": "import",
       "label": "Alternative",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 153.42617899053835
@@ -3664,122 +2410,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "defaults": {
-            "label": "Alternative",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#64748b",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "tradeoffs": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "AltRoute"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-alternative",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Alternative",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#64748b",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "tradeoffs": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "AltRoute"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-alternative",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-alternative",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-alternative",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-alternative",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -3867,7 +2497,6 @@
       "id": "graph-view-owned-node-interiors-idea-risk",
       "type": "idea-risk",
       "label": "Risk",
-      "root": false,
       "position": {
         "x": -220,
         "y": -700
@@ -3919,39 +2548,6 @@
         "likelihood": "unknown",
         "impact": "unknown",
         "mitigation": "Show a precise edit-mode diagnostic and update templates and smoke fixtures to publish complete view sets.",
-        "definitionKey": "idea-risk",
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "WarningAmber"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "graph-view-owned-node-interiors"
         },
@@ -3962,7 +2558,8 @@
           }
         },
         "risk": "Older graphs without a requested Detail, Summary, Icon, or Glyph exposure will no longer receive a friendly invented substitute.",
-        "severity": "medium"
+        "severity": "medium",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
       },
       "handles": [
         {
@@ -4004,9 +2601,8 @@
     },
     {
       "id": "graph-view-owned-node-interiors-bridge-idea-risk",
-      "type": "bridge",
+      "type": "import",
       "label": "Risk",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 303.42617899053835
@@ -4053,126 +2649,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "defaults": {
-            "label": "Risk",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#e11d48",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "likelihood": "unknown",
-              "impact": "unknown",
-              "mitigation": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "WarningAmber"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-risk",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Risk",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#e11d48",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "likelihood": "unknown",
-                "impact": "unknown",
-                "mitigation": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "WarningAmber"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-risk",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-risk",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-risk",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-risk",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -4260,7 +2736,6 @@
       "id": "graph-view-owned-node-interiors-idea-next-step",
       "type": "idea-next-step",
       "label": "Next Step",
-      "root": false,
       "position": {
         "x": -700,
         "y": 700
@@ -4311,39 +2786,6 @@
         "action": "Implemented in Twilite runtime commit 43093b50: ordinary View nodes and workspace semantic projections share GraphViewRenderer; semantic resolution is exact; missing views are explicit; workspace frame fill is transparent.",
         "expectedEvidence": "33 focused tests pass, including exact view and background contracts, and the production build succeeds.",
         "status": "done",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "graph-view-owned-node-interiors"
         },
@@ -4352,7 +2794,8 @@
             "kind": "icon",
             "name": "ArrowForward"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       },
       "handles": [
         {
@@ -4394,9 +2837,8 @@
     },
     {
       "id": "graph-view-owned-node-interiors-bridge-idea-next-step",
-      "type": "bridge",
+      "type": "import",
       "label": "Next Step",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 453.42617899053835
@@ -4443,124 +2885,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "label": "Next Step",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#16a34a",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "action": "",
-              "expectedEvidence": "",
-              "status": "todo",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-next-step",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Next Step",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#16a34a",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "action": "",
-                "expectedEvidence": "",
-                "status": "todo",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "ArrowForward"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-next-step",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-next-step",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-next-step",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-next-step",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -4646,9 +2970,8 @@
     },
     {
       "id": "idea-edge-class-advances",
-      "type": "bridge",
+      "type": "import",
       "label": "Advances",
-      "root": false,
       "position": {
         "x": -3191.520909540242,
         "y": -343.15226834791
@@ -4718,9 +3041,8 @@
     },
     {
       "id": "idea-edge-class-affects",
-      "type": "bridge",
+      "type": "import",
       "label": "Affects",
-      "root": false,
       "position": {
         "x": -3193.277364645633,
         "y": -18.23485205908281
@@ -4790,9 +3112,8 @@
     },
     {
       "id": "idea-edge-class-assumes",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumes",
-      "root": false,
       "position": {
         "x": -3192.4240413069374,
         "y": -181.34600481451798
@@ -4862,9 +3183,8 @@
     },
     {
       "id": "idea-edge-class-contradicts",
-      "type": "bridge",
+      "type": "import",
       "label": "Contradicts",
-      "root": false,
       "position": {
         "x": -3193.506546658578,
         "y": 467.7646821020603
@@ -4934,9 +3254,8 @@
     },
     {
       "id": "idea-edge-class-informs",
-      "type": "bridge",
+      "type": "import",
       "label": "Informs",
-      "root": false,
       "position": {
         "x": -3192.0222838515906,
         "y": 305.37767500770155
@@ -5006,9 +3325,8 @@
     },
     {
       "id": "idea-edge-class-motivates",
-      "type": "bridge",
+      "type": "import",
       "label": "Motivates",
-      "root": false,
       "position": {
         "x": -3193.7787389569817,
         "y": 146.18118991839606
@@ -5078,9 +3396,8 @@
     },
     {
       "id": "idea-edge-class-questions",
-      "type": "bridge",
+      "type": "import",
       "label": "Questions",
-      "root": false,
       "position": {
         "x": -3180.3205606453707,
         "y": -1003.2443506241401
@@ -5150,9 +3467,8 @@
     },
     {
       "id": "idea-edge-class-supports",
-      "type": "bridge",
+      "type": "import",
       "label": "Supports",
-      "root": false,
       "position": {
         "x": -3188.8287730658644,
         "y": -512.4189422986271
@@ -5222,9 +3538,8 @@
     },
     {
       "id": "idea-edge-class-tests",
-      "type": "bridge",
+      "type": "import",
       "label": "Tests",
-      "root": false,
       "position": {
         "x": -3189.6697541530466,
         "y": -677.8249157017144
@@ -5294,9 +3609,8 @@
     },
     {
       "id": "idea-edge-class-threatens",
-      "type": "bridge",
+      "type": "import",
       "label": "Threatens",
-      "root": false,
       "position": {
         "x": -3186.4266371315107,
         "y": -838.1257664689047
@@ -5366,9 +3680,8 @@
     },
     {
       "id": "graph-view-owned-node-interiors-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "View-Owned Interior Detail",
-      "root": false,
       "position": {
         "x": -1500,
         "y": -1580
@@ -5461,9 +3774,8 @@
     },
     {
       "id": "graph-view-owned-node-interiors-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "View-Owned Interior Summary",
-      "root": false,
       "position": {
         "x": -1500,
         "y": -1240
@@ -5555,9 +3867,8 @@
     },
     {
       "id": "graph-view-owned-node-interiors-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "View-Owned Interior Icon",
-      "root": false,
       "position": {
         "x": -1500,
         "y": -900
@@ -5647,7 +3958,6 @@
       "id": "graph-view-owned-node-interiors-glyph",
       "type": "glyph",
       "label": "Graph View Renderer Glyph",
-      "root": false,
       "position": {
         "x": -900,
         "y": -1900
@@ -5695,7 +4005,6 @@
       "id": "graph-view-owned-node-interiors-landing-surface",
       "type": "content",
       "label": "Graph View-Owned Interiors Landing Surface",
-      "root": false,
       "position": {
         "x": -223.20927807556004,
         "y": -1532.1918816838852
@@ -5792,57 +4101,50 @@
       "type": "surface",
       "source": "graph-view-owned-node-interiors-declaration",
       "target": "graph-view-owned-node-interiors-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "graph-view-owned-node-interiors-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "graph-view-owned-node-interiors-detail-view",
       "target": "graph-view-owned-node-interiors-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "graph-view-owned-node-interiors-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "graph-view-owned-node-interiors-summary-view",
       "target": "graph-view-owned-node-interiors-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "graph-view-owned-node-interiors-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "graph-view-owned-node-interiors-icon-view",
       "target": "graph-view-owned-node-interiors-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "graph-view-owned-node-interiors-problem-motivates",
-      "type": "reference",
+      "type": "idea.motivates",
       "source": "graph-view-owned-node-interiors-idea-problem",
       "target": "graph-view-owned-node-interiors-idea",
       "label": "motivates",
@@ -5854,17 +4156,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.motivates",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node",
-        "semanticRole": "idea.motivates",
-        "edgeClassMeaning": "source establishes the need or reason for the target"
+        "edgeClassMeaning": "source establishes the need or reason for the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node"
       },
-      "sourceHandle": "right",
-      "targetHandle": "left"
+      "sourcePort": "right",
+      "targetPort": "left"
     },
     {
       "id": "graph-view-owned-node-interiors-audience-affects",
-      "type": "reference",
+      "type": "idea.affects",
       "source": "graph-view-owned-node-interiors-idea-audience",
       "target": "graph-view-owned-node-interiors-idea-problem",
       "label": "affects",
@@ -5876,17 +4176,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.affects",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node",
-        "semanticRole": "idea.affects",
-        "edgeClassMeaning": "source audience experiences or is affected by the target problem"
+        "edgeClassMeaning": "source audience experiences or is affected by the target problem",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node"
       },
-      "sourceHandle": "right",
-      "targetHandle": "left"
+      "sourcePort": "right",
+      "targetPort": "left"
     },
     {
       "id": "graph-view-owned-node-interiors-idea-assumes",
-      "type": "reference",
+      "type": "idea.assumes",
       "source": "graph-view-owned-node-interiors-idea",
       "target": "graph-view-owned-node-interiors-idea-assumption",
       "label": "assumes",
@@ -5902,17 +4200,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
+        "edgeClassMeaning": "source depends on the target assumption being true",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node"
       },
-      "sourceHandle": "bottom",
-      "targetHandle": "top"
+      "sourcePort": "bottom",
+      "targetPort": "top"
     },
     {
       "id": "graph-view-owned-node-interiors-question-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "graph-view-owned-node-interiors-idea-question",
       "target": "graph-view-owned-node-interiors-idea-assumption",
       "label": "questions",
@@ -5928,17 +4224,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       },
-      "sourceHandle": "right",
-      "targetHandle": "left"
+      "sourcePort": "right",
+      "targetPort": "left"
     },
     {
       "id": "graph-view-owned-node-interiors-research-informs",
-      "type": "reference",
+      "type": "idea.informs",
       "source": "graph-view-owned-node-interiors-idea-research",
       "target": "graph-view-owned-node-interiors-idea-question",
       "label": "informs",
@@ -5950,17 +4244,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.informs",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
-        "semanticRole": "idea.informs",
-        "edgeClassMeaning": "source provides context that informs the target"
+        "edgeClassMeaning": "source provides context that informs the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node"
       },
-      "sourceHandle": "right",
-      "targetHandle": "left"
+      "sourcePort": "right",
+      "targetPort": "left"
     },
     {
       "id": "graph-view-owned-node-interiors-evidence-supports",
-      "type": "reference",
+      "type": "idea.supports",
       "source": "graph-view-owned-node-interiors-idea-evidence",
       "target": "graph-view-owned-node-interiors-idea-assumption",
       "label": "supports",
@@ -5972,17 +4264,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.supports",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
-        "semanticRole": "idea.supports",
-        "edgeClassMeaning": "source evidence increases confidence in the target"
+        "edgeClassMeaning": "source evidence increases confidence in the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node"
       },
-      "sourceHandle": "left",
-      "targetHandle": "right"
+      "sourcePort": "left",
+      "targetPort": "right"
     },
     {
       "id": "graph-view-owned-node-interiors-alternative-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "graph-view-owned-node-interiors-idea-alternative",
       "target": "graph-view-owned-node-interiors-idea-proposed-approach",
       "label": "questions",
@@ -5998,17 +4288,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       },
-      "sourceHandle": "left",
-      "targetHandle": "right"
+      "sourcePort": "left",
+      "targetPort": "right"
     },
     {
       "id": "graph-view-owned-node-interiors-risk-threatens",
-      "type": "reference",
+      "type": "idea.threatens",
       "source": "graph-view-owned-node-interiors-idea-risk",
       "target": "graph-view-owned-node-interiors-idea",
       "label": "threatens",
@@ -6024,17 +4312,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.threatens",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node",
-        "semanticRole": "idea.threatens",
-        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target"
+        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node"
       },
-      "sourceHandle": "bottom",
-      "targetHandle": "top"
+      "sourcePort": "bottom",
+      "targetPort": "top"
     },
     {
       "id": "graph-view-owned-node-interiors-next-step-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "graph-view-owned-node-interiors-idea-next-step",
       "target": "graph-view-owned-node-interiors-idea-assumption",
       "label": "tests",
@@ -6046,17 +4332,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       },
-      "sourceHandle": "top",
-      "targetHandle": "bottom"
+      "sourcePort": "top",
+      "targetPort": "bottom"
     },
     {
       "id": "graph-view-owned-node-interiors-approach-advances",
-      "type": "reference",
+      "type": "idea.advances",
       "source": "graph-view-owned-node-interiors-idea-proposed-approach",
       "target": "graph-view-owned-node-interiors-idea",
       "label": "advances",
@@ -6068,17 +4352,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.advances",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node",
-        "semanticRole": "idea.advances",
-        "edgeClassMeaning": "source action moves the target idea toward a better-supported state"
+        "edgeClassMeaning": "source action moves the target idea toward a better-supported state",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node"
       },
-      "sourceHandle": "left",
-      "targetHandle": "right"
+      "sourcePort": "left",
+      "targetPort": "right"
     },
     {
       "id": "graph-view-owned-node-interiors-instructions-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "graph-view-owned-node-interiors-idea-next-step",
       "target": "graph-view-owned-node-interiors-instructions",
       "label": "guidance",
@@ -6092,136 +4374,133 @@
         "orthogonal": true
       },
       "data": {},
-      "sourceHandle": "right",
-      "targetHandle": "left"
+      "sourcePort": "right",
+      "targetPort": "left"
     },
     {
       "id": "graph-view-owned-node-interiors-declaration-edge-class-authority-advances",
-      "type": "reference",
+      "type": "imports",
       "source": "graph-view-owned-node-interiors-declaration",
       "target": "idea-edge-class-advances",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "graph-view-owned-node-interiors-declaration-edge-class-authority-affects",
-      "type": "reference",
+      "type": "imports",
       "source": "graph-view-owned-node-interiors-declaration",
       "target": "idea-edge-class-affects",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "graph-view-owned-node-interiors-declaration-edge-class-authority-assumes",
-      "type": "reference",
+      "type": "imports",
       "source": "graph-view-owned-node-interiors-declaration",
       "target": "idea-edge-class-assumes",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "graph-view-owned-node-interiors-declaration-edge-class-authority-contradicts",
-      "type": "reference",
+      "type": "imports",
       "source": "graph-view-owned-node-interiors-declaration",
       "target": "idea-edge-class-contradicts",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "graph-view-owned-node-interiors-declaration-edge-class-authority-informs",
-      "type": "reference",
+      "type": "imports",
       "source": "graph-view-owned-node-interiors-declaration",
       "target": "idea-edge-class-informs",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "graph-view-owned-node-interiors-declaration-edge-class-authority-motivates",
-      "type": "reference",
+      "type": "imports",
       "source": "graph-view-owned-node-interiors-declaration",
       "target": "idea-edge-class-motivates",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "graph-view-owned-node-interiors-declaration-edge-class-authority-questions",
-      "type": "reference",
+      "type": "imports",
       "source": "graph-view-owned-node-interiors-declaration",
       "target": "idea-edge-class-questions",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "graph-view-owned-node-interiors-declaration-edge-class-authority-supports",
-      "type": "reference",
+      "type": "imports",
       "source": "graph-view-owned-node-interiors-declaration",
       "target": "idea-edge-class-supports",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "graph-view-owned-node-interiors-declaration-edge-class-authority-tests",
-      "type": "reference",
+      "type": "imports",
       "source": "graph-view-owned-node-interiors-declaration",
       "target": "idea-edge-class-tests",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "graph-view-owned-node-interiors-declaration-edge-class-authority-threatens",
-      "type": "reference",
+      "type": "imports",
       "source": "graph-view-owned-node-interiors-declaration",
       "target": "idea-edge-class-threatens",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "graph-view-owned-node-interiors-landing-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "graph-view-owned-node-interiors-declaration",
       "target": "graph-view-owned-node-interiors-landing-surface",
-      "label": "landing surface",
+      "label": "ground",
       "style": {},
-      "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface"
-      },
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "graph-view-owned-node-interiors-landing-explore-idea",
-      "type": "reference",
+      "type": "navigation",
       "source": "graph-view-owned-node-interiors-landing-surface",
       "target": "graph-view-owned-node-interiors-idea",
       "label": "Explore idea",
@@ -6229,15 +4508,11 @@
         "route": "orthogonal",
         "orthogonal": true
       },
-      "data": {
-        "role": "navigation",
-        "semanticRole": "navigation"
-      },
-      "sourceHandle": "explore",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "explore",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

@@ -1,17 +1,11 @@
 {
   "type": "nodegraph-data",
   "version": "1.0.0",
-  "metadata": {
-    "title": "Question-Driven Explanation Template",
-    "description": "Explain a subject through explicit questions, direct answers, sources, examples, caveats, and synthesis.",
-    "graphId": "question-driven-explanation-template",
-    "version": "1.0.0",
-    "kind": "template"
-  },
+  "metadata": {},
   "nodes": [
     {
       "id": "qa-template-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Question-Driven Explanation Template Declaration",
       "position": {
         "x": -900,
@@ -48,20 +42,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -114,14 +108,14 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "surfaces",
@@ -165,51 +159,6 @@
         "intent": {
           "kind": "template",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "template",
-          "targetMode": "artifact",
-          "artifactKind": "template",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "defaultSurfaceId": "question-driven-explanation",
-          "surfaces": [
-            {
-              "id": "question-driven-explanation",
-              "kind": "port",
-              "label": "Question-Driven Explanation Template",
-              "presentation": {
-                "detail": {
-                  "mode": "shared",
-                  "viewNodeId": "qa-template-detail-view"
-                },
-                "summary": {
-                  "mode": "shared",
-                  "viewNodeId": "qa-template-summary-view"
-                },
-                "icon": {
-                  "mode": "shared",
-                  "viewNodeId": "qa-template-icon-view"
-                }
-              },
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            }
-          ],
-          "sharedPresentation": {
-            "detailViewNodeId": "qa-template-detail-view",
-            "summaryViewNodeId": "qa-template-summary-view",
-            "iconViewNodeId": "qa-template-icon-view",
-            "glyphNodeId": "qa-template-glyph"
-          }
         },
         "dependencies": {
           "nodeTypes": [
@@ -289,12 +238,57 @@
               "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node"
             }
           ]
+        },
+        "root": {
+          "kind": "template",
+          "targetMode": "artifact",
+          "artifactKind": "template",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "question-driven-explanation",
+          "surfaces": [
+            {
+              "id": "question-driven-explanation",
+              "kind": "port",
+              "label": "Question-Driven Explanation Template",
+              "presentation": {
+                "detail": {
+                  "mode": "shared",
+                  "viewNodeId": "qa-template-detail-view"
+                },
+                "summary": {
+                  "mode": "shared",
+                  "viewNodeId": "qa-template-summary-view"
+                },
+                "icon": {
+                  "mode": "shared",
+                  "viewNodeId": "qa-template-icon-view"
+                }
+              },
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ],
+          "sharedPresentation": {
+            "detailViewNodeId": "qa-template-detail-view",
+            "summaryViewNodeId": "qa-template-summary-view",
+            "iconViewNodeId": "qa-template-icon-view",
+            "glyphNodeId": "qa-template-glyph"
+          }
         }
       }
     },
     {
       "id": "qa-template-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Question-Driven Explanation Template Detail",
       "position": {
         "x": -1500,
@@ -384,7 +378,7 @@
     },
     {
       "id": "qa-template-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Question-Driven Explanation Template Summary",
       "position": {
         "x": -1500,
@@ -474,7 +468,7 @@
     },
     {
       "id": "qa-template-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Question-Driven Explanation Template Icon",
       "position": {
         "x": -1500,
@@ -703,7 +697,7 @@
     },
     {
       "id": "qa-template-qa-topic-bridge",
-      "type": "bridge",
+      "type": "import",
       "label": "Topic Authority",
       "position": {
         "x": -120,
@@ -724,7 +718,6 @@
         ],
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
-          "role": "import",
           "resourceKind": "node-class",
           "scope": "focused-graph",
           "grants": [
@@ -742,77 +735,6 @@
             "create"
           ]
         },
-        "_bridge": {
-          "classKey": "qa-topic",
-          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "qa-topic",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
-          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
-          "nodeDef": {
-            "key": "qa-topic",
-            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Topic",
-              "size": {
-                "width": 420,
-                "height": 320
-              },
-              "color": "linear-gradient(135deg,#0f172a,#164e63)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "scope": "",
-                "notes": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 210
-                },
-                {
-                  "id": "top",
-                  "label": "top",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 270
-                },
-                {
-                  "id": "right",
-                  "label": "right",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 0
-                },
-                {
-                  "id": "bottom",
-                  "label": "bottom",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 90
-                },
-                {
-                  "id": "left",
-                  "label": "left",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
         "identity": {
           "graphId": "question-driven-explanation-template"
         }
@@ -820,7 +742,7 @@
     },
     {
       "id": "qa-template-qa-question-bridge",
-      "type": "bridge",
+      "type": "import",
       "label": "Question Authority",
       "position": {
         "x": 380,
@@ -841,7 +763,6 @@
         ],
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
-          "role": "import",
           "resourceKind": "node-class",
           "scope": "focused-graph",
           "grants": [
@@ -859,79 +780,6 @@
             "create"
           ]
         },
-        "_bridge": {
-          "classKey": "qa-question",
-          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "qa-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
-          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
-          "nodeDef": {
-            "key": "qa-question",
-            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Question",
-              "size": {
-                "width": 420,
-                "height": 320
-              },
-              "color": "linear-gradient(135deg,#164e63,#4338ca)",
-              "showLabel": false,
-              "data": {
-                "question": "",
-                "lens": "custom",
-                "purpose": "",
-                "status": "open",
-                "order": 0,
-                "notes": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 210
-                },
-                {
-                  "id": "top",
-                  "label": "top",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 270
-                },
-                {
-                  "id": "right",
-                  "label": "right",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 0
-                },
-                {
-                  "id": "bottom",
-                  "label": "bottom",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 90
-                },
-                {
-                  "id": "left",
-                  "label": "left",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
         "identity": {
           "graphId": "question-driven-explanation-template"
         }
@@ -939,7 +787,7 @@
     },
     {
       "id": "qa-template-qa-answer-bridge",
-      "type": "bridge",
+      "type": "import",
       "label": "Answer Authority",
       "position": {
         "x": 880,
@@ -960,7 +808,6 @@
         ],
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
-          "role": "import",
           "resourceKind": "node-class",
           "scope": "focused-graph",
           "grants": [
@@ -978,78 +825,6 @@
             "create"
           ]
         },
-        "_bridge": {
-          "classKey": "qa-answer",
-          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "qa-answer",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
-          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
-          "nodeDef": {
-            "key": "qa-answer",
-            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Answer",
-              "size": {
-                "width": 420,
-                "height": 320
-              },
-              "color": "linear-gradient(135deg,#065f46,#0f766e)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "answer": "",
-                "confidence": "unrated",
-                "summary": "",
-                "notes": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 210
-                },
-                {
-                  "id": "top",
-                  "label": "top",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 270
-                },
-                {
-                  "id": "right",
-                  "label": "right",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 0
-                },
-                {
-                  "id": "bottom",
-                  "label": "bottom",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 90
-                },
-                {
-                  "id": "left",
-                  "label": "left",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
         "identity": {
           "graphId": "question-driven-explanation-template"
         }
@@ -1057,7 +832,7 @@
     },
     {
       "id": "qa-template-qa-source-bridge",
-      "type": "bridge",
+      "type": "import",
       "label": "Source Authority",
       "position": {
         "x": 880,
@@ -1078,7 +853,6 @@
         ],
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
-          "role": "import",
           "resourceKind": "node-class",
           "scope": "focused-graph",
           "grants": [
@@ -1096,79 +870,6 @@
             "create"
           ]
         },
-        "_bridge": {
-          "classKey": "qa-source",
-          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "qa-source",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
-          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
-          "nodeDef": {
-            "key": "qa-source",
-            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Source",
-              "size": {
-                "width": 420,
-                "height": 320
-              },
-              "color": "linear-gradient(135deg,#334155,#1d4ed8)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "citation": "",
-                "url": "",
-                "sourceType": "reference",
-                "reliability": "unknown",
-                "notes": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 210
-                },
-                {
-                  "id": "top",
-                  "label": "top",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 270
-                },
-                {
-                  "id": "right",
-                  "label": "right",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 0
-                },
-                {
-                  "id": "bottom",
-                  "label": "bottom",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 90
-                },
-                {
-                  "id": "left",
-                  "label": "left",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
         "identity": {
           "graphId": "question-driven-explanation-template"
         }
@@ -1176,7 +877,7 @@
     },
     {
       "id": "qa-template-qa-example-bridge",
-      "type": "bridge",
+      "type": "import",
       "label": "Example Authority",
       "position": {
         "x": 1380,
@@ -1197,7 +898,6 @@
         ],
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
-          "role": "import",
           "resourceKind": "node-class",
           "scope": "focused-graph",
           "grants": [
@@ -1215,77 +915,6 @@
             "create"
           ]
         },
-        "_bridge": {
-          "classKey": "qa-example",
-          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "qa-example",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
-          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
-          "nodeDef": {
-            "key": "qa-example",
-            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Example",
-              "size": {
-                "width": 420,
-                "height": 320
-              },
-              "color": "linear-gradient(135deg,#7c2d12,#c2410c)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "example": "",
-                "relevance": "",
-                "notes": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 210
-                },
-                {
-                  "id": "top",
-                  "label": "top",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 270
-                },
-                {
-                  "id": "right",
-                  "label": "right",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 0
-                },
-                {
-                  "id": "bottom",
-                  "label": "bottom",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 90
-                },
-                {
-                  "id": "left",
-                  "label": "left",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
         "identity": {
           "graphId": "question-driven-explanation-template"
         }
@@ -1293,7 +922,7 @@
     },
     {
       "id": "qa-template-qa-caveat-bridge",
-      "type": "bridge",
+      "type": "import",
       "label": "Caveat Authority",
       "position": {
         "x": 1880,
@@ -1314,7 +943,6 @@
         ],
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
-          "role": "import",
           "resourceKind": "node-class",
           "scope": "focused-graph",
           "grants": [
@@ -1332,78 +960,6 @@
             "create"
           ]
         },
-        "_bridge": {
-          "classKey": "qa-caveat",
-          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "qa-caveat",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
-          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
-          "nodeDef": {
-            "key": "qa-caveat",
-            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Caveat",
-              "size": {
-                "width": 420,
-                "height": 320
-              },
-              "color": "linear-gradient(135deg,#7f1d1d,#be123c)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "caveat": "",
-                "severity": "note",
-                "mitigation": "",
-                "notes": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 210
-                },
-                {
-                  "id": "top",
-                  "label": "top",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 270
-                },
-                {
-                  "id": "right",
-                  "label": "right",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 0
-                },
-                {
-                  "id": "bottom",
-                  "label": "bottom",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 90
-                },
-                {
-                  "id": "left",
-                  "label": "left",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
         "identity": {
           "graphId": "question-driven-explanation-template"
         }
@@ -1411,7 +967,7 @@
     },
     {
       "id": "qa-template-qa-summary-bridge",
-      "type": "bridge",
+      "type": "import",
       "label": "Summary Authority",
       "position": {
         "x": 1380,
@@ -1432,7 +988,6 @@
         ],
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
-          "role": "import",
           "resourceKind": "node-class",
           "scope": "focused-graph",
           "grants": [
@@ -1449,78 +1004,6 @@
           "grants": [
             "create"
           ]
-        },
-        "_bridge": {
-          "classKey": "qa-summary",
-          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "qa-summary",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
-          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
-          "nodeDef": {
-            "key": "qa-summary",
-            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Summary",
-              "size": {
-                "width": 420,
-                "height": 320
-              },
-              "color": "linear-gradient(135deg,#312e81,#6d28d9)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "synthesis": "",
-                "keyPoints": "",
-                "openQuestions": "",
-                "notes": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 210
-                },
-                {
-                  "id": "top",
-                  "label": "top",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 270
-                },
-                {
-                  "id": "right",
-                  "label": "right",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 0
-                },
-                {
-                  "id": "bottom",
-                  "label": "bottom",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 90
-                },
-                {
-                  "id": "left",
-                  "label": "left",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 180
-                }
-              ]
-            }
-          }
         },
         "identity": {
           "graphId": "question-driven-explanation-template"
@@ -1631,78 +1114,7 @@
         "identity": {
           "graphId": "question-driven-explanation-template"
         },
-        "definitionKey": "qa-topic",
-        "_classBinding": {
-          "key": "qa-topic",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
-          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
-          "nodeDef": {
-            "key": "qa-topic",
-            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Topic",
-              "size": {
-                "width": 420,
-                "height": 320
-              },
-              "color": "linear-gradient(135deg,#0f172a,#164e63)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "scope": "",
-                "notes": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 210
-                },
-                {
-                  "id": "top",
-                  "label": "top",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 270
-                },
-                {
-                  "id": "right",
-                  "label": "right",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 0
-                },
-                {
-                  "id": "bottom",
-                  "label": "bottom",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 90
-                },
-                {
-                  "id": "left",
-                  "label": "left",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "qa-topic",
-          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class"
-        }
+        "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-topic.node-class.node"
       }
     },
     {
@@ -1812,80 +1224,7 @@
         "identity": {
           "graphId": "question-driven-explanation-template"
         },
-        "definitionKey": "qa-question",
-        "_classBinding": {
-          "key": "qa-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
-          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
-          "nodeDef": {
-            "key": "qa-question",
-            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Question",
-              "size": {
-                "width": 420,
-                "height": 320
-              },
-              "color": "linear-gradient(135deg,#164e63,#4338ca)",
-              "showLabel": false,
-              "data": {
-                "question": "",
-                "lens": "custom",
-                "purpose": "",
-                "status": "open",
-                "order": 0,
-                "notes": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 210
-                },
-                {
-                  "id": "top",
-                  "label": "top",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 270
-                },
-                {
-                  "id": "right",
-                  "label": "right",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 0
-                },
-                {
-                  "id": "bottom",
-                  "label": "bottom",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 90
-                },
-                {
-                  "id": "left",
-                  "label": "left",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "qa-question",
-          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class"
-        }
+        "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-question.node-class.node"
       }
     },
     {
@@ -1993,79 +1332,7 @@
         "identity": {
           "graphId": "question-driven-explanation-template"
         },
-        "definitionKey": "qa-answer",
-        "_classBinding": {
-          "key": "qa-answer",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
-          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
-          "nodeDef": {
-            "key": "qa-answer",
-            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Answer",
-              "size": {
-                "width": 420,
-                "height": 320
-              },
-              "color": "linear-gradient(135deg,#065f46,#0f766e)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "answer": "",
-                "confidence": "unrated",
-                "summary": "",
-                "notes": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 210
-                },
-                {
-                  "id": "top",
-                  "label": "top",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 270
-                },
-                {
-                  "id": "right",
-                  "label": "right",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 0
-                },
-                {
-                  "id": "bottom",
-                  "label": "bottom",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 90
-                },
-                {
-                  "id": "left",
-                  "label": "left",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "qa-answer",
-          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class"
-        }
+        "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-answer.node-class.node"
       }
     },
     {
@@ -2174,80 +1441,7 @@
         "identity": {
           "graphId": "question-driven-explanation-template"
         },
-        "definitionKey": "qa-source",
-        "_classBinding": {
-          "key": "qa-source",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
-          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
-          "nodeDef": {
-            "key": "qa-source",
-            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Source",
-              "size": {
-                "width": 420,
-                "height": 320
-              },
-              "color": "linear-gradient(135deg,#334155,#1d4ed8)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "citation": "",
-                "url": "",
-                "sourceType": "reference",
-                "reliability": "unknown",
-                "notes": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 210
-                },
-                {
-                  "id": "top",
-                  "label": "top",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 270
-                },
-                {
-                  "id": "right",
-                  "label": "right",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 0
-                },
-                {
-                  "id": "bottom",
-                  "label": "bottom",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 90
-                },
-                {
-                  "id": "left",
-                  "label": "left",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "qa-source",
-          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class"
-        }
+        "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-source.node-class.node"
       }
     },
     {
@@ -2354,78 +1548,7 @@
         "identity": {
           "graphId": "question-driven-explanation-template"
         },
-        "definitionKey": "qa-example",
-        "_classBinding": {
-          "key": "qa-example",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
-          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
-          "nodeDef": {
-            "key": "qa-example",
-            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Example",
-              "size": {
-                "width": 420,
-                "height": 320
-              },
-              "color": "linear-gradient(135deg,#7c2d12,#c2410c)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "example": "",
-                "relevance": "",
-                "notes": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 210
-                },
-                {
-                  "id": "top",
-                  "label": "top",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 270
-                },
-                {
-                  "id": "right",
-                  "label": "right",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 0
-                },
-                {
-                  "id": "bottom",
-                  "label": "bottom",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 90
-                },
-                {
-                  "id": "left",
-                  "label": "left",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "qa-example",
-          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class"
-        }
+        "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-example.node-class.node"
       }
     },
     {
@@ -2533,79 +1656,7 @@
         "identity": {
           "graphId": "question-driven-explanation-template"
         },
-        "definitionKey": "qa-caveat",
-        "_classBinding": {
-          "key": "qa-caveat",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
-          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
-          "nodeDef": {
-            "key": "qa-caveat",
-            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Caveat",
-              "size": {
-                "width": 420,
-                "height": 320
-              },
-              "color": "linear-gradient(135deg,#7f1d1d,#be123c)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "caveat": "",
-                "severity": "note",
-                "mitigation": "",
-                "notes": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 210
-                },
-                {
-                  "id": "top",
-                  "label": "top",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 270
-                },
-                {
-                  "id": "right",
-                  "label": "right",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 0
-                },
-                {
-                  "id": "bottom",
-                  "label": "bottom",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 90
-                },
-                {
-                  "id": "left",
-                  "label": "left",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "qa-caveat",
-          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class"
-        }
+        "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-caveat.node-class.node"
       }
     },
     {
@@ -2713,79 +1764,7 @@
         "identity": {
           "graphId": "question-driven-explanation-template"
         },
-        "definitionKey": "qa-summary",
-        "_classBinding": {
-          "key": "qa-summary",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
-          "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
-          "nodeDef": {
-            "key": "qa-summary",
-            "ref": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Summary",
-              "size": {
-                "width": 420,
-                "height": 320
-              },
-              "color": "linear-gradient(135deg,#312e81,#6d28d9)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "synthesis": "",
-                "keyPoints": "",
-                "openQuestions": "",
-                "notes": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 210
-                },
-                {
-                  "id": "top",
-                  "label": "top",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 270
-                },
-                {
-                  "id": "right",
-                  "label": "right",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 0
-                },
-                {
-                  "id": "bottom",
-                  "label": "bottom",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 90
-                },
-                {
-                  "id": "left",
-                  "label": "left",
-                  "direction": "bidirectional",
-                  "dataType": "value",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "qa-summary",
-          "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
-          "sourceRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class"
-        }
+        "classRef": "github://mikemartinez1974/public/templates/question-driven-explanation-template/classes/nodes/qa-summary.node-class.node"
       }
     }
   ],
@@ -2795,139 +1774,116 @@
       "type": "surface",
       "source": "qa-template-declaration",
       "target": "qa-template-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "question-driven-explanation"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "qa-template-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "qa-template-detail-view",
       "target": "qa-template-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "qa-template-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "qa-template-summary-view",
       "target": "qa-template-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "qa-template-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "qa-template-icon-view",
       "target": "qa-template-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "qa-template-landing-surface-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "qa-template-declaration",
       "target": "qa-template-landing-surface",
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root",
-      "label": "landing surface",
-      "data": {
-        "semanticRole": "landing-surface"
-      }
+      "label": "ground",
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "qa-template-topic-question",
-      "type": "reference",
+      "type": "raises",
       "source": "qa-template-qa-topic",
       "target": "qa-template-qa-question",
-      "sourceHandle": "right",
-      "targetHandle": "left",
       "label": "raises",
-      "data": {
-        "semanticRole": "raises"
-      }
+      "data": {},
+      "sourcePort": "right",
+      "targetPort": "left"
     },
     {
       "id": "qa-template-question-answer",
-      "type": "reference",
+      "type": "answers",
       "source": "qa-template-qa-question",
       "target": "qa-template-qa-answer",
-      "sourceHandle": "right",
-      "targetHandle": "left",
       "label": "answers",
-      "data": {
-        "semanticRole": "answers"
-      }
+      "data": {},
+      "sourcePort": "right",
+      "targetPort": "left"
     },
     {
       "id": "qa-template-answer-source",
-      "type": "reference",
+      "type": "supported-by",
       "source": "qa-template-qa-answer",
       "target": "qa-template-qa-source",
-      "sourceHandle": "bottom",
-      "targetHandle": "top",
       "label": "supported by",
-      "data": {
-        "semanticRole": "supported-by"
-      }
+      "data": {},
+      "sourcePort": "bottom",
+      "targetPort": "top"
     },
     {
       "id": "qa-template-answer-example",
-      "type": "reference",
+      "type": "illustrated-by",
       "source": "qa-template-qa-answer",
       "target": "qa-template-qa-example",
-      "sourceHandle": "right",
-      "targetHandle": "left",
       "label": "illustrated by",
-      "data": {
-        "semanticRole": "illustrated-by"
-      }
+      "data": {},
+      "sourcePort": "right",
+      "targetPort": "left"
     },
     {
       "id": "qa-template-answer-caveat",
-      "type": "reference",
+      "type": "qualified-by",
       "source": "qa-template-qa-answer",
       "target": "qa-template-qa-caveat",
-      "sourceHandle": "right",
-      "targetHandle": "left",
       "label": "qualified by",
-      "data": {
-        "semanticRole": "qualified-by"
-      }
+      "data": {},
+      "sourcePort": "right",
+      "targetPort": "left"
     },
     {
       "id": "qa-template-answer-summary",
-      "type": "reference",
+      "type": "synthesized-as",
       "source": "qa-template-qa-answer",
       "target": "qa-template-qa-summary",
-      "sourceHandle": "bottom",
-      "targetHandle": "top",
       "label": "synthesized as",
-      "data": {
-        "semanticRole": "synthesized-as"
-      }
+      "data": {},
+      "sourcePort": "bottom",
+      "targetPort": "top"
     }
-  ],
-  "nodeCount": 21,
-  "edgeCount": 11
+  ]
 }

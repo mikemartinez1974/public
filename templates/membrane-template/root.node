@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Membrane Template",
-    "description": "Three chained Membrane nodes authoring a real custom boundary -- a quadrilateral, not the default rectangle. The chain must close (declaration.boundary-begin -> membrane -> ...-> membrane.next -> declaration.boundary-end) to resolve at all; an open chain falls back to a plain rectangle, same as having no Membrane nodes.",
-    "graphId": "membrane-template-declaration",
-    "version": "0.2.3",
-    "kind": "template",
     "created": "2026-10-04T20:18:22.272Z",
     "modified": "2026-10-08T23:57:08.331Z",
     "author": "",
@@ -18,9 +13,8 @@
   "nodes": [
     {
       "id": "membrane-template-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Membrane Template",
-      "root": true,
       "position": {
         "x": 0,
         "y": -600
@@ -40,11 +34,6 @@
           "kind": "template",
           "scope": "local"
         },
-        "declaration": {
-          "kind": "graph",
-          "defaultSurfaceId": "web",
-          "surfaces": []
-        },
         "glyph": {
           "kind": "icon",
           "name": "Shield"
@@ -53,6 +42,11 @@
         "purpose": "",
         "document": {
           "url": "github://mikemartinez1974/public/templates/membrane-template/root.node"
+        },
+        "root": {
+          "kind": "graph",
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       }
     },
@@ -138,9 +132,8 @@
     },
     {
       "id": "membrane-template-detail",
-      "type": "view",
+      "type": "face",
       "label": "Detail",
-      "root": false,
       "position": {
         "x": -1300,
         "y": -180
@@ -169,14 +162,14 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90,
-          "role": "view-sequence",
+          "role": "next-face",
           "allowedEdgeTypes": [
-            "view-sequence"
+            "next-face"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false,
             "behaviors": [
               {
@@ -243,9 +236,8 @@
     },
     {
       "id": "membrane-template-icon",
-      "type": "view",
+      "type": "face",
       "label": "Icon",
-      "root": false,
       "position": {
         "x": -780,
         "y": -60
@@ -274,11 +266,11 @@
           "direction": "input",
           "dataType": "any",
           "angle": 270,
-          "role": "view-sequence",
+          "role": "next-face",
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false
           }
         },
@@ -289,14 +281,14 @@
           "direction": "output",
           "dataType": "any",
           "angle": 90,
-          "role": "view-sequence",
+          "role": "next-face",
           "allowedEdgeTypes": [
-            "view-sequence"
+            "next-face"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "view-sequence",
+            "role": "next-face",
             "required": false,
             "behaviors": [
               {
@@ -339,7 +331,6 @@
       "id": "membrane-template-glyph",
       "type": "glyph",
       "label": "Glyph",
-      "root": false,
       "position": {
         "x": -560,
         "y": -10
@@ -389,115 +380,95 @@
   "edges": [
     {
       "id": "membrane-template-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "source": "membrane-template-declaration",
-      "sourceHandle": "landing-surface",
       "target": "membrane-template-content",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "landing-surface"
-      }
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "membrane-template-boundary-begin",
       "type": "membrane",
       "source": "membrane-template-declaration",
-      "sourceHandle": "boundary-begin",
       "target": "membrane-template-membrane-1",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "membrane-control",
-        "semanticRole": "membrane-control"
-      }
+      "data": {},
+      "sourcePort": "boundary-begin",
+      "targetPort": "root"
     },
     {
       "id": "membrane-template-chain-1-2",
       "type": "membrane",
       "source": "membrane-template-membrane-1",
-      "sourceHandle": "next",
       "target": "membrane-template-membrane-2",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "membrane-control",
-        "semanticRole": "membrane-control"
-      }
+      "data": {},
+      "sourcePort": "next",
+      "targetPort": "root"
     },
     {
       "id": "membrane-template-chain-2-3",
       "type": "membrane",
       "source": "membrane-template-membrane-2",
-      "sourceHandle": "next",
       "target": "membrane-template-membrane-3",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "membrane-control",
-        "semanticRole": "membrane-control"
-      }
+      "data": {},
+      "sourcePort": "next",
+      "targetPort": "root"
     },
     {
       "id": "membrane-template-boundary-end",
       "type": "membrane",
       "source": "membrane-template-membrane-3",
-      "sourceHandle": "next",
       "target": "membrane-template-declaration",
-      "targetHandle": "boundary-end",
       "label": "",
       "style": {},
-      "data": {
-        "role": "membrane-control",
-        "semanticRole": "membrane-control"
-      }
+      "data": {},
+      "sourcePort": "next",
+      "targetPort": "boundary-end"
     },
     {
       "id": "membrane-template-surface",
       "type": "surface",
       "source": "membrane-template-declaration",
-      "sourceHandle": "surfaces",
       "target": "membrane-template-detail",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "membrane-template-detail-icon",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "membrane-template-detail",
-      "sourceHandle": "sequence-out",
       "target": "membrane-template-icon",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "membrane-template-icon-glyph",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "membrane-template-icon",
-      "sourceHandle": "sequence-out",
       "target": "membrane-template-glyph",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

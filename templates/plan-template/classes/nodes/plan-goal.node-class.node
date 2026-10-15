@@ -1,10 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Goal Node Class",
-    "description": "The desired end state the plan is intended to achieve.",
-    "graphId": "plan-goal-class",
-    "version": "0.4.0",
     "tags": [
       "node-class",
       "plan-template"
@@ -14,7 +10,7 @@
   "nodes": [
     {
       "id": "plan-goal-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Goal Declaration",
       "position": {
         "x": 0,
@@ -42,9 +38,9 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
@@ -108,9 +104,9 @@
           "portId": "port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
@@ -124,7 +120,7 @@
             ],
             "repeatable": false
           },
-          "portId": "landing-surface"
+          "portId": "ground"
         },
         {
           "id": "surfaces",
@@ -166,47 +162,6 @@
         "intent": {
           "kind": "node-class",
           "scope": "local"
-        },
-        "declaration": {
-          "kind": "node-class",
-          "targetMode": "artifact",
-          "artifactKind": "node-class",
-          "defaultSurfaceId": "root",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Goal",
-              "portNodeId": "plan-goal-root-port",
-              "presentation": {
-                "detail": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-goal-detail-view"
-                },
-                "summary": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-goal-summary-view"
-                },
-                "icon": {
-                  "mode": "shared",
-                  "viewNodeId": "plan-goal-icon-view"
-                }
-              }
-            }
-          ],
-          "sharedPresentation": {
-            "detailViewNodeId": "plan-goal-detail-view",
-            "summaryViewNodeId": "plan-goal-summary-view",
-            "iconViewNodeId": "plan-goal-icon-view",
-            "glyphNodeId": "plan-goal-glyph"
-          },
-          "primaryNodeViewId": "plan-goal-detail-view",
-          "primaryEditorViewId": "plan-goal-editor-view",
-          "portViewNodeId": "plan-goal-root-port"
         },
         "nodeClass": {
           "contractVersion": "1.1.0",
@@ -284,6 +239,47 @@
             "core",
             "plan-edge-port-contract@0.1.0"
           ]
+        },
+        "root": {
+          "kind": "node-class",
+          "targetMode": "artifact",
+          "artifactKind": "node-class",
+          "defaultSurfaceId": "root",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Goal",
+              "portNodeId": "plan-goal-root-port",
+              "presentation": {
+                "detail": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-goal-detail-view"
+                },
+                "summary": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-goal-summary-view"
+                },
+                "icon": {
+                  "mode": "shared",
+                  "viewNodeId": "plan-goal-icon-view"
+                }
+              }
+            }
+          ],
+          "sharedPresentation": {
+            "detailViewNodeId": "plan-goal-detail-view",
+            "summaryViewNodeId": "plan-goal-summary-view",
+            "iconViewNodeId": "plan-goal-icon-view",
+            "glyphNodeId": "plan-goal-glyph"
+          },
+          "primaryNodeViewId": "plan-goal-detail-view",
+          "primaryEditorViewId": "plan-goal-editor-view",
+          "portViewNodeId": "plan-goal-root-port"
         }
       }
     },
@@ -369,7 +365,7 @@
     },
     {
       "id": "plan-goal-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Goal Detail",
       "position": {
         "x": -520,
@@ -413,7 +409,7 @@
     },
     {
       "id": "plan-goal-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Goal Summary",
       "position": {
         "x": -520,
@@ -457,7 +453,7 @@
     },
     {
       "id": "plan-goal-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Goal Icon",
       "position": {
         "x": -520,
@@ -501,7 +497,7 @@
     },
     {
       "id": "plan-goal-editor-view",
-      "type": "view",
+      "type": "face",
       "label": "Goal Editor",
       "position": {
         "x": 0,
@@ -637,62 +633,53 @@
       "type": "surface",
       "source": "plan-goal-declaration",
       "target": "plan-goal-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "root"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "plan-goal-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-goal-detail-view",
       "target": "plan-goal-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "plan-goal-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-goal-summary-view",
       "target": "plan-goal-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "plan-goal-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "plan-goal-icon-view",
       "target": "plan-goal-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "plan-goal-port-edge",
-      "type": "reference",
+      "type": "exposes-port",
       "hidden": true,
       "source": "plan-goal-declaration",
       "target": "plan-goal-root-port",
-      "sourceHandle": "port",
-      "targetHandle": "root",
       "sourcePort": "port",
       "targetPort": "root",
       "label": "",
@@ -702,8 +689,6 @@
         "opacity": 0.03
       },
       "data": {
-        "role": "exposes-port",
-        "semanticRole": "exposes-port",
         "presentation": {
           "layer": "contract"
         }
@@ -711,13 +696,11 @@
     },
     {
       "id": "plan-goal-landing-surface",
-      "type": "reference",
+      "type": "ground",
       "hidden": true,
       "source": "plan-goal-declaration",
       "target": "plan-goal-landing-content",
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root",
-      "sourcePort": "landing-surface",
+      "sourcePort": "ground",
       "targetPort": "root",
       "label": "",
       "style": {
@@ -726,15 +709,12 @@
         "opacity": 0.03
       },
       "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface",
         "presentation": {
           "layer": "contract"
         }
       }
     }
   ],
-  "clusters": [],
   "settings": {
     "edgeRouting": "orthogonal",
     "layout": {

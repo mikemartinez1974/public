@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Custom Declaration Node Class",
-    "description": "A Declaration node whose editor covers every field a Declaration holds, and whose card shows the graph's own name, kind and version.",
-    "graphId": "custom-declaration-class",
-    "version": "0.1.0",
-    "kind": "node-class",
     "created": "2026-09-24T23:01:08.370Z",
     "modified": "2026-10-06T05:56:58.017Z",
     "author": "",
@@ -18,9 +13,8 @@
   "nodes": [
     {
       "id": "custom-declaration-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Custom Declaration",
-      "root": false,
       "position": {
         "x": 0,
         "y": 0
@@ -179,7 +173,7 @@
             "version": ">=0.1.0"
           }
         },
-        "declaration": {
+        "root": {
           "kind": "node-class",
           "artifactKind": "node-class",
           "defaultSurfaceId": "custom-declaration-detail-surface",
@@ -219,9 +213,8 @@
     },
     {
       "id": "custom-declaration-notes",
-      "type": "markdown",
+      "type": "content",
       "label": "Notes",
-      "root": false,
       "position": {
         "x": 420,
         "y": 0
@@ -362,14 +355,16 @@
         "identity": {
           "graphId": "custom-declaration-class"
         },
-        "markdown": "## Custom Declaration\n\nA Declaration node whose editor covers every field a Declaration holds: identity, kind, Surfaces, authority, settings and address.\n\nBind a graph's Declaration to this class with a class binding whose key is `custom-declaration`. Its card then shows the graph's own name, kind, version and description, and its editor is the complete form.\n\nThe editor is the same one the Declaration Template carries."
+        "content": {
+          "kind": "markdown",
+          "value": "## Custom Declaration\n\nA Declaration node whose editor covers every field a Declaration holds: identity, kind, Surfaces, authority, settings and address.\n\nBind a graph's Declaration to this class with a class binding whose key is `custom-declaration`. Its card then shows the graph's own name, kind, version and description, and its editor is the complete form.\n\nThe editor is the same one the Declaration Template carries."
+        }
       }
     },
     {
       "id": "custom-declaration-editor-view",
       "type": "port",
       "label": "Declaration Editor Surface",
-      "root": false,
       "position": {
         "x": 0,
         "y": 420
@@ -672,7 +667,7 @@
                 "key": "declarationKind",
                 "label": "Declared type",
                 "type": "text",
-                "path": "data.declaration.kind",
+                "path": "data.root.kind",
                 "section": "intent",
                 "placeholder": "graph",
                 "helperText": "The declaration kind. It stays extensible."
@@ -681,7 +676,7 @@
                 "key": "artifactKind",
                 "label": "Artifact kind",
                 "type": "text",
-                "path": "data.declaration.artifactKind",
+                "path": "data.root.artifactKind",
                 "section": "intent",
                 "placeholder": "graph, template, node-class, primitive-spec",
                 "helperText": "What this graph is as a file."
@@ -690,7 +685,7 @@
                 "key": "defaultSurfaceId",
                 "label": "Default Surface",
                 "type": "declaration-default-surface",
-                "path": "data.declaration.defaultSurfaceId",
+                "path": "data.root.defaultSurfaceId",
                 "section": "surfaces",
                 "placeholder": "default",
                 "helperText": "The Surface a viewer sees when it does not ask for one. Left empty, the first Surface answers."
@@ -699,7 +694,7 @@
                 "key": "surfaces",
                 "label": "Exposed entries",
                 "type": "declaration-surfaces",
-                "path": "data.declaration.surfaces",
+                "path": "data.root.surfaces",
                 "section": "surfaces",
                 "multiline": true,
                 "rows": 8,
@@ -859,7 +854,6 @@
       "id": "custom-declaration-detail-view",
       "type": "port",
       "label": "Declaration Detail Surface",
-      "root": false,
       "position": {
         "x": 640,
         "y": 420
@@ -1003,7 +997,7 @@
         "renderShape": {
           "kind": "html"
         },
-        "html": "<div style=\"width:100%;height:100%;display:flex;flex-direction:column;gap:12px;padding:18px;box-sizing:border-box;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,243,255,0.96));border:1px solid rgba(109,40,217,0.14);overflow:hidden;\"><div style=\"display:flex;align-items:flex-start;justify-content:space-between;gap:12px;\"><div style=\"display:flex;flex-direction:column;gap:6px;min-width:0;\"><div style=\"font:700 24px/1.15 ui-sans-serif, system-ui, sans-serif;color:#4c1d95;\">{{data.identity.name || 'Untitled graph'}}</div><div style=\"font:700 13px/1.25 ui-monospace, SFMono-Regular, Menlo, monospace;color:#6d28d9;\">v{{data.identity.version || '0.1.0'}}</div></div><div style=\"display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;\"><span style=\"padding:4px 8px;border-radius:999px;background:rgba(109,40,217,0.12);color:#5b21b6;font:700 11px/1 ui-sans-serif, system-ui, sans-serif;\">{{data.intent.kind || 'graph'}}</span><span style=\"padding:4px 8px;border-radius:999px;background:rgba(109,40,217,0.12);color:#5b21b6;font:700 11px/1 ui-sans-serif, system-ui, sans-serif;\">{{data.intent.scope || 'local'}}</span></div></div><div style=\"font:500 14px/1.5 ui-sans-serif, system-ui, sans-serif;color:#3b0764;\">{{data.identity.description || 'No description yet.'}}</div><div style=\"display:grid;grid-template-columns:1fr 1fr;gap:12px;\"><div style=\"padding:10px 12px;border-radius:12px;background:rgba(255,255,255,0.9);border:1px solid rgba(109,40,217,0.1);font:600 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;color:#3b0764;\">default surface: {{data.declaration.defaultSurfaceId || 'first'}}</div><div style=\"padding:10px 12px;border-radius:12px;background:rgba(255,255,255,0.9);border:1px solid rgba(109,40,217,0.1);font:600 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;color:#3b0764;\">saved at: {{data.document.url || 'not saved yet'}}</div></div></div>",
+        "html": "<div style=\"width:100%;height:100%;display:flex;flex-direction:column;gap:12px;padding:18px;box-sizing:border-box;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,243,255,0.96));border:1px solid rgba(109,40,217,0.14);overflow:hidden;\"><div style=\"display:flex;align-items:flex-start;justify-content:space-between;gap:12px;\"><div style=\"display:flex;flex-direction:column;gap:6px;min-width:0;\"><div style=\"font:700 24px/1.15 ui-sans-serif, system-ui, sans-serif;color:#4c1d95;\">{{data.identity.name || 'Untitled graph'}}</div><div style=\"font:700 13px/1.25 ui-monospace, SFMono-Regular, Menlo, monospace;color:#6d28d9;\">v{{data.identity.version || '0.1.0'}}</div></div><div style=\"display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;\"><span style=\"padding:4px 8px;border-radius:999px;background:rgba(109,40,217,0.12);color:#5b21b6;font:700 11px/1 ui-sans-serif, system-ui, sans-serif;\">{{data.intent.kind || 'graph'}}</span><span style=\"padding:4px 8px;border-radius:999px;background:rgba(109,40,217,0.12);color:#5b21b6;font:700 11px/1 ui-sans-serif, system-ui, sans-serif;\">{{data.intent.scope || 'local'}}</span></div></div><div style=\"font:500 14px/1.5 ui-sans-serif, system-ui, sans-serif;color:#3b0764;\">{{data.identity.description || 'No description yet.'}}</div><div style=\"display:grid;grid-template-columns:1fr 1fr;gap:12px;\"><div style=\"padding:10px 12px;border-radius:12px;background:rgba(255,255,255,0.9);border:1px solid rgba(109,40,217,0.1);font:600 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;color:#3b0764;\">default surface: {{data.root.defaultSurfaceId || 'first'}}</div><div style=\"padding:10px 12px;border-radius:12px;background:rgba(255,255,255,0.9);border:1px solid rgba(109,40,217,0.1);font:600 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;color:#3b0764;\">saved at: {{data.document.url || 'not saved yet'}}</div></div></div>",
         "semanticLevel": "detail",
         "identity": {
           "graphId": "custom-declaration-class"
@@ -1014,7 +1008,6 @@
       "id": "custom-declaration-summary-view",
       "type": "port",
       "label": "Declaration Summary Surface",
-      "root": false,
       "position": {
         "x": 1280,
         "y": 420
@@ -1158,7 +1151,7 @@
         "renderShape": {
           "kind": "html"
         },
-        "html": "<div style=\"width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:16px;box-sizing:border-box;border-radius:16px;background:white;border:1px solid rgba(109,40,217,0.14);\"><div style=\"font:700 18px/1.25 ui-sans-serif, system-ui, sans-serif;color:#4c1d95;\">{{data.identity.name || 'Untitled graph'}}</div><div style=\"font:700 13px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;color:#6d28d9;\">{{data.intent.kind || 'graph'}} \u00b7 v{{data.identity.version || '0.1.0'}}</div><div style=\"font:500 13px/1.45 ui-sans-serif, system-ui, sans-serif;color:#5b21b6;\">{{data.identity.description || 'No description yet.'}}</div></div>",
+        "html": "<div style=\"width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:16px;box-sizing:border-box;border-radius:16px;background:white;border:1px solid rgba(109,40,217,0.14);\"><div style=\"font:700 18px/1.25 ui-sans-serif, system-ui, sans-serif;color:#4c1d95;\">{{data.identity.name || 'Untitled graph'}}</div><div style=\"font:700 13px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;color:#6d28d9;\">{{data.intent.kind || 'graph'}} · v{{data.identity.version || '0.1.0'}}</div><div style=\"font:500 13px/1.45 ui-sans-serif, system-ui, sans-serif;color:#5b21b6;\">{{data.identity.description || 'No description yet.'}}</div></div>",
         "semanticLevel": "summary",
         "identity": {
           "graphId": "custom-declaration-class"
@@ -1169,7 +1162,6 @@
       "id": "custom-declaration-icon-view",
       "type": "port",
       "label": "Declaration Icon Surface",
-      "root": false,
       "position": {
         "x": 1780,
         "y": 420
@@ -1324,7 +1316,7 @@
   "edges": [
     {
       "id": "custom-declaration-edge-editor-detail",
-      "type": "reference",
+      "type": "edge",
       "source": "custom-declaration-editor-view",
       "target": "custom-declaration-detail-view",
       "sourcePort": "right",
@@ -1335,7 +1327,7 @@
     },
     {
       "id": "custom-declaration-edge-detail-summary",
-      "type": "reference",
+      "type": "edge",
       "source": "custom-declaration-detail-view",
       "target": "custom-declaration-summary-view",
       "sourcePort": "right",
@@ -1346,7 +1338,7 @@
     },
     {
       "id": "custom-declaration-edge-summary-icon",
-      "type": "reference",
+      "type": "edge",
       "source": "custom-declaration-summary-view",
       "target": "custom-declaration-icon-view",
       "sourcePort": "right",
@@ -1357,7 +1349,7 @@
     },
     {
       "id": "custom-declaration-edge-declaration-notes",
-      "type": "reference",
+      "type": "edge",
       "source": "custom-declaration-declaration",
       "target": "custom-declaration-notes",
       "sourcePort": "root",
@@ -1367,7 +1359,6 @@
       "data": {}
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

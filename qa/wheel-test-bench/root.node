@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Wheel and Zoom Test Bench",
-    "description": "A test bench for the wheel and zoom gesture contract: scrollable surfaces, a surface with nothing to scroll, empty canvas, and a graph shown at workspace level.",
-    "graphId": "wheel-test-bench",
-    "version": "0.1.0",
-    "kind": "graph",
     "created": "2026-09-20T23:24:22.118Z",
     "modified": "2026-09-20T23:24:22.118Z",
     "author": "Michael Martinez",
@@ -21,9 +16,8 @@
   "nodes": [
     {
       "id": "wheel-test-bench-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Wheel and Zoom Test Bench",
-      "root": false,
       "position": {
         "x": -1280,
         "y": -900
@@ -59,20 +53,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -125,14 +119,14 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "surfaces",
@@ -176,17 +170,6 @@
         "intent": {
           "kind": "graph",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "template",
-          "targetMode": "artifact",
-          "artifactKind": "graph-template",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "defaultSurfaceId": "web",
-          "surfaces": []
         },
         "dependencies": {
           "nodeTypes": [
@@ -257,14 +240,24 @@
         },
         "document": {
           "url": "github://mikemartinez1974/public/qa/wheel-test-bench/root.node"
+        },
+        "root": {
+          "kind": "template",
+          "targetMode": "artifact",
+          "artifactKind": "graph-template",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "web",
+          "surfaces": []
         }
       }
     },
     {
       "id": "wheel-test-bench-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Wheel and Zoom Test Bench",
-      "root": false,
       "position": {
         "x": -1880,
         "y": -980
@@ -352,9 +345,8 @@
     },
     {
       "id": "wheel-test-bench-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Wheel and Zoom Test Bench Summary",
-      "root": false,
       "position": {
         "x": -1880,
         "y": -620
@@ -442,9 +434,8 @@
     },
     {
       "id": "wheel-test-bench-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Wheel and Zoom Test Bench Icon",
-      "root": false,
       "position": {
         "x": -1880,
         "y": -320
@@ -534,7 +525,6 @@
       "id": "wheel-test-bench-glyph",
       "type": "glyph",
       "label": "Wheel and Zoom Test Bench Glyph",
-      "root": false,
       "position": {
         "x": -1280,
         "y": -1220
@@ -582,7 +572,6 @@
       "id": "wheel-test-bench-landing-surface",
       "type": "content",
       "label": "Wheel and Zoom Test Bench Landing",
-      "root": false,
       "position": {
         "x": -620,
         "y": -900
@@ -798,7 +787,7 @@
     },
     {
       "id": "wheel-test-bench-empty-label",
-      "type": "markdown",
+      "type": "content",
       "label": "Empty canvas",
       "position": {
         "x": 1620,
@@ -821,12 +810,15 @@
         "identity": {
           "graphId": "wheel-test-bench"
         },
-        "markdown": "**Empty canvas below.** Nothing to scroll here: keep this space clear."
+        "content": {
+          "kind": "markdown",
+          "value": "**Empty canvas below.** Nothing to scroll here: keep this space clear."
+        }
       }
     },
     {
       "id": "wheel-test-bench-setup",
-      "type": "markdown",
+      "type": "content",
       "label": "Setup",
       "position": {
         "x": -700,
@@ -849,12 +841,15 @@
         "identity": {
           "graphId": "wheel-test-bench"
         },
-        "markdown": "## Setup\n\n1. Open this graph in edit or view mode, zoomed so a fixture fills a good part of the screen.\n2. To check by hand, put the pointer over a fixture and use the wheel. Try Ctrl or Cmd with the wheel and a trackpad pinch too.\n3. To check every case at once, paste the **Check Script** into the browser console and run `await runWheelBench()`.\n4. For the workspace-level case, open **Wheel Test Page** with its portal, then zoom out until it is drawn as part of the workspace.\n\nThe bench does not change any graph data."
+        "content": {
+          "kind": "markdown",
+          "value": "## Setup\n\n1. Open this graph in edit or view mode, zoomed so a fixture fills a good part of the screen.\n2. To check by hand, put the pointer over a fixture and use the wheel. Try Ctrl or Cmd with the wheel and a trackpad pinch too.\n3. To check every case at once, paste the **Check Script** into the browser console and run `await runWheelBench()`.\n4. For the workspace-level case, open **Wheel Test Page** with its portal, then zoom out until it is drawn as part of the workspace.\n\nThe bench does not change any graph data."
+        }
       }
     },
     {
       "id": "wheel-test-bench-cases",
-      "type": "markdown",
+      "type": "content",
       "label": "Cases",
       "position": {
         "x": -700,
@@ -877,12 +872,15 @@
         "identity": {
           "graphId": "wheel-test-bench"
         },
-        "markdown": "## Cases (the contract)\n\n| # | Pointer is over | Input | Expected under the contract |\n|---|---|---|---|\n| 1 | Long document, mid-scroll | wheel down | The **surface** keeps the wheel and scrolls. The camera does not move or zoom. |\n| 2 | Tall HTML page | wheel down | The surface scrolls. |\n| 3 | Nested scroller, inner box not at its end | wheel down | The **inner** box scrolls first. |\n| 4 | Nested scroller, inner box at its end | wheel down | The **outer** page scrolls (scroll chaining). The camera does not zoom. |\n| 5 | Long document, at its end | wheel down | The camera **zooms**, about the middle of the screen. |\n| 6 | Nothing to scroll | wheel down | The camera **zooms**, about the middle of the screen. |\n| 7 | Empty canvas | wheel down | The camera **zooms**, about the middle of the screen. |\n| 8 | A content node | Ctrl + wheel | The camera **zooms** about the middle of the screen and the node does not scroll. Browser page zoom is prevented. |\n| 9 | Wheel Test Page (or any page view), drawn at workspace level | wheel down | The page scrolls, then the camera zooms at its end. Checked by hand. |\n| 10 | Anywhere | Ctrl + plus | The camera zooms in one step (a factor of 1.2), about the middle of the screen. |\n| 11 | Anywhere | Ctrl + minus | The camera zooms out one step. |\n| 12 | Anywhere | Ctrl + zero | The camera returns to zoom 1. |\n\nZoom about the middle of the screen is a decision, not a gap: it was judged the most humane choice, so the point under the pointer is not expected to stay put. The middle of the screen holds when zooming in. Zooming out far enough for the workspace to take over (the rollover between a graph and its workspace) re-frames the camera on purpose, so the script only requires that the camera takes the input, in the right direction and by the right factor, and shows whether the middle held as information.\n\nCase 9 needs the second graph opened next to this one. Zoom chosen from the browser menu cannot be triggered or intercepted by a script; check it by hand and record what it does."
+        "content": {
+          "kind": "markdown",
+          "value": "## Cases (the contract)\n\n| # | Pointer is over | Input | Expected under the contract |\n|---|---|---|---|\n| 1 | Long document, mid-scroll | wheel down | The **surface** keeps the wheel and scrolls. The camera does not move or zoom. |\n| 2 | Tall HTML page | wheel down | The surface scrolls. |\n| 3 | Nested scroller, inner box not at its end | wheel down | The **inner** box scrolls first. |\n| 4 | Nested scroller, inner box at its end | wheel down | The **outer** page scrolls (scroll chaining). The camera does not zoom. |\n| 5 | Long document, at its end | wheel down | The camera **zooms**, about the middle of the screen. |\n| 6 | Nothing to scroll | wheel down | The camera **zooms**, about the middle of the screen. |\n| 7 | Empty canvas | wheel down | The camera **zooms**, about the middle of the screen. |\n| 8 | A content node | Ctrl + wheel | The camera **zooms** about the middle of the screen and the node does not scroll. Browser page zoom is prevented. |\n| 9 | Wheel Test Page (or any page view), drawn at workspace level | wheel down | The page scrolls, then the camera zooms at its end. Checked by hand. |\n| 10 | Anywhere | Ctrl + plus | The camera zooms in one step (a factor of 1.2), about the middle of the screen. |\n| 11 | Anywhere | Ctrl + minus | The camera zooms out one step. |\n| 12 | Anywhere | Ctrl + zero | The camera returns to zoom 1. |\n\nZoom about the middle of the screen is a decision, not a gap: it was judged the most humane choice, so the point under the pointer is not expected to stay put. The middle of the screen holds when zooming in. Zooming out far enough for the workspace to take over (the rollover between a graph and its workspace) re-frames the camera on purpose, so the script only requires that the camera takes the input, in the right direction and by the right factor, and shows whether the middle held as information.\n\nCase 9 needs the second graph opened next to this one. Zoom chosen from the browser menu cannot be triggered or intercepted by a script; check it by hand and record what it does."
+        }
       }
     },
     {
       "id": "wheel-test-bench-check-script",
-      "type": "markdown",
+      "type": "content",
       "label": "Check Script",
       "position": {
         "x": 460,
@@ -905,12 +903,15 @@
         "identity": {
           "graphId": "wheel-test-bench"
         },
-        "markdown": "## Check Script\n\nPaste this into the browser console with the bench open, then run `await runWheelBench()`. It moves the camera between cases, sends wheel events over each fixture, and prints one row per case: who took the wheel or the key, who the contract says should, and whether they match. \"surface\" means the surface under the pointer kept the wheel (it scrolled, or the event was left alone for the browser to scroll); \"pan\" and \"zoom\" mean the camera took it. Script-made events cannot scroll anything natively, so this measures who claims the wheel, and a real wheel or trackpad is still needed to see the scrolling itself. It changes no graph data.\n\n```js\nasync function runWheelBench() {\n  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));\n  const api = window.graphAPI;\n  const canvas = document.getElementById('graph-canvas') || document.body;\n  const box = () => canvas.getBoundingClientRect();\n  const camera = () => { const v = api.getViewport(); return { x: v.pan.x, y: v.pan.y, zoom: v.zoom }; };\n  const inNode = (el) => Boolean(el && el.closest('[data-node-id],[data-node-draggable],[data-node-interactive],[data-workspace-instance]'));\n  // A node's element sits at its graph position, scaled and panned by the camera.\n  const nodeEl = (id) => {\n    const n = api.readNode(id).data;\n    const c = camera();\n    return [...document.querySelectorAll('.node-or-handle')].find((el) =>\n      Math.abs(parseFloat(el.style.left) - (n.position.x * c.zoom + c.x)) < 2 && Math.abs(parseFloat(el.style.top) - (n.position.y * c.zoom + c.y)) < 2) || null;\n  };\n\n  // Put a node in the middle of the screen at zoom 1.\n  const center = async (id) => {\n    const n = api.readNode(id).data;\n    const r = box();\n    api.setViewport({ zoom: 1, pan: { x: r.width / 2 - (n.position.x + n.width / 2), y: r.height / 2 - (n.position.y + n.height / 2) } });\n    await sleep(700);\n  };\n  // The scroll regions inside a node, outermost first.\n  const regions = (el) => [el, ...el.querySelectorAll('*')].filter((e) => /^(auto|scroll)$/.test(getComputedStyle(e).overflowY) && e.scrollHeight > e.clientHeight + 2);\n  const sendWheel = (target, x, y, deltaY, ctrlKey = false) => {\n    const event = new WheelEvent('wheel', { bubbles: true, cancelable: true, clientX: x, clientY: y, deltaY, deltaMode: 0, ctrlKey });\n    target.dispatchEvent(event);\n    return event.defaultPrevented;\n  };\n  const sendKey = (key) => {\n    const event = new KeyboardEvent('keydown', { key, ctrlKey: true, bubbles: true, cancelable: true });\n    document.body.dispatchEvent(event);\n    return event.defaultPrevented;\n  };\n\n  // One case: what moved when the input was used?\n  const attempt = async ({ x, y, deltaY, ctrlKey, key, watch = [] }) => {\n    const before = { camera: camera(), scroll: watch.map((e) => e.scrollTop) };\n    const prevented = key ? sendKey(key) : sendWheel(document.elementFromPoint(x, y) || canvas, x, y, deltaY, ctrlKey);\n    await sleep(500);\n    const after = { camera: camera(), scroll: watch.map((e) => e.scrollTop) };\n    const rect = box();\n    // The graph point at the middle of the screen: zoom is about the centre, so it should not move.\n    const graphAtCentre = (c) => ({ x: (rect.width / 2 - c.x) / c.zoom, y: (rect.height / 2 - c.y) / c.zoom });\n    return {\n      prevented,\n      scrolled: watch.map((e, i) => Math.round(after.scroll[i] - before.scroll[i])),\n      zoomed: Math.abs(after.camera.zoom - before.camera.zoom) > 0.001,\n      panned: Math.hypot(after.camera.x - before.camera.x, after.camera.y - before.camera.y) > 0.5 && Math.abs(after.camera.zoom - before.camera.zoom) <= 0.001,\n      factor: Number((after.camera.zoom / before.camera.zoom).toFixed(3)),\n      zoomNow: Number(after.camera.zoom.toFixed(3)),\n      centreHeld: Math.hypot(graphAtCentre(after.camera).x - graphAtCentre(before.camera).x, graphAtCentre(after.camera).y - graphAtCentre(before.camera).y) < 1.5\n    };\n  };\n  // Script-made wheel events cannot scroll anything natively, so the script measures who claimed the wheel:\n  // 'surface' means the surface under the pointer kept it (it scrolled, or the event was left alone for the browser\n  // to scroll); 'zoom' and 'pan' mean the camera took it.\n  const did = (r) => (r.zoomed ? 'zoom' : r.panned ? 'pan' : (r.scrolled.some((s) => s !== 0) || !r.prevented) ? 'surface' : 'nothing');\n  const rows = [];\n  const record = (id, name, expected, result, check) => rows.push({ case: id, over: name, expected, did: did(result), ok: did(result) === expected && (check ? check(result) : true), ...result });\n  const measure = (id) => nodeEl(id)?.getBoundingClientRect();\n  const middle = (r) => ({ x: r.left + r.width / 2, y: r.top + r.height / 2 });\n  // The camera has to take the input. Whether the middle of the screen holds still (centreHeld, shown for information)\n  // depends on which of the camera's two framings is active, since zooming across the rollover between a graph and its\n  // workspace re-frames on purpose, so it is reported but not required.\n  const zoomedAboutCentre = (res) => res.prevented;\n\n  // 1. Long document, mid-scroll\n  await center('wheel-test-bench-long-doc');\n  let el = nodeEl('wheel-test-bench-long-doc'); let r = measure('wheel-test-bench-long-doc');\n  let watch = regions(el);\n  record(1, 'Long document, mid-scroll', 'surface', await attempt({ ...middle(r), deltaY: 120, watch }));\n\n  // 2. Tall HTML page\n  await center('wheel-test-bench-tall-html');\n  el = nodeEl('wheel-test-bench-tall-html'); r = measure('wheel-test-bench-tall-html'); watch = regions(el);\n  record(2, 'Tall HTML page', 'surface', await attempt({ ...middle(r), deltaY: 120, watch }));\n\n  // 3 and 4. Nested scroller\n  await center('wheel-test-bench-nested');\n  el = nodeEl('wheel-test-bench-nested'); r = measure('wheel-test-bench-nested'); watch = regions(el);\n  const inner = watch.find((e) => e.id === 'inner') || watch[watch.length - 1];\n  const outer = watch.find((e) => e !== inner);\n  inner.scrollTop = 0;\n  const innerBox = middle(inner.getBoundingClientRect());\n  record(3, 'Nested scroller, inner box not at its end', 'surface', await attempt({ ...innerBox, deltaY: 60, watch: [inner, outer].filter(Boolean) }), (res) => !res.prevented);\n  inner.scrollTop = inner.scrollHeight;\n  await sleep(200);\n  record(4, 'Nested scroller, inner box at its end', 'surface', await attempt({ ...innerBox, deltaY: 60, watch: [inner, outer].filter(Boolean) }), (res) => !res.prevented);\n\n  // 5. Long document, at its end: the camera takes the wheel\n  await center('wheel-test-bench-long-doc');\n  el = nodeEl('wheel-test-bench-long-doc'); r = measure('wheel-test-bench-long-doc'); watch = regions(el);\n  watch.forEach((e) => { e.scrollTop = e.scrollHeight; });\n  await sleep(200);\n  record(5, 'Long document, at its end', 'zoom', await attempt({ ...middle(r), deltaY: 120, watch }), zoomedAboutCentre);\n\n  // 6. Nothing to scroll: the camera takes the wheel\n  await center('wheel-test-bench-short');\n  el = nodeEl('wheel-test-bench-short'); r = measure('wheel-test-bench-short');\n  record(6, 'Nothing to scroll', 'zoom', await attempt({ ...middle(r), deltaY: 120, watch: regions(el) }), zoomedAboutCentre);\n\n  // 7. Empty canvas: a point below the label, with no node under it\n  await center('wheel-test-bench-empty-label');\n  const label = measure('wheel-test-bench-empty-label');\n  const empty = { x: label.left + label.width / 2, y: label.bottom + 180 };\n  if (inNode(document.elementFromPoint(empty.x, empty.y))) {\n    rows.push({ case: 7, over: 'Empty canvas', expected: 'zoom', did: 'blocked', ok: false });\n  } else {\n    record(7, 'Empty canvas', 'zoom', await attempt({ ...empty, deltaY: 120 }), zoomedAboutCentre);\n  }\n\n  // 8. Ctrl + wheel over a content node: camera zoom, never browser page zoom\n  await center('wheel-test-bench-long-doc');\n  el = nodeEl('wheel-test-bench-long-doc'); r = measure('wheel-test-bench-long-doc'); watch = regions(el);\n  record(8, 'Content node, Ctrl + wheel', 'zoom', await attempt({ ...middle(r), deltaY: -120, ctrlKey: true, watch }), (res) => zoomedAboutCentre(res) && res.scrolled.every((s) => s === 0));\n\n  // 10 to 12. Keyboard zoom: Ctrl and plus, minus, zero\n  await center('wheel-test-bench-long-doc');\n  record(10, 'Ctrl + plus', 'zoom', await attempt({ key: '+' }), (res) => zoomedAboutCentre(res) && Math.abs(res.factor - 1.2) < 0.01);\n  record(11, 'Ctrl + minus', 'zoom', await attempt({ key: '-' }), (res) => zoomedAboutCentre(res) && Math.abs(res.factor - 1 / 1.2) < 0.01);\n  api.setViewport({ zoom: 2.2, pan: camera() });\n  await sleep(300);\n  record(12, 'Ctrl + zero', 'zoom', await attempt({ key: '0' }), (res) => res.prevented && res.zoomNow === 1);\n\n  const table = rows.map((row) => ({\n    case: row.case, over: row.over, expected: row.expected, did: row.did, matches: row.ok ? 'yes' : 'NO',\n    prevented: row.prevented, scrolled: JSON.stringify(row.scrolled), factor: row.factor, centreHeld: row.centreHeld\n  }));\n  console.table(table);\n  console.log(`${rows.filter((row) => row.ok).length} of ${rows.length} cases match the contract`);\n  return table;\n}\n\n```"
+        "content": {
+          "kind": "markdown",
+          "value": "## Check Script\n\nPaste this into the browser console with the bench open, then run `await runWheelBench()`. It moves the camera between cases, sends wheel events over each fixture, and prints one row per case: who took the wheel or the key, who the contract says should, and whether they match. \"surface\" means the surface under the pointer kept the wheel (it scrolled, or the event was left alone for the browser to scroll); \"pan\" and \"zoom\" mean the camera took it. Script-made events cannot scroll anything natively, so this measures who claims the wheel, and a real wheel or trackpad is still needed to see the scrolling itself. It changes no graph data.\n\n```js\nasync function runWheelBench() {\n  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));\n  const api = window.graphAPI;\n  const canvas = document.getElementById('graph-canvas') || document.body;\n  const box = () => canvas.getBoundingClientRect();\n  const camera = () => { const v = api.getViewport(); return { x: v.pan.x, y: v.pan.y, zoom: v.zoom }; };\n  const inNode = (el) => Boolean(el && el.closest('[data-node-id],[data-node-draggable],[data-node-interactive],[data-workspace-instance]'));\n  // A node's element sits at its graph position, scaled and panned by the camera.\n  const nodeEl = (id) => {\n    const n = api.readNode(id).data;\n    const c = camera();\n    return [...document.querySelectorAll('.node-or-handle')].find((el) =>\n      Math.abs(parseFloat(el.style.left) - (n.position.x * c.zoom + c.x)) < 2 && Math.abs(parseFloat(el.style.top) - (n.position.y * c.zoom + c.y)) < 2) || null;\n  };\n\n  // Put a node in the middle of the screen at zoom 1.\n  const center = async (id) => {\n    const n = api.readNode(id).data;\n    const r = box();\n    api.setViewport({ zoom: 1, pan: { x: r.width / 2 - (n.position.x + n.width / 2), y: r.height / 2 - (n.position.y + n.height / 2) } });\n    await sleep(700);\n  };\n  // The scroll regions inside a node, outermost first.\n  const regions = (el) => [el, ...el.querySelectorAll('*')].filter((e) => /^(auto|scroll)$/.test(getComputedStyle(e).overflowY) && e.scrollHeight > e.clientHeight + 2);\n  const sendWheel = (target, x, y, deltaY, ctrlKey = false) => {\n    const event = new WheelEvent('wheel', { bubbles: true, cancelable: true, clientX: x, clientY: y, deltaY, deltaMode: 0, ctrlKey });\n    target.dispatchEvent(event);\n    return event.defaultPrevented;\n  };\n  const sendKey = (key) => {\n    const event = new KeyboardEvent('keydown', { key, ctrlKey: true, bubbles: true, cancelable: true });\n    document.body.dispatchEvent(event);\n    return event.defaultPrevented;\n  };\n\n  // One case: what moved when the input was used?\n  const attempt = async ({ x, y, deltaY, ctrlKey, key, watch = [] }) => {\n    const before = { camera: camera(), scroll: watch.map((e) => e.scrollTop) };\n    const prevented = key ? sendKey(key) : sendWheel(document.elementFromPoint(x, y) || canvas, x, y, deltaY, ctrlKey);\n    await sleep(500);\n    const after = { camera: camera(), scroll: watch.map((e) => e.scrollTop) };\n    const rect = box();\n    // The graph point at the middle of the screen: zoom is about the centre, so it should not move.\n    const graphAtCentre = (c) => ({ x: (rect.width / 2 - c.x) / c.zoom, y: (rect.height / 2 - c.y) / c.zoom });\n    return {\n      prevented,\n      scrolled: watch.map((e, i) => Math.round(after.scroll[i] - before.scroll[i])),\n      zoomed: Math.abs(after.camera.zoom - before.camera.zoom) > 0.001,\n      panned: Math.hypot(after.camera.x - before.camera.x, after.camera.y - before.camera.y) > 0.5 && Math.abs(after.camera.zoom - before.camera.zoom) <= 0.001,\n      factor: Number((after.camera.zoom / before.camera.zoom).toFixed(3)),\n      zoomNow: Number(after.camera.zoom.toFixed(3)),\n      centreHeld: Math.hypot(graphAtCentre(after.camera).x - graphAtCentre(before.camera).x, graphAtCentre(after.camera).y - graphAtCentre(before.camera).y) < 1.5\n    };\n  };\n  // Script-made wheel events cannot scroll anything natively, so the script measures who claimed the wheel:\n  // 'surface' means the surface under the pointer kept it (it scrolled, or the event was left alone for the browser\n  // to scroll); 'zoom' and 'pan' mean the camera took it.\n  const did = (r) => (r.zoomed ? 'zoom' : r.panned ? 'pan' : (r.scrolled.some((s) => s !== 0) || !r.prevented) ? 'surface' : 'nothing');\n  const rows = [];\n  const record = (id, name, expected, result, check) => rows.push({ case: id, over: name, expected, did: did(result), ok: did(result) === expected && (check ? check(result) : true), ...result });\n  const measure = (id) => nodeEl(id)?.getBoundingClientRect();\n  const middle = (r) => ({ x: r.left + r.width / 2, y: r.top + r.height / 2 });\n  // The camera has to take the input. Whether the middle of the screen holds still (centreHeld, shown for information)\n  // depends on which of the camera's two framings is active, since zooming across the rollover between a graph and its\n  // workspace re-frames on purpose, so it is reported but not required.\n  const zoomedAboutCentre = (res) => res.prevented;\n\n  // 1. Long document, mid-scroll\n  await center('wheel-test-bench-long-doc');\n  let el = nodeEl('wheel-test-bench-long-doc'); let r = measure('wheel-test-bench-long-doc');\n  let watch = regions(el);\n  record(1, 'Long document, mid-scroll', 'surface', await attempt({ ...middle(r), deltaY: 120, watch }));\n\n  // 2. Tall HTML page\n  await center('wheel-test-bench-tall-html');\n  el = nodeEl('wheel-test-bench-tall-html'); r = measure('wheel-test-bench-tall-html'); watch = regions(el);\n  record(2, 'Tall HTML page', 'surface', await attempt({ ...middle(r), deltaY: 120, watch }));\n\n  // 3 and 4. Nested scroller\n  await center('wheel-test-bench-nested');\n  el = nodeEl('wheel-test-bench-nested'); r = measure('wheel-test-bench-nested'); watch = regions(el);\n  const inner = watch.find((e) => e.id === 'inner') || watch[watch.length - 1];\n  const outer = watch.find((e) => e !== inner);\n  inner.scrollTop = 0;\n  const innerBox = middle(inner.getBoundingClientRect());\n  record(3, 'Nested scroller, inner box not at its end', 'surface', await attempt({ ...innerBox, deltaY: 60, watch: [inner, outer].filter(Boolean) }), (res) => !res.prevented);\n  inner.scrollTop = inner.scrollHeight;\n  await sleep(200);\n  record(4, 'Nested scroller, inner box at its end', 'surface', await attempt({ ...innerBox, deltaY: 60, watch: [inner, outer].filter(Boolean) }), (res) => !res.prevented);\n\n  // 5. Long document, at its end: the camera takes the wheel\n  await center('wheel-test-bench-long-doc');\n  el = nodeEl('wheel-test-bench-long-doc'); r = measure('wheel-test-bench-long-doc'); watch = regions(el);\n  watch.forEach((e) => { e.scrollTop = e.scrollHeight; });\n  await sleep(200);\n  record(5, 'Long document, at its end', 'zoom', await attempt({ ...middle(r), deltaY: 120, watch }), zoomedAboutCentre);\n\n  // 6. Nothing to scroll: the camera takes the wheel\n  await center('wheel-test-bench-short');\n  el = nodeEl('wheel-test-bench-short'); r = measure('wheel-test-bench-short');\n  record(6, 'Nothing to scroll', 'zoom', await attempt({ ...middle(r), deltaY: 120, watch: regions(el) }), zoomedAboutCentre);\n\n  // 7. Empty canvas: a point below the label, with no node under it\n  await center('wheel-test-bench-empty-label');\n  const label = measure('wheel-test-bench-empty-label');\n  const empty = { x: label.left + label.width / 2, y: label.bottom + 180 };\n  if (inNode(document.elementFromPoint(empty.x, empty.y))) {\n    rows.push({ case: 7, over: 'Empty canvas', expected: 'zoom', did: 'blocked', ok: false });\n  } else {\n    record(7, 'Empty canvas', 'zoom', await attempt({ ...empty, deltaY: 120 }), zoomedAboutCentre);\n  }\n\n  // 8. Ctrl + wheel over a content node: camera zoom, never browser page zoom\n  await center('wheel-test-bench-long-doc');\n  el = nodeEl('wheel-test-bench-long-doc'); r = measure('wheel-test-bench-long-doc'); watch = regions(el);\n  record(8, 'Content node, Ctrl + wheel', 'zoom', await attempt({ ...middle(r), deltaY: -120, ctrlKey: true, watch }), (res) => zoomedAboutCentre(res) && res.scrolled.every((s) => s === 0));\n\n  // 10 to 12. Keyboard zoom: Ctrl and plus, minus, zero\n  await center('wheel-test-bench-long-doc');\n  record(10, 'Ctrl + plus', 'zoom', await attempt({ key: '+' }), (res) => zoomedAboutCentre(res) && Math.abs(res.factor - 1.2) < 0.01);\n  record(11, 'Ctrl + minus', 'zoom', await attempt({ key: '-' }), (res) => zoomedAboutCentre(res) && Math.abs(res.factor - 1 / 1.2) < 0.01);\n  api.setViewport({ zoom: 2.2, pan: camera() });\n  await sleep(300);\n  record(12, 'Ctrl + zero', 'zoom', await attempt({ key: '0' }), (res) => res.prevented && res.zoomNow === 1);\n\n  const table = rows.map((row) => ({\n    case: row.case, over: row.over, expected: row.expected, did: row.did, matches: row.ok ? 'yes' : 'NO',\n    prevented: row.prevented, scrolled: JSON.stringify(row.scrolled), factor: row.factor, centreHeld: row.centreHeld\n  }));\n  console.table(table);\n  console.log(`${rows.filter((row) => row.ok).length} of ${rows.length} cases match the contract`);\n  return table;\n}\n\n```"
+        }
       }
     },
     {
       "id": "wheel-test-bench-observations",
-      "type": "markdown",
+      "type": "content",
       "label": "Observations",
       "position": {
         "x": -120,
@@ -933,7 +934,10 @@
         "identity": {
           "graphId": "wheel-test-bench"
         },
-        "markdown": "## Observations\n\n### Run 1: script, headless Edge, before the changes\n\nAgainst the first contract (plain wheel pans; zoom under the pointer): 4 of 8 matched. Cases 1 to 4 (scrolling surfaces) matched. Over a card with nothing to scroll, or a document at its end, the wheel went nowhere, because the node swallowed it. On empty canvas the wheel zoomed about the screen centre. Ctrl + wheel over a content node was left to the browser.\n\n### Run 2: by hand, reported by Michael\n\nThe check script was not run. The scrolling fixtures scroll as expected (cases 1 to 4). The Page Template, a real page view hosted at workspace level, scrolls with the wheel (case 9, on the Page Template rather than the Wheel Test Page).\n\n### Decisions that followed\n\n- Zoom about the middle of the screen is kept: the most humane choice.\n- The plain wheel over the workspace zooms, so Ctrl + wheel has no special meaning beyond never being browser page zoom.\n- Browser zoom keys (Ctrl and plus, minus, zero) should drive the camera.\n\n### Run 3: real (trusted) wheel and key input, headless Edge, after the changes\n\n| Case | Result |\n|---|---|\n| Card with nothing to scroll, wheel | Camera zoomed, 1 to 0.76. |\n| Long document, mid-scroll, wheel | Scrolled 0 to 120, zoom held. |\n| Long document, at its end, wheel | Camera zoomed, 1 to 0.76. |\n| Long document, Ctrl + wheel | Camera zoomed, 1 to 1.24, nothing scrolled. |\n| Nested scroller, inner at end, wheel | Outer page scrolled 0 to 120, zoom held. |\n| Ctrl + plus, Ctrl + minus, Ctrl + zero | 1.488, then 1.24, then exactly 1 with the pan restored. |\n\nThe zoom-out framing differs from zoom-in: from the same start, zooming out ended in the same off-centre place every time (a wheel out landed 1 to 0.76 with the pan at -182, 269), while zooming in held the middle of the screen exactly. This is the workspace camera swapping to its saved workspace framing past the rollover seam, which was already there and was not changed.\n\n### Run 4: the updated check script, headless Edge\n\n11 of 11 cases match. \"Factor\" is the camera zoom after over before; \"surface\" means the surface kept the wheel.\n\n| # | Over | Expected | Did | Factor |\n|---|---|---|---|---|\n| 1 | Long document, mid-scroll | surface | surface | 1 |\n| 2 | Tall HTML page | surface | surface | 1 |\n| 3 | Nested scroller, inner not at end | surface | surface | 1 |\n| 4 | Nested scroller, inner at end | surface | surface | 1 |\n| 5 | Long document, at its end | zoom | zoom | 0.76 |\n| 6 | Nothing to scroll | zoom | zoom | 0.76 |\n| 7 | Empty canvas | zoom | zoom | 0.76 |\n| 8 | Content node, Ctrl + wheel | zoom | zoom | 1.24 |\n| 10 | Ctrl + plus | zoom | zoom | 1.2 |\n| 11 | Ctrl + minus | zoom | zoom | 0.833 |\n| 12 | Ctrl + zero | zoom (to 1) | zoom | to 1 |\n\n### Run 5: after the rules moved into one contract\n\nThe check script matched 11 of 11 again. Real wheel input gave the same numbers as run 3 (card with nothing to scroll 1 to 0.76; long document mid-scroll 0 to 120 with the zoom held; at its end 1 to 0.76; Ctrl + wheel 1 to 1.24; nested scroller passed the wheel to the outer page, 0 to 120), and a page view at workspace level scrolled 0 to 337 and then handed the wheel to the camera. No behavior changed.\n\nCase 9 was checked by hand in run 2. Not yet checked: menu zoom, and latching a gesture to its surface (real trackpad momentum)."
+        "content": {
+          "kind": "markdown",
+          "value": "## Observations\n\n### Run 1: script, headless Edge, before the changes\n\nAgainst the first contract (plain wheel pans; zoom under the pointer): 4 of 8 matched. Cases 1 to 4 (scrolling surfaces) matched. Over a card with nothing to scroll, or a document at its end, the wheel went nowhere, because the node swallowed it. On empty canvas the wheel zoomed about the screen centre. Ctrl + wheel over a content node was left to the browser.\n\n### Run 2: by hand, reported by Michael\n\nThe check script was not run. The scrolling fixtures scroll as expected (cases 1 to 4). The Page Template, a real page view hosted at workspace level, scrolls with the wheel (case 9, on the Page Template rather than the Wheel Test Page).\n\n### Decisions that followed\n\n- Zoom about the middle of the screen is kept: the most humane choice.\n- The plain wheel over the workspace zooms, so Ctrl + wheel has no special meaning beyond never being browser page zoom.\n- Browser zoom keys (Ctrl and plus, minus, zero) should drive the camera.\n\n### Run 3: real (trusted) wheel and key input, headless Edge, after the changes\n\n| Case | Result |\n|---|---|\n| Card with nothing to scroll, wheel | Camera zoomed, 1 to 0.76. |\n| Long document, mid-scroll, wheel | Scrolled 0 to 120, zoom held. |\n| Long document, at its end, wheel | Camera zoomed, 1 to 0.76. |\n| Long document, Ctrl + wheel | Camera zoomed, 1 to 1.24, nothing scrolled. |\n| Nested scroller, inner at end, wheel | Outer page scrolled 0 to 120, zoom held. |\n| Ctrl + plus, Ctrl + minus, Ctrl + zero | 1.488, then 1.24, then exactly 1 with the pan restored. |\n\nThe zoom-out framing differs from zoom-in: from the same start, zooming out ended in the same off-centre place every time (a wheel out landed 1 to 0.76 with the pan at -182, 269), while zooming in held the middle of the screen exactly. This is the workspace camera swapping to its saved workspace framing past the rollover seam, which was already there and was not changed.\n\n### Run 4: the updated check script, headless Edge\n\n11 of 11 cases match. \"Factor\" is the camera zoom after over before; \"surface\" means the surface kept the wheel.\n\n| # | Over | Expected | Did | Factor |\n|---|---|---|---|---|\n| 1 | Long document, mid-scroll | surface | surface | 1 |\n| 2 | Tall HTML page | surface | surface | 1 |\n| 3 | Nested scroller, inner not at end | surface | surface | 1 |\n| 4 | Nested scroller, inner at end | surface | surface | 1 |\n| 5 | Long document, at its end | zoom | zoom | 0.76 |\n| 6 | Nothing to scroll | zoom | zoom | 0.76 |\n| 7 | Empty canvas | zoom | zoom | 0.76 |\n| 8 | Content node, Ctrl + wheel | zoom | zoom | 1.24 |\n| 10 | Ctrl + plus | zoom | zoom | 1.2 |\n| 11 | Ctrl + minus | zoom | zoom | 0.833 |\n| 12 | Ctrl + zero | zoom (to 1) | zoom | to 1 |\n\n### Run 5: after the rules moved into one contract\n\nThe check script matched 11 of 11 again. Real wheel input gave the same numbers as run 3 (card with nothing to scroll 1 to 0.76; long document mid-scroll 0 to 120 with the zoom held; at its end 1 to 0.76; Ctrl + wheel 1 to 1.24; nested scroller passed the wheel to the outer page, 0 to 120), and a page view at workspace level scrolled 0 to 337 and then handed the wheel to the camera. No behavior changed.\n\nCase 9 was checked by hand in run 2. Not yet checked: menu zoom, and latching a gesture to its surface (real trackpad momentum)."
+        }
       }
     },
     {
@@ -1029,76 +1033,64 @@
       "type": "surface",
       "source": "wheel-test-bench-declaration",
       "target": "wheel-test-bench-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "wheel-test-bench-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "wheel-test-bench-detail-view",
       "target": "wheel-test-bench-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "wheel-test-bench-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "wheel-test-bench-summary-view",
       "target": "wheel-test-bench-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "wheel-test-bench-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "wheel-test-bench-icon-view",
       "target": "wheel-test-bench-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "wheel-test-bench-landing-surface-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "wheel-test-bench-declaration",
       "target": "wheel-test-bench-landing-surface",
-      "label": "landing surface",
+      "label": "ground",
       "style": {},
-      "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface"
-      },
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "wheel-test-bench-portal-page-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "wheel-test-bench-setup",
       "target": "wheel-test-bench-portal-page",
       "label": "case 9",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "style": {
         "curved": false,
         "dash": [
@@ -1110,16 +1102,16 @@
       },
       "data": {
         "relation": "navigation"
-      }
+      },
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "wheel-test-bench-portal-idea-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "wheel-test-bench-observations",
       "target": "wheel-test-bench-portal-idea",
       "label": "tests",
-      "sourceHandle": "root",
-      "targetHandle": "root",
       "style": {
         "curved": false,
         "dash": [
@@ -1131,23 +1123,22 @@
       },
       "data": {
         "relation": "navigation"
-      }
+      },
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "wheel-test-bench-enter-subject",
-      "type": "reference",
+      "type": "enter",
       "source": "wheel-test-bench-landing-surface",
       "target": "wheel-test-bench-long-doc",
-      "sourceHandle": "enter",
-      "targetHandle": "root",
       "label": "Enter test bench",
       "style": {},
-      "data": {
-        "semanticRole": "enter"
-      }
+      "data": {},
+      "sourcePort": "enter",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,
@@ -1187,8 +1178,5 @@
     },
     "autoSave": false
   },
-  "scripts": [],
-  "timestamp": "2026-09-20T23:24:22.118Z",
-  "nodeCount": 17,
-  "edgeCount": 8
+  "scripts": []
 }

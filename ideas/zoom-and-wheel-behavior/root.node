@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "The Camera Behaves Like the Browser",
-    "description": "A gesture contract for zoom and the mouse wheel in Twilite: browser zoom drives the camera, and the wheel acts on the surface under the pointer the way it does on the web, panning the camera when that surface has nothing to scroll.",
-    "graphId": "zoom-and-wheel-behavior",
-    "version": "0.1.0",
-    "kind": "graph",
     "created": "2026-09-20T21:37:51.291Z",
     "modified": "2026-09-20T21:37:51.291Z",
     "author": "",
@@ -23,9 +18,8 @@
   "nodes": [
     {
       "id": "zoom-and-wheel-behavior-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "The Camera Behaves Like the Browser",
-      "root": false,
       "position": {
         "x": -900,
         "y": -1500
@@ -61,20 +55,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -127,14 +121,14 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "surfaces",
@@ -179,17 +173,6 @@
         "intent": {
           "kind": "graph",
           "scope": "shared"
-        },
-        "declaration": {
-          "kind": "idea",
-          "targetMode": "artifact",
-          "artifactKind": "idea-graph",
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          },
-          "defaultSurfaceId": "default-view",
-          "surfaces": []
         },
         "dependencies": {
           "nodeTypes": [
@@ -272,6 +255,17 @@
         },
         "document": {
           "url": "github://mikemartinez1974/public/ideas/zoom-and-wheel-behavior/root.node"
+        },
+        "root": {
+          "kind": "idea",
+          "targetMode": "artifact",
+          "artifactKind": "idea-graph",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "default-view",
+          "surfaces": []
         }
       }
     },
@@ -279,7 +273,6 @@
       "id": "zoom-and-wheel-behavior-instructions",
       "type": "content",
       "label": "Gesture Contract Sketch",
-      "root": false,
       "position": {
         "x": -2060,
         "y": 260
@@ -357,7 +350,6 @@
       "id": "zoom-and-wheel-behavior-idea",
       "type": "idea",
       "label": "The Camera Behaves Like the Browser",
-      "root": false,
       "position": {
         "x": -220,
         "y": -160
@@ -445,39 +437,6 @@
         "status": "framed",
         "confidence": "unproven",
         "notes": "Raised from a real failure: a page view hosted in a workspace graph showed a scrollbar that the wheel could not scroll. Michael decided two things along the way: zooming about the centre of the screen is the most humane choice, so zoom stays centred and is not moved under the pointer; and the plain wheel over the workspace zooming the camera is fine, which makes Ctrl+wheel nothing special. The code that decides who owns a wheel event already exists (components/NodeGraph/interactionArbiter.js in the twilite repo).",
-        "definitionKey": "idea",
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Lightbulb"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -486,7 +445,8 @@
             "kind": "icon",
             "name": "Lightbulb"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
       },
       "handles": [
         {
@@ -568,9 +528,8 @@
     },
     {
       "id": "zoom-and-wheel-behavior-bridge-idea",
-      "type": "bridge",
+      "type": "import",
       "label": "Idea",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -1046.5738210094617
@@ -617,126 +576,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-          "defaults": {
-            "label": "Idea",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#7c3aed",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "statement": "",
-              "status": "spark",
-              "confidence": "unproven",
-              "notes": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Lightbulb"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Idea",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#7c3aed",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "statement": "",
-                "status": "spark",
-                "confidence": "unproven",
-                "notes": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Lightbulb"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -824,7 +663,6 @@
       "id": "zoom-and-wheel-behavior-idea-problem",
       "type": "idea-problem",
       "label": "Wheel Means Zoom, and Scrollbars Lie",
-      "root": false,
       "position": {
         "x": -940,
         "y": -160
@@ -880,39 +718,6 @@
         "statement": "The wheel and the browser zoom controls did not agree with the camera. Ctrl+wheel, a trackpad pinch and the keyboard zoom keys scaled the whole browser page out from under the camera, and over content nodes Ctrl+wheel was swallowed by the node. Content that showed a scrollbar could fail to scroll, because a layer cancelled the wheel or drew the view where it could not be pointed at. A card with nothing to scroll swallowed the wheel, so the camera could not be zoomed from there. Twilite therefore had two unrelated zoom systems and a wheel with different rules from other web pages.",
         "impact": "People cannot read long content inside a graph, zoom the way they expect, or trust what a scrollbar promises. Accessibility zoom fights the camera, and every new surface (a page view, a document, an embedded frame) has to solve wheel handling again.",
         "urgency": "high",
-        "definitionKey": "idea-problem",
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ReportProblem"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -921,7 +726,8 @@
             "kind": "icon",
             "name": "ReportProblem"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node"
       },
       "handles": [
         {
@@ -969,9 +775,8 @@
     },
     {
       "id": "zoom-and-wheel-behavior-bridge-idea-problem",
-      "type": "bridge",
+      "type": "import",
       "label": "Problem",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -896.5738210094617
@@ -1018,124 +823,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-problem",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-problem",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-          "defaults": {
-            "label": "Problem",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#dc2626",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "statement": "",
-              "impact": "",
-              "urgency": "unknown",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ReportProblem"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-problem",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Problem",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#dc2626",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "statement": "",
-                "impact": "",
-                "urgency": "unknown",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "ReportProblem"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-problem",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-problem",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-problem",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-problem",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-problem.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1223,7 +910,6 @@
       "id": "zoom-and-wheel-behavior-idea-audience",
       "type": "idea-audience",
       "label": "Readers, Authors and Touch Users",
-      "root": false,
       "position": {
         "x": -1540,
         "y": -160
@@ -1262,39 +948,6 @@
         "title": "Everyone who reads or edits a graph",
         "description": "Readers of pages and documents hosted in graphs, authors working across a large canvas, people with a mouse wheel, a trackpad or a touch screen, and people who raise browser zoom for accessibility.",
         "needs": "Scroll long content without thinking about it, move around the canvas without a mode, zoom with the gesture they already know, and have their browser zoom respected as the camera zoom.",
-        "definitionKey": "idea-audience",
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Groups"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -1303,7 +956,8 @@
             "kind": "icon",
             "name": "Groups"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
       },
       "handles": [
         {
@@ -1334,9 +988,8 @@
     },
     {
       "id": "zoom-and-wheel-behavior-bridge-idea-audience",
-      "type": "bridge",
+      "type": "import",
       "label": "Audience",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -746.5738210094617
@@ -1383,122 +1036,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-audience",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-audience",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-          "defaults": {
-            "label": "Audience",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#2563eb",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "needs": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Groups"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-audience",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Audience",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#2563eb",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "needs": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Groups"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-audience",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-audience",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-audience",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-audience",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1586,7 +1123,6 @@
       "id": "zoom-and-wheel-behavior-idea-proposed-approach",
       "type": "idea-proposed-approach",
       "label": "A Gesture Contract",
-      "root": false,
       "position": {
         "x": 560,
         "y": -160
@@ -1640,39 +1176,6 @@
         "title": "One gesture contract, applied by the arbiter that already exists",
         "description": "Write the rules down as a table of input by target, and let the existing interaction arbiter apply it. Zoom gestures (Ctrl or Cmd with the wheel, trackpad pinch, and Ctrl or Cmd with plus, minus and zero) always drive the camera zoom, about the middle of the screen like the plain wheel, and never the browser page zoom. A plain wheel goes to the surface under the pointer: the nearest ancestor that can scroll in that direction scrolls, and when none can, because it is at its end or has nothing to scroll, the wheel zooms the camera, as it does over empty workspace. A gesture that starts on a surface should stay with it until it pauses, so content does not hand off to the camera in the middle of a flick.",
         "differentiator": "It does not add a mode or a new control. It makes Twilite follow the rules people already know from the web, and it puts the whole behavior in one testable table instead of scattered wheel listeners.",
-        "definitionKey": "idea-proposed-approach",
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Route"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -1681,7 +1184,8 @@
             "kind": "icon",
             "name": "Route"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node"
       },
       "handles": [
         {
@@ -1729,9 +1233,8 @@
     },
     {
       "id": "zoom-and-wheel-behavior-bridge-idea-proposed-approach",
-      "type": "bridge",
+      "type": "import",
       "label": "Proposed Approach",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -596.5738210094617
@@ -1778,122 +1281,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-proposed-approach",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-proposed-approach",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-          "defaults": {
-            "label": "Proposed Approach",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#0891b2",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "differentiator": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Route"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-proposed-approach",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Proposed Approach",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#0891b2",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "differentiator": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Route"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-proposed-approach",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-proposed-approach",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-proposed-approach",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-proposed-approach",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-proposed-approach.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -1981,7 +1368,6 @@
       "id": "zoom-and-wheel-behavior-idea-question",
       "type": "idea-question",
       "label": "What About Menu Zoom?",
-      "root": false,
       "position": {
         "x": -1180,
         "y": 700
@@ -2036,39 +1422,6 @@
         "question": "Zoom chosen from the browser menu or a keyboard shortcut the page cannot cancel scales the page anyway. Should Twilite detect the change and convert it into camera zoom (undoing the page scale), accept it as page scale and leave the camera alone, or do something in between?",
         "status": "open",
         "answer": "Open. Converting is closest to \"browser zoom zooms the camera\" but fights the browser and may break accessibility reflow. Accepting it is honest but leaves two zooms. Detect through devicePixelRatio and the visual viewport, try converting in the smallest case, and let a small trial show which one people can live with.",
-        "definitionKey": "idea-question",
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -2077,7 +1430,8 @@
             "kind": "icon",
             "name": "HelpOutline"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
       },
       "handles": [
         {
@@ -2125,9 +1479,8 @@
     },
     {
       "id": "zoom-and-wheel-behavior-bridge-idea-question",
-      "type": "bridge",
+      "type": "import",
       "label": "Question",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -446.57382100946165
@@ -2174,124 +1527,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "defaults": {
-            "label": "Question",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#ca8a04",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "question": "",
-              "status": "open",
-              "answer": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-question",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Question",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#ca8a04",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "question": "",
-                "status": "open",
-                "answer": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "HelpOutline"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-question",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-question",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-question",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-question",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -2379,7 +1614,6 @@
       "id": "zoom-and-wheel-behavior-idea-assumption",
       "type": "idea-assumption",
       "label": "The Arbiter Can Decide Reliably",
-      "root": false,
       "position": {
         "x": -1180,
         "y": 260
@@ -2466,39 +1700,6 @@
         "statement": "For a wheel event, the arbiter can find the nearest scrollable ancestor, know whether it can move in the event direction, and get the answer right across nested surfaces: a page view inside a workspace graph inside the canvas.",
         "importance": "critical",
         "status": "untested",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -2507,7 +1708,8 @@
             "kind": "icon",
             "name": "PsychologyAlt"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
       },
       "handles": [
         {
@@ -2589,9 +1791,8 @@
     },
     {
       "id": "zoom-and-wheel-behavior-bridge-idea-assumption",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumption",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -296.57382100946165
@@ -2638,124 +1839,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "label": "Assumption",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#d97706",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "statement": "",
-              "importance": "critical",
-              "status": "untested",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-assumption",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Assumption",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#d97706",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "statement": "",
-                "importance": "critical",
-                "status": "untested",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "PsychologyAlt"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-assumption",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-assumption",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-assumption",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-assumption",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -2843,7 +1926,6 @@
       "id": "zoom-and-wheel-behavior-idea-research",
       "type": "idea-research",
       "label": "How the Web Handles the Wheel",
-      "root": false,
       "position": {
         "x": -1780,
         "y": 700
@@ -2882,39 +1964,6 @@
         "findings": "Browsers give a wheel event to the innermost scrollable element under the pointer, and pass it outward (scroll chaining) only once that element cannot move further, and they keep a gesture on the element it started on until it pauses (a wheel transaction), which avoids mid-flick handoffs. A trackpad pinch arrives as a wheel event with ctrlKey set, and Ctrl or Cmd with the wheel is the standard zoom gesture. Pages may cancel these events only with a non-passive listener. Zoom changed from the browser menu or the keyboard is not cancelable in every browser, but changes window.devicePixelRatio and the visual viewport, which a page can observe.",
         "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/API/Element/wheel_event",
         "sourceType": "other",
-        "definitionKey": "idea-research",
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Search"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -2923,7 +1972,8 @@
             "kind": "icon",
             "name": "Search"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node"
       },
       "handles": [
         {
@@ -2954,9 +2004,8 @@
     },
     {
       "id": "zoom-and-wheel-behavior-bridge-idea-research",
-      "type": "bridge",
+      "type": "import",
       "label": "Research",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": -146.57382100946165
@@ -3003,124 +2052,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-research",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-research",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-          "defaults": {
-            "label": "Research",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#4f46e5",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "findings": "",
-              "sourceUrl": "",
-              "sourceType": "article",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Search"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-research",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Research",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#4f46e5",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "findings": "",
-                "sourceUrl": "",
-                "sourceType": "article",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Search"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-research",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-research",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-research",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-research",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-research.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -3208,7 +2139,6 @@
       "id": "zoom-and-wheel-behavior-idea-evidence",
       "type": "idea-evidence",
       "label": "A Scrollbar That Does Nothing",
-      "root": false,
       "position": {
         "x": 740,
         "y": 260
@@ -3247,39 +2177,6 @@
         "observation": "On the deployed dev site, a page view hosted in a workspace graph (the Page Template) shows a vertical scrollbar, and the wheel over it does not scroll the page. This was reported from a real screen, and it only happens when the camera is zoomed out to the workspace: zoomed into the graph, scrolling web content works. Cause found: at workspace level the page view of a graph is drawn as an inert background (inert and pointer-events none in WorkspaceLayer.js), so the wheel can never reach it and goes to the canvas, which zooms, even though the view draws a scrollbar. A first fix now gives the wheel to that view when it can scroll the way the wheel goes, and checked in the running app the page scrolls to its end and only then does the wheel zoom.",
         "kind": "observation",
         "strength": "moderate",
-        "definitionKey": "idea-evidence",
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "FactCheck"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -3289,7 +2186,8 @@
             "name": "FactCheck"
           }
         },
-        "citationSourceId": ""
+        "citationSourceId": "",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
       },
       "handles": [
         {
@@ -3320,9 +2218,8 @@
     },
     {
       "id": "zoom-and-wheel-behavior-bridge-idea-evidence",
-      "type": "bridge",
+      "type": "import",
       "label": "Evidence",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 3.4261789905383466
@@ -3369,126 +2266,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "defaults": {
-            "label": "Evidence",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#059669",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "observation": "",
-              "kind": "observation",
-              "strength": "weak",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "FactCheck"
-                }
-              },
-              "citationSourceId": ""
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-evidence",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Evidence",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#059669",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "observation": "",
-                "kind": "observation",
-                "strength": "weak",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "FactCheck"
-                  }
-                },
-                "citationSourceId": ""
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-evidence",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-evidence",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-evidence",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-evidence",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -3576,7 +2353,6 @@
       "id": "zoom-and-wheel-behavior-idea-alternative",
       "type": "idea-alternative",
       "label": "Keep Wheel = Zoom, Add a Scroll Modifier",
-      "root": false,
       "position": {
         "x": 1160,
         "y": -160
@@ -3614,39 +2390,6 @@
         "title": "Keep the wheel as zoom and make scrolling the special case",
         "description": "Leave the plain wheel as the camera zoom and require a modifier (or a click into the surface) to scroll content, as many canvas tools do.",
         "tradeoffs": "Nothing changes for people used to canvas tools, and it is the smallest change. But it keeps the mismatch with every other web page, it does not fix scrollbars that seem to do nothing, and it leaves browser zoom unaddressed.",
-        "definitionKey": "idea-alternative",
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "AltRoute"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -3655,7 +2398,8 @@
             "kind": "icon",
             "name": "AltRoute"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node"
       },
       "handles": [
         {
@@ -3686,9 +2430,8 @@
     },
     {
       "id": "zoom-and-wheel-behavior-bridge-idea-alternative",
-      "type": "bridge",
+      "type": "import",
       "label": "Alternative",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 153.42617899053835
@@ -3735,122 +2478,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-alternative",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-alternative",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-          "defaults": {
-            "label": "Alternative",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#64748b",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "tradeoffs": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "AltRoute"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-alternative",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Alternative",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#64748b",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "tradeoffs": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "AltRoute"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-alternative",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-alternative",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-alternative",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-alternative",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-alternative.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -3938,7 +2565,6 @@
       "id": "zoom-and-wheel-behavior-idea-risk",
       "type": "idea-risk",
       "label": "Breaking Accessibility Zoom",
-      "root": false,
       "position": {
         "x": -220,
         "y": -780
@@ -3978,39 +2604,6 @@
         "likelihood": "medium",
         "impact": "high",
         "mitigation": "Keep the controls that are not gestures (a visible zoom control and keyboard access), test the contract with browser zoom and reflow, do not capture what cannot be captured reliably, and keep a preference that restores the browser default.",
-        "definitionKey": "idea-risk",
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "WarningAmber"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -4019,7 +2612,8 @@
             "kind": "icon",
             "name": "WarningAmber"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node"
       },
       "handles": [
         {
@@ -4050,9 +2644,8 @@
     },
     {
       "id": "zoom-and-wheel-behavior-bridge-idea-risk",
-      "type": "bridge",
+      "type": "import",
       "label": "Risk",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 303.42617899053835
@@ -4099,126 +2692,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-risk",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-risk",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-          "defaults": {
-            "label": "Risk",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#e11d48",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "description": "",
-              "likelihood": "unknown",
-              "impact": "unknown",
-              "mitigation": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "WarningAmber"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-risk",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Risk",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#e11d48",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "description": "",
-                "likelihood": "unknown",
-                "impact": "unknown",
-                "mitigation": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "WarningAmber"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-risk",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-risk",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-risk",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-risk",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-risk.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -4306,7 +2779,6 @@
       "id": "zoom-and-wheel-behavior-idea-next-step",
       "type": "idea-next-step",
       "label": "Find Who Cancels the Wheel",
-      "root": false,
       "position": {
         "x": -1180,
         "y": 1160
@@ -4361,39 +2833,6 @@
         "action": "Reproduce the non-scrolling page view in the workspace and find which listener cancels the wheel event or which layer takes it. Record what it was.",
         "expectedEvidence": "The specific listener or layer, with the file, and a one-line description of the rule that caused it.",
         "status": "done",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -4402,7 +2841,8 @@
             "kind": "icon",
             "name": "ArrowForward"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       },
       "handles": [
         {
@@ -4450,9 +2890,8 @@
     },
     {
       "id": "zoom-and-wheel-behavior-bridge-idea-next-step",
-      "type": "bridge",
+      "type": "import",
       "label": "Next Step",
-      "root": false,
       "position": {
         "x": -2666.653217114347,
         "y": 453.42617899053835
@@ -4499,124 +2938,6 @@
       "visible": false,
       "showLabel": true,
       "data": {
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "label": "Next Step",
-            "size": {
-              "width": 400,
-              "height": 300
-            },
-            "color": "#16a34a",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "action": "",
-              "expectedEvidence": "",
-              "status": "todo",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "idea-next-step",
-            "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Next Step",
-              "size": {
-                "width": 400,
-                "height": 300
-              },
-              "color": "#16a34a",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "action": "",
-                "expectedEvidence": "",
-                "status": "todo",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "ArrowForward"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          },
-          "views": [
-            {
-              "key": "idea-next-step",
-              "intent": "editor",
-              "payload": "editor.web",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-next-step",
-              "intent": "node",
-              "payload": "node.web.detail",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-next-step",
-              "intent": "node",
-              "payload": "node.web.summary",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            },
-            {
-              "key": "idea-next-step",
-              "intent": "node",
-              "payload": "node.web.icon",
-              "ref": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-              "source": "local",
-              "version": ">=0.1.0",
-              "defaultPorts": []
-            }
-          ]
-        },
         "authority": "bridge",
         "bridge": {
           "grants": [
@@ -4702,9 +3023,8 @@
     },
     {
       "id": "idea-edge-class-advances",
-      "type": "bridge",
+      "type": "import",
       "label": "Advances",
-      "root": false,
       "position": {
         "x": -3191.520909540242,
         "y": -343.15226834791
@@ -4774,9 +3094,8 @@
     },
     {
       "id": "idea-edge-class-affects",
-      "type": "bridge",
+      "type": "import",
       "label": "Affects",
-      "root": false,
       "position": {
         "x": -3193.277364645633,
         "y": -18.23485205908281
@@ -4846,9 +3165,8 @@
     },
     {
       "id": "idea-edge-class-assumes",
-      "type": "bridge",
+      "type": "import",
       "label": "Assumes",
-      "root": false,
       "position": {
         "x": -3192.4240413069374,
         "y": -181.34600481451798
@@ -4918,9 +3236,8 @@
     },
     {
       "id": "idea-edge-class-contradicts",
-      "type": "bridge",
+      "type": "import",
       "label": "Contradicts",
-      "root": false,
       "position": {
         "x": -3193.506546658578,
         "y": 467.7646821020603
@@ -4990,9 +3307,8 @@
     },
     {
       "id": "idea-edge-class-informs",
-      "type": "bridge",
+      "type": "import",
       "label": "Informs",
-      "root": false,
       "position": {
         "x": -3192.0222838515906,
         "y": 305.37767500770155
@@ -5062,9 +3378,8 @@
     },
     {
       "id": "idea-edge-class-motivates",
-      "type": "bridge",
+      "type": "import",
       "label": "Motivates",
-      "root": false,
       "position": {
         "x": -3193.7787389569817,
         "y": 146.18118991839606
@@ -5134,9 +3449,8 @@
     },
     {
       "id": "idea-edge-class-questions",
-      "type": "bridge",
+      "type": "import",
       "label": "Questions",
-      "root": false,
       "position": {
         "x": -3180.3205606453707,
         "y": -1003.2443506241401
@@ -5206,9 +3520,8 @@
     },
     {
       "id": "idea-edge-class-supports",
-      "type": "bridge",
+      "type": "import",
       "label": "Supports",
-      "root": false,
       "position": {
         "x": -3188.8287730658644,
         "y": -512.4189422986271
@@ -5278,9 +3591,8 @@
     },
     {
       "id": "idea-edge-class-tests",
-      "type": "bridge",
+      "type": "import",
       "label": "Tests",
-      "root": false,
       "position": {
         "x": -3189.6697541530466,
         "y": -677.8249157017144
@@ -5350,9 +3662,8 @@
     },
     {
       "id": "idea-edge-class-threatens",
-      "type": "bridge",
+      "type": "import",
       "label": "Threatens",
-      "root": false,
       "position": {
         "x": -3186.4266371315107,
         "y": -838.1257664689047
@@ -5422,9 +3733,8 @@
     },
     {
       "id": "zoom-and-wheel-behavior-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "The Camera Behaves Like the Browser Detail",
-      "root": false,
       "position": {
         "x": -1500,
         "y": -1580
@@ -5512,9 +3822,8 @@
     },
     {
       "id": "zoom-and-wheel-behavior-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "The Camera Behaves Like the Browser Summary",
-      "root": false,
       "position": {
         "x": -1500,
         "y": -1240
@@ -5602,9 +3911,8 @@
     },
     {
       "id": "zoom-and-wheel-behavior-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "The Camera Behaves Like the Browser Icon",
-      "root": false,
       "position": {
         "x": -1500,
         "y": -900
@@ -5694,7 +4002,6 @@
       "id": "zoom-and-wheel-behavior-glyph",
       "type": "glyph",
       "label": "The Camera Behaves Like the Browser Glyph",
-      "root": false,
       "position": {
         "x": -900,
         "y": -1900
@@ -5742,7 +4049,6 @@
       "id": "zoom-and-wheel-behavior-assumption-capture",
       "type": "idea-assumption",
       "label": "Browser Zoom Can Be Captured",
-      "root": false,
       "position": {
         "x": -700,
         "y": 260
@@ -5829,39 +4135,6 @@
         "statement": "Ctrl or Cmd with the wheel, trackpad pinch and the keyboard zoom keys can be intercepted and turned into camera zoom, and the result still works for people who rely on zoom to read. Zoom chosen from the browser menu cannot be intercepted, so it must be detected and handled gracefully.",
         "importance": "high",
         "status": "untested",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -5870,7 +4143,8 @@
             "kind": "icon",
             "name": "PsychologyAlt"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
       },
       "handles": [
         {
@@ -5954,7 +4228,6 @@
       "id": "zoom-and-wheel-behavior-assumption-pan",
       "type": "idea-assumption",
       "label": "People Accept Wheel as Pan",
-      "root": false,
       "position": {
         "x": -220,
         "y": 260
@@ -6041,39 +4314,6 @@
         "statement": "People are content that the plain wheel zooms the camera over the workspace and scrolls content under the pointer, and that it hands over to the camera when the content has nothing more to scroll. Michael judged zooming about the centre of the screen the most humane choice, and Ctrl+wheel needs no special meaning because the plain wheel already zooms.",
         "importance": "high",
         "status": "supported",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -6082,7 +4322,8 @@
             "kind": "icon",
             "name": "PsychologyAlt"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
       },
       "handles": [
         {
@@ -6166,7 +4407,6 @@
       "id": "zoom-and-wheel-behavior-assumption-nesting",
       "type": "idea-assumption",
       "label": "Nested Surfaces Compose",
-      "root": false,
       "position": {
         "x": 260,
         "y": 260
@@ -6253,39 +4493,6 @@
         "statement": "A single rule (the surface under the pointer first, then the camera) works for every surface Twilite hosts, including workspace graphs, page views, documents and same-origin frames, and cross-origin frames can be given a workable edge case.",
         "importance": "medium",
         "status": "untested",
-        "definitionKey": "idea-assumption",
-        "_classBinding": {
-          "key": "idea-assumption",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "PsychologyAlt"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-assumption",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -6294,7 +4501,8 @@
             "kind": "icon",
             "name": "PsychologyAlt"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-assumption.node-class.node"
       },
       "handles": [
         {
@@ -6378,7 +4586,6 @@
       "id": "zoom-and-wheel-behavior-evidence-anchor",
       "type": "idea-evidence",
       "label": "Zoom Is Anchored on the Screen Center",
-      "root": false,
       "position": {
         "x": 1220,
         "y": 260
@@ -6417,39 +4624,6 @@
         "observation": "In components/NodeGraph/PanZoomLayer.js the wheel handler computes its zoom anchor from the middle of the layer (getZoomCenter). The first reading of this was that it was a gap, because the point under the pointer moves. Michael decided that zooming about the centre is the most humane choice, so it stays, and the zoom keys use the same anchor: zooming in with Ctrl and plus, out with Ctrl and minus, then Ctrl and 0 returns the camera to exactly where it began.",
         "kind": "behavior",
         "strength": "strong",
-        "definitionKey": "idea-evidence",
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "FactCheck"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -6459,7 +4633,8 @@
             "name": "FactCheck"
           }
         },
-        "citationSourceId": ""
+        "citationSourceId": "",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
       },
       "handles": [
         {
@@ -6492,7 +4667,6 @@
       "id": "zoom-and-wheel-behavior-evidence-arbiter",
       "type": "idea-evidence",
       "label": "The Arbiter Already Decides Wheel Ownership",
-      "root": false,
       "position": {
         "x": 1700,
         "y": 260
@@ -6531,39 +4705,6 @@
         "observation": "components/NodeGraph/interactionArbiter.js classifies the event target, finds scrollable regions, and returns an owner: content scroll when the region can scroll in the event direction, embedded content, or the canvas. The rule that gives the canvas the wheel is zoom. Two other places decide the wheel on their own: a per-node listener in FixedNode.js that cancels wheel events not aimed at interactive content, and the frame listener in PersistentIframe.js. So the pieces for a single contract exist, but they are not one table and they disagree.",
         "kind": "observation",
         "strength": "moderate",
-        "definitionKey": "idea-evidence",
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "FactCheck"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -6573,7 +4714,8 @@
             "name": "FactCheck"
           }
         },
-        "citationSourceId": ""
+        "citationSourceId": "",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
       },
       "handles": [
         {
@@ -6606,7 +4748,6 @@
       "id": "zoom-and-wheel-behavior-question-pan",
       "type": "idea-question",
       "label": "Wheel on Empty Canvas: Pan or Zoom?",
-      "root": false,
       "position": {
         "x": -700,
         "y": 700
@@ -6661,39 +4802,6 @@
         "question": "Over the bare canvas, with nothing to scroll, should the plain wheel pan the camera (the web rule) or keep zooming (today, and what many canvas tools do)?",
         "status": "answered",
         "answer": "Answered by Michael: it zooms, about the middle of the screen. That is the most humane choice, and it is what the workspace already did. Ctrl+wheel therefore adds nothing new, except that it is now always camera zoom, never browser page zoom. Panning with the wheel is not part of the contract.",
-        "definitionKey": "idea-question",
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -6702,7 +4810,8 @@
             "kind": "icon",
             "name": "HelpOutline"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
       },
       "handles": [
         {
@@ -6752,7 +4861,6 @@
       "id": "zoom-and-wheel-behavior-question-latch",
       "type": "idea-question",
       "label": "How Long Does a Gesture Stay Latched?",
-      "root": false,
       "position": {
         "x": -220,
         "y": 700
@@ -6807,39 +4915,6 @@
         "question": "When a flick starts on a scrollable surface and reaches its end, the rest of the flick should not jump to the camera. How long a pause ends the gesture, and how does it differ for a wheel, a trackpad with momentum, and touch?",
         "status": "open",
         "answer": "Open. Browsers use a short idle timeout (on the order of a couple hundred milliseconds). Start with the same and tune it on a trackpad with momentum, which is where mid-gesture handoff is most visible.",
-        "definitionKey": "idea-question",
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -6848,7 +4923,8 @@
             "kind": "icon",
             "name": "HelpOutline"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
       },
       "handles": [
         {
@@ -6898,7 +4974,6 @@
       "id": "zoom-and-wheel-behavior-question-frames",
       "type": "idea-question",
       "label": "What About Frames We Cannot Read?",
-      "root": false,
       "position": {
         "x": 260,
         "y": 700
@@ -6953,39 +5028,6 @@
         "question": "A cross-origin frame keeps its own wheel handling and cannot be inspected. What is the least surprising rule at its edges, and does the camera still get a way to move while the pointer is over it?",
         "status": "open",
         "answer": "Open. PersistentIframe already treats same-origin frames as canvas-first and leaves cross-origin frames alone. Likely rule: the frame owns the wheel while the pointer is inside it, and the camera can still be moved with a modifier or by the frame edge. Check against the frames Twilite actually hosts.",
-        "definitionKey": "idea-question",
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -6994,7 +5036,8 @@
             "kind": "icon",
             "name": "HelpOutline"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
       },
       "handles": [
         {
@@ -7044,7 +5087,6 @@
       "id": "zoom-and-wheel-behavior-question-limits",
       "type": "idea-question",
       "label": "What Are the Zoom Limits?",
-      "root": false,
       "position": {
         "x": 740,
         "y": 700
@@ -7099,39 +5141,6 @@
         "question": "The wheel handler clamps the zoom between 0.1 and 3 while the camera elsewhere is used far below that. Which limits and which step size apply to pinch, Ctrl+wheel and the keyboard keys, and do they match?",
         "status": "open",
         "answer": "Open. Decide one range and one easing for all zoom gestures, then check them against the semantic levels (glyph, icon, summary, detail) that depend on zoom.",
-        "definitionKey": "idea-question",
-        "_classBinding": {
-          "key": "idea-question",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-question",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -7140,7 +5149,8 @@
             "kind": "icon",
             "name": "HelpOutline"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-question.node-class.node"
       },
       "handles": [
         {
@@ -7190,7 +5200,6 @@
       "id": "zoom-and-wheel-behavior-evidence-bench",
       "type": "idea-evidence",
       "label": "The Test Bench Run: 4 of 8",
-      "root": false,
       "position": {
         "x": 2180,
         "y": 260
@@ -7229,39 +5238,6 @@
         "observation": "The bench (github://mikemartinez1974/public/qa/wheel-test-bench/root.node) was run in the app with its check script. Over a scrollable surface the surface keeps the wheel, including a nested scroller at both ends (cases 1 to 4 match). Cases 5 to 8 do not. Over a content node at the end of its scroll, or with nothing to scroll, the wheel goes nowhere: the node listener stops the event before the canvas handler sees it, so the camera cannot be moved with the wheel from there. On empty canvas the plain wheel zooms, and it zooms about the middle of the screen, not the pointer. Ctrl and wheel is treated as a plain wheel, zooming about the screen centre with the point under the pointer moving by hundreds of pixels. This also shows that the arbiter is only reached by wheel events that are not over a node.",
         "kind": "experiment",
         "strength": "strong",
-        "definitionKey": "idea-evidence",
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "FactCheck"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -7271,7 +5247,8 @@
             "name": "FactCheck"
           }
         },
-        "citationSourceId": "github://mikemartinez1974/public/qa/wheel-test-bench/root.node"
+        "citationSourceId": "github://mikemartinez1974/public/qa/wheel-test-bench/root.node",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
       },
       "handles": [
         {
@@ -7304,7 +5281,6 @@
       "id": "zoom-and-wheel-behavior-next-step-bench",
       "type": "idea-next-step",
       "label": "Build a Wheel Test Bench",
-      "root": false,
       "position": {
         "x": -700,
         "y": 1160
@@ -7359,39 +5335,6 @@
         "action": "Make a small smoke-test graph with nested scrollable surfaces (a page view in a workspace, a long document, a frame) and empty canvas, so every case in the contract can be tried by hand and by script.",
         "expectedEvidence": "A graph that reproduces today's failures, and a repeatable way to check each row of the contract.",
         "status": "done",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -7400,7 +5343,8 @@
             "kind": "icon",
             "name": "ArrowForward"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       },
       "handles": [
         {
@@ -7450,7 +5394,6 @@
       "id": "zoom-and-wheel-behavior-next-step-table",
       "type": "idea-next-step",
       "label": "Write the Contract as a Table",
-      "root": false,
       "position": {
         "x": -220,
         "y": 1160
@@ -7505,39 +5448,6 @@
         "action": "The rules are one ordered list in components/NodeGraph/wheelContract.js (zoom gesture, surface scrolls, embedded content, page view scrolls, camera), decided by one function, and the canvas handler, the frame handler and the nodes all ask it. The listener that FixedNode kept on its own is gone.",
         "expectedEvidence": "One table decides every wheel event, its scenarios are unit tests that mirror the bench cases, the tests pass, and no separate wheel listener keeps rules of its own. After the change the bench script still matched 11 of 11 and real wheel input gave the same numbers as before.",
         "status": "done",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -7546,7 +5456,8 @@
             "kind": "icon",
             "name": "ArrowForward"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       },
       "handles": [
         {
@@ -7596,7 +5507,6 @@
       "id": "zoom-and-wheel-behavior-next-step-zoom",
       "type": "idea-next-step",
       "label": "Make Zoom Gestures Drive the Camera",
-      "root": false,
       "position": {
         "x": 260,
         "y": 1160
@@ -7651,39 +5561,6 @@
         "action": "Capture Ctrl or Cmd with the wheel and a trackpad pinch wherever the pointer is, and Ctrl or Cmd with plus, minus and zero, and make them drive the camera zoom about the screen centre with browser page zoom prevented. Zoom chosen from the browser menu cannot be intercepted and is left alone.",
         "expectedEvidence": "Zoom gestures move the camera in the running app, over content nodes as well as empty workspace, and menu zoom is documented as out of reach.",
         "status": "done",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -7692,7 +5569,8 @@
             "kind": "icon",
             "name": "ArrowForward"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       },
       "handles": [
         {
@@ -7742,7 +5620,6 @@
       "id": "zoom-and-wheel-behavior-next-step-chain",
       "type": "idea-next-step",
       "label": "Scroll, Then Pan: Chaining and Latching",
-      "root": false,
       "position": {
         "x": 740,
         "y": 1160
@@ -7797,39 +5674,6 @@
         "action": "A plain wheel scrolls the nearest surface that can move the way the wheel goes, including the outer page when an inner box is at its end, and otherwise zooms the camera. Then latch the gesture to the surface it started on until it pauses, so momentum does not carry it across to the camera.",
         "expectedEvidence": "On the test bench, a long page scrolls with the wheel and the camera takes the wheel at its end. Latching is checked with real trackpad momentum.",
         "status": "in-progress",
-        "definitionKey": "idea-next-step",
-        "_classBinding": {
-          "key": "idea-next-step",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "ArrowForward"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-next-step",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -7838,7 +5682,8 @@
             "kind": "icon",
             "name": "ArrowForward"
           }
-        }
+        },
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-next-step.node-class.node"
       },
       "handles": [
         {
@@ -7934,7 +5779,6 @@
       "id": "zoom-and-wheel-behavior-evidence-gestures",
       "type": "idea-evidence",
       "label": "Zoom Gestures Drive the Camera",
-      "root": false,
       "position": {
         "x": 2660,
         "y": 260
@@ -7973,39 +5817,6 @@
         "observation": "With real (trusted) wheel and key input in the running app on the test bench: Ctrl+wheel over a content node zoomed the camera (1 to 1.24) and scrolled nothing; Ctrl and plus, Ctrl and minus and Ctrl and 0 took the zoom to 1.488, 1.24 and exactly 1 with the pan restored; the plain wheel over a card with nothing to scroll, and over a document at its end, zoomed the camera (1 to 0.76); over a document mid-scroll it scrolled (0 to 120) and the zoom held; over a nested scroller whose inner box was at its end it scrolled the outer page (0 to 120) with the zoom held. The earlier run had those cases dead or handed to browser page zoom.",
         "kind": "experiment",
         "strength": "strong",
-        "definitionKey": "idea-evidence",
-        "_classBinding": {
-          "key": "idea-evidence",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "defaults": {
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ],
-            "data": {
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "FactCheck"
-                }
-              }
-            }
-          }
-        },
-        "_bridge": {
-          "classKey": "idea-evidence",
-          "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node",
-          "targetKind": "node-class"
-        },
         "identity": {
           "graphId": "zoom-and-wheel-behavior"
         },
@@ -8015,7 +5826,8 @@
             "name": "FactCheck"
           }
         },
-        "citationSourceId": "github://mikemartinez1974/public/qa/wheel-test-bench/root.node"
+        "citationSourceId": "github://mikemartinez1974/public/qa/wheel-test-bench/root.node",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-evidence.node-class.node"
       },
       "handles": [
         {
@@ -8051,181 +5863,171 @@
       "type": "surface",
       "source": "zoom-and-wheel-behavior-declaration",
       "target": "zoom-and-wheel-behavior-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "default-view"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "zoom-and-wheel-behavior-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "zoom-and-wheel-behavior-detail-view",
       "target": "zoom-and-wheel-behavior-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "zoom-and-wheel-behavior-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "zoom-and-wheel-behavior-summary-view",
       "target": "zoom-and-wheel-behavior-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "zoom-and-wheel-behavior-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "zoom-and-wheel-behavior-icon-view",
       "target": "zoom-and-wheel-behavior-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "zoom-and-wheel-behavior-declaration-edge-class-authority-advances",
-      "type": "reference",
+      "type": "imports",
       "source": "zoom-and-wheel-behavior-declaration",
       "target": "idea-edge-class-advances",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "zoom-and-wheel-behavior-declaration-edge-class-authority-affects",
-      "type": "reference",
+      "type": "imports",
       "source": "zoom-and-wheel-behavior-declaration",
       "target": "idea-edge-class-affects",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "zoom-and-wheel-behavior-declaration-edge-class-authority-assumes",
-      "type": "reference",
+      "type": "imports",
       "source": "zoom-and-wheel-behavior-declaration",
       "target": "idea-edge-class-assumes",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "zoom-and-wheel-behavior-declaration-edge-class-authority-contradicts",
-      "type": "reference",
+      "type": "imports",
       "source": "zoom-and-wheel-behavior-declaration",
       "target": "idea-edge-class-contradicts",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "zoom-and-wheel-behavior-declaration-edge-class-authority-informs",
-      "type": "reference",
+      "type": "imports",
       "source": "zoom-and-wheel-behavior-declaration",
       "target": "idea-edge-class-informs",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "zoom-and-wheel-behavior-declaration-edge-class-authority-motivates",
-      "type": "reference",
+      "type": "imports",
       "source": "zoom-and-wheel-behavior-declaration",
       "target": "idea-edge-class-motivates",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "zoom-and-wheel-behavior-declaration-edge-class-authority-questions",
-      "type": "reference",
+      "type": "imports",
       "source": "zoom-and-wheel-behavior-declaration",
       "target": "idea-edge-class-questions",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "zoom-and-wheel-behavior-declaration-edge-class-authority-supports",
-      "type": "reference",
+      "type": "imports",
       "source": "zoom-and-wheel-behavior-declaration",
       "target": "idea-edge-class-supports",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "zoom-and-wheel-behavior-declaration-edge-class-authority-tests",
-      "type": "reference",
+      "type": "imports",
       "source": "zoom-and-wheel-behavior-declaration",
       "target": "idea-edge-class-tests",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "zoom-and-wheel-behavior-declaration-edge-class-authority-threatens",
-      "type": "reference",
+      "type": "imports",
       "source": "zoom-and-wheel-behavior-declaration",
       "target": "idea-edge-class-threatens",
       "label": "edge authority",
       "style": {},
       "data": {},
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "zoom-and-wheel-behavior-landing-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "zoom-and-wheel-behavior-declaration",
       "target": "zoom-and-wheel-behavior-idea",
-      "label": "landing surface",
+      "label": "ground",
       "style": {},
-      "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface"
-      },
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "zoom-and-wheel-behavior-problem-motivates",
-      "type": "reference",
+      "type": "idea.motivates",
       "source": "zoom-and-wheel-behavior-idea-problem",
       "target": "zoom-and-wheel-behavior-idea",
       "label": "motivates",
@@ -8237,17 +6039,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.motivates",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node",
-        "semanticRole": "idea.motivates",
-        "edgeClassMeaning": "source establishes the need or reason for the target"
+        "edgeClassMeaning": "source establishes the need or reason for the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/motivates.edge-class.node"
       },
-      "sourceHandle": "motivates",
-      "targetHandle": "motivated-by"
+      "sourcePort": "motivates",
+      "targetPort": "motivated-by"
     },
     {
       "id": "zoom-and-wheel-behavior-audience-affects",
-      "type": "reference",
+      "type": "idea.affects",
       "source": "zoom-and-wheel-behavior-idea-audience",
       "target": "zoom-and-wheel-behavior-idea-problem",
       "label": "affects",
@@ -8259,17 +6059,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.affects",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node",
-        "semanticRole": "idea.affects",
-        "edgeClassMeaning": "source audience experiences or is affected by the target problem"
+        "edgeClassMeaning": "source audience experiences or is affected by the target problem",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/affects.edge-class.node"
       },
-      "sourceHandle": "affected-by",
-      "targetHandle": "affects"
+      "sourcePort": "affected-by",
+      "targetPort": "affects"
     },
     {
       "id": "zoom-and-wheel-behavior-approach-advances",
-      "type": "reference",
+      "type": "idea.advances",
       "source": "zoom-and-wheel-behavior-idea-proposed-approach",
       "target": "zoom-and-wheel-behavior-idea",
       "label": "advances",
@@ -8281,17 +6079,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.advances",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node",
-        "semanticRole": "idea.advances",
-        "edgeClassMeaning": "source action moves the target idea toward a better-supported state"
+        "edgeClassMeaning": "source action moves the target idea toward a better-supported state",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/advances.edge-class.node"
       },
-      "sourceHandle": "advances",
-      "targetHandle": "advanced-by"
+      "sourcePort": "advances",
+      "targetPort": "advanced-by"
     },
     {
       "id": "zoom-and-wheel-behavior-idea-assumes-arbiter",
-      "type": "reference",
+      "type": "idea.assumes",
       "source": "zoom-and-wheel-behavior-idea",
       "target": "zoom-and-wheel-behavior-idea-assumption",
       "label": "assumes",
@@ -8307,17 +6103,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
+        "edgeClassMeaning": "source depends on the target assumption being true",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node"
       },
-      "sourceHandle": "assumes",
-      "targetHandle": "assumed-by"
+      "sourcePort": "assumes",
+      "targetPort": "assumed-by"
     },
     {
       "id": "zoom-and-wheel-behavior-idea-assumes-capture",
-      "type": "reference",
+      "type": "idea.assumes",
       "source": "zoom-and-wheel-behavior-idea",
       "target": "zoom-and-wheel-behavior-assumption-capture",
       "label": "assumes",
@@ -8333,17 +6127,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
+        "edgeClassMeaning": "source depends on the target assumption being true",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node"
       },
-      "sourceHandle": "assumes",
-      "targetHandle": "assumed-by"
+      "sourcePort": "assumes",
+      "targetPort": "assumed-by"
     },
     {
       "id": "zoom-and-wheel-behavior-idea-assumes-pan",
-      "type": "reference",
+      "type": "idea.assumes",
       "source": "zoom-and-wheel-behavior-idea",
       "target": "zoom-and-wheel-behavior-assumption-pan",
       "label": "assumes",
@@ -8359,17 +6151,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
+        "edgeClassMeaning": "source depends on the target assumption being true",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node"
       },
-      "sourceHandle": "assumes",
-      "targetHandle": "assumed-by"
+      "sourcePort": "assumes",
+      "targetPort": "assumed-by"
     },
     {
       "id": "zoom-and-wheel-behavior-idea-assumes-nesting",
-      "type": "reference",
+      "type": "idea.assumes",
       "source": "zoom-and-wheel-behavior-idea",
       "target": "zoom-and-wheel-behavior-assumption-nesting",
       "label": "assumes",
@@ -8385,17 +6175,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.assumes",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node",
-        "semanticRole": "idea.assumes",
-        "edgeClassMeaning": "source depends on the target assumption being true"
+        "edgeClassMeaning": "source depends on the target assumption being true",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/assumes.edge-class.node"
       },
-      "sourceHandle": "assumes",
-      "targetHandle": "assumed-by"
+      "sourcePort": "assumes",
+      "targetPort": "assumed-by"
     },
     {
       "id": "zoom-and-wheel-behavior-question-menu-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "zoom-and-wheel-behavior-idea-question",
       "target": "zoom-and-wheel-behavior-assumption-capture",
       "label": "questions",
@@ -8411,17 +6199,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       },
-      "sourceHandle": "questions",
-      "targetHandle": "questioned-by"
+      "sourcePort": "questions",
+      "targetPort": "questioned-by"
     },
     {
       "id": "zoom-and-wheel-behavior-question-pan-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "zoom-and-wheel-behavior-question-pan",
       "target": "zoom-and-wheel-behavior-assumption-pan",
       "label": "questions",
@@ -8437,17 +6223,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       },
-      "sourceHandle": "questions",
-      "targetHandle": "questioned-by"
+      "sourcePort": "questions",
+      "targetPort": "questioned-by"
     },
     {
       "id": "zoom-and-wheel-behavior-question-latch-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "zoom-and-wheel-behavior-question-latch",
       "target": "zoom-and-wheel-behavior-idea-assumption",
       "label": "questions",
@@ -8463,17 +6247,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       },
-      "sourceHandle": "questions",
-      "targetHandle": "questioned-by"
+      "sourcePort": "questions",
+      "targetPort": "questioned-by"
     },
     {
       "id": "zoom-and-wheel-behavior-question-frames-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "zoom-and-wheel-behavior-question-frames",
       "target": "zoom-and-wheel-behavior-assumption-nesting",
       "label": "questions",
@@ -8489,17 +6271,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       },
-      "sourceHandle": "questions",
-      "targetHandle": "questioned-by"
+      "sourcePort": "questions",
+      "targetPort": "questioned-by"
     },
     {
       "id": "zoom-and-wheel-behavior-question-limits-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "zoom-and-wheel-behavior-question-limits",
       "target": "zoom-and-wheel-behavior-assumption-capture",
       "label": "questions",
@@ -8515,17 +6295,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       },
-      "sourceHandle": "questions",
-      "targetHandle": "questioned-by"
+      "sourcePort": "questions",
+      "targetPort": "questioned-by"
     },
     {
       "id": "zoom-and-wheel-behavior-research-informs-menu",
-      "type": "reference",
+      "type": "idea.informs",
       "source": "zoom-and-wheel-behavior-idea-research",
       "target": "zoom-and-wheel-behavior-idea-question",
       "label": "informs",
@@ -8537,17 +6315,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.informs",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
-        "semanticRole": "idea.informs",
-        "edgeClassMeaning": "source provides context that informs the target"
+        "edgeClassMeaning": "source provides context that informs the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node"
       },
-      "sourceHandle": "informs",
-      "targetHandle": "informed-by"
+      "sourcePort": "informs",
+      "targetPort": "informed-by"
     },
     {
       "id": "zoom-and-wheel-behavior-research-informs-latch",
-      "type": "reference",
+      "type": "idea.informs",
       "source": "zoom-and-wheel-behavior-idea-research",
       "target": "zoom-and-wheel-behavior-question-latch",
       "label": "informs",
@@ -8559,17 +6335,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.informs",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
-        "semanticRole": "idea.informs",
-        "edgeClassMeaning": "source provides context that informs the target"
+        "edgeClassMeaning": "source provides context that informs the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node"
       },
-      "sourceHandle": "informs",
-      "targetHandle": "informed-by"
+      "sourcePort": "informs",
+      "targetPort": "informed-by"
     },
     {
       "id": "zoom-and-wheel-behavior-research-informs-pan",
-      "type": "reference",
+      "type": "idea.informs",
       "source": "zoom-and-wheel-behavior-idea-research",
       "target": "zoom-and-wheel-behavior-question-pan",
       "label": "informs",
@@ -8581,17 +6355,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.informs",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node",
-        "semanticRole": "idea.informs",
-        "edgeClassMeaning": "source provides context that informs the target"
+        "edgeClassMeaning": "source provides context that informs the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/informs.edge-class.node"
       },
-      "sourceHandle": "informs",
-      "targetHandle": "informed-by"
+      "sourcePort": "informs",
+      "targetPort": "informed-by"
     },
     {
       "id": "zoom-and-wheel-behavior-evidence-scrollbar-supports",
-      "type": "reference",
+      "type": "idea.supports",
       "source": "zoom-and-wheel-behavior-idea-evidence",
       "target": "zoom-and-wheel-behavior-idea-assumption",
       "label": "supports",
@@ -8603,17 +6375,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.supports",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
-        "semanticRole": "idea.supports",
-        "edgeClassMeaning": "source evidence increases confidence in the target"
+        "edgeClassMeaning": "source evidence increases confidence in the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node"
       },
-      "sourceHandle": "supports",
-      "targetHandle": "supported-by"
+      "sourcePort": "supports",
+      "targetPort": "supported-by"
     },
     {
       "id": "zoom-and-wheel-behavior-evidence-anchor-supports",
-      "type": "reference",
+      "type": "idea.supports",
       "source": "zoom-and-wheel-behavior-evidence-anchor",
       "target": "zoom-and-wheel-behavior-assumption-pan",
       "label": "supports",
@@ -8625,17 +6395,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.supports",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
-        "semanticRole": "idea.supports",
-        "edgeClassMeaning": "source evidence increases confidence in the target"
+        "edgeClassMeaning": "source evidence increases confidence in the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node"
       },
-      "sourceHandle": "supports",
-      "targetHandle": "supported-by"
+      "sourcePort": "supports",
+      "targetPort": "supported-by"
     },
     {
       "id": "zoom-and-wheel-behavior-evidence-arbiter-supports",
-      "type": "reference",
+      "type": "idea.supports",
       "source": "zoom-and-wheel-behavior-evidence-arbiter",
       "target": "zoom-and-wheel-behavior-idea-assumption",
       "label": "supports",
@@ -8647,17 +6415,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.supports",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
-        "semanticRole": "idea.supports",
-        "edgeClassMeaning": "source evidence increases confidence in the target"
+        "edgeClassMeaning": "source evidence increases confidence in the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node"
       },
-      "sourceHandle": "supports",
-      "targetHandle": "supported-by"
+      "sourcePort": "supports",
+      "targetPort": "supported-by"
     },
     {
       "id": "zoom-and-wheel-behavior-evidence-bench-supports",
-      "type": "reference",
+      "type": "idea.supports",
       "source": "zoom-and-wheel-behavior-evidence-bench",
       "target": "zoom-and-wheel-behavior-assumption-pan",
       "label": "supports",
@@ -8669,17 +6435,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.supports",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
-        "semanticRole": "idea.supports",
-        "edgeClassMeaning": "source evidence increases confidence in the target"
+        "edgeClassMeaning": "source evidence increases confidence in the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node"
       },
-      "sourceHandle": "supports",
-      "targetHandle": "supported-by"
+      "sourcePort": "supports",
+      "targetPort": "supported-by"
     },
     {
       "id": "zoom-and-wheel-behavior-alternative-questions",
-      "type": "reference",
+      "type": "idea.questions",
       "source": "zoom-and-wheel-behavior-idea-alternative",
       "target": "zoom-and-wheel-behavior-idea-proposed-approach",
       "label": "questions",
@@ -8695,17 +6459,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.questions",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node",
-        "semanticRole": "idea.questions",
-        "edgeClassMeaning": "source asks whether the target claim or assumption holds"
+        "edgeClassMeaning": "source asks whether the target claim or assumption holds",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/questions.edge-class.node"
       },
-      "sourceHandle": "questions",
-      "targetHandle": "questioned-by"
+      "sourcePort": "questions",
+      "targetPort": "questioned-by"
     },
     {
       "id": "zoom-and-wheel-behavior-risk-threatens",
-      "type": "reference",
+      "type": "idea.threatens",
       "source": "zoom-and-wheel-behavior-idea-risk",
       "target": "zoom-and-wheel-behavior-assumption-capture",
       "label": "threatens",
@@ -8721,17 +6483,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.threatens",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node",
-        "semanticRole": "idea.threatens",
-        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target"
+        "edgeClassMeaning": "source risk could weaken, delay, distort, or stop the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/threatens.edge-class.node"
       },
-      "sourceHandle": "threatens",
-      "targetHandle": "threatened-by"
+      "sourcePort": "threatens",
+      "targetPort": "threatened-by"
     },
     {
       "id": "zoom-and-wheel-behavior-next-step-find-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "zoom-and-wheel-behavior-idea-next-step",
       "target": "zoom-and-wheel-behavior-idea-assumption",
       "label": "tests",
@@ -8743,17 +6503,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
+      "sourcePort": "tests",
+      "targetPort": "tested-by"
     },
     {
       "id": "zoom-and-wheel-behavior-next-step-bench-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "zoom-and-wheel-behavior-next-step-bench",
       "target": "zoom-and-wheel-behavior-assumption-nesting",
       "label": "tests",
@@ -8765,17 +6523,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
+      "sourcePort": "tests",
+      "targetPort": "tested-by"
     },
     {
       "id": "zoom-and-wheel-behavior-next-step-table-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "zoom-and-wheel-behavior-next-step-table",
       "target": "zoom-and-wheel-behavior-idea-assumption",
       "label": "tests",
@@ -8787,17 +6543,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
+      "sourcePort": "tests",
+      "targetPort": "tested-by"
     },
     {
       "id": "zoom-and-wheel-behavior-next-step-zoom-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "zoom-and-wheel-behavior-next-step-zoom",
       "target": "zoom-and-wheel-behavior-assumption-capture",
       "label": "tests",
@@ -8809,17 +6563,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
+      "sourcePort": "tests",
+      "targetPort": "tested-by"
     },
     {
       "id": "zoom-and-wheel-behavior-next-step-chain-tests",
-      "type": "reference",
+      "type": "idea.tests",
       "source": "zoom-and-wheel-behavior-next-step-chain",
       "target": "zoom-and-wheel-behavior-assumption-pan",
       "label": "tests",
@@ -8831,17 +6583,15 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.tests",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node",
-        "semanticRole": "idea.tests",
-        "edgeClassMeaning": "source action is designed to test the target uncertainty"
+        "edgeClassMeaning": "source action is designed to test the target uncertainty",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/tests.edge-class.node"
       },
-      "sourceHandle": "tests",
-      "targetHandle": "tested-by"
+      "sourcePort": "tests",
+      "targetPort": "tested-by"
     },
     {
       "id": "zoom-and-wheel-behavior-instructions-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "zoom-and-wheel-behavior-idea-next-step",
       "target": "zoom-and-wheel-behavior-instructions",
       "label": "guidance",
@@ -8855,12 +6605,12 @@
         "orthogonal": true
       },
       "data": {},
-      "sourceHandle": "guidance",
-      "targetHandle": "guided-by"
+      "sourcePort": "guidance",
+      "targetPort": "guided-by"
     },
     {
       "id": "zoom-and-wheel-behavior-tracked-wheel-test-bench",
-      "type": "reference",
+      "type": "edge",
       "source": "zoom-and-wheel-behavior-next-step-bench",
       "target": "zoom-and-wheel-behavior-task-wheel-test-bench",
       "label": "tested by",
@@ -8876,12 +6626,12 @@
       "data": {
         "relation": "task-projection"
       },
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "zoom-and-wheel-behavior-evidence-gestures-supports",
-      "type": "reference",
+      "type": "idea.supports",
       "source": "zoom-and-wheel-behavior-evidence-gestures",
       "target": "zoom-and-wheel-behavior-assumption-capture",
       "label": "supports",
@@ -8893,16 +6643,13 @@
         "orthogonal": true
       },
       "data": {
-        "edgeClassKey": "idea.supports",
-        "edgeClassRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node",
-        "semanticRole": "idea.supports",
-        "edgeClassMeaning": "source evidence increases confidence in the target"
+        "edgeClassMeaning": "source evidence increases confidence in the target",
+        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/edges/supports.edge-class.node"
       },
-      "sourceHandle": "supports",
-      "targetHandle": "supported-by"
+      "sourcePort": "supports",
+      "targetPort": "supported-by"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,
@@ -8942,8 +6689,5 @@
     },
     "autoSave": false
   },
-  "scripts": [],
-  "timestamp": "2026-09-20T23:24:21.947Z",
-  "nodeCount": 54,
-  "edgeCount": 44
+  "scripts": []
 }

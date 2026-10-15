@@ -1,8 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Task Portal Semantic Projection Smoke Test",
-    "description": "Side-by-side proof that effective portal type controls semantic presentation.",
     "created": "2026-08-27T00:00:00.000Z",
     "modified": "2026-08-27T00:00:00.000Z",
     "author": "",
@@ -18,7 +16,7 @@
   "nodes": [
     {
       "id": "task-portal-semantic-projection-smoke-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Task Portal Semantic Projection Smoke Test",
       "position": {
         "x": -900,
@@ -38,14 +36,14 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "surfaces",
@@ -105,20 +103,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -187,8 +185,8 @@
           "type": "any"
         },
         {
-          "key": "landing-surface",
-          "label": "landing surface",
+          "key": "ground",
+          "label": "ground",
           "type": "any"
         }
       ],
@@ -293,7 +291,25 @@
         "declaresKind": "template",
         "purpose": "Canonical declaration-first template for planning graphs with derived summaries and backward-compatible task contracts.",
         "primaryNodeViewId": "task-portal-semantic-projection-smoke-detail-view",
-        "declaration": {
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1784321996391,
+          "reason": "node-drag"
+        },
+        "smokeTest": {
+          "controlNodeId": "task-projection-control",
+          "projectionNodeId": "task-projection-portal",
+          "expectedEffectiveType": "task",
+          "expectedSemanticLevels": [
+            "detail",
+            "summary",
+            "icon",
+            "glyph"
+          ]
+        },
+        "root": {
           "kind": "smoke-test",
           "targetMode": "artifact",
           "artifactKind": "smoke-test",
@@ -319,30 +335,12 @@
               }
             }
           ]
-        },
-        "_placement": {
-          "version": 1,
-          "state": "manually-shaped",
-          "source": "manual",
-          "updatedAt": 1784321996391,
-          "reason": "node-drag"
-        },
-        "smokeTest": {
-          "controlNodeId": "task-projection-control",
-          "projectionNodeId": "task-projection-portal",
-          "expectedEffectiveType": "task",
-          "expectedSemanticLevels": [
-            "detail",
-            "summary",
-            "icon",
-            "glyph"
-          ]
         }
       }
     },
     {
       "id": "task-portal-semantic-projection-smoke-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Task Graph Detail",
       "position": {
         "x": -1100,
@@ -446,7 +444,7 @@
     },
     {
       "id": "task-portal-semantic-projection-smoke-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Task Graph Summary View",
       "position": {
         "x": -1100,
@@ -550,7 +548,7 @@
     },
     {
       "id": "task-portal-semantic-projection-smoke-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Task Graph Icon View",
       "position": {
         "x": -1100,
@@ -766,9 +764,8 @@
     },
     {
       "id": "task-projection-task-bridge",
-      "type": "bridge",
+      "type": "import",
       "label": "Task Class Authority",
-      "root": false,
       "position": {
         "x": -900,
         "y": 20
@@ -841,105 +838,6 @@
             "create"
           ]
         },
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "identity": {
           "graphId": "task-portal-semantic-projection-smoke"
         },
@@ -955,7 +853,6 @@
       "id": "task-projection-control",
       "type": "task",
       "label": "Modern Task Control",
-      "root": false,
       "position": {
         "x": -260,
         "y": -80
@@ -1010,109 +907,6 @@
         "acceptanceCriteria": [
           "Describe what done looks like"
         ],
-        "definitionKey": "task",
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "task-graph-template-bridge-task",
-          "sourceBridgeNodeId": "task-graph-template-bridge-task",
-          "sourceBridgeLabel": "Task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "identity": {
           "graphId": "task-portal-semantic-projection-smoke"
         },
@@ -1125,14 +919,14 @@
             "kind": "icon",
             "name": "Checklist"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "task-projection-portal",
       "type": "portal",
       "label": "Beta Readiness Projection",
-      "root": false,
       "position": {
         "x": 360,
         "y": -80
@@ -1277,66 +1071,56 @@
       "type": "surface",
       "source": "task-portal-semantic-projection-smoke-declaration",
       "target": "task-portal-semantic-projection-smoke-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "task-portal-semantic-projection-smoke-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "task-portal-semantic-projection-smoke-detail-view",
       "target": "task-portal-semantic-projection-smoke-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "task-portal-semantic-projection-smoke-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "task-portal-semantic-projection-smoke-summary-view",
       "target": "task-portal-semantic-projection-smoke-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "task-portal-semantic-projection-smoke-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "task-portal-semantic-projection-smoke-icon-view",
       "target": "task-portal-semantic-projection-smoke-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "task-portal-semantic-projection-smoke-landing-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "task-portal-semantic-projection-smoke-declaration",
       "target": "task-portal-semantic-projection-smoke-landing-surface",
-      "sourcePort": "landing-surface",
+      "sourcePort": "ground",
       "targetPort": "root",
-      "label": "landing surface",
-      "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface"
-      }
+      "label": "ground",
+      "data": {}
     }
   ]
 }

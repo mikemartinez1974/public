@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Michael's Template Collection",
-    "description": "Reusable Twilite graph templates maintained in Michael's public repository.",
-    "graphId": "template-collection-declaration",
-    "version": "1.2.0",
-    "kind": "collection",
     "created": "2026-08-02T16:21:57.512Z",
     "modified": "2026-09-12T00:00:00.000Z",
     "author": "",
@@ -18,9 +13,8 @@
   "nodes": [
     {
       "id": "template-collection-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Michael's Template Collection",
-      "root": false,
       "position": {
         "x": -760,
         "y": -420
@@ -72,20 +66,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -165,34 +159,6 @@
             }
           }
         },
-        "declaration": {
-          "kind": "collection",
-          "targetMode": "artifact",
-          "artifactKind": "collection",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Template Collection",
-              "portNodeId": "template-collection-root-port",
-              "viewNodeId": "template-collection-root-port",
-              "memo": "Entry surface for Michael's reusable Twilite templates.",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            }
-          ],
-          "interfaceContract": {
-            "version": 1,
-            "implicitRootPort": true
-          }
-        },
         "dependencies": {
           "nodeTypes": [
             "declaration",
@@ -236,6 +202,34 @@
         },
         "document": {
           "url": "github://mikemartinez1974/public/templates/root.node"
+        },
+        "root": {
+          "kind": "collection",
+          "targetMode": "artifact",
+          "artifactKind": "collection",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Template Collection",
+              "portNodeId": "template-collection-root-port",
+              "viewNodeId": "template-collection-root-port",
+              "memo": "Entry surface for Michael's reusable Twilite templates.",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ],
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          }
         }
       },
       "handles": [
@@ -284,20 +278,20 @@
           "portId": "port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -309,7 +303,7 @@
               }
             ]
           },
-          "portId": "landing-surface"
+          "portId": "ground"
         },
         {
           "id": "surfaces",
@@ -389,8 +383,8 @@
           "type": "any"
         },
         {
-          "key": "landing-surface",
-          "label": "landing surface",
+          "key": "ground",
+          "label": "ground",
           "type": "any"
         }
       ]
@@ -399,7 +393,6 @@
       "id": "template-collection-root-port",
       "type": "port",
       "label": "Michael's Template Collection",
-      "root": true,
       "position": {
         "x": -180,
         "y": -420
@@ -478,7 +471,7 @@
     },
     {
       "id": "template-collection-controller-import",
-      "type": "bridge",
+      "type": "import",
       "label": "Template Collection Controller Import",
       "position": {
         "x": -1180,
@@ -508,7 +501,6 @@
         "memo": "Authorizes the Template collection to consume the reusable collection-window capability.",
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/collection-window-controller/root.node",
-          "role": "import",
           "resourceKind": "capability-kit",
           "scope": "focused-graph",
           "grants": [
@@ -607,19 +599,7 @@
             "y": 420
           }
         },
-        "definitionKey": "collection-surface",
-        "_classBinding": {
-          "key": "collection-surface",
-          "sourceRef": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-surface.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "collection-surface",
-          "classRef": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-surface.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-surface.node-class.node",
-          "targetKind": "node-class"
-        }
+        "classRef": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-surface.node-class.node"
       }
     },
     {
@@ -675,20 +655,8 @@
           "update",
           "delete"
         ],
-        "definitionKey": "collection-window-controller",
-        "_classBinding": {
-          "key": "collection-window-controller",
-          "sourceRef": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controller.node-class.node"
-        },
-        "_bridge": {
-          "classKey": "collection-window-controller",
-          "classRef": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controller.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "sourceRef": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controller.node-class.node",
-          "targetKind": "node-class"
-        },
-        "visibilityRole": "browser"
+        "visibilityRole": "browser",
+        "classRef": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controller.node-class.node"
       }
     },
     {
@@ -997,7 +965,7 @@
     {
       "id": "template-collection--detail-view",
       "label": "Detail View",
-      "type": "view",
+      "type": "face",
       "position": {
         "x": -2300,
         "y": -520
@@ -1123,7 +1091,7 @@
     {
       "id": "template-collection--summary-view",
       "label": "Summary View",
-      "type": "view",
+      "type": "face",
       "position": {
         "x": -2300,
         "y": -160
@@ -1251,7 +1219,7 @@
     {
       "id": "template-collection--icon-view",
       "label": "Icon View",
-      "type": "view",
+      "type": "face",
       "position": {
         "x": -2300,
         "y": 200
@@ -1446,57 +1414,50 @@
       "type": "surface",
       "source": "template-collection-declaration",
       "target": "template-collection--detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "root"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "template-collection--detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "template-collection--detail-view",
       "target": "template-collection--summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "template-collection--summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "template-collection--summary-view",
       "target": "template-collection--icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "template-collection--icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "template-collection--icon-view",
       "target": "template-collection--glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "template-collection-entry-edge",
-      "type": "reference",
+      "type": "edge",
       "source": "template-collection-declaration",
       "target": "template-collection-root-port",
       "sourcePort": "right",
@@ -1505,7 +1466,7 @@
     },
     {
       "id": "template-collection-controller-authority",
-      "type": "reference",
+      "type": "imports",
       "source": "template-collection-declaration",
       "target": "template-collection-controller-import",
       "sourcePort": "root",
@@ -1514,7 +1475,7 @@
     },
     {
       "id": "template-collection-surface-instantiation",
-      "type": "reference",
+      "type": "edge",
       "source": "template-collection-controller-import",
       "target": "template-collection-surface",
       "sourcePort": "right",
@@ -1523,17 +1484,14 @@
     },
     {
       "id": "template-collection-landing-surface-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "template-collection-declaration",
       "target": "template-collection-root-port",
-      "sourcePort": "landing-surface",
+      "sourcePort": "ground",
       "targetPort": "root",
-      "data": {
-        "role": "landing-surface"
-      }
+      "data": {}
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,

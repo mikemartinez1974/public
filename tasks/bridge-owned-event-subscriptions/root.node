@@ -1,11 +1,6 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "title": "Move Event Subscriptions onto Bridges",
-    "description": "Replace graph-level Event Declaration and Subscription nodes with emitter-owned event contracts and Bridge-owned cross-graph subscriptions.",
-    "graphId": "bridge-owned-event-subscriptions",
-    "version": "0.1.0",
-    "kind": "task",
     "created": "2026-09-20T00:44:27.189180Z",
     "modified": "2026-09-20T01:47:39.876Z",
     "author": "",
@@ -21,7 +16,7 @@
   "nodes": [
     {
       "id": "bridge-owned-event-subscriptions-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Move Event Subscriptions onto Bridges",
       "position": {
         "x": -500,
@@ -41,14 +36,14 @@
           "role": "exposes-port"
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "portId": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface"
+          "role": "ground"
         },
         {
           "id": "surfaces",
@@ -108,20 +103,20 @@
           }
         },
         {
-          "id": "landing-surface",
-          "key": "landing-surface",
-          "label": "landing surface",
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
           "direction": "output",
           "dataType": "any",
           "angle": 0,
-          "role": "landing-surface",
+          "role": "ground",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "landing-surface",
+            "role": "ground",
             "required": true,
             "repeatable": false,
             "behaviors": [
@@ -190,8 +185,8 @@
           "type": "any"
         },
         {
-          "key": "landing-surface",
-          "label": "landing surface",
+          "key": "ground",
+          "label": "ground",
           "type": "any"
         }
       ],
@@ -295,7 +290,14 @@
         "declaresKind": "task",
         "purpose": "Replace graph-level Event Declaration and Subscription nodes with emitter-owned event contracts and Bridge-owned cross-graph subscriptions.",
         "primaryNodeViewId": "bridge-owned-event-subscriptions-detail-view",
-        "declaration": {
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1784321996391,
+          "reason": "node-drag"
+        },
+        "root": {
           "kind": "template",
           "targetMode": "artifact",
           "artifactKind": "bridge-owned-event-subscriptions",
@@ -321,21 +323,13 @@
               }
             }
           ]
-        },
-        "_placement": {
-          "version": 1,
-          "state": "manually-shaped",
-          "source": "manual",
-          "updatedAt": 1784321996391,
-          "reason": "node-drag"
         }
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-export-kit",
-      "type": "bridge",
+      "type": "export",
       "label": "Task Template Kit Export",
-      "root": false,
       "position": {
         "x": 289.1862341767601,
         "y": -1093.1935624293365
@@ -485,7 +479,6 @@
           "ref": "github://mikemartinez1974/public/tasks/bridge-owned-event-subscriptions/root.node",
           "resourceKind": "library",
           "scope": "graph",
-          "role": "export",
           "surfaceId": "export",
           "exportKind": "kit",
           "grants": [],
@@ -523,7 +516,6 @@
           "scope": "graph",
           "grants": [],
           "label": "Task Template Kit Export",
-          "role": "export",
           "surfaceId": "export",
           "exportKind": "kit",
           "exposure": {
@@ -573,7 +565,6 @@
       "id": "bridge-owned-event-subscriptions-goal",
       "type": "goal",
       "label": "Make event handling graph-native without Event or Subscription nodes",
-      "root": false,
       "position": {
         "x": 0,
         "y": 0
@@ -660,99 +651,6 @@
           "Bridge exposure and subscription remain explicit and reviewable",
           "Event Handler to Method wiring remains visible on the graph"
         ],
-        "definitionKey": "goal",
-        "_classBinding": {
-          "key": "goal",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
-          "defaults": {
-            "label": "Goal",
-            "size": {
-              "width": 420,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #f8e18a, #d19a00)",
-            "showLabel": false,
-            "data": {
-              "body": "Define the outcome this plan should achieve.",
-              "priority": "high",
-              "status": "open",
-              "owner": "",
-              "targetDate": "",
-              "successMetrics": [
-                "Describe a measurable success signal"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Flag"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "goal",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Goal",
-              "size": {
-                "width": 420,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #f8e18a, #d19a00)",
-              "showLabel": false,
-              "data": {
-                "body": "Define the outcome this plan should achieve.",
-                "priority": "high",
-                "status": "open",
-                "owner": "",
-                "targetDate": "",
-                "successMetrics": [
-                  "Describe a measurable success signal"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Flag"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-goal",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-goal",
-          "sourceBridgeLabel": "Goal",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "goal",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -761,14 +659,14 @@
             "kind": "icon",
             "name": "Flag"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node"
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-summary",
-      "type": "summary",
+      "type": "task",
       "label": "Bridge-owned Event Subscription Plan",
-      "root": false,
       "position": {
         "x": -160,
         "y": 920
@@ -874,109 +772,6 @@
         ],
         "taskListText": "1. Define emitter-owned Event contracts\n2. Define Bridge-owned subscription data\n3. Build Bridge event exposure and subscription UI\n4. Update the Event Handler editor\n5. Make the Action Method edge authoritative\n6. Deliver local and bridged events through the new model\n7. Migrate away from Event and Subscription nodes\n8. Create end-to-end event and Bridge smoke coverage",
         "questionListText": "1. What is the stable identity of a Bridge subscription?\n2. How should multiple Handlers subscribe to one exposed Event?\n3. What happens when exposure, a Bridge, a Handler, or a Method disappears?",
-        "definitionKey": "task",
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "summary",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-summary",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-summary",
-          "sourceBridgeLabel": "Task Graph Summary"
-        },
         "updatedAt": "2026-09-20T01:47:39.876Z",
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
@@ -1010,14 +805,14 @@
         "externalRef": "",
         "acceptanceCriteria": [
           "Review the graph-owned task summary for current scope and progress"
-        ]
+        ],
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-decision-event-ownership",
       "type": "decision",
       "label": "Events are declared by emitters",
-      "root": false,
       "position": {
         "x": -900,
         "y": 360
@@ -1099,93 +894,6 @@
         "owner": "Michael",
         "supersededBy": "",
         "body": "An Event is part of a node or class contract rather than an independent graph node. Its declaration names the event and payload contract.",
-        "definitionKey": "decision",
-        "_classBinding": {
-          "key": "decision",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "defaults": {
-            "label": "Decision",
-            "size": {
-              "width": 420,
-              "height": 240
-            },
-            "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
-            "showLabel": false,
-            "data": {
-              "rationale": "State why this decision was made.",
-              "status": "decided",
-              "decidedAt": "",
-              "owner": "",
-              "supersededBy": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Gavel"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "decision",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Decision",
-              "size": {
-                "width": 420,
-                "height": 240
-              },
-              "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
-              "showLabel": false,
-              "data": {
-                "rationale": "State why this decision was made.",
-                "status": "decided",
-                "decidedAt": "",
-                "owner": "",
-                "supersededBy": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Gavel"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-decision",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-decision",
-          "sourceBridgeLabel": "Decision",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "decision",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -1201,14 +909,14 @@
             "kind": "icon",
             "name": "Gavel"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-deprecation-note",
-      "type": "markdown",
+      "type": "content",
       "label": "Deprecation Note",
-      "root": false,
       "position": {
         "x": -700,
         "y": 1360
@@ -1352,26 +1060,8 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "markdown": "## View Doctrine\n\nInside a task graph, there is no separate `task-summary` concept for new work. The graph exposes two derived surfaces:\n\n- `summary`: the outward summary view. Use it for readable document-style summary data.\n- `task`: the rolled-up task view. Use it for goal, status, and the task-shaped body.\n\nKeep existing `task-summary` nodes only for legacy graphs and migrate consumers toward explicit `summary` and `task` views.",
         "memo": "",
         "link": "",
-        "_classBinding": {
-          "key": "markdown",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/markdown.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/markdown.node-class.node"
-        },
-        "_bridge": {
-          "sourceNodeId": "",
-          "sourceBridgeNodeId": "",
-          "sourceBridgeLabel": "Migrated class binding",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/markdown.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "markdown",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/markdown.node-class.node"
-        },
-        "definitionKey": "markdown",
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -1381,6 +1071,10 @@
           "source": "manual",
           "updatedAt": 1784322252125,
           "reason": "node-drag"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "## View Doctrine\n\nInside a task graph, there is no separate `task-summary` concept for new work. The graph exposes two derived surfaces:\n\n- `summary`: the outward summary view. Use it for readable document-style summary data.\n- `task`: the rolled-up task view. Use it for goal, status, and the task-shaped body.\n\nKeep existing `task-summary` nodes only for legacy graphs and migrate consumers toward explicit `summary` and `task` views."
         }
       }
     },
@@ -1388,7 +1082,6 @@
       "id": "bridge-owned-event-subscriptions-updater",
       "type": "script",
       "label": "Bridge-owned Event Plan Updater",
-      "root": false,
       "position": {
         "x": -80,
         "y": 1360
@@ -1556,9 +1249,8 @@
     },
     {
       "id": "bridge-owned-event-subscriptions-back",
-      "type": "bridge",
+      "type": "import",
       "label": "Task Planning Library",
-      "root": false,
       "position": {
         "x": -688.8047599016945,
         "y": -732.1342417766346
@@ -1741,9 +1433,8 @@
     },
     {
       "id": "bridge-owned-event-subscriptions-bridge-goal",
-      "type": "bridge",
+      "type": "import",
       "label": "Goal",
-      "root": false,
       "position": {
         "x": -1160,
         "y": 740
@@ -1914,95 +1605,6 @@
             "create"
           ]
         },
-        "_classBinding": {
-          "key": "goal",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
-          "defaults": {
-            "label": "Goal",
-            "size": {
-              "width": 420,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #f8e18a, #d19a00)",
-            "showLabel": false,
-            "data": {
-              "body": "Define the outcome this plan should achieve.",
-              "priority": "high",
-              "status": "open",
-              "owner": "",
-              "targetDate": "",
-              "successMetrics": [
-                "Describe a measurable success signal"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Flag"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "goal",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Goal",
-              "size": {
-                "width": 420,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #f8e18a, #d19a00)",
-              "showLabel": false,
-              "data": {
-                "body": "Define the outcome this plan should achieve.",
-                "priority": "high",
-                "status": "open",
-                "owner": "",
-                "targetDate": "",
-                "successMetrics": [
-                  "Describe a measurable success signal"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Flag"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "goal",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -2016,9 +1618,8 @@
     },
     {
       "id": "bridge-owned-event-subscriptions-bridge-task",
-      "type": "bridge",
+      "type": "import",
       "label": "Task",
-      "root": false,
       "position": {
         "x": -1160,
         "y": 880
@@ -2189,105 +1790,6 @@
             "create"
           ]
         },
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -2301,9 +1803,8 @@
     },
     {
       "id": "bridge-owned-event-subscriptions-bridge-question",
-      "type": "bridge",
+      "type": "import",
       "label": "Open Question",
-      "root": false,
       "position": {
         "x": -1160,
         "y": 1020
@@ -2474,89 +1975,6 @@
             "create"
           ]
         },
-        "_classBinding": {
-          "key": "open-question",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "defaults": {
-            "label": "Open Question",
-            "size": {
-              "width": 420,
-              "height": 240
-            },
-            "color": "linear-gradient(135deg, #ead6ff, #8750c7)",
-            "showLabel": false,
-            "data": {
-              "body": "State what is still unclear.",
-              "status": "open",
-              "owner": "",
-              "resolutionPath": "",
-              "prominence": "high",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "open-question",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Open Question",
-              "size": {
-                "width": 420,
-                "height": 240
-              },
-              "color": "linear-gradient(135deg, #ead6ff, #8750c7)",
-              "showLabel": false,
-              "data": {
-                "body": "State what is still unclear.",
-                "status": "open",
-                "owner": "",
-                "resolutionPath": "",
-                "prominence": "high",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "HelpOutline"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "open-question",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -2570,9 +1988,8 @@
     },
     {
       "id": "bridge-owned-event-subscriptions-bridge-decision",
-      "type": "bridge",
+      "type": "import",
       "label": "Decision",
-      "root": false,
       "position": {
         "x": -1160,
         "y": 1160
@@ -2743,89 +2160,6 @@
             "create"
           ]
         },
-        "_classBinding": {
-          "key": "decision",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "defaults": {
-            "label": "Decision",
-            "size": {
-              "width": 420,
-              "height": 240
-            },
-            "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
-            "showLabel": false,
-            "data": {
-              "rationale": "State why this decision was made.",
-              "status": "decided",
-              "decidedAt": "",
-              "owner": "",
-              "supersededBy": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Gavel"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "decision",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Decision",
-              "size": {
-                "width": 420,
-                "height": 240
-              },
-              "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
-              "showLabel": false,
-              "data": {
-                "rationale": "State why this decision was made.",
-                "status": "decided",
-                "decidedAt": "",
-                "owner": "",
-                "supersededBy": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Gavel"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "decision",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -2839,7 +2173,7 @@
     },
     {
       "id": "bridge-owned-event-subscriptions-detail-view",
-      "type": "view",
+      "type": "face",
       "label": "Task Graph Detail",
       "position": {
         "x": -1100,
@@ -2942,7 +2276,7 @@
     },
     {
       "id": "bridge-owned-event-subscriptions-summary-view",
-      "type": "view",
+      "type": "face",
       "label": "Task Graph Summary View",
       "position": {
         "x": -1100,
@@ -3045,7 +2379,7 @@
     },
     {
       "id": "bridge-owned-event-subscriptions-icon-view",
-      "type": "view",
+      "type": "face",
       "label": "Task Graph Icon View",
       "position": {
         "x": -1100,
@@ -3336,9 +2670,8 @@
     },
     {
       "id": "bridge-owned-event-subscriptions-bridge-summary",
-      "type": "bridge",
+      "type": "import",
       "label": "Task Graph Summary",
-      "root": false,
       "position": {
         "x": -980,
         "y": 1000
@@ -3509,105 +2842,6 @@
             "create"
           ]
         },
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "summary",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -3627,7 +2861,6 @@
       "id": "bridge-owned-event-subscriptions-decision-bridge-subscriptions",
       "type": "decision",
       "label": "Bridges own cross-graph subscriptions",
-      "root": false,
       "position": {
         "x": -440,
         "y": 360
@@ -3709,93 +2942,6 @@
         "owner": "Michael",
         "supersededBy": "",
         "body": "Export Bridges expose declared events. Import Bridges store subscriptions that bind an exposed event to an Event Handler.",
-        "definitionKey": "decision",
-        "_classBinding": {
-          "key": "decision",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "defaults": {
-            "label": "Decision",
-            "size": {
-              "width": 420,
-              "height": 240
-            },
-            "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
-            "showLabel": false,
-            "data": {
-              "rationale": "State why this decision was made.",
-              "status": "decided",
-              "decidedAt": "",
-              "owner": "",
-              "supersededBy": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Gavel"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "decision",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Decision",
-              "size": {
-                "width": 420,
-                "height": 240
-              },
-              "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
-              "showLabel": false,
-              "data": {
-                "rationale": "State why this decision was made.",
-                "status": "decided",
-                "decidedAt": "",
-                "owner": "",
-                "supersededBy": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Gavel"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-decision",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-decision",
-          "sourceBridgeLabel": "Decision",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "decision",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -3811,14 +2957,14 @@
             "kind": "icon",
             "name": "Gavel"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-decision-handler-method",
       "type": "decision",
       "label": "Event Handlers own reactions",
-      "root": false,
       "position": {
         "x": 20,
         "y": 360
@@ -3900,93 +3046,6 @@
         "owner": "Michael",
         "supersededBy": "",
         "body": "An Event Handler selects an available event and invokes the Method connected to its Action Method port.",
-        "definitionKey": "decision",
-        "_classBinding": {
-          "key": "decision",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "defaults": {
-            "label": "Decision",
-            "size": {
-              "width": 420,
-              "height": 240
-            },
-            "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
-            "showLabel": false,
-            "data": {
-              "rationale": "State why this decision was made.",
-              "status": "decided",
-              "decidedAt": "",
-              "owner": "",
-              "supersededBy": "",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Gavel"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "decision",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Decision",
-              "size": {
-                "width": 420,
-                "height": 240
-              },
-              "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
-              "showLabel": false,
-              "data": {
-                "rationale": "State why this decision was made.",
-                "status": "decided",
-                "decidedAt": "",
-                "owner": "",
-                "supersededBy": "",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Gavel"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-decision",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-decision",
-          "sourceBridgeLabel": "Decision",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "decision",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -4002,14 +3061,14 @@
             "kind": "icon",
             "name": "Gavel"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-task-contract",
       "type": "task",
       "label": "Define emitter-owned Event contracts",
-      "root": false,
       "position": {
         "x": -1050,
         "y": 760
@@ -4096,109 +3155,6 @@
           "Runtime and editor share one event identity contract",
           "Legacy Event Declaration nodes remain readable during migration"
         ],
-        "definitionKey": "task",
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeLabel": "Task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -4211,14 +3167,14 @@
             "kind": "icon",
             "name": "Checklist"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-task-bridge-schema",
       "type": "task",
       "label": "Define Bridge-owned subscription data",
-      "root": false,
       "position": {
         "x": -530,
         "y": 760
@@ -4305,109 +3261,6 @@
           "Only events exposed by the reciprocal export Bridge can be subscribed",
           "Multiple handlers and removal behavior are explicit"
         ],
-        "definitionKey": "task",
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeLabel": "Task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -4420,14 +3273,14 @@
             "kind": "icon",
             "name": "Checklist"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-task-bridge-editor",
       "type": "task",
       "label": "Build Bridge event exposure and subscription UI",
-      "root": false,
       "position": {
         "x": -10,
         "y": 760
@@ -4514,109 +3367,6 @@
           "Author can inspect and remove subscriptions on an import Bridge",
           "UI explains missing reciprocal exposure or stale targets"
         ],
-        "definitionKey": "task",
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeLabel": "Task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -4629,14 +3379,14 @@
             "kind": "icon",
             "name": "Checklist"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-task-handler-editor",
       "type": "task",
       "label": "Update the Event Handler editor",
-      "root": false,
       "position": {
         "x": -1050,
         "y": 1120
@@ -4724,109 +3474,6 @@
           "Changing or clearing selection reconciles the previous subscription",
           "Handler card continues to edit inline"
         ],
-        "definitionKey": "task",
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeLabel": "Task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -4839,14 +3486,14 @@
             "kind": "icon",
             "name": "Checklist"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-task-method-port",
       "type": "task",
       "label": "Make the Action Method edge authoritative",
-      "root": false,
       "position": {
         "x": -530,
         "y": 1120
@@ -4933,109 +3580,6 @@
           "Disconnected Handler reports a clear incomplete state",
           "Legacy action.methodNodeId remains readable only during migration"
         ],
-        "definitionKey": "task",
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeLabel": "Task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -5048,14 +3592,14 @@
             "kind": "icon",
             "name": "Checklist"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-task-runtime",
       "type": "task",
       "label": "Deliver local and bridged events through the new model",
-      "root": false,
       "position": {
         "x": -10,
         "y": 1120
@@ -5143,109 +3687,6 @@
           "Unsaved in-memory changes take effect without committing",
           "Delivery order and failure isolation remain deterministic"
         ],
-        "definitionKey": "task",
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeLabel": "Task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -5258,14 +3699,14 @@
             "kind": "icon",
             "name": "Checklist"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-task-migration",
       "type": "task",
       "label": "Migrate away from Event and Subscription nodes",
-      "root": false,
       "position": {
         "x": -1050,
         "y": 1480
@@ -5353,109 +3794,6 @@
           "Orphaned legacy nodes can be identified and removed safely",
           "Edge Class Template is migrated without losing behavior"
         ],
-        "definitionKey": "task",
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeLabel": "Task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -5468,14 +3806,14 @@
             "kind": "icon",
             "name": "Checklist"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-task-smoke",
       "type": "task",
       "label": "Create end-to-end event and Bridge smoke coverage",
-      "root": false,
       "position": {
         "x": -530,
         "y": 1480
@@ -5564,109 +3902,6 @@
           "Save and reload preserve Bridge subscriptions",
           "Removing a bridge or Method connection produces an understandable inactive state"
         ],
-        "definitionKey": "task",
-        "_classBinding": {
-          "key": "task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "defaults": {
-            "label": "Task",
-            "size": {
-              "width": 380,
-              "height": 260
-            },
-            "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-            "showLabel": false,
-            "data": {
-              "title": "",
-              "body": "Describe the concrete work to execute.",
-              "priority": "high",
-              "status": "todo",
-              "owner": "",
-              "estimateHours": "",
-              "targetDate": "",
-              "startedAt": "",
-              "completedAt": "",
-              "externalRef": "",
-              "acceptanceCriteria": [
-                "Describe what done looks like"
-              ],
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "Checklist"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "task",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Task",
-              "size": {
-                "width": 380,
-                "height": 260
-              },
-              "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
-              "showLabel": false,
-              "data": {
-                "title": "",
-                "body": "Describe the concrete work to execute.",
-                "priority": "high",
-                "status": "todo",
-                "owner": "",
-                "estimateHours": "",
-                "targetDate": "",
-                "startedAt": "",
-                "completedAt": "",
-                "externalRef": "",
-                "acceptanceCriteria": [
-                  "Describe what done looks like"
-                ],
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "Checklist"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-task",
-          "sourceBridgeLabel": "Task",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "task",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -5679,14 +3914,14 @@
             "kind": "icon",
             "name": "Checklist"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task.node-class.node"
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-question-identity",
       "type": "open-question",
       "label": "What is the stable identity of a Bridge subscription?",
-      "root": false,
       "position": {
         "x": -850,
         "y": 1900
@@ -5767,93 +4002,6 @@
         "owner": "",
         "resolutionPath": "Use a deterministic id derived from source export Bridge id, target import Bridge id, and stable Event identity. The event identity includes its declaring source and event key, so the same reciprocal Bridge pair cannot create duplicate subscriptions for the same Event.",
         "prominence": "high",
-        "definitionKey": "open-question",
-        "_classBinding": {
-          "key": "open-question",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "defaults": {
-            "label": "Open Question",
-            "size": {
-              "width": 420,
-              "height": 240
-            },
-            "color": "linear-gradient(135deg, #ead6ff, #8750c7)",
-            "showLabel": false,
-            "data": {
-              "body": "State what is still unclear.",
-              "status": "open",
-              "owner": "",
-              "resolutionPath": "",
-              "prominence": "high",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "open-question",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Open Question",
-              "size": {
-                "width": 420,
-                "height": 240
-              },
-              "color": "linear-gradient(135deg, #ead6ff, #8750c7)",
-              "showLabel": false,
-              "data": {
-                "body": "State what is still unclear.",
-                "status": "open",
-                "owner": "",
-                "resolutionPath": "",
-                "prominence": "high",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "HelpOutline"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-question",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-question",
-          "sourceBridgeLabel": "Open Question",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "open-question",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -5869,14 +4017,14 @@
             "kind": "icon",
             "name": "HelpOutline"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-question-multiplicity",
       "type": "open-question",
       "label": "How should multiple Handlers subscribe to one exposed Event?",
-      "root": false,
       "position": {
         "x": -290,
         "y": 1900
@@ -5957,93 +4105,6 @@
         "owner": "",
         "resolutionPath": "One Event Handler listens to exactly one Event. It does not store a list of method ids; every outgoing Action Method relationship from the Handler identifies a Method to invoke. All connected Methods run in stable graph edge order.",
         "prominence": "high",
-        "definitionKey": "open-question",
-        "_classBinding": {
-          "key": "open-question",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "defaults": {
-            "label": "Open Question",
-            "size": {
-              "width": 420,
-              "height": 240
-            },
-            "color": "linear-gradient(135deg, #ead6ff, #8750c7)",
-            "showLabel": false,
-            "data": {
-              "body": "State what is still unclear.",
-              "status": "open",
-              "owner": "",
-              "resolutionPath": "",
-              "prominence": "high",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "open-question",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Open Question",
-              "size": {
-                "width": 420,
-                "height": 240
-              },
-              "color": "linear-gradient(135deg, #ead6ff, #8750c7)",
-              "showLabel": false,
-              "data": {
-                "body": "State what is still unclear.",
-                "status": "open",
-                "owner": "",
-                "resolutionPath": "",
-                "prominence": "high",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "HelpOutline"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-question",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-question",
-          "sourceBridgeLabel": "Open Question",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "open-question",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -6059,14 +4120,14 @@
             "kind": "icon",
             "name": "HelpOutline"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
       }
     },
     {
       "id": "bridge-owned-event-subscriptions-question-lifecycle",
       "type": "open-question",
       "label": "What happens when exposure, a Bridge, a Handler, or a Method disappears?",
-      "root": false,
       "position": {
         "x": 270,
         "y": 1900
@@ -6147,93 +4208,6 @@
         "owner": "",
         "resolutionPath": "Preserve authored intent and emit a visible diagnostic when an exposed Event, reciprocal Bridge, Handler, or connected Method can no longer be resolved. Do not silently delete or retarget the subscription.",
         "prominence": "high",
-        "definitionKey": "open-question",
-        "_classBinding": {
-          "key": "open-question",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "defaults": {
-            "label": "Open Question",
-            "size": {
-              "width": 420,
-              "height": 240
-            },
-            "color": "linear-gradient(135deg, #ead6ff, #8750c7)",
-            "showLabel": false,
-            "data": {
-              "body": "State what is still unclear.",
-              "status": "open",
-              "owner": "",
-              "resolutionPath": "",
-              "prominence": "high",
-              "presentation": {
-                "glyph": {
-                  "kind": "icon",
-                  "name": "HelpOutline"
-                }
-              }
-            },
-            "ports": [
-              {
-                "id": "root",
-                "key": "root",
-                "label": "root",
-                "direction": "bidirectional",
-                "dataType": "any",
-                "angle": 180
-              }
-            ]
-          },
-          "nodeDef": {
-            "key": "open-question",
-            "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-            "source": "local",
-            "version": ">=0.1.0",
-            "defaults": {
-              "label": "Open Question",
-              "size": {
-                "width": 420,
-                "height": 240
-              },
-              "color": "linear-gradient(135deg, #ead6ff, #8750c7)",
-              "showLabel": false,
-              "data": {
-                "body": "State what is still unclear.",
-                "status": "open",
-                "owner": "",
-                "resolutionPath": "",
-                "prominence": "high",
-                "presentation": {
-                  "glyph": {
-                    "kind": "icon",
-                    "name": "HelpOutline"
-                  }
-                }
-              },
-              "ports": [
-                {
-                  "id": "root",
-                  "key": "root",
-                  "label": "root",
-                  "direction": "bidirectional",
-                  "dataType": "any",
-                  "angle": 180
-                }
-              ]
-            }
-          }
-        },
-        "_bridge": {
-          "sourceNodeId": "bridge-owned-event-subscriptions-bridge-question",
-          "sourceBridgeNodeId": "bridge-owned-event-subscriptions-bridge-question",
-          "sourceBridgeLabel": "Open Question",
-          "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node",
-          "entryPort": "root",
-          "kind": "node-class",
-          "targetKind": "node-class",
-          "classKey": "open-question",
-          "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
-        },
         "identity": {
           "graphId": "bridge-owned-event-subscriptions"
         },
@@ -6249,7 +4223,8 @@
             "kind": "icon",
             "name": "HelpOutline"
           }
-        }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/open-question.node-class.node"
       }
     }
   ],
@@ -6259,271 +4234,254 @@
       "type": "surface",
       "source": "bridge-owned-event-subscriptions-declaration",
       "target": "bridge-owned-event-subscriptions-detail-view",
-      "sourceHandle": "surfaces",
-      "targetHandle": "root",
       "label": "",
       "style": {},
       "data": {
-        "role": "surface",
         "surfaceId": "web"
-      }
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-detail-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "bridge-owned-event-subscriptions-detail-view",
       "target": "bridge-owned-event-subscriptions-summary-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "bridge-owned-event-subscriptions-summary-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "bridge-owned-event-subscriptions-summary-view",
       "target": "bridge-owned-event-subscriptions-icon-view",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "sequence-in",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
     },
     {
       "id": "bridge-owned-event-subscriptions-icon-view-next",
-      "type": "view-sequence",
+      "type": "next-face",
       "source": "bridge-owned-event-subscriptions-icon-view",
       "target": "bridge-owned-event-subscriptions-glyph",
-      "sourceHandle": "sequence-out",
-      "targetHandle": "root",
       "label": "",
       "style": {},
-      "data": {
-        "role": "view-sequence"
-      }
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-landing-edge",
-      "type": "reference",
+      "type": "ground",
       "source": "bridge-owned-event-subscriptions-declaration",
       "target": "bridge-owned-event-subscriptions-landing-surface",
-      "label": "landing surface",
-      "data": {
-        "role": "landing-surface",
-        "semanticRole": "landing-surface"
-      },
-      "sourceHandle": "landing-surface",
-      "targetHandle": "root"
+      "label": "ground",
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-summary-port-edge",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "bridge-owned-event-subscriptions-declaration",
       "target": "bridge-owned-event-subscriptions-summary-port",
       "label": "port",
-      "data": {
-        "role": "exposes-port",
-        "semanticRole": "exposes-port"
-      },
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-export-edge",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "bridge-owned-event-subscriptions-declaration",
       "target": "bridge-owned-event-subscriptions-export-kit",
       "label": "exports",
-      "data": {
-        "role": "exposes-port",
-        "semanticRole": "exposes-port"
-      },
-      "sourceHandle": "port",
-      "targetHandle": "root"
+      "data": {},
+      "sourcePort": "port",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-goal-summary",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-goal",
       "target": "bridge-owned-event-subscriptions-summary",
       "label": "summarized by",
       "style": {},
       "data": {},
-      "sourceHandle": "bottom",
-      "targetHandle": "top"
+      "sourcePort": "bottom",
+      "targetPort": "top"
     },
     {
       "id": "bridge-owned-event-subscriptions-updater-summary",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-updater",
       "target": "bridge-owned-event-subscriptions-summary",
       "label": "updates",
       "style": {},
       "data": {},
-      "sourceHandle": "top",
-      "targetHandle": "bottom"
+      "sourcePort": "top",
+      "targetPort": "bottom"
     },
     {
       "id": "bridge-owned-event-subscriptions-goal-ownership",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-goal",
       "target": "bridge-owned-event-subscriptions-decision-event-ownership",
       "label": "settled decision",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-goal-subscriptions",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-goal",
       "target": "bridge-owned-event-subscriptions-decision-bridge-subscriptions",
       "label": "settled decision",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-goal-method",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-goal",
       "target": "bridge-owned-event-subscriptions-decision-handler-method",
       "label": "settled decision",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-goal-contract",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-goal",
       "target": "bridge-owned-event-subscriptions-task-contract",
       "label": "requires",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-goal-bridge-schema",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-goal",
       "target": "bridge-owned-event-subscriptions-task-bridge-schema",
       "label": "requires",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-goal-bridge-editor",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-goal",
       "target": "bridge-owned-event-subscriptions-task-bridge-editor",
       "label": "requires",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-goal-handler-editor",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-goal",
       "target": "bridge-owned-event-subscriptions-task-handler-editor",
       "label": "requires",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-goal-method-port",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-goal",
       "target": "bridge-owned-event-subscriptions-task-method-port",
       "label": "requires",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-goal-runtime",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-goal",
       "target": "bridge-owned-event-subscriptions-task-runtime",
       "label": "requires",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-goal-migration",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-goal",
       "target": "bridge-owned-event-subscriptions-task-migration",
       "label": "requires",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-goal-smoke",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-goal",
       "target": "bridge-owned-event-subscriptions-task-smoke",
       "label": "requires",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-goal-identity",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-goal",
       "target": "bridge-owned-event-subscriptions-question-identity",
       "label": "open question",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-goal-multiplicity",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-goal",
       "target": "bridge-owned-event-subscriptions-question-multiplicity",
       "label": "open question",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     },
     {
       "id": "bridge-owned-event-subscriptions-goal-lifecycle",
-      "type": "reference",
+      "type": "edge",
       "source": "bridge-owned-event-subscriptions-goal",
       "target": "bridge-owned-event-subscriptions-question-lifecycle",
       "label": "open question",
       "style": {},
       "data": {},
-      "sourceHandle": "root",
-      "targetHandle": "root"
+      "sourcePort": "root",
+      "targetPort": "root"
     }
   ],
-  "clusters": [],
   "settings": {
     "theme": null,
     "backgroundImage": null,
@@ -6576,8 +4534,5 @@
       "source": "console.clear();\nconst nodes = await api.getNodes();\nconsole.log(\"Mike\");\nreturn { count: nodes.length };",
       "tags": ""
     }
-  ],
-  "nodeCount": 32,
-  "edgeCount": 23,
-  "timestamp": "2026-09-20T00:51:28.588899Z"
+  ]
 }

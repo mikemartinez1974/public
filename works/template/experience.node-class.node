@@ -1,10 +1,5 @@
 {
   "metadata": {
-    "title": "Experience Node Class",
-    "description": "A primary navigable or consumable doorway into the work.",
-    "graphId": "experience-work-class",
-    "version": "0.1.0",
-    "kind": "node-class",
     "created": "2026-07-20T00:00:00.000Z",
     "modified": "2026-07-20T00:00:00.000Z",
     "tags": [
@@ -15,9 +10,8 @@
   "nodes": [
     {
       "id": "experience-class-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Experience Class Declaration",
-      "root": false,
       "position": {
         "x": 0,
         "y": -420
@@ -195,36 +189,6 @@
           },
           "styleAuthority": "descriptive"
         },
-        "declaration": {
-          "kind": "node-class",
-          "defaultSurfaceId": "experience-detail-view",
-          "surfaces": [
-            {
-              "id": "experience-detail-view",
-              "kind": "view",
-              "label": "Surface",
-              "viewNodeId": "experience-detail-view"
-            },
-            {
-              "id": "experience-summary-view",
-              "kind": "view",
-              "label": "Card",
-              "viewNodeId": "experience-summary-view"
-            },
-            {
-              "id": "experience-icon-view",
-              "kind": "view",
-              "label": "Icon",
-              "viewNodeId": "experience-icon-view"
-            },
-            {
-              "id": "experience-editor-view",
-              "kind": "view",
-              "label": "Editor",
-              "viewNodeId": "experience-editor-view"
-            }
-          ]
-        },
         "nodeClass": {
           "contractVersion": "1.0.0",
           "key": "experience",
@@ -340,14 +304,43 @@
           "gridSize": 20,
           "edgeRouting": "auto",
           "autoSave": false
+        },
+        "root": {
+          "kind": "node-class",
+          "defaultSurfaceId": "experience-detail-view",
+          "surfaces": [
+            {
+              "id": "experience-detail-view",
+              "kind": "view",
+              "label": "Surface",
+              "viewNodeId": "experience-detail-view"
+            },
+            {
+              "id": "experience-summary-view",
+              "kind": "view",
+              "label": "Card",
+              "viewNodeId": "experience-summary-view"
+            },
+            {
+              "id": "experience-icon-view",
+              "kind": "view",
+              "label": "Icon",
+              "viewNodeId": "experience-icon-view"
+            },
+            {
+              "id": "experience-editor-view",
+              "kind": "view",
+              "label": "Editor",
+              "viewNodeId": "experience-editor-view"
+            }
+          ]
         }
       }
     },
     {
       "id": "experience-definition",
-      "type": "markdown",
+      "type": "content",
       "label": "Definition",
-      "root": false,
       "position": {
         "x": -380,
         "y": -140
@@ -488,15 +481,17 @@
         "identity": {
           "graphId": "experience-work-class"
         },
-        "markdown": "## Experience\n\nA primary navigable or consumable doorway into the work.\n\nRequired data: `title`, `experienceKind`, `targetRef`.",
-        "visibilityRole": "editor"
+        "visibilityRole": "editor",
+        "content": {
+          "kind": "markdown",
+          "value": "## Experience\n\nA primary navigable or consumable doorway into the work.\n\nRequired data: `title`, `experienceKind`, `targetRef`."
+        }
       }
     },
     {
       "id": "experience-editor-view",
       "type": "port",
       "label": "Editor",
-      "root": false,
       "position": {
         "x": -400,
         "y": 120
@@ -720,7 +715,6 @@
       "id": "experience-detail-view",
       "type": "port",
       "label": "Surface",
-      "root": false,
       "position": {
         "x": 0,
         "y": 120
@@ -887,7 +881,6 @@
       "id": "experience-summary-view",
       "type": "port",
       "label": "Card",
-      "root": false,
       "position": {
         "x": 480,
         "y": 120
@@ -1042,7 +1035,6 @@
       "id": "experience-icon-view",
       "type": "port",
       "label": "Icon",
-      "root": false,
       "position": {
         "x": 850,
         "y": 120
@@ -1198,7 +1190,7 @@
   "edges": [
     {
       "id": "experience-decl-definition",
-      "type": "reference",
+      "type": "edge",
       "source": "experience-class-declaration",
       "target": "experience-definition",
       "sourcePort": "bottom",
@@ -1212,7 +1204,7 @@
     },
     {
       "id": "experience-decl-editor",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "experience-class-declaration",
       "target": "experience-editor-view",
       "sourcePort": "bottom",
@@ -1226,7 +1218,7 @@
     },
     {
       "id": "experience-decl-detail",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "experience-class-declaration",
       "target": "experience-detail-view",
       "sourcePort": "bottom",
@@ -1240,7 +1232,7 @@
     },
     {
       "id": "experience-decl-summary",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "experience-class-declaration",
       "target": "experience-summary-view",
       "sourcePort": "bottom",
@@ -1254,7 +1246,7 @@
     },
     {
       "id": "experience-decl-icon",
-      "type": "reference",
+      "type": "exposes-port",
       "source": "experience-class-declaration",
       "target": "experience-icon-view",
       "sourcePort": "bottom",
