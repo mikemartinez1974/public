@@ -150,7 +150,8 @@ const contentNodes = [
 const statuses = {
   'the-plan': 'in-progress', 'phase-inventory': 'done', 'action-inventory-app': 'done', 'action-inventory-canon': 'done', 'action-inventory-ai': 'done',
   'phase-wording': 'done', 'action-collisions': 'done', 'action-open': 'done', 'action-layers': 'done', 'milestone-wording': 'done',
-  'phase-canon': 'in-progress',
+  'phase-canon': 'in-progress', 'phase-app': 'in-progress', 'action-rename': 'done', 'action-scrap': 'done', 'action-labels': 'in-progress',
+  'constraint-stored': 'done', 'contingency-map': 'done',
   'decision-root': 'done', 'decision-distinctive': 'done', 'decision-faces': 'done',
   'decision-layers': 'done', 'decision-stored': 'done', 'decision-property': 'done', 'decision-ground': 'done',
   'decision-portal': 'done', 'decision-specification': 'done'
