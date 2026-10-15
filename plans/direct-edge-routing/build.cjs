@@ -224,9 +224,6 @@ graph.settings = {
   edgeRouting: 'orthogonal',
   layout: { mode: 'manual', defaultLayout: 'layered', direction: 'RIGHT', edgeLaneGapPx: 20 }
 };
-graph.nodeCount = graph.nodes.length;
-graph.edgeCount = graph.edges.length;
-graph.timestamp = now;
 
 fs.mkdirSync(__dirname, { recursive: true });
 fs.writeFileSync(outputPath, `${JSON.stringify(graph, null, 2)}\n`);

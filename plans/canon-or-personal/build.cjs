@@ -151,7 +151,7 @@ for (const node of contentNodes) {
   });
 }
 
-graph.metadata = { ...graph.metadata, title, description, graphId, version: '0.1.0', created: now, modified: now,
+graph.metadata = { ...graph.metadata, created: now, modified: now,
   tags: ['plan', 'library', 'canon', 'sorting'], preferredViewer: 'https://dev.twilite.zone' };
 declaration.label = title;
 declaration.data.identity = { ...declaration.data.identity, graphId, nodeId, name: title, version: '0.1.0', description };
@@ -210,9 +210,6 @@ instructions.data.content = { kind: 'markdown', value: '# How to use this board\
 for (const node of graph.nodes) if (node.data?.identity?.graphId) node.data.identity.graphId = graphId;
 graph.settings = { ...graph.settings, snapToGrid: true, gridSize: 20, edgeRouting: 'orthogonal',
   layout: { mode: 'manual', defaultLayout: 'layered', direction: 'DOWN', edgeLaneGapPx: 20 } };
-graph.nodeCount = graph.nodes.length;
-graph.edgeCount = graph.edges.length;
-graph.timestamp = now;
 
 fs.writeFileSync(outputPath, `${JSON.stringify(graph, null, 2)}\n`);
 console.log(`wrote ${path.relative(process.cwd(), outputPath)}: ${graph.nodes.length} nodes, ${graph.edges.length} edges`);
