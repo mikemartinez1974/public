@@ -10,7 +10,7 @@
   "nodes": [
     {
       "id": "events-occurrence-delivery-declaration",
-      "type": "declaration",
+      "type": "root",
       "label": "Events: Occurrence and Delivery Contract",
       "position": {
         "x": -1050,
@@ -72,55 +72,6 @@
           "scope": "public"
         },
         "summaryNodeId": "events-occurrence-delivery-summary",
-        "declaration": {
-          "kind": "task",
-          "targetMode": "artifact",
-          "defaultSurfaceId": "root",
-          "surfaces": [
-            {
-              "id": "root",
-              "kind": "port",
-              "label": "Events Implementation",
-              "portNodeId": "events-occurrence-delivery-root-port",
-              "viewNodeId": "events-occurrence-delivery-root-port",
-              "memo": "Safe default entry port for the graph.",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            },
-            {
-              "id": "summary",
-              "kind": "port",
-              "label": "Events Implementation Summary",
-              "portNodeId": "events-occurrence-delivery-summary-port",
-              "viewNodeId": "events-occurrence-delivery-summary-port",
-              "memo": "Task-shaped outward summary for collections and workboards.",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
-            }
-          ],
-          "notes": [
-            "An Event is a declaration; an Occurrence records one happening with its own identity and actual payload.",
-            "One Occurrence may produce independent Deliveries through explicit Subscriptions; delivery failure does not undo the occurrence.",
-            "A graph may subscribe to Events from its immediate bridged neighbors by semantic nodeId, subject to bridge exposure. The emitting graphId remains provenance. Bridged transport preserves the occurrenceId.",
-            "Default delivery visits matching Subscriptions in graph-array order, one attempt at a time. Nested emissions queue after the current occurrence. Failed deliveries do not stop sibling deliveries; there is no automatic retry.",
-            "Event or delivery logging and persistence are authoring choices, not a default delivery obligation.",
-            "The source export bridge lists available Events; the receiving import bridge lists those exposed Events and lets an author create an explicit Subscription to a selected Handler.",
-            "A checkbox without a Handler creates an incomplete Subscription that cannot receive Deliveries.",
-            "Each root causal chain permits at most 32 descendant Occurrences in the first runtime slice. Exceeding the budget stops that chain with an observable limit outcome."
-          ]
-        },
         "dependencies": {
           "nodeTypes": [
             "declaration",
@@ -174,6 +125,55 @@
         },
         "document": {
           "url": "github://mikemartinez1974/public/tasks/events-occurrence-delivery/root.node"
+        },
+        "root": {
+          "kind": "task",
+          "targetMode": "artifact",
+          "defaultSurfaceId": "root",
+          "surfaces": [
+            {
+              "id": "root",
+              "kind": "port",
+              "label": "Events Implementation",
+              "portNodeId": "events-occurrence-delivery-root-port",
+              "viewNodeId": "events-occurrence-delivery-root-port",
+              "memo": "Safe default entry port for the graph.",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            },
+            {
+              "id": "summary",
+              "kind": "port",
+              "label": "Events Implementation Summary",
+              "portNodeId": "events-occurrence-delivery-summary-port",
+              "viewNodeId": "events-occurrence-delivery-summary-port",
+              "memo": "Task-shaped outward summary for collections and workboards.",
+              "exposes": {
+                "views": {
+                  "mode": "allow"
+                },
+                "declarations": {
+                  "mode": "allow"
+                }
+              }
+            }
+          ],
+          "notes": [
+            "An Event is a declaration; an Occurrence records one happening with its own identity and actual payload.",
+            "One Occurrence may produce independent Deliveries through explicit Subscriptions; delivery failure does not undo the occurrence.",
+            "A graph may subscribe to Events from its immediate bridged neighbors by semantic nodeId, subject to bridge exposure. The emitting graphId remains provenance. Bridged transport preserves the occurrenceId.",
+            "Default delivery visits matching Subscriptions in graph-array order, one attempt at a time. Nested emissions queue after the current occurrence. Failed deliveries do not stop sibling deliveries; there is no automatic retry.",
+            "Event or delivery logging and persistence are authoring choices, not a default delivery obligation.",
+            "The source export bridge lists available Events; the receiving import bridge lists those exposed Events and lets an author create an explicit Subscription to a selected Handler.",
+            "A checkbox without a Handler creates an incomplete Subscription that cannot receive Deliveries.",
+            "Each root causal chain permits at most 32 descendant Occurrences in the first runtime slice. Exceeding the budget stops that chain with an observable limit outcome."
+          ]
         }
       }
     },
