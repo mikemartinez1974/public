@@ -189,7 +189,7 @@ const contentNodes = [
     'The route class declares the field, and its editor gains the control, in the same change that moves the card into the Page Template.')
 ];
 // The two documents navigation is built from stand beside its column, each as a Portal.
-const linked = (key, label, ref, memo, position) => ({ id: `${prefix}-${key}`, type: 'portal', label, root: false, position, width: 360, height: 240,
+const linked = (key, label, ref, memo, position) => ({ id: `${prefix}-${key}`, type: 'portal', label, position, width: 360, height: 240,
   ports: [{ id: 'root', label: 'root', direction: 'bidirectional', dataType: 'any', angle: 210 }, { id: 'left', label: 'left', direction: 'bidirectional', dataType: 'value', angle: 180 }],
   visible: true, showLabel: true,
   data: { identity: { graphId }, memo, authority: 'navigate', intent: 'external', src: ref, ref, endpoint: ref, sourceRef: ref, sourcePayload: 'node.web.detail', surfaceId: 'root',
