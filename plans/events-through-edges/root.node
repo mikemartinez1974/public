@@ -2467,7 +2467,7 @@
     {
       "id": "events-through-edges-action-pin",
       "type": "plan-action",
-      "label": "Announce graph.changed from the write paths",
+      "label": "Raise the event from the node itself",
       "position": {
         "x": 0,
         "y": 1080
@@ -2693,8 +2693,8 @@
         }
       ],
       "data": {
-        "title": "Announce graph.changed from the write paths",
-        "description": "One root event for a node added or removed, an edge changed, or a node's data or property edited. Raised from GraphCrud.updateNode(s) and the nodeUpdate bus event, and from the structure diff, like node.changed. Never from a UI.",
+        "title": "Raise the event from the node itself",
+        "description": "Decided 2026-10-15: a node can raise an event without making the value a Property. graph.changed stays on the root for the Page Template; a piece may also raise its own event. The chain guard (a run never re-invokes a Method in its own chain) comes first.",
         "status": "planned",
         "notes": "",
         "presentation": {
@@ -3193,7 +3193,7 @@
     {
       "id": "events-through-edges-action-geometry",
       "type": "plan-action",
-      "label": "Order and enable on the edge",
+      "label": "Order on the edge; no enable switch yet",
       "position": {
         "x": 960,
         "y": 720
@@ -3419,8 +3419,8 @@
         }
       ],
       "data": {
-        "title": "Order and enable on the edge",
-        "description": "Several invokes edges from one event run in edge order, as a Handler ran its Methods. An edge with data.enabled false is skipped. Port capacity: the event output takes any number, the Method's invokes input takes any number.",
+        "title": "Order on the edge; no enable switch yet",
+        "description": "Several invokes edges from one event run in edge order. The Edge Class Template has no way for an edge instance to carry a field, so enabled is left out: to stop a call, remove the edge. Adding edge fields is a separate decision.",
         "status": "planned",
         "notes": "",
         "presentation": {
@@ -3435,7 +3435,7 @@
     {
       "id": "events-through-edges-action-endpoints",
       "type": "plan-action",
-      "label": "Rewrite the edge classes",
+      "label": "Update the invokes edge class and reference it",
       "position": {
         "x": 960,
         "y": 1080
@@ -3661,8 +3661,8 @@
         }
       ],
       "data": {
-        "title": "Rewrite the edge classes",
-        "description": "invokes: source any event output port, target method. listens: retired. The canon pages for both, the Edge Class pages and the primitives wording are proposed as text first and written after approval.",
+        "title": "Update the invokes edge class and reference it",
+        "description": "Canon invokes changes from handler->method to event output port->method, built from the Edge Class Template. Every invokes edge sets data.classRef to tlz://twilite.zone/library/edges/invokes/root.node (the Page Template edges have an empty data today). listens is retired. Wording is proposed first.",
         "status": "planned",
         "notes": "",
         "presentation": {
