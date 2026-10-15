@@ -149,6 +149,12 @@ const contentNodes = [
     'Decided with Michael, 2026-10-14 (plans/vocabulary/behaviour-today.md): every source draws its own invokes edge to the Method; Methods invoke Methods through an invokes port; a button raises an event; Scripts and Event Handler nodes retire; listening across graphs is redesigned in the same shape. Rebuild the primitive pages and templates on it.'),
   makeNode('plan-action', 'action-api-example', 'An API node, as an example', at(6, 10),
     'The old API node (fetch a URL when triggered) is retired in the vocabulary pass. Once behaviour runs along the edges, build the same thing from a class and a Method, and keep it as the worked example of making your own node. Michael, 2026-10-14.'),
+  makeNode('plan-action', 'action-faces-by-order', 'Faces chosen by order, never by name', at(6, 11),
+    'Decided with the vocabulary (Collision 11): the first face is the page, the rest are tried in order as room runs out, then the Glyph; Detail, Summary and Icon are only usual names. The app still asks for faces by those names in many places, Ports still read and write their own per-face wiring (owns-detail and the like), and composePort writes it.'),
+  makeNode('plan-action', 'action-class-binding', 'A node names its class the way an edge does', at(6, 12),
+    'After the vocabulary pass an edge stores its class as type plus data.classRef. A node of a class still carries it several ways (data._bridge.classKey, data._classBinding.key with a full copy of the class definition, definitionKey). Needs a decision: look the class up by address when the graph loads, instead of reading an embedded copy.'),
+  makeNode('plan-action', 'action-old-builders', 'Builders that would write the old shapes', at(6, 13),
+    'Do not run these until they are brought up to date: the Plan Template build.cjs, the Twilite Zone root build.cjs, and the older plan builders fragment-extraction-authoring-contract, public-root-arrival and reciprocal-multigraph-bridge-contract. Their saved graphs are converted.'),
   makeNode('plan-decision', 'decision-back', 'Going back', at(7, 1), 'Does every graph need its own way back, or is that the app’s job?', { decision: 'Agreed by Michael, 2026-10-12: it is the app’s job. Back returns to the same graph, node and distance; no graph draws a way back.' }),
   makeNode('plan-decision', 'decision-up', 'Going up', at(7, 2), 'Is there a place above this one: an index above a primitive page, the root above the index?', { decision: 'Agreed by Michael, 2026-10-12: there is no separate “up”. In the workspace the trunk shows what a graph was opened from.' }),
   makeNode('plan-decision', 'decision-where', 'Knowing where you are', at(7, 3), 'With several graphs open, what tells you which one you are in and how you got there?', { decision: 'Agreed by Michael, 2026-10-12: a trail near the address bar names the graphs you came through.' }),
@@ -251,7 +257,7 @@ phases.slice(1).forEach((phase, index) => addEdge(`phase-${index + 1}-${index + 
 const phaseActions = {
   demos: ['commons-demo', 'boulevard-demo', 'twilite-demo'], navigation: ['inventory', 'proposal', 'build-navigation'],
   rooms: ['commons', 'boulevard', 'twilite', 'card'], places: ['company', 'gallery', 'research'], cycle: ['move-cycle', 'examples'],
-  tutorials: ['write-tutorials', 'open-learn'], carried: ['edges', 'editor', 'small', 'sorting', 'rooting', 'trail-ui', 'web-pages', 'behaviour', 'api-example']
+  tutorials: ['write-tutorials', 'open-learn'], carried: ['edges', 'editor', 'small', 'sorting', 'rooting', 'trail-ui', 'web-pages', 'behaviour', 'api-example', 'faces-by-order', 'class-binding', 'old-builders']
 };
 for (const [phase, actions] of Object.entries(phaseActions)) {
   for (const action of actions) addEdge(`${phase}-${action}`, 'plan.contains', `phase-${phase}`, `action-${action}`, ['actions', 'parent']);
