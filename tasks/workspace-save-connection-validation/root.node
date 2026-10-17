@@ -2,7 +2,7 @@
   "fileVersion": "1.0",
   "metadata": {
     "created": "2026-10-17T19:09:05.285Z",
-    "modified": "2026-10-17T19:09:05.285Z",
+    "modified": "2026-10-17T19:29:31.140Z",
     "author": "",
     "tags": [
       "task",
@@ -702,17 +702,19 @@
       "showLabel": true,
       "data": {
         "title": "Draft #1: Define the Save selection transaction contract",
-        "body": "Write the first reviewable contract for Save selection as graph: capture selected ready projections and internal workspace edges, preserve the existing workspace while the user chooses a destination, handle cancel and save failure without losing the prior arrangement, and state how dirty unselected graphs are treated.",
+        "body": "Write the first reviewable contract for Save selection as graph: capture selected ready projections and internal workspace edges, leave the current workspace intact by default, handle cancel and save failure without losing the prior arrangement, and make opening the captured graph an explicit Save and open as graph action.",
         "priority": "high",
         "status": "todo",
         "owner": "Michael",
         "estimateHours": "2",
         "acceptanceCriteria": [
           "The draft names the capture boundary and the graph-owned versus workspace-owned edge data.",
-          "Canceling the save dialog leaves the original workspace, selection, focus, and dirty state intact.",
-          "A failed save leaves the captured graph recoverable and explains what the user can do next.",
+          "A successful Save selection as graph leaves the current workspace, selection, focus, camera, and dirty state intact.",
+          "Canceling the save dialog leaves the original workspace unchanged.",
+          "A failed save leaves the original workspace active and exposes retry or discard explicitly.",
+          "Save and open as graph focuses the captured graph only after successful persistence.",
           "Dirty selected and unselected child graphs have explicit, tested behavior.",
-          "The browser smoke plan covers success, cancel, failure, and reload."
+          "The browser smoke plan covers success, cancel, failure, explicit open, and reload."
         ],
         "identity": {
           "graphId": "workspace-save-connection-validation"
@@ -949,7 +951,7 @@
         "priority": "high",
         "owner": "Michael",
         "targetDate": "",
-        "nextAction": "Review Draft #1, then define the browser acceptance matrix for saving and dragging.",
+        "nextAction": "Review the revised Draft #1, then define the browser acceptance matrix for saving, explicit open, and dragging.",
         "blockedReason": "",
         "health": "unknown",
         "presentation": {
