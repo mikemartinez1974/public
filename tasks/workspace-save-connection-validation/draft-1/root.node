@@ -1,0 +1,176 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "created": "2026-10-17T19:09:05.285Z",
+    "modified": "2026-10-17T19:09:05.285Z",
+    "author": "Michael",
+    "tags": [
+      "draft",
+      "workspace",
+      "save"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "workspace-save-connection-draft-1-declaration",
+      "type": "root",
+      "label": "Draft #1: Save selection as graph",
+      "position": {
+        "x": -620,
+        "y": -420
+      },
+      "width": 420,
+      "height": 260,
+      "ports": [
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port"
+        },
+        {
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "ground"
+        }
+      ],
+      "handles": [
+        {
+          "id": "port",
+          "key": "port",
+          "portId": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port"
+        },
+        {
+          "id": "ground",
+          "key": "ground",
+          "portId": "ground",
+          "label": "ground",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "ground"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workspace-save-connection-draft-1",
+          "nodeId": "workspace-save-connection-draft-1",
+          "name": "Draft #1: Save selection as graph",
+          "version": "0.1.0",
+          "description": "First draft of the transactional Save selection contract.",
+          "updatedAt": "2026-10-17T19:09:05.285Z"
+        },
+        "intent": {
+          "kind": "graph",
+          "scope": "public"
+        },
+        "document": {
+          "url": "github://mikemartinez1974/public/tasks/workspace-save-connection-validation/draft-1/root.node"
+        },
+        "root": {
+          "kind": "document",
+          "targetMode": "artifact",
+          "artifactKind": "draft",
+          "defaultSurfaceId": "root",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          }
+        }
+      }
+    },
+    {
+      "id": "workspace-save-connection-draft-1-root-port",
+      "type": "port",
+      "label": "Draft #1: Save selection as graph",
+      "position": {
+        "x": 40,
+        "y": -420
+      },
+      "width": 540,
+      "height": 360,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workspace-save-connection-draft-1",
+          "nodeId": "workspace-save-connection-draft-1",
+          "portId": "root",
+          "name": "Draft #1: Save selection as graph"
+        },
+        "title": "Draft #1: Save selection as graph",
+        "purpose": "Review the transaction and recovery contract before runtime changes.",
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Draft #1: Save selection as graph\n\n## Purpose\n\nMake **Save selection as graph** a staged, recoverable operation. The current capture helper can build a parent graph, but the user experience must preserve the original workspace until the save outcome is known.\n\n## Proposed contract\n\n1. Snapshot the selected ready graph projections, their internal workspace edges, the current selection, focus, camera, and dirty state.\n2. Validate the selection before mutating the workspace. Report unsaved selected children and any other blocking condition with a concrete recovery path.\n3. Prepare the captured parent graph and its workspace-owned edges in memory. Keep child graph contents referenced by durable address; do not copy their contents into the parent.\n4. Open the destination save flow without replacing the current workspace.\n5. On cancel, restore the unchanged snapshot and leave the original workspace active.\n6. On save failure, keep the original workspace available and retain the prepared capture as a recoverable draft or explicit retry state.\n7. Replace the workspace only after a successful save, then focus the saved graph and update the address bar.\n\n## Edge ownership\n\nWorkspace-created cross-graph connections remain workspace-owned in the captured parent graph. Legacy child edgeReferences remain readable during migration, but the save contract must say which representation is authoritative for new workspace edges.\n\n## Dirty graph behavior\n\nThe browser proof must cover both selected and unselected dirty child graphs. The operation must never discard dirty work silently. The user-facing outcome should identify the graph that blocks capture and the action that resolves it.\n\n## Acceptance evidence\n\n- Success creates the expected parent graph and preserves internal selected edges.\n- Cancel leaves workspace membership, selection, focus, camera, and dirty flags unchanged.\n- Save failure leaves the original workspace recoverable and exposes retry or discard explicitly.\n- Reload preserves the saved workspace-owned edges.\n- The smoke records the exact destination and source graph addresses.\n\n## Open decision\n\nShould a failed save keep a staged capture shell visible, or should it return to the original workspace with the capture available through an explicit retry action?"
+        },
+        "renderShape": {
+          "kind": "markdown"
+        },
+        "visibilityRole": "browser"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "workspace-save-connection-draft-1-exposes-root",
+      "type": "exposes-port",
+      "source": "workspace-save-connection-draft-1-declaration",
+      "target": "workspace-save-connection-draft-1-root-port",
+      "sourcePort": "port",
+      "targetPort": "root",
+      "label": "port",
+      "data": {}
+    }
+  ],
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "#666666",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "autoSave": false
+  }
+}
