@@ -5,11 +5,7 @@
     "modified": "2026-10-17T20:15:28.998Z",
     "author": "",
     "tags": [
-      "task",
-      "workspace",
-      "save",
-      "connections",
-      "validation"
+      "task"
     ],
     "preferredViewer": "https://dev.twilite.zone"
   },
@@ -24,56 +20,6 @@
       },
       "width": 360,
       "height": 240,
-      "handles": [
-        {
-          "id": "port",
-          "key": "port",
-          "portId": "port",
-          "label": "port",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 90,
-          "role": "exposes-port"
-        },
-        {
-          "id": "ground",
-          "key": "ground",
-          "portId": "ground",
-          "label": "ground",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 0,
-          "role": "ground"
-        },
-        {
-          "id": "surfaces",
-          "key": "surfaces",
-          "label": "surfaces",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 90,
-          "role": "surface",
-          "allowedEdgeTypes": [
-            "surface"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "surface",
-            "required": false,
-            "repeatable": true,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "view",
-                "targetPort": "root"
-              }
-            ]
-          },
-          "portId": "surfaces"
-        }
-      ],
       "ports": [
         {
           "id": "port",
@@ -155,39 +101,257 @@
               }
             ]
           }
+        },
+        {
+          "id": "default-handle",
+          "key": "default-handle",
+          "label": "default handle",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "default-handle",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-handle",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "portal",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "boundary-begin",
+          "key": "boundary-begin",
+          "label": "boundary begin",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 300,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "boundary-end",
+          "key": "boundary-end",
+          "label": "boundary end",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 135,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
-      "inputs": [],
-      "outputs": [
+      "handles": [
         {
-          "key": "default-view",
-          "label": "default view",
-          "type": "any"
-        },
-        {
-          "key": "summary-view",
-          "label": "summary view",
-          "type": "any"
-        },
-        {
-          "key": "icon-view",
-          "label": "icon view",
-          "type": "any"
-        },
-        {
-          "key": "glyph",
-          "label": "glyph",
-          "type": "any"
-        },
-        {
+          "id": "port",
           "key": "port",
           "label": "port",
-          "type": "any"
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "port"
         },
         {
+          "id": "ground",
           "key": "ground",
           "label": "ground",
-          "type": "any"
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "ground",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "ground",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "ground"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
+        },
+        {
+          "id": "default-handle",
+          "key": "default-handle",
+          "label": "default handle",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "default-handle",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-handle",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "portal",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "default-handle"
+        },
+        {
+          "id": "boundary-begin",
+          "key": "boundary-begin",
+          "label": "boundary begin",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 300,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "boundary-begin"
+        },
+        {
+          "id": "boundary-end",
+          "key": "boundary-end",
+          "label": "boundary end",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 135,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "boundary-end"
         }
       ],
       "visible": true,
@@ -258,7 +422,7 @@
           "theme": null,
           "backgroundImage": null,
           "defaultNodeColor": "#1976d2",
-          "defaultEdgeColor": "#666666",
+          "defaultEdgeColor": "",
           "snapToGrid": false,
           "gridSize": 20,
           "edgeRouting": "auto",
@@ -336,6 +500,43 @@
       },
       "width": 320,
       "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
       "handles": [
         {
           "id": "root",
@@ -376,97 +577,6 @@
           "dataType": "value",
           "angle": 360,
           "portId": "right"
-        }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 360
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
         }
       ],
       "visible": true,
@@ -525,12 +635,22 @@
       "type": "goal",
       "label": "Make workspace graph saving and connection dragging safe and verifiable",
       "position": {
-        "x": -160,
-        "y": 560
+        "x": -313.3690446875769,
+        "y": 529.9479574598668
       },
-      "width": 420,
-      "height": 260,
+      "width": 596.167145924919,
+      "height": 336.68452234378833,
       "color": "linear-gradient(135deg, #f8e18a, #d19a00)",
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
       "handles": [
         {
           "id": "root",
@@ -571,29 +691,6 @@
           "dataType": "value",
           "angle": 360,
           "portId": "root"
-        }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
         }
       ],
       "visible": true,
@@ -619,7 +716,14 @@
             "name": "Flag"
           }
         },
-        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node"
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/goal.node-class.node",
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1792267106347,
+          "reason": "node-drag"
+        }
       }
     },
     {
@@ -630,9 +734,19 @@
         "x": 380,
         "y": 560
       },
-      "width": 380,
-      "height": 260,
+      "width": 602,
+      "height": 439,
       "color": "linear-gradient(135deg, #9be7c4, #1f9d67)",
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
       "handles": [
         {
           "id": "root",
@@ -673,29 +787,6 @@
           "dataType": "value",
           "angle": 360,
           "portId": "root"
-        }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
         }
       ],
       "visible": true,
@@ -739,12 +830,22 @@
       "type": "open-question",
       "label": "How is a cross-graph Bridge relationship authored?",
       "position": {
-        "x": -700,
-        "y": 560
+        "x": -968,
+        "y": 519
       },
-      "width": 420,
-      "height": 240,
+      "width": 547,
+      "height": 299,
       "color": "linear-gradient(135deg, #ead6ff, #8750c7)",
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
       "handles": [
         {
           "id": "root",
@@ -785,29 +886,6 @@
           "dataType": "value",
           "angle": 360,
           "portId": "root"
-        }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
         }
       ],
       "visible": true,
@@ -825,7 +903,7 @@
           "version": 1,
           "state": "manually-shaped",
           "source": "manual",
-          "updatedAt": 1784322329096,
+          "updatedAt": 1792266838222,
           "reason": "node-drag"
         },
         "presentation": {
@@ -842,12 +920,22 @@
       "type": "task",
       "label": "Workspace save and connection validation",
       "position": {
-        "x": -160,
-        "y": 920
+        "x": -317.51415400345684,
+        "y": 940.7255465794022
       },
-      "width": 420,
-      "height": 340,
+      "width": 624.146633807112,
+      "height": 370.05204254013324,
       "color": "linear-gradient(135deg, #f4e2ff, #bfa1ef)",
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
       "handles": [
         {
           "id": "root",
@@ -888,29 +976,6 @@
           "dataType": "value",
           "angle": 360,
           "portId": "root"
-        }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
         }
       ],
       "visible": true,
@@ -945,7 +1010,7 @@
           "version": 1,
           "state": "manually-shaped",
           "source": "manual",
-          "updatedAt": 1784322159134,
+          "updatedAt": 1792267116262,
           "reason": "node-drag"
         },
         "memo": "",
@@ -979,12 +1044,22 @@
       "type": "decision",
       "label": "Workspace capture must be transactional",
       "position": {
-        "x": -700,
-        "y": 920
+        "x": -997,
+        "y": 929
       },
-      "width": 420,
-      "height": 240,
+      "width": 534,
+      "height": 285,
       "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
       "handles": [
         {
           "id": "root",
@@ -1027,29 +1102,6 @@
           "portId": "root"
         }
       ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        }
-      ],
       "visible": true,
       "showLabel": true,
       "data": {
@@ -1066,7 +1118,7 @@
           "version": 1,
           "state": "manually-shaped",
           "source": "manual",
-          "updatedAt": 1784322332554,
+          "updatedAt": 1792267098338,
           "reason": "node-drag"
         },
         "presentation": {
@@ -1089,6 +1141,43 @@
       "width": 520,
       "height": 200,
       "color": "#455a64",
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
       "handles": [
         {
           "id": "root",
@@ -1129,97 +1218,6 @@
           "dataType": "value",
           "angle": 360,
           "portId": "right"
-        }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 360
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
         }
       ],
       "visible": true,
@@ -1253,6 +1251,43 @@
       },
       "width": 320,
       "height": 190,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
       "handles": [
         {
           "id": "root",
@@ -1293,97 +1328,6 @@
           "dataType": "value",
           "angle": 360,
           "portId": "right"
-        }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 360
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
         }
       ],
       "visible": true,
@@ -1422,6 +1366,43 @@
       },
       "width": 320,
       "height": 120,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
       "handles": [
         {
           "id": "root",
@@ -1462,97 +1443,6 @@
           "dataType": "value",
           "angle": 360,
           "portId": "right"
-        }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 360
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
         }
       ],
       "visible": true,
@@ -1592,6 +1482,43 @@
       },
       "width": 300,
       "height": 120,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
       "handles": [
         {
           "id": "root",
@@ -1632,97 +1559,6 @@
           "dataType": "value",
           "angle": 360,
           "portId": "right"
-        }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 360
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
         }
       ],
       "visible": true,
@@ -1761,6 +1597,43 @@
       },
       "width": 300,
       "height": 120,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
       "handles": [
         {
           "id": "root",
@@ -1801,97 +1674,6 @@
           "dataType": "value",
           "angle": 360,
           "portId": "right"
-        }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 360
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
         }
       ],
       "visible": true,
@@ -1930,6 +1712,43 @@
       },
       "width": 300,
       "height": 120,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
       "handles": [
         {
           "id": "root",
@@ -1970,97 +1789,6 @@
           "dataType": "value",
           "angle": 360,
           "portId": "right"
-        }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 360
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
         }
       ],
       "visible": true,
@@ -2099,6 +1827,43 @@
       },
       "width": 300,
       "height": 120,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360
+        }
+      ],
       "handles": [
         {
           "id": "root",
@@ -2139,97 +1904,6 @@
           "dataType": "value",
           "angle": 360,
           "portId": "right"
-        }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 360
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
         }
       ],
       "visible": true,
@@ -2325,20 +1999,6 @@
           "role": "view.content"
         }
       ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "surface-delegate",
-          "label": "surface delegate",
-          "type": "any"
-        }
-      ],
       "visible": true,
       "showLabel": true,
       "data": {
@@ -2426,20 +2086,6 @@
           "dataType": "any",
           "angle": 90,
           "role": "view.content"
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "surface-delegate",
-          "label": "surface delegate",
-          "type": "any"
         }
       ],
       "visible": true,
@@ -2531,20 +2177,6 @@
           "role": "view.content"
         }
       ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "surface-delegate",
-          "label": "surface delegate",
-          "type": "any"
-        }
-      ],
       "visible": true,
       "showLabel": true,
       "data": {
@@ -2598,14 +2230,6 @@
           "portId": "root"
         }
       ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        }
-      ],
-      "outputs": [],
       "visible": true,
       "showLabel": true,
       "data": {
@@ -2653,14 +2277,6 @@
           "portId": "root"
         }
       ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        }
-      ],
-      "outputs": [],
       "visible": true,
       "showLabel": true,
       "data": {
@@ -2708,14 +2324,6 @@
           "angle": 270
         }
       ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        }
-      ],
-      "outputs": [],
       "visible": true,
       "showLabel": true,
       "data": {
@@ -2901,43 +2509,41 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "memo": "Visible node-class bridge for Task.",
-        "intent": "external",
+        "rationale": "The export side is already a source Port. A directed target on the export would duplicate the import-side relationship and blur ownership.",
+        "status": "decided",
+        "decidedAt": "",
+        "owner": "Michael",
+        "supersededBy": "",
+        "body": "Treat the export Bridge as a target-free Port. Treat the import Bridge as a Portal on the target graph. A Bridge relationship exists only after both sides exist. Dragging an export Bridge over a target graph authors the import Bridge there and leaves the source export unchanged.",
         "identity": {
           "graphId": "workspace-save-connection-validation"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1784322332554,
+          "reason": "node-drag"
         },
         "presentation": {
           "glyph": {
             "kind": "icon",
-            "name": "Checklist"
+            "name": "Gavel"
           }
         },
-        "_placement": {
-          "updatedAt": 1787934590006,
-          "reason": "handle-port-contract-migration"
-        },
-        "bridge": {
-          "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-          "resourceKind": "node-class",
-          "key": "summary",
-          "label": "Create",
-          "scope": "focused-graph",
-          "grants": [
-            "create"
-          ]
-        }
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
       }
     },
     {
-      "id": "workspace-save-connection-validation-draft-1-portal",
+      "id": "workspace-save-connection-validation-browser-smoke-portal",
       "type": "portal",
-      "label": "Draft #1 — Save selection contract",
+      "label": "Browser smoke — capture and Bridge authoring",
       "position": {
         "x": 920,
         "y": 80
       },
-      "width": 420,
-      "height": 260,
+      "width": 440,
+      "height": 280,
       "ports": [
         {
           "id": "root",
@@ -2961,15 +2567,15 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "sourceRef": "github://mikemartinez1974/public/tasks/workspace-save-connection-validation/draft-1/root.node",
-        "sourceNodeId": "workspace-save-connection-draft-1-root-port",
+        "sourceRef": "github://mikemartinez1974/public/tasks/workspace-save-connection-validation/browser-smoke/root.node",
+        "sourceNodeId": "workspace-capture-bridge-smoke-summary-port",
         "sourcePayload": "node.web",
         "target": {
-          "ref": "github://mikemartinez1974/public/tasks/workspace-save-connection-validation/draft-1/root.node",
+          "ref": "github://mikemartinez1974/public/tasks/workspace-save-connection-validation/browser-smoke/root.node",
           "mode": "navigate",
           "portId": "root",
-          "surfaceId": "root",
-          "label": "Open Draft #1"
+          "surfaceId": "summary",
+          "label": "Open browser smoke task"
         },
         "authority": "navigate",
         "intent": "external",
@@ -3143,131 +2749,134 @@
       "type": "surface",
       "source": "workspace-save-connection-validation-declaration",
       "target": "workspace-save-connection-validation-detail-view",
+      "sourcePort": "surfaces",
+      "targetPort": "root",
       "label": "",
       "style": {},
       "data": {
         "surfaceId": "web"
-      },
-      "sourcePort": "surfaces",
-      "targetPort": "root"
+      }
     },
     {
       "id": "workspace-save-connection-validation-detail-view-next",
       "type": "next-face",
       "source": "workspace-save-connection-validation-detail-view",
       "target": "workspace-save-connection-validation-summary-view",
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in",
       "label": "",
       "style": {},
-      "data": {},
-      "sourcePort": "sequence-out",
-      "targetPort": "sequence-in"
+      "data": {}
     },
     {
       "id": "workspace-save-connection-validation-summary-view-next",
       "type": "next-face",
       "source": "workspace-save-connection-validation-summary-view",
       "target": "workspace-save-connection-validation-icon-view",
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in",
       "label": "",
       "style": {},
-      "data": {},
-      "sourcePort": "sequence-out",
-      "targetPort": "sequence-in"
+      "data": {}
     },
     {
       "id": "workspace-save-connection-validation-icon-view-next",
       "type": "next-face",
       "source": "workspace-save-connection-validation-icon-view",
       "target": "workspace-save-connection-validation-glyph",
+      "sourcePort": "sequence-out",
+      "targetPort": "root",
       "label": "",
       "style": {},
-      "data": {},
-      "sourcePort": "sequence-out",
-      "targetPort": "root"
+      "data": {}
     },
     {
       "id": "workspace-save-connection-validation-edge-002",
       "type": "edge",
       "source": "workspace-save-connection-validation-goal",
       "target": "workspace-save-connection-validation-task",
+      "sourcePort": "right",
+      "targetPort": "left",
       "label": "task",
       "style": {},
-      "data": {},
-      "sourcePort": "right",
-      "targetPort": "left"
+      "data": {}
     },
     {
       "id": "workspace-save-connection-validation-edge-003",
       "type": "edge",
       "source": "workspace-save-connection-validation-goal",
       "target": "workspace-save-connection-validation-question",
+      "sourcePort": "left",
+      "targetPort": "right",
       "label": "question",
       "style": {},
-      "data": {},
-      "sourcePort": "left",
-      "targetPort": "right"
+      "data": {}
     },
     {
       "id": "workspace-save-connection-validation-edge-004",
       "type": "edge",
       "source": "workspace-save-connection-validation-goal",
       "target": "workspace-save-connection-validation-summary",
+      "sourcePort": "bottom",
+      "targetPort": "top",
       "label": "document",
       "style": {},
-      "data": {},
-      "sourcePort": "bottom",
-      "targetPort": "top"
+      "data": {}
     },
     {
       "id": "workspace-save-connection-validation-edge-005",
       "type": "edge",
       "source": "workspace-save-connection-validation-summary",
       "target": "workspace-save-connection-validation-decision",
+      "sourcePort": "left",
+      "targetPort": "right",
       "label": "placement",
       "style": {},
-      "data": {},
-      "sourcePort": "left",
-      "targetPort": "right"
+      "data": {}
     },
     {
       "id": "workspace-save-connection-validation-edge-008",
       "type": "edge",
       "source": "workspace-save-connection-validation-updater",
       "target": "workspace-save-connection-validation-summary",
+      "sourcePort": "top",
+      "targetPort": "bottom",
       "label": "updates",
       "style": {},
-      "data": {},
-      "sourcePort": "top",
-      "targetPort": "bottom"
+      "data": {}
     },
     {
       "id": "workspace-save-connection-validation-landing-edge",
       "type": "ground",
       "source": "workspace-save-connection-validation-declaration",
       "target": "workspace-save-connection-validation-landing-surface",
-      "label": "ground",
-      "data": {},
       "sourcePort": "ground",
-      "targetPort": "root"
+      "targetPort": "root",
+      "label": "ground",
+      "style": {},
+      "data": {}
     },
     {
       "id": "workspace-save-connection-validation-summary-port-edge",
       "type": "exposes-port",
       "source": "workspace-save-connection-validation-declaration",
       "target": "workspace-save-connection-validation-summary-port",
-      "label": "port",
-      "data": {},
       "sourcePort": "port",
-      "targetPort": "root"
+      "targetPort": "root",
+      "label": "port",
+      "style": {},
+      "data": {}
     },
     {
       "id": "workspace-save-connection-validation-export-edge",
       "type": "exposes-port",
       "source": "workspace-save-connection-validation-declaration",
       "target": "workspace-save-connection-validation-export-kit",
-      "label": "exports",
-      "data": {},
       "sourcePort": "port",
-      "targetPort": "root"
+      "targetPort": "root",
+      "label": "exports",
+      "style": {},
+      "data": {}
     },
     {
       "id": "workspace-save-connection-validation-task-draft-1",
@@ -3311,7 +2920,7 @@
     "theme": null,
     "backgroundImage": null,
     "defaultNodeColor": "#1976d2",
-    "defaultEdgeColor": "#666666",
+    "defaultEdgeColor": "",
     "snapToGrid": false,
     "gridSize": 20,
     "edgeRouting": "auto",
@@ -3335,14 +2944,14 @@
       }
     },
     "github": {
-      "repo": "twilite-zone/public",
-      "path": "library/classes/nodes/task-planning/workspace-save-connection-validation.node",
+      "repo": "mikemartinez1974/public",
+      "path": "tasks/workspace-save-connection-validation/root.node",
       "branch": "main",
       "autoCreateRepo": true,
       "repoVisibility": "private",
       "seedOnCommit": false,
       "enableGithubPages": false,
-      "installationId": "120403738"
+      "installationId": ""
     },
     "autoSave": false
   },
