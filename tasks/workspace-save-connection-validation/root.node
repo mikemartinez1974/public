@@ -2,7 +2,7 @@
   "fileVersion": "1.0",
   "metadata": {
     "created": "2026-10-17T19:09:05.285Z",
-    "modified": "2026-10-17T19:29:31.140Z",
+    "modified": "2026-10-17T20:15:28.998Z",
     "author": "",
     "tags": [
       "task",
@@ -198,7 +198,7 @@
           "name": "Validate workspace graph saving and connection dragging",
           "version": "0.1.0",
           "description": "Define and prove safe Save selection behavior and real pointer-based connection authoring in the workspace.",
-          "updatedAt": "2026-10-17T19:09:05.285Z",
+          "updatedAt": "2026-10-17T20:07:34.405Z",
           "nodeId": "workspace-save-connection-validation"
         },
         "intent": {
@@ -601,7 +601,7 @@
       "data": {
         "body": "Turn the workspace bar's graph capture and connection gestures into explicit, reviewable contracts that preserve user work and can be proven in the browser.",
         "priority": "high",
-        "status": "todo",
+        "status": "in-progress",
         "owner": "Michael",
         "targetDate": "",
         "successMetrics": [
@@ -702,9 +702,9 @@
       "showLabel": true,
       "data": {
         "title": "Draft #1: Define the Save selection transaction contract",
-        "body": "Write the first reviewable contract for Save selection as graph: capture selected ready projections and internal workspace edges, leave the current workspace intact by default, handle cancel and save failure without losing the prior arrangement, and make opening the captured graph an explicit Save and open as graph action.",
+        "body": "Write the first reviewable contract for Save selection as graph: capture selected ready projections and internal workspace edges, leave the current workspace intact by default, handle cancel and save failure without losing the prior arrangement, make opening the captured graph an explicit Save and open as graph action, and define export-to-import Bridge creation during drag.",
         "priority": "high",
-        "status": "todo",
+        "status": "in-progress",
         "owner": "Michael",
         "estimateHours": "2",
         "acceptanceCriteria": [
@@ -713,14 +713,16 @@
           "Canceling the save dialog leaves the original workspace unchanged.",
           "A failed save leaves the original workspace active and exposes retry or discard explicitly.",
           "Save and open as graph focuses the captured graph only after successful persistence.",
+          "An export Bridge remains a target-free source Port.",
+          "Dragging an export Bridge creates the corresponding import Bridge on the target graph.",
           "Dirty selected and unselected child graphs have explicit, tested behavior.",
-          "The browser smoke plan covers success, cancel, failure, explicit open, and reload."
+          "The browser smoke plan covers save, explicit open, Bridge creation, invalid targets, and reload."
         ],
         "identity": {
           "graphId": "workspace-save-connection-validation"
         },
         "targetDate": "",
-        "startedAt": "",
+        "startedAt": "2026-10-17T20:07:34.405Z",
         "completedAt": "",
         "externalRef": "github://mikemartinez1974/public/tasks/workspace-save-connection-validation/draft-1/root.node",
         "presentation": {
@@ -735,7 +737,7 @@
     {
       "id": "workspace-save-connection-validation-question",
       "type": "open-question",
-      "label": "Which connection ownership and drop-target rules should the browser prove?",
+      "label": "How is a cross-graph Bridge relationship authored?",
       "position": {
         "x": -700,
         "y": 560
@@ -811,10 +813,10 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "body": "Should an export Bridge drag target a specific compatible Port under the pointer, or may it choose the first compatible Port in a graph? Which workspace-owned edges must remain in the parent graph after save, and which legacy child edgeReferences remain readable?",
-        "status": "open",
+        "body": "An export Bridge is the source graph Port and has no target. An import Bridge is the target graph Portal. The relationship exists when both are present. Dragging an export Bridge over a target graph creates the import Bridge on that target graph; it does not assign a target to the export.",
+        "status": "answered",
         "owner": "Michael",
-        "resolutionPath": "",
+        "resolutionPath": "Settled in Draft #1: Save selection as graph and recorded in the Bridge authoring decision.",
         "prominence": "high",
         "identity": {
           "graphId": "workspace-save-connection-validation"
@@ -915,14 +917,14 @@
       "showLabel": false,
       "data": {
         "goal": "Make workspace graph saving and connection dragging safe and verifiable",
-        "status": "todo",
+        "status": "in-progress",
         "viewRole": "document",
         "taskProgress": {
           "completed": 0,
           "total": 1
         },
         "questionProgress": {
-          "answered": 0,
+          "answered": 1,
           "total": 1
         },
         "summarySource": "node-updater",
@@ -931,11 +933,11 @@
           "Draft #1: Define the Save selection transaction contract"
         ],
         "questionTitles": [
-          "Which connection ownership and drop-target rules should the browser prove?"
+          "How is a cross-graph Bridge relationship authored?"
         ],
         "taskListText": "1. Draft #1: Define the Save selection transaction contract",
-        "questionListText": "1. Which connection ownership and drop-target rules should the browser prove?",
-        "updatedAt": "2026-07-22T00:00:00.000Z",
+        "questionListText": "1. How is a cross-graph Bridge relationship authored? (answered)",
+        "updatedAt": "2026-10-17T20:07:34.405Z",
         "identity": {
           "graphId": "workspace-save-connection-validation"
         },
@@ -951,7 +953,7 @@
         "priority": "high",
         "owner": "Michael",
         "targetDate": "",
-        "nextAction": "Review the revised Draft #1, then define the browser acceptance matrix for saving, explicit open, and dragging.",
+        "nextAction": "Run twilite/tests/browser/workspaceCaptureBridge.smoke.cjs against the running editor and record the output.",
         "blockedReason": "",
         "health": "unknown",
         "presentation": {
@@ -961,7 +963,7 @@
           }
         },
         "title": "Make workspace graph saving and connection dragging safe and verifiable",
-        "body": "Goal: Make workspace graph saving and connection dragging safe and verifiable\n\nTasks in scope:\n1. Draft #1: Define the Save selection transaction contract\n\nOpen questions:\n1. Which connection ownership and drop-target rules should the browser prove?",
+        "body": "Goal: Make workspace graph saving and connection dragging safe and verifiable\n\nTasks in scope:\n1. Draft #1: Define the Save selection transaction contract\n\nOpen questions:\n1. How is a cross-graph Bridge relationship authored? (answered)",
         "estimateHours": "",
         "startedAt": "",
         "completedAt": "",
@@ -2977,6 +2979,162 @@
         },
         "security": "prompt"
       }
+    },
+    {
+      "id": "workspace-save-connection-validation-decision-bridge-authoring",
+      "type": "decision",
+      "label": "Export Bridges are source Ports; drag creates target import Portals",
+      "position": {
+        "x": 1240,
+        "y": -120
+      },
+      "width": 420,
+      "height": 240,
+      "color": "linear-gradient(135deg, #b9d7ff, #2b6fd6)",
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210,
+          "portId": "root"
+        },
+        {
+          "id": "top",
+          "label": "top",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 270,
+          "portId": "root"
+        },
+        {
+          "id": "left",
+          "label": "left",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 180,
+          "portId": "root"
+        },
+        {
+          "id": "bottom",
+          "label": "bottom",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 90,
+          "portId": "root"
+        },
+        {
+          "id": "right",
+          "label": "right",
+          "direction": "bidirectional",
+          "dataType": "value",
+          "angle": 360,
+          "portId": "root"
+        }
+      ],
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "inputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "root",
+          "label": "root",
+          "type": "any"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "rationale": "The export side is already a source Port. A directed target on the export would duplicate the import-side relationship and blur ownership.",
+        "status": "decided",
+        "decidedAt": "",
+        "owner": "Michael",
+        "supersededBy": "",
+        "body": "Treat the export Bridge as a target-free Port. Treat the import Bridge as a Portal on the target graph. A Bridge relationship exists only after both sides exist. Dragging an export Bridge over a target graph authors the import Bridge there and leaves the source export unchanged.",
+        "identity": {
+          "graphId": "workspace-save-connection-validation"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1784322332554,
+          "reason": "node-drag"
+        },
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Gavel"
+          }
+        },
+        "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/decision.node-class.node"
+      }
+    },
+    {
+      "id": "workspace-save-connection-validation-browser-smoke-portal",
+      "type": "portal",
+      "label": "Browser smoke — capture and Bridge authoring",
+      "position": {
+        "x": 920,
+        "y": 360
+      },
+      "width": 440,
+      "height": 280,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/workspace-save-connection-validation/browser-smoke/root.node",
+        "sourceNodeId": "workspace-capture-bridge-smoke-summary-port",
+        "sourcePayload": "node.web",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/workspace-save-connection-validation/browser-smoke/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "surfaceId": "summary",
+          "label": "Open browser smoke task"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workspace-save-connection-validation"
+        },
+        "security": "prompt"
+      }
     }
   ],
   "edges": [
@@ -3125,6 +3283,28 @@
       "data": {
         "relationship": "review-artifact"
       }
+    },
+    {
+      "id": "workspace-save-connection-validation-decision-bridge-authoring-edge",
+      "type": "edge",
+      "source": "workspace-save-connection-validation-goal",
+      "target": "workspace-save-connection-validation-decision-bridge-authoring",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "settled decision",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workspace-save-connection-validation-goal-browser-smoke",
+      "type": "edge",
+      "source": "workspace-save-connection-validation-goal",
+      "target": "workspace-save-connection-validation-browser-smoke-portal",
+      "label": "proven by",
+      "style": {},
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
     }
   ],
   "settings": {
