@@ -2,7 +2,7 @@
   "fileVersion": "1.0",
   "metadata": {
     "created": "2026-10-18T19:49:20.955Z",
-    "modified": "2026-10-18T19:49:20.955Z",
+    "modified": "2026-10-18T20:28:38.047Z",
     "author": "",
     "tags": [
       "task"
@@ -597,7 +597,7 @@
       "data": {
         "body": "Make a workspace behave like graph space: each graph instance has one authoritative workspace position, the canvas uses one understandable camera model, and focus, zoom, drag, and creation preserve that position.",
         "priority": "critical",
-        "status": "todo",
+        "status": "in-progress",
         "owner": "Michael",
         "targetDate": "",
         "successMetrics": [
@@ -697,10 +697,10 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "body": "The runtime still carries camera scopes, graph cameras, rollover seams, transient presentation frames, and placement flags. Which fields can be removed in the first implementation slice without breaking saved workspaces or graph navigation?",
-        "status": "open",
+        "body": "The first implementation slice retires presentation-only placement state. _workspacePresentationFrame and _reflowShift must stop participating in ordinary rendering, while instance.offset remains authoritative. Keep pinned, manuallyPlaced, and placedBy temporarily so migration does not change saved-workspace behavior. Simplify camera state after placement is stable. Failed-load instance cleanup is a separate lifecycle question.",
+        "status": "answered",
         "owner": "Michael",
-        "resolutionPath": "",
+        "resolutionPath": "Retire presentation-only state first: stop render-time reflow and overlap correction from producing _workspacePresentationFrame or _reflowShift; preserve instance.offset and compatibility flags during the transition.",
         "prominence": "high",
         "identity": {
           "graphId": "workspace-graph-space-unification"
@@ -801,14 +801,14 @@
       "showLabel": false,
       "data": {
         "goal": "Make workspace interaction behave like graph space",
-        "status": "todo",
+        "status": "in-progress",
         "viewRole": "document",
         "taskProgress": {
           "completed": 0,
           "total": 6
         },
         "questionProgress": {
-          "answered": 0,
+          "answered": 1,
           "total": 1
         },
         "summarySource": "node-updater",
@@ -826,7 +826,7 @@
         ],
         "taskListText": "1. Define the shared camera and position contract\n2. Make instance offset authoritative\n3. Move collision handling to insertion and explicit tidy\n4. Simplify focus and camera state\n5. Unify workspace drag and hit testing\n6. Add persistence and browser regression proof",
         "questionListText": "1. Which legacy workspace state can be retired first?",
-        "updatedAt": "2026-10-18T19:49:34.813Z",
+        "updatedAt": "2026-10-18T20:28:38.052Z",
         "identity": {
           "graphId": "workspace-graph-space-unification"
         },
@@ -842,7 +842,7 @@
         "priority": "critical",
         "owner": "Michael",
         "targetDate": "",
-        "nextAction": "Start with the shared coordinate and placement contract, then trace the runtime writers that can move an instance.",
+        "nextAction": "Implement the first slice in workspaceCamera.js, graphWorkspace.js, and WorkspaceLayer.js, then inspect focused placement behavior before simplifying camera state.",
         "blockedReason": "",
         "health": "unknown",
         "presentation": {
@@ -852,7 +852,7 @@
           }
         },
         "title": "Make workspace interaction behave like graph space",
-        "body": "Goal: Make workspace interaction behave like graph space\nStatus: todo\n\nTasks in scope:\n1. Define the shared camera and position contract\n2. Make instance offset authoritative\n3. Move collision handling to insertion and explicit tidy\n4. Simplify focus and camera state\n\nOpen questions:\n1. Which legacy workspace state can be retired first?",
+        "body": "Goal: Make workspace interaction behave like graph space\nStatus: in-progress\n\nTasks in scope:\n1. Define the shared camera and position contract\n2. Make instance offset authoritative\n3. Move collision handling to insertion and explicit tidy\n4. Simplify focus and camera state\n\nOpen questions:\n1. Which legacy workspace state can be retired first?",
         "estimateHours": "",
         "startedAt": "",
         "completedAt": "",
@@ -944,10 +944,10 @@
       "data": {
         "rationale": "The workspace should share graph-space interaction semantics. Reflow during render makes focus, return, and zoom appear to move graphs and creates a second layout authority.",
         "status": "decided",
-        "decidedAt": "",
+        "decidedAt": "2026-10-18T20:28:38.047Z",
         "owner": "Michael",
         "supersededBy": "",
-        "body": "Treat each graph instance offset as authored workspace geometry. Insert and explicit Tidy may choose positions. Drag updates the offset. Focus, zoom, semantic presentation, and render passes may change the camera or compact frame, but they must not mutate the offset.",
+        "body": "Treat each graph instance offset as authored workspace geometry. Insert and explicit Tidy may choose positions. Drag updates the offset. Focus, zoom, semantic presentation, and ordinary render passes may change the camera or compact frame, but they must not mutate the offset or create a transient placement override. Keep legacy placement flags only as a compatibility boundary until later cleanup.",
         "identity": {
           "graphId": "workspace-graph-space-unification"
         },
@@ -2897,21 +2897,21 @@
       "showLabel": true,
       "data": {
         "title": "Define the shared camera and position contract",
-        "body": "Write the small contract that makes workspace and graph space use the same world/screen transform and gives each graph instance one authoritative offset.",
+        "body": "Implement the first workspace simplification slice: make instance.offset authoritative in ordinary rendering, document the shared camera and position boundary, and retire render-time presentation placement state without changing insertion or explicit Tidy behavior.",
         "priority": "critical",
-        "status": "todo",
+        "status": "in-progress",
         "owner": "Michael",
         "estimateHours": "",
         "acceptanceCriteria": [
-          "Document world-to-screen and screen-to-world conversion.",
-          "Name the one persisted position field and the state that is presentation-only.",
-          "Define the boundary between insertion placement, drag, focus, and explicit tidy."
+          "Workspace rendering reads position from instance.offset and authored/compact frame only.",
+          "Ordinary layout does not create or consume _workspacePresentationFrame or _reflowShift.",
+          "Insertion placement and explicit Tidy remain the only automatic repositioning paths."
         ],
         "identity": {
           "graphId": "workspace-graph-space-unification"
         },
         "targetDate": "",
-        "startedAt": "",
+        "startedAt": "2026-10-18T20:28:38.047Z",
         "completedAt": "",
         "externalRef": "",
         "presentation": {
