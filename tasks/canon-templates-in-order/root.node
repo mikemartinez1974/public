@@ -656,10 +656,10 @@
         },
         "membrane": {
           "bounds": {
-            "x": -1170,
+            "x": -1695,
             "y": -640,
-            "width": 3420,
-            "height": 2280
+            "width": 5130,
+            "height": 3420
           },
           "clip": true
         }
@@ -851,7 +851,7 @@
         },
         "content": {
           "kind": "markdown",
-          "value": "# Canon templates in order\n\nBefore canon is converted to the view-shape rule and published, every canon template has to be in order. Only two are in canon now: the Page Template, which is on the old shape, and the Task Template, which is on the current model.\n\n**Draft #1** decides which of the 33 templates in the personal library are canon templates. **Draft #2** writes down what a canon template is, so each one is rebuilt to the same standard. The rest follows from those two.\n\nThis task is built from the Task Template: its views and glyph are derived from the work below."
+          "value": "# Canon templates in order\n\nBefore canon is converted to the view-shape rule and published, every canon template has to be in order. Only two are in canon now: the Page Template, which is on the old shape, and the Task Template, which is on the current model.\n\n**Draft #1** decides which of the 28 templates in the personal library are canon templates. **Draft #2** writes down what a canon template is, so each one is rebuilt to the same standard. The rest follows from those two.\n\nThis task is built from the Task Template: its views and glyph are derived from the work below."
         },
         "_placement": {
           "version": 1,
@@ -915,7 +915,7 @@
       "data": {
         "scriptName": "Derive the task views",
         "parameters": [],
-        "source": "// Derives the task's views from the task itself: nothing is typed into a summary.\n// It reads the goal, the work items (task) and the open questions, works out one status, and writes the Detail and Summary\n// views and the Glyph. It writes only those four, which its declared effects say.\nconst clean = (value) => String(value ?? '').trim();\nconst esc = (value) => clean(value)\n  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;').replace(/'/g, '&#39;');\n\n// One status vocabulary, used at every size. `mark` is the Icon's symbol, `glyph` a Material icon name.\nconst STATUS = {\n  todo: { label: 'To do', mark: '○', glyph: 'RadioButtonUnchecked', ink: '#475569', tint: '#f1f5f9', line: '#cbd5e1' },\n  'in-progress': { label: 'In progress', mark: '▶', glyph: 'PlayCircleOutline', ink: '#1d4ed8', tint: '#eff6ff', line: '#bfdbfe' },\n  blocked: { label: 'Blocked', mark: '■', glyph: 'Block', ink: '#b91c1c', tint: '#fef2f2', line: '#fecaca' },\n  waiting: { label: 'Waiting', mark: '…', glyph: 'HourglassEmpty', ink: '#b45309', tint: '#fffbeb', line: '#fde68a' },\n  done: { label: 'Done', mark: '✓', glyph: 'CheckCircle', ink: '#15803d', tint: '#f0fdf4', line: '#bbf7d0' },\n  cancelled: { label: 'Cancelled', mark: '×', glyph: 'Cancel', ink: '#64748b', tint: '#f8fafc', line: '#e2e8f0' }\n};\nconst statusOf = (value) => (STATUS[clean(value)] ? clean(value) : 'todo');\nconst finished = (status) => status === 'done' || status === 'cancelled';\n\nconst nodes = await api.getNodes();\nconst edges = await api.getEdges();\nconst byId = new Map(nodes.map((node) => [node.id, node]));\nconst of = (type) => edges.filter((edge) => clean(edge.type) === type);\nconst titleOf = (node) => clean(node?.data?.title || node?.label);\n\n// The relationships say more than the status fields do. A decision that resolves a question answers it; something waiting on a\n// thing that is not resolved is blocked, whatever its own status field says; precedes puts work in order.\nconst resolvedByDecision = new Set(of('resolves').map((edge) => edge.target));\nconst isResolved = (node) => {\n  if (!node) return true;\n  const own = clean(node.data?.status);\n  if (clean(node.type) === 'open-question') return own === 'answered' || resolvedByDecision.has(node.id);\n  if (clean(node.type) === 'decision') return ['decided', 'accepted', 'done'].includes(own);\n  return own === 'done' || own === 'cancelled';\n};\nconst blockersOf = (node) => of('blocked-by').filter((edge) => edge.source === node.id).map((edge) => byId.get(edge.target)).filter((target) => target && !isResolved(target));\n// Work is blocked when its own status says so, or when something it is blocked by is not yet resolved.\nconst stateOf = (node) => {\n  const own = statusOf(node.data?.status);\n  return !finished(own) && blockersOf(node).length ? 'blocked' : own;\n};\nconst reasonOf = (node) => clean(node.data?.blockedReason) || (blockersOf(node)[0] ? `Waiting on ${titleOf(blockersOf(node)[0])}` : '');\n\nconst goal = nodes.find((node) => clean(node.type) === 'goal');\n// The task's work is every task in the graph: drawing or deleting a contains edge changes how it is drawn, not what is counted.\nconst tasks = nodes.filter((node) => clean(node.type) === 'task');\nconst bound = tasks;\n// In order: work that comes after other work (precedes) follows it.\nconst depthOf = (node, seen = new Set()) => {\n  if (seen.has(node.id)) return 0;\n  seen.add(node.id);\n  const before = of('precedes').filter((edge) => edge.target === node.id).map((edge) => byId.get(edge.source)).filter(Boolean);\n  return before.length ? 1 + Math.max(...before.map((one) => depthOf(one, new Set(seen)))) : 0;\n};\nconst items = bound.map((node, index) => ({ node, index, depth: depthOf(node) })).sort((x, y) => x.depth - y.depth || x.index - y.index).map(({ node }) => node);\nconst questions = nodes.filter((node) => clean(node.type) === 'open-question');\nconst open = questions.filter((node) => !isResolved(node));\nconst counted = items.filter((node) => stateOf(node) !== 'cancelled');\nconst doneCount = counted.filter((node) => stateOf(node) === 'done').length;\nconst total = counted.length;\n\n// One status for the whole task.\nconst goalStatus = statusOf(goal?.data?.status);\nlet status;\nif (finished(goalStatus)) status = goalStatus;\nelse if (items.some((node) => stateOf(node) === 'blocked')) status = 'blocked';\nelse if (total && doneCount === total) status = 'done';\nelse if (items.some((node) => stateOf(node) === 'in-progress') || doneCount > 0) status = 'in-progress';\nelse if (items.some((node) => stateOf(node) === 'waiting')) status = 'waiting';\nelse status = 'todo';\nconst look = STATUS[status];\n\n// What happens next, or what is in the way.\nconst blocker = items.find((node) => stateOf(node) === 'blocked');\nconst readyToStart = (node) => of('precedes').filter((edge) => edge.target === node.id).every((edge) => isResolved(byId.get(edge.source)));\nconst live = items.find((node) => stateOf(node) === 'in-progress') || items.find((node) => stateOf(node) === 'todo' && readyToStart(node)) || items.find((node) => stateOf(node) === 'todo');\nconst next = status === 'blocked'\n  ? reasonOf(blocker) || `${titleOf(blocker)} is blocked`\n  : status === 'done' || status === 'cancelled' ? '' : titleOf(live);\nconst title = titleOf(goal) || 'Untitled task';\nconst owner = clean(goal?.data?.owner);\nconst percent = total ? Math.round((doneCount / total) * 100) : 0;\nconst asked = open.length ? `${open.length} open question${open.length === 1 ? '' : 's'}` : 'No open questions';\n\nconst FONT = 'system-ui,-apple-system,Segoe UI,sans-serif';\n// The container is an outer wrapper and the page is inside it: a container's own padding and corners in cqw would otherwise be measured against the\n// window above it, not against the view.\nconst frame = (inner, extra = '') => `<div style='container-type:inline-size;width:100%;height:100%;min-height:100%'><div style='box-sizing:border-box;width:100%;height:100%;overflow:hidden;font-family:${FONT};${extra}'>${inner}</div></div>`;\nconst chip = (state, size = 3.6) => {\n  const s = STATUS[state];\n  return `<span style='display:inline-block;padding:.3cqw 2.4cqw;border-radius:2.4cqw;background:${s.tint};color:${s.ink};border:1px solid ${s.line};font-weight:600;font-size:${size}cqw;line-height:1.4'>${esc(s.label)}</span>`;\n};\nconst bar = `<div style='height:1.8cqw;border-radius:1cqw;background:#e2e8f0;overflow:hidden'><div style='width:${percent}%;height:100%;background:${look.ink}'></div></div>`;\n\nconst summary = frame(\n  `<div style='display:flex;justify-content:space-between;align-items:center'>${chip(status)}<span style='font-size:3.6cqw;color:#64748b'>${doneCount} of ${total}</span></div>`\n  + `<div style='font-weight:600;font-size:5.6cqw;line-height:1.2;color:#0f172a'>${esc(title)}</div>${bar}`\n  + (next ? `<div style='font-size:3.8cqw;line-height:1.3;color:${status === 'blocked' ? '#b91c1c' : '#334155'}'>${status === 'blocked' ? '' : 'Next: '}${esc(next)}</div>` : '')\n  + `<div style='margin-top:auto;display:flex;justify-content:space-between;font-size:3.4cqw;color:${open.length ? '#b45309' : '#64748b'}'><span>${esc(asked)}</span><span>${esc(owner)}</span></div>`,\n  `padding:5cqw 6cqw;border-radius:5cqw;background:#ffffff;border:1px solid ${status === 'blocked' ? look.line : '#e2e8f0'};display:flex;flex-direction:column;gap:2.6cqw`\n);\n\n\n// The Detail: one fixed page (3:2), so it fits its work instead of scrolling. A header, what needs the owner, three lanes of work, and what done\n// means. Heights are measured in cqw (the page is 66.7cqw tall). Each lane shows the cards that fit, at the density that shows the most, and says\n// how many more there are; the whole list is in the graph. (A scrollbar inside a graph view cannot be used with the mouse, so there is none.)\nconst PAGE = { height: 66.7, padding: 3.4, gap: 2.4, header: 9.5 };\nconst FIT = {\n  normal: { font: 3.5, pad: 1.6, gap: 1.6, wrap: true },\n  compact: { font: 2.9, pad: 1.0, gap: 1.0, wrap: false },\n  mini: { font: 2.5, pad: 0.6, gap: 0.8, wrap: false }\n};\nconst LANE_CHROME = 9.2;      // a lane's padding, its heading and the gap under it\nconst LANE_INNER = 25.3;      // the room a card has across, in cqw\nconst MORE_LINE = 3.6;\nconst cardHeight = (mode, titleLength) => {\n  const spec = FIT[mode];\n  const perLine = Math.max(4, Math.floor((LANE_INNER - spec.pad * 2 - 0.6) / (spec.font * 0.52) * 0.85));\n  const lines = spec.wrap ? Math.max(1, Math.ceil(titleLength / perLine)) : 1;\n  return lines * spec.font * 1.25 + spec.pad * 2 + 0.6;\n};\nconst card = (node, mode) => {\n  const state = stateOf(node);\n  const s = STATUS[state];\n  const spec = FIT[mode];\n  const edge = state === 'blocked' ? `border:1px solid ${s.line};background:${s.tint}` : state === 'in-progress' ? `border:1px solid ${s.line}` : 'border:1px solid #e2e8f0';\n  const nowrap = spec.wrap ? '' : ';white-space:nowrap;overflow:hidden;text-overflow:ellipsis';\n  return `<div style='${edge};border-radius:2cqw;padding:${spec.pad}cqw ${spec.pad * 1.5}cqw;background:#ffffff;font-size:${spec.font}cqw;line-height:1.25;color:${finished(state) ? '#64748b' : '#0f172a'}${state === 'cancelled' ? ';text-decoration:line-through' : ''}${nowrap}'>${esc(node.data?.title || node.label)}</div>`;\n};\nconst inState = (...states) => items.filter((node) => states.includes(stateOf(node)));\n\n// What needs the owner: at most three lines, then how many more.\nconst wanted = [\n  ...items.filter((node) => stateOf(node) === 'blocked').map((node) => ({ mark: '■', text: `${clean(node.data?.title || node.label)}: ${reasonOf(node) || 'blocked'}` })),\n  ...open.map((node) => ({ mark: '?', text: clean(node.data?.title || node.label) }))\n];\n// What needs the owner: up to three lines under a heading; when the page is short, one row that holds the heading and the first item.\nconst needsHeightFor = (lines) => {\n  if (!wanted.length) return 0;\n  if (lines === 0) return 4.3 + 4.42;\n  const rows = 1 + lines;\n  return 4.3 + 4.42 * rows + 0.8 * (rows - 1);\n};\nconst needsFor = (lines) => {\n  if (!wanted.length) return '';\n  const row = (w) => `<div style='display:flex;gap:2cqw;min-width:0'><span>${w.mark}</span><span style='white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>${esc(w.text)}</span></div>`;\n  const box = 'border:1px solid #fecaca;background:#fef2f2;color:#b91c1c;border-radius:2.6cqw;padding:2cqw 2.8cqw;display:flex;flex-direction:column;gap:.8cqw;font-size:3.4cqw;line-height:1.3';\n  const more = wanted.length - Math.max(1, lines);\n  if (lines === 0) {\n    return `<div style='${box}'><div style='display:flex;gap:2cqw;min-width:0'><span style='font-weight:600;white-space:nowrap'>Needs you${wanted.length > 1 ? ` · ${wanted.length}` : ''}</span><span style='white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>${wanted[0].mark} ${esc(wanted[0].text)}</span></div></div>`;\n  }\n  return `<div style='${box}'><div style='display:flex;justify-content:space-between'><span style='font-weight:600'>Needs you</span>${more > 0 ? `<span style='opacity:.8'>+${more} more</span>` : ''}</div>${wanted.slice(0, lines).map(row).join('')}</div>`;\n};\n\nconst criteria = (Array.isArray(goal?.data?.successMetrics) ? goal.data.successMetrics : [])\n  .map((metric) => `<span>${status === 'done' ? '✓' : '○'} ${esc(metric)}</span>`);\nconst CRITERIA_HEIGHT = 3.6;\nconst ring = `<div style='width:9.5cqw;height:9.5cqw;border-radius:50%;background:conic-gradient(${look.ink} 0 ${percent}%,#e2e8f0 0);display:flex;align-items:center;justify-content:center;flex:none'><div style='width:7.2cqw;height:7.2cqw;border-radius:50%;background:#ffffff;display:flex;align-items:center;justify-content:center;font-size:2.7cqw;font-weight:600;color:#0f172a'>${doneCount}/${total}</div></div>`;\n\n// The room the lanes have, and the cards that fit in it.\n// The page is budgeted so the lanes always have room: the header, then what needs the owner (up to three lines), then what done means (one line).\n// If the lanes would be left with too little, the Needs-you lines are cut back, then the criteria go, and the lanes keep at least this much.\nconst MIN_LANES = 26;\nconst titleLines = Math.min(2, Math.max(1, Math.ceil(title.length / 24)));\nconst headerHeight = Math.max(PAGE.header, titleLines * 5.5 + 3.8);\nlet needsLines = Math.min(wanted.length, 3);   // 0 means the one-row form\nlet showCriteria = criteria.length > 0;\nconst lanesFor = () => {\n  const sections = 2 + (wanted.length ? 1 : 0) + (showCriteria ? 1 : 0);\n  return PAGE.height - PAGE.padding * 2 - headerHeight - needsHeightFor(needsLines) - (showCriteria ? CRITERIA_HEIGHT : 0) - PAGE.gap * (sections - 1);\n};\nwhile (lanesFor() < MIN_LANES && needsLines > 0) needsLines -= 1;\nif (lanesFor() < MIN_LANES) showCriteria = false;\nconst needs = needsFor(needsLines);\nconst lanesHeight = lanesFor();\nconst room = lanesHeight - LANE_CHROME;\nconst laneLists = [inState('todo', 'waiting'), inState('in-progress', 'blocked'), inState('done', 'cancelled')];\nconst fitLane = (list, mode) => {\n  const spec = FIT[mode];\n  const heights = list.map((node) => cardHeight(mode, clean(node.data?.title || node.label).length) + spec.gap);\n  const all = heights.reduce((sum, h) => sum + h, 0);\n  if (all <= room) return list.length;\n  let used = 0; let shown = 0;\n  for (const h of heights) { if (used + h > room - MORE_LINE) break; used += h; shown += 1; }\n  return shown;\n};\nconst shownCount = (mode) => laneLists.reduce((sum, list) => sum + fitLane(list, mode), 0);\n// The density that shows the most cards; the larger one when they tie.\nconst mode = ['normal', 'compact', 'mini'].reduce((best, candidate) => (shownCount(candidate) > shownCount(best) ? candidate : best), 'normal');\nconst lane = (name, list, tone = '#64748b') => {\n  const shown = list.slice(0, fitLane(list, mode));\n  const more = list.length - shown.length;\n  return `<div style='background:#f8fafc;border-radius:2.6cqw;padding:2cqw;display:flex;flex-direction:column;gap:${FIT[mode].gap}cqw;min-width:0;overflow:hidden'><div style='font-size:3cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:${tone};margin-bottom:.2cqw'>${name}${list.length ? ` · ${list.length}` : ''}</div>${shown.map((node) => card(node, mode)).join('')}${more ? `<div style='font-size:3cqw;color:#64748b'>+${more} more</div>` : ''}</div>`;\n};\nconst detail = frame(\n  `<div style='display:flex;align-items:center;gap:3cqw'>${ring}<div style='flex:1;min-width:0'><div style='font-weight:600;font-size:4.6cqw;line-height:1.2;color:#0f172a;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden'>${esc(title)}</div><div style='font-size:3.2cqw;color:#64748b'>${esc(owner)}</div></div>${chip(status, 3.2)}</div>`\n  + needs\n  + `<div data-density='${mode}' style='display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2cqw;flex:1;min-height:0;overflow:hidden'>${lane('Next', laneLists[0])}${lane('Doing', laneLists[1], '#1d4ed8')}${lane('Done', laneLists[2], '#15803d')}</div>`\n  + (showCriteria ? `<div style='font-size:3cqw;line-height:1.2;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis'><span style='font-weight:600'>Done when</span>  ${criteria.join('   ')}</div>` : ''),\n  'padding:3.4cqw 4cqw;border-radius:5cqw;background:#ffffff;border:1px solid #e2e8f0;display:flex;flex-direction:column;gap:2.4cqw;overflow:hidden'\n);\n\n\nconst faces = nodes.filter((node) => clean(node.type) === 'face');\nconst faceFor = (level) => faces.find((node) => clean(node.data?.semanticLevel) === level);\nconst glyph = nodes.find((node) => clean(node.type) === 'glyph');\nfor (const [level, html] of [['detail', detail], ['summary', summary]]) {\n  const face = faceFor(level);\n  if (face) await api.updateView(face.id, { content: { kind: 'html', value: html } });\n}\nif (glyph) await api.updateNode(glyph.id, { data: { ...glyph.data, glyph: { kind: 'icon', name: look.glyph, color: look.ink } } });\nreturn { status, done: doneCount, total, open: open.length, next };\n",
+        "source": "// Derives the task's views from the task itself: nothing is typed into a summary.\n// It reads the goal, the work items (task) and the open questions, works out one status, and writes the Detail and Summary\n// views and the Glyph. It writes only those four, which its declared effects say.\nconst clean = (value) => String(value ?? '').trim();\nconst esc = (value) => clean(value)\n  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;').replace(/'/g, '&#39;');\n\n// One status vocabulary, used at every size. `mark` is the Icon's symbol, `glyph` a Material icon name.\nconst STATUS = {\n  todo: { label: 'To do', mark: '○', glyph: 'RadioButtonUnchecked', ink: '#475569', tint: '#f1f5f9', line: '#cbd5e1' },\n  'in-progress': { label: 'In progress', mark: '▶', glyph: 'PlayCircleOutline', ink: '#1d4ed8', tint: '#eff6ff', line: '#bfdbfe' },\n  blocked: { label: 'Blocked', mark: '■', glyph: 'Block', ink: '#b91c1c', tint: '#fef2f2', line: '#fecaca' },\n  waiting: { label: 'Waiting', mark: '…', glyph: 'HourglassEmpty', ink: '#b45309', tint: '#fffbeb', line: '#fde68a' },\n  done: { label: 'Done', mark: '✓', glyph: 'CheckCircle', ink: '#15803d', tint: '#f0fdf4', line: '#bbf7d0' },\n  cancelled: { label: 'Cancelled', mark: '×', glyph: 'Cancel', ink: '#64748b', tint: '#f8fafc', line: '#e2e8f0' }\n};\nconst statusOf = (value) => (STATUS[clean(value)] ? clean(value) : 'todo');\nconst finished = (status) => status === 'done' || status === 'cancelled';\n\nconst nodes = await api.getNodes();\nconst edges = await api.getEdges();\nconst byId = new Map(nodes.map((node) => [node.id, node]));\nconst of = (type) => edges.filter((edge) => clean(edge.type) === type);\nconst titleOf = (node) => clean(node?.data?.title || node?.label);\n\n// The relationships say more than the status fields do. A decision that resolves a question answers it; something waiting on a\n// thing that is not resolved is blocked, whatever its own status field says; precedes puts work in order.\nconst isDecided = (node) => ['decided', 'accepted', 'done'].includes(clean(node?.data?.status));\n// A decision answers a question once it is decided, not while it is only proposed.\nconst resolvedByDecision = new Set(of('resolves').filter((edge) => isDecided(byId.get(edge.source))).map((edge) => edge.target));\nconst isResolved = (node) => {\n  if (!node) return true;\n  const own = clean(node.data?.status);\n  if (clean(node.type) === 'open-question') return own === 'answered' || resolvedByDecision.has(node.id);\n  if (clean(node.type) === 'decision') return isDecided(node);\n  return own === 'done' || own === 'cancelled';\n};\nconst blockersOf = (node) => of('blocked-by').filter((edge) => edge.source === node.id).map((edge) => byId.get(edge.target)).filter((target) => target && !isResolved(target));\n// Work is blocked when its own status says so, or when something it is blocked by is not yet resolved.\nconst stateOf = (node) => {\n  const own = statusOf(node.data?.status);\n  return !finished(own) && blockersOf(node).length ? 'blocked' : own;\n};\nconst reasonOf = (node) => clean(node.data?.blockedReason) || (blockersOf(node)[0] ? `Waiting on ${titleOf(blockersOf(node)[0])}` : '');\n\nconst goal = nodes.find((node) => clean(node.type) === 'goal');\n// The task's work is every task in the graph: drawing or deleting a contains edge changes how it is drawn, not what is counted.\nconst tasks = nodes.filter((node) => clean(node.type) === 'task');\nconst bound = tasks;\n// In order: work that comes after other work (precedes) follows it.\nconst depthOf = (node, seen = new Set()) => {\n  if (seen.has(node.id)) return 0;\n  seen.add(node.id);\n  const before = of('precedes').filter((edge) => edge.target === node.id).map((edge) => byId.get(edge.source)).filter(Boolean);\n  return before.length ? 1 + Math.max(...before.map((one) => depthOf(one, new Set(seen)))) : 0;\n};\nconst items = bound.map((node, index) => ({ node, index, depth: depthOf(node) })).sort((x, y) => x.depth - y.depth || x.index - y.index).map(({ node }) => node);\nconst questions = nodes.filter((node) => clean(node.type) === 'open-question');\nconst open = questions.filter((node) => !isResolved(node));\nconst counted = items.filter((node) => stateOf(node) !== 'cancelled');\nconst doneCount = counted.filter((node) => stateOf(node) === 'done').length;\nconst total = counted.length;\n\n// One status for the whole task.\nconst goalStatus = statusOf(goal?.data?.status);\nlet status;\nif (finished(goalStatus)) status = goalStatus;\nelse if (items.some((node) => stateOf(node) === 'blocked')) status = 'blocked';\nelse if (total && doneCount === total) status = 'done';\nelse if (items.some((node) => stateOf(node) === 'in-progress') || doneCount > 0) status = 'in-progress';\nelse if (items.some((node) => stateOf(node) === 'waiting')) status = 'waiting';\nelse status = 'todo';\nconst look = STATUS[status];\n\n// What happens next, or what is in the way.\nconst blocker = items.find((node) => stateOf(node) === 'blocked');\nconst readyToStart = (node) => of('precedes').filter((edge) => edge.target === node.id).every((edge) => isResolved(byId.get(edge.source)));\nconst live = items.find((node) => stateOf(node) === 'in-progress') || items.find((node) => stateOf(node) === 'todo' && readyToStart(node)) || items.find((node) => stateOf(node) === 'todo');\nconst next = status === 'blocked'\n  ? reasonOf(blocker) || `${titleOf(blocker)} is blocked`\n  : status === 'done' || status === 'cancelled' ? '' : titleOf(live);\nconst title = titleOf(goal) || 'Untitled task';\nconst owner = clean(goal?.data?.owner);\nconst percent = total ? Math.round((doneCount / total) * 100) : 0;\nconst asked = open.length ? `${open.length} open question${open.length === 1 ? '' : 's'}` : 'No open questions';\n\nconst FONT = 'system-ui,-apple-system,Segoe UI,sans-serif';\n// The container is an outer wrapper and the page is inside it: a container's own padding and corners in cqw would otherwise be measured against the\n// window above it, not against the view.\nconst frame = (inner, extra = '') => `<div style='container-type:inline-size;width:100%;height:100%;min-height:100%'><div style='box-sizing:border-box;width:100%;height:100%;overflow:hidden;font-family:${FONT};${extra}'>${inner}</div></div>`;\nconst chip = (state, size = 3.6) => {\n  const s = STATUS[state];\n  return `<span style='display:inline-block;padding:.3cqw 2.4cqw;border-radius:2.4cqw;background:${s.tint};color:${s.ink};border:1px solid ${s.line};font-weight:600;font-size:${size}cqw;line-height:1.4'>${esc(s.label)}</span>`;\n};\nconst bar = `<div style='height:1.8cqw;border-radius:1cqw;background:#e2e8f0;overflow:hidden'><div style='width:${percent}%;height:100%;background:${look.ink}'></div></div>`;\n\nconst summary = frame(\n  `<div style='display:flex;justify-content:space-between;align-items:center'>${chip(status)}<span style='font-size:3.6cqw;color:#64748b'>${doneCount} of ${total}</span></div>`\n  + `<div style='font-weight:600;font-size:5.6cqw;line-height:1.2;color:#0f172a'>${esc(title)}</div>${bar}`\n  + (next ? `<div style='font-size:3.8cqw;line-height:1.3;color:${status === 'blocked' ? '#b91c1c' : '#334155'}'>${status === 'blocked' ? '' : 'Next: '}${esc(next)}</div>` : '')\n  + `<div style='margin-top:auto;display:flex;justify-content:space-between;font-size:3.4cqw;color:${open.length ? '#b45309' : '#64748b'}'><span>${esc(asked)}</span><span>${esc(owner)}</span></div>`,\n  `padding:5cqw 6cqw;border-radius:5cqw;background:#ffffff;border:1px solid ${status === 'blocked' ? look.line : '#e2e8f0'};display:flex;flex-direction:column;gap:2.6cqw`\n);\n\n\n// The Detail: one fixed page (3:2), so it fits its work instead of scrolling. A header, what needs the owner, three lanes of work, and what done\n// means. Heights are measured in cqw (the page is 66.7cqw tall). Each lane shows the cards that fit, at the density that shows the most, and says\n// how many more there are; the whole list is in the graph. (A scrollbar inside a graph view cannot be used with the mouse, so there is none.)\nconst PAGE = { height: 66.7, padding: 3.4, gap: 2.4, header: 9.5 };\nconst FIT = {\n  normal: { font: 3.5, pad: 1.6, gap: 1.6, wrap: true },\n  compact: { font: 2.9, pad: 1.0, gap: 1.0, wrap: false },\n  mini: { font: 2.5, pad: 0.6, gap: 0.8, wrap: false }\n};\nconst LANE_CHROME = 9.2;      // a lane's padding, its heading and the gap under it\nconst LANE_INNER = 25.3;      // the room a card has across, in cqw\nconst MORE_LINE = 3.6;\nconst cardHeight = (mode, titleLength) => {\n  const spec = FIT[mode];\n  const perLine = Math.max(4, Math.floor((LANE_INNER - spec.pad * 2 - 0.6) / (spec.font * 0.52) * 0.85));\n  const lines = spec.wrap ? Math.max(1, Math.ceil(titleLength / perLine)) : 1;\n  return lines * spec.font * 1.25 + spec.pad * 2 + 0.6;\n};\nconst card = (node, mode) => {\n  const state = stateOf(node);\n  const s = STATUS[state];\n  const spec = FIT[mode];\n  const edge = state === 'blocked' ? `border:1px solid ${s.line};background:${s.tint}` : state === 'in-progress' ? `border:1px solid ${s.line}` : 'border:1px solid #e2e8f0';\n  const nowrap = spec.wrap ? '' : ';white-space:nowrap;overflow:hidden;text-overflow:ellipsis';\n  return `<div style='${edge};border-radius:2cqw;padding:${spec.pad}cqw ${spec.pad * 1.5}cqw;background:#ffffff;font-size:${spec.font}cqw;line-height:1.25;color:${finished(state) ? '#64748b' : '#0f172a'}${state === 'cancelled' ? ';text-decoration:line-through' : ''}${nowrap}'>${esc(node.data?.title || node.label)}</div>`;\n};\nconst inState = (...states) => items.filter((node) => states.includes(stateOf(node)));\n\n// What needs the owner: at most three lines, then how many more.\nconst wanted = [\n  ...items.filter((node) => stateOf(node) === 'blocked').map((node) => ({ mark: '■', text: `${clean(node.data?.title || node.label)}: ${reasonOf(node) || 'blocked'}` })),\n  ...open.map((node) => ({ mark: '?', text: clean(node.data?.title || node.label) }))\n];\n// What needs the owner: up to three lines under a heading; when the page is short, one row that holds the heading and the first item.\nconst needsHeightFor = (lines) => {\n  if (!wanted.length) return 0;\n  if (lines === 0) return 4.3 + 4.42;\n  const rows = 1 + lines;\n  return 4.3 + 4.42 * rows + 0.8 * (rows - 1);\n};\nconst needsFor = (lines) => {\n  if (!wanted.length) return '';\n  const row = (w) => `<div style='display:flex;gap:2cqw;min-width:0'><span>${w.mark}</span><span style='white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>${esc(w.text)}</span></div>`;\n  const box = 'border:1px solid #fecaca;background:#fef2f2;color:#b91c1c;border-radius:2.6cqw;padding:2cqw 2.8cqw;display:flex;flex-direction:column;gap:.8cqw;font-size:3.4cqw;line-height:1.3';\n  const more = wanted.length - Math.max(1, lines);\n  if (lines === 0) {\n    return `<div style='${box}'><div style='display:flex;gap:2cqw;min-width:0'><span style='font-weight:600;white-space:nowrap'>Needs you${wanted.length > 1 ? ` · ${wanted.length}` : ''}</span><span style='white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>${wanted[0].mark} ${esc(wanted[0].text)}</span></div></div>`;\n  }\n  return `<div style='${box}'><div style='display:flex;justify-content:space-between'><span style='font-weight:600'>Needs you</span>${more > 0 ? `<span style='opacity:.8'>+${more} more</span>` : ''}</div>${wanted.slice(0, lines).map(row).join('')}</div>`;\n};\n\nconst criteria = (Array.isArray(goal?.data?.successMetrics) ? goal.data.successMetrics : [])\n  .map((metric) => `<span>${status === 'done' ? '✓' : '○'} ${esc(metric)}</span>`);\nconst CRITERIA_HEIGHT = 3.6;\nconst ring = `<div style='width:9.5cqw;height:9.5cqw;border-radius:50%;background:conic-gradient(${look.ink} 0 ${percent}%,#e2e8f0 0);display:flex;align-items:center;justify-content:center;flex:none'><div style='width:7.2cqw;height:7.2cqw;border-radius:50%;background:#ffffff;display:flex;align-items:center;justify-content:center;font-size:2.7cqw;font-weight:600;color:#0f172a'>${doneCount}/${total}</div></div>`;\n\n// The room the lanes have, and the cards that fit in it.\n// The page is budgeted so the lanes always have room: the header, then what needs the owner (up to three lines), then what done means (one line).\n// If the lanes would be left with too little, the Needs-you lines are cut back, then the criteria go, and the lanes keep at least this much.\nconst MIN_LANES = 26;\nconst titleLines = Math.min(2, Math.max(1, Math.ceil(title.length / 24)));\nconst headerHeight = Math.max(PAGE.header, titleLines * 5.5 + 3.8);\nlet needsLines = Math.min(wanted.length, 3);   // 0 means the one-row form\nlet showCriteria = criteria.length > 0;\nconst lanesFor = () => {\n  const sections = 2 + (wanted.length ? 1 : 0) + (showCriteria ? 1 : 0);\n  return PAGE.height - PAGE.padding * 2 - headerHeight - needsHeightFor(needsLines) - (showCriteria ? CRITERIA_HEIGHT : 0) - PAGE.gap * (sections - 1);\n};\nwhile (lanesFor() < MIN_LANES && needsLines > 0) needsLines -= 1;\nif (lanesFor() < MIN_LANES) showCriteria = false;\nconst needs = needsFor(needsLines);\nconst lanesHeight = lanesFor();\nconst room = lanesHeight - LANE_CHROME;\nconst laneLists = [inState('todo', 'waiting'), inState('in-progress', 'blocked'), inState('done', 'cancelled')];\nconst fitLane = (list, mode) => {\n  const spec = FIT[mode];\n  const heights = list.map((node) => cardHeight(mode, clean(node.data?.title || node.label).length) + spec.gap);\n  const all = heights.reduce((sum, h) => sum + h, 0);\n  if (all <= room) return list.length;\n  let used = 0; let shown = 0;\n  for (const h of heights) { if (used + h > room - MORE_LINE) break; used += h; shown += 1; }\n  return shown;\n};\nconst shownCount = (mode) => laneLists.reduce((sum, list) => sum + fitLane(list, mode), 0);\n// The density that shows the most cards; the larger one when they tie.\nconst mode = ['normal', 'compact', 'mini'].reduce((best, candidate) => (shownCount(candidate) > shownCount(best) ? candidate : best), 'normal');\nconst lane = (name, list, tone = '#64748b') => {\n  const shown = list.slice(0, fitLane(list, mode));\n  const more = list.length - shown.length;\n  return `<div style='background:#f8fafc;border-radius:2.6cqw;padding:2cqw;display:flex;flex-direction:column;gap:${FIT[mode].gap}cqw;min-width:0;overflow:hidden'><div style='font-size:3cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:${tone};margin-bottom:.2cqw'>${name}${list.length ? ` · ${list.length}` : ''}</div>${shown.map((node) => card(node, mode)).join('')}${more ? `<div style='font-size:3cqw;color:#64748b'>+${more} more</div>` : ''}</div>`;\n};\nconst detail = frame(\n  `<div style='display:flex;align-items:center;gap:3cqw'>${ring}<div style='flex:1;min-width:0'><div style='font-weight:600;font-size:4.6cqw;line-height:1.2;color:#0f172a;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden'>${esc(title)}</div><div style='font-size:3.2cqw;color:#64748b'>${esc(owner)}</div></div>${chip(status, 3.2)}</div>`\n  + needs\n  + `<div data-density='${mode}' style='display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2cqw;flex:1;min-height:0;overflow:hidden'>${lane('Next', laneLists[0])}${lane('Doing', laneLists[1], '#1d4ed8')}${lane('Done', laneLists[2], '#15803d')}</div>`\n  + (showCriteria ? `<div style='font-size:3cqw;line-height:1.2;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis'><span style='font-weight:600'>Done when</span>  ${criteria.join('   ')}</div>` : ''),\n  'padding:3.4cqw 4cqw;border-radius:5cqw;background:#ffffff;border:1px solid #e2e8f0;display:flex;flex-direction:column;gap:2.4cqw;overflow:hidden'\n);\n\n\nconst faces = nodes.filter((node) => clean(node.type) === 'face');\nconst faceFor = (level) => faces.find((node) => clean(node.data?.semanticLevel) === level);\nconst glyph = nodes.find((node) => clean(node.type) === 'glyph');\nfor (const [level, html] of [['detail', detail], ['summary', summary]]) {\n  const face = faceFor(level);\n  if (face) await api.updateView(face.id, { content: { kind: 'html', value: html } });\n}\nif (glyph) await api.updateNode(glyph.id, { data: { ...glyph.data, glyph: { kind: 'icon', name: look.glyph, color: look.ink } } });\nreturn { status, done: doneCount, total, open: open.length, next };\n",
         "effects": [
           {
             "kind": "update-node",
@@ -1559,7 +1559,7 @@
         "classRef": "tlz://twilite.zone/library/classes/nodes/task-planning/task.node-class.node",
         "status": "in-progress",
         "owner": "Michael",
-        "body": "Go through the 33 templates in the personal library and say, for each, whether it is a canon template, a primitives page, or stays as reference. Leave a table of the answers. Two are not templates at all (bridge-template and lionel have no root graph).",
+        "body": "Go through the 28 templates in the personal library and say, for each, whether it is a canon template, a primitives page, or stays as reference. Leave a table of the answers. Two are not templates at all (bridge-template and lionel have no root graph).",
         "_placement": {
           "version": 1,
           "state": "manually-shaped",
@@ -5710,6 +5710,500 @@
         },
         "security": "prompt"
       }
+    },
+    {
+      "id": "canon-templates-in-order-list-canon",
+      "type": "content",
+      "label": "1. Become canon templates (9)",
+      "position": {
+        "x": 640,
+        "y": 1240
+      },
+      "width": 900,
+      "height": 640,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "canon-templates-in-order",
+          "nodeId": "canon-templates-in-order-list-canon"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "## 1. Become canon templates (9)\n\nRebuilt to the standard (Glyph, Summary and Detail; views derived by the template's own Method; window in the Detail's shape; one export). These are the ones in real use, or that author something canon already depends on.\n\n| Template | What it is | Used by | Note |\n|---|---|---|---|\n| `idea-template` | Frame, test and advance an idea (21 classes) | 59 | The anchor of the thinking family; by far the most used. |\n| `topic-template` | Understand a complex subject: concepts, claims, mechanisms, sources | 11 | Thinking family. |\n| `question-driven-explanation-template` | Explain a subject through questions and direct answers | 9 | Thinking family. |\n| `workboard-template` | An operational workboard backed by task graphs | 9 | Pairs with the Task Template. |\n| `collection-template` | A directory-backed collection with a bounded window of members | 16 | Structural; goes with its controller. |\n| `collection-window-controller` | Discovers and projects a window of collection members | 13 | A script capability; ships with the collection. |\n| `public-arrival-template` | A front door for a public graph | 5 | Four classes. |\n| `edge-class-template` | How an edge class is authored (11 classes) | 12 | Canon's own edge classes, including the six task ones, were cloned from it. |\n| `node-class-template` | How a node class is authored | 2 | The task classes were authored by hand; this is how they should be. |\n"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791502752029,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "canon-templates-in-order-list-fold",
+      "type": "content",
+      "label": "2. Fold into another template, or retire (3)",
+      "position": {
+        "x": 1600,
+        "y": 1240
+      },
+      "width": 900,
+      "height": 420,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "canon-templates-in-order",
+          "nodeId": "canon-templates-in-order-list-fold"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "## 2. Fold into another template, or retire (3)\n\nNot rebuilt on their own.\n\n| Template | What it is | Used by | Note |\n|---|---|---|---|\n| `plan-template` | Goals, phases, actions, milestones, decisions, constraints, risks, contingencies | 14 | Fold into the Task Template: one vocabulary (the plan's phase, milestone, risk and contingency join the task classes). |\n| `brainstorm-template` | A loose staging ground for ideas, questions and constraints before promotion | 1 | Fold into the idea template. |\n| `task-template-demo` | The demo the Task Template was built from | 0 | Retire: canon has the Task Template. |\n"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791502752029,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "canon-templates-in-order-list-primitives",
+      "type": "content",
+      "label": "3. Superseded by a primitives page already in canon (11)",
+      "position": {
+        "x": 640,
+        "y": 1940
+      },
+      "width": 900,
+      "height": 760,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "canon-templates-in-order",
+          "nodeId": "canon-templates-in-order-list-primitives"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "## 3. Superseded by a primitives page already in canon (11)\n\nCanon already has a page for each of these primitives. The starter is retired as reference, not rebuilt, unless you say a page is not enough.\n\n| Template | What it is | Used by | Note |\n|---|---|---|---|\n| `content-template` | Where a node's real material lives | 2 | Canon: primitives/content. |\n| `glyph-template` | The single port a Surface's chain ends on | 2 | Canon: primitives/glyph. |\n| `membrane-template` | Three chained Membrane nodes making a custom boundary | 0 | Canon: primitives/membrane. |\n| `method-template` | An event-raising Method wired to a second Method | 1 | Canon: primitives/method. |\n| `port-template` | The interface socket a Declaration exposes | 2 | Canon: primitives/port. |\n| `portal-template` | A real, resolvable jump to another graph | 1 | Canon: primitives/portal. |\n| `property-template` | A property node and its Method | 0 | Canon: primitives/property. |\n| `view-template` | Where a View authors its own interface | 3 | Canon: primitives/face. |\n| `node-template` | The minimal reference for how a node wires its presentation | 0 | Canon: primitives/surface. |\n| `declaration-template` | What a new graph looks like: a page walking through a Declaration | 5 | Canon: primitives/root. It is also a draft of a new graph; your call if that earns a template. |\n| `stroke-control` | One edge paint layer, authored as Properties | 0 | Canon: edges/classes/stroke. |\n"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791502752029,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "canon-templates-in-order-list-call",
+      "type": "content",
+      "label": "4. Your call (5)",
+      "position": {
+        "x": 1600,
+        "y": 1940
+      },
+      "width": 900,
+      "height": 560,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "canon-templates-in-order",
+          "nodeId": "canon-templates-in-order-list-call"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "## 4. Your call (5)\n\nCases where I would not decide for you.\n\n| Template | What it is | Used by | Note |\n|---|---|---|---|\n| `handle-template` | A custom decoration drawn on a specific port | 0 | No canon primitive yet. I would make one, and a template, with the custom handles work. |\n| `wikipedia-article-template` | A graph-backed Wikipedia article node with semantic views | 6 | Canon template, canon example, or leave in your library? |\n| `smoke-test-template` | A quiet environment for focused smoke tests | 1 | I would leave it in your library. |\n| `bridge-template` | No root graph in the folder | 1 | Not a template as it stands. Remove, or rebuild? |\n| `lionel` | No root graph in the folder | 4 | Not a template as it stands. Remove, or rebuild? |\n"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791502752029,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "canon-templates-in-order-decision-list",
+      "type": "decision",
+      "label": "Approve the canon template list",
+      "position": {
+        "x": -60,
+        "y": 1240
+      },
+      "width": 520,
+      "height": 260,
+      "ports": [
+        {
+          "id": "resolves",
+          "key": "resolves",
+          "label": "resolves",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "allowedEdgeTypes": [
+            "resolves"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "resolves"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "affects",
+          "key": "affects",
+          "label": "affects",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "affects"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "affects"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "raises",
+          "key": "raises",
+          "label": "raises",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 30,
+          "allowedEdgeTypes": [
+            "raises"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "raises"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        },
+        {
+          "id": "blocks",
+          "key": "blocks",
+          "label": "blocks",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 220,
+          "allowedEdgeTypes": [
+            "blocked-by"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "blocked-by"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 250
+        }
+      ],
+      "handles": [
+        {
+          "id": "resolves",
+          "key": "resolves",
+          "label": "resolves",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "allowedEdgeTypes": [
+            "resolves"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "resolves"
+            ],
+            "repeatable": true
+          },
+          "portId": "resolves"
+        },
+        {
+          "id": "affects",
+          "key": "affects",
+          "label": "affects",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "affects"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "affects"
+            ],
+            "repeatable": true
+          },
+          "portId": "affects"
+        },
+        {
+          "id": "raises",
+          "key": "raises",
+          "label": "raises",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 30,
+          "allowedEdgeTypes": [
+            "raises"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "raises"
+            ],
+            "repeatable": true
+          },
+          "portId": "raises"
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        },
+        {
+          "id": "blocks",
+          "key": "blocks",
+          "label": "blocks",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 220,
+          "allowedEdgeTypes": [
+            "blocked-by"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "blocked-by"
+            ],
+            "repeatable": true
+          },
+          "portId": "blocks"
+        },
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 250,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Approve the canon template list",
+        "status": "proposed",
+        "owner": "Michael",
+        "body": "Nine become canon templates, three fold into others or retire, eleven starters are superseded by primitives pages, and five are your call. Edit the four lists to the right if you disagree, then set this to decided. That answers the question about which templates are canon.",
+        "identity": {
+          "graphId": "canon-templates-in-order",
+          "nodeId": "canon-templates-in-order-decision-list"
+        },
+        "classRef": "tlz://twilite.zone/library/classes/nodes/task-planning/decision.node-class.node",
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1792522545948,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "canon-templates-in-order-bridge-decision",
+      "type": "import",
+      "label": "Decision Class",
+      "position": {
+        "x": 320,
+        "y": 1300
+      },
+      "width": 320,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "position": {
+            "side": "top",
+            "offset": 0.2
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "canon-templates-in-order-declaration"
+        },
+        "bridge": {
+          "ref": "tlz://twilite.zone/library/classes/nodes/task-planning/decision.node-class.node",
+          "resourceKind": "node-class",
+          "key": "decision",
+          "scope": "focused-graph",
+          "grants": [
+            "read",
+            "create",
+            "update"
+          ]
+        }
+      }
     }
   ],
   "edges": [
@@ -6061,6 +6555,99 @@
       },
       "data": {
         "relationship": "task-graph"
+      }
+    },
+    {
+      "id": "canon-templates-in-order-edge-goal-decision-list",
+      "type": "contains",
+      "source": "canon-templates-in-order-goal",
+      "target": "canon-templates-in-order-decision-list",
+      "sourcePort": "decisions",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "canon-templates-in-order-edge-decision-list-resolves-keepers",
+      "type": "resolves",
+      "source": "canon-templates-in-order-decision-list",
+      "target": "canon-templates-in-order-q-keepers",
+      "sourcePort": "resolves",
+      "targetPort": "resolved-by",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "canon-templates-in-order-edge-decision-list-affects-draft-1",
+      "type": "affects",
+      "source": "canon-templates-in-order-decision-list",
+      "target": "canon-templates-in-order-task-draft-1",
+      "sourcePort": "affects",
+      "targetPort": "decided-by",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "canon-templates-in-order-edge-list-list-canon",
+      "type": "evidence",
+      "source": "canon-templates-in-order-decision-list",
+      "target": "canon-templates-in-order-list-canon",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "the list",
+      "style": {
+        "curved": true
+      },
+      "data": {
+        "relationship": "proposal"
+      }
+    },
+    {
+      "id": "canon-templates-in-order-edge-list-list-fold",
+      "type": "evidence",
+      "source": "canon-templates-in-order-decision-list",
+      "target": "canon-templates-in-order-list-fold",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "the list",
+      "style": {
+        "curved": true
+      },
+      "data": {
+        "relationship": "proposal"
+      }
+    },
+    {
+      "id": "canon-templates-in-order-edge-list-list-primitives",
+      "type": "evidence",
+      "source": "canon-templates-in-order-decision-list",
+      "target": "canon-templates-in-order-list-primitives",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "the list",
+      "style": {
+        "curved": true
+      },
+      "data": {
+        "relationship": "proposal"
+      }
+    },
+    {
+      "id": "canon-templates-in-order-edge-list-list-call",
+      "type": "evidence",
+      "source": "canon-templates-in-order-decision-list",
+      "target": "canon-templates-in-order-list-call",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "the list",
+      "style": {
+        "curved": true
+      },
+      "data": {
+        "relationship": "proposal"
       }
     }
   ],
