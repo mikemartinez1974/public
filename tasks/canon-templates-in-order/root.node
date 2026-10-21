@@ -656,10 +656,10 @@
         },
         "membrane": {
           "bounds": {
-            "x": -2310,
+            "x": -3690,
             "y": -640,
-            "width": 7320,
-            "height": 4880
+            "width": 10080,
+            "height": 6720
           },
           "clip": true
         }
@@ -7537,6 +7537,296 @@
         "decidedAt": "2026-10-21T04:04:59.077Z",
         "decider": "Michael"
       }
+    },
+    {
+      "id": "canon-templates-in-order-repo-design",
+      "type": "content",
+      "label": "Repo template: the design (proposed)",
+      "position": {
+        "x": -60,
+        "y": 4300
+      },
+      "width": 1040,
+      "height": 1700,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "canon-templates-in-order",
+          "nodeId": "canon-templates-in-order-repo-design"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Repo template: the design\n\n**Proposed.** Nothing here is built, and nothing is in canon, until you approve it. It meets the twelve-rule standard; where a rule needs a decision from you, it is listed at the bottom.\n\n## What a repo is, here\n\nA repo is a GitHub repository whose `public/` folder is a **library**: a home graph and shelves of graphs. It has two addresses, one for each place it can be read: `github://owner/repo/...` (a personal library) and `tlz://twilite.zone/...` (canon). Both have the same shape. Today yours has 21 folders and 500+ graphs, and canon has 18 and nearly 700, and neither follows a written layout. Some graphs sit loose (`handshaketest.node`, 75 files in `graphs/`), some folders have no root graph (`4-27-2026`, `secret`, `workspaces`), and the home graph still carries the old model's Title, Type, Section and Summary nodes and four import bridges.\n\n## 1. What the template contains\n\nOne graph, `library/templates/repo-template/root.node`, built the way the Task Template is:\n\n- **A Repo node** (class *Repo*). Fields: owner, repo, branch, what the library is for, who it is for, and the home graph. It replaces canon's first-pass `github-repo` class and the old gallery `repo-home-template`.\n- **Shelf nodes** (class *Shelf*). A shelf is a folder of graphs of one kind: its name, what goes on it, and a portal to its own root graph. The starter has two placeholder shelves, so each state is shown (one with graphs, one empty).\n- **A Start here node**, which is a portal to the first graph a visitor should open.\n- **Three looks, derived** by the template's Method: the Detail is the repo card (name, `owner/repo`, branch, purpose, the shelves and how many graphs each holds, Start here); the Summary is the same in miniature; the Glyph is a repo glyph. Nothing is typed twice.\n- **A window in the Detail's shape (3:2)**, no Icon view, a landing page saying what it is, what it derives and what it exports.\n\n## 2. How a library is arranged in a repo\n\nSeven rules. The template carries the first six in its landing page; the seventh is the audit.\n\n1. **The repo root is the home.** `public/root.node` is the Repo graph. It is the only graph at the top.\n2. **A shelf is a folder with a root graph.** `public/<shelf>/root.node` is a Shelf's page; it holds a portal to each graph on it. A folder with no root graph is not a shelf.\n3. **A graph is a folder.** `public/<shelf>/<slug>/root.node`. There are no loose `.node` files; a graph that wants children (a task's attachments, a template's demos) already has a folder.\n4. **Shelves are named for what they hold, plural, lower-case** (`tasks`, `people`, `templates`). A shelf holds one kind of graph. A mixed shelf is two shelves.\n5. **Every graph's identity is its address.** The root's `document.url` and `settings.github` say where the graph lives; the graph id is unique in the library (a copy changes it).\n6. **The home is derived from the shelves.** Its portals and counts are written by the Method from what is on disk, so a shelf that is added shows up and a shelf that is deleted does not stay.\n7. **An audit reads the layout.** A script, `scripts/auditLibrary.mjs`, walks a repo folder and reports each rule it breaks, and the same audit runs in the tests over canon. It is read-only; it never moves or deletes anything. Pointed at your library it gives you the real census (what is loose, what has no root, what is stale) as input to the clean-out task.\n\nCanon and a personal library follow the same rules. The only difference is the address scheme.\n\n## 3. What it exports\n\nOne export, with an allowlist: the **Repo** class, the **Shelf** class and the Method that derives the home. A library made from it imports once, as every canon template does. The exported classes carry ports, and the edge between a Repo and its Shelves is a named edge (`holds`, from the repo's *shelves* port to the shelf's *held-by* port), added to the edge classes when this is built.\n\n## What building it involves\n\nNew: the template, the two classes, the `holds` edge class, `scripts/auditLibrary.mjs`, the tests (the template's own, plus `canonTemplates.test.js` picks it up). Changed: canon's `github-repo` class and `repo-home-template` are retired as unrendered reference, not deleted, and `library/templates/root.node` gets the portal. Not touched: your library. The clean-out and converting your home graph are the next task, using the audit's census.\n\n## Decisions for you\n\n**A. Is a Shelf a class?** I say yes: it has a name, a kind and a count, and the audit and the Method both need to find shelves without guessing. The alternative is plain portals on the home, which is simpler and cannot be derived from.\n\n**B. No loose `.node` files?** I say yes (rule 3). It means the old files in `graphs/` are moved into folders in the clean-out, which changes their addresses; every portal to them is rewritten at the same time. The alternative is to allow one-file graphs and let the audit only warn.\n\n**C. Two placeholder shelves, or none?** I say two (a *Tasks* shelf with three graphs listed, and an empty *Notes* shelf), so both states show. They are placeholders, not canon content.\n\n**D. Does the audit live in the app repo?** I say yes, with the tests, because canon is checked by the app's tests today and this keeps that arrangement.\n"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791502752029,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "canon-templates-in-order-decision-repo-design",
+      "type": "decision",
+      "label": "Approve the repo template design",
+      "position": {
+        "x": 1060,
+        "y": 4300
+      },
+      "width": 520,
+      "height": 260,
+      "ports": [
+        {
+          "id": "resolves",
+          "key": "resolves",
+          "label": "resolves",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "allowedEdgeTypes": [
+            "resolves"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "resolves"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "affects",
+          "key": "affects",
+          "label": "affects",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "affects"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "affects"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "raises",
+          "key": "raises",
+          "label": "raises",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 30,
+          "allowedEdgeTypes": [
+            "raises"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "raises"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        },
+        {
+          "id": "blocks",
+          "key": "blocks",
+          "label": "blocks",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 220,
+          "allowedEdgeTypes": [
+            "blocked-by"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "blocked-by"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 250
+        }
+      ],
+      "handles": [
+        {
+          "id": "resolves",
+          "key": "resolves",
+          "label": "resolves",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "allowedEdgeTypes": [
+            "resolves"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "resolves"
+            ],
+            "repeatable": true
+          },
+          "portId": "resolves"
+        },
+        {
+          "id": "affects",
+          "key": "affects",
+          "label": "affects",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "affects"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "affects"
+            ],
+            "repeatable": true
+          },
+          "portId": "affects"
+        },
+        {
+          "id": "raises",
+          "key": "raises",
+          "label": "raises",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 30,
+          "allowedEdgeTypes": [
+            "raises"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "raises"
+            ],
+            "repeatable": true
+          },
+          "portId": "raises"
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        },
+        {
+          "id": "blocks",
+          "key": "blocks",
+          "label": "blocks",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 220,
+          "allowedEdgeTypes": [
+            "blocked-by"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "blocked-by"
+            ],
+            "repeatable": true
+          },
+          "portId": "blocks"
+        },
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 250,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Approve the repo template design",
+        "status": "proposed",
+        "owner": "Michael",
+        "body": "What the template contains, the seven layout rules and what it exports, to the left. Answer A to D at the bottom (or edit the page), then set this to decided. Only then is it built.",
+        "identity": {
+          "graphId": "canon-templates-in-order",
+          "nodeId": "canon-templates-in-order-decision-repo-design"
+        },
+        "classRef": "tlz://twilite.zone/library/classes/nodes/task-planning/decision.node-class.node",
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1792522545948,
+          "reason": "node-drag"
+        },
+        "decidedAt": "",
+        "decider": ""
+      }
     }
   ],
   "edges": [
@@ -8102,6 +8392,43 @@
       "sourcePort": "root",
       "targetPort": "root",
       "label": "where canon stands",
+      "style": {
+        "curved": true
+      },
+      "data": {
+        "relationship": "proposal"
+      }
+    },
+    {
+      "id": "canon-templates-in-order-edge-goal-decision-repo-design",
+      "type": "contains",
+      "source": "canon-templates-in-order-goal",
+      "target": "canon-templates-in-order-decision-repo-design",
+      "sourcePort": "decisions",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "canon-templates-in-order-edge-decision-repo-design-affects-task-repo",
+      "type": "affects",
+      "source": "canon-templates-in-order-decision-repo-design",
+      "target": "canon-templates-in-order-task-repo",
+      "sourcePort": "affects",
+      "targetPort": "decided-by",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "canon-templates-in-order-edge-repo-design-evidence",
+      "type": "evidence",
+      "source": "canon-templates-in-order-decision-repo-design",
+      "target": "canon-templates-in-order-repo-design",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "the design",
       "style": {
         "curved": true
       },
