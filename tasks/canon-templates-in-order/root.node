@@ -656,10 +656,10 @@
         },
         "membrane": {
           "bounds": {
-            "x": -1110,
+            "x": -2310,
             "y": -640,
-            "width": 4920,
-            "height": 3280
+            "width": 7320,
+            "height": 4880
           },
           "clip": true
         }
@@ -7193,6 +7193,347 @@
           "portId": "root"
         }
       ]
+    },
+    {
+      "id": "canon-templates-in-order-standard",
+      "type": "content",
+      "label": "Draft #2: what a canon template is (proposed wording)",
+      "position": {
+        "x": -60,
+        "y": 2780
+      },
+      "width": 1040,
+      "height": 1380,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "canon-templates-in-order",
+          "nodeId": "canon-templates-in-order-standard"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Draft #2: what a canon template is\n\n**Proposed wording.** Nothing here is in canon until you approve it. Each rule is short, says why, and says how it is checked: ten can be checked mechanically, and two are judgement.\n\nA **canon template** is a starter graph in the Twilite Zone library (`library/templates/<name>/`) that other graphs are made from, and that follows these rules.\n\n**1. One surface, three looks.** A canon template presents through one Surface: a Detail, then a Summary, then a Glyph. It has no Icon view unless it can say why a Summary and a Glyph are not enough.\n*Why:* The glyph is the floor: it stands for the graph at small sizes and hands over to the lowest view once that view can be read.\n*Checked by:* Test (mechanical).\n\n**2. One shape.** The Detail defines the graph's shape, and the views behind it take it. Each view's own size says when it appears: the Summary is smaller than the Detail and appears sooner.\n*Why:* Views that share a shape look the same in a workspace tile, a portal and the graph itself, whatever the zoom.\n*Checked by:* faceShapeIssues (mechanical).\n\n**3. Derived, not typed.** The Detail, the Summary and the Glyph are written by the template's own Method, which a graph.changed event runs through an invokes edge. There is no stored summary node and no copy that is kept in step by hand. The saved file holds the current views.\n*Why:* A summary that is typed goes stale, and a stale one is worse than none.\n*Checked by:* Test: the stored views equal what the Method derives (mechanical).\n\n**4. The state is on every view.** Whoever sees the graph at any size can tell whether it needs them. The Glyph carries the state, the Summary says the state, the progress, what is next or in the way and what is open, and the Detail puts what needs the owner first.\n*Why:* You should not have to open a thing to learn whether you have to open it.\n*Checked by:* Judgement; each state is a test case in the template's own tests.\n\n**5. A view fits its page.** A view is one fixed page, measured from its own width (cqw inside an outer container, never on the container itself). It has no scrollbar, because a scrollbar inside a graph view cannot be used with the mouse. When there is more than fits, the view says how many more.\n*Why:* The view is the same page at every size, and it never hides work behind a control that does not work.\n*Checked by:* Test: no scrolling area, and a long list still fits (mechanical).\n\n**6. A window of its own shape.** The graph's window (the root's membrane bounds) is authored in the Detail's shape and holds everything the graph has.\n*Why:* A new graph is the size of a graph, and its Detail fills it without stretching.\n*Checked by:* Test (mechanical).\n\n**7. Pieces are classes, and relationships have names.** Each kind of thing in the template is a node class, imported through a Bridge, and each node carries the class's ports. Relationships are edge classes between named ports (precedes leaves next and arrives at previous). Nothing is drawn by side, and nothing depends on one particular edge being present: deleting an edge changes how the graph is drawn, not what it says.\n*Why:* Names say what a connection means; sides do not.\n*Checked by:* Test (mechanical).\n\n**8. One export.** The template hands on its classes and its Method through a single export with an allowlist. A graph made from it imports once.\n*Why:* One Bridge is a thing to read; ten are a thing to maintain.\n*Checked by:* Test (mechanical).\n\n**9. Canon addresses, and an identity of its own.** Everything the template points at is a canon address (tlz://twilite.zone/...) and nothing personal. A copy gets its own graph id and node ids.\n*Why:* Canon has to stand on its own, and copies must not be drawn as one node.\n*Checked by:* Test (mechanical).\n\n**10. Events run through edges.** A Method runs only through an invokes edge from an event port to a Method in the same graph. There are no Event Handler nodes.\n*Why:* One model for events; this is already the rule everywhere.\n*Checked by:* The validator (mechanical).\n\n**11. Generic, complete starter content.** The template shows each state it can be in, with placeholder content and nobody's real work. Its landing page says what it is, what it derives and what it exports.\n*Why:* A starter is copied; real work in it is a mistake waiting to be copied.\n*Checked by:* Judgement; read at approval.\n\n**12. It is tested.** A canon template has tests for the rules above, so it cannot drift: a valid graph, the shape, the stored views, each state, and a long list.\n*Why:* The standard is only a standard if breaking it fails.\n*Checked by:* The audit in tests/helpers/templateStandard.js runs the mechanical rules over every template.\n\n**What it is not.** It is not a demo with someone's real work in it, not a copy of a primitives page, and not two templates folded into one: the plan template and the Task Template stay separate.\n"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791502752029,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "canon-templates-in-order-standard-audit",
+      "type": "content",
+      "label": "Where canon stands against the standard",
+      "position": {
+        "x": 1060,
+        "y": 2780
+      },
+      "width": 900,
+      "height": 520,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "canon-templates-in-order",
+          "nodeId": "canon-templates-in-order-standard-audit"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "## Where canon stands against it\n\nThe mechanical rules, run over every template now in canon (the audit is `tests/helpers/templateStandard.js`):\n\n| Template | Result |\n|---|---|\n| `task-template` | Meets every rule. |\n| `page-template` | Out of standard on rules 1 (it still has an Icon view), 2 (its views are out of shape) and 6 (its window is not 3:2). It meets 3, 8, 9 and 10 and is valid. |\n| the eight Page Template demos | The same three, because they are copies. They are regenerated from the template, not edited. |\n\nThe other six templates that become canon are not in canon yet: each will be rebuilt to the standard before it goes in, and the audit will check it.\n"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791502752029,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "canon-templates-in-order-decision-standard",
+      "type": "decision",
+      "label": "Approve the wording of the canon template standard",
+      "position": {
+        "x": 2080,
+        "y": 2780
+      },
+      "width": 520,
+      "height": 260,
+      "ports": [
+        {
+          "id": "resolves",
+          "key": "resolves",
+          "label": "resolves",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "allowedEdgeTypes": [
+            "resolves"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "resolves"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "affects",
+          "key": "affects",
+          "label": "affects",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "affects"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "affects"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "raises",
+          "key": "raises",
+          "label": "raises",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 30,
+          "allowedEdgeTypes": [
+            "raises"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "raises"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        },
+        {
+          "id": "blocks",
+          "key": "blocks",
+          "label": "blocks",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 220,
+          "allowedEdgeTypes": [
+            "blocked-by"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "blocked-by"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 250
+        }
+      ],
+      "handles": [
+        {
+          "id": "resolves",
+          "key": "resolves",
+          "label": "resolves",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "allowedEdgeTypes": [
+            "resolves"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "resolves"
+            ],
+            "repeatable": true
+          },
+          "portId": "resolves"
+        },
+        {
+          "id": "affects",
+          "key": "affects",
+          "label": "affects",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "affects"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "affects"
+            ],
+            "repeatable": true
+          },
+          "portId": "affects"
+        },
+        {
+          "id": "raises",
+          "key": "raises",
+          "label": "raises",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 30,
+          "allowedEdgeTypes": [
+            "raises"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "raises"
+            ],
+            "repeatable": true
+          },
+          "portId": "raises"
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        },
+        {
+          "id": "blocks",
+          "key": "blocks",
+          "label": "blocks",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 220,
+          "allowedEdgeTypes": [
+            "blocked-by"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "blocked-by"
+            ],
+            "repeatable": true
+          },
+          "portId": "blocks"
+        },
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 250,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Approve the wording of the canon template standard",
+        "status": "proposed",
+        "owner": "Michael",
+        "body": "Twelve rules, each with why and how it is checked. Read the wording to the left. Edit it if you disagree, then set this to decided. Only then does it go into canon.",
+        "identity": {
+          "graphId": "canon-templates-in-order",
+          "nodeId": "canon-templates-in-order-decision-standard"
+        },
+        "classRef": "tlz://twilite.zone/library/classes/nodes/task-planning/decision.node-class.node",
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1792522545948,
+          "reason": "node-drag"
+        },
+        "decidedAt": "",
+        "decider": ""
+      }
     }
   ],
   "edges": [
@@ -7712,6 +8053,58 @@
       "label": "",
       "style": {},
       "data": {}
+    },
+    {
+      "id": "canon-templates-in-order-edge-goal-decision-standard",
+      "type": "contains",
+      "source": "canon-templates-in-order-goal",
+      "target": "canon-templates-in-order-decision-standard",
+      "sourcePort": "decisions",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "canon-templates-in-order-edge-decision-standard-affects-draft-2",
+      "type": "affects",
+      "source": "canon-templates-in-order-decision-standard",
+      "target": "canon-templates-in-order-task-draft-2",
+      "sourcePort": "affects",
+      "targetPort": "decided-by",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "canon-templates-in-order-edge-standard-standard",
+      "type": "evidence",
+      "source": "canon-templates-in-order-decision-standard",
+      "target": "canon-templates-in-order-standard",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "the wording",
+      "style": {
+        "curved": true
+      },
+      "data": {
+        "relationship": "proposal"
+      }
+    },
+    {
+      "id": "canon-templates-in-order-edge-standard-standard-audit",
+      "type": "evidence",
+      "source": "canon-templates-in-order-decision-standard",
+      "target": "canon-templates-in-order-standard-audit",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "where canon stands",
+      "style": {
+        "curved": true
+      },
+      "data": {
+        "relationship": "proposal"
+      }
     }
   ],
   "settings": {
