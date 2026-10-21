@@ -656,10 +656,10 @@
         },
         "membrane": {
           "bounds": {
-            "x": -3690,
+            "x": -4965,
             "y": -640,
-            "width": 10080,
-            "height": 6720
+            "width": 12630,
+            "height": 8420
           },
           "clip": true
         }
@@ -8711,6 +8711,298 @@
         },
         "startedAt": "2026-10-21T04:04:59.077Z"
       }
+    },
+    {
+      "id": "canon-templates-in-order-collection-design",
+      "type": "content",
+      "label": "Collection template: the design (proposed)",
+      "position": {
+        "x": -60,
+        "y": 6200
+      },
+      "width": 1040,
+      "height": 1500,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "canon-templates-in-order",
+          "nodeId": "canon-templates-in-order-collection-design"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Collection template: the design\n\n**Proposed.** Nothing is built, and nothing is in canon, until you approve it. The looks below were shown and agreed; this page puts them together with what is not yet decided.\n\nA **collection** is a graph whose job is to show other graphs: a shelf of tasks, the templates in canon, the repo home (a collection of shelves). It replaces the old collection template, the collection window controller and the workboard template.\n\n## 1. The looks\n\n- **Detail.** A page view (one scrolling area, so rule 5 holds). The title and a count, then the members as tiles. The tiles flow by width: as many columns of 110px or wider as fit, never fewer than two. The node starts at the regular 3:2 shape, stretches as rows are added up to a square, then scrolls. An empty collection stays at the regular size and shows a dashed invitation. Because the Detail sets the graph's shape, the Summary and the window follow it, and the Method writes the new height to the window, as the Task Template does.\n- **Summary.** The name, a count and one useful fact (for a collection of tasks, how many are in progress).\n- **Glyph.** A folders mark.\n- **No Icon view.**\n\n## 2. The tile\n\nGlyph, title, and a two-line description, all from the member graph itself: the member's own Glyph (so a task already shows its state in it), its name, and its description. A member with no description shows its **kind** (Task, Person) in that line, never a blank one. A member that has a state someone has to act on gets a small dot (rule 4); a member that has none shows nothing.\n\nA tile loses what no longer fits, in this order: below about 160px the description, below about 100px the title, then only the glyph. A tile is a link: it opens the member.\n\n## 3. How members get in\n\nA graph cannot read other graphs' folders or descriptions, so the Method never goes looking. It reads one **Census** node on the collection: for each member its address, name, description, kind and glyph, and whether it needs you. A separate **discovery step** fills the Census (the same walker as the library audit for a repo on disk, the app's own folder listing for an open `github://` collection). Until a Census exists, the collection shows the members it was given by hand as portals. Adding a member by dropping a graph on the collection comes with the drop event (its own task), and is not part of this template.\n\n## 4. What it contains and exports\n\nThe graph holds a **Collection** root with a Census, the Detail, the Summary and the Glyph, and the Method that derives them. It exports the Method and one node class, **Collection**, through a single export with an allowlist. There is no Shelf class: a shelf is a Collection, and the repo template is a Collection plus where it lives. The relationship between a collection and its members is one named edge, `contains`, as in the planning classes.\n\n## 5. What it is checked by\n\nThe standard's rules (its audit) and tests of its own: the stored views equal what the Method derives; each state (a few members, many members, empty, a member with no description); the tile shrinks as listed; the Detail is a page with exactly one scrolling area.\n\n## Decisions for you\n\n**A. A Collection node class, with the members in a Census?** I say yes, for the reasons in section 3.\n\n**B. The stretch limit and the tile minimum.** A square, and 110px. These are guesses; say if they feel wrong when you see the real one.\n\n**C. Does the old collection template get retired as unrendered reference?** I say yes, as for every other replaced template; nothing is deleted.\n"
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791502752029,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "canon-templates-in-order-decision-collection-design",
+      "type": "decision",
+      "label": "Approve the Collection template design",
+      "position": {
+        "x": 1060,
+        "y": 6200
+      },
+      "width": 520,
+      "height": 260,
+      "ports": [
+        {
+          "id": "resolves",
+          "key": "resolves",
+          "label": "resolves",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "allowedEdgeTypes": [
+            "resolves"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "resolves"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "affects",
+          "key": "affects",
+          "label": "affects",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "affects"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "affects"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "raises",
+          "key": "raises",
+          "label": "raises",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 30,
+          "allowedEdgeTypes": [
+            "raises"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "raises"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        },
+        {
+          "id": "blocks",
+          "key": "blocks",
+          "label": "blocks",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 220,
+          "allowedEdgeTypes": [
+            "blocked-by"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "blocked-by"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 250
+        }
+      ],
+      "handles": [
+        {
+          "id": "resolves",
+          "key": "resolves",
+          "label": "resolves",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "allowedEdgeTypes": [
+            "resolves"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "resolves"
+            ],
+            "repeatable": true
+          },
+          "portId": "resolves"
+        },
+        {
+          "id": "affects",
+          "key": "affects",
+          "label": "affects",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "affects"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "affects"
+            ],
+            "repeatable": true
+          },
+          "portId": "affects"
+        },
+        {
+          "id": "raises",
+          "key": "raises",
+          "label": "raises",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 30,
+          "allowedEdgeTypes": [
+            "raises"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "raises"
+            ],
+            "repeatable": true
+          },
+          "portId": "raises"
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        },
+        {
+          "id": "blocks",
+          "key": "blocks",
+          "label": "blocks",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 220,
+          "allowedEdgeTypes": [
+            "blocked-by"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "blocked-by"
+            ],
+            "repeatable": true
+          },
+          "portId": "blocks"
+        },
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 250,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Approve the Collection template design",
+        "status": "proposed",
+        "owner": "Michael",
+        "body": "The looks, the tile, how members get in, and what it exports, to the left. Answer A to C, then set this to decided. Only then is it built.",
+        "identity": {
+          "graphId": "canon-templates-in-order",
+          "nodeId": "canon-templates-in-order-decision-collection-design"
+        },
+        "classRef": "tlz://twilite.zone/library/classes/nodes/task-planning/decision.node-class.node",
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1792522545948,
+          "reason": "node-drag"
+        },
+        "decidedAt": "",
+        "decider": "",
+        "rationale": "After review.",
+        "supersededBy": ""
+      }
     }
   ],
   "edges": [
@@ -9363,6 +9655,43 @@
       "label": "",
       "style": {},
       "data": {}
+    },
+    {
+      "id": "canon-templates-in-order-edge-goal-decision-collection-design",
+      "type": "contains",
+      "source": "canon-templates-in-order-goal",
+      "target": "canon-templates-in-order-decision-collection-design",
+      "sourcePort": "decisions",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "canon-templates-in-order-edge-decision-collection-design-affects-task-collection",
+      "type": "affects",
+      "source": "canon-templates-in-order-decision-collection-design",
+      "target": "canon-templates-in-order-task-collection",
+      "sourcePort": "affects",
+      "targetPort": "decided-by",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "canon-templates-in-order-edge-collection-design-evidence",
+      "type": "evidence",
+      "source": "canon-templates-in-order-decision-collection-design",
+      "target": "canon-templates-in-order-collection-design",
+      "sourcePort": "root",
+      "targetPort": "root",
+      "label": "the design",
+      "style": {
+        "curved": true
+      },
+      "data": {
+        "relationship": "proposal"
+      }
     }
   ],
   "settings": {
