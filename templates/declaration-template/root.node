@@ -1,23 +1,13 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "created": "2026-09-24T23:01:08.273Z",
-    "modified": "2026-10-13T20:27:16.624Z",
+    "created": "2026-10-23T17:07:10.960Z",
+    "modified": "2026-10-23T17:11:23.789Z",
     "author": "",
     "tags": [
-      "template",
-      "page",
-      "declaration",
-      "tutorial"
+      "template"
     ],
-    "preferredViewer": "https://dev.twilite.zone",
-    "changelog": [
-      {
-        "version": "0.2.0",
-        "date": "2026-10-04T16:58:22.603Z",
-        "note": "Removed a stale, hand-authored port snapshot (default-view/summary-view/icon-view/glyph -- the pre-surfaces trio) that was never pruned when the app moved to the single repeatable surfaces relationship. It had silently merged with the live relationship set, giving this Declaration 10 ports instead of 6. Now lets the dynamic relationship system supply the current set (surfaces, default-handle, boundary-begin, boundary-end, port, landing-surface) like every other Declaration."
-      }
-    ]
+    "preferredViewer": "https://dev.twilite.zone"
   },
   "nodes": [
     {
@@ -30,13 +20,457 @@
       },
       "width": 520,
       "height": 390,
-      "ports": [],
-      "handles": [],
+      "ports": [
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "face",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "default-handle",
+          "key": "default-handle",
+          "label": "default handle",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "default-handle",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-handle",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "portal",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "boundary-begin",
+          "key": "boundary-begin",
+          "label": "boundary begin",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 300,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "boundary-end",
+          "key": "boundary-end",
+          "label": "boundary end",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 135,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 225,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "ground",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "ground",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "environment",
+          "key": "environment",
+          "label": "environment",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 45,
+          "role": "environment",
+          "allowedEdgeTypes": [
+            "environment"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "environment",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "face",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "event:graph.changed",
+          "key": "event:graph.changed",
+          "label": "Graph changed",
+          "direction": "output",
+          "dataType": "event",
+          "role": "emits-event",
+          "allowedEdgeTypes": [
+            "invokes",
+            "listens"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "emits-event",
+            "required": false,
+            "repeatable": true,
+            "eventKey": "graph.changed",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "method",
+                "targetPort": "invokes"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "face",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
+        },
+        {
+          "id": "default-handle",
+          "key": "default-handle",
+          "label": "default handle",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "default-handle",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-handle",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "portal",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "default-handle"
+        },
+        {
+          "id": "boundary-begin",
+          "key": "boundary-begin",
+          "label": "boundary begin",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 300,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "boundary-begin"
+        },
+        {
+          "id": "boundary-end",
+          "key": "boundary-end",
+          "label": "boundary end",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 135,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "boundary-end"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 225,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "port"
+        },
+        {
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "role": "ground",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "ground",
+            "required": true,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "content",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "ground"
+        },
+        {
+          "id": "environment",
+          "key": "environment",
+          "label": "environment",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 45,
+          "role": "environment",
+          "allowedEdgeTypes": [
+            "environment"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "environment",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "face",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "environment"
+        },
+        {
+          "id": "event:graph.changed",
+          "key": "event:graph.changed",
+          "label": "Graph changed",
+          "direction": "output",
+          "dataType": "event",
+          "role": "emits-event",
+          "allowedEdgeTypes": [
+            "invokes",
+            "listens"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "emits-event",
+            "required": false,
+            "repeatable": true,
+            "eventKey": "graph.changed",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "method",
+                "targetPort": "invokes"
+              }
+            ]
+          },
+          "portId": "event:graph.changed"
+        }
+      ],
       "visible": true,
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "declaration-template",
+          "graphId": "declaration-template-declaration",
           "nodeId": "declaration-template",
           "name": "Declaration Template",
           "version": "0.3.0",
@@ -80,8 +514,31 @@
         "settings": {
           "autoSave": false,
           "layout": {
-            "mode": "manual"
-          }
+            "mode": "manual",
+            "defaultLayout": "layered",
+            "direction": "DOWN",
+            "edgeLaneGapPx": 10,
+            "serpentine": {
+              "maxPerRow": 6
+            },
+            "cycleFallback": {
+              "enabled": true
+            },
+            "elk": {
+              "algorithm": "fixed",
+              "edgeRouting": "ORTHOGONAL",
+              "portConstraints": "FIXED_SIDE",
+              "nodeSpacing": 120,
+              "layeredEdgeSpacing": 80
+            }
+          },
+          "theme": null,
+          "backgroundImage": null,
+          "defaultNodeColor": "#1976d2",
+          "defaultEdgeColor": "",
+          "snapToGrid": false,
+          "gridSize": 20,
+          "edgeRouting": "auto"
         },
         "document": {
           "url": "github://mikemartinez1974/public/templates/declaration-template/root.node"
@@ -348,8 +805,8 @@
     },
     {
       "id": "dt-editor",
-      "label": "Declaration Editor",
       "type": "port",
+      "label": "Declaration Editor",
       "position": {
         "x": 300,
         "y": 1340
@@ -715,45 +1172,8 @@
           "portId": "ground"
         }
       ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "default-view",
-          "label": "default view",
-          "type": "any"
-        },
-        {
-          "key": "summary-view",
-          "label": "summary view",
-          "type": "any"
-        },
-        {
-          "key": "icon-view",
-          "label": "icon view",
-          "type": "any"
-        },
-        {
-          "key": "glyph",
-          "label": "glyph",
-          "type": "any"
-        },
-        {
-          "key": "handle",
-          "label": "handle",
-          "type": "any"
-        },
-        {
-          "key": "ground",
-          "label": "ground",
-          "type": "any"
-        }
-      ],
+      "visible": true,
+      "showLabel": true,
       "data": {
         "surfaceId": "",
         "direction": "input",
@@ -1290,8 +1710,8 @@
       "type": "page-settings",
       "label": "The parts at a glance",
       "position": {
-        "x": 240,
-        "y": -420
+        "x": 209.2535991778581,
+        "y": -481.492801644284
       },
       "width": 520,
       "height": 360,
@@ -1363,7 +1783,14 @@
             "name": "Settings"
           }
         },
-        "classRef": "tlz://twilite.zone/library/templates/page-template/classes/page-settings.node-class.node"
+        "classRef": "tlz://twilite.zone/library/templates/page-template/classes/page-settings.node-class.node",
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1792775287225,
+          "reason": "node-drag"
+        }
       }
     },
     {
@@ -2038,8 +2465,6 @@
       },
       "width": 380,
       "height": 260,
-      "visible": true,
-      "showLabel": true,
       "ports": [
         {
           "id": "call",
@@ -2078,6 +2503,8 @@
           "portId": "result"
         }
       ],
+      "visible": true,
+      "showLabel": true,
       "data": {
         "scriptName": "Assemble the page",
         "parameters": [],
@@ -2113,8 +2540,6 @@
       },
       "width": 320,
       "height": 140,
-      "visible": true,
-      "showLabel": true,
       "ports": [
         {
           "id": "root",
@@ -2124,6 +2549,8 @@
           "angle": 210
         }
       ],
+      "visible": true,
+      "showLabel": true,
       "data": {
         "identity": {
           "graphId": "declaration-template"
@@ -2151,8 +2578,6 @@
       },
       "width": 320,
       "height": 140,
-      "visible": true,
-      "showLabel": true,
       "ports": [
         {
           "id": "root",
@@ -2162,6 +2587,8 @@
           "angle": 210
         }
       ],
+      "visible": true,
+      "showLabel": true,
       "data": {
         "identity": {
           "graphId": "declaration-template"
@@ -2189,8 +2616,6 @@
       },
       "width": 320,
       "height": 140,
-      "visible": true,
-      "showLabel": true,
       "ports": [
         {
           "id": "root",
@@ -2200,6 +2625,8 @@
           "angle": 210
         }
       ],
+      "visible": true,
+      "showLabel": true,
       "data": {
         "identity": {
           "graphId": "declaration-template"
@@ -2304,6 +2731,9 @@
       "showLabel": true,
       "data": {
         "memo": "The one export of this template: its own Custom Declaration class, and the four page classes that pass up through its Bridge to the Page Template.",
+        "identity": {
+          "graphId": "declaration-template-declaration"
+        },
         "bridge": {
           "ref": "github://mikemartinez1974/public/templates/declaration-template/root.node",
           "resourceKind": "graph",
@@ -2347,134 +2777,134 @@
       "type": "surface",
       "source": "declaration-template-declaration",
       "target": "dt-detail",
+      "sourcePort": "surfaces",
+      "targetPort": "root",
       "label": "surface",
       "style": {
         "route": "curved"
       },
       "data": {
         "surfaceId": "default"
-      },
-      "sourcePort": "surfaces",
-      "targetPort": "root"
+      }
     },
     {
       "id": "dt-seq-1",
       "type": "next-face",
       "source": "dt-detail",
       "target": "dt-summary",
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in",
       "label": "next",
       "style": {
         "route": "curved"
       },
-      "data": {},
-      "sourcePort": "sequence-out",
-      "targetPort": "sequence-in"
+      "data": {}
     },
     {
       "id": "dt-seq-2",
       "type": "next-face",
       "source": "dt-summary",
       "target": "dt-icon",
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in",
       "label": "next",
       "style": {
         "route": "curved"
       },
-      "data": {},
-      "sourcePort": "sequence-out",
-      "targetPort": "sequence-in"
+      "data": {}
     },
     {
       "id": "dt-seq-3",
       "type": "next-face",
       "source": "dt-icon",
       "target": "dt-glyph",
+      "sourcePort": "sequence-out",
+      "targetPort": "root",
       "label": "next",
       "style": {
         "route": "curved"
       },
-      "data": {},
-      "sourcePort": "sequence-out",
-      "targetPort": "root"
+      "data": {}
     },
     {
       "id": "dt-editor-edge",
       "type": "exposes-port",
       "source": "declaration-template-declaration",
       "target": "dt-editor",
+      "sourcePort": "port",
+      "targetPort": "root",
       "label": "exposes editor",
       "style": {
         "route": "curved"
       },
-      "data": {},
-      "sourcePort": "port",
-      "targetPort": "root"
+      "data": {}
     },
     {
       "id": "dt-landing-edge",
       "type": "ground",
       "source": "declaration-template-declaration",
       "target": "dt-landing",
+      "sourcePort": "ground",
+      "targetPort": "root",
       "label": "ground",
       "style": {
         "route": "curved"
       },
-      "data": {},
-      "sourcePort": "ground",
-      "targetPort": "root"
+      "data": {}
     },
     {
       "id": "dt-assemble-updates-dt-detail",
       "type": "derived-view",
       "source": "dt-assemble-method",
       "target": "dt-detail",
+      "sourcePort": "result",
+      "targetPort": "root",
       "label": "refreshes",
       "style": {
         "route": "curved"
       },
-      "data": {},
-      "sourcePort": "result",
-      "targetPort": "root"
+      "data": {}
     },
     {
       "id": "dt-assemble-updates-dt-summary",
       "type": "derived-view",
       "source": "dt-assemble-method",
       "target": "dt-summary",
+      "sourcePort": "result",
+      "targetPort": "root",
       "label": "refreshes",
       "style": {
         "route": "curved"
       },
-      "data": {},
-      "sourcePort": "result",
-      "targetPort": "root"
+      "data": {}
     },
     {
       "id": "dt-assemble-updates-dt-icon",
       "type": "derived-view",
       "source": "dt-assemble-method",
       "target": "dt-icon",
+      "sourcePort": "result",
+      "targetPort": "root",
       "label": "refreshes",
       "style": {
         "route": "curved"
       },
-      "data": {},
-      "sourcePort": "result",
-      "targetPort": "root"
+      "data": {}
     },
     {
       "id": "declaration-template-declaration-graph-changed-invokes-dt-assemble-method",
       "type": "invokes",
       "source": "declaration-template-declaration",
       "target": "dt-assemble-method",
+      "sourcePort": "event:graph.changed",
+      "targetPort": "invokes",
       "label": "invokes",
       "style": {
         "route": "curved"
       },
       "data": {
         "classRef": "tlz://twilite.zone/library/edges/invokes/root.node"
-      },
-      "sourcePort": "event:graph.changed",
-      "targetPort": "invokes"
+      }
     }
   ],
   "settings": {
@@ -2512,8 +2942,9 @@
       "repoVisibility": "private",
       "seedOnCommit": false,
       "enableGithubPages": false,
-      "installationId": "120403738"
+      "installationId": ""
     },
     "autoSave": false
-  }
+  },
+  "scripts": []
 }
