@@ -18,7 +18,7 @@
           "graphId": "authoring-switches",
           "nodeId": "authoring-switches",
           "name": "Authoring switches",
-          "version": "0.2.0",
+          "version": "0.3.0",
           "description": "The authoring contract: what can be set on a node or a graph, each switch described by the node that carries it."
         },
         "intent": {
@@ -128,13 +128,13 @@
         "y": 320
       },
       "width": 900,
-      "height": 520,
+      "height": 620,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Authoring switches\n\n**A draft, for Michael to edit.** What a person, a template or an agent can set on a node or a graph to change how it looks or behaves, in one place.\n\n**One description, many readers.** Each switch below is a node, and the node carries its own description as data (`data.switch`: name, scope, type, default, valid values, effect, where it is written, where it applies). The words on each card are written from that data. The Properties panel, a template or an agent can read the same fields, so the list is not a second copy to keep up to date.\n\n**How the pieces fit.** The script API is generic (`updateNode`, `updateView`, `createNode`, `applyDeltas`), so any switch can be written by a Method that declares the effect that allows it. This page says what can be written and where; the API says how.\n\n**Checked.** Each row was read against the code. A \"none found\" under Panel means no control turned up, not that none exists."
+          "value": "# Authoring switches\n\n**A draft, for Michael to edit.** What a person, a template or an agent can set on a node or a graph to change how it looks or behaves, in one place.\n\n**One description, many readers.** Each switch below is a node, and the node carries its own description as data (`data.switch`: name, scope, where it is written, value type, default, the values it takes, effect, the modes it applies in). The card on each node is generated from that data, so there is one description and the page is not a second copy. The Properties panel, a template or an agent can read the same fields.\n\n**Policies are nodes too** (`data.policy`). A switch names the policy that governs it (`governedBy`) or the one it overrides (`overrides`) by the policy's id, in place of edges until there is an edge class for them.\n\n**How the pieces fit.** The script API is generic (`updateNode`, `updateView`, `createNode`, `applyDeltas`), so any switch can be written by a Method that declares the effect that allows it. This page says what can be written and where; the API says how.\n\n**Checked.** Each row was read against the code. A \"none found\" under Panel means no control turned up, not that none exists."
         },
         "identity": {
           "graphId": "authoring-switches"
@@ -142,24 +142,93 @@
       }
     },
     {
-      "id": "authoring-switches-policy",
+      "id": "authoring-switches-policy-visibility",
       "type": "content",
-      "label": "Properties and policies",
+      "label": "Visibility",
       "position": {
         "x": 960,
         "y": 320
       },
       "width": 900,
-      "height": 760,
+      "height": 480,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Properties and policies\n\nA **property** is something an author declares: `rotation: 45`, `visible: false`, `defaultHandle`. A **policy** is a rule that reads properties and decides what happens. Policies are written down so that an author can predict them, and are not switches.\n\n## Visibility is three questions\n\n1. **Does the node exist?** It is in the graph, or it is not.\n2. **Is it eligible in this mode?** The *type rule* answers: a root, face, glyph, import, export or method is plumbing, and plumbing is for editing. `showInBrowse: true` is the one override of this rule.\n3. **Is it shown?** `visible` answers: false hides it, true is the default and changes nothing.\n\n`visibilityRole` is an older way to say (2) and cannot override the rule; it is kept for Scripts that present a node.web surface.\n\n## The root handle\n\nThe root Port always exists. Whether its handle is drawn is a policy: **auto** draws it when the graph is open, pointed at, or a connection is being made; `root.handle` can force it on or off. The Port and its Handle are separate: hiding one does not remove the other.\n\n## Which view shows\n\n`semanticLevel` and `semanticZoom.resolution` describe a face. Which face a tile shows at a given size is the app's policy: by how large the graph is drawn (glyph, then summary, then detail), and for a node, by the camera's zoom. The thresholds are in `semanticPresentation.js` and `graphViewPresentation.js`; they are not switches."
+          "value": "# Visibility (policy)\n\n## Visibility is three questions\n\n1. **Does the node exist?** It is in the graph, or it is not.\n2. **Is it eligible in this mode?** The *type rule* answers: a root, face, glyph, import, export or method is plumbing, and plumbing is for editing. `showInBrowse: true` is the one override of this rule.\n3. **Is it shown?** `visible` answers: false hides it, true is the default and changes nothing.\n\n`visibilityRole` is an older way to say (2) and cannot override the rule; it is kept for Scripts that present a node.web surface."
         },
         "identity": {
           "graphId": "authoring-switches"
+        },
+        "policy": {
+          "id": "policy-visibility",
+          "name": "Visibility",
+          "reads": [
+            "visible",
+            "show-in-browse",
+            "visibility-role"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-policy-root-handle",
+      "type": "content",
+      "label": "The root handle",
+      "position": {
+        "x": 1900,
+        "y": 320
+      },
+      "width": 900,
+      "height": 480,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# The root handle (policy)\n\n## The root handle\n\nThe root Port always exists. Whether its handle is drawn is a policy: **auto** draws it when the graph is open, pointed at, or a connection is being made; `root.handle` can force it on (`shown`) or off (`hidden`). The Port and its Handle are separate: hiding one does not remove the other."
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "policy": {
+          "id": "policy-root-handle",
+          "name": "The root handle",
+          "reads": [
+            "root-handle",
+            "default-handle"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-policy-which-view",
+      "type": "content",
+      "label": "Which view shows",
+      "position": {
+        "x": 960,
+        "y": 840
+      },
+      "width": 900,
+      "height": 480,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Which view shows (policy)\n\n## Which view shows\n\n`semanticLevel` and `semanticZoom.resolution` describe a face. Which face a tile shows at a given size is the app's policy: by how large the graph is drawn (glyph, then summary, then detail), and for a node, by the camera's zoom. The thresholds are in `semanticPresentation.js` and `graphViewPresentation.js`; they are not switches."
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "policy": {
+          "id": "policy-which-view",
+          "name": "Which view shows",
+          "reads": [
+            "semantic-level",
+            "semantic-zoom-resolution"
+          ]
         }
       }
     },
@@ -169,32 +238,35 @@
       "label": "visible",
       "position": {
         "x": 0,
-        "y": 1160
+        "y": 1400
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "## visible\n\nFalse hides the node while browsing. Editing always shows it. True never brings plumbing back: that is the type rule's to answer, and showInBrowse overrides it.\n\n| | |\n|---|---|\n| Scope | node |\n| Written at | `node.visible` |\n| Type | boolean |\n| Default | true |\n| Valid | true, false |\n| Applies | browse |\n| Properties panel | yes (\"Visible\") |\n| Written down | AGENTS.md |\n| Status | built |"
-        },
-        "switch": {
-          "name": "visible",
-          "scope": "node",
-          "writtenAt": "node.visible",
-          "type": "boolean",
-          "default": "true",
-          "valid": "true, false",
-          "effect": "False hides the node while browsing. Editing always shows it. True never brings plumbing back: that is the type rule's to answer, and showInBrowse overrides it.",
-          "appliesIn": "browse",
-          "panel": "yes (\"Visible\")",
-          "writtenDown": "AGENTS.md",
-          "status": "built"
+          "value": "## visible\n\nFalse hides the node while browsing; editing always shows it. True never brings plumbing back: the type rule answers that, and showInBrowse overrides it.\n\n| | |\n|---|---|\n| Scope | node |\n| Written at | `node.visible` |\n| Type | boolean |\n| Default | true |\n| Valid | true, false |\n| Applies | browse |\n| Properties panel | yes (\"Visible\") |\n| Written down | AGENTS.md |\n| Status | built |\n| Governed by | policy-visibility |"
         },
         "identity": {
           "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "visible",
+          "name": "visible",
+          "scope": "node",
+          "writePath": "node.visible",
+          "valueType": "boolean",
+          "default": true,
+          "effect": "False hides the node while browsing; editing always shows it. True never brings plumbing back: the type rule answers that, and showInBrowse overrides it.",
+          "modes": [
+            "browse"
+          ],
+          "panel": "yes (\"Visible\")",
+          "writtenDown": "AGENTS.md",
+          "status": "built",
+          "governedBy": "policy-visibility"
         }
       }
     },
@@ -204,32 +276,38 @@
       "label": "showInBrowse",
       "position": {
         "x": 640,
-        "y": 1160
+        "y": 1400
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "## showInBrowse\n\nBrings a root, face, glyph, import, export or method into browse mode, as on a primitive page whose subject is the root and the views. Overrides the type rule only; visible: false still hides.\n\n| | |\n|---|---|\n| Scope | node |\n| Written at | `node.data.showInBrowse` |\n| Type | boolean |\n| Default | false |\n| Valid | true |\n| Applies | browse |\n| Properties panel | no |\n| Written down | this page |\n| Status | built, nothing uses it yet |"
-        },
-        "switch": {
-          "name": "showInBrowse",
-          "scope": "node",
-          "writtenAt": "node.data.showInBrowse",
-          "type": "boolean",
-          "default": "false",
-          "valid": "true",
-          "effect": "Brings a root, face, glyph, import, export or method into browse mode, as on a primitive page whose subject is the root and the views. Overrides the type rule only; visible: false still hides.",
-          "appliesIn": "browse",
-          "panel": "no",
-          "writtenDown": "this page",
-          "status": "built, nothing uses it yet"
+          "value": "## showInBrowse\n\nBrings a root, face, glyph, import, export or method into browse mode, as on a primitive page whose subject is the root and the views. visible: false still hides it.\n\n| | |\n|---|---|\n| Scope | node |\n| Written at | `node.data.showInBrowse` |\n| Type | boolean |\n| Default | false |\n| Valid | true |\n| Applies | browse |\n| Properties panel | no |\n| Written down | AGENTS.md, this page |\n| Status | built, one page first |\n| Overrides | policy-visibility |"
         },
         "identity": {
           "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "show-in-browse",
+          "name": "showInBrowse",
+          "scope": "node",
+          "writePath": "node.data.showInBrowse",
+          "valueType": "boolean",
+          "default": false,
+          "enum": [
+            true
+          ],
+          "effect": "Brings a root, face, glyph, import, export or method into browse mode, as on a primitive page whose subject is the root and the views. visible: false still hides it.",
+          "modes": [
+            "browse"
+          ],
+          "panel": "no",
+          "writtenDown": "AGENTS.md, this page",
+          "status": "built, one page first",
+          "overrides": "policy-visibility"
         }
       }
     },
@@ -239,32 +317,39 @@
       "label": "visibilityRole",
       "position": {
         "x": 1280,
-        "y": 1160
+        "y": 1400
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "## visibilityRole\n\nNames a node as plumbing or as content. Ignored for the types the rule hides; honoured only for a Script that names a node.web presentation. Do not use it to show a root or a face.\n\n| | |\n|---|---|\n| Scope | node |\n| Written at | `node.data.visibilityRole` |\n| Type | enum |\n| Default | by the node's type |\n| Valid | \"editor\", \"browser\" |\n| Applies | browse |\n| Properties panel | no |\n| Written down | AGENTS.md, as a warning |\n| Status | built |"
-        },
-        "switch": {
-          "name": "visibilityRole",
-          "scope": "node",
-          "writtenAt": "node.data.visibilityRole",
-          "type": "enum",
-          "default": "by the node's type",
-          "valid": "\"editor\", \"browser\"",
-          "effect": "Names a node as plumbing or as content. Ignored for the types the rule hides; honoured only for a Script that names a node.web presentation. Do not use it to show a root or a face.",
-          "appliesIn": "browse",
-          "panel": "no",
-          "writtenDown": "AGENTS.md, as a warning",
-          "status": "built"
+          "value": "## visibilityRole\n\nNames a node as plumbing or as content. Ignored for the types the rule hides; honoured only for a Script that names a node.web presentation. Do not use it to show a root or a face.\n\n| | |\n|---|---|\n| Scope | node |\n| Written at | `node.data.visibilityRole` |\n| Type | enum |\n| Default | by the node's type |\n| Valid | editor, browser |\n| Applies | browse |\n| Properties panel | no |\n| Written down | AGENTS.md, as a warning |\n| Status | built |\n| Governed by | policy-visibility |"
         },
         "identity": {
           "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "visibility-role",
+          "name": "visibilityRole",
+          "scope": "node",
+          "writePath": "node.data.visibilityRole",
+          "valueType": "enum",
+          "default": "by the node's type",
+          "enum": [
+            "editor",
+            "browser"
+          ],
+          "effect": "Names a node as plumbing or as content. Ignored for the types the rule hides; honoured only for a Script that names a node.web presentation. Do not use it to show a root or a face.",
+          "modes": [
+            "browse"
+          ],
+          "panel": "no",
+          "writtenDown": "AGENTS.md, as a warning",
+          "status": "built",
+          "governedBy": "policy-visibility"
         }
       }
     },
@@ -274,10 +359,10 @@
       "label": "positionLocked",
       "position": {
         "x": 0,
-        "y": 1820
+        "y": 2080
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
@@ -285,21 +370,24 @@
           "kind": "markdown",
           "value": "## positionLocked\n\nPins the node. A pinned ground is drawn in a layer of its own beneath every other node and is never stepped down to a smaller view.\n\n| | |\n|---|---|\n| Scope | node |\n| Written at | `node.positionLocked` |\n| Type | boolean |\n| Default | false |\n| Valid | true, false |\n| Applies | edit, browse |\n| Properties panel | lock toggle in the editor |\n| Written down | AGENTS.md (ground) |\n| Status | built |"
         },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
         "switch": {
+          "id": "position-locked",
           "name": "positionLocked",
           "scope": "node",
-          "writtenAt": "node.positionLocked",
-          "type": "boolean",
-          "default": "false",
-          "valid": "true, false",
+          "writePath": "node.positionLocked",
+          "valueType": "boolean",
+          "default": false,
           "effect": "Pins the node. A pinned ground is drawn in a layer of its own beneath every other node and is never stepped down to a smaller view.",
-          "appliesIn": "edit, browse",
+          "modes": [
+            "edit",
+            "browse"
+          ],
           "panel": "lock toggle in the editor",
           "writtenDown": "AGENTS.md (ground)",
           "status": "built"
-        },
-        "identity": {
-          "graphId": "authoring-switches"
         }
       }
     },
@@ -309,10 +397,10 @@
       "label": "showLabel",
       "position": {
         "x": 640,
-        "y": 1820
+        "y": 2080
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
@@ -320,21 +408,24 @@
           "kind": "markdown",
           "value": "## showLabel\n\nWhether the node draws its label.\n\n| | |\n|---|---|\n| Scope | node |\n| Written at | `node.showLabel` |\n| Type | boolean |\n| Default | true |\n| Valid | true, false |\n| Applies | edit, browse |\n| Properties panel | none found |\n| Written down | no |\n| Status | built |"
         },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
         "switch": {
+          "id": "show-label",
           "name": "showLabel",
           "scope": "node",
-          "writtenAt": "node.showLabel",
-          "type": "boolean",
-          "default": "true",
-          "valid": "true, false",
+          "writePath": "node.showLabel",
+          "valueType": "boolean",
+          "default": true,
           "effect": "Whether the node draws its label.",
-          "appliesIn": "edit, browse",
+          "modes": [
+            "edit",
+            "browse"
+          ],
           "panel": "none found",
           "writtenDown": "no",
           "status": "built"
-        },
-        "identity": {
-          "graphId": "authoring-switches"
         }
       }
     },
@@ -344,10 +435,10 @@
       "label": "hideLabel",
       "position": {
         "x": 1280,
-        "y": 1820
+        "y": 2080
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
@@ -355,21 +446,26 @@
           "kind": "markdown",
           "value": "## hideLabel\n\nThe port's name is never shown as a sign. Set on the root and out-bottom ports.\n\n| | |\n|---|---|\n| Scope | port |\n| Written at | `port.metadata.hideLabel` |\n| Type | boolean |\n| Default | false |\n| Valid | true |\n| Applies | edit |\n| Properties panel | no |\n| Written down | no |\n| Status | built |"
         },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
         "switch": {
+          "id": "hide-label",
           "name": "hideLabel",
           "scope": "port",
-          "writtenAt": "port.metadata.hideLabel",
-          "type": "boolean",
-          "default": "false",
-          "valid": "true",
+          "writePath": "port.metadata.hideLabel",
+          "valueType": "boolean",
+          "default": false,
+          "enum": [
+            true
+          ],
           "effect": "The port's name is never shown as a sign. Set on the root and out-bottom ports.",
-          "appliesIn": "edit",
+          "modes": [
+            "edit"
+          ],
           "panel": "no",
           "writtenDown": "no",
           "status": "built"
-        },
-        "identity": {
-          "graphId": "authoring-switches"
         }
       }
     },
@@ -379,32 +475,36 @@
       "label": "rotation",
       "position": {
         "x": 0,
-        "y": 2480
+        "y": 2760
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "## rotation\n\nTurns the node. Its handles and the edges that end on it turn with it.\n\n| | |\n|---|---|\n| Scope | node |\n| Written at | `node.data.rotation` |\n| Type | number (degrees, clockwise) |\n| Default | 0 |\n| Valid | any number |\n| Applies | edit, browse |\n| Properties panel | none found |\n| Written down | docs, in part |\n| Status | built |"
-        },
-        "switch": {
-          "name": "rotation",
-          "scope": "node",
-          "writtenAt": "node.data.rotation",
-          "type": "number (degrees, clockwise)",
-          "default": "0",
-          "valid": "any number",
-          "effect": "Turns the node. Its handles and the edges that end on it turn with it.",
-          "appliesIn": "edit, browse",
-          "panel": "none found",
-          "writtenDown": "docs, in part",
-          "status": "built"
+          "value": "## rotation\n\nTurns the node. Its handles and the edges that end on it turn with it.\n\n| | |\n|---|---|\n| Scope | node |\n| Written at | `node.data.rotation` |\n| Type | number (degrees, clockwise) |\n| Default | 0 |\n| Valid | any |\n| Applies | edit, browse |\n| Properties panel | none found |\n| Written down | docs, in part |\n| Status | built |"
         },
         "identity": {
           "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "rotation",
+          "name": "rotation",
+          "scope": "node",
+          "writePath": "node.data.rotation",
+          "valueType": "number",
+          "unit": "degrees, clockwise",
+          "default": 0,
+          "effect": "Turns the node. Its handles and the edges that end on it turn with it.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "none found",
+          "writtenDown": "docs, in part",
+          "status": "built"
         }
       }
     },
@@ -414,32 +514,39 @@
       "label": "semanticZoom.resolution",
       "position": {
         "x": 640,
-        "y": 2480
+        "y": 2760
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "## semanticZoom.resolution\n\nWhere along the zoom a view takes over: 1 is the conventional detail, lower is smaller, and 3 opens the whole graph. Fractional values allow any number of views.\n\n| | |\n|---|---|\n| Scope | face |\n| Written at | `node.data.semanticZoom.resolution` |\n| Type | number |\n| Default | 1 |\n| Valid | 0 to 2.99 |\n| Applies | browse |\n| Properties panel | yes (\"Resolution\") |\n| Written down | the panel's helper text only |\n| Status | built |"
-        },
-        "switch": {
-          "name": "semanticZoom.resolution",
-          "scope": "face",
-          "writtenAt": "node.data.semanticZoom.resolution",
-          "type": "number",
-          "default": "1",
-          "valid": "0 to 2.99",
-          "effect": "Where along the zoom a view takes over: 1 is the conventional detail, lower is smaller, and 3 opens the whole graph. Fractional values allow any number of views.",
-          "appliesIn": "browse",
-          "panel": "yes (\"Resolution\")",
-          "writtenDown": "the panel's helper text only",
-          "status": "built"
+          "value": "## semanticZoom.resolution\n\nWhere along the zoom a view takes over: 1 is the conventional detail, lower is smaller, and 3 opens the whole graph. Fractional values allow any number of views.\n\n| | |\n|---|---|\n| Scope | face |\n| Written at | `node.data.semanticZoom.resolution` |\n| Type | number |\n| Default | 1 |\n| Valid | 0 to 2.99 |\n| Applies | browse |\n| Properties panel | yes (\"Resolution\") |\n| Written down | the panel's helper text only |\n| Status | built |\n| Governed by | policy-which-view |"
         },
         "identity": {
           "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "semantic-zoom-resolution",
+          "name": "semanticZoom.resolution",
+          "scope": "face",
+          "writePath": "node.data.semanticZoom.resolution",
+          "valueType": "number",
+          "default": 1,
+          "range": [
+            0,
+            2.99
+          ],
+          "effect": "Where along the zoom a view takes over: 1 is the conventional detail, lower is smaller, and 3 opens the whole graph. Fractional values allow any number of views.",
+          "modes": [
+            "browse"
+          ],
+          "panel": "yes (\"Resolution\")",
+          "writtenDown": "the panel's helper text only",
+          "status": "built",
+          "governedBy": "policy-which-view"
         }
       }
     },
@@ -449,67 +556,124 @@
       "label": "semanticLevel",
       "position": {
         "x": 1280,
-        "y": 2480
+        "y": 2760
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "## semanticLevel\n\nNames the representation a face is. The algorithm that picks one for a size reads these; it is a policy, below.\n\n| | |\n|---|---|\n| Scope | face |\n| Written at | `node.data.semanticLevel, or node.data.view.semanticLevel` |\n| Type | enum |\n| Default | detail |\n| Valid | badge, icon, summary, detail (glyph and dot read as badge; card as summary) |\n| Applies | browse |\n| Properties panel | no |\n| Written down | no |\n| Status | built |"
-        },
-        "switch": {
-          "name": "semanticLevel",
-          "scope": "face",
-          "writtenAt": "node.data.semanticLevel, or node.data.view.semanticLevel",
-          "type": "enum",
-          "default": "detail",
-          "valid": "badge, icon, summary, detail (glyph and dot read as badge; card as summary)",
-          "effect": "Names the representation a face is. The algorithm that picks one for a size reads these; it is a policy, below.",
-          "appliesIn": "browse",
-          "panel": "no",
-          "writtenDown": "no",
-          "status": "built"
+          "value": "## semanticLevel\n\nNames the representation a face is. Which one shows at a size is a policy.\n\n| | |\n|---|---|\n| Scope | face |\n| Written at | `node.data.semanticLevel` (also read at `node.data.view.semanticLevel`) |\n| Type | enum |\n| Default | detail |\n| Valid | badge, icon, summary, detail; also read: glyph as badge, dot as badge, card as summary |\n| Applies | browse |\n| Properties panel | no |\n| Written down | no |\n| Status | built |\n| Governed by | policy-which-view |"
         },
         "identity": {
           "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "semantic-level",
+          "name": "semanticLevel",
+          "scope": "face",
+          "writePath": "node.data.semanticLevel",
+          "alsoRead": "node.data.view.semanticLevel",
+          "valueType": "enum",
+          "default": "detail",
+          "enum": [
+            "badge",
+            "icon",
+            "summary",
+            "detail"
+          ],
+          "aliases": {
+            "glyph": "badge",
+            "dot": "badge",
+            "card": "summary"
+          },
+          "effect": "Names the representation a face is. Which one shows at a size is a policy.",
+          "modes": [
+            "browse"
+          ],
+          "panel": "no",
+          "writtenDown": "no",
+          "status": "built",
+          "governedBy": "policy-which-view"
         }
       }
     },
     {
       "id": "authoring-switches-switch-handle-presentation",
       "type": "content",
-      "label": "handlePresentation (and handleRef)",
+      "label": "handlePresentation",
       "position": {
         "x": 0,
-        "y": 3140
+        "y": 3440
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "## handlePresentation (and handleRef)\n\nThe art the port wears: a small graph whose view holds SVG, HTML or canvas, drawn whole with its centre on the border. Changes how the port looks, never how it behaves.\n\n| | |\n|---|---|\n| Scope | port or node |\n| Written at | `node.data.handlePresentation` |\n| Type | reference |\n| Default | none: the plain disc |\n| Valid | a string address, or { sourceRef, sourceNodeId, sourcePayload } |\n| Applies | edit, browse (live only while editing) |\n| Properties panel | no |\n| Written down | AGENTS.md |\n| Status | built |"
-        },
-        "switch": {
-          "name": "handlePresentation (and handleRef)",
-          "scope": "port or node",
-          "writtenAt": "node.data.handlePresentation",
-          "type": "reference",
-          "default": "none: the plain disc",
-          "valid": "a string address, or { sourceRef, sourceNodeId, sourcePayload }",
-          "effect": "The art the port wears: a small graph whose view holds SVG, HTML or canvas, drawn whole with its centre on the border. Changes how the port looks, never how it behaves.",
-          "appliesIn": "edit, browse (live only while editing)",
-          "panel": "no",
-          "writtenDown": "AGENTS.md",
-          "status": "built"
+          "value": "## handlePresentation\n\nThe art the port wears: a small graph whose view holds SVG, HTML or canvas, drawn whole with its centre on the border. Changes how the port looks, never how it behaves.\n\n| | |\n|---|---|\n| Scope | port or node |\n| Written at | `node.data.handlePresentation` |\n| Type | reference |\n| Default | none |\n| Valid | \"address\", or { sourceRef, sourceNodeId, sourcePayload } |\n| Applies | edit, browse |\n| Properties panel | no |\n| Written down | AGENTS.md |\n| Status | built |"
         },
         "identity": {
           "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "handle-presentation",
+          "name": "handlePresentation",
+          "scope": "port or node",
+          "writePath": "node.data.handlePresentation",
+          "valueType": "reference",
+          "default": null,
+          "shape": "\"address\", or { sourceRef, sourceNodeId, sourcePayload }",
+          "effect": "The art the port wears: a small graph whose view holds SVG, HTML or canvas, drawn whole with its centre on the border. Changes how the port looks, never how it behaves.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "no",
+          "writtenDown": "AGENTS.md",
+          "status": "built"
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-handle-ref",
+      "type": "content",
+      "label": "handleRef",
+      "position": {
+        "x": 640,
+        "y": 3440
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## handleRef\n\nAn older name for handlePresentation; read when that is absent.\n\n| | |\n|---|---|\n| Scope | port or node |\n| Written at | `node.data.handleRef` |\n| Type | reference |\n| Default | none |\n| Valid | any |\n| Applies | edit, browse |\n| Properties panel | no |\n| Written down | no |\n| Status | built, alias of handlePresentation |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "handle-ref",
+          "name": "handleRef",
+          "scope": "port or node",
+          "writePath": "node.data.handleRef",
+          "valueType": "reference",
+          "default": null,
+          "effect": "An older name for handlePresentation; read when that is absent.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "no",
+          "writtenDown": "no",
+          "status": "built, alias of handlePresentation"
         }
       }
     },
@@ -518,33 +682,36 @@
       "type": "content",
       "label": "defaultHandle",
       "position": {
-        "x": 640,
-        "y": 3140
+        "x": 1280,
+        "y": 3440
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "## defaultHandle\n\nThe art every Port the graph exposes wears, on a tile and on the root's own handles. A Port's own handle wins.\n\n| | |\n|---|---|\n| Scope | root |\n| Written at | `root.data.defaultHandle` |\n| Type | reference |\n| Default | none |\n| Valid | same as handlePresentation |\n| Applies | edit, browse |\n| Properties panel | no |\n| Written down | AGENTS.md |\n| Status | built |"
-        },
-        "switch": {
-          "name": "defaultHandle",
-          "scope": "root",
-          "writtenAt": "root.data.defaultHandle",
-          "type": "reference",
-          "default": "none",
-          "valid": "same as handlePresentation",
-          "effect": "The art every Port the graph exposes wears, on a tile and on the root's own handles. A Port's own handle wins.",
-          "appliesIn": "edit, browse",
-          "panel": "no",
-          "writtenDown": "AGENTS.md",
-          "status": "built"
+          "value": "## defaultHandle\n\nThe art every Port the graph exposes wears, on a tile and on the root's own handles. A Port's own handle wins.\n\n| | |\n|---|---|\n| Scope | root |\n| Written at | `root.data.defaultHandle` |\n| Type | reference |\n| Default | none |\n| Valid | any |\n| Applies | edit, browse |\n| Properties panel | no |\n| Written down | AGENTS.md |\n| Status | built |"
         },
         "identity": {
           "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "default-handle",
+          "name": "defaultHandle",
+          "scope": "root",
+          "writePath": "root.data.defaultHandle",
+          "valueType": "reference",
+          "default": null,
+          "effect": "The art every Port the graph exposes wears, on a tile and on the root's own handles. A Port's own handle wins.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "no",
+          "writtenDown": "AGENTS.md",
+          "status": "built"
         }
       }
     },
@@ -553,11 +720,11 @@
       "type": "content",
       "label": "view.fit",
       "position": {
-        "x": 1280,
-        "y": 3140
+        "x": 0,
+        "y": 4120
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
@@ -565,21 +732,27 @@
           "kind": "markdown",
           "value": "## view.fit\n\nwindow draws the environment at the graph's window and moves it with the camera, as in a poster; screen fills the screen.\n\n| | |\n|---|---|\n| Scope | face (the environment) |\n| Written at | `node.data.view.fit` |\n| Type | enum |\n| Default | screen |\n| Valid | screen, window |\n| Applies | browse |\n| Properties panel | no |\n| Written down | AGENTS.md |\n| Status | built |"
         },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
         "switch": {
+          "id": "view-fit",
           "name": "view.fit",
           "scope": "face (the environment)",
-          "writtenAt": "node.data.view.fit",
-          "type": "enum",
+          "writePath": "node.data.view.fit",
+          "valueType": "enum",
           "default": "screen",
-          "valid": "screen, window",
+          "enum": [
+            "screen",
+            "window"
+          ],
           "effect": "window draws the environment at the graph's window and moves it with the camera, as in a poster; screen fills the screen.",
-          "appliesIn": "browse",
+          "modes": [
+            "browse"
+          ],
           "panel": "no",
           "writtenDown": "AGENTS.md",
           "status": "built"
-        },
-        "identity": {
-          "graphId": "authoring-switches"
         }
       }
     },
@@ -588,33 +761,38 @@
       "type": "content",
       "label": "view.scroll",
       "position": {
-        "x": 0,
-        "y": 3800
+        "x": 640,
+        "y": 4120
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "## view.scroll\n\nThe view is one page that scrolls, like the page behind a focused graph; a tile or a portal shows its scrollbar, and the wheel scrolls it only there.\n\n| | |\n|---|---|\n| Scope | face |\n| Written at | `node.data.view.scroll` |\n| Type | enum |\n| Default | unset |\n| Valid | page |\n| Applies | browse |\n| Properties panel | no |\n| Written down | no |\n| Status | built |"
-        },
-        "switch": {
-          "name": "view.scroll",
-          "scope": "face",
-          "writtenAt": "node.data.view.scroll",
-          "type": "enum",
-          "default": "unset",
-          "valid": "page",
-          "effect": "The view is one page that scrolls, like the page behind a focused graph; a tile or a portal shows its scrollbar, and the wheel scrolls it only there.",
-          "appliesIn": "browse",
-          "panel": "no",
-          "writtenDown": "no",
-          "status": "built"
+          "value": "## view.scroll\n\nThe view is one page that scrolls, like the page behind a focused graph; a tile or a portal shows its scrollbar, and the wheel scrolls it only there.\n\n| | |\n|---|---|\n| Scope | face |\n| Written at | `node.data.view.scroll` |\n| Type | enum |\n| Default | none |\n| Valid | page |\n| Applies | browse |\n| Properties panel | no |\n| Written down | no |\n| Status | built |"
         },
         "identity": {
           "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "view-scroll",
+          "name": "view.scroll",
+          "scope": "face",
+          "writePath": "node.data.view.scroll",
+          "valueType": "enum",
+          "default": null,
+          "enum": [
+            "page"
+          ],
+          "effect": "The view is one page that scrolls, like the page behind a focused graph; a tile or a portal shows its scrollbar, and the wheel scrolls it only there.",
+          "modes": [
+            "browse"
+          ],
+          "panel": "no",
+          "writtenDown": "no",
+          "status": "built"
         }
       }
     },
@@ -623,33 +801,37 @@
       "type": "content",
       "label": "membrane.bounds",
       "position": {
-        "x": 640,
-        "y": 3800
+        "x": 1280,
+        "y": 4120
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "## membrane.bounds\n\nCrops the graph's window by hand and turns the automatic box off. Set by dragging the corner of the focused graph. Do not use it to fix clipping: move the hidden nodes inside the box instead.\n\n| | |\n|---|---|\n| Scope | root |\n| Written at | `root.data.membrane.bounds` |\n| Type | { x, y, width, height } |\n| Default | none: the box around the visible nodes |\n| Valid | a rectangle |\n| Applies | edit, browse |\n| Properties panel | corner drag |\n| Written down | AGENTS.md |\n| Status | built |"
-        },
-        "switch": {
-          "name": "membrane.bounds",
-          "scope": "root",
-          "writtenAt": "root.data.membrane.bounds",
-          "type": "{ x, y, width, height }",
-          "default": "none: the box around the visible nodes",
-          "valid": "a rectangle",
-          "effect": "Crops the graph's window by hand and turns the automatic box off. Set by dragging the corner of the focused graph. Do not use it to fix clipping: move the hidden nodes inside the box instead.",
-          "appliesIn": "edit, browse",
-          "panel": "corner drag",
-          "writtenDown": "AGENTS.md",
-          "status": "built"
+          "value": "## membrane.bounds\n\nCrops the graph's window by hand and turns the automatic box off. Set by dragging the corner of the focused graph. Do not use it to fix clipping: move the hidden nodes inside the box instead.\n\n| | |\n|---|---|\n| Scope | root |\n| Written at | `root.data.membrane.bounds` |\n| Type | rectangle |\n| Default | none |\n| Valid | { x, y, width, height } |\n| Applies | edit, browse |\n| Properties panel | corner drag |\n| Written down | AGENTS.md |\n| Status | built |"
         },
         "identity": {
           "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "membrane-bounds",
+          "name": "membrane.bounds",
+          "scope": "root",
+          "writePath": "root.data.membrane.bounds",
+          "valueType": "rectangle",
+          "shape": "{ x, y, width, height }",
+          "default": null,
+          "effect": "Crops the graph's window by hand and turns the automatic box off. Set by dragging the corner of the focused graph. Do not use it to fix clipping: move the hidden nodes inside the box instead.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "corner drag",
+          "writtenDown": "AGENTS.md",
+          "status": "built"
         }
       }
     },
@@ -658,103 +840,183 @@
       "type": "content",
       "label": "renderShape",
       "position": {
-        "x": 1280,
-        "y": 3800
+        "x": 0,
+        "y": 4800
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "## renderShape\n\nA hint about the node's outline.\n\n| | |\n|---|---|\n| Scope | node |\n| Written at | `node.data.renderShape.kind` |\n| Type | enum |\n| Default | none |\n| Valid | see the panel |\n| Applies | browse |\n| Properties panel | yes |\n| Written down | AGENTS.md says not to use it in new graphs |\n| Status | built, discouraged |"
-        },
-        "switch": {
-          "name": "renderShape",
-          "scope": "node",
-          "writtenAt": "node.data.renderShape.kind",
-          "type": "enum",
-          "default": "none",
-          "valid": "see the panel",
-          "effect": "A hint about the node's outline.",
-          "appliesIn": "browse",
-          "panel": "yes",
-          "writtenDown": "AGENTS.md says not to use it in new graphs",
-          "status": "built, discouraged"
+          "value": "## renderShape\n\nA hint about the node's outline.\n\n| | |\n|---|---|\n| Scope | node |\n| Written at | `node.data.renderShape.kind` |\n| Type | enum |\n| Default | none |\n| Valid | any |\n| Applies | browse |\n| Properties panel | yes |\n| Written down | AGENTS.md says not to use it in new graphs |\n| Status | built, discouraged |"
         },
         "identity": {
           "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "render-shape",
+          "name": "renderShape",
+          "scope": "node",
+          "writePath": "node.data.renderShape.kind",
+          "valueType": "enum",
+          "default": null,
+          "effect": "A hint about the node's outline.",
+          "modes": [
+            "browse"
+          ],
+          "panel": "yes",
+          "writtenDown": "AGENTS.md says not to use it in new graphs",
+          "status": "built, discouraged"
         }
       }
     },
     {
-      "id": "authoring-switches-switch-auto-run",
+      "id": "authoring-switches-switch-auto-run-on-load",
       "type": "content",
-      "label": "autoRunOnLoad, autoRunOnGraphChange",
+      "label": "autoRunOnLoad",
       "position": {
-        "x": 0,
-        "y": 4460
+        "x": 640,
+        "y": 4800
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "## autoRunOnLoad, autoRunOnGraphChange\n\nRuns the Method when the graph loads, or when anything in it changes.\n\n| | |\n|---|---|\n| Scope | method, script |\n| Written at | `node.data.autoRunOnLoad, node.data.autoRunOnGraphChange` |\n| Type | boolean |\n| Default | false |\n| Valid | true, false |\n| Applies | runtime |\n| Properties panel | yes (the system nodes panel) |\n| Written down | no |\n| Status | built |"
-        },
-        "switch": {
-          "name": "autoRunOnLoad, autoRunOnGraphChange",
-          "scope": "method, script",
-          "writtenAt": "node.data.autoRunOnLoad, node.data.autoRunOnGraphChange",
-          "type": "boolean",
-          "default": "false",
-          "valid": "true, false",
-          "effect": "Runs the Method when the graph loads, or when anything in it changes.",
-          "appliesIn": "runtime",
-          "panel": "yes (the system nodes panel)",
-          "writtenDown": "no",
-          "status": "built"
+          "value": "## autoRunOnLoad\n\nRuns the Method when the graph loads.\n\n| | |\n|---|---|\n| Scope | method, script |\n| Written at | `node.data.autoRunOnLoad` |\n| Type | boolean |\n| Default | false |\n| Valid | true, false |\n| Applies | runtime |\n| Properties panel | yes (the system nodes panel) |\n| Written down | no |\n| Status | built |"
         },
         "identity": {
           "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "auto-run-on-load",
+          "name": "autoRunOnLoad",
+          "scope": "method, script",
+          "writePath": "node.data.autoRunOnLoad",
+          "valueType": "boolean",
+          "default": false,
+          "effect": "Runs the Method when the graph loads.",
+          "modes": [
+            "runtime"
+          ],
+          "panel": "yes (the system nodes panel)",
+          "writtenDown": "no",
+          "status": "built"
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-auto-run-on-graph-change",
+      "type": "content",
+      "label": "autoRunOnGraphChange",
+      "position": {
+        "x": 1280,
+        "y": 4800
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## autoRunOnGraphChange\n\nRuns the Method when anything in the graph changes.\n\n| | |\n|---|---|\n| Scope | method, script |\n| Written at | `node.data.autoRunOnGraphChange` |\n| Type | boolean |\n| Default | false |\n| Valid | true, false |\n| Applies | runtime |\n| Properties panel | yes (the system nodes panel) |\n| Written down | no |\n| Status | built |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "auto-run-on-graph-change",
+          "name": "autoRunOnGraphChange",
+          "scope": "method, script",
+          "writePath": "node.data.autoRunOnGraphChange",
+          "valueType": "boolean",
+          "default": false,
+          "effect": "Runs the Method when anything in the graph changes.",
+          "modes": [
+            "runtime"
+          ],
+          "panel": "yes (the system nodes panel)",
+          "writtenDown": "no",
+          "status": "built"
         }
       }
     },
     {
       "id": "authoring-switches-switch-allow-mutations",
       "type": "content",
-      "label": "allowMutations, dryRun",
+      "label": "allowMutations",
       "position": {
-        "x": 640,
-        "y": 4460
+        "x": 0,
+        "y": 5480
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "## allowMutations, dryRun\n\nWhether the Method may write to the graph, or only report what it would write.\n\n| | |\n|---|---|\n| Scope | method, script |\n| Written at | `node.data.allowMutations, node.data.dryRun` |\n| Type | boolean |\n| Default | false |\n| Valid | true, false |\n| Applies | runtime |\n| Properties panel | yes |\n| Written down | no |\n| Status | built |"
-        },
-        "switch": {
-          "name": "allowMutations, dryRun",
-          "scope": "method, script",
-          "writtenAt": "node.data.allowMutations, node.data.dryRun",
-          "type": "boolean",
-          "default": "false",
-          "valid": "true, false",
-          "effect": "Whether the Method may write to the graph, or only report what it would write.",
-          "appliesIn": "runtime",
-          "panel": "yes",
-          "writtenDown": "no",
-          "status": "built"
+          "value": "## allowMutations\n\nWhether the Method may write to the graph.\n\n| | |\n|---|---|\n| Scope | method, script |\n| Written at | `node.data.allowMutations` |\n| Type | boolean |\n| Default | false |\n| Valid | true, false |\n| Applies | runtime |\n| Properties panel | yes |\n| Written down | no |\n| Status | built |"
         },
         "identity": {
           "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "allow-mutations",
+          "name": "allowMutations",
+          "scope": "method, script",
+          "writePath": "node.data.allowMutations",
+          "valueType": "boolean",
+          "default": false,
+          "effect": "Whether the Method may write to the graph.",
+          "modes": [
+            "runtime"
+          ],
+          "panel": "yes",
+          "writtenDown": "no",
+          "status": "built"
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-dry-run",
+      "type": "content",
+      "label": "dryRun",
+      "position": {
+        "x": 640,
+        "y": 5480
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## dryRun\n\nThe Method only reports what it would write.\n\n| | |\n|---|---|\n| Scope | method, script |\n| Written at | `node.data.dryRun` |\n| Type | boolean |\n| Default | false |\n| Valid | true, false |\n| Applies | runtime |\n| Properties panel | yes |\n| Written down | no |\n| Status | built |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "dry-run",
+          "name": "dryRun",
+          "scope": "method, script",
+          "writePath": "node.data.dryRun",
+          "valueType": "boolean",
+          "default": false,
+          "effect": "The Method only reports what it would write.",
+          "modes": [
+            "runtime"
+          ],
+          "panel": "yes",
+          "writtenDown": "no",
+          "status": "built"
         }
       }
     },
@@ -764,32 +1026,40 @@
       "label": "root.handle",
       "position": {
         "x": 1280,
-        "y": 4460
+        "y": 5480
       },
       "width": 600,
-      "height": 620,
+      "height": 640,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "## root.handle\n\nThe root Port's handle on a workspace tile, on the left, where a Portal lands. auto draws it when the graph is open, pointed at, or a connection is being made; shown draws it always; hidden never. The Port itself is there either way.\n\n| | |\n|---|---|\n| Scope | root |\n| Written at | `root.data.root.handle` |\n| Type | enum |\n| Default | auto |\n| Valid | auto, shown, hidden |\n| Applies | browse (the workspace) |\n| Properties panel | no |\n| Written down | this page |\n| Status | built |"
-        },
-        "switch": {
-          "name": "root.handle",
-          "scope": "root",
-          "writtenAt": "root.data.root.handle",
-          "type": "enum",
-          "default": "auto",
-          "valid": "auto, shown, hidden",
-          "effect": "The root Port's handle on a workspace tile, on the left, where a Portal lands. auto draws it when the graph is open, pointed at, or a connection is being made; shown draws it always; hidden never. The Port itself is there either way.",
-          "appliesIn": "browse (the workspace)",
-          "panel": "no",
-          "writtenDown": "this page",
-          "status": "built"
+          "value": "## root.handle\n\nThe root Port's handle on a workspace tile, on the left, where a Portal lands. The Port is there either way.\n\n| | |\n|---|---|\n| Scope | root |\n| Written at | `root.data.root.handle` |\n| Type | enum |\n| Default | auto |\n| Valid | auto, shown, hidden |\n| Applies | browse |\n| Properties panel | no |\n| Written down | AGENTS.md, this page |\n| Status | built |\n| Governed by | policy-root-handle |"
         },
         "identity": {
           "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "root-handle",
+          "name": "root.handle",
+          "scope": "root",
+          "writePath": "root.data.root.handle",
+          "valueType": "enum",
+          "default": "auto",
+          "enum": [
+            "auto",
+            "shown",
+            "hidden"
+          ],
+          "effect": "The root Port's handle on a workspace tile, on the left, where a Portal lands. The Port is there either way.",
+          "modes": [
+            "browse"
+          ],
+          "panel": "no",
+          "writtenDown": "AGENTS.md, this page",
+          "status": "built",
+          "governedBy": "policy-root-handle"
         }
       }
     },
@@ -799,16 +1069,16 @@
       "label": "Questions",
       "position": {
         "x": 0,
-        "y": 5120
+        "y": 6160
       },
       "width": 900,
-      "height": 360,
+      "height": 380,
       "visible": true,
       "showLabel": true,
       "data": {
         "content": {
           "kind": "markdown",
-          "value": "# Questions\n\n- Should **showInBrowse** go on the root, the faces and the glyph of every primitive page now, or one page first?\n- Is **root.handle** auto the right default, or should a graph have to ask?\n- Where does the finished list live: a canon page, a glossary entry, or both?\n- Should the Properties panel be built from the `data.switch` fields? That is the step that makes this the one description."
+          "value": "# Questions\n\n- **showInBrowse** is on one primitive page first; the others follow when that page reads well.\n- Is the data on each card enough for the Properties panel to build a control from it? If not, what is missing?\n- Is **data.switch** a reference that agents read, or a schema the app reads and validates? The first costs nothing; the second means a validator and a version.\n- Where does the finished list live in the library?"
         },
         "identity": {
           "graphId": "authoring-switches"
@@ -856,6 +1126,39 @@
       "source": "authoring-switches-declaration",
       "sourcePort": "ground",
       "target": "authoring-switches-intro",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-policy-visibility",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-policy-visibility",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-policy-root-handle",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-policy-root-handle",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-policy-which-view",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-policy-which-view",
       "targetPort": "root",
       "label": "",
       "style": {},
@@ -972,6 +1275,17 @@
       "data": {}
     },
     {
+      "id": "authoring-switches-intro-handle-ref",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-handle-ref",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
       "id": "authoring-switches-intro-default-handle",
       "type": "leads-to",
       "source": "authoring-switches-intro",
@@ -1027,11 +1341,22 @@
       "data": {}
     },
     {
-      "id": "authoring-switches-intro-auto-run",
+      "id": "authoring-switches-intro-auto-run-on-load",
       "type": "leads-to",
       "source": "authoring-switches-intro",
       "sourcePort": "root",
-      "target": "authoring-switches-switch-auto-run",
+      "target": "authoring-switches-switch-auto-run-on-load",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-auto-run-on-graph-change",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-auto-run-on-graph-change",
       "targetPort": "root",
       "label": "",
       "style": {},
@@ -1043,6 +1368,17 @@
       "source": "authoring-switches-intro",
       "sourcePort": "root",
       "target": "authoring-switches-switch-allow-mutations",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-dry-run",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-dry-run",
       "targetPort": "root",
       "label": "",
       "style": {},
