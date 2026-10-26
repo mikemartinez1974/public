@@ -5989,7 +5989,7 @@
         },
         "classRef": "tlz://twilite.zone/library/classes/nodes/task-planning/task.node-class.node",
         "owner": "Michael",
-        "status": "todo",
+        "status": "done",
         "body": "Edit handles as the source of truth, with ports derived; class-defined handles shown differently from instance ones; deletion warns when an edge uses the handle. Folds into the handle panel (see \"Handles selectable on the canvas\").",
         "_placement": {
           "version": 1,
@@ -5997,7 +5997,8 @@
           "source": "manual",
           "updatedAt": 1792950744125,
           "reason": "node-drag"
-        }
+        },
+        "notes": "2026-10-26: done in the node panel: the list follows the handles the canvas draws; a node that declares none shows them read-only with one button to make them its own. No art slot: custom handles belong to a node class, not to each handle."
       }
     },
     {
@@ -10512,7 +10513,7 @@
         },
         "classRef": "tlz://twilite.zone/library/classes/nodes/task-planning/task.node-class.node",
         "owner": "Michael",
-        "status": "todo",
+        "status": "done",
         "body": "Decided, and refined by Michael: a handle is selectable on the canvas, and right-clicking it opens its properties. Dragging still starts a connection, so a right-click never competes with a drag. A Handle is a visual anchor, not the Port it references, and the parent node stays visible.",
         "_placement": {
           "version": 1,
@@ -10520,7 +10521,8 @@
           "source": "manual",
           "updatedAt": 1792986466258,
           "reason": "node-drag"
-        }
+        },
+        "notes": "2026-10-26: decided not to build. Handle properties stay on the node panel, in the Handles section (collapsed rows, Placement and Port groups, one-connection toggle). No right-click on the canvas."
       }
     },
     {
@@ -11402,6 +11404,446 @@
           "reason": "node-drag"
         }
       }
+    },
+    {
+      "id": "properties-and-authoring-contract-edge-sweep",
+      "type": "task",
+      "label": "Edge properties: a lighter pass",
+      "position": {
+        "x": 420,
+        "y": 2380
+      },
+      "width": 420,
+      "height": 160,
+      "ports": [
+        {
+          "id": "previous",
+          "key": "previous",
+          "label": "previous",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180,
+          "allowedEdgeTypes": [
+            "precedes"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "precedes"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "next",
+          "key": "next",
+          "label": "next",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "allowedEdgeTypes": [
+            "precedes"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "precedes"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        },
+        {
+          "id": "tasks",
+          "key": "tasks",
+          "label": "tasks",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 70,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": true,
+            "targetKinds": [
+              "task"
+            ]
+          }
+        },
+        {
+          "id": "questions",
+          "key": "questions",
+          "label": "questions",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": true,
+            "targetKinds": [
+              "open-question"
+            ]
+          }
+        },
+        {
+          "id": "decisions",
+          "key": "decisions",
+          "label": "decisions",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 110,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": true,
+            "targetKinds": [
+              "decision"
+            ]
+          }
+        },
+        {
+          "id": "raises",
+          "key": "raises",
+          "label": "raises",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 30,
+          "allowedEdgeTypes": [
+            "raises"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "raises"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "blocked-by",
+          "key": "blocked-by",
+          "label": "blocked-by",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 140,
+          "allowedEdgeTypes": [
+            "blocked-by"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "blocked-by"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "blocks",
+          "key": "blocks",
+          "label": "blocks",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 220,
+          "allowedEdgeTypes": [
+            "blocked-by"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "blocked-by"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "decided-by",
+          "key": "decided-by",
+          "label": "decided-by",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 315,
+          "allowedEdgeTypes": [
+            "affects"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "affects"
+            ],
+            "repeatable": true
+          }
+        },
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 250
+        }
+      ],
+      "handles": [
+        {
+          "id": "previous",
+          "key": "previous",
+          "label": "previous",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180,
+          "allowedEdgeTypes": [
+            "precedes"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "precedes"
+            ],
+            "repeatable": true
+          },
+          "portId": "previous"
+        },
+        {
+          "id": "next",
+          "key": "next",
+          "label": "next",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0,
+          "allowedEdgeTypes": [
+            "precedes"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "precedes"
+            ],
+            "repeatable": true
+          },
+          "portId": "next"
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        },
+        {
+          "id": "tasks",
+          "key": "tasks",
+          "label": "tasks",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 70,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": true,
+            "targetKinds": [
+              "task"
+            ]
+          },
+          "portId": "tasks"
+        },
+        {
+          "id": "questions",
+          "key": "questions",
+          "label": "questions",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": true,
+            "targetKinds": [
+              "open-question"
+            ]
+          },
+          "portId": "questions"
+        },
+        {
+          "id": "decisions",
+          "key": "decisions",
+          "label": "decisions",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 110,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": true,
+            "targetKinds": [
+              "decision"
+            ]
+          },
+          "portId": "decisions"
+        },
+        {
+          "id": "raises",
+          "key": "raises",
+          "label": "raises",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 30,
+          "allowedEdgeTypes": [
+            "raises"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "raises"
+            ],
+            "repeatable": true
+          },
+          "portId": "raises"
+        },
+        {
+          "id": "blocked-by",
+          "key": "blocked-by",
+          "label": "blocked-by",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 140,
+          "allowedEdgeTypes": [
+            "blocked-by"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "blocked-by"
+            ],
+            "repeatable": true
+          },
+          "portId": "blocked-by"
+        },
+        {
+          "id": "blocks",
+          "key": "blocks",
+          "label": "blocks",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 220,
+          "allowedEdgeTypes": [
+            "blocked-by"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "blocked-by"
+            ],
+            "repeatable": true
+          },
+          "portId": "blocks"
+        },
+        {
+          "id": "decided-by",
+          "key": "decided-by",
+          "label": "decided-by",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 315,
+          "allowedEdgeTypes": [
+            "affects"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "affects"
+            ],
+            "repeatable": true
+          },
+          "portId": "decided-by"
+        },
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 250,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "Edge properties: a lighter pass",
+        "identity": {
+          "graphId": "properties-and-authoring-contract",
+          "nodeId": "properties-and-authoring-contract-edge-sweep"
+        },
+        "classRef": "tlz://twilite.zone/library/classes/nodes/task-planning/task.node-class.node",
+        "owner": "Michael",
+        "status": "doing",
+        "body": "The same sweep the node panel got: read the edge sections, group them, collapse what is rarely used, draw the contract fields that have no control (opacity, animation, glow, gradient, strokes, visible, showLabel), and decide the route flag mirror (route writes the older orthogonal flag too).",
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1792950744123,
+          "reason": "node-drag"
+        }
+      }
     }
   ],
   "edges": [
@@ -11921,6 +12363,17 @@
       "type": "contains",
       "source": "properties-and-authoring-contract-goal",
       "target": "properties-and-authoring-contract-node-appearance",
+      "sourcePort": "tasks",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "properties-and-authoring-contract-edge-goal-task-edge-sweep",
+      "type": "contains",
+      "source": "properties-and-authoring-contract-goal",
+      "target": "properties-and-authoring-contract-edge-sweep",
       "sourcePort": "tasks",
       "targetPort": "part-of",
       "label": "",
