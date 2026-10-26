@@ -9624,7 +9624,7 @@
         },
         "classRef": "tlz://twilite.zone/library/classes/nodes/task-planning/task.node-class.node",
         "owner": "Michael",
-        "status": "todo",
+        "status": "done",
         "body": "Decided: data.switch is a versioned, validated, machine-readable schema, built incrementally and not a programming language. Today scope mixes four authoring scopes (node, edge, handle, graph) with the kinds a switch applies to (face, port, root, method). Split them: `scope` is one of the four, `appliesTo` names the kinds. Add a schema version and a pure validator (a small module, with tests); move the 21 switches to it. Runtime code still implements behaviour.",
         "_placement": {
           "version": 1,
@@ -9632,7 +9632,8 @@
           "source": "manual",
           "updatedAt": 1792986466257,
           "reason": "node-drag"
-        }
+        },
+        "notes": "Schema v1 is components/GraphEditor/utils/authoringContract.js: four scopes (node, edge, handle, graph), appliesTo for the kinds inside a scope, value types, modes, a validator, and switchesFor / switchAtPath. The 21 switches moved onto it; the validator caught renderShape (it is the content format, not an outline, and now lists its values)."
       }
     },
     {
@@ -10064,7 +10065,7 @@
         },
         "classRef": "tlz://twilite.zone/library/classes/nodes/task-planning/task.node-class.node",
         "owner": "Michael",
-        "status": "todo",
+        "status": "done",
         "body": "The panel has to read the switches. Options: fetch the canon contract graph by address (cached), or generate a small snapshot from it at build time so the panel has no network dependency. Pick one, with a test that the snapshot matches the graph.",
         "_placement": {
           "version": 1,
@@ -10072,13 +10073,14 @@
           "source": "manual",
           "updatedAt": 1792986466258,
           "reason": "node-drag"
-        }
+        },
+        "notes": "A snapshot, as decided: scripts/authoring/snapshotContract.mjs writes utils/authoringContract.generated.js from the contract graph, and tests/authoringSwitches.test.js fails if it falls behind the graph."
       }
     },
     {
       "id": "properties-and-authoring-contract-handle-select",
       "type": "task",
-      "label": "Handles selectable on the canvas, with their own panel",
+      "label": "Handle properties: right-click a handle",
       "position": {
         "x": 900,
         "y": 1340
@@ -10497,7 +10499,7 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "title": "Handles selectable on the canvas, with their own panel",
+        "title": "Handle properties: right-click a handle",
         "identity": {
           "graphId": "properties-and-authoring-contract",
           "nodeId": "properties-and-authoring-contract-handle-select"
@@ -10505,7 +10507,7 @@
         "classRef": "tlz://twilite.zone/library/classes/nodes/task-planning/task.node-class.node",
         "owner": "Michael",
         "status": "todo",
-        "body": "Decided: click a handle to open its properties; dragging still starts a connection, so click and drag must be told apart. A Handle is a visual anchor, not the Port it references, and the parent node stays visible.",
+        "body": "Decided, and refined by Michael: a handle is selectable on the canvas, and right-clicking it opens its properties. Dragging still starts a connection, so a right-click never competes with a drag. A Handle is a visual anchor, not the Port it references, and the parent node stays visible.",
         "_placement": {
           "version": 1,
           "state": "manually-shaped",
