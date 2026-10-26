@@ -236,6 +236,47 @@
       }
     },
     {
+      "id": "authoring-switches-policy-edge-class",
+      "type": "content",
+      "label": "Edge class",
+      "position": {
+        "x": 1900,
+        "y": 840
+      },
+      "width": 900,
+      "height": 480,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Edge class (policy)\n\n## What the class decides\n\nAn edge's `type` is its class, and the class is not a switch: it supplies the style an edge wears when it names none. The edge's own `style` wins over the class, and the class wins over the graph's default edge colour. Routing and bundling, how lines are grouped and where they meet a border, are the app's policy and are not switches."
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "policy": {
+          "id": "policy-edge-class",
+          "name": "Edge class",
+          "reads": [
+            "edge-color",
+            "edge-width",
+            "edge-dash",
+            "edge-route",
+            "edge-opacity",
+            "edge-show-arrow",
+            "edge-arrow-size",
+            "edge-arrow-position",
+            "edge-animation",
+            "edge-animation-speed",
+            "edge-glow",
+            "edge-gradient",
+            "edge-strokes"
+          ]
+        }
+      }
+    },
+    {
       "id": "authoring-switches-switch-visible",
       "type": "content",
       "label": "visible",
@@ -1145,12 +1186,896 @@
       }
     },
     {
+      "id": "authoring-switches-switch-edge-color",
+      "type": "content",
+      "label": "style.color",
+      "position": {
+        "x": 0,
+        "y": 6160
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## style.color\n\nThe line's colour (a CSS colour). Unset, the edge class and then the graph's default edge colour answer.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.style.color` |\n| Type | string |\n| Default | none |\n| Valid | a CSS colour |\n| Applies | edit, browse |\n| Properties panel | yes (\"Color\") |\n| Written down | edgeStyleContract.js |\n| Status | built |\n| Governed by | policy-edge-class |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-color",
+          "name": "style.color",
+          "scope": "edge",
+          "writePath": "edge.style.color",
+          "valueType": "string",
+          "default": null,
+          "effect": "The line's colour (a CSS colour). Unset, the edge class and then the graph's default edge colour answer.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "yes (\"Color\")",
+          "writtenDown": "edgeStyleContract.js",
+          "status": "built",
+          "governedBy": "policy-edge-class",
+          "shape": "a CSS colour",
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-width",
+      "type": "content",
+      "label": "style.width",
+      "position": {
+        "x": 640,
+        "y": 6160
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## style.width\n\nThe line's thickness in pixels; must be above zero.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.style.width` |\n| Type | number (pixels) |\n| Default | 2 |\n| Valid | any |\n| Applies | edit, browse |\n| Properties panel | yes (\"Width (px)\") |\n| Written down | edgeStyleContract.js |\n| Status | built |\n| Governed by | policy-edge-class |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-width",
+          "name": "style.width",
+          "scope": "edge",
+          "writePath": "edge.style.width",
+          "valueType": "number",
+          "default": 2,
+          "effect": "The line's thickness in pixels; must be above zero.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "yes (\"Width (px)\")",
+          "writtenDown": "edgeStyleContract.js",
+          "status": "built",
+          "governedBy": "policy-edge-class",
+          "unit": "pixels",
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-dash",
+      "type": "content",
+      "label": "style.dash",
+      "position": {
+        "x": 1280,
+        "y": 6160
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## style.dash\n\nThe dash pattern as alternating dash and gap lengths; empty is solid.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.style.dash` |\n| Type | list |\n| Default | [] |\n| Valid | [dash, gap, ...] in pixels; also read: dashed as [8, 4], dotted as [2, 4], solid as [] |\n| Applies | edit, browse |\n| Properties panel | yes (\"Dash pattern\") |\n| Written down | edgeStyleContract.js |\n| Status | built |\n| Governed by | policy-edge-class |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-dash",
+          "name": "style.dash",
+          "scope": "edge",
+          "writePath": "edge.style.dash",
+          "valueType": "list",
+          "default": [],
+          "effect": "The dash pattern as alternating dash and gap lengths; empty is solid.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "yes (\"Dash pattern\")",
+          "writtenDown": "edgeStyleContract.js",
+          "status": "built",
+          "governedBy": "policy-edge-class",
+          "shape": "[dash, gap, ...] in pixels",
+          "aliases": {
+            "dashed": "[8, 4]",
+            "dotted": "[2, 4]",
+            "solid": "[]"
+          },
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-route",
+      "type": "content",
+      "label": "style.route",
+      "position": {
+        "x": 0,
+        "y": 6840
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## style.route\n\nThe path the line takes between its ends. orthogonal turns at right angles; curved bends.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.style.route` |\n| Type | enum |\n| Default | straight |\n| Valid | straight, curved, orthogonal; also read: direct as straight |\n| Applies | edit, browse |\n| Properties panel | yes (\"Route style\") |\n| Written down | edgeStyleContract.js |\n| Status | built |\n| Governed by | policy-edge-class |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-route",
+          "name": "style.route",
+          "scope": "edge",
+          "writePath": "edge.style.route",
+          "valueType": "enum",
+          "default": "straight",
+          "effect": "The path the line takes between its ends. orthogonal turns at right angles; curved bends.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "yes (\"Route style\")",
+          "writtenDown": "edgeStyleContract.js",
+          "status": "built",
+          "governedBy": "policy-edge-class",
+          "enum": [
+            "straight",
+            "curved",
+            "orthogonal"
+          ],
+          "aliases": {
+            "direct": "straight"
+          },
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-opacity",
+      "type": "content",
+      "label": "style.opacity",
+      "position": {
+        "x": 640,
+        "y": 6840
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## style.opacity\n\nHow opaque the line is, from clear to solid.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.style.opacity` |\n| Type | number |\n| Default | 1 |\n| Valid | 0 to 1 |\n| Applies | edit, browse |\n| Properties panel | none found |\n| Written down | edgeStyleContract.js |\n| Status | built |\n| Governed by | policy-edge-class |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-opacity",
+          "name": "style.opacity",
+          "scope": "edge",
+          "writePath": "edge.style.opacity",
+          "valueType": "number",
+          "default": 1,
+          "effect": "How opaque the line is, from clear to solid.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "none found",
+          "writtenDown": "edgeStyleContract.js",
+          "status": "built",
+          "governedBy": "policy-edge-class",
+          "range": [
+            0,
+            1
+          ],
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-show-arrow",
+      "type": "content",
+      "label": "style.showArrow",
+      "position": {
+        "x": 1280,
+        "y": 6840
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## style.showArrow\n\nWhether the line wears arrowheads.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.style.showArrow` |\n| Type | boolean |\n| Default | true |\n| Valid | true, false |\n| Applies | edit, browse |\n| Properties panel | yes (\"Arrowheads\") |\n| Written down | edgeStyleContract.js |\n| Status | built |\n| Governed by | policy-edge-class |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-show-arrow",
+          "name": "style.showArrow",
+          "scope": "edge",
+          "writePath": "edge.style.showArrow",
+          "valueType": "boolean",
+          "default": true,
+          "effect": "Whether the line wears arrowheads.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "yes (\"Arrowheads\")",
+          "writtenDown": "edgeStyleContract.js",
+          "status": "built",
+          "governedBy": "policy-edge-class",
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-arrow-size",
+      "type": "content",
+      "label": "style.arrowSize",
+      "position": {
+        "x": 0,
+        "y": 7520
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## style.arrowSize\n\nThe arrowhead size in pixels; must be above zero.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.style.arrowSize` |\n| Type | number (pixels) |\n| Default | 8 |\n| Valid | any |\n| Applies | edit, browse |\n| Properties panel | yes (\"Arrow size\") |\n| Written down | edgeStyleContract.js |\n| Status | built |\n| Governed by | policy-edge-class |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-arrow-size",
+          "name": "style.arrowSize",
+          "scope": "edge",
+          "writePath": "edge.style.arrowSize",
+          "valueType": "number",
+          "default": 8,
+          "effect": "The arrowhead size in pixels; must be above zero.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "yes (\"Arrow size\")",
+          "writtenDown": "edgeStyleContract.js",
+          "status": "built",
+          "governedBy": "policy-edge-class",
+          "unit": "pixels",
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-arrow-position",
+      "type": "content",
+      "label": "style.arrowPosition",
+      "position": {
+        "x": 640,
+        "y": 7520
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## style.arrowPosition\n\nWhich end wears the arrowhead.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.style.arrowPosition` |\n| Type | enum |\n| Default | end |\n| Valid | start, end, both |\n| Applies | edit, browse |\n| Properties panel | yes (\"Arrow position\") |\n| Written down | edgeStyleContract.js |\n| Status | built |\n| Governed by | policy-edge-class |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-arrow-position",
+          "name": "style.arrowPosition",
+          "scope": "edge",
+          "writePath": "edge.style.arrowPosition",
+          "valueType": "enum",
+          "default": "end",
+          "effect": "Which end wears the arrowhead.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "yes (\"Arrow position\")",
+          "writtenDown": "edgeStyleContract.js",
+          "status": "built",
+          "governedBy": "policy-edge-class",
+          "enum": [
+            "start",
+            "end",
+            "both"
+          ],
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-animation",
+      "type": "content",
+      "label": "style.animation",
+      "position": {
+        "x": 1280,
+        "y": 7520
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## style.animation\n\nMoves the line. Unset, the line is still.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.style.animation` |\n| Type | enum |\n| Default | none |\n| Valid | dash, glow, pulse, flow |\n| Applies | edit, browse |\n| Properties panel | none found |\n| Written down | edgeStyleContract.js |\n| Status | built |\n| Governed by | policy-edge-class |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-animation",
+          "name": "style.animation",
+          "scope": "edge",
+          "writePath": "edge.style.animation",
+          "valueType": "enum",
+          "default": null,
+          "effect": "Moves the line. Unset, the line is still.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "none found",
+          "writtenDown": "edgeStyleContract.js",
+          "status": "built",
+          "governedBy": "policy-edge-class",
+          "enum": [
+            "dash",
+            "glow",
+            "pulse",
+            "flow"
+          ],
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-animation-speed",
+      "type": "content",
+      "label": "style.animationSpeed",
+      "position": {
+        "x": 0,
+        "y": 8200
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## style.animationSpeed\n\nHow fast the animation runs, in cycles a second; a duration is read as a speed.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.style.animationSpeed` |\n| Type | number (cycles per second) |\n| Default | none |\n| Valid | any |\n| Applies | edit, browse |\n| Properties panel | none found |\n| Written down | edgeStyleContract.js |\n| Status | built |\n| Governed by | policy-edge-class |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-animation-speed",
+          "name": "style.animationSpeed",
+          "scope": "edge",
+          "writePath": "edge.style.animationSpeed",
+          "valueType": "number",
+          "default": null,
+          "effect": "How fast the animation runs, in cycles a second; a duration is read as a speed.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "none found",
+          "writtenDown": "edgeStyleContract.js",
+          "status": "built",
+          "governedBy": "policy-edge-class",
+          "unit": "cycles per second",
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-glow",
+      "type": "content",
+      "label": "style.glow",
+      "position": {
+        "x": 640,
+        "y": 8200
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## style.glow\n\nA halo around the line.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.style.glow` |\n| Type | object |\n| Default | none |\n| Valid | { color, blur } |\n| Applies | edit, browse |\n| Properties panel | none found |\n| Written down | edgeStyleContract.js |\n| Status | built |\n| Governed by | policy-edge-class |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-glow",
+          "name": "style.glow",
+          "scope": "edge",
+          "writePath": "edge.style.glow",
+          "valueType": "object",
+          "default": null,
+          "effect": "A halo around the line.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "none found",
+          "writtenDown": "edgeStyleContract.js",
+          "status": "built",
+          "governedBy": "policy-edge-class",
+          "shape": "{ color, blur }",
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-gradient",
+      "type": "content",
+      "label": "style.gradient",
+      "position": {
+        "x": 1280,
+        "y": 8200
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## style.gradient\n\nColours the line from one end to the other; needs both.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.style.gradient` |\n| Type | object |\n| Default | none |\n| Valid | { start, end } |\n| Applies | edit, browse |\n| Properties panel | none found |\n| Written down | edgeStyleContract.js |\n| Status | built |\n| Governed by | policy-edge-class |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-gradient",
+          "name": "style.gradient",
+          "scope": "edge",
+          "writePath": "edge.style.gradient",
+          "valueType": "object",
+          "default": null,
+          "effect": "Colours the line from one end to the other; needs both.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "none found",
+          "writtenDown": "edgeStyleContract.js",
+          "status": "built",
+          "governedBy": "policy-edge-class",
+          "shape": "{ start, end }",
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-strokes",
+      "type": "content",
+      "label": "style.strokes",
+      "position": {
+        "x": 0,
+        "y": 8880
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## style.strokes\n\nSeveral lines drawn along one path, one over the next.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.style.strokes` |\n| Type | list |\n| Default | [] |\n| Valid | [{ color, width, opacity, dash, gradient }] |\n| Applies | edit, browse |\n| Properties panel | none found |\n| Written down | edgeStyleContract.js |\n| Status | built |\n| Governed by | policy-edge-class |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-strokes",
+          "name": "style.strokes",
+          "scope": "edge",
+          "writePath": "edge.style.strokes",
+          "valueType": "list",
+          "default": [],
+          "effect": "Several lines drawn along one path, one over the next.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "none found",
+          "writtenDown": "edgeStyleContract.js",
+          "status": "built",
+          "governedBy": "policy-edge-class",
+          "shape": "[{ color, width, opacity, dash, gradient }]",
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-visible",
+      "type": "content",
+      "label": "edge.visible",
+      "position": {
+        "x": 640,
+        "y": 8880
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## edge.visible\n\nFalse hides the line while browsing; editing always shows it.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.visible` |\n| Type | boolean |\n| Default | true |\n| Valid | true, false |\n| Applies | browse |\n| Properties panel | none found |\n| Written down | EdgeLayer.js |\n| Status | built |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-visible",
+          "name": "edge.visible",
+          "scope": "edge",
+          "writePath": "edge.visible",
+          "valueType": "boolean",
+          "default": true,
+          "effect": "False hides the line while browsing; editing always shows it.",
+          "modes": [
+            "browse"
+          ],
+          "panel": "none found",
+          "writtenDown": "EdgeLayer.js",
+          "status": "built",
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-show-label",
+      "type": "content",
+      "label": "edge.showLabel",
+      "position": {
+        "x": 1280,
+        "y": 8880
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## edge.showLabel\n\nWhether the line draws its label. Off unless it is true.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.showLabel` |\n| Type | boolean |\n| Default | false |\n| Valid | true, false |\n| Applies | edit, browse |\n| Properties panel | none found |\n| Written down | GraphCrud.js |\n| Status | built |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-show-label",
+          "name": "edge.showLabel",
+          "scope": "edge",
+          "writePath": "edge.showLabel",
+          "valueType": "boolean",
+          "default": false,
+          "effect": "Whether the line draws its label. Off unless it is true.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "none found",
+          "writtenDown": "GraphCrud.js",
+          "status": "built",
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-label",
+      "type": "content",
+      "label": "edge.label",
+      "position": {
+        "x": 0,
+        "y": 9560
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## edge.label\n\nThe line's name, drawn when showLabel is true.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.label` |\n| Type | string |\n| Default |  |\n| Valid | any |\n| Applies | edit, browse |\n| Properties panel | yes (\"Name\") |\n| Written down | no |\n| Status | built |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-label",
+          "name": "edge.label",
+          "scope": "edge",
+          "writePath": "edge.label",
+          "valueType": "string",
+          "default": "",
+          "effect": "The line's name, drawn when showLabel is true.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "yes (\"Name\")",
+          "writtenDown": "no",
+          "status": "built",
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-flow",
+      "type": "content",
+      "label": "data.flow",
+      "position": {
+        "x": 640,
+        "y": 9560
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## data.flow\n\nWhat the edge carries.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.data.flow` |\n| Type | enum |\n| Default | none |\n| Valid | none, data, energy, control |\n| Applies | edit, browse |\n| Properties panel | yes (\"Flow\") |\n| Written down | no |\n| Status | built |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-flow",
+          "name": "data.flow",
+          "scope": "edge",
+          "writePath": "edge.data.flow",
+          "valueType": "enum",
+          "default": "none",
+          "effect": "What the edge carries.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "yes (\"Flow\")",
+          "writtenDown": "no",
+          "status": "built",
+          "enum": [
+            "none",
+            "data",
+            "energy",
+            "control"
+          ],
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-direction",
+      "type": "content",
+      "label": "data.direction",
+      "position": {
+        "x": 1280,
+        "y": 9560
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## data.direction\n\nWhich way the edge points, apart from where its arrowheads are drawn.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.data.direction` |\n| Type | enum |\n| Default | forward |\n| Valid | forward, reverse, bidirectional |\n| Applies | edit, browse |\n| Properties panel | yes (\"Direction\") |\n| Written down | no |\n| Status | built |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-direction",
+          "name": "data.direction",
+          "scope": "edge",
+          "writePath": "edge.data.direction",
+          "valueType": "enum",
+          "default": "forward",
+          "effect": "Which way the edge points, apart from where its arrowheads are drawn.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "yes (\"Direction\")",
+          "writtenDown": "no",
+          "status": "built",
+          "enum": [
+            "forward",
+            "reverse",
+            "bidirectional"
+          ],
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-strength",
+      "type": "content",
+      "label": "data.strength",
+      "position": {
+        "x": 0,
+        "y": 10240
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## data.strength\n\nHow strongly the edge binds its ends.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.data.strength` |\n| Type | enum |\n| Default | normal |\n| Valid | weak, normal, strong |\n| Applies | edit, browse |\n| Properties panel | yes (\"Strength\") |\n| Written down | no |\n| Status | built |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-strength",
+          "name": "data.strength",
+          "scope": "edge",
+          "writePath": "edge.data.strength",
+          "valueType": "enum",
+          "default": "normal",
+          "effect": "How strongly the edge binds its ends.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "yes (\"Strength\")",
+          "writtenDown": "no",
+          "status": "built",
+          "enum": [
+            "weak",
+            "normal",
+            "strong"
+          ],
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
+      "id": "authoring-switches-switch-edge-intent",
+      "type": "content",
+      "label": "data.intent",
+      "position": {
+        "x": 640,
+        "y": 10240
+      },
+      "width": 600,
+      "height": 640,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "## data.intent\n\nA sentence saying what the edge is for.\n\n| | |\n|---|---|\n| Scope | edge, applies to any |\n| Written at | `edge.data.intent` |\n| Type | string |\n| Default |  |\n| Valid | any |\n| Applies | edit, browse |\n| Properties panel | yes (\"Intent\") |\n| Written down | no |\n| Status | built |"
+        },
+        "identity": {
+          "graphId": "authoring-switches"
+        },
+        "switch": {
+          "id": "edge-intent",
+          "name": "data.intent",
+          "scope": "edge",
+          "writePath": "edge.data.intent",
+          "valueType": "string",
+          "default": "",
+          "effect": "A sentence saying what the edge is for.",
+          "modes": [
+            "edit",
+            "browse"
+          ],
+          "panel": "yes (\"Intent\")",
+          "writtenDown": "no",
+          "status": "built",
+          "appliesTo": [
+            "any"
+          ]
+        }
+      }
+    },
+    {
       "id": "authoring-switches-questions",
       "type": "content",
       "label": "Questions",
       "position": {
         "x": 0,
-        "y": 6160
+        "y": 10920
       },
       "width": 900,
       "height": 380,
@@ -1240,6 +2165,17 @@
       "source": "authoring-switches-intro",
       "sourcePort": "root",
       "target": "authoring-switches-policy-which-view",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-policy-edge-class",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-policy-edge-class",
       "targetPort": "root",
       "label": "",
       "style": {},
@@ -1471,6 +2407,226 @@
       "source": "authoring-switches-intro",
       "sourcePort": "root",
       "target": "authoring-switches-switch-root-handle",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-color",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-color",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-width",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-width",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-dash",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-dash",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-route",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-route",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-opacity",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-opacity",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-show-arrow",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-show-arrow",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-arrow-size",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-arrow-size",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-arrow-position",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-arrow-position",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-animation",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-animation",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-animation-speed",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-animation-speed",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-glow",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-glow",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-gradient",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-gradient",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-strokes",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-strokes",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-visible",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-visible",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-show-label",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-show-label",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-label",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-label",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-flow",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-flow",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-direction",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-direction",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-strength",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-strength",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "authoring-switches-intro-edge-intent",
+      "type": "leads-to",
+      "source": "authoring-switches-intro",
+      "sourcePort": "root",
+      "target": "authoring-switches-switch-edge-intent",
       "targetPort": "root",
       "label": "",
       "style": {},
