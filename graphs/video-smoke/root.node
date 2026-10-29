@@ -1,0 +1,137 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "created": "2026-10-29T19:07:55.560Z",
+    "modified": "2026-10-29T19:07:55.569Z",
+    "author": "",
+    "tags": [
+      "smoke-test"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "video-smoke-root",
+      "type": "root",
+      "label": "Video smoke test",
+      "position": {
+        "x": -560,
+        "y": -240
+      },
+      "width": 360,
+      "height": 160,
+      "ports": [],
+      "data": {
+        "identity": {
+          "graphId": "video-smoke",
+          "nodeId": "video-smoke",
+          "name": "Video smoke test",
+          "version": "0.1.0",
+          "description": "One node that plays the same video in its Detail and Summary views, to test a player across a change of view."
+        },
+        "intent": {
+          "kind": "smoke-test",
+          "scope": "public"
+        },
+        "authority": {
+          "mutation": {
+            "allowCreate": true,
+            "allowUpdate": true,
+            "allowDelete": true
+          }
+        },
+        "document": {
+          "url": "github://mikemartinez1974/public/graphs/video-smoke/root.node"
+        },
+        "root": {
+          "kind": "graph",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          }
+        }
+      }
+    },
+    {
+      "id": "video-smoke-import",
+      "type": "import",
+      "label": "Video Smoke class",
+      "position": {
+        "x": -560,
+        "y": 20
+      },
+      "width": 320,
+      "height": 140,
+      "ports": [],
+      "data": {
+        "identity": {
+          "graphId": "video-smoke"
+        },
+        "bridge": {
+          "ref": "github://mikemartinez1974/public/graphs/video-smoke/classes/video-smoke.node-class.node",
+          "resourceKind": "node-class",
+          "key": "video-smoke",
+          "scope": "focused-graph",
+          "grants": [
+            "read",
+            "create",
+            "update"
+          ]
+        }
+      }
+    },
+    {
+      "id": "video-smoke-note",
+      "type": "content",
+      "label": "How to use",
+      "position": {
+        "x": -160,
+        "y": -240
+      },
+      "width": 480,
+      "height": 300,
+      "ports": [],
+      "data": {
+        "identity": {
+          "graphId": "video-smoke"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "**Video smoke test**\n\nPlay the video, then change the view: zoom out until the node shows its Summary, and back. Each view shows how long its frame has been built and has a bar that restarts when the frame is rebuilt.\n\n- The counter keeps counting and the video keeps playing: the player survived.\n- The counter goes back to 0 or the video stops: the frame was rebuilt.\n\nChange the video in the node's `src`."
+        }
+      }
+    },
+    {
+      "id": "video-smoke-node",
+      "type": "video-smoke",
+      "label": "Video",
+      "position": {
+        "x": 380,
+        "y": -240
+      },
+      "width": 560,
+      "height": 340,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "data": {
+        "identity": {
+          "graphId": "video-smoke"
+        },
+        "src": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        "presentation": {
+          "baseLevel": "detail"
+        },
+        "classRef": "github://mikemartinez1974/public/graphs/video-smoke/classes/video-smoke.node-class.node"
+      }
+    }
+  ],
+  "edges": [],
+  "settings": {}
+}
