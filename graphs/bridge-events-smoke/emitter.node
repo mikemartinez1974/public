@@ -1,7 +1,7 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "modified": "2026-10-30T16:33:34.373Z",
+    "modified": "2026-10-30T16:45:28.082Z",
     "tags": [
       "smoke-test"
     ]
@@ -608,8 +608,8 @@
           "resolution": 1
         },
         "content": {
-          "kind": "markdown",
-          "value": ""
+          "kind": "html",
+          "value": "<article style='container-type:inline-size;box-sizing:border-box;width:100%;height:100%;padding:6cqw;background:#0b3a66;color:#e6f2ff;font-family:system-ui,sans-serif'><div style='font-size:3.4cqw;letter-spacing:.2em;color:#7cc4ff'>EMITTER</div><div style='font-size:16cqw;font-weight:800;line-height:1.05;margin:3cqw 0'>18°</div><p style='font-size:3.6cqw;line-height:1.5;max-width:60ch;color:#cfe6ff'>Temperature, offered across the Bridge</p><p style='font-size:3cqw;line-height:1.5;max-width:60ch;color:#9fc4e8'>Open the listener beside this graph, then change the Temperature here (edit mode, the Temperature card). The listener hears it across the Bridge.</p></article>"
         },
         "interfaceContract": {
           "version": 1,
@@ -757,8 +757,8 @@
         },
         "semanticLevel": "summary",
         "content": {
-          "kind": "markdown",
-          "value": ""
+          "kind": "html",
+          "value": "<div style='container-type:inline-size;box-sizing:border-box;width:100%;height:100%;padding:6cqw;background:#0b3a66;color:#e6f2ff;font-family:system-ui,sans-serif'><div style='font-size:5cqw;letter-spacing:.2em;color:#7cc4ff'>EMITTER</div><div style='font-size:22cqw;font-weight:800;line-height:1.05;margin:3cqw 0'>18°</div><div style='font-size:6cqw;color:#cfe6ff'>Temperature, offered across the Bridge</div></div>"
         },
         "interfaceContract": {
           "version": 1,
@@ -1361,6 +1361,77 @@
       }
     },
     {
+      "id": "bridge-events-emitter-show",
+      "type": "method",
+      "label": "Show the temperature",
+      "position": {
+        "x": 900,
+        "y": 380
+      },
+      "width": 460,
+      "height": 260,
+      "ports": [
+        {
+          "id": "call",
+          "key": "call",
+          "label": "Call",
+          "direction": "input",
+          "dataType": "event",
+          "angle": 180
+        },
+        {
+          "id": "result",
+          "key": "result",
+          "label": "Result",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 0
+        }
+      ],
+      "handles": [
+        {
+          "id": "call",
+          "key": "call",
+          "label": "Call",
+          "direction": "input",
+          "dataType": "event",
+          "angle": 180,
+          "portId": "call"
+        },
+        {
+          "id": "result",
+          "key": "result",
+          "label": "Result",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 0,
+          "portId": "result"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "scriptName": "Show the temperature",
+        "parameters": [],
+        "source": "// Runs when the Temperature changes here. It rewrites this graph's faces so the tile shows the value.\nconst faces = (title, big, small, note) => ({\n  summary: \"<div style='container-type:inline-size;box-sizing:border-box;width:100%;height:100%;padding:6cqw;background:#0b3a66;color:#e6f2ff;font-family:system-ui,sans-serif'><div style='font-size:5cqw;letter-spacing:.2em;color:#7cc4ff'>\" + title.toUpperCase() + \"</div><div style='font-size:22cqw;font-weight:800;line-height:1.05;margin:3cqw 0'>\" + big + \"</div><div style='font-size:6cqw;color:#cfe6ff'>\" + small + \"</div></div>\",\n  detail: \"<article style='container-type:inline-size;box-sizing:border-box;width:100%;height:100%;padding:6cqw;background:#0b3a66;color:#e6f2ff;font-family:system-ui,sans-serif'><div style='font-size:3.4cqw;letter-spacing:.2em;color:#7cc4ff'>\" + title.toUpperCase() + \"</div><div style='font-size:16cqw;font-weight:800;line-height:1.05;margin:3cqw 0'>\" + big + \"</div><p style='font-size:3.6cqw;line-height:1.5;max-width:60ch;color:#cfe6ff'>\" + small + \"</p><p style='font-size:3cqw;line-height:1.5;max-width:60ch;color:#9fc4e8'>\" + note + \"</p></article>\"\n});\nconst node = await api.getNode('bridge-events-emitter-temperature');\nconst value = String(node.data.value ?? '') + '°';\nconst page = faces('Emitter', value, 'Temperature, offered across the Bridge', \"Open the listener beside this graph, then change the Temperature here (edit mode, the Temperature card). The listener hears it across the Bridge.\");\nfor (const name of ['summary', 'detail']) {\n  const face = await api.getNode('bridge-events-emitter-' + name);\n  await api.updateNode(face.id, { data: { ...face.data, content: { kind: 'html', value: page[name] } } });\n}\nreturn { shown: value };",
+        "effects": [
+          {
+            "kind": "update-node",
+            "targets": [
+              "bridge-events-emitter-summary",
+              "bridge-events-emitter-detail"
+            ]
+          }
+        ],
+        "allowMutations": true,
+        "dryRun": false,
+        "identity": {
+          "graphId": "bridge-events-emitter",
+          "nodeId": "bridge-events-emitter-show"
+        }
+      }
+    },
+    {
       "id": "bridge-events-emitter-offer",
       "type": "export",
       "label": "Offer the Temperature",
@@ -1471,6 +1542,21 @@
       "sourcePort": "environment",
       "targetPort": "root",
       "data": {}
+    },
+    {
+      "id": "bridge-events-emitter-temperature-invokes-show",
+      "type": "invokes",
+      "source": "bridge-events-emitter-temperature",
+      "target": "bridge-events-emitter-show",
+      "label": "invokes",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "classRef": "tlz://twilite.zone/library/edges/invokes/root.node"
+      },
+      "sourcePort": "event:property.changed",
+      "targetPort": "invokes"
     }
   ],
   "settings": {
