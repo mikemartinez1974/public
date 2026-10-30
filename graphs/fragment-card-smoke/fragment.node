@@ -1,0 +1,663 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "created": "2026-09-01T03:17:13.354Z",
+    "modified": "2026-10-30T16:04:59.243Z",
+    "author": "",
+    "tags": [
+      "smoke-test"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "fragment-card-piece-declaration",
+      "type": "root",
+      "label": "Fragment card smoke: piece",
+      "position": {
+        "x": 205,
+        "y": -540
+      },
+      "width": 460,
+      "height": 340,
+      "ports": [
+        {
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "ground",
+          "portId": "ground",
+          "label": "ground",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 0
+        },
+        {
+          "id": "port",
+          "portId": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "fragment-card-piece",
+          "nodeId": "fragment-card-smoke",
+          "name": "Fragment card smoke: piece",
+          "version": "1.0.0",
+          "description": "The other piece of the node: it has a Detail, a Summary and an Icon face, and two nodes that come into the host when a card is expanded."
+        },
+        "intent": {
+          "kind": "graph",
+          "scope": "public"
+        },
+        "settings": {
+          "autoSave": false,
+          "expansion": {
+            "allowGraphEntry": true
+          },
+          "layout": {
+            "mode": "manual",
+            "direction": "RIGHT",
+            "defaultLayout": "layered",
+            "edgeLaneGapPx": 10,
+            "serpentine": {
+              "maxPerRow": 6
+            },
+            "cycleFallback": {
+              "enabled": true
+            },
+            "elk": {
+              "algorithm": "fixed",
+              "edgeRouting": "ORTHOGONAL",
+              "portConstraints": "FIXED_SIDE",
+              "nodeSpacing": 120,
+              "layeredEdgeSpacing": 80
+            }
+          },
+          "theme": null,
+          "backgroundImage": null,
+          "defaultNodeColor": "#1976d2",
+          "defaultEdgeColor": "",
+          "snapToGrid": false,
+          "gridSize": 20,
+          "edgeRouting": "auto"
+        },
+        "document": {
+          "url": "github://mikemartinez1974/public/graphs/fragment-card-smoke/fragment.node"
+        },
+        "edgeReferences": [
+          {
+            "segmentId": "fragment-card-host-handoff-edge",
+            "logicalEdgeId": "fragment-card-host-handoff-edge",
+            "type": "reference",
+            "label": "send typed text",
+            "interGraph": {
+              "version": 1,
+              "source": {
+                "graphRef": "github://mikemartinez1974/public/graphs/fragment-smoke/host.node",
+                "graphId": "fragment-card-host",
+                "nodeId": "fragment-card-host-handoff-producer",
+                "portId": "result"
+              },
+              "target": {
+                "graphRef": "github://mikemartinez1974/public/graphs/fragment-smoke/fragment.node",
+                "graphId": "fragment-card-piece",
+                "nodeId": "fragment-card-piece-handoff-receiver",
+                "portId": "set"
+              }
+            }
+          },
+          {
+            "segmentId": "edge_1788234468005",
+            "logicalEdgeId": "edge_1788234468005",
+            "type": "default",
+            "label": "",
+            "interGraph": {
+              "version": 1,
+              "source": {
+                "graphRef": "",
+                "graphId": "fragment-card-host",
+                "nodeId": "fragment-card-host-landing",
+                "portId": "root"
+              },
+              "target": {
+                "graphRef": "github://mikemartinez1974/public/graphs/fragment-smoke/fragment.node",
+                "graphId": "fragment-card-piece",
+                "nodeId": "fragment-card-piece-destination",
+                "portId": "root"
+              }
+            }
+          }
+        ],
+        "root": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "artifactKind": "smoke-test",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "detail",
+          "landingSurfaceId": "landing",
+          "surfaces": [
+            {
+              "id": "detail",
+              "kind": "view",
+              "payload": "node.web.detail",
+              "viewNodeId": "fragment-card-piece-detail"
+            },
+            {
+              "id": "summary",
+              "kind": "view",
+              "payload": "node.web.summary",
+              "viewNodeId": "fragment-card-piece-summary"
+            },
+            {
+              "id": "icon",
+              "kind": "view",
+              "payload": "node.web.icon",
+              "viewNodeId": "fragment-card-piece-icon"
+            },
+            {
+              "id": "glyph",
+              "kind": "glyph",
+              "payload": "node.web.glyph",
+              "viewNodeId": "fragment-card-piece-glyph"
+            },
+            {
+              "id": "landing",
+              "kind": "content",
+              "payload": "node.web.landing",
+              "viewNodeId": "fragment-card-piece-landing"
+            },
+            {
+              "id": "public-summary",
+              "kind": "view",
+              "payload": "node.web.summary",
+              "portNodeId": "fragment-card-piece-summary-port",
+              "viewNodeId": "fragment-card-piece-summary"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "fragment-card-piece-detail",
+      "type": "face",
+      "label": "Fragment Detail",
+      "position": {
+        "x": 205,
+        "y": -120
+      },
+      "width": 400,
+      "height": 220,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "html": "<article style='box-sizing:border-box;height:100%;padding:28px;font-family:system-ui;background:#0b3a66;color:#e6f2ff'><div style='font-size:12px;letter-spacing:.2em;color:#7cc4ff'>FACE: DETAIL</div><h2 style='margin:8px 0 14px;font-size:30px'>The other piece</h2><p style='max-width:52ch;line-height:1.5;color:#cfe6ff'>This is the piece's Detail face, the largest. A Fragment card draws it when the card is big enough, just as a Portal draws the Detail of the graph it opens onto.</p><ul style='line-height:1.7;color:#cfe6ff'><li>Make the card smaller and this becomes the Summary.</li><li>Smaller again and it becomes the Icon.</li><li>Expand the card and the piece's nodes arrive in the host.</li></ul></article>",
+        "view": {
+          "payload": "node.web.detail",
+          "intent": "node"
+        },
+        "identity": {
+          "graphId": "fragment-card-piece"
+        }
+      }
+    },
+    {
+      "id": "fragment-card-piece-summary",
+      "type": "face",
+      "label": "Fragment Summary",
+      "position": {
+        "x": 715,
+        "y": -540
+      },
+      "width": 360,
+      "height": 190,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "html": "<div style='box-sizing:border-box;height:100%;padding:18px;font-family:system-ui;background:#7a4a00;color:#fff3dc'><div style='font-size:11px;letter-spacing:.2em;color:#ffd08a'>FACE: SUMMARY</div><strong style='display:block;margin:6px 0;font-size:20px'>The other piece</strong><span style='color:#ffe3b3'>Landing, and a destination it leads to.</span></div>",
+        "view": {
+          "payload": "node.web.summary",
+          "intent": "node"
+        },
+        "identity": {
+          "graphId": "fragment-card-piece"
+        }
+      }
+    },
+    {
+      "id": "fragment-card-piece-icon",
+      "type": "face",
+      "label": "Fragment Icon",
+      "position": {
+        "x": 715,
+        "y": -300
+      },
+      "width": 170,
+      "height": 120,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 100'><rect x='4' y='4' width='152' height='92' rx='18' fill='#064e3b' stroke='#6ee7b7' stroke-width='4'/><path d='M35 66 80 30l45 36' fill='none' stroke='#a7f3d0' stroke-width='9'/><text x='80' y='90' text-anchor='middle' font-family='system-ui' font-size='11' fill='#a7f3d0'>FACE: ICON</text></svg>",
+        "view": {
+          "payload": "node.web.icon",
+          "intent": "node"
+        },
+        "identity": {
+          "graphId": "fragment-card-piece"
+        }
+      }
+    },
+    {
+      "id": "fragment-card-piece-glyph",
+      "type": "glyph",
+      "label": "Fragment",
+      "position": {
+        "x": 945,
+        "y": -280
+      },
+      "width": 90,
+      "height": 90,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "presentation": {
+          "glyph": {
+            "kind": "icon",
+            "name": "Hub"
+          }
+        },
+        "identity": {
+          "graphId": "fragment-card-piece"
+        }
+      }
+    },
+    {
+      "id": "fragment-card-piece-landing",
+      "type": "content",
+      "label": "Fragment Landing",
+      "position": {
+        "x": 905,
+        "y": 0
+      },
+      "width": 440,
+      "height": 250,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# The other piece\n\nThese nodes live in **fragment.node**. They came into the host when a Fragment card was expanded."
+        },
+        "identity": {
+          "graphId": "fragment-card-piece"
+        }
+      }
+    },
+    {
+      "id": "fragment-card-piece-destination",
+      "type": "content",
+      "label": "Destination",
+      "position": {
+        "x": 924.7329356964867,
+        "y": 311.4069643666411
+      },
+      "width": 420,
+      "height": 230,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "content": {
+          "kind": "markdown",
+          "value": "# Reached\n\nAn edge inside the piece leads here, and it came along."
+        },
+        "identity": {
+          "graphId": "fragment-card-piece"
+        }
+      }
+    },
+    {
+      "id": "fragment-card-piece-back",
+      "type": "fragment",
+      "label": "The host",
+      "position": {
+        "x": 905,
+        "y": 600
+      },
+      "width": 420,
+      "height": 260,
+      "ports": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180
+        }
+      ],
+      "data": {
+        "sourcePayload": "node.web.detail",
+        "surfaceId": "root",
+        "target": {
+          "ref": "github://mikemartinez1974/public/graphs/fragment-card-smoke/host.node",
+          "mode": "expand",
+          "kind": "graph",
+          "entryPort": "root",
+          "label": "The host",
+          "allow": []
+        },
+        "identity": {
+          "graphId": "fragment-card-piece"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "fragment-card-piece-detail-surface",
+      "type": "surface",
+      "source": "fragment-card-piece-declaration",
+      "target": "fragment-card-piece-detail",
+      "label": "",
+      "style": {},
+      "data": {
+        "surfaceId": "detail"
+      },
+      "sourcePort": "surfaces",
+      "targetPort": "root"
+    },
+    {
+      "id": "fragment-card-piece-detail-next",
+      "type": "next-face",
+      "source": "fragment-card-piece-detail",
+      "target": "fragment-card-piece-summary",
+      "label": "",
+      "style": {},
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
+    },
+    {
+      "id": "fragment-card-piece-summary-next",
+      "type": "next-face",
+      "source": "fragment-card-piece-summary",
+      "target": "fragment-card-piece-icon",
+      "label": "",
+      "style": {},
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in"
+    },
+    {
+      "id": "fragment-card-piece-icon-next",
+      "type": "next-face",
+      "source": "fragment-card-piece-icon",
+      "target": "fragment-card-piece-glyph",
+      "label": "",
+      "style": {},
+      "data": {},
+      "sourcePort": "sequence-out",
+      "targetPort": "root"
+    },
+    {
+      "id": "fragment-card-piece-landing-edge",
+      "type": "ground",
+      "source": "fragment-card-piece-declaration",
+      "target": "fragment-card-piece-landing",
+      "label": "ground",
+      "style": {},
+      "data": {},
+      "sourcePort": "ground",
+      "targetPort": "root"
+    },
+    {
+      "id": "fragment-card-piece-path",
+      "type": "navigation",
+      "source": "fragment-card-piece-landing",
+      "target": "fragment-card-piece-destination",
+      "label": "follow this edge",
+      "style": {
+        "curved": true
+      },
+      "data": {},
+      "sourcePort": "root",
+      "targetPort": "root"
+    }
+  ],
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": {
+      "mode": "manual",
+      "defaultLayout": "layered",
+      "direction": "RIGHT",
+      "edgeLaneGapPx": 10,
+      "serpentine": {
+        "maxPerRow": 6
+      },
+      "cycleFallback": {
+        "enabled": true
+      },
+      "elk": {
+        "algorithm": "fixed",
+        "edgeRouting": "ORTHOGONAL",
+        "portConstraints": "FIXED_SIDE",
+        "nodeSpacing": 120,
+        "layeredEdgeSpacing": 80
+      }
+    },
+    "github": {
+      "repo": "mikemartinez1974/public",
+      "path": "graphs/fragment-smoke/fragment.node",
+      "branch": "main",
+      "autoCreateRepo": true,
+      "repoVisibility": "private",
+      "seedOnCommit": false,
+      "enableGithubPages": false,
+      "installationId": "117641611"
+    },
+    "autoSave": false
+  }
+}
