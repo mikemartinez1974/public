@@ -28,7 +28,7 @@
           "graphId": "import-template-declaration",
           "name": "Bridge Template (Import)",
           "version": "0.1.0",
-          "description": "The import half of the same real Bridge pair. Subscribes to widget.ready from templates/bridge-template/export/root.node and routes it to a local Event Handler, which invokes a local Method -- the same shape as qa/custom-event-bridge-smoke's receiver graph."
+          "description": "The import half of the same real Bridge pair. Shows widget.ready from templates/bridge-template/export/root.node as a port, and an invokes edge from that port runs a local Method."
         },
         "intent": {
           "kind": "template",
@@ -73,7 +73,7 @@
         },
         "content": {
           "kind": "html",
-          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a;overflow:auto'><h1 style='margin:0 0 12px;font:800 24px/1.2 system-ui'>Bridge: the import half</h1><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'><code>data.bridge.subscriptions</code> below names the exact remote event -- <code>export-template-event-source:widget.ready</code> in <a href='github://mikemartinez1974/public/templates/bridge-template/export/root.node'>bridge-template/export</a> -- and the local Event Handler that should fire when it does. The handler then invokes a local Method, same as the export side's own Method raises the event in the first place. See the export side's detail view for how auto-loading and its background-focus fix work; that explanation isn't duplicated here, since it's about the pair, not this half specifically.</p></div>"
+          "value": "<div style='box-sizing:border-box;width:100%;height:100%;padding:28px;background:#ffffff;font-family:system-ui;color:#0f172a;overflow:auto'><h1 style='margin:0 0 12px;font:800 24px/1.2 system-ui'>Bridge: the import half</h1><p style='margin:0 0 12px;max-width:62ch;font:400 15px/1.6 system-ui;color:#334155'><code>exposure.events</code> on the import below lists the remote event it shows -- <code>export-template-event-source:widget.ready</code> in <a href='github://mikemartinez1974/public/templates/bridge-template/export/root.node'>bridge-template/export</a> -- as a port, and an <code>invokes</code> edge from that port runs the local Method when it fires. The export side's own Method raises the event in the first place. See the export side's detail view for how auto-loading and its background-focus fix work; that explanation isn't duplicated here, since it's about the pair, not this half specifically.</p></div>"
         }
       }
     },
@@ -113,7 +113,7 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "source": "return { ok: true, note: \"fired by the bridged widget.ready subscription\" };",
+        "source": "return { ok: true, note: \"fired by the bridged widget.ready event\" };",
         "scriptName": "Remote Action",
         "parameters": [],
         "allowMutations": false,
@@ -137,7 +137,7 @@
       "visible": true,
       "showLabel": true,
       "data": {
-        "memo": "Imports widget.ready from templates/bridge-template/export/root.node.",
+        "memo": "Imports widget.ready from templates/bridge-template/export/root.node and shows it as a port.",
         "intent": "external",
         "identity": {
           "graphId": "import",
@@ -149,20 +149,14 @@
           "label": "Bridge Template (Export)",
           "scope": "graph",
           "grants": [],
-          "consumesBridgeNodeId": "export-template-bridge",
-          "subscriptions": [
-            {
-              "id": "bridge-subscription--export-template-bridge--import-template-bridge--export-template-event-source--widget.ready",
-              "sourceBridgeNodeId": "export-template-bridge",
-              "targetBridgeNodeId": "import-template-bridge",
-              "sourceRef": "github://mikemartinez1974/public/templates/bridge-template/export/root.node",
-              "eventNodeId": "export-template-event-source",
-              "sourceNodeId": "export-template-event-source",
-              "eventKey": "widget.ready",
-              "handlerNodeId": "import-template-handler",
-              "enabled": true
+          "exposure": {
+            "events": {
+              "mode": "allowlist",
+              "allowKeys": [
+                "export-template-event-source:widget.ready"
+              ]
             }
-          ]
+          }
         }
       }
     }
@@ -191,6 +185,21 @@
       "data": {},
       "sourcePort": "sequence-out",
       "targetPort": "root"
+    },
+    {
+      "id": "import-template-widget-ready-invokes-method",
+      "type": "invokes",
+      "source": "import-template-bridge",
+      "target": "import-template-method",
+      "label": "invokes",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "classRef": "tlz://twilite.zone/library/edges/invokes/root.node"
+      },
+      "sourcePort": "event:export-template-event-source:widget.ready",
+      "targetPort": "invokes"
     }
   ],
   "settings": {
