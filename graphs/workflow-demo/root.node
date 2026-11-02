@@ -1,0 +1,3053 @@
+{
+  "fileVersion": "1.0",
+  "metadata": {
+    "created": "2026-10-21T21:59:19.432Z",
+    "modified": "2026-11-02T17:10:39.487Z",
+    "author": "",
+    "tags": [
+      "template"
+    ],
+    "preferredViewer": "https://dev.twilite.zone"
+  },
+  "nodes": [
+    {
+      "id": "workflow-demo-declaration",
+      "type": "root",
+      "label": "Workflow (demo)",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "width": 520,
+      "height": 390,
+      "ports": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default-view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 55,
+          "role": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary-view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 70,
+          "role": "shared-summary"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon-view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 85,
+          "role": "shared-icon"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 100,
+          "role": "shared-glyph"
+        },
+        {
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 115,
+          "role": "ground"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "default-handle",
+          "key": "default-handle",
+          "label": "default handle",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "default-handle",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-handle",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "graphReference",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "boundary-begin",
+          "key": "boundary-begin",
+          "label": "boundary begin",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 300,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "boundary-end",
+          "key": "boundary-end",
+          "label": "boundary end",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 135,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 225,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "event:graph.changed",
+          "key": "event:graph.changed",
+          "label": "Graph changed",
+          "direction": "output",
+          "dataType": "event",
+          "role": "emits-event",
+          "allowedEdgeTypes": [
+            "invokes"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "emits-event",
+            "required": false,
+            "repeatable": true,
+            "eventKey": "graph.changed",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "method",
+                "targetPort": "invokes"
+              }
+            ]
+          }
+        },
+        {
+          "id": "event:graph.structure.changed",
+          "key": "event:graph.structure.changed",
+          "label": "Graph structure changed",
+          "direction": "output",
+          "dataType": "event",
+          "role": "emits-event",
+          "allowedEdgeTypes": [
+            "invokes"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "emits-event",
+            "required": false,
+            "repeatable": true,
+            "eventKey": "graph.structure.changed",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "method",
+                "targetPort": "invokes"
+              }
+            ]
+          }
+        },
+        {
+          "id": "environment",
+          "key": "environment",
+          "label": "environment",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 45,
+          "role": "environment",
+          "allowedEdgeTypes": [
+            "environment"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "environment",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "face",
+                "targetPort": "root"
+              }
+            ]
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default-view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 55,
+          "role": "default-view",
+          "portId": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary-view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 70,
+          "role": "shared-summary",
+          "portId": "summary-view"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon-view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 85,
+          "role": "shared-icon",
+          "portId": "icon-view"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 100,
+          "role": "shared-glyph",
+          "portId": "glyph"
+        },
+        {
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 115,
+          "role": "ground",
+          "portId": "ground"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
+        },
+        {
+          "id": "default-handle",
+          "key": "default-handle",
+          "label": "default handle",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "default-handle",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-handle",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "graphReference",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "default-handle"
+        },
+        {
+          "id": "boundary-begin",
+          "key": "boundary-begin",
+          "label": "boundary begin",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 300,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "boundary-begin"
+        },
+        {
+          "id": "boundary-end",
+          "key": "boundary-end",
+          "label": "boundary end",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 135,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "boundary-end"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 225,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "port"
+        },
+        {
+          "id": "event:graph.changed",
+          "key": "event:graph.changed",
+          "label": "Graph changed",
+          "direction": "output",
+          "dataType": "event",
+          "role": "emits-event",
+          "allowedEdgeTypes": [
+            "invokes"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "emits-event",
+            "required": false,
+            "repeatable": true,
+            "eventKey": "graph.changed",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "method",
+                "targetPort": "invokes"
+              }
+            ]
+          },
+          "portId": "event:graph.changed"
+        },
+        {
+          "id": "event:graph.structure.changed",
+          "key": "event:graph.structure.changed",
+          "label": "Graph structure changed",
+          "direction": "output",
+          "dataType": "event",
+          "role": "emits-event",
+          "allowedEdgeTypes": [
+            "invokes"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "emits-event",
+            "required": false,
+            "repeatable": true,
+            "eventKey": "graph.structure.changed",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "method",
+                "targetPort": "invokes"
+              }
+            ]
+          },
+          "portId": "event:graph.structure.changed"
+        },
+        {
+          "id": "environment",
+          "key": "environment",
+          "label": "environment",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 45,
+          "role": "environment",
+          "allowedEdgeTypes": [
+            "environment"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "environment",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "face",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "environment"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workflow-demo-declaration",
+          "nodeId": "workflow-demo",
+          "name": "Workflow (demo)",
+          "version": "1.0.0",
+          "description": "Where all my work stands: five lanes, filled by the status of the task graphs it holds.",
+          "updatedAt": "2026-10-21T21:59:19.432Z"
+        },
+        "intent": {
+          "kind": "collection",
+          "scope": "public"
+        },
+        "dependencies": {
+          "nodeTypes": [
+            "declaration",
+            "view",
+            "glyph",
+            "content",
+            "bridge",
+            "method",
+            "collection",
+            "portal"
+          ],
+          "portContracts": [
+            "core"
+          ],
+          "schemaVersions": {
+            "nodes": ">=1.0.0",
+            "ports": ">=1.0.0"
+          },
+          "optional": []
+        },
+        "authority": {
+          "mutation": {
+            "allowCreate": true,
+            "allowUpdate": true,
+            "allowDelete": true,
+            "appendOnly": false
+          },
+          "actors": {
+            "humans": true,
+            "agents": true,
+            "tools": true
+          },
+          "styleAuthority": "descriptive",
+          "history": {
+            "rewriteAllowed": false,
+            "squashAllowed": false
+          }
+        },
+        "settings": {
+          "autoSave": false,
+          "layout": {
+            "mode": "manual",
+            "direction": "DOWN",
+            "defaultLayout": "layered",
+            "edgeLaneGapPx": 10,
+            "serpentine": {
+              "maxPerRow": 6
+            },
+            "cycleFallback": {
+              "enabled": true
+            },
+            "elk": {
+              "algorithm": "fixed",
+              "edgeRouting": "ORTHOGONAL",
+              "portConstraints": "FIXED_SIDE",
+              "nodeSpacing": 120,
+              "layeredEdgeSpacing": 80
+            }
+          },
+          "theme": null,
+          "backgroundImage": null,
+          "defaultNodeColor": "#1976d2",
+          "defaultEdgeColor": "",
+          "snapToGrid": false,
+          "gridSize": 20,
+          "edgeRouting": "auto"
+        },
+        "document": {
+          "url": "github://mikemartinez1974/public/graphs/workflow-demo/root.node"
+        },
+        "visibilityRole": "editor",
+        "events": [
+          {
+            "eventKey": "graph.changed",
+            "label": "Graph changed",
+            "payloadContract": {
+              "type": "object"
+            }
+          },
+          {
+            "eventKey": "graph.structure.changed",
+            "label": "Graph structure changed",
+            "payloadContract": {
+              "type": "object"
+            }
+          }
+        ],
+        "root": {
+          "kind": "graph",
+          "targetMode": "artifact",
+          "artifactKind": "collection",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "web",
+          "landingSurfaceId": "landing",
+          "surfaces": [
+            {
+              "id": "detail",
+              "kind": "view",
+              "payload": "node.web.detail",
+              "viewNodeId": "workflow-demo-detail"
+            },
+            {
+              "id": "summary",
+              "kind": "view",
+              "payload": "node.web.summary",
+              "viewNodeId": "workflow-demo-summary"
+            },
+            {
+              "id": "glyph",
+              "kind": "glyph",
+              "payload": "node.web.glyph",
+              "viewNodeId": "workflow-demo-glyph"
+            },
+            {
+              "id": "landing",
+              "kind": "content",
+              "payload": "node.web.landing",
+              "viewNodeId": "workflow-demo-landing"
+            }
+          ]
+        },
+        "membrane": {
+          "bounds": {
+            "x": -840,
+            "y": -1494,
+            "width": 4420,
+            "height": 3987
+          }
+        }
+      }
+    },
+    {
+      "id": "workflow-demo-detail",
+      "type": "face",
+      "label": "Collection",
+      "position": {
+        "x": -760,
+        "y": -560
+      },
+      "width": 900,
+      "height": 812,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.detail",
+          "scroll": "page"
+        },
+        "semanticLevel": "detail",
+        "content": {
+          "kind": "html",
+          "value": "<div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;font-family:system-ui,-apple-system,Segoe UI,sans-serif;padding:3cqw;border-radius:2.4cqw;background:#f8fafc;border:1px solid #e2e8f0;overflow:hidden'><div style='display:flex;justify-content:space-between;align-items:flex-end;gap:2cqw;height:8cqw'><div style='min-width:0'><div style='font-size:1.15cqw;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6d28d9'>Workflow</div><div style='font-weight:650;font-size:3cqw;line-height:1.15;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>My work</div></div><div style='font-size:1.4cqw;color:#475569;white-space:nowrap'>17 graphs · <b style='color:#6d28d9'>4 need you</b></div></div><div style='display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1.6cqw;margin-top:1.2cqw'><div style='min-width:0;display:flex;flex-direction:column;gap:1.1cqw;padding:.6cqw;'><div style='display:flex;align-items:baseline;justify-content:space-between;gap:1cqw;height:5.2cqw;border-bottom:.25cqw solid #64748b'><span style='font-weight:700;font-size:1.45cqw;color:#64748b'>Inbox</span><span style='font-size:1.3cqw;font-variant-numeric:tabular-nums;color:#475569'>2</span></div><a href='github://mikemartinez1974/public/tasks/graph-scoped-skills/root.node' title='Graph-Scoped Skills' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:9.4cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid #64748b;border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>Graph-Scoped Skills</span><span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:0%;background:#64748b'></span></span><span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>3 open questions</span><span style='flex:none;font-variant-numeric:tabular-nums'>0/9</span></span></span></a><a href='github://mikemartinez1974/public/tasks/workspace-topological-adjacency/root.node' title='Workspace Topological Adjacency' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:9.4cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid #64748b;border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>Workspace Topological Adjacency</span><span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:0%;background:#64748b'></span></span><span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>3 open questions</span><span style='flex:none;font-variant-numeric:tabular-nums'>0/6</span></span></span></a></div><div style='min-width:0;display:flex;flex-direction:column;gap:1.1cqw;padding:.6cqw;'><div style='display:flex;align-items:baseline;justify-content:space-between;gap:1cqw;height:5.2cqw;border-bottom:.25cqw solid #2563eb'><span style='font-weight:700;font-size:1.45cqw;color:#2563eb'>Now</span><span style='font-size:1.3cqw;font-variant-numeric:tabular-nums;color:#475569'>2</span></div><a href='github://mikemartinez1974/public/tasks/workspace-graph-space-unification/root.node' title='Unify workspace and graph space' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:9.4cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid #2563eb;border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>Unify workspace and graph space</span><span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:57%;background:#2563eb'></span></span><span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>Make workspace interaction behave like graph space</span><span style='flex:none;font-variant-numeric:tabular-nums'>4/7</span></span></span></a><a href='github://mikemartinez1974/public/tasks/chat-node-provenance/root.node' title='Create the Chat Provenance Node' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:9.4cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid #2563eb;border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>Create the Chat Provenance Node</span><span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:30%;background:#2563eb'></span></span><span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>Deliver a Trustworthy First-Class Chat Provenance Node</span><span style='flex:none;font-variant-numeric:tabular-nums'>3/10</span></span></span></a></div><div style='min-width:0;display:flex;flex-direction:column;gap:1.1cqw;padding:.6cqw;background:#6d28d912;border-radius:1.2cqw;'><div style='display:flex;align-items:baseline;justify-content:space-between;gap:1cqw;height:5.2cqw;border-bottom:.25cqw solid #6d28d9'><span style='font-weight:700;font-size:1.45cqw;color:#6d28d9'>Needs you</span><span style='font-size:1.3cqw;font-variant-numeric:tabular-nums;color:#475569'>4</span></div><a href='github://mikemartinez1974/public/tasks/workspace-connections/root.node' title='Workspace connections' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:9.4cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid #6d28d9;border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>Workspace connections</span><span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:56%;background:#6d28d9'></span></span><span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>5 open questions</span><span style='flex:none;font-variant-numeric:tabular-nums'>5/9</span></span></span></a><a href='github://mikemartinez1974/public/tasks/canon-templates-in-order/root.node' title='Canon templates in order' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:9.4cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid #6d28d9;border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>Canon templates in order</span><span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:46%;background:#6d28d9'></span></span><span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>2 open questions</span><span style='flex:none;font-variant-numeric:tabular-nums'>6/13</span></span></span></a><a href='github://mikemartinez1974/public/tasks/library-made-current/root.node' title='The library, made current' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:9.4cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid #6d28d9;border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>The library, made current</span><span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:60%;background:#6d28d9'></span></span><span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>2 open questions</span><span style='flex:none;font-variant-numeric:tabular-nums'>25/42</span></span></span></a><a href='github://mikemartinez1974/public/tasks/template-video-ui-polish/root.node' title='Template Video and UI Polish' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:9.4cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid #6d28d9;border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>Template Video and UI Polish</span><span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:78%;background:#6d28d9'></span></span><span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>1 open question</span><span style='flex:none;font-variant-numeric:tabular-nums'>7/9</span></span></span></a></div><div style='min-width:0;display:flex;flex-direction:column;gap:1.1cqw;padding:.6cqw;'><div style='display:flex;align-items:baseline;justify-content:space-between;gap:1cqw;height:5.2cqw;border-bottom:.25cqw solid #b45309'><span style='font-weight:700;font-size:1.45cqw;color:#b45309'>Waiting</span><span style='font-size:1.3cqw;font-variant-numeric:tabular-nums;color:#475569'>2</span></div><a href='github://mikemartinez1974/public/tasks/primitives-self-documenting/root.node' title='Primitives, self-documenting' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:9.4cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid #b45309;border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>Primitives, self-documenting</span><span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:44%;background:#b45309'></span></span><span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>Give derived-view an edge class in canon</span><span style='flex:none;font-variant-numeric:tabular-nums'>4/9</span></span></span></a><a href='github://mikemartinez1974/public/tasks/properties-and-authoring-contract/root.node' title='The Properties panel and the authoring contract' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:9.4cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid #b45309;border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>The Properties panel and the authoring contract</span><span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:78%;background:#b45309'></span></span><span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>Retire the old tables, keys and per-browser presets</span><span style='flex:none;font-variant-numeric:tabular-nums'>28/36</span></span></span></a></div><div style='min-width:0;display:flex;flex-direction:column;gap:1.1cqw;padding:.6cqw;'><div style='display:flex;align-items:baseline;justify-content:space-between;gap:1cqw;height:5.2cqw;border-bottom:.25cqw solid #15803d'><span style='font-weight:700;font-size:1.45cqw;color:#15803d'>Done</span><span style='font-size:1.3cqw;font-variant-numeric:tabular-nums;color:#475569'>7</span></div><a href='github://mikemartinez1974/public/tasks/bridge-class-scoped-events/root.node' title='Carry Class Events Across Bridges' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:9.4cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid #15803d;border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>Carry Class Events Across Bridges</span><span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:0%;background:#15803d'></span></span><span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>Cancelled</span><span style='flex:none;font-variant-numeric:tabular-nums'>0/5</span></span></span></a><a href='github://mikemartinez1974/public/tasks/method-effects-gate/root.node' title='Enforce Method Effect Declarations' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:9.4cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid #15803d;border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>Enforce Method Effect Declarations</span><span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:100%;background:#15803d'></span></span><span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>Finished</span><span style='flex:none;font-variant-numeric:tabular-nums'>5/5</span></span></span></a><a href='github://mikemartinez1974/public/tasks/method-invocation-identity/root.node' title='Give Every Method Call an Identity' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:9.4cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid #15803d;border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>Give Every Method Call an Identity</span><span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:0%;background:#15803d'></span></span><span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>Cancelled</span><span style='flex:none;font-variant-numeric:tabular-nums'>0/5</span></span></span></a><a href='github://mikemartinez1974/public/tasks/interaction-semantic-zoom-roadmap/root.node' title='Interaction and Semantic Zoom Roadmap' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:9.4cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid #15803d;border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>Interaction and Semantic Zoom Roadmap</span><span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:100%;background:#15803d'></span></span><span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>Finished</span><span style='flex:none;font-variant-numeric:tabular-nums'>7/7</span></span></span></a><a href='github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node' title='Move Failure Policy to the Handler' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:9.4cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid #15803d;border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>Move Failure Policy to the Handler</span><span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:0%;background:#15803d'></span></span><span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>Cancelled</span><span style='flex:none;font-variant-numeric:tabular-nums'>0/5</span></span></span></a><div style='font-size:1.15cqw;color:#64748b;padding:.2cqw 1cqw'>and 2 more</div></div></div></div></div>"
+        },
+        "memo": "",
+        "link": ""
+      }
+    },
+    {
+      "id": "workflow-demo-summary",
+      "type": "face",
+      "label": "Collection Summary",
+      "position": {
+        "x": -760,
+        "y": -100
+      },
+      "width": 480,
+      "height": 433,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "semanticLevel": "summary",
+        "content": {
+          "kind": "html",
+          "value": "<div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;font-family:system-ui,-apple-system,Segoe UI,sans-serif;padding:5cqw;border-radius:4cqw;background:#ffffff;border:1px solid #e2e8f0;display:flex;flex-direction:column;gap:3cqw;overflow:hidden'><div style='display:flex;justify-content:space-between;align-items:flex-end;gap:2cqw'><div style='min-width:0'><div style='font-size:2.8cqw;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6d28d9'>Workflow</div><div style='font-weight:650;font-size:5.6cqw;line-height:1.15;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>My work</div></div><div style='font-size:3.2cqw;color:#475569;white-space:nowrap'>17 graphs</div></div><div style='display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2cqw;margin-top:auto;margin-bottom:auto'><div style='min-width:0;display:flex;flex-direction:column;align-items:center;gap:1.2cqw'><div style='font-size:9cqw;line-height:1;font-weight:700;font-variant-numeric:tabular-nums;color:#64748b'>2</div><div style='font-size:2.6cqw;font-weight:600;color:#475569;white-space:nowrap'>Inbox</div></div><div style='min-width:0;display:flex;flex-direction:column;align-items:center;gap:1.2cqw'><div style='font-size:9cqw;line-height:1;font-weight:700;font-variant-numeric:tabular-nums;color:#2563eb'>2</div><div style='font-size:2.6cqw;font-weight:600;color:#475569;white-space:nowrap'>Now</div></div><div style='min-width:0;display:flex;flex-direction:column;align-items:center;gap:1.2cqw'><div style='font-size:9cqw;line-height:1;font-weight:700;font-variant-numeric:tabular-nums;color:#6d28d9'>4</div><div style='font-size:2.6cqw;font-weight:600;color:#475569;white-space:nowrap'>Needs you</div></div><div style='min-width:0;display:flex;flex-direction:column;align-items:center;gap:1.2cqw'><div style='font-size:9cqw;line-height:1;font-weight:700;font-variant-numeric:tabular-nums;color:#b45309'>2</div><div style='font-size:2.6cqw;font-weight:600;color:#475569;white-space:nowrap'>Waiting</div></div><div style='min-width:0;display:flex;flex-direction:column;align-items:center;gap:1.2cqw'><div style='font-size:9cqw;line-height:1;font-weight:700;font-variant-numeric:tabular-nums;color:#15803d'>7</div><div style='font-size:2.6cqw;font-weight:600;color:#475569;white-space:nowrap'>Done</div></div></div></div></div>"
+        },
+        "memo": "",
+        "link": ""
+      }
+    },
+    {
+      "id": "workflow-demo-glyph",
+      "type": "glyph",
+      "label": "Collection glyph",
+      "position": {
+        "x": -760,
+        "y": 400
+      },
+      "width": 90,
+      "height": 90,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "glyph": {
+          "kind": "icon",
+          "name": "ViewColumn",
+          "color": "#6d28d9"
+        },
+        "view": {
+          "payload": "node.web.glyph"
+        }
+      }
+    },
+    {
+      "id": "workflow-demo-landing",
+      "type": "content",
+      "label": "Workflow landing",
+      "position": {
+        "x": 560,
+        "y": -420
+      },
+      "width": 633.5114535153646,
+      "height": 270.2697209374306,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Workflow\n\nA board of five lanes that fills itself from the work in the graphs it holds. Nothing is set up: a graph moves lane when its work does.\n\n- **Inbox** — not started.\n- **Now** — under way. Keep it small.\n- **Needs you** — all the work is done and the goal is not confirmed, or a question is open. The lane to look at first.\n- **Waiting** — blocked on something, with nothing in progress.\n- **Done** — the work and the goal are done.\n\nA member is a graph the workflow contains through a Portal. Each is read when the workflow is opened, so nothing is copied into it."
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791502752029,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "workflow-demo-derive-method",
+      "type": "method",
+      "label": "Derive the collection views",
+      "position": {
+        "x": 200,
+        "y": 1300
+      },
+      "width": 420,
+      "height": 260,
+      "ports": [
+        {
+          "id": "call",
+          "key": "call",
+          "label": "Call",
+          "direction": "input",
+          "dataType": "event",
+          "angle": 180
+        },
+        {
+          "id": "result",
+          "key": "result",
+          "label": "Result",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 0
+        }
+      ],
+      "handles": [
+        {
+          "id": "call",
+          "key": "call",
+          "label": "Call",
+          "direction": "input",
+          "dataType": "event",
+          "angle": 180,
+          "portId": "call"
+        },
+        {
+          "id": "result",
+          "key": "result",
+          "label": "Result",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 0,
+          "portId": "result"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "scriptName": "Derive the workflow board",
+        "parameters": [],
+        "effects": [
+          {
+            "kind": "update-node",
+            "targets": [
+              "workflow-demo-detail",
+              "workflow-demo-summary",
+              "workflow-demo-glyph",
+              "workflow-demo-declaration",
+              "workflow-demo-collection"
+            ]
+          }
+        ],
+        "allowMutations": true,
+        "dryRun": false,
+        "identity": {
+          "graphId": "workflow-demo-declaration"
+        },
+        "source": "// Derives the workflow's views from the graphs it holds: nothing is typed into a board.\n// A member is a graph the workflow contains through a Portal (a `contains` edge from its members port). Each member is read when the workflow is opened (api.readGraph),\n// and placed in one of five lanes by what its own work says. There is nothing to set up: a graph moves lane when its work does.\n//\n//   Inbox      not started: nothing under way, no work done, and the goal not begun\n//   Now        under way: some work is in progress, or some is done and the rest is still to do\n//   Needs you  waiting for you: all the work is done and the goal is not confirmed, or a question is open\n//   Waiting    blocked on something else, with nothing in progress\n//   Done       all the work is done and the goal is\n//\n// A graph whose goal is finished (done, achieved) or cancelled is in Done, whatever its tasks say. A member's work is its tasks (a cancelled one is not counted), its questions are its open-question nodes that are still open, and its goal is its goal node. The Method writes the\n// Detail (a board, which stretches with its tallest lane up to a square), the Summary (the five counts), the Glyph, and the window that holds them.\nconst clean = (value) => String(value ?? '').trim();\nconst esc = (value) => clean(value)\n  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;').replace(/'/g, '&#39;');\nconst lower = (value) => clean(value).toLowerCase();\nconst INK = '#6d28d9';\nconst LANES = [\n  { id: 'inbox', name: 'Inbox', hint: 'Not started', color: '#64748b' },\n  { id: 'now', name: 'Now', hint: 'Under way', color: '#2563eb' },\n  { id: 'needs', name: 'Needs you', hint: 'Your yes or an answer', color: INK },\n  { id: 'waiting', name: 'Waiting', hint: 'Blocked on something', color: '#b45309' },\n  { id: 'done', name: 'Done', hint: 'Finished', color: '#15803d' }\n];\n\nconst nodes = await api.getNodes();\nconst edges = await api.getEdges();\nconst byId = new Map(nodes.map((node) => [node.id, node]));\nconst root = nodes.find((node) => clean(node.type) === 'root');\nconst collection = nodes.find((node) => clean(node.type) === 'collection');\nconst title = clean(collection?.data?.title || collection?.label) || 'Workflow';\nconst portals = edges\n  .filter((edge) => clean(edge.type) === 'contains' && collection && edge.source === collection.id)\n  .map((edge) => byId.get(edge.target))\n  .filter((node) => node && clean(node.type) === 'portal');\nconst refOf = (portal) => clean(portal.data?.target?.ref || portal.data?.sourceRef || portal.data?.ref);\nconst slugOf = (address) => { const parts = clean(address).replace(/#.*$/, '').split('/').filter(Boolean); const last = parts[parts.length - 1] || ''; return /\\.node$/.test(last) && parts.length > 1 ? parts[parts.length - 2] : last; };\n\n// A goal says it is finished in more than one word, and a goal that was cancelled is closed.\nconst GOAL_FINISHED = ['done', 'achieved', 'complete', 'completed'];\n// Which lane a member belongs in, from its own work.\nconst laneOf = ({ total, done, going, blocked, openQuestions, goalStatus, hasGoal }) => {\n  if (goalStatus === 'cancelled' || GOAL_FINISHED.includes(goalStatus)) return 'done';\n  if (!total && !hasGoal) return 'inbox';\n  if (total && done === total) return !hasGoal ? 'done' : 'needs';\n  // Questions ask for the person once work has begun; a graph nothing has started on is still in the inbox.\n  if (openQuestions > 0 && (done > 0 || going > 0 || goalStatus === 'in-progress')) return 'needs';\n  if (going > 0) return 'now';\n  if (blocked > 0) return 'waiting';\n  if (done > 0 || goalStatus === 'in-progress') return 'now';\n  return 'inbox';\n};\n\nconst read = async (portal) => {\n  const ref = refOf(portal);\n  let graph = null;\n  try { graph = await api.readGraph(ref); } catch (error) { graph = null; }\n  if (!Array.isArray(graph?.nodes)) return { ref, name: clean(portal.label) || slugOf(ref), unread: true };\n  const items = graph.nodes;\n  const rootNode = items.find((node) => clean(node.type) === 'root');\n  const goal = items.find((node) => clean(node.type) === 'goal');\n  const tasks = items.filter((node) => clean(node.type) === 'task' && lower(node.data?.status) !== 'cancelled');\n  const count = (status) => tasks.filter((task) => lower(task.data?.status) === status).length;\n  const done = count('done');\n  const going = count('in-progress');\n  const blocked = count('blocked') + count('waiting');\n  // A question counts once it has been written: one with no title is the blank the template starts with.\n  const openQuestions = items.filter((node) => clean(node.type) === 'open-question' && lower(node.data?.status) === 'open' && clean(node.data?.title || node.label)).length;\n  const facts = { total: tasks.length, done, going, blocked, openQuestions, goalStatus: lower(goal?.data?.status), hasGoal: Boolean(goal) };\n  const next = tasks.find((task) => lower(task.data?.status) === 'in-progress') || tasks.find((task) => !['done', 'blocked', 'waiting'].includes(lower(task.data?.status)));\n  return { ref, name: clean(rootNode?.data?.identity?.name) || clean(portal.label) || slugOf(ref), lane: laneOf(facts), ...facts, next: clean(next?.data?.title || next?.label) };\n};\nconst members = await Promise.all(portals.map(read));\nconst readable = members.filter((member) => !member.unread);\nconst byLane = Object.fromEntries(LANES.map((lane) => [lane.id, []]));\nreadable.forEach((member) => byLane[member.lane].push(member));\nbyLane.needs.sort((a, b) => b.openQuestions - a.openQuestions || a.name.localeCompare(b.name));\nbyLane.now.sort((a, b) => (b.done / Math.max(1, b.total)) - (a.done / Math.max(1, a.total)) || a.name.localeCompare(b.name));\n['inbox', 'waiting', 'done'].forEach((id) => byLane[id].sort((a, b) => a.name.localeCompare(b.name)));\nconst count = readable.length;\nconst needsCount = byLane.needs.length;\n\n// The Detail is 100cqw wide. It starts at 3:2 and stretches with its tallest lane up to a square.\nconst PAD = 3; const HEAD = 11; const LANE_HEAD = 6.2; const TILE = 9.4; const GAP = 1.1; const GUTTER = 1.6;\nconst tallest = Math.max(1, ...LANES.map((lane) => byLane[lane.id].length));\nconst MAX_SHOWN = 6;\nconst shownRows = Math.min(tallest, MAX_SHOWN);\nconst need = 2 * PAD + HEAD + LANE_HEAD + shownRows * (TILE + GAP) + (tallest > MAX_SHOWN ? 4 : 0);\nconst ratio = Math.min(1, Math.max(2 / 3, need / 100));\nconst DETAIL_WIDTH = 900; const SUMMARY_WIDTH = 480;\n\nconst frame = (inner, style) => `<div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;font-family:system-ui,-apple-system,Segoe UI,sans-serif;${style}'>${inner}</div></div>`;\nconst tile = (member, lane) => {\n  const share = member.total ? Math.round((member.done / member.total) * 100) : 0;\n  const line = lane.id === 'done' ? (member.goalStatus === 'cancelled' ? 'Cancelled' : 'Finished')\n    : member.openQuestions ? `${member.openQuestions} open question${member.openQuestions === 1 ? '' : 's'}`\n    : member.next || (member.total ? '' : 'No work yet');\n  return `<a href='${esc(member.ref)}' title='${esc(member.name)}' style='display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;height:${TILE}cqw;padding:.9cqw 1.1cqw;border:1px solid #e2e8f0;border-left:.5cqw solid ${lane.color};border-radius:1cqw;background:#ffffff;text-decoration:none;color:inherit;min-width:0;overflow:hidden'>`\n    + `<span style='display:block;font-weight:600;font-size:1.32cqw;line-height:1.2;color:#0f172a;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical'>${esc(member.name)}</span>`\n    + `<span style='display:block;min-width:0'><span style='display:block;height:.45cqw;border-radius:.3cqw;background:#e2e8f0;overflow:hidden'><span style='display:block;height:100%;width:${share}%;background:${lane.color}'></span></span>`\n    + `<span style='display:flex;justify-content:space-between;gap:.8cqw;margin-top:.45cqw;font-size:1.05cqw;line-height:1.25;color:#475569'><span style='min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>${esc(line)}</span><span style='flex:none;font-variant-numeric:tabular-nums'>${member.done}/${member.total}</span></span></span></a>`;\n};\nconst column = (lane) => {\n  const list = byLane[lane.id];\n  const shown = list.length > MAX_SHOWN ? list.slice(0, MAX_SHOWN - 1) : list;\n  const more = list.length - shown.length;\n  const body = shown.map((member) => tile(member, lane)).join('')\n    + (more > 0 ? `<div style='font-size:1.15cqw;color:#64748b;padding:.2cqw 1cqw'>and ${more} more</div>` : '')\n    + (!list.length ? `<div style='font-size:1.15cqw;color:#94a3b8;padding:.6cqw 1cqw;border:1px dashed #cbd5e1;border-radius:1cqw'>Nothing here</div>` : '');\n  const emphasis = lane.id === 'needs' && list.length ? `background:${INK}12;border-radius:1.2cqw;` : '';\n  return `<div style='min-width:0;display:flex;flex-direction:column;gap:${GAP}cqw;padding:.6cqw;${emphasis}'>`\n    + `<div style='display:flex;align-items:baseline;justify-content:space-between;gap:1cqw;height:${LANE_HEAD - 1}cqw;border-bottom:.25cqw solid ${lane.color}'><span style='font-weight:700;font-size:1.45cqw;color:${lane.color}'>${esc(lane.name)}</span><span style='font-size:1.3cqw;font-variant-numeric:tabular-nums;color:#475569'>${list.length}</span></div>`\n    + body + `</div>`;\n};\nconst detail = frame(\n  `<div style='display:flex;justify-content:space-between;align-items:flex-end;gap:2cqw;height:${HEAD - PAD}cqw'><div style='min-width:0'><div style='font-size:1.15cqw;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:${INK}'>Workflow</div><div style='font-weight:650;font-size:3cqw;line-height:1.15;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>${esc(title)}</div></div>`\n  + `<div style='font-size:1.4cqw;color:#475569;white-space:nowrap'>${count} ${count === 1 ? 'graph' : 'graphs'}${needsCount ? ` · <b style='color:${INK}'>${needsCount} need${needsCount === 1 ? 's' : ''} you</b>` : ''}</div></div>`\n  + `<div style='display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:${GUTTER}cqw;margin-top:1.2cqw'>${LANES.map(column).join('')}</div>`,\n  `padding:${PAD}cqw;border-radius:2.4cqw;background:#f8fafc;border:1px solid #e2e8f0;overflow:hidden`\n);\n\nconst summaryCell = (lane) => `<div style='min-width:0;display:flex;flex-direction:column;align-items:center;gap:1.2cqw'><div style='font-size:9cqw;line-height:1;font-weight:700;font-variant-numeric:tabular-nums;color:${byLane[lane.id].length ? lane.color : '#cbd5e1'}'>${byLane[lane.id].length}</div><div style='font-size:2.6cqw;font-weight:600;color:#475569;white-space:nowrap'>${esc(lane.name)}</div></div>`;\nconst summary = frame(\n  `<div style='display:flex;justify-content:space-between;align-items:flex-end;gap:2cqw'><div style='min-width:0'><div style='font-size:2.8cqw;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:${INK}'>Workflow</div><div style='font-weight:650;font-size:5.6cqw;line-height:1.15;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>${esc(title)}</div></div><div style='font-size:3.2cqw;color:#475569;white-space:nowrap'>${count} ${count === 1 ? 'graph' : 'graphs'}</div></div>`\n  + `<div style='display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2cqw;margin-top:auto;margin-bottom:auto'>${LANES.map(summaryCell).join('')}</div>`,\n  `padding:5cqw;border-radius:4cqw;background:#ffffff;border:1px solid #e2e8f0;display:flex;flex-direction:column;gap:3cqw;overflow:hidden`\n);\n\nconst faces = nodes.filter((node) => clean(node.type) === 'face');\nconst faceFor = (level) => faces.find((node) => clean(node.data?.semanticLevel) === level);\nconst glyph = nodes.find((node) => clean(node.type) === 'glyph');\nconst detailFace = faceFor('detail');\nconst summaryFace = faceFor('summary');\nconst size = (width) => ({ width, height: Math.round(width * ratio) });\nif (detailFace) {\n  await api.updateView(detailFace.id, { content: { kind: 'html', value: detail }, view: { ...(detailFace.data?.view || {}), scroll: 'page' } });\n  await api.updateNode(detailFace.id, size(DETAIL_WIDTH));\n}\nif (summaryFace) {\n  await api.updateView(summaryFace.id, { content: { kind: 'html', value: summary } });\n  await api.updateNode(summaryFace.id, size(SUMMARY_WIDTH));\n}\n// The glyph says whether something is waiting for you.\nif (glyph) await api.updateNode(glyph.id, { data: { ...glyph.data, glyph: { kind: 'icon', name: 'ViewColumn', color: needsCount ? INK : '#15803d' } } });\n\n// The window is the Detail's shape and holds everything the graph has.\nif (root) {\n  const placed = nodes.filter((node) => node.position).map((node) => (node === detailFace ? { ...node, ...size(DETAIL_WIDTH) } : node === summaryFace ? { ...node, ...size(SUMMARY_WIDTH) } : node));\n  const pad = 80;\n  let x0 = Math.min(...placed.map((node) => node.position.x)) - pad;\n  let y0 = Math.min(...placed.map((node) => node.position.y)) - pad;\n  let w = Math.max(...placed.map((node) => node.position.x + node.width)) + pad - x0;\n  let h = Math.max(...placed.map((node) => node.position.y + node.height)) + pad - y0;\n  if (w / h < 1 / ratio) { const next = Math.round(h / ratio); x0 -= Math.round((next - w) / 2); w = next; } else { const next = Math.round(w * ratio); y0 -= Math.round((next - h) / 2); h = next; }\n  await api.updateNode(root.id, { data: { ...root.data, membrane: { ...(root.data?.membrane || {}), bounds: { x: Math.round(x0), y: Math.round(y0), width: w, height: h } } } });\n}\nreturn { members: count, unread: members.length - count, lanes: Object.fromEntries(LANES.map((lane) => [lane.id, byLane[lane.id].map((member) => member.name)])), ratio: Math.round(ratio * 1000) / 1000 };\n"
+      }
+    },
+    {
+      "id": "workflow-demo-bridge-collection",
+      "type": "import",
+      "label": "Collection Class",
+      "position": {
+        "x": 700,
+        "y": 1300
+      },
+      "width": 320,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "position": {
+            "side": "top",
+            "offset": 0.2
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workflow-demo-declaration"
+        },
+        "bridge": {
+          "ref": "tlz://twilite.zone/library/classes/nodes/collection/collection.node-class.node",
+          "resourceKind": "node-class",
+          "key": "collection",
+          "scope": "focused-graph",
+          "grants": [
+            "read",
+            "create",
+            "update"
+          ]
+        }
+      }
+    },
+    {
+      "id": "workflow-demo-collection",
+      "type": "collection",
+      "label": "My work",
+      "position": {
+        "x": 680,
+        "y": 200
+      },
+      "width": 420,
+      "height": 240,
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "title": "My work",
+        "body": "Every task graph I have, in the lane its work puts it in.",
+        "sort": "order",
+        "includeFolder": false,
+        "sourcesSummary": "",
+        "identity": {
+          "graphId": "workflow-demo-declaration",
+          "nodeId": "workflow-demo-collection"
+        },
+        "classRef": "tlz://twilite.zone/library/classes/nodes/collection/collection.node-class.node"
+      },
+      "ports": [
+        {
+          "id": "members",
+          "key": "members",
+          "label": "members",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": true,
+            "targetKinds": [
+              "portal"
+            ]
+          }
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        },
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 250
+        }
+      ],
+      "handles": [
+        {
+          "id": "members",
+          "key": "members",
+          "label": "members",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": true,
+            "targetKinds": [
+              "portal"
+            ]
+          },
+          "portId": "members"
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        },
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 250,
+          "portId": "root"
+        }
+      ]
+    },
+    {
+      "id": "workflow-demo-environment",
+      "type": "face",
+      "label": "Collection environment",
+      "position": {
+        "x": -760,
+        "y": 560
+      },
+      "width": 400,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.environment"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;background-color:#0b1220;background-image:linear-gradient(rgba(148,163,184,.07) 0.08cqw,transparent 0.08cqw),linear-gradient(90deg,rgba(148,163,184,.07) 0.08cqw,transparent 0.08cqw);background-size:2cqw 2cqw'></div></div>"
+        }
+      }
+    },
+    {
+      "id": "workflow-demo-member-workspace-connections",
+      "type": "portal",
+      "label": "Workspace connections",
+      "position": {
+        "x": 200,
+        "y": 560
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/workspace-connections/root.node",
+        "sourceNodeId": "workspace-connections",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/workspace-connections/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Workspace connections"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-canon-templates-in-order",
+      "type": "portal",
+      "label": "Canon templates in order",
+      "position": {
+        "x": 680,
+        "y": 560
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/canon-templates-in-order/root.node",
+        "sourceNodeId": "canon-templates-in-order",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/canon-templates-in-order/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Canon templates in order"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-library-made-current",
+      "type": "portal",
+      "label": "The library, made current",
+      "position": {
+        "x": 1160,
+        "y": 560
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/library-made-current/root.node",
+        "sourceNodeId": "library-made-current",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/library-made-current/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open The library, made current"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-properties-and-authoring-contract",
+      "type": "portal",
+      "label": "The Properties panel and the authoring contract",
+      "position": {
+        "x": 1640,
+        "y": 560
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/properties-and-authoring-contract/root.node",
+        "sourceNodeId": "properties-and-authoring-contract",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/properties-and-authoring-contract/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open The Properties panel and the authoring contract"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-chat-node-provenance",
+      "type": "portal",
+      "label": "Create the Chat Provenance Node",
+      "position": {
+        "x": 2120,
+        "y": 560
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/chat-node-provenance/root.node",
+        "sourceNodeId": "chat-node-provenance",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/chat-node-provenance/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Create the Chat Provenance Node"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-primitives-self-documenting",
+      "type": "portal",
+      "label": "Primitives, self-documenting",
+      "position": {
+        "x": 2600,
+        "y": 560
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/primitives-self-documenting/root.node",
+        "sourceNodeId": "primitives-self-documenting",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/primitives-self-documenting/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Primitives, self-documenting"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-bridge-editor-events",
+      "type": "portal",
+      "label": "Show Events in the Bridge Editor",
+      "position": {
+        "x": 3080,
+        "y": 560
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/bridge-editor-events/root.node",
+        "sourceNodeId": "bridge-editor-events",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/bridge-editor-events/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Show Events in the Bridge Editor"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-bridge-class-scoped-events",
+      "type": "portal",
+      "label": "Carry Class Events Across Bridges",
+      "position": {
+        "x": 200,
+        "y": 860
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/bridge-class-scoped-events/root.node",
+        "sourceNodeId": "bridge-class-scoped-events",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/bridge-class-scoped-events/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Carry Class Events Across Bridges"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-workspace-topological-adjacency",
+      "type": "portal",
+      "label": "Workspace Topological Adjacency",
+      "position": {
+        "x": 680,
+        "y": 860
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/workspace-topological-adjacency/root.node",
+        "sourceNodeId": "workspace-topological-adjacency",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/workspace-topological-adjacency/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Workspace Topological Adjacency"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-authoring-contract-enforcement",
+      "type": "portal",
+      "label": "The code does what the authoring contract says",
+      "position": {
+        "x": 1160,
+        "y": 860
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/authoring-contract-enforcement/root.node",
+        "sourceNodeId": "authoring-contract-enforcement",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/authoring-contract-enforcement/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open The code does what the authoring contract says"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-interaction-semantic-zoom-roadmap",
+      "type": "portal",
+      "label": "Interaction and Semantic Zoom Roadmap",
+      "position": {
+        "x": 1640,
+        "y": 860
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/interaction-semantic-zoom-roadmap/root.node",
+        "sourceNodeId": "interaction-semantic-zoom-roadmap",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/interaction-semantic-zoom-roadmap/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Interaction and Semantic Zoom Roadmap"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-template-video-ui-polish",
+      "type": "portal",
+      "label": "Template Video and UI Polish",
+      "position": {
+        "x": 2120,
+        "y": 860
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/template-video-ui-polish/root.node",
+        "sourceNodeId": "template-video-ui-polish",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/template-video-ui-polish/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Template Video and UI Polish"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-workspace-graph-space-unification",
+      "type": "portal",
+      "label": "Unify workspace and graph space",
+      "position": {
+        "x": 2600,
+        "y": 860
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/workspace-graph-space-unification/root.node",
+        "sourceNodeId": "workspace-graph-space-unification",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/workspace-graph-space-unification/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Unify workspace and graph space"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-method-effects-gate",
+      "type": "portal",
+      "label": "Enforce Method Effect Declarations",
+      "position": {
+        "x": 3080,
+        "y": 860
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
+        "sourceNodeId": "method-effects-gate",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/method-effects-gate/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Enforce Method Effect Declarations"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-method-invocation-identity",
+      "type": "portal",
+      "label": "Give Every Method Call an Identity",
+      "position": {
+        "x": 200,
+        "y": 1160
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
+        "sourceNodeId": "method-invocation-identity",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/method-invocation-identity/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Give Every Method Call an Identity"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-handler-method-failure-policy",
+      "type": "portal",
+      "label": "Move Failure Policy to the Handler",
+      "position": {
+        "x": 680,
+        "y": 1160
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
+        "sourceNodeId": "handler-method-failure-policy",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/handler-method-failure-policy/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Move Failure Policy to the Handler"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "workflow-demo-member-graph-scoped-skills",
+      "type": "portal",
+      "label": "Graph-Scoped Skills",
+      "position": {
+        "x": 1160,
+        "y": 1160
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/tasks/graph-scoped-skills/root.node",
+        "sourceNodeId": "graph-scoped-skills",
+        "target": {
+          "ref": "github://mikemartinez1974/public/tasks/graph-scoped-skills/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Graph-Scoped Skills"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "workflow-demo"
+        },
+        "security": "prompt"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "workflow-demo-landing-edge",
+      "type": "ground",
+      "source": "workflow-demo-declaration",
+      "target": "workflow-demo-landing",
+      "sourcePort": "ground",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "presentation": {
+          "layer": "contract"
+        }
+      }
+    },
+    {
+      "id": "assemble-updates-summary",
+      "type": "derived-view",
+      "source": "workflow-demo-derive-method",
+      "target": "workflow-demo-summary",
+      "sourcePort": "result",
+      "targetPort": "root",
+      "label": "derives",
+      "style": {
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "assemble-updates-detail",
+      "type": "derived-view",
+      "source": "workflow-demo-derive-method",
+      "target": "workflow-demo-detail",
+      "sourcePort": "result",
+      "targetPort": "root",
+      "label": "derives",
+      "style": {
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-surface",
+      "type": "surface",
+      "source": "workflow-demo-declaration",
+      "target": "workflow-demo-detail",
+      "sourcePort": "surfaces",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {
+        "surfaceId": "web"
+      }
+    },
+    {
+      "id": "workflow-demo-detail-summary",
+      "type": "next-face",
+      "source": "workflow-demo-detail",
+      "target": "workflow-demo-summary",
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "graph-changed-invokes-assemble",
+      "type": "invokes",
+      "source": "workflow-demo-declaration",
+      "target": "workflow-demo-derive-method",
+      "sourcePort": "event:graph.changed",
+      "targetPort": "invokes",
+      "label": "invokes",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "classRef": "tlz://twilite.zone/library/edges/invokes/root.node"
+      }
+    },
+    {
+      "id": "workflow-demo-derive-updates-glyph",
+      "type": "derived-view",
+      "source": "workflow-demo-derive-method",
+      "target": "workflow-demo-glyph",
+      "sourcePort": "result",
+      "targetPort": "root",
+      "label": "derives",
+      "style": {
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-summary-to-glyph",
+      "type": "next-face",
+      "source": "workflow-demo-summary",
+      "target": "workflow-demo-glyph",
+      "sourcePort": "sequence-out",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-environment",
+      "type": "environment",
+      "source": "workflow-demo-declaration",
+      "target": "workflow-demo-environment",
+      "sourcePort": "environment",
+      "targetPort": "root",
+      "label": "",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "classRef": "tlz://twilite.zone/library/edges/environment/root.node"
+      }
+    },
+    {
+      "id": "workflow-demo-edge-contains-workspace-connections",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-workspace-connections",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-canon-templates-in-order",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-canon-templates-in-order",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-library-made-current",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-library-made-current",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-properties-and-authoring-contract",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-properties-and-authoring-contract",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-chat-node-provenance",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-chat-node-provenance",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-primitives-self-documenting",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-primitives-self-documenting",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-bridge-editor-events",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-bridge-editor-events",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-bridge-class-scoped-events",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-bridge-class-scoped-events",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-workspace-topological-adjacency",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-workspace-topological-adjacency",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-authoring-contract-enforcement",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-authoring-contract-enforcement",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-interaction-semantic-zoom-roadmap",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-interaction-semantic-zoom-roadmap",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-template-video-ui-polish",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-template-video-ui-polish",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-workspace-graph-space-unification",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-workspace-graph-space-unification",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-method-effects-gate",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-method-effects-gate",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-method-invocation-identity",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-method-invocation-identity",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-handler-method-failure-policy",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-handler-method-failure-policy",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "workflow-demo-edge-contains-graph-scoped-skills",
+      "type": "contains",
+      "source": "workflow-demo-collection",
+      "target": "workflow-demo-member-graph-scoped-skills",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    }
+  ],
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": {
+      "mode": "manual",
+      "defaultLayout": "layered",
+      "direction": "DOWN",
+      "edgeLaneGapPx": 10,
+      "serpentine": {
+        "maxPerRow": 6
+      },
+      "cycleFallback": {
+        "enabled": true
+      },
+      "elk": {
+        "algorithm": "fixed",
+        "edgeRouting": "ORTHOGONAL",
+        "portConstraints": "FIXED_SIDE",
+        "nodeSpacing": 120,
+        "layeredEdgeSpacing": 80
+      }
+    },
+    "github": {
+      "repo": "mikemartinez1974/public",
+      "path": "graphs/workflow-demo/root.node",
+      "branch": "main",
+      "autoCreateRepo": true,
+      "repoVisibility": "private",
+      "seedOnCommit": false,
+      "enableGithubPages": false,
+      "installationId": ""
+    },
+    "autoSave": false
+  },
+  "scripts": []
+}
