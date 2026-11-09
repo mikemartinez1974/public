@@ -1,7 +1,7 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "modified": "2026-11-09T00:43:58.611Z",
+    "modified": "2026-11-09T00:48:10.440Z",
     "tags": [
       "smoke-test",
       "demo"
@@ -2189,7 +2189,7 @@
       "width": 420,
       "height": 230,
       "data": {
-        "source": "// Declares an update of Log only. Changing Quorum is not declared, so the host refuses it.\nconst nodes = await api.getNodes();\nconst log = nodes.find((n) => n.id === 'method-demo-log');\nconst quorum = nodes.find((n) => n.id === 'method-demo-quorum');\nlet note;\ntry {\n  await api.updateNode(quorum.id, { data: { ...quorum.data, value: false } });\n  note = 'NOT refused: it changed Quorum.';\n} catch (error) {\n  note = 'Refused: ' + error.message;\n}\nawait api.updateNode(log.id, { data: { ...log.data, value: note } });",
+        "source": "// Declares an update of Log only. Changing Quorum is not declared, so the host refuses it.\nconst nodes = await api.getNodes();\nconst log = nodes.find((n) => n.id === 'method-demo-log');\nconst quorum = nodes.find((n) => n.id === 'method-demo-quorum');\nlet note;\ntry {\n  await api.updateNode(quorum.id, { data: { ...quorum.data, value: false } });\n  note = 'NOT refused: it changed Quorum.';\n} catch (error) {\n  note = 'Refused: ' + String(error?.message ?? error);\n}\nawait api.updateNode(log.id, { data: { ...log.data, value: note } });",
         "scriptName": "Overreach",
         "parameters": [],
         "allowMutations": true,
@@ -2220,7 +2220,7 @@
       "width": 420,
       "height": 230,
       "data": {
-        "source": "// Declares no effects, so it can only read. Any write is refused.\nconst nodes = await api.getNodes();\nconst log = nodes.find((n) => n.id === 'method-demo-log');\ntry {\n  await api.updateNode(log.id, { data: { ...log.data, value: 'NOT refused' } });\n  return 'NOT refused';\n} catch (error) {\n  return 'Refused: ' + error.message;\n}",
+        "source": "// Declares no effects, so it can only read. Any write is refused.\nconst nodes = await api.getNodes();\nconst log = nodes.find((n) => n.id === 'method-demo-log');\ntry {\n  await api.updateNode(log.id, { data: { ...log.data, value: 'NOT refused' } });\n  return 'NOT refused';\n} catch (error) {\n  return 'Refused: ' + String(error?.message ?? error);\n}",
         "scriptName": "Nosy (declares nothing)",
         "parameters": [],
         "allowMutations": false,
