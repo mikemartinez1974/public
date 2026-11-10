@@ -229,7 +229,23 @@
             "version": 1,
             "implicitRootPort": true
           }
-        }
+        },
+        "events": [
+          {
+            "eventKey": "graph.opened",
+            "label": "Graph opened",
+            "payloadContract": {
+              "type": "object"
+            }
+          },
+          {
+            "eventKey": "graph.changed",
+            "label": "Graph changed",
+            "payloadContract": {
+              "type": "object"
+            }
+          }
+        ]
       },
       "handles": [
         {
@@ -1489,177 +1505,33 @@
     },
     {
       "id": "template-video-ui-polish-updater",
-      "type": "script",
+      "type": "method",
       "label": "Node Updater",
       "position": {
         "x": 1160,
         "y": -560
       },
-      "width": 637.0022432121715,
-      "height": 532.8285252306212,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 360
-        }
-      ],
+      "width": 420,
+      "height": 230,
       "visible": false,
-      "showLabel": true,
       "data": {
+        "source": "const SUMMARY_ID = 'template-video-ui-polish-summary';\nconst done = new Set(['done', 'complete', 'completed', 'closed']);\nconst answered = new Set(['answered', 'done', 'resolved', 'closed']);\nconst norm = (value) => String(value || '').trim().toLowerCase();\nconst nodes = await api.getNodes();\nconst summary = nodes.find((node) => node?.id === SUMMARY_ID);\nconst goal = nodes.find((node) => node?.type === 'goal');\nconst tasks = nodes.filter((node) => node?.type === 'task');\nconst questions = nodes.filter((node) => node?.type === 'open-question');\nif (!summary || !goal) return { success: false, error: 'Goal or summary node missing' };\nconst taskTitles = tasks.map((node) => String(node?.data?.title || node?.label || 'Untitled task'));\nconst questionTitles = questions.map((node) => String(node?.label || 'Untitled question'));\nconst completed = tasks.filter((node) => done.has(norm(node?.data?.status))).length;\nconst answeredCount = questions.filter((node) => answered.has(norm(node?.data?.status))).length;\nconst derived = {\n  goal: goal.label,\n  status: norm(goal?.data?.status) || 'todo',\n  priority: goal?.data?.priority || 'medium',\n  owner: goal?.data?.owner || '',\n  targetDate: goal?.data?.targetDate || '',\n  taskProgress: { completed, total: tasks.length },\n  questionProgress: { answered: answeredCount, total: questions.length },\n  taskTitles,\n  questionTitles,\n  taskListText: taskTitles.length ? taskTitles.map((title, index) => `${index + 1}. ${title}`).join('\\n') : 'No tasks listed.',\n  questionListText: questionTitles.length ? questionTitles.map((title, index) => `${index + 1}. ${title}`).join('\\n') : 'No open questions.',\n  summarySource: 'node-updater'\n};\nconst current = summary.data || {};\nconst unchanged = Object.entries(derived).every(([key, value]) => JSON.stringify(current[key]) === JSON.stringify(value));\nif (unchanged) return { success: true, updated: false, summary: current };\nconst nextData = { ...current, ...derived, updatedAt: new Date().toISOString() };\nawait api.updateNode(SUMMARY_ID, { data: nextData });\nreturn { success: true, updated: true, summary: nextData };",
         "scriptName": "Template Video and UI Polish Updater",
-        "summaryNodeId": "template-video-ui-polish-summary",
-        "autoRun": true,
-        "autoRunOnGraphChange": true,
-        "autoRunOnLoad": true,
+        "parameters": [],
         "allowMutations": true,
         "dryRun": false,
-        "source": "const SUMMARY_ID = 'template-video-ui-polish-summary';\nconst done = new Set(['done', 'complete', 'completed', 'closed']);\nconst answered = new Set(['answered', 'done', 'resolved', 'closed']);\nconst norm = (value) => String(value || '').trim().toLowerCase();\nconst nodes = await api.getNodes();\nconst summary = nodes.find((node) => node?.id === SUMMARY_ID);\nconst goal = nodes.find((node) => node?.type === 'goal');\nconst tasks = nodes.filter((node) => node?.type === 'task');\nconst questions = nodes.filter((node) => node?.type === 'open-question');\nif (!summary || !goal) return { success: false, error: 'Goal or summary node missing' };\nconst taskTitles = tasks.map((node) => String(node?.data?.title || node?.label || 'Untitled task'));\nconst questionTitles = questions.map((node) => String(node?.label || 'Untitled question'));\nconst completed = tasks.filter((node) => done.has(norm(node?.data?.status))).length;\nconst answeredCount = questions.filter((node) => answered.has(norm(node?.data?.status))).length;\nconst derived = {\n  goal: goal.label,\n  status: norm(goal?.data?.status) || 'todo',\n  priority: goal?.data?.priority || 'medium',\n  owner: goal?.data?.owner || '',\n  targetDate: goal?.data?.targetDate || '',\n  taskProgress: { completed, total: tasks.length },\n  questionProgress: { answered: answeredCount, total: questions.length },\n  taskTitles,\n  questionTitles,\n  taskListText: taskTitles.length ? taskTitles.map((title, index) => `${index + 1}. ${title}`).join('\\n') : 'No tasks listed.',\n  questionListText: questionTitles.length ? questionTitles.map((title, index) => `${index + 1}. ${title}`).join('\\n') : 'No open questions.',\n  summarySource: 'node-updater'\n};\nconst current = summary.data || {};\nconst unchanged = Object.entries(derived).every(([key, value]) => JSON.stringify(current[key]) === JSON.stringify(value));\nif (unchanged) return { success: true, updated: false, summary: current };\nconst nextData = { ...current, ...derived, updatedAt: new Date().toISOString() };\nawait api.updateNode(SUMMARY_ID, { data: nextData });\nreturn { success: true, updated: true, summary: nextData };",
+        "effects": [
+          {
+            "kind": "update-node",
+            "targets": [
+              "template-video-ui-polish-summary"
+            ]
+          }
+        ],
         "identity": {
-          "graphId": "template-video-ui-polish"
-        },
-        "_semanticLevel": "detail",
-        "scriptId": "",
-        "lastResult": {
-          "type": "scriptResult",
-          "success": true,
-          "result": {
-            "success": true,
-            "updated": false,
-            "summary": {
-              "goal": "Publish a polished person-template demonstration",
-              "status": "in-progress",
-              "viewRole": "document",
-              "taskProgress": {
-                "completed": 3,
-                "total": 7
-              },
-              "questionProgress": {
-                "answered": 0,
-                "total": 1
-              },
-              "summarySource": "node-updater",
-              "nodeViewPayload": "node.web",
-              "taskTitles": [
-                "Audit the five critical edit panels",
-                "Define the shared edit-panel grammar",
-                "Polish Declaration and Port editors",
-                "Polish Markdown, SVG, and Person editors",
-                "Harden the person-template workflow",
-                "Write and rehearse the template demonstration",
-                "Record and publish the template video"
-              ],
-              "questionTitles": [
-                "Who should anchor the person-template demonstration?"
-              ],
-              "taskListText": "1. Audit the five critical edit panels\n2. Define the shared edit-panel grammar\n3. Polish Declaration and Port editors\n4. Polish Markdown, SVG, and Person editors\n5. Harden the person-template workflow\n6. Write and rehearse the template demonstration\n7. Record and publish the template video",
-              "questionListText": "1. Who should anchor the person-template demonstration?",
-              "definitionKey": "summary",
-              "_classBinding": {
-                "key": "summary",
-                "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-                "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-                "views": [
-                  {
-                    "key": "summary",
-                    "intent": "node",
-                    "payload": "node.web",
-                    "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-                    "source": "external",
-                    "version": ">=0.2.0"
-                  },
-                  {
-                    "key": "summary",
-                    "intent": "editor",
-                    "payload": "editor.web",
-                    "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-                    "source": "external",
-                    "version": ">=0.2.0"
-                  }
-                ],
-                "nodeView": {
-                  "key": "summary",
-                  "intent": "node",
-                  "payload": "node.web",
-                  "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-                  "source": "external",
-                  "version": ">=0.2.0"
-                },
-                "editorView": {
-                  "key": "summary",
-                  "intent": "editor",
-                  "payload": "editor.web",
-                  "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-                  "source": "external",
-                  "version": ">=0.2.0"
-                }
-              },
-              "_bridge": {
-                "sourceNodeId": "template-video-ui-polish-bridge-summary",
-                "sourceBridgeNodeId": "template-video-ui-polish-bridge-summary",
-                "sourceBridgeLabel": "Summary",
-                "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-                "entryPort": "root",
-                "kind": "node-class",
-                "targetKind": "node-class",
-                "classKey": "summary",
-                "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node"
-              },
-              "updatedAt": "2026-07-31T22:38:48.494Z",
-              "identity": {
-                "graphId": "template-video-ui-polish"
-              },
-              "priority": "high",
-              "owner": "Michael",
-              "targetDate": "",
-              "nextAction": "Polish Markdown, SVG, and Person editors, then verify them in both browser themes.",
-              "blockedReason": "",
-              "health": "on-track",
-              "memo": "",
-              "link": ""
-            }
-          },
-          "runId": "1785537964224_tcfqduidxp",
-          "nodeId": "template-video-ui-polish-updater",
-          "sourceNodeId": "template-video-ui-polish-updater",
-          "hook": null,
-          "lifecycle": false,
-          "token": "odt68b074fmms9irtgk"
-        },
-        "lastRunAt": 1785537964274,
-        "scriptRef": "",
-        "memo": "",
-        "link": ""
+          "graphId": "template-video-ui-polish-declaration",
+          "nodeId": "template-video-ui-polish-updater"
+        }
       }
     },
     {
@@ -2313,20 +2185,6 @@
       "data": {}
     },
     {
-      "id": "template-video-ui-polish-edge-updater-summary",
-      "type": "edge",
-      "source": "template-video-ui-polish-updater",
-      "target": "template-video-ui-polish-summary",
-      "sourcePort": "left",
-      "targetPort": "right",
-      "label": "updates",
-      "style": {
-        "curved": true,
-        "route": "curved"
-      },
-      "data": {}
-    },
-    {
       "id": "template-video-ui-polish-edge-goal-audit",
       "type": "edge",
       "source": "template-video-ui-polish-goal",
@@ -2499,6 +2357,36 @@
       "targetPort": "root",
       "label": "port",
       "data": {}
+    },
+    {
+      "id": "template-video-ui-polish-declaration-graph-opened-invokes-template-video-ui-polish-updater",
+      "type": "invokes",
+      "source": "template-video-ui-polish-declaration",
+      "target": "template-video-ui-polish-updater",
+      "label": "invokes",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "classRef": "tlz://twilite.zone/library/edges/invokes/root.node"
+      },
+      "sourcePort": "event:graph.opened",
+      "targetPort": "invokes"
+    },
+    {
+      "id": "template-video-ui-polish-declaration-graph-changed-invokes-template-video-ui-polish-updater",
+      "type": "invokes",
+      "source": "template-video-ui-polish-declaration",
+      "target": "template-video-ui-polish-updater",
+      "label": "invokes",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "classRef": "tlz://twilite.zone/library/edges/invokes/root.node"
+      },
+      "sourcePort": "event:graph.changed",
+      "targetPort": "invokes"
     }
   ],
   "settings": {
