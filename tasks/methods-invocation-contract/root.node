@@ -161,7 +161,16 @@
             "Provider and receiver are distinct; declared effects bound authority, observed effects describe outcomes.",
             "A bounded first runtime slice is planned; execution language, persistence, retries, and Events remain open."
           ]
-        }
+        },
+        "events": [
+          {
+            "eventKey": "graph.opened",
+            "label": "Graph opened",
+            "payloadContract": {
+              "type": "object"
+            }
+          }
+        ]
       }
     },
     {
@@ -1474,65 +1483,33 @@
     },
     {
       "id": "methods-invocation-contract-updater",
-      "type": "script",
+      "type": "method",
       "label": "Summary Updater",
       "position": {
         "x": -1050,
         "y": -300
       },
       "width": 420,
-      "height": 260,
+      "height": 230,
       "visible": false,
-      "showLabel": true,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        }
-      ],
       "data": {
-        "identity": {
-          "graphId": "methods-invocation-contract-task"
-        },
+        "source": "const SUMMARY='methods-invocation-contract-summary';const DONE=new Set(['done','complete','completed','closed']);const ANSWERED=new Set(['answered','resolved','done','closed']);const norm=v=>String(v||'').trim().toLowerCase();const nodes=await api.getNodes();const summary=nodes.find(n=>n.id===SUMMARY);const goal=nodes.find(n=>n.type==='goal');const tasks=nodes.filter(n=>n.type==='task').sort((a,b)=>(a.position?.y??0)-(b.position?.y??0)||(a.position?.x??0)-(b.position?.x??0));const questions=nodes.filter(n=>n.type==='open-question').sort((a,b)=>(a.position?.y??0)-(b.position?.y??0)||(a.position?.x??0)-(b.position?.x??0));if(!summary)return{success:false,error:'Summary node missing'};const completed=tasks.filter(n=>DONE.has(norm(n.data?.status))).length;const answered=questions.filter(n=>ANSWERED.has(norm(n.data?.status))).length;const next={...(summary.data||{}),goal:goal?.label||summary.data?.goal||'Task graph',title:goal?.label||summary.data?.goal||'Task graph',body:'Goal: '+(goal?.label||summary.data?.goal||'Task graph')+'\\nStatus: '+(norm(goal?.data?.status)||'todo')+'\\n\\nTasks in scope:\\n'+tasks.map((n,i)=>(i+1)+'. '+(n.data?.title||n.label)).join('\\n')+'\\n\\nOpen questions:\\n'+questions.map((n,i)=>(i+1)+'. '+n.label).join('\\n'),status:norm(goal?.data?.status)||'todo',priority:goal?.data?.priority||summary.data?.priority||'medium',owner:goal?.data?.owner||summary.data?.owner||'',taskProgress:{completed,total:tasks.length},questionProgress:{answered,total:questions.length},taskTitles:tasks.map(n=>n.data?.title||n.label),questionTitles:questions.map(n=>n.label),taskListText:tasks.map((n,i)=>(i+1)+'. '+(n.data?.title||n.label)).join('\\n'),questionListText:questions.map((n,i)=>(i+1)+'. '+n.label).join('\\n'),summarySource:'node-updater',updatedAt:new Date().toISOString()};await api.updateNode(SUMMARY,{data:next});return{success:true,summary:next};",
         "scriptName": "Methods Invocation Summary Updater",
-        "summaryNodeId": "methods-invocation-contract-summary",
-        "autoRun": true,
-        "autoRunOnGraphChange": false,
-        "autoRunOnLoad": true,
+        "parameters": [],
         "allowMutations": true,
         "dryRun": false,
-        "source": "const SUMMARY='methods-invocation-contract-summary';const DONE=new Set(['done','complete','completed','closed']);const ANSWERED=new Set(['answered','resolved','done','closed']);const norm=v=>String(v||'').trim().toLowerCase();const nodes=await api.getNodes();const summary=nodes.find(n=>n.id===SUMMARY);const goal=nodes.find(n=>n.type==='goal');const tasks=nodes.filter(n=>n.type==='task').sort((a,b)=>(a.position?.y??0)-(b.position?.y??0)||(a.position?.x??0)-(b.position?.x??0));const questions=nodes.filter(n=>n.type==='open-question').sort((a,b)=>(a.position?.y??0)-(b.position?.y??0)||(a.position?.x??0)-(b.position?.x??0));if(!summary)return{success:false,error:'Summary node missing'};const completed=tasks.filter(n=>DONE.has(norm(n.data?.status))).length;const answered=questions.filter(n=>ANSWERED.has(norm(n.data?.status))).length;const next={...(summary.data||{}),goal:goal?.label||summary.data?.goal||'Task graph',title:goal?.label||summary.data?.goal||'Task graph',body:'Goal: '+(goal?.label||summary.data?.goal||'Task graph')+'\\nStatus: '+(norm(goal?.data?.status)||'todo')+'\\n\\nTasks in scope:\\n'+tasks.map((n,i)=>(i+1)+'. '+(n.data?.title||n.label)).join('\\n')+'\\n\\nOpen questions:\\n'+questions.map((n,i)=>(i+1)+'. '+n.label).join('\\n'),status:norm(goal?.data?.status)||'todo',priority:goal?.data?.priority||summary.data?.priority||'medium',owner:goal?.data?.owner||summary.data?.owner||'',taskProgress:{completed,total:tasks.length},questionProgress:{answered,total:questions.length},taskTitles:tasks.map(n=>n.data?.title||n.label),questionTitles:questions.map(n=>n.label),taskListText:tasks.map((n,i)=>(i+1)+'. '+(n.data?.title||n.label)).join('\\n'),questionListText:questions.map((n,i)=>(i+1)+'. '+n.label).join('\\n'),summarySource:'node-updater',updatedAt:new Date().toISOString()};await api.updateNode(SUMMARY,{data:next});return{success:true,summary:next};"
+        "effects": [
+          {
+            "kind": "update-node",
+            "targets": [
+              "methods-invocation-contract-summary"
+            ]
+          }
+        ],
+        "identity": {
+          "graphId": "methods-invocation-contract-task",
+          "nodeId": "methods-invocation-contract-updater"
+        }
       }
     },
     {
@@ -2010,6 +1987,21 @@
       "data": {},
       "sourcePort": "root",
       "targetPort": "root"
+    },
+    {
+      "id": "methods-invocation-contract-declaration-graph-opened-invokes-methods-invocation-contract-updater",
+      "type": "invokes",
+      "source": "methods-invocation-contract-declaration",
+      "target": "methods-invocation-contract-updater",
+      "label": "invokes",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "classRef": "tlz://twilite.zone/library/edges/invokes/root.node"
+      },
+      "sourcePort": "event:graph.opened",
+      "targetPort": "invokes"
     }
   ],
   "settings": {

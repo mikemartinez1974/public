@@ -337,7 +337,16 @@
           "primaryEditorViewId": "",
           "iconViewNodeId": "edge-endpoint-reassignment-task-icon-view",
           "portViewNodeId": "edge-endpoint-reassignment-task-view"
-        }
+        },
+        "events": [
+          {
+            "eventKey": "graph.opened",
+            "label": "Graph opened",
+            "payloadContract": {
+              "type": "object"
+            }
+          }
+        ]
       }
     },
     {
@@ -1544,165 +1553,33 @@
     },
     {
       "id": "edge-endpoint-reassignment-task-updater",
-      "type": "script",
+      "type": "method",
       "label": "Node Updater",
       "position": {
         "x": -80,
         "y": 1360
       },
-      "width": 320,
-      "height": 190,
-      "handles": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 360
-        }
-      ],
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 360
-        }
-      ],
-      "inputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "root",
-          "label": "root",
-          "type": "any"
-        },
-        {
-          "key": "top",
-          "label": "top",
-          "type": "value"
-        },
-        {
-          "key": "left",
-          "label": "left",
-          "type": "value"
-        },
-        {
-          "key": "bottom",
-          "label": "bottom",
-          "type": "value"
-        },
-        {
-          "key": "right",
-          "label": "right",
-          "type": "value"
-        }
-      ],
+      "width": 420,
+      "height": 230,
       "visible": true,
-      "showLabel": true,
       "data": {
+        "source": "const SUMMARY_NODE_ID = 'edge-endpoint-reassignment-task-summary';\nconst SUMMARY_TASK_NODE_ID = 'edge-endpoint-reassignment-task-summary-task';\nconst DONE_TASK_STATUSES = new Set(['done', 'complete', 'completed', 'closed']);\nconst ANSWERED_STATUSES = new Set(['answered', 'done', 'resolved', 'closed']);\nconst normalize = (value) => String(value || '').trim().toLowerCase();\nconst normalizeSummaryStatus = (value) => {\n  const status = normalize(value);\n  if (['open', 'todo', 'backlog'].includes(status)) return 'todo';\n  if (['active', 'in-progress', 'in progress'].includes(status)) return 'in-progress';\n  if (['achieved', 'done', 'complete', 'completed', 'closed', 'resolved'].includes(status)) return 'done';\n  if (status === 'blocked') return 'blocked';\n  if (['waiting', 'deferred', 'paused'].includes(status)) return 'waiting';\n  if (['cancelled', 'canceled', 'abandoned'].includes(status)) return 'cancelled';\n  return status || 'todo';\n};\nconst toTitle = (entry, fallback) => String(entry?.data?.title || entry?.label || entry?.data?.summary || entry?.data?.body || fallback || '').trim();\nconst toListText = (items, emptyLabel, maxItems = 4) => {\n  const visible = items.filter(Boolean).slice(0, maxItems);\n  if (!visible.length) return emptyLabel;\n  return visible.map((item, index) => `${index + 1}. ${item}`).join('\\n');\n};\nconst fetchJson = async (ref) => {\n  const normalizedRef = String(ref || '').trim();\n  if (!normalizedRef) return null;\n  try {\n    const response = await fetch(normalizedRef, { cache: 'no-store' });\n    if (!response.ok) return null;\n    return await response.json();\n  } catch (error) {\n    return null;\n  }\n};\nconst summaryStatusCache = new Map();\nconst getExternalSummaryStatus = async (entry) => {\n  const sourceRef = String(entry?.data?.sourceRef || '').trim();\n  const sourceNodeId = String(entry?.data?.sourceNodeId || '').trim();\n  if (!sourceRef || !sourceNodeId || sourceNodeId === SUMMARY_NODE_ID) return '';\n  const cacheKey = sourceRef + '#' + sourceNodeId;\n  if (summaryStatusCache.has(cacheKey)) return summaryStatusCache.get(cacheKey);\n  const graphData = await fetchJson(sourceRef);\n  const sourceNode = Array.isArray(graphData?.nodes)\n    ? graphData.nodes.find((node) => node?.id === sourceNodeId)\n    : null;\n  const status = normalizeSummaryStatus(sourceNode?.data?.status);\n  summaryStatusCache.set(cacheKey, status);\n  return status;\n};\nconst isEqual = (a, b) => {\n  if (a === b) return true;\n  if (!a || !b || typeof a !== 'object' || typeof b !== 'object') return false;\n  const aKeys = Object.keys(a);\n  const bKeys = Object.keys(b);\n  if (aKeys.length != bKeys.length) return false;\n  for (const key of aKeys) {\n    if (!Object.prototype.hasOwnProperty.call(b, key)) return false;\n    const aVal = a[key];\n    const bVal = b[key];\n    if (Array.isArray(aVal) || Array.isArray(bVal)) {\n      if (JSON.stringify(aVal) != JSON.stringify(bVal)) return false;\n      continue;\n    }\n    if (aVal && typeof aVal === 'object') {\n      if (!isEqual(aVal, bVal)) return false;\n      continue;\n    }\n    if (aVal != bVal) return false;\n  }\n  return true;\n};\n\nconst nodes = await api.getNodes();\nconst summaryNode = nodes.find((entry) => entry?.id === SUMMARY_NODE_ID);\nif (!summaryNode) {\n  return { success: false, error: 'Summary node missing' };\n}\nconst summaryTaskNode = nodes.find((entry) => entry?.id === SUMMARY_TASK_NODE_ID);\nconst goalNode = nodes.find((entry) => entry?.type === 'goal');\n\nconst taskLikeNodes = nodes.filter((entry) => {\n  if (!entry) return false;\n  if (entry?.id === SUMMARY_NODE_ID || entry?.id === SUMMARY_TASK_NODE_ID) return false;\n  if (entry?.data?.countAsTask === false) return false;\n  if (entry?.type === 'task' || entry?.type === 'task-summary') return true;\n  return entry?.data?.countAsTask === true;\n});\nconst questions = nodes.filter((entry) => entry?.type === 'open-question');\nconst taskItems = (await Promise.all(taskLikeNodes.map(async (entry) => {\n  const fallback = entry?.type === 'task-summary' ? 'Untitled task summary' : 'Untitled task';\n  const title = toTitle(entry, fallback);\n  let status = normalizeSummaryStatus(entry?.data?.status);\n  if (entry?.type === 'task-summary') {\n    const externalStatus = await getExternalSummaryStatus(entry);\n    if (externalStatus) status = externalStatus;\n  }\n  return { title, status };\n}))).filter((entry) => entry?.title);\n\nconst taskTitles = taskItems.map((entry) => entry.title);\nconst questionTitles = questions.map((entry) => toTitle(entry, 'Untitled question')).filter(Boolean);\nconst completedTaskCount = taskItems.filter((entry) => DONE_TASK_STATUSES.has(entry.status)).length;\nconst activeTaskCount = taskItems.filter((entry) => normalize(entry.status) === 'in-progress').length;\nconst allTasksDone = taskItems.length > 0 && completedTaskCount === taskItems.length;\nconst goalStatus = normalizeSummaryStatus(goalNode?.data?.status);\nconst derivedStatus = goalStatus === 'done'\n  ? (allTasksDone ? 'done' : 'in-progress')\n  : (goalStatus === 'todo' && (completedTaskCount > 0 || activeTaskCount > 0) ? 'in-progress' : goalStatus);\n\nconst taskListText = toListText(taskTitles, 'No tasks listed.', taskTitles.length || 4);\nconst questionListText = toListText(questionTitles, 'No open questions.');\nconst nextData = {\n  ...(summaryNode.data || {}),\n  goal: goalNode?.label || summaryNode?.data?.goal || 'Task graph',\n  status: derivedStatus,\n  priority: goalNode?.data?.priority || summaryNode?.data?.priority || 'medium',\n  owner: goalNode?.data?.owner || summaryNode?.data?.owner || '',\n  targetDate: goalNode?.data?.targetDate || summaryNode?.data?.targetDate || '',\n  taskProgress: {\n    completed: completedTaskCount,\n    total: taskItems.length\n  },\n  questionProgress: {\n    answered: questions.filter((entry) => ANSWERED_STATUSES.has(normalize(entry?.data?.status))).length,\n    total: questions.length\n  },\n  taskTitles,\n  questionTitles,\n  taskListText,\n  questionListText,\n  summarySource: 'node-updater',\n  updatedAt: new Date().toISOString()\n};\n\nconst summaryData = summaryNode.data || {};\nconst { updatedAt: _stampThen, ...comparableThen } = summaryData;\nconst { updatedAt: _stampNow, ...comparableNow } = nextData;\nif (!isEqual(comparableThen, comparableNow)) {\n  await api.updateNode(SUMMARY_NODE_ID, { data: nextData });\n}\n\nif (summaryTaskNode) {\n  const taskTitle = goalNode?.label || summaryNode?.data?.goal || 'Task view';\n  const taskBody = ['Goal: ' + taskTitle, 'Status: ' + derivedStatus, '', 'Tasks in scope:', taskListText, '', 'Open questions:', questionListText].join('\\n');\n  const taskData = {\n    ...(summaryTaskNode.data || {}),\n    title: taskTitle,\n    body: taskBody,\n    status: derivedStatus,\n    summarySource: 'node-updater',\n    taskProgress: nextData.taskProgress,\n    questionProgress: nextData.questionProgress\n  };\n  if (!isEqual(summaryTaskNode.data || {}, taskData)) {\n    await api.updateNode(SUMMARY_TASK_NODE_ID, { data: taskData });\n  }\n}\n\nreturn { success: true, summary: nextData };",
         "scriptName": "Task Node Updater",
-        "summaryNodeId": "edge-endpoint-reassignment-task-summary",
-        "autoRun": true,
-        "autoRunOnGraphChange": false,
-        "autoRunOnLoad": true,
+        "parameters": [],
         "allowMutations": true,
         "dryRun": false,
-        "source": "const SUMMARY_NODE_ID = 'edge-endpoint-reassignment-task-summary';\nconst SUMMARY_TASK_NODE_ID = 'edge-endpoint-reassignment-task-summary-task';\nconst DONE_TASK_STATUSES = new Set(['done', 'complete', 'completed', 'closed']);\nconst ANSWERED_STATUSES = new Set(['answered', 'done', 'resolved', 'closed']);\nconst normalize = (value) => String(value || '').trim().toLowerCase();\nconst normalizeSummaryStatus = (value) => {\n  const status = normalize(value);\n  if (['open', 'todo', 'backlog'].includes(status)) return 'todo';\n  if (['active', 'in-progress', 'in progress'].includes(status)) return 'in-progress';\n  if (['achieved', 'done', 'complete', 'completed', 'closed', 'resolved'].includes(status)) return 'done';\n  if (status === 'blocked') return 'blocked';\n  if (['waiting', 'deferred', 'paused'].includes(status)) return 'waiting';\n  if (['cancelled', 'canceled', 'abandoned'].includes(status)) return 'cancelled';\n  return status || 'todo';\n};\nconst toTitle = (entry, fallback) => String(entry?.data?.title || entry?.label || entry?.data?.summary || entry?.data?.body || fallback || '').trim();\nconst toListText = (items, emptyLabel, maxItems = 4) => {\n  const visible = items.filter(Boolean).slice(0, maxItems);\n  if (!visible.length) return emptyLabel;\n  return visible.map((item, index) => `${index + 1}. ${item}`).join('\\n');\n};\nconst fetchJson = async (ref) => {\n  const normalizedRef = String(ref || '').trim();\n  if (!normalizedRef) return null;\n  try {\n    const response = await fetch(normalizedRef, { cache: 'no-store' });\n    if (!response.ok) return null;\n    return await response.json();\n  } catch (error) {\n    return null;\n  }\n};\nconst summaryStatusCache = new Map();\nconst getExternalSummaryStatus = async (entry) => {\n  const sourceRef = String(entry?.data?.sourceRef || '').trim();\n  const sourceNodeId = String(entry?.data?.sourceNodeId || '').trim();\n  if (!sourceRef || !sourceNodeId || sourceNodeId === SUMMARY_NODE_ID) return '';\n  const cacheKey = sourceRef + '#' + sourceNodeId;\n  if (summaryStatusCache.has(cacheKey)) return summaryStatusCache.get(cacheKey);\n  const graphData = await fetchJson(sourceRef);\n  const sourceNode = Array.isArray(graphData?.nodes)\n    ? graphData.nodes.find((node) => node?.id === sourceNodeId)\n    : null;\n  const status = normalizeSummaryStatus(sourceNode?.data?.status);\n  summaryStatusCache.set(cacheKey, status);\n  return status;\n};\nconst isEqual = (a, b) => {\n  if (a === b) return true;\n  if (!a || !b || typeof a !== 'object' || typeof b !== 'object') return false;\n  const aKeys = Object.keys(a);\n  const bKeys = Object.keys(b);\n  if (aKeys.length != bKeys.length) return false;\n  for (const key of aKeys) {\n    if (!Object.prototype.hasOwnProperty.call(b, key)) return false;\n    const aVal = a[key];\n    const bVal = b[key];\n    if (Array.isArray(aVal) || Array.isArray(bVal)) {\n      if (JSON.stringify(aVal) != JSON.stringify(bVal)) return false;\n      continue;\n    }\n    if (aVal && typeof aVal === 'object') {\n      if (!isEqual(aVal, bVal)) return false;\n      continue;\n    }\n    if (aVal != bVal) return false;\n  }\n  return true;\n};\n\nconst nodes = await api.getNodes();\nconst summaryNode = nodes.find((entry) => entry?.id === SUMMARY_NODE_ID);\nif (!summaryNode) {\n  return { success: false, error: 'Summary node missing' };\n}\nconst summaryTaskNode = nodes.find((entry) => entry?.id === SUMMARY_TASK_NODE_ID);\nconst goalNode = nodes.find((entry) => entry?.type === 'goal');\n\nconst taskLikeNodes = nodes.filter((entry) => {\n  if (!entry) return false;\n  if (entry?.id === SUMMARY_NODE_ID || entry?.id === SUMMARY_TASK_NODE_ID) return false;\n  if (entry?.data?.countAsTask === false) return false;\n  if (entry?.type === 'task' || entry?.type === 'task-summary') return true;\n  return entry?.data?.countAsTask === true;\n});\nconst questions = nodes.filter((entry) => entry?.type === 'open-question');\nconst taskItems = (await Promise.all(taskLikeNodes.map(async (entry) => {\n  const fallback = entry?.type === 'task-summary' ? 'Untitled task summary' : 'Untitled task';\n  const title = toTitle(entry, fallback);\n  let status = normalizeSummaryStatus(entry?.data?.status);\n  if (entry?.type === 'task-summary') {\n    const externalStatus = await getExternalSummaryStatus(entry);\n    if (externalStatus) status = externalStatus;\n  }\n  return { title, status };\n}))).filter((entry) => entry?.title);\n\nconst taskTitles = taskItems.map((entry) => entry.title);\nconst questionTitles = questions.map((entry) => toTitle(entry, 'Untitled question')).filter(Boolean);\nconst completedTaskCount = taskItems.filter((entry) => DONE_TASK_STATUSES.has(entry.status)).length;\nconst activeTaskCount = taskItems.filter((entry) => normalize(entry.status) === 'in-progress').length;\nconst allTasksDone = taskItems.length > 0 && completedTaskCount === taskItems.length;\nconst goalStatus = normalizeSummaryStatus(goalNode?.data?.status);\nconst derivedStatus = goalStatus === 'done'\n  ? (allTasksDone ? 'done' : 'in-progress')\n  : (goalStatus === 'todo' && (completedTaskCount > 0 || activeTaskCount > 0) ? 'in-progress' : goalStatus);\n\nconst taskListText = toListText(taskTitles, 'No tasks listed.', taskTitles.length || 4);\nconst questionListText = toListText(questionTitles, 'No open questions.');\nconst nextData = {\n  ...(summaryNode.data || {}),\n  goal: goalNode?.label || summaryNode?.data?.goal || 'Task graph',\n  status: derivedStatus,\n  priority: goalNode?.data?.priority || summaryNode?.data?.priority || 'medium',\n  owner: goalNode?.data?.owner || summaryNode?.data?.owner || '',\n  targetDate: goalNode?.data?.targetDate || summaryNode?.data?.targetDate || '',\n  taskProgress: {\n    completed: completedTaskCount,\n    total: taskItems.length\n  },\n  questionProgress: {\n    answered: questions.filter((entry) => ANSWERED_STATUSES.has(normalize(entry?.data?.status))).length,\n    total: questions.length\n  },\n  taskTitles,\n  questionTitles,\n  taskListText,\n  questionListText,\n  summarySource: 'node-updater',\n  updatedAt: new Date().toISOString()\n};\n\nconst summaryData = summaryNode.data || {};\nif (!isEqual(summaryData, nextData)) {\n  await api.updateNode(SUMMARY_NODE_ID, { data: nextData });\n}\n\nif (summaryTaskNode) {\n  const taskTitle = goalNode?.label || summaryNode?.data?.goal || 'Task view';\n  const taskBody = ['Goal: ' + taskTitle, 'Status: ' + derivedStatus, '', 'Tasks in scope:', taskListText, '', 'Open questions:', questionListText].join('\\n');\n  const taskData = {\n    ...(summaryTaskNode.data || {}),\n    title: taskTitle,\n    body: taskBody,\n    status: derivedStatus,\n    summarySource: 'node-updater',\n    taskProgress: nextData.taskProgress,\n    questionProgress: nextData.questionProgress\n  };\n  if (!isEqual(summaryTaskNode.data || {}, taskData)) {\n    await api.updateNode(SUMMARY_TASK_NODE_ID, { data: taskData });\n  }\n}\n\nreturn { success: true, summary: nextData };",
-        "_semanticLevel": "detail",
-        "scriptId": "",
+        "effects": [
+          {
+            "kind": "update-node",
+            "targets": [
+              "edge-endpoint-reassignment-task-summary",
+              "edge-endpoint-reassignment-task-summary-task"
+            ]
+          }
+        ],
         "identity": {
-          "graphId": "edge-endpoint-reassignment-task"
-        },
-        "scriptRef": "",
-        "_placement": {
-          "version": 1,
-          "state": "manually-shaped",
-          "source": "manual",
-          "updatedAt": 1784322245587,
-          "reason": "node-drag"
+          "graphId": "edge-endpoint-reassignment-task",
+          "nodeId": "edge-endpoint-reassignment-task-updater"
         }
       }
     },
@@ -5014,17 +4891,6 @@
       "data": {}
     },
     {
-      "id": "edge-endpoint-reassignment-task-edge-008",
-      "type": "edge",
-      "source": "edge-endpoint-reassignment-task-updater",
-      "target": "edge-endpoint-reassignment-task-summary",
-      "sourcePort": "top",
-      "targetPort": "bottom",
-      "label": "updates",
-      "style": {},
-      "data": {}
-    },
-    {
       "id": "edge-endpoint-reassignment-task-edge-011",
       "type": "edge",
       "source": "edge-endpoint-reassignment-task-title",
@@ -5201,6 +5067,21 @@
       "data": {
         "relation": "implements-next-step"
       }
+    },
+    {
+      "id": "edge-endpoint-reassignment-task-declaration-graph-opened-invokes-edge-endpoint-reassignment-task-updater",
+      "type": "invokes",
+      "source": "edge-endpoint-reassignment-task-declaration",
+      "target": "edge-endpoint-reassignment-task-updater",
+      "label": "invokes",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "classRef": "tlz://twilite.zone/library/edges/invokes/root.node"
+      },
+      "sourcePort": "event:graph.opened",
+      "targetPort": "invokes"
     }
   ],
   "settings": {

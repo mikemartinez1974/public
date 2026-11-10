@@ -158,7 +158,16 @@
             "Skill references must be explicit, resolvable, inspectable, and attributable.",
             "This project is not a general plugin framework."
           ]
-        }
+        },
+        "events": [
+          {
+            "eventKey": "graph.opened",
+            "label": "Graph opened",
+            "payloadContract": {
+              "type": "object"
+            }
+          }
+        ]
       }
     },
     {
@@ -1435,65 +1444,33 @@
     },
     {
       "id": "graph-skills-updater",
-      "type": "script",
+      "type": "method",
       "label": "Summary Updater",
       "position": {
         "x": -1050,
         "y": -300
       },
       "width": 420,
-      "height": 260,
+      "height": 230,
       "visible": false,
-      "showLabel": true,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        }
-      ],
       "data": {
-        "identity": {
-          "graphId": "graph-scoped-skills"
-        },
+        "source": "const SUMMARY='graph-skills-summary';const DONE=new Set(['done','complete','completed','closed']);const ANSWERED=new Set(['answered','resolved','done','closed']);const norm=v=>String(v||'').trim().toLowerCase();const nodes=await api.getNodes();const summary=nodes.find(n=>n.id===SUMMARY);const goal=nodes.find(n=>n.type==='goal');const tasks=nodes.filter(n=>n.type==='task').sort((a,b)=>(a.position?.y??0)-(b.position?.y??0)||(a.position?.x??0)-(b.position?.x??0));const questions=nodes.filter(n=>n.type==='open-question').sort((a,b)=>(a.position?.y??0)-(b.position?.y??0)||(a.position?.x??0)-(b.position?.x??0));if(!summary)return{success:false,error:'Summary node missing'};const completed=tasks.filter(n=>DONE.has(norm(n.data?.status))).length;const answered=questions.filter(n=>ANSWERED.has(norm(n.data?.status))).length;const next={...(summary.data||{}),goal:goal?.label||summary.data?.goal||'Task graph',status:norm(goal?.data?.status)||'todo',priority:goal?.data?.priority||summary.data?.priority||'medium',owner:goal?.data?.owner||summary.data?.owner||'',taskProgress:{completed,total:tasks.length},questionProgress:{answered,total:questions.length},taskTitles:tasks.map(n=>n.data?.title||n.label),questionTitles:questions.map(n=>n.label),taskListText:tasks.map((n,i)=>(i+1)+'. '+(n.data?.title||n.label)).join('\\n'),questionListText:questions.map((n,i)=>(i+1)+'. '+n.label).join('\\n'),summarySource:'node-updater',updatedAt:new Date().toISOString()};await api.updateNode(SUMMARY,{data:next});return{success:true,summary:next};",
         "scriptName": "Graph-Scoped Skills Summary Updater",
-        "summaryNodeId": "graph-skills-summary",
-        "autoRun": true,
-        "autoRunOnGraphChange": false,
-        "autoRunOnLoad": true,
+        "parameters": [],
         "allowMutations": true,
         "dryRun": false,
-        "source": "const SUMMARY='graph-skills-summary';const DONE=new Set(['done','complete','completed','closed']);const ANSWERED=new Set(['answered','resolved','done','closed']);const norm=v=>String(v||'').trim().toLowerCase();const nodes=await api.getNodes();const summary=nodes.find(n=>n.id===SUMMARY);const goal=nodes.find(n=>n.type==='goal');const tasks=nodes.filter(n=>n.type==='task').sort((a,b)=>(a.position?.y??0)-(b.position?.y??0)||(a.position?.x??0)-(b.position?.x??0));const questions=nodes.filter(n=>n.type==='open-question').sort((a,b)=>(a.position?.y??0)-(b.position?.y??0)||(a.position?.x??0)-(b.position?.x??0));if(!summary)return{success:false,error:'Summary node missing'};const completed=tasks.filter(n=>DONE.has(norm(n.data?.status))).length;const answered=questions.filter(n=>ANSWERED.has(norm(n.data?.status))).length;const next={...(summary.data||{}),goal:goal?.label||summary.data?.goal||'Task graph',status:norm(goal?.data?.status)||'todo',priority:goal?.data?.priority||summary.data?.priority||'medium',owner:goal?.data?.owner||summary.data?.owner||'',taskProgress:{completed,total:tasks.length},questionProgress:{answered,total:questions.length},taskTitles:tasks.map(n=>n.data?.title||n.label),questionTitles:questions.map(n=>n.label),taskListText:tasks.map((n,i)=>(i+1)+'. '+(n.data?.title||n.label)).join('\\n'),questionListText:questions.map((n,i)=>(i+1)+'. '+n.label).join('\\n'),summarySource:'node-updater',updatedAt:new Date().toISOString()};await api.updateNode(SUMMARY,{data:next});return{success:true,summary:next};"
+        "effects": [
+          {
+            "kind": "update-node",
+            "targets": [
+              "graph-skills-summary"
+            ]
+          }
+        ],
+        "identity": {
+          "graphId": "graph-scoped-skills",
+          "nodeId": "graph-skills-updater"
+        }
       }
     },
     {
@@ -2001,6 +1978,21 @@
         "route": "curved"
       },
       "data": {}
+    },
+    {
+      "id": "graph-skills-declaration-graph-opened-invokes-graph-skills-updater",
+      "type": "invokes",
+      "source": "graph-skills-declaration",
+      "target": "graph-skills-updater",
+      "label": "invokes",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "classRef": "tlz://twilite.zone/library/edges/invokes/root.node"
+      },
+      "sourcePort": "event:graph.opened",
+      "targetPort": "invokes"
     }
   ],
   "settings": {

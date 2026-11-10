@@ -193,7 +193,23 @@
             }
           ],
           "targetMode": "artifact"
-        }
+        },
+        "events": [
+          {
+            "eventKey": "graph.opened",
+            "label": "Graph opened",
+            "payloadContract": {
+              "type": "object"
+            }
+          },
+          {
+            "eventKey": "graph.changed",
+            "label": "Graph changed",
+            "payloadContract": {
+              "type": "object"
+            }
+          }
+        ]
       }
     },
     {
@@ -776,153 +792,33 @@
     },
     {
       "id": "task-nodeset-upgrade-updater",
-      "type": "script",
+      "type": "method",
       "label": "Summary Updater",
       "position": {
         "x": -1040,
         "y": -800
       },
-      "width": 380,
-      "height": 220,
-      "ports": [
-        {
-          "angle": 210,
-          "dataType": "any",
-          "direction": "bidirectional",
-          "id": "root",
-          "label": "root"
-        },
-        {
-          "angle": 270,
-          "dataType": "value",
-          "direction": "bidirectional",
-          "id": "top",
-          "label": "top"
-        },
-        {
-          "angle": 180,
-          "dataType": "value",
-          "direction": "bidirectional",
-          "id": "left",
-          "label": "left"
-        },
-        {
-          "angle": 90,
-          "dataType": "value",
-          "direction": "bidirectional",
-          "id": "bottom",
-          "label": "bottom"
-        },
-        {
-          "angle": 360,
-          "dataType": "value",
-          "direction": "bidirectional",
-          "id": "right",
-          "label": "right"
-        }
-      ],
+      "width": 420,
+      "height": 230,
       "visible": false,
-      "showLabel": true,
       "data": {
-        "allowMutations": true,
-        "autoRun": true,
-        "autoRunOnGraphChange": true,
-        "autoRunOnLoad": true,
-        "dryRun": false,
-        "identity": {
-          "graphId": "task-nodeset-upgrade"
-        },
-        "scriptName": "Task Nodeset Upgrade Summary Updater",
         "source": "const SUMMARY_NODE_ID='task-nodeset-upgrade-summary';const DONE=new Set(['done','complete','completed','closed']);const ANSWERED=new Set(['answered','done','resolved','closed']);const norm=v=>String(v||'').trim().toLowerCase();const normalizeStatus=v=>{const s=norm(v);if(['open','todo','backlog'].includes(s))return 'todo';if(['active','in-progress','in progress'].includes(s))return 'in-progress';if(['achieved','done','complete','completed','closed','resolved'].includes(s))return 'done';if(s==='blocked')return 'blocked';if(['waiting','deferred','paused'].includes(s))return 'waiting';if(['cancelled','canceled','abandoned'].includes(s))return 'cancelled';return s||'todo';};const nodes=await api.getNodes();const summary=nodes.find(n=>n.id===SUMMARY_NODE_ID);const goal=nodes.find(n=>n.type==='goal');const byCanvasOrder=(a,b)=>(a.position?.y??0)-(b.position?.y??0)||(a.position?.x??0)-(b.position?.x??0);const tasks=nodes.filter(n=>n.type==='task').sort(byCanvasOrder);const questions=nodes.filter(n=>n.type==='open-question').sort(byCanvasOrder);if(!summary)return {success:false,error:'Summary node missing'};const completed=tasks.filter(n=>DONE.has(norm(n.data?.status))).length;const answered=questions.filter(n=>ANSWERED.has(norm(n.data?.status))).length;const allDone=tasks.length>0&&completed===tasks.length;const goalStatus=normalizeStatus(goal?.data?.status);const status=goalStatus==='done'&&!allDone?'in-progress':goalStatus;const next={...(summary.data||{}),goal:goal?.label||summary.data?.goal||'Task graph',status,priority:goal?.data?.priority||summary.data?.priority||'medium',owner:goal?.data?.owner||summary.data?.owner||'',targetDate:goal?.data?.targetDate||summary.data?.targetDate||'',taskProgress:{completed,total:tasks.length},questionProgress:{answered,total:questions.length},taskTitles:tasks.map(n=>n.data?.title||n.label),questionTitles:questions.map(n=>n.label),taskListText:tasks.map((n,i)=>(i+1)+'. '+(n.data?.title||n.label)).join('\\n'),questionListText:questions.map((n,i)=>(i+1)+'. '+n.label).join('\\n'),summarySource:'node-updater',updatedAt:new Date().toISOString()};await api.updateNode(SUMMARY_NODE_ID,{data:next});return {success:true,summary:next};",
-        "summaryNodeId": "task-nodeset-upgrade-summary",
-        "_semanticLevel": "detail",
-        "scriptId": "",
-        "lastResult": {
-          "type": "scriptResult",
-          "success": true,
-          "result": {
-            "success": true,
-            "summary": {
-              "_bridge": {
-                "classKey": "summary",
-                "classRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-                "entryPort": "root",
-                "kind": "node-class",
-                "sourceBridgeNodeId": "task-nodeset-upgrade-bridge-summary",
-                "sourceNodeId": "task-nodeset-upgrade-bridge-summary",
-                "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-                "targetKind": "node-class"
-              },
-              "_classBinding": {
-                "key": "summary",
-                "ref": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node",
-                "sourceRef": "github://twilite-zone/public/library/classes/nodes/task-planning/task-graph-summary.node-class.node"
-              },
-              "blockedReason": "",
-              "definitionKey": "summary",
-              "goal": "Evolve task planning into a manageable multi-graph system",
-              "health": "on-track",
-              "identity": {
-                "graphId": "task-nodeset-upgrade"
-              },
-              "nextAction": "Open the public workboard, move real project summaries between lanes, and record where manual curation becomes friction.",
-              "nodeViewPayload": "node.web",
-              "owner": "Michael",
-              "priority": "critical",
-              "questionListText": "1. What is the exact canonical status vocabulary?\n2. Where should workboard lane and rank live?\n3. Which summary fields are derived versus authorable?\n4. Do we need a task-capture node class?\n5. How automatic should the workboard be?\n6. How much existing content should be migrated initially?\n7. Where should the canonical workboard template live?",
-              "questionProgress": {
-                "answered": 4,
-                "total": 7
-              },
-              "questionTitles": [
-                "What is the exact canonical status vocabulary?",
-                "Where should workboard lane and rank live?",
-                "Which summary fields are derived versus authorable?",
-                "Do we need a task-capture node class?",
-                "How automatic should the workboard be?",
-                "How much existing content should be migrated initially?",
-                "Where should the canonical workboard template live?"
-              ],
-              "status": "in-progress",
-              "summarySource": "node-updater",
-              "targetDate": "",
-              "taskListText": "1. Audit current planning contracts and consumers\n2. Define status vocabulary and compatibility mapping\n3. Strengthen the graph-owned summary contract\n4. Use portals as workboard summary consumers\n5. Add restrained lifecycle fields to tasks\n6. Resolve the inbox capture model\n7. Create the canonical workboard template\n8. Pilot the upgraded model in the private work repo\n9. Recast the public tasks root as the Task Library\n10. Document migration and authoring contracts",
-              "taskProgress": {
-                "completed": 5,
-                "total": 10
-              },
-              "taskTitles": [
-                "Audit current planning contracts and consumers",
-                "Define status vocabulary and compatibility mapping",
-                "Strengthen the graph-owned summary contract",
-                "Use portals as workboard summary consumers",
-                "Add restrained lifecycle fields to tasks",
-                "Resolve the inbox capture model",
-                "Create the canonical workboard template",
-                "Pilot the upgraded model in the private work repo",
-                "Recast the public tasks root as the Task Library",
-                "Document migration and authoring contracts"
-              ],
-              "updatedAt": "2026-07-29T17:16:54.729Z",
-              "viewRole": "document",
-              "_placement": {
-                "version": 1,
-                "state": "manually-shaped",
-                "source": "manual",
-                "updatedAt": 1785345413257,
-                "reason": "node-drag"
-              }
-            }
-          },
-          "runId": "1785345414542_tgdxti0htnj",
-          "nodeId": "task-nodeset-upgrade-updater",
-          "sourceNodeId": "task-nodeset-upgrade-updater",
-          "hook": null,
-          "lifecycle": false,
-          "token": "cprau1qlzagms6bqhkb"
-        },
-        "lastRunAt": 1785345414795,
-        "scriptRef": ""
+        "scriptName": "Task Nodeset Upgrade Summary Updater",
+        "parameters": [],
+        "allowMutations": true,
+        "dryRun": false,
+        "effects": [
+          {
+            "kind": "update-node",
+            "targets": [
+              "task-nodeset-upgrade-summary"
+            ]
+          }
+        ],
+        "identity": {
+          "graphId": "task-nodeset-upgrade-declaration",
+          "nodeId": "task-nodeset-upgrade-updater"
+        }
       }
     },
     {
@@ -2800,20 +2696,6 @@
       "data": {}
     },
     {
-      "id": "task-nodeset-upgrade-edge-updater-summary",
-      "type": "edge",
-      "source": "task-nodeset-upgrade-updater",
-      "target": "task-nodeset-upgrade-summary",
-      "sourcePort": "right",
-      "targetPort": "left",
-      "label": "updates",
-      "style": {
-        "curved": true,
-        "route": "curved"
-      },
-      "data": {}
-    },
-    {
       "id": "task-nodeset-upgrade-edge-declaration-bridge-0",
       "type": "imports",
       "source": "task-nodeset-upgrade-declaration",
@@ -3318,6 +3200,36 @@
         "route": "curved"
       },
       "data": {}
+    },
+    {
+      "id": "task-nodeset-upgrade-declaration-graph-opened-invokes-task-nodeset-upgrade-updater",
+      "type": "invokes",
+      "source": "task-nodeset-upgrade-declaration",
+      "target": "task-nodeset-upgrade-updater",
+      "label": "invokes",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "classRef": "tlz://twilite.zone/library/edges/invokes/root.node"
+      },
+      "sourcePort": "event:graph.opened",
+      "targetPort": "invokes"
+    },
+    {
+      "id": "task-nodeset-upgrade-declaration-graph-changed-invokes-task-nodeset-upgrade-updater",
+      "type": "invokes",
+      "source": "task-nodeset-upgrade-declaration",
+      "target": "task-nodeset-upgrade-updater",
+      "label": "invokes",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "classRef": "tlz://twilite.zone/library/edges/invokes/root.node"
+      },
+      "sourcePort": "event:graph.changed",
+      "targetPort": "invokes"
     }
   ],
   "settings": {

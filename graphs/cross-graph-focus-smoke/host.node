@@ -189,7 +189,8 @@
               "viewNodeId": "focus-host-summary"
             }
           ]
-        }
+        },
+        "events": []
       }
     },
     {
@@ -486,44 +487,24 @@
     },
     {
       "id": "focus-host-handoff-producer",
-      "type": "script",
+      "type": "method",
       "label": "Send Typed Handoff",
       "position": {
         "x": -220,
         "y": 520
       },
-      "width": 460,
-      "height": 340,
-      "ports": [
-        {
-          "id": "result",
-          "key": "result",
-          "label": "Typed text",
-          "direction": "output",
-          "dataType": "text",
-          "angle": 0
-        }
-      ],
-      "handles": [
-        {
-          "id": "result",
-          "key": "result",
-          "portId": "result",
-          "label": "Typed text",
-          "direction": "output",
-          "dataType": "text",
-          "angle": 0
-        }
-      ],
+      "width": 420,
+      "height": 230,
       "data": {
-        "scriptName": "Send canonical typed handoff",
         "source": "return await api.sendHandoff({\n  edgeId: 'focus-host-handoff-edge',\n  payload: {\n    schema: 'twilite://schema/text@1',\n    contentType: 'text/plain',\n    value: 'Hello from the host graph'\n  }\n});",
-        "allowMutations": true,
+        "scriptName": "Send canonical typed handoff",
+        "parameters": [],
+        "allowMutations": false,
         "dryRun": false,
-        "autoRun": false,
-        "memo": "V1 smoke producer: an explicit ephemeral send through the authored inter-graph edge.",
+        "effects": [],
         "identity": {
-          "graphId": "cross-graph-focus-smoke-host"
+          "graphId": "cross-graph-focus-smoke-host",
+          "nodeId": "focus-host-handoff-producer"
         }
       }
     }
@@ -606,41 +587,6 @@
       },
       "data": {},
       "sourcePort": "root",
-      "targetPort": "root"
-    },
-    {
-      "id": "focus-host-handoff-edge",
-      "type": "inter-graph-handoff",
-      "source": "focus-host-handoff-producer",
-      "target": "focus-host-fragment-portal",
-      "label": "send typed text",
-      "style": {
-        "curved": true,
-        "stroke": "#22c55e",
-        "strokeWidth": 3
-      },
-      "data": {
-        "interGraph": {
-          "version": 1,
-          "source": {
-            "graphRef": "github://mikemartinez1974/public/graphs/cross-graph-focus-smoke/host.node",
-            "graphId": "cross-graph-focus-smoke-host",
-            "nodeId": "focus-host-handoff-producer",
-            "portId": "result"
-          },
-          "target": {
-            "graphRef": "github://mikemartinez1974/public/graphs/cross-graph-focus-smoke/fragment.node",
-            "graphId": "cross-graph-focus-smoke-fragment",
-            "nodeId": "focus-fragment-handoff-receiver",
-            "portId": "set"
-          }
-        },
-        "_interGraphProjection": {
-          "sourceNodeId": "focus-host-fragment-portal",
-          "endpoint": "target"
-        }
-      },
-      "sourcePort": "result",
       "targetPort": "root"
     }
   ],
