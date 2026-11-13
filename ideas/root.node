@@ -1,112 +1,593 @@
 {
   "fileVersion": "1.0",
   "metadata": {
-    "created": "2026-08-16T03:12:42.498Z",
-    "modified": "2026-08-16T04:31:05.183Z",
+    "created": "2026-11-13T20:08:12.010Z",
+    "modified": "2026-11-13T20:08:12.010Z",
     "author": "",
     "tags": [
+      "library",
       "collection"
-    ],
-    "preferredViewer": "https://twilite.zone"
+    ]
   },
   "nodes": [
     {
-      "id": "ideas-collection-declaration",
+      "id": "ideas-hub-declaration",
       "type": "root",
-      "label": "Michael's Ideas Collection",
+      "label": "Ideas",
       "position": {
-        "x": -720,
-        "y": -420
+        "x": -640,
+        "y": 0
       },
-      "width": 420,
-      "height": 300,
+      "width": 300,
+      "height": 200,
       "ports": [
         {
-          "id": "root",
-          "label": "root",
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default-view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 55,
+          "role": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary-view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 70,
+          "role": "shared-summary"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon-view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 85,
+          "role": "shared-icon"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 100,
+          "role": "shared-glyph"
+        },
+        {
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 115,
+          "role": "ground"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "default-handle",
+          "key": "default-handle",
+          "label": "default handle",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "default-handle",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-handle",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "graphReference",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "boundary-begin",
+          "key": "boundary-begin",
+          "label": "boundary begin",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 300,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "boundary-end",
+          "key": "boundary-end",
+          "label": "boundary end",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 210
+          "angle": 135,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 225,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          }
         },
         {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
+          "id": "event:graph.changed",
+          "key": "event:graph.changed",
+          "label": "Graph changed",
+          "direction": "output",
+          "dataType": "event",
+          "role": "emits-event",
+          "allowedEdgeTypes": [
+            "invokes"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "emits-event",
+            "required": false,
+            "repeatable": true,
+            "eventKey": "graph.changed",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "method",
+                "targetPort": "invokes"
+              }
+            ]
+          }
         },
         {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
+          "id": "event:graph.structure.changed",
+          "key": "event:graph.structure.changed",
+          "label": "Graph structure changed",
+          "direction": "output",
+          "dataType": "event",
+          "role": "emits-event",
+          "allowedEdgeTypes": [
+            "invokes"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "emits-event",
+            "required": false,
+            "repeatable": true,
+            "eventKey": "graph.structure.changed",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "method",
+                "targetPort": "invokes"
+              }
+            ]
+          }
         },
         {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
+          "id": "environment",
+          "key": "environment",
+          "label": "environment",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 45,
+          "role": "environment",
+          "allowedEdgeTypes": [
+            "environment"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "environment",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "face",
+                "targetPort": "root"
+              }
+            ]
+          }
         }
       ],
-      "visible": false,
+      "handles": [
+        {
+          "id": "default-view",
+          "key": "default-view",
+          "label": "default-view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 55,
+          "role": "default-view",
+          "portId": "default-view"
+        },
+        {
+          "id": "summary-view",
+          "key": "summary-view",
+          "label": "summary-view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 70,
+          "role": "shared-summary",
+          "portId": "summary-view"
+        },
+        {
+          "id": "icon-view",
+          "key": "icon-view",
+          "label": "icon-view",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 85,
+          "role": "shared-icon",
+          "portId": "icon-view"
+        },
+        {
+          "id": "glyph",
+          "key": "glyph",
+          "label": "glyph",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 100,
+          "role": "shared-glyph",
+          "portId": "glyph"
+        },
+        {
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 115,
+          "role": "ground",
+          "portId": "ground"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
+        },
+        {
+          "id": "default-handle",
+          "key": "default-handle",
+          "label": "default handle",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "default-handle",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-handle",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "graphReference",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "default-handle"
+        },
+        {
+          "id": "boundary-begin",
+          "key": "boundary-begin",
+          "label": "boundary begin",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 300,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "boundary-begin"
+        },
+        {
+          "id": "boundary-end",
+          "key": "boundary-end",
+          "label": "boundary end",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 135,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "boundary-end"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 225,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "port"
+        },
+        {
+          "id": "event:graph.changed",
+          "key": "event:graph.changed",
+          "label": "Graph changed",
+          "direction": "output",
+          "dataType": "event",
+          "role": "emits-event",
+          "allowedEdgeTypes": [
+            "invokes"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "emits-event",
+            "required": false,
+            "repeatable": true,
+            "eventKey": "graph.changed",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "method",
+                "targetPort": "invokes"
+              }
+            ]
+          },
+          "portId": "event:graph.changed"
+        },
+        {
+          "id": "event:graph.structure.changed",
+          "key": "event:graph.structure.changed",
+          "label": "Graph structure changed",
+          "direction": "output",
+          "dataType": "event",
+          "role": "emits-event",
+          "allowedEdgeTypes": [
+            "invokes"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "emits-event",
+            "required": false,
+            "repeatable": true,
+            "eventKey": "graph.structure.changed",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "method",
+                "targetPort": "invokes"
+              }
+            ]
+          },
+          "portId": "event:graph.structure.changed"
+        },
+        {
+          "id": "environment",
+          "key": "environment",
+          "label": "environment",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 45,
+          "role": "environment",
+          "allowedEdgeTypes": [
+            "environment"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "environment",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "face",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "environment"
+        }
+      ],
+      "visible": true,
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "ideas-collection-declaration",
-          "name": "Michael's Ideas Collection",
+          "graphId": "ideas-hub-declaration",
+          "nodeId": "ideas-hub",
+          "name": "Ideas",
           "version": "1.0.0",
-          "description": "Durable collection of Michael’s idea graphs and explorations."
+          "description": "The thinking behind the work, in cards: each idea gathers its points, questions and evidence.",
+          "updatedAt": "2026-11-13T20:08:12.002Z"
         },
         "intent": {
           "kind": "collection",
           "scope": "public"
         },
-        "collection": {
-          "collectionRef": "github://mikemartinez1974/public/ideas/root.node",
-          "membership": {
-            "source": "repository-directory",
-            "includeDirectNodeFiles": true,
-            "includeDirectChildRoots": true,
-            "recursive": false
-          },
-          "view": {
-            "mode": "windowed",
-            "windowSize": 6,
-            "payload": "node.web.icon",
-            "columns": 3,
-            "cardWidth": 240,
-            "cardHeight": 220,
-            "iconCardWidth": 240,
-            "iconCardHeight": 220,
-            "gapX": 70,
-            "gapY": 70,
-            "origin": {
-              "x": -720,
-              "y": 330
-            }
-          }
-        },
         "dependencies": {
           "nodeTypes": [
             "declaration",
-            "port",
-            "portal",
-            "markdown",
-            "script"
+            "view",
+            "glyph",
+            "content",
+            "bridge",
+            "method",
+            "collection",
+            "portal"
           ],
           "portContracts": [
             "core"
           ],
-          "skills": [],
           "schemaVersions": {
             "nodes": ">=1.0.0",
             "ports": ">=1.0.0"
@@ -132,21 +613,13 @@
           }
         },
         "settings": {
-          "defaultNodeColor": "#1976d2",
-          "defaultEdgeColor": "#666666",
-          "snapToGrid": false,
-          "gridSize": 20,
-          "edgeRouting": "auto",
-          "autoSave": false,
-          "theme": null,
-          "backgroundImage": null,
           "layout": {
             "mode": "manual",
-            "defaultLayout": "layered",
             "direction": "DOWN",
-            "edgeLaneGapPx": 12,
+            "defaultLayout": "layered",
+            "edgeLaneGapPx": 10,
             "serpentine": {
-              "maxPerRow": 5
+              "maxPerRow": 6
             },
             "cycleFallback": {
               "enabled": true
@@ -158,1008 +631,2448 @@
               "nodeSpacing": 120,
               "layeredEdgeSpacing": 80
             }
-          }
+          },
+          "theme": null,
+          "backgroundImage": null,
+          "defaultNodeColor": "#1976d2",
+          "defaultEdgeColor": "",
+          "snapToGrid": false,
+          "gridSize": 20,
+          "edgeRouting": "auto"
         },
         "document": {
-          "url": ""
+          "url": "github://mikemartinez1974/public/ideas/root.node"
         },
+        "visibilityRole": "editor",
+        "events": [
+          {
+            "eventKey": "graph.changed",
+            "label": "Graph changed",
+            "payloadContract": {
+              "type": "object"
+            }
+          },
+          {
+            "eventKey": "graph.structure.changed",
+            "label": "Graph structure changed",
+            "payloadContract": {
+              "type": "object"
+            }
+          }
+        ],
         "root": {
-          "kind": "collection",
+          "kind": "graph",
           "targetMode": "artifact",
-          "defaultSurfaceId": "root",
+          "artifactKind": "collection",
+          "interfaceContract": {
+            "version": 1,
+            "implicitRootPort": true
+          },
+          "defaultSurfaceId": "web",
+          "landingSurfaceId": "landing",
           "surfaces": [
             {
-              "id": "root",
-              "kind": "port",
-              "label": "Ideas Collection",
-              "memo": "Entry surface for the repository’s durable ideas collection.",
-              "portNodeId": "ideas-collection-root-port",
-              "viewNodeId": "ideas-collection-root-port",
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              }
+              "id": "detail",
+              "kind": "view",
+              "payload": "node.web.detail",
+              "viewNodeId": "ideas-hub-detail"
+            },
+            {
+              "id": "summary",
+              "kind": "view",
+              "payload": "node.web.summary",
+              "viewNodeId": "ideas-hub-summary"
+            },
+            {
+              "id": "glyph",
+              "kind": "glyph",
+              "payload": "node.web.glyph",
+              "viewNodeId": "ideas-hub-glyph"
+            },
+            {
+              "id": "landing",
+              "kind": "content",
+              "payload": "node.web.landing",
+              "viewNodeId": "ideas-hub-landing"
             }
-          ],
-          "notes": [
-            "This collection is the durable index for idea graphs.",
-            "Existing graph artifacts retain their durable github:// addresses and are represented here through portals.",
-            "Future idea graphs should be added to this collection."
           ]
         },
-        "events": []
+        "membrane": {
+          "bounds": {
+            "x": -720,
+            "y": -360,
+            "width": 2720,
+            "height": 2720
+          },
+          "clip": true
+        }
       }
     },
     {
-      "id": "ideas-collection-root-port",
-      "type": "port",
-      "label": "Michael's Ideas Collection",
+      "id": "ideas-hub-detail",
+      "type": "face",
+      "label": "Ideas",
       "position": {
-        "x": -120,
-        "y": -420
+        "x": -640,
+        "y": 240
       },
-      "width": 620,
-      "height": 330,
+      "width": 600,
+      "height": 600,
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
-          "direction": "bidirectional",
+          "direction": "input",
           "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
           "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
         }
       ],
-      "style": {
-        "background": "transparent",
-        "border": "none",
-        "borderRadius": 28,
-        "padding": 0,
-        "boxShadow": "0 24px 70px rgba(124,58,237,0.28)"
-      },
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
       "visible": true,
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "michael-ideas-collection",
-          "portId": "root",
-          "name": "Michael's Ideas Collection"
+          "graphId": "ideas-hub"
         },
-        "title": "Michael's Ideas Collection",
-        "purpose": "A durable home for idea graphs, explorations, and future possibilities.",
-        "renderShape": {
-          "kind": "svg"
-        },
-        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 700 360\" role=\"img\" aria-label=\"Michael’s Ideas Collection\"><defs><linearGradient id=\"ideas-bg\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#0f172a\"/><stop offset=\".55\" stop-color=\"#312e81\"/><stop offset=\"1\" stop-color=\"#581c87\"/></linearGradient></defs><rect x=\"5\" y=\"5\" width=\"690\" height=\"350\" rx=\"34\" fill=\"url(#ideas-bg)\" stroke=\"#a78bfa\" stroke-width=\"2\"/><path d=\"M102 210 C145 110 240 90 292 170 S420 260 492 155 S590 110 620 190\" fill=\"none\" stroke=\"#c4b5fd\" stroke-width=\"3\"/><g fill=\"#ddd6fe\"><circle cx=\"102\" cy=\"210\" r=\"12\"/><circle cx=\"292\" cy=\"170\" r=\"12\"/><circle cx=\"492\" cy=\"155\" r=\"12\"/><circle cx=\"620\" cy=\"190\" r=\"12\"/></g><text x=\"52\" y=\"82\" fill=\"#ddd6fe\" font-family=\"system-ui,sans-serif\" font-size=\"14\" font-weight=\"800\" letter-spacing=\".2em\">POSSIBILITIES, CONNECTED</text><text x=\"52\" y=\"132\" fill=\"#fff\" font-family=\"system-ui,sans-serif\" font-size=\"40\" font-weight=\"850\">Michael’s Ideas</text><text x=\"52\" y=\"316\" fill=\"#e9d5ff\" font-family=\"system-ui,sans-serif\" font-size=\"17\">A durable collection for explorations that may become worlds</text></svg>",
-        "altText": "A violet network of connected idea points.",
         "view": {
           "intent": "node",
-          "payload": "node.web.summary",
-          "label": "Michael's Ideas Collection"
+          "payload": "node.web.detail",
+          "scroll": "page"
         },
-        "payload": "node.web.summary",
-        "intent": "node",
-        "key": "node.web.summary",
-        "viewRole": "summary",
-        "viewKind": "display",
-        "semanticLevel": "summary",
-        "visibilityRole": "browser",
-        "node": {
-          "web": {
-            "controls": [
-              {
-                "id": "previous",
-                "type": "button",
-                "label": "Previous",
-                "icon": "back",
-                "action": "emit",
-                "event": "collection:previous",
-                "priority": 10
-              },
-              {
-                "id": "refresh",
-                "type": "button",
-                "label": "Refresh",
-                "icon": "refresh",
-                "action": "emit",
-                "event": "collection:refresh",
-                "priority": 20
-              },
-              {
-                "id": "next",
-                "type": "button",
-                "label": "Next",
-                "icon": "forward",
-                "action": "emit",
-                "event": "collection:next",
-                "priority": 30
-              }
-            ]
-          }
-        }
+        "semanticLevel": "detail",
+        "content": {
+          "kind": "html",
+          "value": "<div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;font-family:system-ui,-apple-system,Segoe UI,sans-serif;padding:4cqw;border-radius:3cqw;background:#ffffff;border:1px solid #e2e8f0;display:flex;flex-direction:column;gap:2cqw'><div style='display:flex;justify-content:space-between;align-items:baseline;gap:2cqw'><div style='min-width:0'><div style='font-size:2.2cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Collection</div><div style='font-weight:600;font-size:4cqw;line-height:1.2;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>Ideas</div></div><div style='font-size:2.2cqw;color:#64748b;white-space:nowrap'>17 graphs</div></div><div style='flex:1;min-height:0;overflow:auto'><div style='display:grid;grid-template-columns:repeat(auto-fill,minmax(26.2cqw,1fr));gap:1.4cqw;align-content:start'><a href='github://mikemartinez1974/public/ideas/active-fragment-authoring-scope/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>A</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Active Fragment Authoring Scope</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Define active fragment focus as an authoring scope, not only a presentation preview.</span></span></a><a href='github://mikemartinez1974/public/ideas/bridge-editor/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>T</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>The Bridge Editor</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Put everything a Bridge does, including the events it exposes and consumes and the reactions to them, in the Bridge&#39;s own editor.</span></span></a><a href='github://mikemartinez1974/public/ideas/edge-and-label-navigation/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>I</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Idea Template</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Modern declaration-first template for framing, testing, and advancing an idea.</span></span></a><a href='github://mikemartinez1974/public/ideas/edge-endpoint-reassignment/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>E</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Edge Endpoint Reassignment</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>An interaction model for unplugging one endpoint of an existing edge and reconnecting it to another compatible Port without destroying the relationship.</span></span></a><a href='github://mikemartinez1974/public/ideas/event-handler-behavior/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>W</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>What an Event Handler Node Should Do</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>A working graph defining an Event Handler as one Event bound directly to one Method.</span></span></a><a href='github://mikemartinez1974/public/ideas/mcp-copy-paste-workflow/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>M</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>MCP Without Losing Copy/Paste</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Explore MCP as an optional connected transport for live graph collaboration while preserving copy/paste as Twilite’s universal reviewed workflow.</span></span></a><a href='github://mikemartinez1974/public/ideas/method-node-design/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>A</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>A Solid Method Node</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>A working graph for designing a Method node as a small, reviewable contract for Event Handlers to call.</span></span></a><a href='github://mikemartinez1974/public/ideas/multi-declaration-expansion/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>O</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>One Node, Multiple Declarations</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Define how one semantic node participates in multiple graphs and expands another graph without losing identity.</span></span></a><a href='github://mikemartinez1974/public/ideas/node-template-brainstorm/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>W</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>What Could a Node Template Be?</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>A brainstorm about a node template, given that a page template and an edge class template already exist: what it would hold, how it relates to them, and what it must not become.</span></span></a><a href='github://mikemartinez1974/public/ideas/page-template/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>T</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>The Page Template</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>A template for a full page view built from named page pieces, so a page is organized as a graph of small parts instead of one large document.</span></span></a><a href='github://mikemartinez1974/public/ideas/resource-resolution-and-web-content/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>R</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Resource Resolution and Web Content</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Separate resource authority from representation so Twilite can treat the Web as a native resource space.</span></span></a><a href='github://mikemartinez1974/public/ideas/retune-semantic-zoom-thresholds/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>R</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Retune Semantic Zoom Thresholds</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>A framed idea about widening the icon zoom band and pushing detail closer to full zoom, prompted by live use of the workspace.</span></span></a><a href='github://mikemartinez1974/public/ideas/semantic-zoom-architecture/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>S</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Semantic Zoom Has No Middle Ground</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Four separate mechanisms in Twilite share the name &quot;semantic zoom&quot; and do not share a model. None of them ever repacks a layout: content scales, a node&#39;s own view swaps, and a whole graph collapses to an icon, but a graph&#39;s authored positions never move. A sparsely laid-out graph looks the same fraction empty at every zoom, right up until it vanishes into one icon.</span></span></a><a href='github://mikemartinez1974/public/ideas/stroke-control/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>T</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>The Stroke Control</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Make the stroke widget a small graph of its own, with real Properties, a self-updating preview and a Bridge, so an edge class is edited through composed controls.</span></span></a><a href='github://mikemartinez1974/public/ideas/twilite-front-door/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>T</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Twilite Front Door</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Make the first ninety seconds of Twilite explain the product by letting the visitor navigate it.</span></span></a><a href='github://mikemartinez1974/public/ideas/typed-inter-graph-handoff-envelope/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>T</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Typed Inter-Graph Handoff Envelope</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Specify the inspectable typed envelope that carries values between declared graph ports without coupling connectivity, expansion, and execution.</span></span></a><a href='github://mikemartinez1974/public/ideas/zoom-and-wheel-behavior/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>T</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>The Camera Behaves Like the Browser</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>A gesture contract for zoom and the mouse wheel in Twilite: browser zoom drives the camera, and the wheel acts on the surface under the pointer the way it does on the web, panning the camera when that surface has nothing to scroll.</span></span></a></div></div></div></div>"
+        },
+        "memo": "",
+        "link": ""
       }
     },
     {
-      "id": "ideas-collection-controller-import",
-      "type": "import",
-      "label": "Ideas Collection Controller Import",
+      "id": "ideas-hub-summary",
+      "type": "face",
+      "label": "Ideas Summary",
       "position": {
-        "x": -1180,
-        "y": 20
+        "x": 1440,
+        "y": 0
       },
-      "width": 420,
-      "height": 260,
+      "width": 480,
+      "height": 480,
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        }
-      ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "memo": "Authorizes the Ideas graph to consume and execute the reusable collection-window capability.",
-        "visibilityRole": "editor",
-        "identity": {
-          "graphId": "ideas-collection-declaration"
-        },
-        "bridge": {
-          "ref": "github://mikemartinez1974/public/templates/collection-window-controller/root.node",
-          "resourceKind": "capability-kit",
-          "scope": "focused-graph",
-          "grants": [
-            "read",
-            "create",
-            "execute",
-            "runtime",
-            "update",
-            "delete"
-          ],
-          "exposure": {
-            "scripts": {
-              "mode": "allow",
-              "include": [
-                "collection-window-controller"
-              ]
-            },
-            "views": {
-              "mode": "allow"
-            }
-          }
-        }
-      }
-    },
-    {
-      "id": "ideas-collection-window-controller",
-      "type": "method",
-      "label": "Ideas Collection Browser",
-      "position": {
-        "x": -720,
-        "y": 20
-      },
-      "width": 380,
-      "height": 120,
-      "ports": [
-        {
-          "id": "trigger",
-          "label": "trigger",
           "direction": "input",
-          "dataType": "trigger",
-          "angle": 180
-        },
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
         {
-          "id": "result",
-          "label": "result",
-          "direction": "output",
-          "dataType": "value",
-          "angle": 0
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
         }
       ],
       "visible": true,
       "showLabel": true,
       "data": {
-        "scriptId": "collection-window-controller",
-        "scriptName": "Ideas Collection Browser",
-        "source": "const RUNTIME_KIND = 'windowed-collection-member';\nconst STATE_KEY = '__twiliteCollectionWindow';\nconst clean = (value) => String(value || '').trim();\nconst cleanPath = (value) => clean(value).replace(/^\\/+|\\/+$/g, '');\nconst pause = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));\n\nconst parseGithubRef = (ref) => {\n  const raw = clean(ref).split('#')[0];\n  if (!raw.toLowerCase().startsWith('github://')) return null;\n  const [owner = '', repo = '', ...parts] = raw.slice('github://'.length).split('/');\n  const filePath = cleanPath(parts.join('/'));\n  if (!owner || !repo || !filePath) return null;\n  const directory = filePath.includes('/') ? filePath.slice(0, filePath.lastIndexOf('/')) : '';\n  return { owner, repo, directory };\n};\n\nconst listRepositoryDirectory = async (request) => {\n  if (typeof api.listRepositoryDirectory === 'function') {\n    return api.listRepositoryDirectory(request);\n  }\n  const error = new Error('Repository directory listing is not available in this Twilite runtime.');\n  error.code = 'DIRECTORY_LIST_UNAVAILABLE';\n  throw error;\n};\n\nconst compatibilityMembers = (nodes, parsed, contract) => {\n  const prefix = `github://${parsed.owner}/${parsed.repo}/${parsed.directory ? `${parsed.directory}/` : ''}`.toLowerCase();\n  const declared = Array.isArray(contract?.compatibilityMembers) ? contract.compatibilityMembers.map(clean) : [];\n  const portals = nodes\n    .filter((node) => clean(node?.type).toLowerCase() === 'portal')\n    .map((node) => clean(node?.data?.target?.ref || node?.data?.sourceRef || node?.data?.ref || node?.data?.src));\n  return [...new Set([...declared, ...portals]\n    .filter((ref) => ref.toLowerCase().startsWith(prefix))\n    .filter((ref) => !ref.toLowerCase().endsWith('/root.node'))\n  )].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));\n};\n\nconst findMemberProjection = (graph, payload = 'node.web.icon') => {\n  const nodes = Array.isArray(graph?.nodes) ? graph.nodes : [];\n  const declaration = nodes.find((node) => ['root'].includes(clean(node?.type).toLowerCase()));\n  const semanticSurfaceId = clean(payload).toLowerCase().includes('icon')\n    ? 'icon'\n    : clean(payload).toLowerCase().includes('summary')\n      ? 'summary'\n      : clean(payload).toLowerCase().includes('detail')\n        ? 'detail'\n        : 'root';\n  const surfaces = Array.isArray(declaration?.data?.root?.surfaces)\n    ? declaration.data.root.surfaces\n    : [];\n  const surface = surfaces.find((entry) => {\n    const id = clean(entry?.id).toLowerCase();\n    const label = clean(entry?.label).toLowerCase();\n    return id === semanticSurfaceId\n      || id === `${semanticSurfaceId}-surface`\n      || id.endsWith(`-${semanticSurfaceId}-surface`)\n      || label === semanticSurfaceId;\n  })\n    || surfaces.find((entry) => clean(entry?.id).toLowerCase() === 'root');\n  const portId = clean(surface?.portNodeId || surface?.viewNodeId);\n  const port = nodes.find((node) => node?.id === portId)\n    || nodes.find((node) => clean(node?.type).toLowerCase() === 'port' && clean(node?.data?.surfaceId || node?.id) === 'root')\n    || nodes.find((node) => clean(node?.type).toLowerCase() === 'port');\n  const infrastructureTypes = new Set([\n    'import', 'export', 'root', 'content', 'port', 'portal', 'script', 'title'\n  ]);\n  const isSemanticInstance = (node) => {\n    const type = clean(node?.type).toLowerCase();\n    return Boolean(node && !infrastructureTypes.has(type) && node?.data?.classRef);\n  };\n  const connected = (Array.isArray(graph?.edges) ? graph.edges : [])\n    .filter((edge) => edge?.source === port?.id || edge?.target === port?.id)\n    .map((edge) => nodes.find((node) => node?.id === (edge.source === port?.id ? edge.target : edge.source)))\n    .find(isSemanticInstance);\n  const rooted = nodes.find((node) => node?.root === true && isSemanticInstance(node));\n  const semanticNode = connected || rooted || nodes.find(isSemanticInstance) || null;\n  const glyphEdge = (Array.isArray(graph?.edges) ? graph.edges : []).find((edge) => (\n    edge?.source === declaration?.id\n    && ['shared-glyph', 'glyph'].includes(clean(edge?.data?.role || edge?.data?.semanticRole || edge?.label).toLowerCase())\n  ));\n  const glyphNode = nodes.find((node) => node?.id === glyphEdge?.target);\n  const glyph = glyphNode?.data?.glyph && typeof glyphNode.data.glyph === 'object'\n    ? glyphNode.data.glyph\n    : null;\n  return {\n    id: clean(port?.id || declaration?.id),\n    label: clean(declaration?.data?.identity?.name || port?.label),\n    payload: clean(\n      port?.data?.view?.payload ||\n      port?.data?.payload ||\n      payload\n    ),\n    node: semanticNode,\n    glyph\n  };\n};\n\nconst listMembers = async (parsed, membership) => {\n  const entries = await listRepositoryDirectory({\n    repo: `${parsed.owner}/${parsed.repo}`,\n    path: parsed.directory,\n    branch: 'main',\n    allowPublic: true\n  });\n  const refs = [];\n  if (membership?.includeDirectNodeFiles !== false) {\n    entries.filter((entry) => clean(entry?.type).toLowerCase() === 'file')\n      .filter((entry) => clean(entry?.name).toLowerCase().endsWith('.node'))\n      .filter((entry) => clean(entry?.name).toLowerCase() !== 'root.node')\n      .forEach((entry) => refs.push(`github://${parsed.owner}/${parsed.repo}/${cleanPath(entry.path)}`));\n  }\n  if (membership?.includeDirectChildRoots !== false) {\n    const directories = entries.filter((entry) => clean(entry?.type).toLowerCase() === 'dir');\n    const childRoots = await Promise.all(directories.map(async (directory) => {\n      try {\n        const children = await listRepositoryDirectory({\n          repo: `${parsed.owner}/${parsed.repo}`,\n          path: cleanPath(directory.path),\n          branch: 'main',\n          allowPublic: true\n        });\n        const root = children.find((entry) => clean(entry?.type).toLowerCase() === 'file' && clean(entry?.name).toLowerCase() === 'root.node');\n        return root ? `github://${parsed.owner}/${parsed.repo}/${cleanPath(root.path)}` : '';\n      } catch (_) {\n        return '';\n      }\n    }));\n    refs.push(...childRoots.filter(Boolean));\n  }\n  return [...new Set(refs)].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));\n};\n\nconst renderWindow = async (direction = 'run') => {\n  const nodes = await api.getNodes();\n  const existing = nodes.filter((node) => (\n    clean(node?.data?._runtime?.kind) === RUNTIME_KIND\n    || clean(node?.id).startsWith('runtime-collection-')\n  ));\n  const declaration = nodes.find((node) => (\n    ['root'].includes(clean(node?.type).toLowerCase())\n    && clean(node?.data?.intent?.kind).toLowerCase() === 'collection'\n  ));\n  const contract = declaration?.data?.collection || {};\n  const surface = nodes.find((node) => clean(node?.data?.capabilityRole) === 'collection-surface');\n  const surfaceView = surface?.data?.collectionView && typeof surface.data.collectionView === 'object'\n    ? surface.data.collectionView\n    : {};\n  // The reusable surface supplies layout defaults; the host collection owns the\n  // editorial policy for its members and may deliberately override them.\n  const view = { ...surfaceView, ...(contract.view || {}) };\n  const memberPayload = (() => {\n    const configured = clean(view.payload);\n    // node.web was the legacy reader/card request. Collection windows now use\n    // the compact icon surface unless their declaration names another surface.\n    return !configured || configured === 'node.web' ? 'node.web.icon' : configured;\n  })();\n  const graphRef = clean(contract.collectionRef || declaration?.data?.document?.url);\n  const parsed = parseGithubRef(graphRef);\n  if (!parsed) throw new Error('Collection declaration needs data.collection.collectionRef as a github:// graph address.');\n\n  let members;\n  try {\n    members = await listMembers(parsed, contract.membership || {});\n  } catch (error) {\n    if (error?.code !== 'DIRECTORY_LIST_UNAVAILABLE') throw error;\n    members = compatibilityMembers(nodes, parsed, contract);\n    if (!members.length) {\n      throw new Error('This runtime cannot discover the collection directory yet, and the graph has no authored member portals to use as a compatibility index.');\n    }\n  }\n  const runtimeStart = Number(existing[0]?.data?._runtime?.windowStart);\n  const configuredWindowSize = Math.max(1, Math.min(50, Number(view.windowSize) || 10));\n  const prior = globalThis[STATE_KEY] || {\n    start: Number.isFinite(runtimeStart) ? runtimeStart : 0,\n    pageSize: configuredWindowSize\n  };\n  const windowSize = Math.max(1, Math.min(50, Number(prior.pageSize) || configuredWindowSize));\n  let start = Number(prior.start) || 0;\n  const maxStart = members.length ? Math.floor((members.length - 1) / windowSize) * windowSize : 0;\n  if (direction === 'next') {\n    start = start >= maxStart ? 0 : start + windowSize;\n  }\n  if (direction === 'previous') {\n    start = start <= 0 ? maxStart : start - windowSize;\n  }\n  if (direction === 'run' && existing.length) {\n    start = start >= maxStart ? 0 : start + windowSize;\n  }\n  start = Math.max(0, Math.min(maxStart, start));\n  globalThis[STATE_KEY] = { start, count: members.length, pageSize: windowSize };\n\n  const visibleRefs = members.slice(start, start + windowSize);\n  const resolved = await Promise.all(visibleRefs.map(async (ref) => {\n    try {\n      const graph = await api.readGraph(ref, { fresh: true });\n      return { ref, ...findMemberProjection(graph, memberPayload) };\n    } catch (_) {\n      return { ref, id: '', label: clean(ref.split('/').pop()).replace(/\\.node$/i, '') };\n    }\n  }));\n\n  // A collection window owns stable display slots, not one canvas identity per\n  // repository member. Reusing slots makes a page turn an in-place content\n  // update instead of a competing delete/create wave. Durable member identity\n  // remains available through data._origin.ref and data._runtime.sourceRef.\n  const existingSlots = [...existing].sort((left, right) => {\n    const leftSlot = Number(left?.data?._runtime?.slot);\n    const rightSlot = Number(right?.data?._runtime?.slot);\n    if (Number.isFinite(leftSlot) && Number.isFinite(rightSlot)) return leftSlot - rightSlot;\n    if (Number.isFinite(leftSlot)) return -1;\n    if (Number.isFinite(rightSlot)) return 1;\n    const leftY = Number(left?.position?.y) || 0;\n    const rightY = Number(right?.position?.y) || 0;\n    if (leftY !== rightY) return leftY - rightY;\n    return (Number(left?.position?.x) || 0) - (Number(right?.position?.x) || 0);\n  });\n  const deleteIds = existingSlots.slice(resolved.length).map((node) => node.id);\n  const usesIconMembers = memberPayload === 'node.web.icon' || memberPayload === 'icon.web';\n  const columns = Math.max(1, Math.min(windowSize, Number(view.columns) || 3));\n  const cardWidth = Math.max(160, Number(\n    usesIconMembers ? (view.iconCardWidth || Math.min(Number(view.cardWidth) || 220, 240)) : view.cardWidth\n  ) || 500);\n  const cardHeight = Math.max(160, Number(\n    usesIconMembers ? (view.iconCardHeight || Math.min(Number(view.cardHeight) || 220, 220)) : view.cardHeight\n  ) || 320);\n  const gapX = Math.max(20, Number(view.gapX) || 80);\n  const gapY = Math.max(20, Number(view.gapY) || 70);\n  const surfaceX = Number(surface?.position?.x);\n  const surfaceY = Number(surface?.position?.y);\n  const surfaceWidth = Number(surface?.width);\n  const surfacePaddingX = Math.max(24, Number(view.surfacePaddingX) || 56);\n  const surfaceHeaderHeight = Math.max(80, Number(view.surfaceHeaderHeight) || 190);\n  const contentWidth = columns * cardWidth + Math.max(0, columns - 1) * gapX;\n  const centeredOffset = Number.isFinite(surfaceWidth)\n    ? Math.max(surfacePaddingX, (surfaceWidth - contentWidth) / 2)\n    : surfacePaddingX;\n  const originX = Number.isFinite(surfaceX)\n    ? surfaceX + centeredOffset\n    : (Number.isFinite(Number(view?.origin?.x)) ? Number(view.origin.x) : -720);\n  const originY = Number.isFinite(surfaceY)\n    ? surfaceY + surfaceHeaderHeight\n    : (Number.isFinite(Number(view?.origin?.y)) ? Number(view.origin.y) : 330);\n\n  const collectionName = clean(declaration?.data?.identity?.name || declaration?.label || 'Collection');\n  const collectionPurpose = clean(\n    declaration?.data?.identity?.description || declaration?.data?.document?.description || contract?.description\n  );\n  if (surface?.id && typeof api.updateNode === 'function') {\n    const nextTitle = collectionName || clean(surface?.data?.title) || 'Collection';\n    const nextPurpose = collectionPurpose || clean(surface?.data?.purpose) || 'A windowed collection.';\n    if (surface?.data?.title !== nextTitle || surface?.data?.purpose !== nextPurpose) {\n      await api.updateNode(surface.id, {\n        data: { ...(surface.data || {}), title: nextTitle, purpose: nextPurpose }\n      });\n    }\n  }\n  const createNodes = [];\n  const updateNodes = [];\n\n  for (let index = 0; index < resolved.length; index += 1) {\n    const member = resolved[index];\n    const priorMember = existingSlots[index] || null;\n    const id = priorMember?.id || `runtime-collection-slot-${index}`;\n    const label = member.label || clean(member.ref.split('/').pop()).replace(/\\.node$/i, '') || 'Collection member';\n    const preserveManualPlacement = view.allowManualMemberPlacement === true && priorMember?.positionLocked === true;\n    const projected = {\n      id,\n      type: 'portal',\n      label,\n      position: preserveManualPlacement\n        ? priorMember.position\n        : {\n            x: originX + (index % columns) * (cardWidth + gapX),\n            y: originY + Math.floor(index / columns) * (cardHeight + gapY)\n          },\n      width: cardWidth,\n      height: cardHeight,\n      ...(preserveManualPlacement ? { positionLocked: true } : { positionLocked: false }),\n      ports: [],\n      handles: [],\n      inputs: [],\n      outputs: [],\n      data: {\n        authority: 'navigate',\n        intent: 'external',\n        src: member.ref,\n        ref: member.ref,\n        endpoint: member.ref,\n        sourceRef: member.ref,\n        sourceNodeId: member.id,\n        sourcePayload: member.payload || memberPayload,\n        surfaceId: 'root',\n        target: { ref: member.ref, mode: 'navigate', portId: 'root', surfaceId: 'root', label: `Open ${label}` },\n        visibilityRole: 'browser',\n        presentationBaseLevel: usesIconMembers\n          ? 'icon'\n          : 'summary',\n        ...(member.glyph ? { presentation: { glyph: member.glyph } } : {}),\n        _origin: {\n          canonicalId: member.node?.id || member.id,\n          ref: member.ref\n        },\n        _runtime: { kind: RUNTIME_KIND, slot: index, sourceRef: member.ref, sourceNodeId: member.id, windowStart: start }\n      }\n    };\n    if (priorMember) updateNodes.push(projected);\n    else createNodes.push(projected);\n  }\n  // Reconcile the visible window as one host transaction. Script RPC calls are\n  // asynchronous proposals, so separate delete/create calls can otherwise race\n  // and leave the previous window beside the new one.\n  const deltas = [\n    ...(deleteIds.length ? [{ op: 'deleteNodes', ids: deleteIds }] : []),\n    ...(createNodes.length ? [{ op: 'createNodes', data: createNodes }] : []),\n    ...updateNodes.map((memberNode) => ({ op: 'updateNode', id: memberNode.id, patch: memberNode }))\n  ];\n  if (deltas.length && typeof api.applyDeltas === 'function') {\n    await api.applyDeltas(deltas);\n  } else {\n    if (deleteIds.length && typeof api.deleteNodes === 'function') {\n      await api.deleteNodes(deleteIds);\n      await pause(80);\n    } else {\n      for (const id of deleteIds) {\n        await api.deleteNode(id);\n        await pause(180);\n      }\n    }\n    if (createNodes.length && typeof api.createNodes === 'function') {\n      await api.createNodes(createNodes);\n    } else {\n      for (const memberNode of createNodes) {\n        await api.createNode(memberNode);\n        await pause(180);\n      }\n    }\n    if (updateNodes.length) {\n      await Promise.all(updateNodes.map((memberNode) => api.updateNode(memberNode.id, memberNode)));\n    }\n  }\n  const result = {\n    start,\n    end: Math.min(members.length, start + windowSize),\n    count: members.length,\n    pageSize: windowSize,\n    payload: memberPayload,\n    surfaceId: clean(surface?.id)\n  };\n  try {\n    api.events.emit('collection:window-state', result);\n  } catch (_) {}\n  return result;\n};\n\nconst applyPageSize = (payload) => {\n  const requested = Number(payload?.pageSize ?? payload?.value ?? payload);\n  if (!Number.isFinite(requested)) return renderWindow('refresh');\n  const prior = globalThis[STATE_KEY] || {};\n  globalThis[STATE_KEY] = {\n    ...prior,\n    start: 0,\n    pageSize: Math.max(1, Math.min(50, Math.round(requested)))\n  };\n  return renderWindow('refresh');\n};\n\nif (globalThis.__twiliteCollectionUnsubscribe) {\n  globalThis.__twiliteCollectionUnsubscribe.forEach((unsubscribe) => unsubscribe());\n}\nglobalThis.__twiliteCollectionUnsubscribe = [\n  api.events.on('collection:previous', () => renderWindow('previous')),\n  api.events.on('collection:next', () => renderWindow('next')),\n  api.events.on('collection:refresh', () => renderWindow('refresh')),\n  api.events.on('collection:page-size', (payload) => applyPageSize(payload))\n];\n\nconst invocationEvent = clean(api?.invocation?.event).toLowerCase();\nif (invocationEvent === 'collection:previous') return renderWindow('previous');\nif (invocationEvent === 'collection:next') return renderWindow('next');\nif (invocationEvent === 'collection:refresh') return renderWindow('refresh');\nif (invocationEvent === 'collection:page-size') return applyPageSize(api?.invocation?.payload);\nreturn renderWindow('run');\n",
-        "scriptRef": "github://mikemartinez1974/public/templates/collection-template/collection-window.js",
-        "allowMutations": true,
-        "dryRun": false,
-        "autoRunPayload": {},
-        "memo": "Browse the Ideas directory six graphs at a time.",
-        "multiplicity": "singleton",
-        "requirements": [
-          "The Ideas declaration owns the authoritative collection policy",
-          "The import bridge grants runtime execution in this graph"
-        ],
-        "effects": [
-          {
-            "kind": "update-node"
-          },
-          {
-            "kind": "create-node"
-          },
-          {
-            "kind": "delete-node"
-          }
-        ],
-        "grants": [
-          "read",
-          "execute",
-          "runtime",
-          "create",
-          "update",
-          "delete"
-        ],
-        "capabilityRole": "collection-window-controller",
-        "pageSize": 6,
-        "rangeLabel": "Ready",
-        "runStatus": "idle",
-        "preferredView": "summary",
-        "nodeViewPayload": "node.web.summary",
-        "visibilityRole": "browser",
         "identity": {
-          "graphId": "ideas-collection-declaration"
+          "graphId": "ideas-hub"
         },
-        "classRef": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controller.node-class.node",
-        "parameters": []
+        "view": {
+          "intent": "node",
+          "payload": "node.web.summary"
+        },
+        "semanticLevel": "summary",
+        "content": {
+          "kind": "html",
+          "value": "<div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;font-family:system-ui,-apple-system,Segoe UI,sans-serif;padding:5cqw;border-radius:4cqw;background:#ffffff;border:1px solid #e2e8f0;display:flex;flex-direction:column;gap:2cqw;overflow:hidden'><div style='display:flex;justify-content:space-between;align-items:flex-end;gap:2cqw'><div style='min-width:0'><div style='font-size:2.8cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Collection</div><div style='font-weight:600;font-size:5.4cqw;line-height:1.2;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>Ideas</div></div><div style='font-size:3.4cqw;color:#475569;white-space:nowrap'>17 graphs</div></div><div style='position:relative;margin:auto -5cqw'><div style='display:flex;align-items:flex-end;gap:2.5cqw;overflow-x:auto;overflow-y:hidden;padding:0 5cqw;scroll-snap-type:x proximity;scroll-padding:0 5cqw;scrollbar-width:thin;scrollbar-color:#64748b #cbd5e1'><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Active Fragment Authoring Scope</div></div></div><a href='github://mikemartinez1974/public/ideas/active-fragment-authoring-scope/root.node' title='Active Fragment Authoring Scope' aria-label='Active Fragment Authoring Scope' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>The Bridge Editor</div></div></div><a href='github://mikemartinez1974/public/ideas/bridge-editor/root.node' title='The Bridge Editor' aria-label='The Bridge Editor' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Idea Template</div></div></div><a href='github://mikemartinez1974/public/ideas/edge-and-label-navigation/root.node' title='Idea Template' aria-label='Idea Template' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Edge Endpoint Reassignment</div></div></div><a href='github://mikemartinez1974/public/ideas/edge-endpoint-reassignment/root.node' title='Edge Endpoint Reassignment' aria-label='Edge Endpoint Reassignment' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>What an Event Handler Node Should Do</div></div></div><a href='github://mikemartinez1974/public/ideas/event-handler-behavior/root.node' title='What an Event Handler Node Should Do' aria-label='What an Event Handler Node Should Do' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>MCP Without Losing Copy/Paste</div></div></div><a href='github://mikemartinez1974/public/ideas/mcp-copy-paste-workflow/root.node' title='MCP Without Losing Copy/Paste' aria-label='MCP Without Losing Copy/Paste' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>A Solid Method Node</div></div></div><a href='github://mikemartinez1974/public/ideas/method-node-design/root.node' title='A Solid Method Node' aria-label='A Solid Method Node' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>One Node, Multiple Declarations</div></div></div><a href='github://mikemartinez1974/public/ideas/multi-declaration-expansion/root.node' title='One Node, Multiple Declarations' aria-label='One Node, Multiple Declarations' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Brainstorm</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>What Could a Node Template Be?</div></div></div><a href='github://mikemartinez1974/public/ideas/node-template-brainstorm/root.node' title='What Could a Node Template Be?' aria-label='What Could a Node Template Be?' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>The Page Template</div></div></div><a href='github://mikemartinez1974/public/ideas/page-template/root.node' title='The Page Template' aria-label='The Page Template' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Resource Resolution and Web Content</div></div></div><a href='github://mikemartinez1974/public/ideas/resource-resolution-and-web-content/root.node' title='Resource Resolution and Web Content' aria-label='Resource Resolution and Web Content' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Retune Semantic Zoom Thresholds</div></div></div><a href='github://mikemartinez1974/public/ideas/retune-semantic-zoom-thresholds/root.node' title='Retune Semantic Zoom Thresholds' aria-label='Retune Semantic Zoom Thresholds' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Semantic Zoom Has No Middle Ground</div></div></div><a href='github://mikemartinez1974/public/ideas/semantic-zoom-architecture/root.node' title='Semantic Zoom Has No Middle Ground' aria-label='Semantic Zoom Has No Middle Ground' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>The Stroke Control</div></div></div><a href='github://mikemartinez1974/public/ideas/stroke-control/root.node' title='The Stroke Control' aria-label='The Stroke Control' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Twilite Front Door</div></div></div><a href='github://mikemartinez1974/public/ideas/twilite-front-door/root.node' title='Twilite Front Door' aria-label='Twilite Front Door' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Typed Inter-Graph Handoff Envelope</div></div></div><a href='github://mikemartinez1974/public/ideas/typed-inter-graph-handoff-envelope/root.node' title='Typed Inter-Graph Handoff Envelope' aria-label='Typed Inter-Graph Handoff Envelope' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>The Camera Behaves Like the Browser</div></div></div><a href='github://mikemartinez1974/public/ideas/zoom-and-wheel-behavior/root.node' title='The Camera Behaves Like the Browser' aria-label='The Camera Behaves Like the Browser' style='position:absolute;inset:0'></a></div></div><div style='position:absolute;right:0;top:0;bottom:12px;width:6cqw;pointer-events:none;background:linear-gradient(270deg,#ffffff,rgba(255,255,255,0))'></div></div></div></div>"
+        },
+        "memo": "",
+        "link": ""
       }
     },
     {
-      "id": "ideas-collection-guidance",
-      "type": "content",
-      "label": "Ideas live here",
+      "id": "ideas-hub-glyph",
+      "type": "glyph",
+      "label": "Ideas glyph",
       "position": {
-        "x": -120,
-        "y": 20
+        "x": -320,
+        "y": 0
       },
-      "width": 620,
-      "height": 210,
+      "width": 90,
+      "height": 90,
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
-          "direction": "bidirectional",
+          "direction": "input",
           "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
           "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
         }
       ],
-      "style": {
-        "background": "#17152f",
-        "color": "#ede9fe",
-        "border": "2px solid #6d28d9",
-        "borderRadius": 24,
-        "padding": 20
-      },
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
       "visible": true,
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "michael-ideas-collection"
+          "graphId": "ideas-hub"
+        },
+        "glyph": {
+          "kind": "icon",
+          "name": "Folder",
+          "color": "#6d28d9"
+        },
+        "view": {
+          "payload": "node.web.glyph"
+        }
+      }
+    },
+    {
+      "id": "ideas-hub-landing",
+      "type": "content",
+      "label": "Ideas landing",
+      "position": {
+        "x": 1440,
+        "y": 340
+      },
+      "width": 360,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "ideas-hub"
         },
         "content": {
           "kind": "markdown",
-          "value": "## Ideas live here\n\nThis collection contains idea graphs authored directly in `ideas/`. Add a direct `.node` file to enroll it; the collection controller presents its ordinary root card. Standalone demonstrations and experiments belong in Graph Lab, while implementation work belongs in the task collection."
-        }
-      }
-    },
-    {
-      "id": "ideas-collection-repo-root",
-      "type": "portal",
-      "label": "Public Repository Root",
-      "position": {
-        "x": 777.5876017019148,
-        "y": -345.9098466175605
-      },
-      "width": 360,
-      "height": 240,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
+          "value": "# Ideas\n\nThe thinking behind the work. Each tile is an idea, written as cards: the idea, the points that make it up, the questions it leaves open and the evidence for it.\n\nThis graph is a collection. Each tile is a portal it contains, and what a tile shows (its name, its description, how many pieces it has) is read from the graph behind it, so nothing here is a copy."
         },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 360
-        }
-      ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "memo": "Return to the public repository root.",
-        "authority": "navigate",
-        "ref": "github://mikemartinez1974/public/root.node",
-        "endpoint": "github://mikemartinez1974/public/root.node:root",
-        "intent": "external",
-        "target": {
-          "endpoint": "github://mikemartinez1974/public/root.node:root",
-          "ref": "github://mikemartinez1974/public/root.node",
-          "mode": "navigate",
-          "portId": "root",
-          "surfaceId": "repo-home",
-          "label": "Open Public Repository Root",
-          "handleId": "root"
-        },
-        "visibilityRole": "browser",
-        "identity": {
-          "graphId": "ideas-collection-declaration"
-        },
-        "security": "prompt",
-        "src": "github://mikemartinez1974/public/root.node",
-        "sourceRef": "github://mikemartinez1974/public/root.node",
-        "sourceNodeId": "public-home-view",
-        "sourcePayload": "node.web.summary",
-        "surfaceId": "repo-home",
         "_placement": {
           "version": 1,
           "state": "manually-shaped",
           "source": "manual",
-          "updatedAt": 1786854598002,
+          "updatedAt": 1791502752029,
           "reason": "node-drag"
         }
       }
     },
     {
-      "id": "runtime-collection-slot-0",
-      "type": "idea",
-      "label": "Chat Nodes as Graph Provenance",
+      "id": "ideas-hub-collection",
+      "type": "collection",
+      "label": "Ideas",
       "position": {
-        "x": -720,
-        "y": 330
+        "x": 1440,
+        "y": 500
       },
-      "width": 240,
-      "height": 220,
+      "width": 300,
+      "height": 120,
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "title": "Ideas",
+        "body": "Ideas, each worked out in cards: the points that make it up, the questions it leaves open, and what could be done next.",
+        "sort": "order",
+        "includeFolder": false,
+        "sourcesSummary": "17 portals · 17 members",
+        "identity": {
+          "graphId": "ideas-hub",
+          "nodeId": "ideas-hub-collection"
+        },
+        "classRef": "tlz://twilite.zone/library/classes/nodes/collection/collection.node-class.node"
+      },
       "ports": [
         {
+          "id": "members",
+          "key": "members",
+          "label": "members",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": true,
+            "targetKinds": [
+              "portal"
+            ]
+          }
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        },
+        {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 210
+          "angle": 250
+        }
+      ],
+      "handles": [
+        {
+          "id": "members",
+          "key": "members",
+          "label": "members",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": true,
+            "targetKinds": [
+              "portal"
+            ]
+          },
+          "portId": "members"
         },
         {
-          "id": "top",
-          "label": "top",
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        },
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
           "direction": "bidirectional",
-          "dataType": "value",
+          "dataType": "any",
+          "angle": 250,
+          "portId": "root"
+        }
+      ]
+    },
+    {
+      "id": "ideas-hub-environment",
+      "type": "face",
+      "label": "Ideas environment",
+      "position": {
+        "x": 1440,
+        "y": 860
+      },
+      "width": 360,
+      "height": 170,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
           "angle": 270
-        },
+        }
+      ],
+      "handles": [
         {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
         }
       ],
       "visible": true,
-      "showLabel": false,
+      "showLabel": true,
       "data": {
-        "title": "Graphs Should Preserve Their Originating Conversations",
-        "statement": "A graph should be able to contain a first-class Chat node that links back to the conversation that created, revised, or explained it, preserving provenance beside the artifact.",
-        "status": "framed",
-        "confidence": "plausible",
-        "notes": "The graph is the durable artifact; the Chat node explains how it came to exist and where its reasoning can be revisited.",
         "identity": {
-          "graphId": "chat-node-provenance"
+          "graphId": "ideas-hub"
         },
-        "presentationBaseLevel": "icon",
-        "_origin": {
-          "canonicalId": "chat-node-provenance-idea",
-          "ref": "github://mikemartinez1974/public/ideas/chat-node-provenance.node"
+        "view": {
+          "intent": "node",
+          "payload": "node.web.environment",
+          "fit": "window"
         },
-        "_runtime": {
-          "kind": "windowed-collection-member",
-          "slot": 0,
-          "sourceRef": "github://mikemartinez1974/public/ideas/chat-node-provenance.node",
-          "sourceNodeId": "chat-node-provenance-idea",
-          "windowStart": 0
-        },
-        "memo": "",
-        "link": "",
-        "_placement": {
-          "version": 1,
-          "state": "auto-placed",
-          "source": "create",
-          "updatedAt": 1786853780463,
-          "reason": "node-batch-create"
-        },
-        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
+        "content": {
+          "kind": "html",
+          "value": "<div style='container-type:inline-size;width:100%;height:100%'><div style='position:relative;box-sizing:border-box;width:100%;height:100%;overflow:hidden;background-color:#1c1733;background-image:radial-gradient(90cqw 55cqw at 12% -8%,color-mix(in srgb,#6d28d9 42%,transparent),transparent),repeating-linear-gradient(0deg,transparent 0,transparent 5.6cqw,color-mix(in srgb,#e9c46a 7%,transparent) 5.6cqw,color-mix(in srgb,#e9c46a 7%,transparent) 5.72cqw);font-family:Inter,system-ui,Segoe UI,Helvetica Neue,Arial,sans-serif;color:#f4eefc'><div style='position:absolute;left:4cqw;top:3cqw;font:800 1.4cqw/1.2 Inter,system-ui,Segoe UI,Helvetica Neue,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#e9c46a'>The Studio · Thinking</div><div style='position:absolute;left:4cqw;top:5cqw;font:500 6.6cqw/1 Georgia,Iowan Old Style,Palatino Linotype,Times New Roman,serif;letter-spacing:-.02em;white-space:nowrap'>Ideas</div><div style='position:absolute;left:4cqw;width:38.23cqw;top:12.6cqw;font:italic 400 2cqw/1.35 Georgia,Iowan Old Style,Palatino Linotype,Times New Roman,serif;color:#d9cdf0'>Possibilities, connected. Each tile is an idea worked out in cards.</div><div style='position:absolute;left:25cqw;top:21.32cqw;width:53.68cqw;height:66.91cqw;box-sizing:border-box;border-radius:2cqw;background:color-mix(in srgb,#e9c46a 6%,#1c1733);border:.28cqw solid color-mix(in srgb,#e9c46a 26%,#1c1733)'></div><div style='position:absolute;left:41.83cqw;top:12.72cqw;height:8.6cqw;display:flex;align-items:flex-end;gap:.35cqw'><i style='display:block;width:1.5cqw;height:7.7cqw;background:#e9c46a;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:1.95cqw;height:9.1cqw;background:#4c1d95;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:2.4cqw;height:6.3cqw;background:#8b5cf6;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:2.85cqw;height:8.4cqw;background:#c4b5fd;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:1.5cqw;height:5.6cqw;background:#6d28d9;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:1.95cqw;height:7cqw;background:#e9c46a;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:2.4cqw;height:9.1cqw;background:#5b21b6;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:2.85cqw;height:6.3cqw;background:#a78bfa;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:1.5cqw;height:7.7cqw;background:#7c3aed;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:1.95cqw;height:5.6cqw;background:#e9c46a;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:2.4cqw;height:8.4cqw;background:#4c1d95;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:2.85cqw;height:7cqw;background:#8b5cf6;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:1.5cqw;height:9.1cqw;background:#6d28d9;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:1.95cqw;height:6.3cqw;background:#c4b5fd;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i></div><div style='position:absolute;left:4cqw;right:4cqw;bottom:2.6cqw;display:grid;grid-template-columns:repeat(2,1fr);gap:3cqw;border-top:.2cqw solid color-mix(in srgb,#e9c46a 40%,transparent);padding-top:1.3cqw'><div style='min-width:0'><div style='font:800 1.25cqw/1.2 Inter,system-ui,Segoe UI,Helvetica Neue,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#e9c46a;margin:0 0 .8cqw'>Jump to</div><div style='display:flex;flex-direction:column;gap:.5cqw;font:600 1.6cqw/1.2 Inter,system-ui,Segoe UI,Helvetica Neue,Arial,sans-serif'><a href='github://mikemartinez1974/public/ideas/active-fragment-authoring-scope/root.node' style='color:#f4eefc;text-decoration:none'>Active Fragment Authoring Scope →</a><a href='github://mikemartinez1974/public/ideas/bridge-editor/root.node' style='color:#f4eefc;text-decoration:none'>The Bridge Editor →</a><a href='github://mikemartinez1974/public/ideas/edge-and-label-navigation/root.node' style='color:#f4eefc;text-decoration:none'>Idea Template →</a></div></div><div style='min-width:0'><div style='font:800 1.25cqw/1.2 Inter,system-ui,Segoe UI,Helvetica Neue,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#e9c46a;margin:0 0 .8cqw'>Elsewhere</div><div style='display:flex;flex-direction:column;gap:.5cqw;font:600 1.6cqw/1.2 Inter,system-ui,Segoe UI,Helvetica Neue,Arial,sans-serif'><a href='github://mikemartinez1974/public/root.node' style='color:#f4eefc;text-decoration:none'>The Studio →</a><a href='github://mikemartinez1974/public/projects/root.node' style='color:#f4eefc;text-decoration:none'>Projects →</a></div></div></div></div></div>"
+        }
       }
     },
     {
-      "id": "runtime-collection-slot-1",
-      "type": "idea",
-      "label": "Expandable Graph Rooms",
+      "id": "ideas-hub-collection-template",
+      "type": "import",
+      "label": "Collection Template",
       "position": {
-        "x": -410,
-        "y": 330
+        "x": 1440,
+        "y": 1060
       },
-      "width": 240,
-      "height": 220,
+      "width": 280,
+      "height": 110,
       "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "position": {
+            "side": "top",
+            "offset": 0.2
+          }
+        }
+      ],
+      "handles": [
         {
           "id": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
+          "angle": 180,
+          "portId": "root"
         }
       ],
       "visible": true,
-      "showLabel": false,
+      "showLabel": true,
       "data": {
-        "title": "A Graph Can Open Another Graph as a Room",
-        "statement": "A separately owned .node file can be mounted as a collapsible branch inside the current canvas, letting users experience multiple files as one spatial structure without erasing ownership boundaries.",
-        "status": "framed",
-        "confidence": "promising",
-        "notes": "Portal navigation remains available. Expansion is an additional composition behavior, not a replacement for opening the source graph.",
         "identity": {
-          "graphId": "expandable-graph-rooms"
+          "graphId": "ideas-hub"
         },
-        "presentationBaseLevel": "icon",
-        "_origin": {
-          "canonicalId": "expandable-graph-rooms-idea",
-          "ref": "github://mikemartinez1974/public/ideas/expandable-graph-rooms.node"
-        },
-        "_runtime": {
-          "kind": "windowed-collection-member",
-          "slot": 1,
-          "sourceRef": "github://mikemartinez1974/public/ideas/expandable-graph-rooms.node",
-          "sourceNodeId": "expandable-graph-rooms-idea",
-          "windowStart": 0
-        },
-        "memo": "",
-        "link": "",
-        "_placement": {
-          "version": 1,
-          "state": "auto-placed",
-          "source": "create",
-          "updatedAt": 1786854540419,
-          "reason": "node-batch-create"
-        },
-        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
+        "memo": "The one Bridge to the Collection Template: the Method that derives the views, and the Collection class, come through it.",
+        "bridge": {
+          "ref": "tlz://twilite.zone/library/templates/collection-template/root.node",
+          "resourceKind": "graph",
+          "scope": "focused-graph",
+          "grants": [
+            "read",
+            "create",
+            "update",
+            "execute"
+          ]
+        }
       }
     },
     {
-      "id": "runtime-collection-slot-2",
-      "type": "idea",
-      "label": "Focus as a First-Class Presentation Context",
+      "id": "ideas-hub-derive-method",
+      "type": "method",
+      "label": "Derive the collection views",
       "position": {
-        "x": -100,
-        "y": 330
+        "x": 1440,
+        "y": 640
       },
-      "width": 240,
-      "height": 220,
+      "width": 360,
+      "height": 180,
       "ports": [
         {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
+          "id": "call",
+          "key": "call",
+          "label": "Call",
+          "direction": "input",
+          "dataType": "event",
+          "angle": 180
         },
         {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
+          "id": "result",
+          "key": "result",
+          "label": "Result",
+          "direction": "output",
           "dataType": "value",
           "angle": 0
+        }
+      ],
+      "handles": [
+        {
+          "id": "call",
+          "key": "call",
+          "label": "Call",
+          "direction": "input",
+          "dataType": "event",
+          "angle": 180,
+          "portId": "call"
         },
         {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
+          "id": "result",
+          "key": "result",
+          "label": "Result",
+          "direction": "output",
           "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
+          "angle": 0,
+          "portId": "result"
         }
       ],
       "visible": true,
-      "showLabel": false,
+      "showLabel": true,
       "data": {
-        "title": "Focus Should Be a First-Class Presentation Context",
-        "statement": "Twilite should maintain one authoritative focus context, separate from zoom, so the active node or branch can receive richer presentation than the surrounding graph without redefining global zoom semantics.",
-        "status": "framed",
-        "confidence": "plausible",
-        "notes": "Zoom establishes the default semantic band. Focus supplies local attention context. A presentation resolver combines the two.",
+        "scriptName": "Derive the collection views",
+        "parameters": [],
+        "source": "",
+        "allowMutations": true,
+        "dryRun": false,
         "identity": {
-          "graphId": "focus-model"
+          "graphId": "ideas-hub"
         },
-        "presentationBaseLevel": "icon",
-        "_origin": {
-          "canonicalId": "focus-model-idea",
-          "ref": "github://mikemartinez1974/public/ideas/focus-model.node"
-        },
-        "_runtime": {
-          "kind": "windowed-collection-member",
-          "slot": 2,
-          "sourceRef": "github://mikemartinez1974/public/ideas/focus-model.node",
-          "sourceNodeId": "focus-model-idea",
-          "windowStart": 0
-        },
-        "memo": "",
-        "link": "",
-        "_placement": {
-          "version": 1,
-          "state": "auto-placed",
-          "source": "create",
-          "updatedAt": 1786854540419,
-          "reason": "node-batch-create"
-        },
-        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
+        "effects": [
+          {
+            "kind": "update-node",
+            "targets": [
+              "ideas-hub-detail",
+              "ideas-hub-summary",
+              "ideas-hub-glyph",
+              "ideas-hub-declaration",
+              "ideas-hub-collection"
+            ]
+          }
+        ],
+        "bridgedMethod": {
+          "bridgeNodeId": "ideas-hub-collection-template",
+          "key": "collection-template-derive-method"
+        }
       }
     },
     {
-      "id": "runtime-collection-slot-3",
-      "type": "idea",
-      "label": "Graph-Native Chemistry",
+      "id": "ideas-hub-member-active-fragment-authoring-scope",
+      "type": "portal",
+      "label": "Active Fragment Authoring Scope",
       "position": {
-        "x": -720,
-        "y": 620
+        "x": 0,
+        "y": 260
       },
-      "width": 240,
-      "height": 220,
+      "width": 420,
+      "height": 240,
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
           "angle": 210
         },
         {
-          "id": "top",
-          "label": "top",
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
           "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
+          "dataType": "any",
+          "angle": 210
         },
         {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
         }
       ],
       "visible": true,
-      "showLabel": false,
+      "showLabel": true,
       "data": {
-        "title": "Graph-Native Chemistry",
-        "statement": "Represent chemical knowledge as reusable graph resources: elements are durable nodes/graphs, periodic tables are alternate views over them, and molecular bonds are semantic edge types.",
-        "status": "framed",
-        "confidence": "plausible",
-        "notes": "The periodic table is a view. Chemistry is the graph.",
+        "sourceRef": "github://mikemartinez1974/public/ideas/active-fragment-authoring-scope/root.node",
+        "sourceNodeId": "active-fragment-authoring-scope",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/active-fragment-authoring-scope/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Active Fragment Authoring Scope"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
         "identity": {
-          "graphId": "graph-native-chemistry"
+          "graphId": "ideas-hub"
         },
-        "presentationBaseLevel": "icon",
-        "_origin": {
-          "canonicalId": "graph-native-chemistry-idea",
-          "ref": "github://mikemartinez1974/public/ideas/graph-native-chemistry.node"
-        },
-        "_runtime": {
-          "kind": "windowed-collection-member",
-          "slot": 3,
-          "sourceRef": "github://mikemartinez1974/public/ideas/graph-native-chemistry.node",
-          "sourceNodeId": "graph-native-chemistry-idea",
-          "windowStart": 0
-        },
-        "memo": "",
-        "link": "",
-        "_placement": {
-          "version": 1,
-          "state": "auto-placed",
-          "source": "create",
-          "updatedAt": 1786854540419,
-          "reason": "node-batch-create"
-        },
-        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
+        "security": "prompt"
       }
     },
     {
-      "id": "runtime-collection-slot-4",
-      "type": "idea",
-      "label": "Graph-Owned Capabilities",
+      "id": "ideas-hub-member-bridge-editor",
+      "type": "portal",
+      "label": "The Bridge Editor",
       "position": {
-        "x": -410,
-        "y": 620
+        "x": 480,
+        "y": 260
       },
-      "width": 240,
-      "height": 220,
+      "width": 420,
+      "height": 240,
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
           "angle": 210
         },
         {
-          "id": "top",
-          "label": "top",
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
           "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
+          "dataType": "any",
+          "angle": 210
         },
         {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
         }
       ],
       "visible": true,
-      "showLabel": false,
+      "showLabel": true,
       "data": {
-        "title": "Capabilities Can Belong to Graphs",
-        "statement": "Reusable product capabilities should be authored in graphs and graph-owned JavaScript whenever a small, secure set of generic Twilite primitives can support them.",
-        "status": "testing",
-        "confidence": "supported",
-        "notes": "The host owns safe execution, authorization, atomic mutations, events, rendering, and persistence boundaries. The graph owns domain rules, state transitions, placement, controls, and composition.",
+        "sourceRef": "github://mikemartinez1974/public/ideas/bridge-editor/root.node",
+        "sourceNodeId": "bridge-editor",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/bridge-editor/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open The Bridge Editor"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
         "identity": {
-          "graphId": "graph-owned-capabilities"
+          "graphId": "ideas-hub"
         },
-        "presentationBaseLevel": "icon",
-        "_origin": {
-          "canonicalId": "graph-owned-capabilities-idea",
-          "ref": "github://mikemartinez1974/public/ideas/graph-owned-capabilities.node"
-        },
-        "_runtime": {
-          "kind": "windowed-collection-member",
-          "slot": 4,
-          "sourceRef": "github://mikemartinez1974/public/ideas/graph-owned-capabilities.node",
-          "sourceNodeId": "graph-owned-capabilities-idea",
-          "windowStart": 0
-        },
-        "memo": "",
-        "link": "",
-        "_placement": {
-          "version": 1,
-          "state": "auto-placed",
-          "source": "create",
-          "updatedAt": 1786854540419,
-          "reason": "node-batch-create"
-        },
-        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea.node-class.node"
+        "security": "prompt"
       }
     },
     {
-      "id": "runtime-collection-slot-5",
-      "type": "idea-audience",
-      "label": "Graph Standardization",
+      "id": "ideas-hub-member-edge-and-label-navigation",
+      "type": "portal",
+      "label": "Idea Template",
       "position": {
-        "x": -100,
-        "y": 620
+        "x": 960,
+        "y": 260
       },
-      "width": 240,
-      "height": 220,
+      "width": 420,
+      "height": 240,
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
           "angle": 210
         },
         {
-          "id": "top",
-          "label": "top",
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
           "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
+          "dataType": "any",
+          "angle": 210
         },
         {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
         }
       ],
       "visible": true,
-      "showLabel": false,
+      "showLabel": true,
       "data": {
-        "title": "Authors, Agents, Runtime, and Publishers",
-        "description": "Human authors, codebase-free agents, template makers, class designers, runtime maintainers, and repository publishers all need one predictable graph contract.",
-        "needs": "They need graphs to load, expose intentional surfaces, resolve classes, survive stricter validation, and remain repairable without reverse-engineering runtime assumptions.",
+        "sourceRef": "github://mikemartinez1974/public/ideas/edge-and-label-navigation/root.node",
+        "sourceNodeId": "idea-graph",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/edge-and-label-navigation/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Idea Template"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
         "identity": {
-          "graphId": "graph-standardization-idea"
+          "graphId": "ideas-hub"
         },
-        "presentationBaseLevel": "icon",
-        "_origin": {
-          "canonicalId": "graph-standardization-audience",
-          "ref": "github://mikemartinez1974/public/ideas/graph-standardization.node"
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "ideas-hub-member-edge-endpoint-reassignment",
+      "type": "portal",
+      "label": "Edge Endpoint Reassignment",
+      "position": {
+        "x": 0,
+        "y": 560
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
         },
-        "_runtime": {
-          "kind": "windowed-collection-member",
-          "slot": 5,
-          "sourceRef": "github://mikemartinez1974/public/ideas/graph-standardization.node",
-          "sourceNodeId": "graph-standardization-audience",
-          "windowStart": 0
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
         },
-        "memo": "",
-        "link": "",
-        "_placement": {
-          "version": 1,
-          "state": "auto-placed",
-          "source": "create",
-          "updatedAt": 1786854540419,
-          "reason": "node-batch-create"
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/ideas/edge-endpoint-reassignment/root.node",
+        "sourceNodeId": "edge-endpoint-reassignment",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/edge-endpoint-reassignment/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Edge Endpoint Reassignment"
         },
-        "classRef": "github://mikemartinez1974/public/templates/idea-template/classes/nodes/idea-audience.node-class.node"
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "ideas-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "ideas-hub-member-event-handler-behavior",
+      "type": "portal",
+      "label": "What an Event Handler Node Should Do",
+      "position": {
+        "x": 480,
+        "y": 560
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/ideas/event-handler-behavior/root.node",
+        "sourceNodeId": "event-handler-behavior",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/event-handler-behavior/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open What an Event Handler Node Should Do"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "ideas-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "ideas-hub-member-mcp-copy-paste-workflow",
+      "type": "portal",
+      "label": "MCP Without Losing Copy/Paste",
+      "position": {
+        "x": 960,
+        "y": 560
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/ideas/mcp-copy-paste-workflow/root.node",
+        "sourceNodeId": "mcp-copy-paste-workflow",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/mcp-copy-paste-workflow/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open MCP Without Losing Copy/Paste"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "ideas-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "ideas-hub-member-method-node-design",
+      "type": "portal",
+      "label": "A Solid Method Node",
+      "position": {
+        "x": 0,
+        "y": 860
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/ideas/method-node-design/root.node",
+        "sourceNodeId": "method-node-design",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/method-node-design/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open A Solid Method Node"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "ideas-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "ideas-hub-member-multi-declaration-expansion",
+      "type": "portal",
+      "label": "One Node, Multiple Declarations",
+      "position": {
+        "x": 480,
+        "y": 860
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/ideas/multi-declaration-expansion/root.node",
+        "sourceNodeId": "multi-declaration-expansion",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/multi-declaration-expansion/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open One Node, Multiple Declarations"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "ideas-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "ideas-hub-member-node-template-brainstorm",
+      "type": "portal",
+      "label": "What Could a Node Template Be?",
+      "position": {
+        "x": 960,
+        "y": 860
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/ideas/node-template-brainstorm/root.node",
+        "sourceNodeId": "brainstorm",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/node-template-brainstorm/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open What Could a Node Template Be?"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "ideas-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "ideas-hub-member-page-template",
+      "type": "portal",
+      "label": "The Page Template",
+      "position": {
+        "x": 0,
+        "y": 1160
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/ideas/page-template/root.node",
+        "sourceNodeId": "page-template",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/page-template/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open The Page Template"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "ideas-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "ideas-hub-member-resource-resolution-and-web-content",
+      "type": "portal",
+      "label": "Resource Resolution and Web Content",
+      "position": {
+        "x": 480,
+        "y": 1160
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/ideas/resource-resolution-and-web-content/root.node",
+        "sourceNodeId": "resource-resolution-declaration",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/resource-resolution-and-web-content/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Resource Resolution and Web Content"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "ideas-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "ideas-hub-member-retune-semantic-zoom-thresholds",
+      "type": "portal",
+      "label": "Retune Semantic Zoom Thresholds",
+      "position": {
+        "x": 960,
+        "y": 1160
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/ideas/retune-semantic-zoom-thresholds/root.node",
+        "sourceNodeId": "retune-semantic-zoom-thresholds",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/retune-semantic-zoom-thresholds/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Retune Semantic Zoom Thresholds"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "ideas-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "ideas-hub-member-semantic-zoom-architecture",
+      "type": "portal",
+      "label": "Semantic Zoom Has No Middle Ground",
+      "position": {
+        "x": 0,
+        "y": 1460
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/ideas/semantic-zoom-architecture/root.node",
+        "sourceNodeId": "semantic-zoom-architecture",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/semantic-zoom-architecture/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Semantic Zoom Has No Middle Ground"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "ideas-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "ideas-hub-member-stroke-control",
+      "type": "portal",
+      "label": "The Stroke Control",
+      "position": {
+        "x": 480,
+        "y": 1460
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/ideas/stroke-control/root.node",
+        "sourceNodeId": "stroke-control",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/stroke-control/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open The Stroke Control"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "ideas-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "ideas-hub-member-twilite-front-door",
+      "type": "portal",
+      "label": "Twilite Front Door",
+      "position": {
+        "x": 960,
+        "y": 1460
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/ideas/twilite-front-door/root.node",
+        "sourceNodeId": "twilite-front-door",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/twilite-front-door/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Twilite Front Door"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "ideas-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "ideas-hub-member-typed-inter-graph-handoff-envelope",
+      "type": "portal",
+      "label": "Typed Inter-Graph Handoff Envelope",
+      "position": {
+        "x": 0,
+        "y": 1760
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/ideas/typed-inter-graph-handoff-envelope/root.node",
+        "sourceNodeId": "typed-inter-graph-handoff-envelope",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/typed-inter-graph-handoff-envelope/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Typed Inter-Graph Handoff Envelope"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "ideas-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "ideas-hub-member-zoom-and-wheel-behavior",
+      "type": "portal",
+      "label": "The Camera Behaves Like the Browser",
+      "position": {
+        "x": 480,
+        "y": 1760
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/ideas/zoom-and-wheel-behavior/root.node",
+        "sourceNodeId": "zoom-and-wheel-behavior",
+        "target": {
+          "ref": "github://mikemartinez1974/public/ideas/zoom-and-wheel-behavior/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open The Camera Behaves Like the Browser"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "ideas-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "ideas-hub-back",
+      "type": "portal",
+      "label": "The Studio",
+      "position": {
+        "x": -640,
+        "y": 700
+      },
+      "width": 360,
+      "height": 200,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/root.node",
+        "sourceNodeId": "studio",
+        "target": {
+          "ref": "github://mikemartinez1974/public/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open The Studio"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "ideas-hub"
+        },
+        "security": "prompt",
+        "memo": "The public room."
       }
     }
   ],
   "edges": [
     {
-      "id": "ideas-collection-entry-edge",
-      "type": "edge",
-      "source": "ideas-collection-declaration",
-      "target": "ideas-collection-root-port",
-      "sourcePort": "root",
+      "id": "ideas-hub-landing-edge",
+      "type": "ground",
+      "source": "ideas-hub-declaration",
+      "target": "ideas-hub-landing",
+      "sourcePort": "ground",
       "targetPort": "root",
-      "label": "default surface",
-      "style": {
-        "curved": true,
-        "width": 2
-      },
-      "data": {}
-    },
-    {
-      "id": "ideas-collection-guidance-edge",
-      "type": "edge",
-      "source": "ideas-collection-root-port",
-      "target": "ideas-collection-guidance",
-      "sourcePort": "bottom",
-      "targetPort": "top",
-      "label": "explains",
-      "style": {
-        "curved": true,
-        "width": 2
-      },
-      "data": {}
-    },
-    {
-      "id": "ideas-collection-repo-root-edge",
-      "type": "edge",
-      "source": "ideas-collection-root-port",
-      "target": "ideas-collection-repo-root",
-      "sourcePort": "right",
-      "targetPort": "left",
-      "label": "repository home",
-      "style": {
-        "curved": true,
-        "width": 2
-      },
-      "data": {}
-    },
-    {
-      "id": "ideas-collection-edge-controller-authority",
-      "type": "authority",
-      "source": "ideas-collection-controller-import",
-      "target": "ideas-collection-window-controller",
-      "sourcePort": "right",
-      "targetPort": "trigger",
-      "label": "authorizes runtime",
+      "label": "",
       "style": {},
       "data": {
-        "relationship": "authorizes runtime"
+        "presentation": {
+          "layer": "contract"
+        }
       }
     },
     {
-      "id": "ideas-collection-edge-window-controller",
-      "type": "structural",
-      "source": "ideas-collection-declaration",
-      "target": "ideas-collection-window-controller",
-      "sourcePort": "bottom",
-      "targetPort": "trigger",
-      "label": "runs collection window",
+      "id": "assemble-updates-summary",
+      "type": "derived-view",
+      "source": "ideas-hub-derive-method",
+      "target": "ideas-hub-summary",
+      "sourcePort": "result",
+      "targetPort": "root",
+      "label": "derives",
+      "style": {
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "assemble-updates-detail",
+      "type": "derived-view",
+      "source": "ideas-hub-derive-method",
+      "target": "ideas-hub-detail",
+      "sourcePort": "result",
+      "targetPort": "root",
+      "label": "derives",
+      "style": {
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-surface",
+      "type": "surface",
+      "source": "ideas-hub-declaration",
+      "target": "ideas-hub-detail",
+      "sourcePort": "surfaces",
+      "targetPort": "root",
+      "label": "",
       "style": {},
       "data": {
-        "relationship": "runs collection window"
+        "surfaceId": "web"
       }
+    },
+    {
+      "id": "ideas-hub-detail-summary",
+      "type": "next-face",
+      "source": "ideas-hub-detail",
+      "target": "ideas-hub-summary",
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "graph-changed-invokes-assemble",
+      "type": "invokes",
+      "source": "ideas-hub-declaration",
+      "target": "ideas-hub-derive-method",
+      "sourcePort": "event:graph.changed",
+      "targetPort": "invokes",
+      "label": "invokes",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "classRef": "tlz://twilite.zone/library/edges/invokes/root.node"
+      }
+    },
+    {
+      "id": "ideas-hub-derive-updates-glyph",
+      "type": "derived-view",
+      "source": "ideas-hub-derive-method",
+      "target": "ideas-hub-glyph",
+      "sourcePort": "result",
+      "targetPort": "root",
+      "label": "derives",
+      "style": {
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-summary-to-glyph",
+      "type": "next-face",
+      "source": "ideas-hub-summary",
+      "target": "ideas-hub-glyph",
+      "sourcePort": "sequence-out",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-environment",
+      "type": "environment",
+      "source": "ideas-hub-declaration",
+      "target": "ideas-hub-environment",
+      "sourcePort": "environment",
+      "targetPort": "root",
+      "label": "",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "classRef": "tlz://twilite.zone/library/edges/environment/root.node"
+      }
+    },
+    {
+      "id": "ideas-hub-edge-member-active-fragment-authoring-scope",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-active-fragment-authoring-scope",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-bridge-editor",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-bridge-editor",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-edge-and-label-navigation",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-edge-and-label-navigation",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-edge-endpoint-reassignment",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-edge-endpoint-reassignment",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-event-handler-behavior",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-event-handler-behavior",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-mcp-copy-paste-workflow",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-mcp-copy-paste-workflow",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-method-node-design",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-method-node-design",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-multi-declaration-expansion",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-multi-declaration-expansion",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-node-template-brainstorm",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-node-template-brainstorm",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-page-template",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-page-template",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-resource-resolution-and-web-content",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-resource-resolution-and-web-content",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-retune-semantic-zoom-thresholds",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-retune-semantic-zoom-thresholds",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-semantic-zoom-architecture",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-semantic-zoom-architecture",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-stroke-control",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-stroke-control",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-twilite-front-door",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-twilite-front-door",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-typed-inter-graph-handoff-envelope",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-typed-inter-graph-handoff-envelope",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "ideas-hub-edge-member-zoom-and-wheel-behavior",
+      "type": "contains",
+      "source": "ideas-hub-collection",
+      "target": "ideas-hub-member-zoom-and-wheel-behavior",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
     }
   ],
   "settings": {
     "theme": null,
     "backgroundImage": null,
     "defaultNodeColor": "#1976d2",
-    "defaultEdgeColor": "#666666",
+    "defaultEdgeColor": "",
     "snapToGrid": false,
     "gridSize": 20,
     "edgeRouting": "auto",
@@ -1167,9 +3080,9 @@
       "mode": "manual",
       "defaultLayout": "layered",
       "direction": "DOWN",
-      "edgeLaneGapPx": 12,
+      "edgeLaneGapPx": 10,
       "serpentine": {
-        "maxPerRow": 5
+        "maxPerRow": 6
       },
       "cycleFallback": {
         "enabled": true
@@ -1190,9 +3103,8 @@
       "repoVisibility": "private",
       "seedOnCommit": false,
       "enableGithubPages": false,
-      "installationId": "120403738"
-    },
-    "autoSave": false
+      "installationId": ""
+    }
   },
   "scripts": []
 }

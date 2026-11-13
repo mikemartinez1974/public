@@ -1,106 +1,52 @@
 {
   "fileVersion": "1.0",
   "metadata": {
+    "created": "2026-11-13T20:08:14.821Z",
+    "modified": "2026-11-13T20:08:14.821Z",
+    "author": "",
     "tags": [
-      "collection",
-      "plans"
-    ],
-    "preferredViewer": "https://dev.twilite.zone",
-    "created": "2026-09-01T16:20:00.000Z",
-    "modified": "2026-09-01T20:57:40.830Z"
+      "library",
+      "collection"
+    ]
   },
   "nodes": [
     {
-      "id": "plans-collection-declaration",
+      "id": "plans-hub-declaration",
       "type": "root",
-      "label": "Michael's Plans Collection",
+      "label": "Plans",
       "position": {
-        "x": -900,
-        "y": -1400
+        "x": -640,
+        "y": 0
       },
-      "width": 360,
-      "height": 240,
+      "width": 300,
+      "height": 200,
       "ports": [
         {
           "id": "default-view",
           "key": "default-view",
-          "label": "default view",
+          "label": "default-view",
           "direction": "output",
           "dataType": "any",
-          "angle": 165,
-          "role": "default-view",
-          "allowedEdgeTypes": [
-            "default-view"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "default-view",
-            "required": true,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "view",
-                "targetPort": "root"
-              }
-            ]
-          }
+          "angle": 55,
+          "role": "default-view"
         },
         {
           "id": "summary-view",
           "key": "summary-view",
-          "label": "summary view",
+          "label": "summary-view",
           "direction": "output",
           "dataType": "any",
-          "angle": 180,
-          "role": "shared-summary",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "shared-summary",
-            "required": true,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "view",
-                "targetPort": "root"
-              }
-            ]
-          }
+          "angle": 70,
+          "role": "shared-summary"
         },
         {
           "id": "icon-view",
           "key": "icon-view",
-          "label": "icon view",
+          "label": "icon-view",
           "direction": "output",
           "dataType": "any",
-          "angle": 195,
-          "role": "shared-icon",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "shared-icon",
-            "required": true,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "view",
-                "targetPort": "root"
-              }
-            ]
-          }
+          "angle": 85,
+          "role": "shared-icon"
         },
         {
           "id": "glyph",
@@ -108,22 +54,121 @@
           "label": "glyph",
           "direction": "output",
           "dataType": "any",
-          "angle": 270,
-          "role": "shared-glyph",
+          "angle": 100,
+          "role": "shared-glyph"
+        },
+        {
+          "id": "ground",
+          "key": "ground",
+          "label": "ground",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 115,
+          "role": "ground"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "default-handle",
+          "key": "default-handle",
+          "label": "default handle",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "default-handle",
           "allowedEdgeTypes": [
             "reference"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "shared-glyph",
-            "required": true,
+            "role": "default-handle",
+            "required": false,
             "repeatable": false,
             "behaviors": [
               {
                 "trigger": "drag-create",
                 "action": "create-node",
-                "nodeType": "glyph",
+                "nodeType": "graphReference",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "boundary-begin",
+          "key": "boundary-begin",
+          "label": "boundary begin",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 300,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          }
+        },
+        {
+          "id": "boundary-end",
+          "key": "boundary-end",
+          "label": "boundary end",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 135,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
                 "targetPort": "root"
               }
             ]
@@ -135,7 +180,7 @@
           "label": "port",
           "direction": "output",
           "dataType": "any",
-          "angle": 90,
+          "angle": 225,
           "role": "exposes-port",
           "allowedEdgeTypes": [
             "reference"
@@ -157,27 +202,81 @@
           }
         },
         {
-          "id": "ground",
-          "key": "ground",
-          "label": "ground",
+          "id": "event:graph.changed",
+          "key": "event:graph.changed",
+          "label": "Graph changed",
           "direction": "output",
-          "dataType": "any",
-          "angle": 0,
-          "role": "ground",
+          "dataType": "event",
+          "role": "emits-event",
           "allowedEdgeTypes": [
-            "reference"
+            "invokes"
           ],
           "metadata": {
             "structural": true,
             "relationship": true,
-            "role": "ground",
-            "required": true,
+            "role": "emits-event",
+            "required": false,
+            "repeatable": true,
+            "eventKey": "graph.changed",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "method",
+                "targetPort": "invokes"
+              }
+            ]
+          }
+        },
+        {
+          "id": "event:graph.structure.changed",
+          "key": "event:graph.structure.changed",
+          "label": "Graph structure changed",
+          "direction": "output",
+          "dataType": "event",
+          "role": "emits-event",
+          "allowedEdgeTypes": [
+            "invokes"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "emits-event",
+            "required": false,
+            "repeatable": true,
+            "eventKey": "graph.structure.changed",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "method",
+                "targetPort": "invokes"
+              }
+            ]
+          }
+        },
+        {
+          "id": "environment",
+          "key": "environment",
+          "label": "environment",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 45,
+          "role": "environment",
+          "allowedEdgeTypes": [
+            "environment"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "environment",
+            "required": false,
             "repeatable": false,
             "behaviors": [
               {
                 "trigger": "drag-create",
                 "action": "create-node",
-                "nodeType": "content",
+                "nodeType": "face",
                 "targetPort": "root"
               }
             ]
@@ -188,73 +287,288 @@
         {
           "id": "default-view",
           "key": "default-view",
-          "portId": "default-view",
-          "label": "default view",
+          "label": "default-view",
           "direction": "output",
           "dataType": "any",
-          "angle": 165,
-          "role": "default-view"
+          "angle": 55,
+          "role": "default-view",
+          "portId": "default-view"
         },
         {
           "id": "summary-view",
           "key": "summary-view",
-          "portId": "summary-view",
-          "label": "summary view",
+          "label": "summary-view",
           "direction": "output",
           "dataType": "any",
-          "angle": 180,
-          "role": "shared-summary"
+          "angle": 70,
+          "role": "shared-summary",
+          "portId": "summary-view"
         },
         {
           "id": "icon-view",
           "key": "icon-view",
-          "portId": "icon-view",
-          "label": "icon view",
+          "label": "icon-view",
           "direction": "output",
           "dataType": "any",
-          "angle": 195,
-          "role": "shared-icon"
+          "angle": 85,
+          "role": "shared-icon",
+          "portId": "icon-view"
         },
         {
           "id": "glyph",
           "key": "glyph",
-          "portId": "glyph",
           "label": "glyph",
           "direction": "output",
           "dataType": "any",
-          "angle": 270,
-          "role": "shared-glyph"
-        },
-        {
-          "id": "port",
-          "key": "port",
-          "portId": "port",
-          "label": "port",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 90,
-          "role": "exposes-port"
+          "angle": 100,
+          "role": "shared-glyph",
+          "portId": "glyph"
         },
         {
           "id": "ground",
           "key": "ground",
-          "portId": "ground",
           "label": "ground",
           "direction": "output",
           "dataType": "any",
-          "angle": 0,
-          "role": "ground"
+          "angle": 115,
+          "role": "ground",
+          "portId": "ground"
+        },
+        {
+          "id": "surfaces",
+          "key": "surfaces",
+          "label": "surfaces",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "role": "surface",
+          "allowedEdgeTypes": [
+            "surface"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "surface",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "view",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "surfaces"
+        },
+        {
+          "id": "default-handle",
+          "key": "default-handle",
+          "label": "default handle",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 195,
+          "role": "default-handle",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "default-handle",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "graphReference",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "default-handle"
+        },
+        {
+          "id": "boundary-begin",
+          "key": "boundary-begin",
+          "label": "boundary begin",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 300,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "boundary-begin"
+        },
+        {
+          "id": "boundary-end",
+          "key": "boundary-end",
+          "label": "boundary end",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 135,
+          "role": "membrane-control",
+          "allowedEdgeTypes": [
+            "membrane"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "membrane-control",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "membrane",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "boundary-end"
+        },
+        {
+          "id": "port",
+          "key": "port",
+          "label": "port",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 225,
+          "role": "exposes-port",
+          "allowedEdgeTypes": [
+            "reference"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "exposes-port",
+            "required": false,
+            "repeatable": true,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "port",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "port"
+        },
+        {
+          "id": "event:graph.changed",
+          "key": "event:graph.changed",
+          "label": "Graph changed",
+          "direction": "output",
+          "dataType": "event",
+          "role": "emits-event",
+          "allowedEdgeTypes": [
+            "invokes"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "emits-event",
+            "required": false,
+            "repeatable": true,
+            "eventKey": "graph.changed",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "method",
+                "targetPort": "invokes"
+              }
+            ]
+          },
+          "portId": "event:graph.changed"
+        },
+        {
+          "id": "event:graph.structure.changed",
+          "key": "event:graph.structure.changed",
+          "label": "Graph structure changed",
+          "direction": "output",
+          "dataType": "event",
+          "role": "emits-event",
+          "allowedEdgeTypes": [
+            "invokes"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "emits-event",
+            "required": false,
+            "repeatable": true,
+            "eventKey": "graph.structure.changed",
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "method",
+                "targetPort": "invokes"
+              }
+            ]
+          },
+          "portId": "event:graph.structure.changed"
+        },
+        {
+          "id": "environment",
+          "key": "environment",
+          "label": "environment",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 45,
+          "role": "environment",
+          "allowedEdgeTypes": [
+            "environment"
+          ],
+          "metadata": {
+            "structural": true,
+            "relationship": true,
+            "role": "environment",
+            "required": false,
+            "repeatable": false,
+            "behaviors": [
+              {
+                "trigger": "drag-create",
+                "action": "create-node",
+                "nodeType": "face",
+                "targetPort": "root"
+              }
+            ]
+          },
+          "portId": "environment"
         }
       ],
-      "visible": false,
+      "visible": true,
       "showLabel": true,
       "data": {
         "identity": {
-          "graphId": "plans-collection-declaration",
-          "nodeId": "plans-collection",
-          "name": "Michael's Plans Collection",
+          "graphId": "plans-hub-declaration",
+          "nodeId": "plans-hub",
+          "name": "Plans",
           "version": "1.0.0",
-          "description": "Durable collection of Michael's plan graphs."
+          "description": "How things get done: each plan has an aim, its phases and steps, and the decisions along the way.",
+          "updatedAt": "2026-11-13T20:08:14.820Z"
         },
         "intent": {
           "kind": "collection",
@@ -263,13 +577,13 @@
         "dependencies": {
           "nodeTypes": [
             "declaration",
-            "content",
             "view",
             "glyph",
-            "port",
-            "script",
-            "portal",
-            "bridge"
+            "content",
+            "bridge",
+            "method",
+            "collection",
+            "portal"
           ],
           "portContracts": [
             "core"
@@ -278,9 +592,7 @@
             "nodes": ">=1.0.0",
             "ports": ">=1.0.0"
           },
-          "skills": [
-            "collection-template"
-          ]
+          "optional": []
         },
         "authority": {
           "mutation": {
@@ -294,111 +606,118 @@
             "agents": true,
             "tools": true
           },
-          "styleAuthority": "descriptive"
+          "styleAuthority": "descriptive",
+          "history": {
+            "rewriteAllowed": false,
+            "squashAllowed": false
+          }
         },
         "settings": {
           "layout": {
-            "mode": "manual"
+            "mode": "manual",
+            "direction": "DOWN",
+            "defaultLayout": "layered",
+            "edgeLaneGapPx": 10,
+            "serpentine": {
+              "maxPerRow": 6
+            },
+            "cycleFallback": {
+              "enabled": true
+            },
+            "elk": {
+              "algorithm": "fixed",
+              "edgeRouting": "ORTHOGONAL",
+              "portConstraints": "FIXED_SIDE",
+              "nodeSpacing": 120,
+              "layeredEdgeSpacing": 80
+            }
           },
-          "autoSave": false
+          "theme": null,
+          "backgroundImage": null,
+          "defaultNodeColor": "#1976d2",
+          "defaultEdgeColor": "",
+          "snapToGrid": false,
+          "gridSize": 20,
+          "edgeRouting": "auto"
         },
         "document": {
           "url": "github://mikemartinez1974/public/plans/root.node"
         },
-        "collection": {
-          "collectionRef": "github://mikemartinez1974/public/plans/root.node",
-          "membership": {
-            "source": "repository-directory",
-            "includeDirectNodeFiles": true,
-            "includeDirectChildRoots": true,
-            "recursive": false
+        "visibilityRole": "editor",
+        "events": [
+          {
+            "eventKey": "graph.changed",
+            "label": "Graph changed",
+            "payloadContract": {
+              "type": "object"
+            }
           },
-          "view": {
-            "mode": "windowed",
-            "windowSize": 6,
-            "payload": "node.web.icon",
-            "columns": 3,
-            "cardWidth": 240,
-            "cardHeight": 220,
-            "iconCardWidth": 240,
-            "iconCardHeight": 220,
-            "gapX": 70,
-            "gapY": 70,
-            "origin": {
-              "x": -720,
-              "y": 330
+          {
+            "eventKey": "graph.structure.changed",
+            "label": "Graph structure changed",
+            "payloadContract": {
+              "type": "object"
             }
           }
-        },
+        ],
         "root": {
-          "kind": "collection",
+          "kind": "graph",
           "targetMode": "artifact",
           "artifactKind": "collection",
           "interfaceContract": {
             "version": 1,
             "implicitRootPort": true
           },
-          "defaultSurfaceId": "collection",
+          "defaultSurfaceId": "web",
+          "landingSurfaceId": "landing",
           "surfaces": [
             {
-              "id": "collection",
-              "kind": "port",
-              "label": "Plans Collection",
-              "portNodeId": "plans-collection-root-port",
-              "viewNodeId": "plans-collection-root-port",
-              "presentation": {
-                "detail": {
-                  "mode": "shared",
-                  "viewNodeId": "plans-collection-detail-view"
-                },
-                "summary": {
-                  "mode": "shared",
-                  "viewNodeId": "plans-collection-summary-view"
-                },
-                "icon": {
-                  "mode": "shared",
-                  "viewNodeId": "plans-collection-icon-view"
-                }
-              },
-              "exposes": {
-                "views": {
-                  "mode": "allow"
-                },
-                "declarations": {
-                  "mode": "allow"
-                }
-              },
-              "memo": "Entry surface for the repository plans collection."
+              "id": "detail",
+              "kind": "view",
+              "payload": "node.web.detail",
+              "viewNodeId": "plans-hub-detail"
+            },
+            {
+              "id": "summary",
+              "kind": "view",
+              "payload": "node.web.summary",
+              "viewNodeId": "plans-hub-summary"
+            },
+            {
+              "id": "glyph",
+              "kind": "glyph",
+              "payload": "node.web.glyph",
+              "viewNodeId": "plans-hub-glyph"
+            },
+            {
+              "id": "landing",
+              "kind": "content",
+              "payload": "node.web.landing",
+              "viewNodeId": "plans-hub-landing"
             }
-          ],
-          "sharedPresentation": {
-            "detailViewNodeId": "plans-collection-detail-view",
-            "summaryViewNodeId": "plans-collection-summary-view",
-            "iconViewNodeId": "plans-collection-icon-view",
-            "glyphNodeId": "plans-collection-glyph"
-          }
+          ]
         },
-        "events": [
-          {
-            "eventKey": "graph.opened",
-            "label": "Graph opened",
-            "payloadContract": {
-              "type": "object"
-            }
-          }
-        ]
+        "membrane": {
+          "bounds": {
+            "x": -720,
+            "y": -750,
+            "width": 3200,
+            "height": 3200
+          },
+          "clip": true
+        }
       }
     },
     {
-      "id": "plans-collection-detail-view",
+      "id": "plans-hub-detail",
       "type": "face",
-      "label": "Plans Collection Detail",
+      "label": "Plans",
       "position": {
-        "x": -1500,
-        "y": -1480
+        "x": -640,
+        "y": 240
       },
-      "width": 420,
-      "height": 300,
+      "width": 600,
+      "height": 600,
       "ports": [
         {
           "id": "root",
@@ -407,88 +726,49 @@
           "direction": "input",
           "dataType": "any",
           "angle": 270
-        },
-        {
-          "id": "surface-delegate",
-          "key": "surface-delegate",
-          "label": "surface delegate",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 90,
-          "role": "view.content",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "view.content",
-            "required": false,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "content",
-                "targetPort": "root"
-              }
-            ]
-          }
         }
       ],
       "handles": [
         {
           "id": "root",
           "key": "root",
-          "portId": "root",
           "label": "root",
           "direction": "input",
           "dataType": "any",
-          "angle": 270
-        },
-        {
-          "id": "surface-delegate",
-          "key": "surface-delegate",
-          "portId": "surface-delegate",
-          "label": "surface delegate",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 90,
-          "role": "view.content"
+          "angle": 270,
+          "portId": "root"
         }
       ],
       "visible": true,
       "showLabel": true,
       "data": {
+        "identity": {
+          "graphId": "plans-hub"
+        },
         "view": {
           "intent": "node",
-          "payload": "node.web.detail"
+          "payload": "node.web.detail",
+          "scroll": "page"
         },
         "semanticLevel": "detail",
         "content": {
-          "kind": "svg",
-          "value": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 440' role='img' aria-label='Plans collection detail'><rect width='720' height='440' rx='24' fill='#111827'/><rect x='34' y='32' width='652' height='376' rx='18' fill='#f8fafc'/><text x='72' y='92' fill='#164e63' font-family='system-ui,sans-serif' font-size='15' font-weight='800' letter-spacing='.14em'>PLAN LIBRARY</text><text x='72' y='142' fill='#111827' font-family='system-ui,sans-serif' font-size='38' font-weight='850'>From intent to outcome</text><g transform='translate(72 190)'><path d='M0 104 H118 V44 H250 V128 H388 V18 H544' fill='none' stroke='#0891b2' stroke-width='8' stroke-linejoin='round'/><g fill='#f59e0b' stroke='#111827' stroke-width='3'><circle cx='0' cy='104' r='12'/><circle cx='118' cy='44' r='12'/><circle cx='250' cy='128' r='12'/><circle cx='388' cy='18' r='12'/><circle cx='544' cy='18' r='12'/></g></g><text x='72' y='370' fill='#475569' font-family='system-ui,sans-serif' font-size='18'>Browse active plans, milestones, dependencies, and decision paths.</text></svg>"
+          "kind": "html",
+          "value": "<div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;font-family:system-ui,-apple-system,Segoe UI,sans-serif;padding:4cqw;border-radius:3cqw;background:#ffffff;border:1px solid #e2e8f0;display:flex;flex-direction:column;gap:2cqw'><div style='display:flex;justify-content:space-between;align-items:baseline;gap:2cqw'><div style='min-width:0'><div style='font-size:2.2cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Collection</div><div style='font-weight:600;font-size:4cqw;line-height:1.2;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>Plans</div></div><div style='font-size:2.2cqw;color:#64748b;white-space:nowrap'>19 graphs</div></div><div style='flex:1;min-height:0;overflow:auto'><div style='display:grid;grid-template-columns:repeat(auto-fill,minmax(26.2cqw,1fr));gap:1.4cqw;align-content:start'><a href='github://mikemartinez1974/public/plans/authoring-switches/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>A</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Authoring switches</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>The authoring contract: what can be set on a node or a graph, each switch described by the node that carries it.</span></span></a><a href='github://mikemartinez1974/public/plans/canon-at-twilite-zone/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#33415522;color:#334155;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>C</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Canon at twilite.zone</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Plan for giving official Twilite Zone graphs addresses of their own, tlz://twilite.zone/..., served by the site and not known by a GitHub address.</span></span></a><a href='github://mikemartinez1974/public/plans/canon-or-personal/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#33415522;color:#334155;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>C</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Canon or Personal</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>A sorting board for this library: which graphs are canon and move to the Twilite Zone library, which are personal and stay, and which are finished with.</span></span></a><a href='github://mikemartinez1974/public/plans/direct-edge-routing/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#33415522;color:#334155;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>D</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Direct Edge Routing and Route Pins</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Plan for direct on-canvas edge shaping with persistent layout-only route pins and explicit semantic router promotion.</span></span></a><a href='github://mikemartinez1974/public/plans/edge-router/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#1d4ed822;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>R</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Replace the edge router</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Replace how Twilite routes the lines between nodes with a small, clean, deterministic, independently testable router, in phases that can be done a pass at a time.</span></span></a><a href='github://mikemartinez1974/public/plans/electron-desktop-conversion/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>E</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Electron Desktop Conversion</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Sketch plan for packaging Twilite as an installable desktop app via Electron, without regressing the hosted web app.</span></span></a><a href='github://mikemartinez1974/public/plans/events-through-edges/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#33415522;color:#334155;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>E</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Events run Methods through edges</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Plan to retire the Event Handler node: an event output port draws an invokes edge straight to a Method, and the graph announces graph.changed itself.</span></span></a><a href='github://mikemartinez1974/public/plans/fragment-extraction-authoring-contract/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#4f46e522;color:#4f46e5;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>F</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Fragment Extraction Authoring Contract</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Plan the identity-preserving authoring workflow for extracting an inline semantic node into a reciprocally bridged fragment.</span></span></a><a href='github://mikemartinez1974/public/plans/methods-through-the-bridge/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#33415522;color:#334155;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>M</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Methods Through the Bridge</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Plan for letting a page run its template&#39;s Method through the one Bridge it already has, so no page carries a copy and any template a user makes works the same way.</span></span></a><a href='github://mikemartinez1974/public/plans/one-bridge-per-template/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#33415522;color:#334155;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>O</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>One Bridge per Template</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Plan for letting a single Bridge to a template carry everything the template exports, so a graph does not need a Bridge per class.</span></span></a><a href='github://mikemartinez1974/public/plans/operation-northwoods/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>O</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Operation Northwoods Research Plan</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Primary-source-driven plan for understanding Operation Northwoods.</span></span></a><a href='github://mikemartinez1974/public/plans/primitive-template-collection/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>P</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Primitive Template Collection</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Plan for giving each of the 9 primitives its own dedicated template, built on this session&#39;s validated port/glyph/color conventions.</span></span></a><a href='github://mikemartinez1974/public/plans/public-root-arrival/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#4f46e522;color:#4f46e5;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>P</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Public Root: Welcome, Learn More, Explore</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Plan the public Twilite arrival and progressive disclosure into tutorials and public spaces.</span></span></a><a href='github://mikemartinez1974/public/plans/reciprocal-multigraph-bridge-contract/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>R</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Reciprocal Multi-Graph Bridge Contract</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Implementation plan for reciprocal bridge validation and direction-neutral multi-graph node expansion.</span></span></a><a href='github://mikemartinez1974/public/plans/vocabulary/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#33415522;color:#334155;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>T</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Twilite’s vocabulary, in layers</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Twilite has about thirty words of its own. Every reader meets all of them at once, several pairs collide, and some name the machinery rather than what it is for. This plan sorts them into three layers, settles the collisions, and then changes every file to use the settled words, once.</span></span></a><a href='github://mikemartinez1974/public/plans/whats-next/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#33415522;color:#334155;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>W</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>What’s next</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>The work in front of us after the new Twilite Zone root: the rooms behind it, how a person moves between them, and what is carried until later.</span></span></a><a href='github://mikemartinez1974/public/plans/whats-open/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>W</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>What is actually open</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>What is left after the audits of 25 October, updated on 28 October, in the order to take it, with the next step for each.</span></span></a><a href='github://mikemartinez1974/public/plans/where-i-am/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#6d28d922;color:#6d28d9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>W</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>Where am I?</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Every task, plan, idea and draft graph in the personal library and canon, sorted by what state it is in.</span></span></a><a href='github://mikemartinez1974/public/plans/workspace-toolbar/root.node' style='display:flex;gap:2.2cqw;align-items:flex-start;box-sizing:border-box;height:14.2cqw;padding:1.6cqw 2.1cqw;border:1px solid #e2e8f0;border-radius:2.4cqw;background:#f8fafc;text-decoration:none;color:inherit;min-width:0;overflow:hidden'><span style='flex:none;width:6.2cqw;height:6.2cqw;border-radius:1.6cqw;background:#33415522;color:#334155;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:3cqw'>A</span><span style='min-width:0'><span style='display:block;font-weight:600;font-size:2.9cqw;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a'>A workspace bar that says what it does</span><span style='display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:2.6cqw;line-height:1.3;color:#64748b'>Plan for the workspace bar audit: tell the truth, say why something is off, one command list for the bar and the menu, and fit any screen and the keyboard.</span></span></a></div></div></div></div>"
         },
-        "interfaceContract": {
-          "version": 1,
-          "ownsContent": true,
-          "surfaceDelegation": true
-        },
-        "identity": {
-          "graphId": "plans-collection-declaration"
-        }
+        "memo": "",
+        "link": ""
       }
     },
     {
-      "id": "plans-collection-summary-view",
+      "id": "plans-hub-summary",
       "type": "face",
-      "label": "Plans Collection Summary",
+      "label": "Plans Summary",
       "position": {
-        "x": -1500,
-        "y": -1140
+        "x": 1920,
+        "y": 0
       },
-      "width": 420,
-      "height": 240,
+      "width": 480,
+      "height": 480,
       "ports": [
         {
           "id": "root",
@@ -497,85 +777,447 @@
           "direction": "input",
           "dataType": "any",
           "angle": 270
-        },
-        {
-          "id": "surface-delegate",
-          "key": "surface-delegate",
-          "label": "surface delegate",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 90,
-          "role": "view.content",
-          "allowedEdgeTypes": [
-            "reference"
-          ],
-          "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "view.content",
-            "required": false,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "content",
-                "targetPort": "root"
-              }
-            ]
-          }
         }
       ],
       "handles": [
         {
           "id": "root",
           "key": "root",
-          "portId": "root",
           "label": "root",
           "direction": "input",
           "dataType": "any",
-          "angle": 270
-        },
-        {
-          "id": "surface-delegate",
-          "key": "surface-delegate",
-          "portId": "surface-delegate",
-          "label": "surface delegate",
-          "direction": "output",
-          "dataType": "any",
-          "angle": 90,
-          "role": "view.content"
+          "angle": 270,
+          "portId": "root"
         }
       ],
       "visible": true,
       "showLabel": true,
       "data": {
+        "identity": {
+          "graphId": "plans-hub"
+        },
         "view": {
           "intent": "node",
           "payload": "node.web.summary"
         },
         "semanticLevel": "summary",
         "content": {
-          "kind": "svg",
-          "value": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 320' role='img' aria-label='Plans collection summary'><rect width='520' height='320' rx='24' fill='#164e63'/><rect x='28' y='28' width='464' height='264' rx='18' fill='#ecfeff'/><text x='58' y='82' fill='#0f766e' font-family='system-ui,sans-serif' font-size='13' font-weight='800' letter-spacing='.14em'>COORDINATED PATHS</text><text x='58' y='128' fill='#111827' font-family='system-ui,sans-serif' font-size='34' font-weight='850'>Plans</text><path d='M62 230 L150 184 L244 212 L344 142 L452 166' fill='none' stroke='#0891b2' stroke-width='6' stroke-linecap='round'/><g fill='#f59e0b'><circle cx='62' cy='230' r='9'/><circle cx='150' cy='184' r='9'/><circle cx='244' cy='212' r='9'/><circle cx='344' cy='142' r='9'/><circle cx='452' cy='166' r='9'/></g><text x='58' y='272' fill='#475569' font-family='system-ui,sans-serif' font-size='16'>Six plan graphs per window</text></svg>"
+          "kind": "html",
+          "value": "<div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;font-family:system-ui,-apple-system,Segoe UI,sans-serif;padding:5cqw;border-radius:4cqw;background:#ffffff;border:1px solid #e2e8f0;display:flex;flex-direction:column;gap:2cqw;overflow:hidden'><div style='display:flex;justify-content:space-between;align-items:flex-end;gap:2cqw'><div style='min-width:0'><div style='font-size:2.8cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Collection</div><div style='font-weight:600;font-size:5.4cqw;line-height:1.2;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>Plans</div></div><div style='font-size:3.4cqw;color:#475569;white-space:nowrap'>19 graphs</div></div><div style='position:relative;margin:auto -5cqw'><div style='display:flex;align-items:flex-end;gap:2.5cqw;overflow-x:auto;overflow-y:hidden;padding:0 5cqw;scroll-snap-type:x proximity;scroll-padding:0 5cqw;scrollbar-width:thin;scrollbar-color:#64748b #cbd5e1'><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:8cqw;font-family:system-ui;background:#ffffff;color:#0f172a;border-radius:min(18px,6cqw);border:1px solid #e2e8f0;overflow:hidden'><div style='font:800 3cqw system-ui;letter-spacing:.18em;text-transform:uppercase;color:#6d28d9'>Draft</div><div style='font:500 7cqw/1.05 Georgia,serif;margin-top:2cqw'>Authoring switches</div><div style='font:400 3.4cqw/1.4 system-ui;margin-top:3cqw;color:#475569'>What can be set on a node or a graph, and where it is written down.</div></div></div></div><a href='github://mikemartinez1974/public/plans/authoring-switches/root.node' title='Authoring switches' aria-label='Authoring switches' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#334155'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Canon at twilite.zone</div></div></div><a href='github://mikemartinez1974/public/plans/canon-at-twilite-zone/root.node' title='Canon at twilite.zone' aria-label='Canon at twilite.zone' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#334155'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Canon or Personal</div></div></div><a href='github://mikemartinez1974/public/plans/canon-or-personal/root.node' title='Canon or Personal' aria-label='Canon or Personal' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#334155'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Direct Edge Routing and Route Pins</div></div></div><a href='github://mikemartinez1974/public/plans/direct-edge-routing/root.node' title='Direct Edge Routing and Route Pins' aria-label='Direct Edge Routing and Route Pins' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='container-type:inline-size;width:100%;height:100%;min-height:100%'><div style='box-sizing:border-box;width:100%;height:100%;overflow:hidden;font-family:system-ui,-apple-system,Segoe UI,sans-serif;padding:5cqw 6cqw;border-radius:5cqw;background:#ffffff;border:1px solid #e2e8f0;display:flex;flex-direction:column;gap:2.6cqw'><div style='display:flex;justify-content:space-between;align-items:center'><span style='display:inline-block;padding:.3cqw 2.4cqw;border-radius:2.4cqw;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;font-weight:600;font-size:3.6cqw;line-height:1.4'>In progress</span><span style='font-size:3.6cqw;color:#64748b'>5 of 6</span></div><div style='font-weight:600;font-size:5.6cqw;line-height:1.2;color:#0f172a'>Replace the edge router with a small, clean one</div><div style='height:1.8cqw;border-radius:1cqw;background:#e2e8f0;overflow:hidden'><div style='width:83%;height:100%;background:#1d4ed8'></div></div><div style='font-size:3.8cqw;line-height:1.3;color:#334155'>Next: Prove it on the real graph and write it up</div><div style='margin-top:auto;display:flex;justify-content:space-between;font-size:3.4cqw;color:#b45309'><span>2 open questions</span><span>Claude</span></div></div></div></div><a href='github://mikemartinez1974/public/plans/edge-router/root.node' title='Replace the edge router' aria-label='Replace the edge router' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Plan</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Electron Desktop Conversion</div></div></div><a href='github://mikemartinez1974/public/plans/electron-desktop-conversion/root.node' title='Electron Desktop Conversion' aria-label='Electron Desktop Conversion' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#334155'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Events run Methods through edges</div></div></div><a href='github://mikemartinez1974/public/plans/events-through-edges/root.node' title='Events run Methods through edges' aria-label='Events run Methods through edges' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4f46e5'>Plan</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Fragment Extraction Authoring Contract</div></div></div><a href='github://mikemartinez1974/public/plans/fragment-extraction-authoring-contract/root.node' title='Fragment Extraction Authoring Contract' aria-label='Fragment Extraction Authoring Contract' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#334155'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Methods Through the Bridge</div></div></div><a href='github://mikemartinez1974/public/plans/methods-through-the-bridge/root.node' title='Methods Through the Bridge' aria-label='Methods Through the Bridge' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#334155'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>One Bridge per Template</div></div></div><a href='github://mikemartinez1974/public/plans/one-bridge-per-template/root.node' title='One Bridge per Template' aria-label='One Bridge per Template' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Task</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Operation Northwoods Research Plan</div></div></div><a href='github://mikemartinez1974/public/plans/operation-northwoods/root.node' title='Operation Northwoods Research Plan' aria-label='Operation Northwoods Research Plan' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Plan</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Primitive Template Collection</div></div></div><a href='github://mikemartinez1974/public/plans/primitive-template-collection/root.node' title='Primitive Template Collection' aria-label='Primitive Template Collection' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4f46e5'>Plan</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Public Root: Welcome, Learn More, Explore</div></div></div><a href='github://mikemartinez1974/public/plans/public-root-arrival/root.node' title='Public Root: Welcome, Learn More, Explore' aria-label='Public Root: Welcome, Learn More, Explore' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6d28d9'>Plan</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Reciprocal Multi-Graph Bridge Contract</div></div></div><a href='github://mikemartinez1974/public/plans/reciprocal-multigraph-bridge-contract/root.node' title='Reciprocal Multi-Graph Bridge Contract' aria-label='Reciprocal Multi-Graph Bridge Contract' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#334155'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>Twilite’s vocabulary, in layers</div></div></div><a href='github://mikemartinez1974/public/plans/vocabulary/root.node' title='Twilite’s vocabulary, in layers' aria-label='Twilite’s vocabulary, in layers' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#334155'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>What’s next</div></div></div><a href='github://mikemartinez1974/public/plans/whats-next/root.node' title='What’s next' aria-label='What’s next' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:8cqw;font-family:system-ui;background:#ffffff;color:#0f172a;border-radius:min(18px,6cqw);border:1px solid #e2e8f0;overflow:hidden'><div style='font:800 3cqw system-ui;letter-spacing:.18em;text-transform:uppercase;color:#6d28d9'>Plan</div><div style='font:500 7cqw/1.05 Georgia,serif;margin-top:2cqw'>What is actually open</div><div style='font:400 3.4cqw/1.4 system-ui;margin-top:3cqw;color:#475569'>What is left after the audits, in the order to take it.</div></div></div></div><a href='github://mikemartinez1974/public/plans/whats-open/root.node' title='What is actually open' aria-label='What is actually open' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:8cqw;font-family:system-ui;background:#ffffff;color:#0f172a;border-radius:min(18px,6cqw);border:1px solid #e2e8f0;overflow:hidden'><div style='font:800 3cqw system-ui;letter-spacing:.18em;text-transform:uppercase;color:#6d28d9'>Plan</div><div style='font:500 7cqw/1.05 Georgia,serif;margin-top:2cqw'>Where am I?</div><div style='font:400 3.4cqw/1.4 system-ui;margin-top:3cqw;color:#475569'>Every task, plan, idea and draft, sorted by state.</div></div></div></div><a href='github://mikemartinez1974/public/plans/where-i-am/root.node' title='Where am I?' aria-label='Where am I?' style='position:absolute;inset:0'></a></div><div style='position:relative;flex:none;width:39.6cqw;height:26.4cqw;scroll-snap-align:start'><div style='container-type:inline-size;width:100%;height:100%'><div style='box-sizing:border-box;width:100%;height:100%;padding:5cqw;border:1px solid #e2e8f0;border-radius:5cqw;background:#ffffff;font-family:system-ui,sans-serif;overflow:hidden'><div style='font-size:3.4cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#334155'>Graph</div><div style='margin-top:2cqw;font-size:6.4cqw;font-weight:600;line-height:1.2;color:#0f172a'>A workspace bar that says what it does</div></div></div><a href='github://mikemartinez1974/public/plans/workspace-toolbar/root.node' title='A workspace bar that says what it does' aria-label='A workspace bar that says what it does' style='position:absolute;inset:0'></a></div></div><div style='position:absolute;right:0;top:0;bottom:12px;width:6cqw;pointer-events:none;background:linear-gradient(270deg,#ffffff,rgba(255,255,255,0))'></div></div></div></div>"
         },
-        "interfaceContract": {
-          "version": 1,
-          "ownsContent": true,
-          "surfaceDelegation": true
-        },
+        "memo": "",
+        "link": ""
+      }
+    },
+    {
+      "id": "plans-hub-glyph",
+      "type": "glyph",
+      "label": "Plans glyph",
+      "position": {
+        "x": -320,
+        "y": 0
+      },
+      "width": 90,
+      "height": 90,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
         "identity": {
-          "graphId": "plans-collection-declaration"
+          "graphId": "plans-hub"
+        },
+        "glyph": {
+          "kind": "icon",
+          "name": "Folder",
+          "color": "#6d28d9"
+        },
+        "view": {
+          "payload": "node.web.glyph"
         }
       }
     },
     {
-      "id": "plans-collection-icon-view",
-      "type": "face",
-      "label": "Plans Collection Icon",
+      "id": "plans-hub-landing",
+      "type": "content",
+      "label": "Plans landing",
       "position": {
-        "x": -1500,
-        "y": -840
+        "x": 1920,
+        "y": 340
+      },
+      "width": 360,
+      "height": 140,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "content": {
+          "kind": "markdown",
+          "value": "# Plans\n\nHow things get done. Each tile is a plan: what it is for, its phases and the steps in them, the decisions along the way, and what could go wrong.\n\nThis graph is a collection. Each tile is a portal it contains, and what a tile shows (its name, its description, how many pieces it has) is read from the graph behind it, so nothing here is a copy."
+        },
+        "_placement": {
+          "version": 1,
+          "state": "manually-shaped",
+          "source": "manual",
+          "updatedAt": 1791502752029,
+          "reason": "node-drag"
+        }
+      }
+    },
+    {
+      "id": "plans-hub-collection",
+      "type": "collection",
+      "label": "Plans",
+      "position": {
+        "x": 1920,
+        "y": 500
+      },
+      "width": 300,
+      "height": 120,
+      "visible": false,
+      "showLabel": true,
+      "data": {
+        "title": "Plans",
+        "body": "Plans, each with an aim, phases, steps and the decisions that shaped it.",
+        "sort": "order",
+        "includeFolder": false,
+        "sourcesSummary": "19 portals · 19 members",
+        "identity": {
+          "graphId": "plans-hub",
+          "nodeId": "plans-hub-collection"
+        },
+        "classRef": "tlz://twilite.zone/library/classes/nodes/collection/collection.node-class.node"
+      },
+      "ports": [
+        {
+          "id": "members",
+          "key": "members",
+          "label": "members",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": true,
+            "targetKinds": [
+              "portal"
+            ]
+          }
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        },
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 250
+        }
+      ],
+      "handles": [
+        {
+          "id": "members",
+          "key": "members",
+          "label": "members",
+          "direction": "output",
+          "dataType": "any",
+          "angle": 90,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": true,
+            "targetKinds": [
+              "portal"
+            ]
+          },
+          "portId": "members"
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        },
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 250,
+          "portId": "root"
+        }
+      ]
+    },
+    {
+      "id": "plans-hub-environment",
+      "type": "face",
+      "label": "Plans environment",
+      "position": {
+        "x": 1920,
+        "y": 860
+      },
+      "width": 360,
+      "height": 170,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "view": {
+          "intent": "node",
+          "payload": "node.web.environment",
+          "fit": "window"
+        },
+        "content": {
+          "kind": "html",
+          "value": "<div style='container-type:inline-size;width:100%;height:100%'><div style='position:relative;box-sizing:border-box;width:100%;height:100%;overflow:hidden;background-color:#0b2a2a;background-image:radial-gradient(90cqw 55cqw at 12% -8%,color-mix(in srgb,#0f766e 42%,transparent),transparent),repeating-linear-gradient(0deg,transparent 0,transparent 5.6cqw,color-mix(in srgb,#f4c95d 7%,transparent) 5.6cqw,color-mix(in srgb,#f4c95d 7%,transparent) 5.72cqw);font-family:Inter,system-ui,Segoe UI,Helvetica Neue,Arial,sans-serif;color:#ecfdf9'><div style='position:absolute;left:4cqw;top:3cqw;font:800 1.4cqw/1.2 Inter,system-ui,Segoe UI,Helvetica Neue,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#f4c95d'>The Studio · How it gets done</div><div style='position:absolute;left:4cqw;top:5cqw;font:500 6.6cqw/1 Georgia,Iowan Old Style,Palatino Linotype,Times New Roman,serif;letter-spacing:-.02em;white-space:nowrap'>Plans</div><div style='position:absolute;left:4cqw;width:41.42cqw;top:12.6cqw;font:italic 400 2cqw/1.35 Georgia,Iowan Old Style,Palatino Linotype,Times New Roman,serif;color:#bfeee3'>How it gets done. Each tile is a plan: an aim, its phases, and the steps in them.</div><div style='position:absolute;left:21.25cqw;top:30.31cqw;width:60.63cqw;height:47.5cqw;box-sizing:border-box;border-radius:2cqw;background:color-mix(in srgb,#f4c95d 6%,#0b2a2a);border:.28cqw solid color-mix(in srgb,#f4c95d 26%,#0b2a2a)'></div><div style='position:absolute;left:45.02cqw;top:21.71cqw;height:8.6cqw;display:flex;align-items:flex-end;gap:.35cqw'><i style='display:block;width:1.5cqw;height:7.7cqw;background:#f4c95d;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:1.95cqw;height:9.1cqw;background:#134e4a;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:2.4cqw;height:6.3cqw;background:#14b8a6;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:2.85cqw;height:8.4cqw;background:#99f6e4;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:1.5cqw;height:5.6cqw;background:#0f766e;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:1.95cqw;height:7cqw;background:#f4c95d;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:2.4cqw;height:9.1cqw;background:#115e59;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:2.85cqw;height:6.3cqw;background:#5eead4;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:1.5cqw;height:7.7cqw;background:#0d9488;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:1.95cqw;height:5.6cqw;background:#f4c95d;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:2.4cqw;height:8.4cqw;background:#134e4a;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:2.85cqw;height:7cqw;background:#14b8a6;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:1.5cqw;height:9.1cqw;background:#0f766e;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i><i style='display:block;width:1.95cqw;height:6.3cqw;background:#99f6e4;border-radius:.25cqw .25cqw 0 0;box-shadow:inset -.2cqw 0 0 rgba(0,0,0,.28)'></i></div><div style='position:absolute;left:4cqw;right:4cqw;bottom:2.6cqw;display:grid;grid-template-columns:repeat(2,1fr);gap:3cqw;border-top:.2cqw solid color-mix(in srgb,#f4c95d 40%,transparent);padding-top:1.3cqw'><div style='min-width:0'><div style='font:800 1.25cqw/1.2 Inter,system-ui,Segoe UI,Helvetica Neue,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#f4c95d;margin:0 0 .8cqw'>Jump to</div><div style='display:flex;flex-direction:column;gap:.5cqw;font:600 1.6cqw/1.2 Inter,system-ui,Segoe UI,Helvetica Neue,Arial,sans-serif'><a href='github://mikemartinez1974/public/plans/authoring-switches/root.node' style='color:#ecfdf9;text-decoration:none'>Authoring switches →</a><a href='github://mikemartinez1974/public/plans/canon-at-twilite-zone/root.node' style='color:#ecfdf9;text-decoration:none'>Canon at twilite.zone →</a><a href='github://mikemartinez1974/public/plans/canon-or-personal/root.node' style='color:#ecfdf9;text-decoration:none'>Canon or Personal →</a></div></div><div style='min-width:0'><div style='font:800 1.25cqw/1.2 Inter,system-ui,Segoe UI,Helvetica Neue,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#f4c95d;margin:0 0 .8cqw'>Elsewhere</div><div style='display:flex;flex-direction:column;gap:.5cqw;font:600 1.6cqw/1.2 Inter,system-ui,Segoe UI,Helvetica Neue,Arial,sans-serif'><a href='github://mikemartinez1974/public/root.node' style='color:#ecfdf9;text-decoration:none'>The Studio →</a><a href='github://mikemartinez1974/public/projects/root.node' style='color:#ecfdf9;text-decoration:none'>Projects →</a></div></div></div></div></div>"
+        }
+      }
+    },
+    {
+      "id": "plans-hub-collection-template",
+      "type": "import",
+      "label": "Collection Template",
+      "position": {
+        "x": 1920,
+        "y": 1060
+      },
+      "width": 280,
+      "height": 110,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 270,
+          "position": {
+            "side": "top",
+            "offset": 0.2
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 180,
+          "portId": "root"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "memo": "The one Bridge to the Collection Template: the Method that derives the views, and the Collection class, come through it.",
+        "bridge": {
+          "ref": "tlz://twilite.zone/library/templates/collection-template/root.node",
+          "resourceKind": "graph",
+          "scope": "focused-graph",
+          "grants": [
+            "read",
+            "create",
+            "update",
+            "execute"
+          ]
+        }
+      }
+    },
+    {
+      "id": "plans-hub-derive-method",
+      "type": "method",
+      "label": "Derive the collection views",
+      "position": {
+        "x": 1920,
+        "y": 640
+      },
+      "width": 360,
+      "height": 180,
+      "ports": [
+        {
+          "id": "call",
+          "key": "call",
+          "label": "Call",
+          "direction": "input",
+          "dataType": "event",
+          "angle": 180
+        },
+        {
+          "id": "result",
+          "key": "result",
+          "label": "Result",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 0
+        }
+      ],
+      "handles": [
+        {
+          "id": "call",
+          "key": "call",
+          "label": "Call",
+          "direction": "input",
+          "dataType": "event",
+          "angle": 180,
+          "portId": "call"
+        },
+        {
+          "id": "result",
+          "key": "result",
+          "label": "Result",
+          "direction": "output",
+          "dataType": "value",
+          "angle": 0,
+          "portId": "result"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "scriptName": "Derive the collection views",
+        "parameters": [],
+        "source": "",
+        "allowMutations": true,
+        "dryRun": false,
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "effects": [
+          {
+            "kind": "update-node",
+            "targets": [
+              "plans-hub-detail",
+              "plans-hub-summary",
+              "plans-hub-glyph",
+              "plans-hub-declaration",
+              "plans-hub-collection"
+            ]
+          }
+        ],
+        "bridgedMethod": {
+          "bridgeNodeId": "plans-hub-collection-template",
+          "key": "collection-template-derive-method"
+        }
+      }
+    },
+    {
+      "id": "plans-hub-member-authoring-switches",
+      "type": "portal",
+      "label": "Authoring switches",
+      "position": {
+        "x": 0,
+        "y": 260
       },
       "width": 420,
       "height": 240,
@@ -584,35 +1226,26 @@
           "id": "root",
           "key": "root",
           "label": "root",
-          "direction": "input",
+          "direction": "bidirectional",
           "dataType": "any",
-          "angle": 270
+          "angle": 210
         },
         {
-          "id": "surface-delegate",
-          "key": "surface-delegate",
-          "label": "surface delegate",
-          "direction": "output",
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
           "dataType": "any",
-          "angle": 90,
-          "role": "view.content",
+          "angle": 270,
           "allowedEdgeTypes": [
-            "reference"
+            "contains"
           ],
           "metadata": {
-            "structural": true,
-            "relationship": true,
-            "role": "view.content",
-            "required": false,
-            "repeatable": false,
-            "behaviors": [
-              {
-                "trigger": "drag-create",
-                "action": "create-node",
-                "nodeType": "content",
-                "targetPort": "root"
-              }
-            ]
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
           }
         }
       ],
@@ -622,688 +1255,2054 @@
           "key": "root",
           "portId": "root",
           "label": "root",
-          "direction": "input",
+          "direction": "bidirectional",
           "dataType": "any",
-          "angle": 270
+          "angle": 210
         },
         {
-          "id": "surface-delegate",
-          "key": "surface-delegate",
-          "portId": "surface-delegate",
-          "label": "surface delegate",
-          "direction": "output",
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
           "dataType": "any",
-          "angle": 90,
-          "role": "view.content"
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
         }
       ],
       "visible": true,
       "showLabel": true,
       "data": {
-        "view": {
-          "intent": "node",
-          "payload": "node.web.icon"
+        "sourceRef": "github://mikemartinez1974/public/plans/authoring-switches/root.node",
+        "sourceNodeId": "authoring-switches",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/authoring-switches/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Authoring switches"
         },
-        "semanticLevel": "icon",
-        "content": {
-          "kind": "svg",
-          "value": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220' role='img' aria-label='Plans collection icon'><rect width='320' height='220' rx='26' fill='#111827'/><path d='M44 166 L96 118 L150 142 L210 76 L276 102' fill='none' stroke='#67e8f9' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/><g fill='#fbbf24' stroke='#111827' stroke-width='3'><circle cx='44' cy='166' r='11'/><circle cx='96' cy='118' r='11'/><circle cx='150' cy='142' r='11'/><circle cx='210' cy='76' r='11'/><circle cx='276' cy='102' r='11'/></g><text x='32' y='46' fill='#f8fafc' font-family='system-ui,sans-serif' font-size='25' font-weight='850'>PLANS</text></svg>"
-        },
-        "interfaceContract": {
-          "version": 1,
-          "ownsContent": true,
-          "surfaceDelegation": true
-        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
         "identity": {
-          "graphId": "plans-collection-declaration"
-        }
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
       }
     },
     {
-      "id": "plans-collection-glyph",
-      "type": "glyph",
-      "label": "Plans Collection Glyph",
-      "position": {
-        "x": -900,
-        "y": -1800
-      },
-      "width": 220,
-      "height": 140,
-      "ports": [
-        {
-          "id": "root",
-          "key": "root",
-          "label": "root",
-          "direction": "input",
-          "dataType": "any",
-          "angle": 270
-        }
-      ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "glyph": {
-          "kind": "character",
-          "value": "▦"
-        },
-        "interfaceContract": {
-          "version": 1,
-          "receivesGlyphDefinition": true
-        },
-        "identity": {
-          "graphId": "plans-collection-declaration"
-        }
-      },
-      "handles": [
-        {
-          "id": "root",
-          "key": "root",
-          "portId": "root",
-          "label": "root",
-          "direction": "input",
-          "dataType": "any",
-          "angle": 270
-        }
-      ]
-    },
-    {
-      "id": "plans-collection-landing-surface",
-      "type": "content",
-      "label": "Plans Collection Landing Surface",
-      "position": {
-        "x": -280,
-        "y": -1440
-      },
-      "width": 520,
-      "height": 320,
-      "ports": [
-        {
-          "id": "root",
-          "key": "root",
-          "label": "root",
-          "direction": "input",
-          "dataType": "any",
-          "angle": 180
-        }
-      ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "content": {
-          "kind": "markdown",
-          "value": "# Plans Collection\n\nA directory-backed collection that discovers direct graph members and presents them through a bounded semantic window."
-        },
-        "renderShape": {
-          "kind": "markdown"
-        },
-        "identity": {
-          "graphId": "plans-collection-declaration"
-        }
-      },
-      "handles": [
-        {
-          "id": "root",
-          "key": "root",
-          "portId": "root",
-          "label": "root",
-          "direction": "input",
-          "dataType": "any",
-          "angle": 180
-        }
-      ]
-    },
-    {
-      "id": "plans-collection-root-port",
-      "type": "port",
-      "label": "Michael's Plans Collection",
-      "position": {
-        "x": -180,
-        "y": -360
-      },
-      "width": 620,
-      "height": 330,
-      "visible": true,
-      "showLabel": true,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        }
-      ],
-      "data": {
-        "title": "Plans",
-        "purpose": "Coordinated paths from current state to desired outcomes.",
-        "renderShape": {
-          "kind": "svg"
-        },
-        "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 360' role='img' aria-label='Michael’s Plans Collection'><defs><linearGradient id='plan-card-bg' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#111827'/><stop offset='.58' stop-color='#164e63'/><stop offset='1' stop-color='#3f3f46'/></linearGradient></defs><rect x='5' y='5' width='630' height='350' rx='28' fill='url(#plan-card-bg)' stroke='#67e8f9' stroke-width='3'/><text x='48' y='72' fill='#a7f3d0' font-family='system-ui,sans-serif' font-size='14' font-weight='800' letter-spacing='.16em'>PLANS · MILESTONES · DECISIONS</text><text x='48' y='126' fill='#f8fafc' font-family='system-ui,sans-serif' font-size='40' font-weight='850'>Michael’s Plans</text><path d='M58 254 L168 205 L274 235 L386 154 L516 184 L584 116' fill='none' stroke='#67e8f9' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/><g fill='#fbbf24' stroke='#111827' stroke-width='3'><circle cx='58' cy='254' r='10'/><circle cx='168' cy='205' r='10'/><circle cx='274' cy='235' r='10'/><circle cx='386' cy='154' r='10'/><circle cx='516' cy='184' r='10'/><circle cx='584' cy='116' r='10'/></g><text x='48' y='320' fill='#cffafe' font-family='system-ui,sans-serif' font-size='17'>Durable routes from intention to completed outcomes</text></svg>",
-        "altText": "A milestone route rising through six connected plan checkpoints.",
-        "view": {
-          "intent": "node",
-          "payload": "node.web.summary",
-          "label": "Michael's Plans Collection"
-        },
-        "payload": "node.web",
-        "intent": "node",
-        "visibilityRole": "browser",
-        "node": {
-          "web": {
-            "controls": [
-              {
-                "id": "previous",
-                "type": "button",
-                "label": "Previous",
-                "icon": "back",
-                "action": "emit",
-                "event": "collection:previous",
-                "priority": 10
-              },
-              {
-                "id": "refresh",
-                "type": "button",
-                "label": "Refresh",
-                "icon": "refresh",
-                "action": "emit",
-                "event": "collection:refresh",
-                "priority": 20
-              },
-              {
-                "id": "next",
-                "type": "button",
-                "label": "Next",
-                "icon": "forward",
-                "action": "emit",
-                "event": "collection:next",
-                "priority": 30
-              }
-            ]
-          }
-        },
-        "identity": {
-          "graphId": "plans-collection-declaration",
-          "portId": "collection",
-          "name": "Michael's Plans Collection"
-        },
-        "surfaceId": "collection",
-        "direction": "bidirectional",
-        "dataType": "collection",
-        "presentation": {
-          "detail": {
-            "mode": "shared",
-            "viewNodeId": "plans-collection-detail-view"
-          },
-          "summary": {
-            "mode": "shared",
-            "viewNodeId": "plans-collection-summary-view"
-          },
-          "icon": {
-            "mode": "shared",
-            "viewNodeId": "plans-collection-icon-view"
-          }
-        }
-      },
-      "handles": [
-        {
-          "id": "root",
-          "key": "root",
-          "portId": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "right",
-          "key": "right",
-          "portId": "right",
-          "label": "right",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 0
-        },
-        {
-          "id": "bottom",
-          "key": "bottom",
-          "portId": "bottom",
-          "label": "bottom",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 90
-        }
-      ]
-    },
-    {
-      "id": "plans-collection-window-controller",
-      "type": "method",
-      "label": "Plans Collection Browser",
-      "position": {
-        "x": -760,
-        "y": 20
-      },
-      "width": 380,
-      "height": 120,
-      "visible": true,
-      "showLabel": true,
-      "ports": [
-        {
-          "id": "trigger",
-          "label": "trigger",
-          "direction": "input",
-          "dataType": "trigger",
-          "angle": 180
-        },
-        {
-          "id": "result",
-          "label": "result",
-          "direction": "output",
-          "dataType": "value",
-          "angle": 0
-        }
-      ],
-      "data": {
-        "scriptId": "collection-window-controller",
-        "scriptName": "Plans Collection Browser",
-        "source": "const RUNTIME_KIND = 'windowed-collection-member';\nconst STATE_KEY = '__twiliteCollectionWindow';\nconst clean = (value) => String(value || '').trim();\nconst cleanPath = (value) => clean(value).replace(/^\\/+|\\/+$/g, '');\nconst pause = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));\n\nconst parseGithubRef = (ref) => {\n  const raw = clean(ref).split('#')[0];\n  if (!raw.toLowerCase().startsWith('github://')) return null;\n  const [owner = '', repo = '', ...parts] = raw.slice('github://'.length).split('/');\n  const filePath = cleanPath(parts.join('/'));\n  if (!owner || !repo || !filePath) return null;\n  const directory = filePath.includes('/') ? filePath.slice(0, filePath.lastIndexOf('/')) : '';\n  return { owner, repo, directory };\n};\n\nconst listRepositoryDirectory = async (request) => {\n  if (typeof api.listRepositoryDirectory === 'function') {\n    return api.listRepositoryDirectory(request);\n  }\n  const error = new Error('Repository directory listing is not available in this Twilite runtime.');\n  error.code = 'DIRECTORY_LIST_UNAVAILABLE';\n  throw error;\n};\n\nconst compatibilityMembers = (nodes, parsed, contract) => {\n  const prefix = `github://${parsed.owner}/${parsed.repo}/${parsed.directory ? `${parsed.directory}/` : ''}`.toLowerCase();\n  const declared = Array.isArray(contract?.compatibilityMembers) ? contract.compatibilityMembers.map(clean) : [];\n  const portals = nodes\n    .filter((node) => clean(node?.type).toLowerCase() === 'portal')\n    .map((node) => clean(node?.data?.target?.ref || node?.data?.sourceRef || node?.data?.ref || node?.data?.src));\n  return [...new Set([...declared, ...portals]\n    .filter((ref) => ref.toLowerCase().startsWith(prefix))\n    .filter((ref) => !ref.toLowerCase().endsWith('/root.node'))\n  )].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));\n};\n\nconst findMemberProjection = (graph, payload = 'node.web.icon') => {\n  const nodes = Array.isArray(graph?.nodes) ? graph.nodes : [];\n  const declaration = nodes.find((node) => ['root'].includes(clean(node?.type).toLowerCase()));\n  const semanticSurfaceId = clean(payload).toLowerCase().includes('icon')\n    ? 'icon'\n    : clean(payload).toLowerCase().includes('summary')\n      ? 'summary'\n      : clean(payload).toLowerCase().includes('detail')\n        ? 'detail'\n        : 'root';\n  const surfaces = Array.isArray(declaration?.data?.root?.surfaces)\n    ? declaration.data.root.surfaces\n    : [];\n  const surface = surfaces.find((entry) => {\n    const id = clean(entry?.id).toLowerCase();\n    const label = clean(entry?.label).toLowerCase();\n    return id === semanticSurfaceId\n      || id === `${semanticSurfaceId}-surface`\n      || id.endsWith(`-${semanticSurfaceId}-surface`)\n      || label === semanticSurfaceId;\n  })\n    || surfaces.find((entry) => clean(entry?.id).toLowerCase() === 'root');\n  const portId = clean(surface?.portNodeId || surface?.viewNodeId);\n  const port = nodes.find((node) => node?.id === portId)\n    || nodes.find((node) => clean(node?.type).toLowerCase() === 'port' && clean(node?.data?.surfaceId || node?.id) === 'root')\n    || nodes.find((node) => clean(node?.type).toLowerCase() === 'port');\n  const infrastructureTypes = new Set([\n    'import', 'export', 'root', 'content', 'port', 'portal', 'script', 'title'\n  ]);\n  const isSemanticInstance = (node) => {\n    const type = clean(node?.type).toLowerCase();\n    return Boolean(node && !infrastructureTypes.has(type) && node?.data?.classRef);\n  };\n  const connected = (Array.isArray(graph?.edges) ? graph.edges : [])\n    .filter((edge) => edge?.source === port?.id || edge?.target === port?.id)\n    .map((edge) => nodes.find((node) => node?.id === (edge.source === port?.id ? edge.target : edge.source)))\n    .find(isSemanticInstance);\n  const rooted = nodes.find((node) => node?.root === true && isSemanticInstance(node));\n  const semanticNode = connected || rooted || nodes.find(isSemanticInstance) || null;\n  const glyphEdge = (Array.isArray(graph?.edges) ? graph.edges : []).find((edge) => (\n    edge?.source === declaration?.id\n    && ['shared-glyph', 'glyph'].includes(clean(edge?.data?.role || edge?.data?.semanticRole || edge?.label).toLowerCase())\n  ));\n  const glyphNode = nodes.find((node) => node?.id === glyphEdge?.target);\n  const glyph = glyphNode?.data?.glyph && typeof glyphNode.data.glyph === 'object'\n    ? glyphNode.data.glyph\n    : null;\n  return {\n    id: clean(port?.id || declaration?.id),\n    label: clean(declaration?.data?.identity?.name || port?.label),\n    payload: clean(\n      port?.data?.view?.payload ||\n      port?.data?.payload ||\n      payload\n    ),\n    node: semanticNode,\n    glyph\n  };\n};\n\nconst listMembers = async (parsed, membership) => {\n  const entries = await listRepositoryDirectory({\n    repo: `${parsed.owner}/${parsed.repo}`,\n    path: parsed.directory,\n    branch: 'main',\n    allowPublic: true\n  });\n  const refs = [];\n  if (membership?.includeDirectNodeFiles !== false) {\n    entries.filter((entry) => clean(entry?.type).toLowerCase() === 'file')\n      .filter((entry) => clean(entry?.name).toLowerCase().endsWith('.node'))\n      .filter((entry) => clean(entry?.name).toLowerCase() !== 'root.node')\n      .forEach((entry) => refs.push(`github://${parsed.owner}/${parsed.repo}/${cleanPath(entry.path)}`));\n  }\n  if (membership?.includeDirectChildRoots !== false) {\n    const directories = entries.filter((entry) => clean(entry?.type).toLowerCase() === 'dir');\n    const childRoots = await Promise.all(directories.map(async (directory) => {\n      try {\n        const children = await listRepositoryDirectory({\n          repo: `${parsed.owner}/${parsed.repo}`,\n          path: cleanPath(directory.path),\n          branch: 'main',\n          allowPublic: true\n        });\n        const root = children.find((entry) => clean(entry?.type).toLowerCase() === 'file' && clean(entry?.name).toLowerCase() === 'root.node');\n        return root ? `github://${parsed.owner}/${parsed.repo}/${cleanPath(root.path)}` : '';\n      } catch (_) {\n        return '';\n      }\n    }));\n    refs.push(...childRoots.filter(Boolean));\n  }\n  return [...new Set(refs)].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));\n};\n\nconst renderWindow = async (direction = 'run') => {\n  const nodes = await api.getNodes();\n  const existing = nodes.filter((node) => (\n    clean(node?.data?._runtime?.kind) === RUNTIME_KIND\n    || clean(node?.id).startsWith('runtime-collection-')\n  ));\n  const declaration = nodes.find((node) => (\n    ['root'].includes(clean(node?.type).toLowerCase())\n    && clean(node?.data?.intent?.kind).toLowerCase() === 'collection'\n  ));\n  const contract = declaration?.data?.collection || {};\n  const surface = nodes.find((node) => clean(node?.data?.capabilityRole) === 'collection-surface');\n  const surfaceView = surface?.data?.collectionView && typeof surface.data.collectionView === 'object'\n    ? surface.data.collectionView\n    : {};\n  // The reusable surface supplies layout defaults; the host collection owns the\n  // editorial policy for its members and may deliberately override them.\n  const view = { ...surfaceView, ...(contract.view || {}) };\n  const memberPayload = (() => {\n    const configured = clean(view.payload);\n    // node.web was the legacy reader/card request. Collection windows now use\n    // the compact icon surface unless their declaration names another surface.\n    return !configured || configured === 'node.web' ? 'node.web.icon' : configured;\n  })();\n  const graphRef = clean(contract.collectionRef || declaration?.data?.document?.url);\n  const parsed = parseGithubRef(graphRef);\n  if (!parsed) throw new Error('Collection declaration needs data.collection.collectionRef as a github:// graph address.');\n\n  let members;\n  try {\n    members = await listMembers(parsed, contract.membership || {});\n  } catch (error) {\n    if (error?.code !== 'DIRECTORY_LIST_UNAVAILABLE') throw error;\n    members = compatibilityMembers(nodes, parsed, contract);\n    if (!members.length) {\n      throw new Error('This runtime cannot discover the collection directory yet, and the graph has no authored member portals to use as a compatibility index.');\n    }\n  }\n  const runtimeStart = Number(existing[0]?.data?._runtime?.windowStart);\n  const configuredWindowSize = Math.max(1, Math.min(50, Number(view.windowSize) || 10));\n  const prior = globalThis[STATE_KEY] || {\n    start: Number.isFinite(runtimeStart) ? runtimeStart : 0,\n    pageSize: configuredWindowSize\n  };\n  const windowSize = Math.max(1, Math.min(50, Number(prior.pageSize) || configuredWindowSize));\n  let start = Number(prior.start) || 0;\n  const maxStart = members.length ? Math.floor((members.length - 1) / windowSize) * windowSize : 0;\n  if (direction === 'next') {\n    start = start >= maxStart ? 0 : start + windowSize;\n  }\n  if (direction === 'previous') {\n    start = start <= 0 ? maxStart : start - windowSize;\n  }\n  if (direction === 'run' && existing.length) {\n    start = start >= maxStart ? 0 : start + windowSize;\n  }\n  start = Math.max(0, Math.min(maxStart, start));\n  globalThis[STATE_KEY] = { start, count: members.length, pageSize: windowSize };\n\n  const visibleRefs = members.slice(start, start + windowSize);\n  const resolved = await Promise.all(visibleRefs.map(async (ref) => {\n    try {\n      const graph = await api.readGraph(ref, { fresh: true });\n      return { ref, ...findMemberProjection(graph, memberPayload) };\n    } catch (_) {\n      return { ref, id: '', label: clean(ref.split('/').pop()).replace(/\\.node$/i, '') };\n    }\n  }));\n\n  // A collection window owns stable display slots, not one canvas identity per\n  // repository member. Reusing slots makes a page turn an in-place content\n  // update instead of a competing delete/create wave. Durable member identity\n  // remains available through data._origin.ref and data._runtime.sourceRef.\n  const existingSlots = [...existing].sort((left, right) => {\n    const leftSlot = Number(left?.data?._runtime?.slot);\n    const rightSlot = Number(right?.data?._runtime?.slot);\n    if (Number.isFinite(leftSlot) && Number.isFinite(rightSlot)) return leftSlot - rightSlot;\n    if (Number.isFinite(leftSlot)) return -1;\n    if (Number.isFinite(rightSlot)) return 1;\n    const leftY = Number(left?.position?.y) || 0;\n    const rightY = Number(right?.position?.y) || 0;\n    if (leftY !== rightY) return leftY - rightY;\n    return (Number(left?.position?.x) || 0) - (Number(right?.position?.x) || 0);\n  });\n  const deleteIds = existingSlots.slice(resolved.length).map((node) => node.id);\n  const usesIconMembers = memberPayload === 'node.web.icon' || memberPayload === 'icon.web';\n  const columns = Math.max(1, Math.min(windowSize, Number(view.columns) || 3));\n  const cardWidth = Math.max(160, Number(\n    usesIconMembers ? (view.iconCardWidth || Math.min(Number(view.cardWidth) || 220, 240)) : view.cardWidth\n  ) || 500);\n  const cardHeight = Math.max(160, Number(\n    usesIconMembers ? (view.iconCardHeight || Math.min(Number(view.cardHeight) || 220, 220)) : view.cardHeight\n  ) || 320);\n  const gapX = Math.max(20, Number(view.gapX) || 80);\n  const gapY = Math.max(20, Number(view.gapY) || 70);\n  const surfaceX = Number(surface?.position?.x);\n  const surfaceY = Number(surface?.position?.y);\n  const surfaceWidth = Number(surface?.width);\n  const surfacePaddingX = Math.max(24, Number(view.surfacePaddingX) || 56);\n  const surfaceHeaderHeight = Math.max(80, Number(view.surfaceHeaderHeight) || 190);\n  const contentWidth = columns * cardWidth + Math.max(0, columns - 1) * gapX;\n  const centeredOffset = Number.isFinite(surfaceWidth)\n    ? Math.max(surfacePaddingX, (surfaceWidth - contentWidth) / 2)\n    : surfacePaddingX;\n  const originX = Number.isFinite(surfaceX)\n    ? surfaceX + centeredOffset\n    : (Number.isFinite(Number(view?.origin?.x)) ? Number(view.origin.x) : -720);\n  const originY = Number.isFinite(surfaceY)\n    ? surfaceY + surfaceHeaderHeight\n    : (Number.isFinite(Number(view?.origin?.y)) ? Number(view.origin.y) : 330);\n\n  const collectionName = clean(declaration?.data?.identity?.name || declaration?.label || 'Collection');\n  const collectionPurpose = clean(\n    declaration?.data?.identity?.description || declaration?.data?.document?.description || contract?.description\n  );\n  if (surface?.id && typeof api.updateNode === 'function') {\n    const nextTitle = collectionName || clean(surface?.data?.title) || 'Collection';\n    const nextPurpose = collectionPurpose || clean(surface?.data?.purpose) || 'A windowed collection.';\n    if (surface?.data?.title !== nextTitle || surface?.data?.purpose !== nextPurpose) {\n      await api.updateNode(surface.id, {\n        data: { ...(surface.data || {}), title: nextTitle, purpose: nextPurpose }\n      });\n    }\n  }\n  const createNodes = [];\n  const updateNodes = [];\n\n  for (let index = 0; index < resolved.length; index += 1) {\n    const member = resolved[index];\n    const priorMember = existingSlots[index] || null;\n    const id = priorMember?.id || `runtime-collection-slot-${index}`;\n    const label = member.label || clean(member.ref.split('/').pop()).replace(/\\.node$/i, '') || 'Collection member';\n    const preserveManualPlacement = view.allowManualMemberPlacement === true && priorMember?.positionLocked === true;\n    const projected = {\n      id,\n      type: 'portal',\n      label,\n      position: preserveManualPlacement\n        ? priorMember.position\n        : {\n            x: originX + (index % columns) * (cardWidth + gapX),\n            y: originY + Math.floor(index / columns) * (cardHeight + gapY)\n          },\n      width: cardWidth,\n      height: cardHeight,\n      ...(preserveManualPlacement ? { positionLocked: true } : { positionLocked: false }),\n      ports: [],\n      handles: [],\n      inputs: [],\n      outputs: [],\n      data: {\n        authority: 'navigate',\n        intent: 'external',\n        src: member.ref,\n        ref: member.ref,\n        endpoint: member.ref,\n        sourceRef: member.ref,\n        sourceNodeId: member.id,\n        sourcePayload: member.payload || memberPayload,\n        surfaceId: 'root',\n        target: { ref: member.ref, mode: 'navigate', portId: 'root', surfaceId: 'root', label: `Open ${label}` },\n        visibilityRole: 'browser',\n        presentationBaseLevel: usesIconMembers\n          ? 'icon'\n          : 'summary',\n        ...(member.glyph ? { presentation: { glyph: member.glyph } } : {}),\n        _origin: {\n          canonicalId: member.node?.id || member.id,\n          ref: member.ref\n        },\n        _runtime: { kind: RUNTIME_KIND, slot: index, sourceRef: member.ref, sourceNodeId: member.id, windowStart: start }\n      }\n    };\n    if (priorMember) updateNodes.push(projected);\n    else createNodes.push(projected);\n  }\n  // Reconcile the visible window as one host transaction. Script RPC calls are\n  // asynchronous proposals, so separate delete/create calls can otherwise race\n  // and leave the previous window beside the new one.\n  const deltas = [\n    ...(deleteIds.length ? [{ op: 'deleteNodes', ids: deleteIds }] : []),\n    ...(createNodes.length ? [{ op: 'createNodes', data: createNodes }] : []),\n    ...updateNodes.map((memberNode) => ({ op: 'updateNode', id: memberNode.id, patch: memberNode }))\n  ];\n  if (deltas.length && typeof api.applyDeltas === 'function') {\n    await api.applyDeltas(deltas);\n  } else {\n    if (deleteIds.length && typeof api.deleteNodes === 'function') {\n      await api.deleteNodes(deleteIds);\n      await pause(80);\n    } else {\n      for (const id of deleteIds) {\n        await api.deleteNode(id);\n        await pause(180);\n      }\n    }\n    if (createNodes.length && typeof api.createNodes === 'function') {\n      await api.createNodes(createNodes);\n    } else {\n      for (const memberNode of createNodes) {\n        await api.createNode(memberNode);\n        await pause(180);\n      }\n    }\n    if (updateNodes.length) {\n      await Promise.all(updateNodes.map((memberNode) => api.updateNode(memberNode.id, memberNode)));\n    }\n  }\n  const result = {\n    start,\n    end: Math.min(members.length, start + windowSize),\n    count: members.length,\n    pageSize: windowSize,\n    payload: memberPayload,\n    surfaceId: clean(surface?.id)\n  };\n  try {\n    api.events.emit('collection:window-state', result);\n  } catch (_) {}\n  return result;\n};\n\nconst applyPageSize = (payload) => {\n  const requested = Number(payload?.pageSize ?? payload?.value ?? payload);\n  if (!Number.isFinite(requested)) return renderWindow('refresh');\n  const prior = globalThis[STATE_KEY] || {};\n  globalThis[STATE_KEY] = {\n    ...prior,\n    start: 0,\n    pageSize: Math.max(1, Math.min(50, Math.round(requested)))\n  };\n  return renderWindow('refresh');\n};\n\nif (globalThis.__twiliteCollectionUnsubscribe) {\n  globalThis.__twiliteCollectionUnsubscribe.forEach((unsubscribe) => unsubscribe());\n}\nglobalThis.__twiliteCollectionUnsubscribe = [\n  api.events.on('collection:previous', () => renderWindow('previous')),\n  api.events.on('collection:next', () => renderWindow('next')),\n  api.events.on('collection:refresh', () => renderWindow('refresh')),\n  api.events.on('collection:page-size', (payload) => applyPageSize(payload))\n];\n\nconst invocationEvent = clean(api?.invocation?.event).toLowerCase();\nif (invocationEvent === 'collection:previous') return renderWindow('previous');\nif (invocationEvent === 'collection:next') return renderWindow('next');\nif (invocationEvent === 'collection:refresh') return renderWindow('refresh');\nif (invocationEvent === 'collection:page-size') return applyPageSize(api?.invocation?.payload);\nreturn renderWindow('run');\n",
-        "scriptRef": "github://mikemartinez1974/public/templates/collection-template/collection-window.js",
-        "allowMutations": true,
-        "dryRun": false,
-        "autoRunPayload": {},
-        "memo": "Discover and render the current Plans collection window.",
-        "multiplicity": "singleton",
-        "requirements": [
-          "One declaration with data.intent.kind set to collection",
-          "A github:// collectionRef naming the authoritative directory"
-        ],
-        "effects": [
-          {
-            "kind": "update-node"
-          },
-          {
-            "kind": "create-node"
-          },
-          {
-            "kind": "delete-node"
-          }
-        ],
-        "grants": [
-          "read",
-          "execute",
-          "create",
-          "update",
-          "delete"
-        ],
-        "capabilityRole": "collection-window-controller",
-        "pageSize": 6,
-        "rangeLabel": "Ready",
-        "runStatus": "idle",
-        "preferredView": "summary",
-        "nodeViewPayload": "node.web.summary",
-        "visibilityRole": "browser",
-        "classRef": "github://mikemartinez1974/public/templates/collection-window-controller/classes/nodes/collection-window-controller.node-class.node",
-        "parameters": []
-      },
-      "handles": [
-        {
-          "id": "trigger",
-          "key": "trigger",
-          "portId": "trigger",
-          "label": "trigger",
-          "direction": "input",
-          "dataType": "trigger",
-          "angle": 180
-        },
-        {
-          "id": "result",
-          "key": "result",
-          "portId": "result",
-          "label": "result",
-          "direction": "output",
-          "dataType": "value",
-          "angle": 0
-        }
-      ]
-    },
-    {
-      "id": "plans-collection-repo-home",
+      "id": "plans-hub-member-canon-at-twilite-zone",
       "type": "portal",
-      "label": "Repository Home",
+      "label": "Canon at twilite.zone",
       "position": {
-        "x": 520,
-        "y": -300
+        "x": 480,
+        "y": 260
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/canon-at-twilite-zone/root.node",
+        "sourceNodeId": "canon-at-twilite-zone-plan",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/canon-at-twilite-zone/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Canon at twilite.zone"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-canon-or-personal",
+      "type": "portal",
+      "label": "Canon or Personal",
+      "position": {
+        "x": 960,
+        "y": 260
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/canon-or-personal/root.node",
+        "sourceNodeId": "canon-or-personal-plan",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/canon-or-personal/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Canon or Personal"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-direct-edge-routing",
+      "type": "portal",
+      "label": "Direct Edge Routing and Route Pins",
+      "position": {
+        "x": 1440,
+        "y": 260
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/direct-edge-routing/root.node",
+        "sourceNodeId": "direct-edge-routing-plan",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/direct-edge-routing/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Direct Edge Routing and Route Pins"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-edge-router",
+      "type": "portal",
+      "label": "Replace the edge router",
+      "position": {
+        "x": 0,
+        "y": 560
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/edge-router/root.node",
+        "sourceNodeId": "edge-router-plan",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/edge-router/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Replace the edge router"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-electron-desktop-conversion",
+      "type": "portal",
+      "label": "Electron Desktop Conversion",
+      "position": {
+        "x": 480,
+        "y": 560
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/electron-desktop-conversion/root.node",
+        "sourceNodeId": "electron-desktop-plan",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/electron-desktop-conversion/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Electron Desktop Conversion"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-events-through-edges",
+      "type": "portal",
+      "label": "Events run Methods through edges",
+      "position": {
+        "x": 960,
+        "y": 560
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/events-through-edges/root.node",
+        "sourceNodeId": "events-through-edges-plan",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/events-through-edges/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Events run Methods through edges"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-fragment-extraction-authoring-contract",
+      "type": "portal",
+      "label": "Fragment Extraction Authoring Contract",
+      "position": {
+        "x": 1440,
+        "y": 560
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/fragment-extraction-authoring-contract/root.node",
+        "sourceNodeId": "fragment-extraction-authoring-contract",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/fragment-extraction-authoring-contract/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Fragment Extraction Authoring Contract"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-methods-through-the-bridge",
+      "type": "portal",
+      "label": "Methods Through the Bridge",
+      "position": {
+        "x": 0,
+        "y": 860
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/methods-through-the-bridge/root.node",
+        "sourceNodeId": "methods-through-the-bridge-plan",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/methods-through-the-bridge/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Methods Through the Bridge"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-one-bridge-per-template",
+      "type": "portal",
+      "label": "One Bridge per Template",
+      "position": {
+        "x": 480,
+        "y": 860
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/one-bridge-per-template/root.node",
+        "sourceNodeId": "one-bridge-per-template-plan",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/one-bridge-per-template/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open One Bridge per Template"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-operation-northwoods",
+      "type": "portal",
+      "label": "Operation Northwoods Research Plan",
+      "position": {
+        "x": 960,
+        "y": 860
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/operation-northwoods/root.node",
+        "sourceNodeId": "operation-northwoods-research-plan",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/operation-northwoods/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Operation Northwoods Research Plan"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-primitive-template-collection",
+      "type": "portal",
+      "label": "Primitive Template Collection",
+      "position": {
+        "x": 1440,
+        "y": 860
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/primitive-template-collection/root.node",
+        "sourceNodeId": "primitive-templates-plan",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/primitive-template-collection/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Primitive Template Collection"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-public-root-arrival",
+      "type": "portal",
+      "label": "Public Root: Welcome, Learn More, Explore",
+      "position": {
+        "x": 0,
+        "y": 1160
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/public-root-arrival/root.node",
+        "sourceNodeId": "public-root-arrival",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/public-root-arrival/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Public Root: Welcome, Learn More, Explore"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-reciprocal-multigraph-bridge-contract",
+      "type": "portal",
+      "label": "Reciprocal Multi-Graph Bridge Contract",
+      "position": {
+        "x": 480,
+        "y": 1160
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/reciprocal-multigraph-bridge-contract/root.node",
+        "sourceNodeId": "reciprocal-multigraph-bridge-plan",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/reciprocal-multigraph-bridge-contract/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Reciprocal Multi-Graph Bridge Contract"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-vocabulary",
+      "type": "portal",
+      "label": "Twilite’s vocabulary, in layers",
+      "position": {
+        "x": 960,
+        "y": 1160
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/vocabulary/root.node",
+        "sourceNodeId": "vocabulary-plan",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/vocabulary/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Twilite’s vocabulary, in layers"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-whats-next",
+      "type": "portal",
+      "label": "What’s next",
+      "position": {
+        "x": 1440,
+        "y": 1160
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/whats-next/root.node",
+        "sourceNodeId": "whats-next-plan",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/whats-next/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open What’s next"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-whats-open",
+      "type": "portal",
+      "label": "What is actually open",
+      "position": {
+        "x": 0,
+        "y": 1460
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/whats-open/root.node",
+        "sourceNodeId": "whats-open",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/whats-open/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open What is actually open"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-where-i-am",
+      "type": "portal",
+      "label": "Where am I?",
+      "position": {
+        "x": 480,
+        "y": 1460
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/where-i-am/root.node",
+        "sourceNodeId": "where-i-am",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/where-i-am/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open Where am I?"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-member-workspace-toolbar",
+      "type": "portal",
+      "label": "A workspace bar that says what it does",
+      "position": {
+        "x": 960,
+        "y": 1460
+      },
+      "width": 420,
+      "height": 240,
+      "ports": [
+        {
+          "id": "root",
+          "key": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          }
+        }
+      ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        },
+        {
+          "id": "part-of",
+          "key": "part-of",
+          "label": "part-of",
+          "direction": "input",
+          "dataType": "any",
+          "angle": 270,
+          "allowedEdgeTypes": [
+            "contains"
+          ],
+          "metadata": {
+            "semantic": true,
+            "roles": [
+              "contains"
+            ],
+            "repeatable": false
+          },
+          "portId": "part-of"
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
+      "data": {
+        "sourceRef": "github://mikemartinez1974/public/plans/workspace-toolbar/root.node",
+        "sourceNodeId": "workspace-toolbar-plan",
+        "target": {
+          "ref": "github://mikemartinez1974/public/plans/workspace-toolbar/root.node",
+          "mode": "navigate",
+          "portId": "root",
+          "label": "Open A workspace bar that says what it does"
+        },
+        "authority": "navigate",
+        "intent": "external",
+        "visibilityRole": "browser",
+        "identity": {
+          "graphId": "plans-hub"
+        },
+        "security": "prompt"
+      }
+    },
+    {
+      "id": "plans-hub-back",
+      "type": "portal",
+      "label": "The Studio",
+      "position": {
+        "x": -640,
+        "y": 700
       },
       "width": 360,
-      "height": 220,
-      "visible": true,
-      "showLabel": true,
+      "height": 200,
       "ports": [
         {
           "id": "root",
+          "key": "root",
           "label": "root",
           "direction": "bidirectional",
           "dataType": "any",
           "angle": 210
-        },
-        {
-          "id": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
         }
       ],
+      "handles": [
+        {
+          "id": "root",
+          "key": "root",
+          "portId": "root",
+          "label": "root",
+          "direction": "bidirectional",
+          "dataType": "any",
+          "angle": 210
+        }
+      ],
+      "visible": true,
+      "showLabel": true,
       "data": {
-        "memo": "Return to repository home. Retarget this portal when deriving the template.",
-        "authority": "navigate",
-        "src": "github://mikemartinez1974/public/root.node",
-        "ref": "github://mikemartinez1974/public/root.node",
-        "endpoint": "github://mikemartinez1974/public/root.node:root",
-        "intent": "external",
+        "sourceRef": "github://mikemartinez1974/public/root.node",
+        "sourceNodeId": "studio",
         "target": {
           "ref": "github://mikemartinez1974/public/root.node",
           "mode": "navigate",
           "portId": "root",
-          "surfaceId": "root",
-          "label": "Open Repository Home",
-          "endpoint": "github://mikemartinez1974/public/root.node:root"
+          "label": "Open The Studio"
         },
-        "sourceRef": "github://mikemartinez1974/public/root.node",
-        "sourcePayload": "node.web",
-        "surfaceId": "root",
+        "authority": "navigate",
+        "intent": "external",
         "visibilityRole": "browser",
-        "sourceNodeId": "public-home-view"
-      },
-      "handles": [
-        {
-          "id": "root",
-          "key": "root",
-          "portId": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "left",
-          "key": "left",
-          "portId": "left",
-          "label": "left",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 180
-        }
-      ]
-    },
-    {
-      "id": "plans-collection-guidance",
-      "type": "content",
-      "label": "Plans Collection Membership",
-      "position": {
-        "x": -180,
-        "y": 80
-      },
-      "width": 620,
-      "height": 260,
-      "visible": true,
-      "showLabel": true,
-      "ports": [
-        {
-          "id": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        }
-      ],
-      "data": {
-        "visibilityRole": "browser",
-        "content": {
-          "kind": "markdown",
-          "value": "## Plans Collection Membership\n\nDirect `.node` files and direct child `root.node` graphs under `plans/` are collection members. The graph-owned controller presents six plan cards at a time."
-        }
-      },
-      "handles": [
-        {
-          "id": "root",
-          "key": "root",
-          "portId": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "top",
-          "key": "top",
-          "portId": "top",
-          "label": "top",
-          "direction": "bidirectional",
-          "dataType": "value",
-          "angle": 270
-        }
-      ]
-    },
-    {
-      "id": "plans-collection-controller-import",
-      "type": "import",
-      "label": "Plans Collection Controller Import",
-      "position": {
-        "x": -1180,
-        "y": 20
-      },
-      "width": 420,
-      "height": 260,
-      "ports": [
-        {
-          "id": "root",
-          "key": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210
-        },
-        {
-          "id": "right",
-          "key": "right",
-          "label": "right",
-          "direction": "output",
-          "dataType": "value",
-          "angle": 0
-        }
-      ],
-      "handles": [
-        {
-          "id": "root",
-          "key": "root",
-          "label": "root",
-          "direction": "bidirectional",
-          "dataType": "any",
-          "angle": 210,
-          "portId": "root"
-        },
-        {
-          "id": "right",
-          "key": "right",
-          "label": "right",
-          "direction": "output",
-          "dataType": "value",
-          "angle": 0,
-          "portId": "right"
-        }
-      ],
-      "visible": true,
-      "showLabel": true,
-      "data": {
-        "memo": "Authorizes the Plans collection to consume and execute the reusable collection-window capability.",
-        "visibilityRole": "editor",
         "identity": {
-          "graphId": "plans-collection-declaration"
+          "graphId": "plans-hub"
         },
-        "bridge": {
-          "ref": "github://mikemartinez1974/public/templates/collection-window-controller/root.node",
-          "resourceKind": "capability-kit",
-          "scope": "focused-graph",
-          "grants": [
-            "read",
-            "create",
-            "execute",
-            "runtime",
-            "update",
-            "delete"
-          ],
-          "exposure": {
-            "nodeClasses": {
-              "mode": "allow",
-              "include": [
-                "collection-window-controller"
-              ]
-            },
-            "scripts": {
-              "mode": "allow",
-              "include": [
-                "collection-window-controller"
-              ]
-            },
-            "views": {
-              "mode": "allow"
-            }
-          }
-        }
+        "security": "prompt",
+        "memo": "The public room."
       }
     }
   ],
   "edges": [
     {
-      "id": "plans-collection-default-view-edge",
-      "type": "default-view",
-      "source": "plans-collection-declaration",
-      "target": "plans-collection-detail-view",
-      "label": "default view",
-      "data": {},
-      "sourcePort": "default-view",
-      "targetPort": "root"
-    },
-    {
-      "id": "plans-collection-summary-view-edge",
-      "type": "shared-summary",
-      "source": "plans-collection-declaration",
-      "target": "plans-collection-summary-view",
-      "label": "summary view",
-      "data": {},
-      "sourcePort": "summary-view",
-      "targetPort": "root"
-    },
-    {
-      "id": "plans-collection-icon-view-edge",
-      "type": "shared-icon",
-      "source": "plans-collection-declaration",
-      "target": "plans-collection-icon-view",
-      "label": "icon view",
-      "data": {},
-      "sourcePort": "icon-view",
-      "targetPort": "root"
-    },
-    {
-      "id": "plans-collection-glyph-edge",
-      "type": "shared-glyph",
-      "source": "plans-collection-declaration",
-      "target": "plans-collection-glyph",
-      "label": "glyph",
-      "data": {},
-      "sourcePort": "glyph",
-      "targetPort": "root"
-    },
-    {
-      "id": "plans-collection-landing-surface-edge",
+      "id": "plans-hub-landing-edge",
       "type": "ground",
-      "source": "plans-collection-declaration",
-      "target": "plans-collection-landing-surface",
-      "label": "ground",
-      "data": {},
+      "source": "plans-hub-declaration",
+      "target": "plans-hub-landing",
       "sourcePort": "ground",
-      "targetPort": "root"
-    },
-    {
-      "id": "plans-collection-port-edge",
-      "type": "exposes-port",
-      "source": "plans-collection-declaration",
-      "target": "plans-collection-root-port",
-      "label": "exposes port",
-      "data": {},
-      "sourcePort": "port",
-      "targetPort": "root"
-    },
-    {
-      "id": "plans-collection-edge-repo",
-      "type": "navigation",
-      "source": "plans-collection-root-port",
-      "target": "plans-collection-repo-home",
-      "label": "returns to repository",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
       "data": {
-        "relationship": "returns to repository"
-      },
-      "sourcePort": "right",
-      "targetPort": "left"
+        "presentation": {
+          "layer": "contract"
+        }
+      }
     },
     {
-      "id": "plans-collection-edge-guidance",
-      "type": "guidance",
-      "source": "plans-collection-root-port",
-      "target": "plans-collection-guidance",
-      "label": "explains membership",
-      "data": {
-        "relationship": "explains membership"
+      "id": "assemble-updates-summary",
+      "type": "derived-view",
+      "source": "plans-hub-derive-method",
+      "target": "plans-hub-summary",
+      "sourcePort": "result",
+      "targetPort": "root",
+      "label": "derives",
+      "style": {
+        "route": "curved"
       },
-      "sourcePort": "bottom",
-      "targetPort": "top"
+      "data": {}
     },
     {
-      "id": "plans-collection-edge-controller",
-      "type": "collection.controller",
-      "source": "plans-collection-root-port",
-      "target": "plans-collection-window-controller",
-      "label": "runs collection window",
-      "data": {
-        "relationship": "runs collection window"
+      "id": "assemble-updates-detail",
+      "type": "derived-view",
+      "source": "plans-hub-derive-method",
+      "target": "plans-hub-detail",
+      "sourcePort": "result",
+      "targetPort": "root",
+      "label": "derives",
+      "style": {
+        "route": "curved"
       },
-      "sourcePort": "bottom",
-      "targetPort": "trigger"
+      "data": {}
     },
     {
-      "id": "plans-collection-controller-authority",
-      "type": "collection.controller-authority",
-      "source": "plans-collection-controller-import",
-      "target": "plans-collection-window-controller",
-      "label": "authorizes collection browser",
+      "id": "plans-hub-surface",
+      "type": "surface",
+      "source": "plans-hub-declaration",
+      "target": "plans-hub-detail",
+      "sourcePort": "surfaces",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
       "data": {
-        "relationship": "authorizes collection browser"
+        "surfaceId": "web"
+      }
+    },
+    {
+      "id": "plans-hub-detail-summary",
+      "type": "next-face",
+      "source": "plans-hub-detail",
+      "target": "plans-hub-summary",
+      "sourcePort": "sequence-out",
+      "targetPort": "sequence-in",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "graph-changed-invokes-assemble",
+      "type": "invokes",
+      "source": "plans-hub-declaration",
+      "target": "plans-hub-derive-method",
+      "sourcePort": "event:graph.changed",
+      "targetPort": "invokes",
+      "label": "invokes",
+      "style": {
+        "route": "curved"
       },
-      "sourcePort": "right",
-      "targetPort": "trigger"
+      "data": {
+        "classRef": "tlz://twilite.zone/library/edges/invokes/root.node"
+      }
+    },
+    {
+      "id": "plans-hub-derive-updates-glyph",
+      "type": "derived-view",
+      "source": "plans-hub-derive-method",
+      "target": "plans-hub-glyph",
+      "sourcePort": "result",
+      "targetPort": "root",
+      "label": "derives",
+      "style": {
+        "route": "curved"
+      },
+      "data": {}
+    },
+    {
+      "id": "plans-hub-summary-to-glyph",
+      "type": "next-face",
+      "source": "plans-hub-summary",
+      "target": "plans-hub-glyph",
+      "sourcePort": "sequence-out",
+      "targetPort": "root",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-environment",
+      "type": "environment",
+      "source": "plans-hub-declaration",
+      "target": "plans-hub-environment",
+      "sourcePort": "environment",
+      "targetPort": "root",
+      "label": "",
+      "style": {
+        "route": "curved"
+      },
+      "data": {
+        "classRef": "tlz://twilite.zone/library/edges/environment/root.node"
+      }
+    },
+    {
+      "id": "plans-hub-edge-member-authoring-switches",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-authoring-switches",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-canon-at-twilite-zone",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-canon-at-twilite-zone",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-canon-or-personal",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-canon-or-personal",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-direct-edge-routing",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-direct-edge-routing",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-edge-router",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-edge-router",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-electron-desktop-conversion",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-electron-desktop-conversion",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-events-through-edges",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-events-through-edges",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-fragment-extraction-authoring-contract",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-fragment-extraction-authoring-contract",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-methods-through-the-bridge",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-methods-through-the-bridge",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-one-bridge-per-template",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-one-bridge-per-template",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-operation-northwoods",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-operation-northwoods",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-primitive-template-collection",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-primitive-template-collection",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-public-root-arrival",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-public-root-arrival",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-reciprocal-multigraph-bridge-contract",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-reciprocal-multigraph-bridge-contract",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-vocabulary",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-vocabulary",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-whats-next",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-whats-next",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-whats-open",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-whats-open",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-where-i-am",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-where-i-am",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
+    },
+    {
+      "id": "plans-hub-edge-member-workspace-toolbar",
+      "type": "contains",
+      "source": "plans-hub-collection",
+      "target": "plans-hub-member-workspace-toolbar",
+      "sourcePort": "members",
+      "targetPort": "part-of",
+      "label": "",
+      "style": {},
+      "data": {}
     }
   ],
-  "groups": []
+  "settings": {
+    "theme": null,
+    "backgroundImage": null,
+    "defaultNodeColor": "#1976d2",
+    "defaultEdgeColor": "",
+    "snapToGrid": false,
+    "gridSize": 20,
+    "edgeRouting": "auto",
+    "layout": {
+      "mode": "manual",
+      "defaultLayout": "layered",
+      "direction": "DOWN",
+      "edgeLaneGapPx": 10,
+      "serpentine": {
+        "maxPerRow": 6
+      },
+      "cycleFallback": {
+        "enabled": true
+      },
+      "elk": {
+        "algorithm": "fixed",
+        "edgeRouting": "ORTHOGONAL",
+        "portConstraints": "FIXED_SIDE",
+        "nodeSpacing": 120,
+        "layeredEdgeSpacing": 80
+      }
+    },
+    "github": {
+      "repo": "mikemartinez1974/public",
+      "path": "plans/root.node",
+      "branch": "main",
+      "autoCreateRepo": true,
+      "repoVisibility": "private",
+      "seedOnCommit": false,
+      "enableGithubPages": false,
+      "installationId": ""
+    }
+  },
+  "scripts": []
 }
